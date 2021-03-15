@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<!-- Basic Page Needs
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+<meta charset="utf-8"/>
+<title>panel.models.vtk — Panel 0.11.1+g238199f-dirty documentation</title>
+<meta content="High-level dashboarding for python visualization libraries" name="description"/>
+<meta content="Panel contributors" name="author"/>
+<!-- Mobile Specific Metas
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<!-- FONT
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+<script src="https://ajax.googleapis.com/ajax/libs/webfont/1.6.16/webfont.js"></script>
+<script>
+    WebFont.load({
+      google: {
+        families: ['Source Sans Pro']
+      }
+    });
+  </script>
+<!-- CSS
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+<link href="../../../_static/css/main.css" rel="stylesheet"/>
+<link href="../../../_static/nbsite.css" rel="stylesheet"/>
+<link href="../../../_static/site.css" rel="stylesheet"/>
+<!-- Scripts
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script async="" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML" type="text/javascript">
+</script>
+<script src="../../../_static/js/main.js"></script>
+<!-- Favicon
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+<link href="../../../_static/favicon.ico" rel="icon" type="image/png"/>
+<!-- Canonical
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+<link href="https://panel.holoviz.org/_modules/panel/models/vtk.html" rel="canonical">
+</link></head>
+<body class="">
+<header class="navigation">
+<div class="wrapper">
+<a class="logo" href="../../../index.html">
+<img alt="Logo" src="../../../_static/logo_horizontal.png"/>
+</a>
+<a class="navigation-menu-button" href="javascript:void(0)" id="js-mobile-menu">Menu</a>
+<nav>
+<ul class="navigation-menu show" id="js-navigation-menu">
+<li class="nav-link doc-head"><a href="//discourse.holoviz.org">Discourse</a></li>
+<li class="nav-link doc-head"><a href="//twitter.com/Panel_org">Twitter</a></li>
+<li class="nav-link doc-head"><a href="//github.com/pyviz/panel">Github</a></li>
+<li class="nav-link">
+<div style="display:inline-block;vertical-align: middle;">
+<div class="search-bar">
+<form action="../../../search.html" method="get" role="search">
+<input name="q" placeholder="Search" type="search"/>
+<button type="submit">
+<img alt="Search Icon" src="https://raw.githubusercontent.com/thoughtbot/refills/master/source/images/search-icon-black.png"/>
+</button>
+</form>
+</div>
+</div>
+</li>
+</ul>
+</nav>
+</div>
+</header>
+<div class="second-nav">
+<nav>
+<ul class="navigation-menu show">
+<li class="nav-link doc-head"><a href="../../../getting_started/index.html">Getting started</a></li>
+<li class="nav-link doc-head"><a href="../../../user_guide/index.html">User Guide</a></li>
+<li class="nav-link doc-head"><a href="../../../gallery/index.html">Gallery</a></li>
+<li class="nav-link doc-head"><a href="../../../reference/index.html">Reference Gallery</a></li>
+<li class="nav-link doc-head"><a href="../../../developer_guide/index.html">Developer Guide</a></li>
+<li class="nav-link doc-head"><a href="../../../releases.html">Releases</a></li>
+<li class="nav-link doc-head"><a href="../../../api/index.html">API</a></li>
+<li class="nav-link doc-head"><a href="../../../FAQ.html">FAQ</a></li>
+<li class="nav-link doc-head"><a href="../../../about.html">About</a></li>
+</ul>
+</nav>
+</div>
+<!-- MAIN BODY OF DOCS –––––––––––––––––– -->
+<div class="docs section">
+<div id="hacketyhackhack"> <!-- style="width:20%;margin-right: 100px;"> --> <!--style="display: none;"> style="display:none;"> -->
+<div class="toc" style="width:15%; margin-right:20px;">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../index.html">Home</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../getting_started/index.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../user_guide/index.html">User Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../gallery/index.html">Gallery</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../reference/index.html">Reference Gallery</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../developer_guide/index.html">Developer Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/index.html">API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../Comparisons.html">Comparisons</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../releases.html">Releases</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../Roadmap.html">Road Map</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../FAQ.html">FAQ</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://github.com/pyviz/panel">Github source</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../about.html">About</a></li>
+</ul>
+</div>
+</div>
+<div class="content"> <!-- style="max-width:80%;margin-left:auto;margin-right: auto;">-->
+<h1>Source code for panel.models.vtk</h1><div class="highlight"><pre>
+<span></span><span class="c1"># coding: utf-8</span>
+<span class="sd">"""</span>
+<span class="sd">Defines custom VTKPlot bokeh model to render VTK objects.</span>
+<span class="sd">"""</span>
+<span class="kn">from</span> <span class="nn">bokeh.core.properties</span> <span class="kn">import</span> <span class="p">(</span>
+    <span class="n">String</span><span class="p">,</span> <span class="n">Bool</span><span class="p">,</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Override</span><span class="p">,</span> <span class="n">Instance</span><span class="p">,</span> <span class="n">Int</span><span class="p">,</span> <span class="n">Float</span><span class="p">,</span> <span class="n">PositiveInt</span><span class="p">,</span>
+    <span class="n">Enum</span><span class="p">,</span> <span class="n">List</span><span class="p">,</span> <span class="n">Nullable</span>
+<span class="p">)</span>
+<span class="kn">from</span> <span class="nn">bokeh.core.has_props</span> <span class="kn">import</span> <span class="n">abstract</span>
+<span class="kn">from</span> <span class="nn">bokeh.core.enums</span> <span class="kn">import</span> <span class="n">enumeration</span>
+<span class="kn">from</span> <span class="nn">bokeh.models</span> <span class="kn">import</span> <span class="n">HTMLBox</span><span class="p">,</span> <span class="n">Model</span><span class="p">,</span> <span class="n">ColorMapper</span>
+
+<span class="kn">from</span> <span class="nn">..io.resources</span> <span class="kn">import</span> <span class="n">bundled_files</span>
+<span class="kn">from</span> <span class="nn">..util</span> <span class="kn">import</span> <span class="n">classproperty</span>
+
+<span class="n">vtk_cdn</span> <span class="o">=</span> <span class="s2">"https://unpkg.com/vtk.js@14.16.4/dist/vtk.js"</span>
+
+<div class="viewcode-block" id="VTKAxes"><a class="viewcode-back" href="../../../api/panel.models.html#panel.models.vtk.VTKAxes">[docs]</a><span class="k">class</span> <span class="nc">VTKAxes</span><span class="p">(</span><span class="n">Model</span><span class="p">):</span>
+    <span class="sd">"""</span>
+<span class="sd">    A Bokeh model for axes</span>
+<span class="sd">    """</span>
+
+    <span class="n">axes_opacity</span> <span class="o">=</span> <span class="n">Float</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+
+    <span class="n">digits</span> <span class="o">=</span> <span class="n">Int</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+
+    <span class="n">fontsize</span> <span class="o">=</span> <span class="n">PositiveInt</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span>
+
+    <span class="n">grid_opacity</span> <span class="o">=</span> <span class="n">Float</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="mf">0.1</span><span class="p">)</span>
+
+    <span class="n">origin</span> <span class="o">=</span> <span class="n">Any</span><span class="p">()</span>
+
+    <span class="n">show_grid</span> <span class="o">=</span> <span class="n">Bool</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+    <span class="n">xticker</span> <span class="o">=</span> <span class="n">Dict</span><span class="p">(</span><span class="n">String</span><span class="p">,</span> <span class="n">Any</span><span class="p">)</span>
+
+    <span class="n">yticker</span> <span class="o">=</span> <span class="n">Dict</span><span class="p">(</span><span class="n">String</span><span class="p">,</span> <span class="n">Any</span><span class="p">)</span>
+
+    <span class="n">zticker</span> <span class="o">=</span> <span class="n">Dict</span><span class="p">(</span><span class="n">String</span><span class="p">,</span> <span class="n">Any</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="AbstractVTKPlot"><a class="viewcode-back" href="../../../api/panel.models.html#panel.models.vtk.AbstractVTKPlot">[docs]</a><span class="nd">@abstract</span>
+<span class="k">class</span> <span class="nc">AbstractVTKPlot</span><span class="p">(</span><span class="n">HTMLBox</span><span class="p">):</span>
+    <span class="sd">"""</span>
+<span class="sd">    Abstract Bokeh model for vtk plots that wraps around a vtk-js library and</span>
+<span class="sd">    renders it inside a Bokeh plot.</span>
+<span class="sd">    """</span>
+
+    <span class="n">__javascript_raw__</span> <span class="o">=</span> <span class="p">[</span><span class="n">vtk_cdn</span><span class="p">]</span>
+
+    <span class="nd">@classproperty</span>
+    <span class="k">def</span> <span class="nf">__javascript__</span><span class="p">(</span><span class="bp">cls</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">bundled_files</span><span class="p">(</span><span class="n">AbstractVTKPlot</span><span class="p">)</span>
+
+    <span class="nd">@classproperty</span>
+    <span class="k">def</span> <span class="nf">__js_skip__</span><span class="p">(</span><span class="bp">cls</span><span class="p">):</span>
+        <span class="k">return</span> <span class="p">{</span><span class="s1">'vtk'</span><span class="p">:</span> <span class="bp">cls</span><span class="o">.</span><span class="n">__javascript__</span><span class="p">}</span>
+
+    <span class="n">__js_require__</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s2">"paths"</span><span class="p">:</span> <span class="p">{</span><span class="s2">"vtk"</span><span class="p">:</span> <span class="n">vtk_cdn</span><span class="p">[:</span><span class="o">-</span><span class="mi">3</span><span class="p">]},</span>
+        <span class="s2">"exports"</span><span class="p">:</span> <span class="p">{</span><span class="s2">"vtk"</span><span class="p">:</span> <span class="kc">None</span><span class="p">},</span>
+        <span class="s2">"shim"</span><span class="p">:</span> <span class="p">{</span>
+            <span class="s2">"vtk"</span><span class="p">:</span> <span class="p">{</span><span class="s2">"exports"</span><span class="p">:</span> <span class="s2">"vtk"</span><span class="p">},</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+
+    <span class="n">axes</span> <span class="o">=</span> <span class="n">Instance</span><span class="p">(</span><span class="n">VTKAxes</span><span class="p">)</span>
+
+    <span class="n">camera</span> <span class="o">=</span> <span class="n">Dict</span><span class="p">(</span><span class="n">String</span><span class="p">,</span> <span class="n">Any</span><span class="p">)</span>
+
+    <span class="n">color_mappers</span> <span class="o">=</span> <span class="n">List</span><span class="p">(</span><span class="n">Instance</span><span class="p">(</span><span class="n">ColorMapper</span><span class="p">))</span>
+
+    <span class="n">height</span> <span class="o">=</span> <span class="n">Override</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="mi">300</span><span class="p">)</span>
+
+    <span class="n">orientation_widget</span> <span class="o">=</span> <span class="n">Bool</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+
+    <span class="n">interactive_orientation_widget</span> <span class="o">=</span> <span class="n">Bool</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+
+    <span class="n">width</span> <span class="o">=</span> <span class="n">Override</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="mi">300</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="VTKSynchronizedPlot"><a class="viewcode-back" href="../../../api/panel.models.html#panel.models.vtk.VTKSynchronizedPlot">[docs]</a><span class="k">class</span> <span class="nc">VTKSynchronizedPlot</span><span class="p">(</span><span class="n">AbstractVTKPlot</span><span class="p">):</span>
+    <span class="sd">"""</span>
+<span class="sd">    Bokeh model for plotting a VTK render window</span>
+<span class="sd">    """</span>
+
+    <span class="n">arrays</span> <span class="o">=</span> <span class="n">Dict</span><span class="p">(</span><span class="n">String</span><span class="p">,</span> <span class="n">Any</span><span class="p">)</span>
+
+    <span class="n">arrays_processed</span> <span class="o">=</span> <span class="n">List</span><span class="p">(</span><span class="n">String</span><span class="p">)</span>
+
+    <span class="n">enable_keybindings</span> <span class="o">=</span> <span class="n">Bool</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+
+    <span class="n">one_time_reset</span> <span class="o">=</span> <span class="n">Bool</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+
+    <span class="n">rebuild</span> <span class="o">=</span> <span class="n">Bool</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s2">"""If true when scene change all the render is rebuilt from scratch"""</span><span class="p">)</span>
+
+    <span class="n">scene</span> <span class="o">=</span> <span class="n">Dict</span><span class="p">(</span><span class="n">String</span><span class="p">,</span> <span class="n">Any</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s2">"""The serialized vtk.js scene on json format"""</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="VTKJSPlot"><a class="viewcode-back" href="../../../api/panel.models.html#panel.models.vtk.VTKJSPlot">[docs]</a><span class="k">class</span> <span class="nc">VTKJSPlot</span><span class="p">(</span><span class="n">AbstractVTKPlot</span><span class="p">):</span>
+    <span class="sd">"""</span>
+<span class="sd">    Bokeh model for plotting a 3D scene saved in the `.vtk-js` format</span>
+<span class="sd">    """</span>
+
+    <span class="n">data</span> <span class="o">=</span> <span class="n">Nullable</span><span class="p">(</span><span class="n">String</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s2">"""The serialized vtk.js data"""</span><span class="p">)</span>
+
+    <span class="n">enable_keybindings</span> <span class="o">=</span> <span class="n">Bool</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="VTKVolumePlot"><a class="viewcode-back" href="../../../api/panel.models.html#panel.models.vtk.VTKVolumePlot">[docs]</a><span class="k">class</span> <span class="nc">VTKVolumePlot</span><span class="p">(</span><span class="n">AbstractVTKPlot</span><span class="p">):</span>
+    <span class="sd">"""</span>
+<span class="sd">    Bokeh model dedicated to plot a volumetric object with the help of vtk-js</span>
+<span class="sd">    """</span>
+
+    <span class="n">ambient</span> <span class="o">=</span> <span class="n">Float</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="mf">0.2</span><span class="p">)</span>
+
+    <span class="n">colormap</span> <span class="o">=</span> <span class="n">String</span><span class="p">(</span><span class="n">help</span><span class="o">=</span><span class="s2">"Colormap Name"</span><span class="p">)</span>
+
+    <span class="n">controller_expanded</span> <span class="o">=</span> <span class="n">Bool</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s2">"""</span>
+<span class="s2">        If True the volume controller panel options is expanded in the view"""</span><span class="p">)</span>
+
+    <span class="n">data</span> <span class="o">=</span> <span class="n">Nullable</span><span class="p">(</span><span class="n">Dict</span><span class="p">(</span><span class="n">String</span><span class="p">,</span> <span class="n">Any</span><span class="p">))</span>
+
+    <span class="n">diffuse</span> <span class="o">=</span> <span class="n">Float</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="mf">0.7</span><span class="p">)</span>
+
+    <span class="n">display_slices</span> <span class="o">=</span> <span class="n">Bool</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+
+    <span class="n">display_volume</span> <span class="o">=</span> <span class="n">Bool</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+    <span class="n">edge_gradient</span> <span class="o">=</span> <span class="n">Float</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="mf">0.2</span><span class="p">)</span>
+
+    <span class="n">interpolation</span> <span class="o">=</span> <span class="n">Enum</span><span class="p">(</span><span class="n">enumeration</span><span class="p">(</span><span class="s1">'fast_linear'</span><span class="p">,</span><span class="s1">'linear'</span><span class="p">,</span><span class="s1">'nearest'</span><span class="p">))</span>
+
+    <span class="n">mapper</span> <span class="o">=</span> <span class="n">Dict</span><span class="p">(</span><span class="n">String</span><span class="p">,</span> <span class="n">Any</span><span class="p">)</span>
+
+    <span class="n">render_background</span> <span class="o">=</span> <span class="n">String</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="s1">'#52576e'</span><span class="p">)</span>
+
+    <span class="n">rescale</span> <span class="o">=</span> <span class="n">Bool</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+
+    <span class="n">sampling</span> <span class="o">=</span> <span class="n">Float</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="mf">0.4</span><span class="p">)</span>
+
+    <span class="n">shadow</span> <span class="o">=</span> <span class="n">Bool</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+    <span class="n">slice_i</span> <span class="o">=</span> <span class="n">Int</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+
+    <span class="n">slice_j</span> <span class="o">=</span> <span class="n">Int</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+
+    <span class="n">slice_k</span> <span class="o">=</span> <span class="n">Int</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+
+    <span class="n">specular</span> <span class="o">=</span> <span class="n">Float</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="mf">0.3</span><span class="p">)</span>
+
+    <span class="n">specular_power</span> <span class="o">=</span> <span class="n">Float</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="mf">8.</span><span class="p">)</span></div>
+</pre></div>
+</div>
+</div>
+<!-- END MAIN BODY OF DOCS ––––––––––––– -->
+<!-- Google Analytics -->
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async="" src="https://www.googletagmanager.com/gtag/js?id=UA-154795830-2"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-154795830-2', { 'anonymize_ip': true });
+</script>
+<!-- MathJax Config -->
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}
+});
+</script>
+<!-- End Document
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+</body>
+</html>

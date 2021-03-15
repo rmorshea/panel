@@ -1,0 +1,5 @@
+<map id="inheritance09f2d43942" name="inheritance09f2d43942">
+<area shape="rect" id="node1" href="#panel.widgets.button.Button" target="_top" title="panel.widgets.button.Button" alt="" coords="23,104,229,129"/>
+<area shape="rect" id="node2" href="#panel.widgets.button.MenuButton" target="_top" title="panel.widgets.button.MenuButton" alt="" coords="5,55,247,80"/>
+<area shape="rect" id="node3" href="#panel.widgets.button.Toggle" target="_top" title="panel.widgets.button.Toggle" alt="" coords="23,5,229,31"/>
+</map>

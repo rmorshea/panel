@@ -1,0 +1,829 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<!-- Basic Page Needs
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+<meta charset="utf-8"/>
+<title>panel.io.server — Panel 0.11.1+g238199f-dirty documentation</title>
+<meta content="High-level dashboarding for python visualization libraries" name="description"/>
+<meta content="Panel contributors" name="author"/>
+<!-- Mobile Specific Metas
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<!-- FONT
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+<script src="https://ajax.googleapis.com/ajax/libs/webfont/1.6.16/webfont.js"></script>
+<script>
+    WebFont.load({
+      google: {
+        families: ['Source Sans Pro']
+      }
+    });
+  </script>
+<!-- CSS
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+<link href="../../../_static/css/main.css" rel="stylesheet"/>
+<link href="../../../_static/nbsite.css" rel="stylesheet"/>
+<link href="../../../_static/site.css" rel="stylesheet"/>
+<!-- Scripts
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script async="" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML" type="text/javascript">
+</script>
+<script src="../../../_static/js/main.js"></script>
+<!-- Favicon
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+<link href="../../../_static/favicon.ico" rel="icon" type="image/png"/>
+<!-- Canonical
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+<link href="https://panel.holoviz.org/_modules/panel/io/server.html" rel="canonical">
+</link></head>
+<body class="">
+<header class="navigation">
+<div class="wrapper">
+<a class="logo" href="../../../index.html">
+<img alt="Logo" src="../../../_static/logo_horizontal.png"/>
+</a>
+<a class="navigation-menu-button" href="javascript:void(0)" id="js-mobile-menu">Menu</a>
+<nav>
+<ul class="navigation-menu show" id="js-navigation-menu">
+<li class="nav-link doc-head"><a href="//discourse.holoviz.org">Discourse</a></li>
+<li class="nav-link doc-head"><a href="//twitter.com/Panel_org">Twitter</a></li>
+<li class="nav-link doc-head"><a href="//github.com/pyviz/panel">Github</a></li>
+<li class="nav-link">
+<div style="display:inline-block;vertical-align: middle;">
+<div class="search-bar">
+<form action="../../../search.html" method="get" role="search">
+<input name="q" placeholder="Search" type="search"/>
+<button type="submit">
+<img alt="Search Icon" src="https://raw.githubusercontent.com/thoughtbot/refills/master/source/images/search-icon-black.png"/>
+</button>
+</form>
+</div>
+</div>
+</li>
+</ul>
+</nav>
+</div>
+</header>
+<div class="second-nav">
+<nav>
+<ul class="navigation-menu show">
+<li class="nav-link doc-head"><a href="../../../getting_started/index.html">Getting started</a></li>
+<li class="nav-link doc-head"><a href="../../../user_guide/index.html">User Guide</a></li>
+<li class="nav-link doc-head"><a href="../../../gallery/index.html">Gallery</a></li>
+<li class="nav-link doc-head"><a href="../../../reference/index.html">Reference Gallery</a></li>
+<li class="nav-link doc-head"><a href="../../../developer_guide/index.html">Developer Guide</a></li>
+<li class="nav-link doc-head"><a href="../../../releases.html">Releases</a></li>
+<li class="nav-link doc-head"><a href="../../../api/index.html">API</a></li>
+<li class="nav-link doc-head"><a href="../../../FAQ.html">FAQ</a></li>
+<li class="nav-link doc-head"><a href="../../../about.html">About</a></li>
+</ul>
+</nav>
+</div>
+<!-- MAIN BODY OF DOCS –––––––––––––––––– -->
+<div class="docs section">
+<div id="hacketyhackhack"> <!-- style="width:20%;margin-right: 100px;"> --> <!--style="display: none;"> style="display:none;"> -->
+<div class="toc" style="width:15%; margin-right:20px;">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../index.html">Home</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../getting_started/index.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../user_guide/index.html">User Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../gallery/index.html">Gallery</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../reference/index.html">Reference Gallery</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../developer_guide/index.html">Developer Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/index.html">API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../Comparisons.html">Comparisons</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../releases.html">Releases</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../Roadmap.html">Road Map</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../FAQ.html">FAQ</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://github.com/pyviz/panel">Github source</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../about.html">About</a></li>
+</ul>
+</div>
+</div>
+<div class="content"> <!-- style="max-width:80%;margin-left:auto;margin-right: auto;">-->
+<h1>Source code for panel.io.server</h1><div class="highlight"><pre>
+<span></span><span class="sd">"""</span>
+<span class="sd">Utilities for creating bokeh Server instances.</span>
+<span class="sd">"""</span>
+<span class="kn">import</span> <span class="nn">datetime</span> <span class="k">as</span> <span class="nn">dt</span>
+<span class="kn">import</span> <span class="nn">html</span>
+<span class="kn">import</span> <span class="nn">inspect</span>
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">pathlib</span>
+<span class="kn">import</span> <span class="nn">signal</span>
+<span class="kn">import</span> <span class="nn">sys</span>
+<span class="kn">import</span> <span class="nn">traceback</span>
+<span class="kn">import</span> <span class="nn">threading</span>
+<span class="kn">import</span> <span class="nn">uuid</span>
+
+<span class="kn">from</span> <span class="nn">collections</span> <span class="kn">import</span> <span class="n">OrderedDict</span>
+<span class="kn">from</span> <span class="nn">contextlib</span> <span class="kn">import</span> <span class="n">contextmanager</span>
+<span class="kn">from</span> <span class="nn">functools</span> <span class="kn">import</span> <span class="n">partial</span><span class="p">,</span> <span class="n">wraps</span>
+<span class="kn">from</span> <span class="nn">types</span> <span class="kn">import</span> <span class="n">FunctionType</span><span class="p">,</span> <span class="n">MethodType</span>
+<span class="kn">from</span> <span class="nn">urllib.parse</span> <span class="kn">import</span> <span class="n">urlparse</span>
+
+<span class="kn">import</span> <span class="nn">param</span>
+<span class="kn">import</span> <span class="nn">bokeh</span>
+<span class="kn">import</span> <span class="nn">bokeh.command.util</span>
+
+<span class="c1"># Bokeh imports</span>
+<span class="kn">from</span> <span class="nn">bokeh.application</span> <span class="kn">import</span> <span class="n">Application</span> <span class="k">as</span> <span class="n">BkApplication</span>
+<span class="kn">from</span> <span class="nn">bokeh.application.handlers.code</span> <span class="kn">import</span> <span class="n">CodeHandler</span>
+<span class="kn">from</span> <span class="nn">bokeh.application.handlers.function</span> <span class="kn">import</span> <span class="n">FunctionHandler</span>
+<span class="kn">from</span> <span class="nn">bokeh.command.util</span> <span class="kn">import</span> <span class="n">build_single_handler_application</span>
+<span class="kn">from</span> <span class="nn">bokeh.core.templates</span> <span class="kn">import</span> <span class="n">AUTOLOAD_JS</span>
+<span class="kn">from</span> <span class="nn">bokeh.document.events</span> <span class="kn">import</span> <span class="n">ModelChangedEvent</span>
+<span class="kn">from</span> <span class="nn">bokeh.embed.bundle</span> <span class="kn">import</span> <span class="n">Script</span>
+<span class="kn">from</span> <span class="nn">bokeh.embed.elements</span> <span class="kn">import</span> <span class="n">html_page_for_render_items</span><span class="p">,</span> <span class="n">script_for_render_items</span>
+<span class="kn">from</span> <span class="nn">bokeh.embed.util</span> <span class="kn">import</span> <span class="n">RenderItem</span>
+<span class="kn">from</span> <span class="nn">bokeh.io</span> <span class="kn">import</span> <span class="n">curdoc</span>
+<span class="kn">from</span> <span class="nn">bokeh.server.server</span> <span class="kn">import</span> <span class="n">Server</span>
+<span class="kn">from</span> <span class="nn">bokeh.server.urls</span> <span class="kn">import</span> <span class="n">per_app_patterns</span>
+<span class="kn">from</span> <span class="nn">bokeh.server.views.autoload_js_handler</span> <span class="kn">import</span> <span class="n">AutoloadJsHandler</span> <span class="k">as</span> <span class="n">BkAutoloadJsHandler</span>
+<span class="kn">from</span> <span class="nn">bokeh.server.views.doc_handler</span> <span class="kn">import</span> <span class="n">DocHandler</span> <span class="k">as</span> <span class="n">BkDocHandler</span>
+
+<span class="c1"># Tornado imports</span>
+<span class="kn">from</span> <span class="nn">tornado.ioloop</span> <span class="kn">import</span> <span class="n">IOLoop</span>
+<span class="kn">from</span> <span class="nn">tornado.websocket</span> <span class="kn">import</span> <span class="n">WebSocketHandler</span>
+<span class="kn">from</span> <span class="nn">tornado.web</span> <span class="kn">import</span> <span class="n">RequestHandler</span><span class="p">,</span> <span class="n">StaticFileHandler</span><span class="p">,</span> <span class="n">authenticated</span>
+<span class="kn">from</span> <span class="nn">tornado.wsgi</span> <span class="kn">import</span> <span class="n">WSGIContainer</span>
+
+<span class="c1"># Internal imports</span>
+<span class="kn">from</span> <span class="nn">.reload</span> <span class="kn">import</span> <span class="n">autoreload_watcher</span>
+<span class="kn">from</span> <span class="nn">.resources</span> <span class="kn">import</span> <span class="n">BASE_TEMPLATE</span><span class="p">,</span> <span class="n">Resources</span><span class="p">,</span> <span class="n">bundle_resources</span>
+<span class="kn">from</span> <span class="nn">.state</span> <span class="kn">import</span> <span class="n">state</span>
+
+<span class="c1">#---------------------------------------------------------------------</span>
+<span class="c1"># Private API</span>
+<span class="c1">#---------------------------------------------------------------------</span>
+
+<span class="n">INDEX_HTML</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="vm">__file__</span><span class="p">),</span> <span class="s1">'..'</span><span class="p">,</span> <span class="s1">'_templates'</span><span class="p">,</span> <span class="s2">"index.html"</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">_origin_url</span><span class="p">(</span><span class="n">url</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">url</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">"http"</span><span class="p">):</span>
+        <span class="n">url</span> <span class="o">=</span> <span class="n">url</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">"//"</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span>
+    <span class="k">return</span> <span class="n">url</span>
+
+<span class="k">def</span> <span class="nf">_server_url</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">port</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">url</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">"http"</span><span class="p">):</span>
+        <span class="k">return</span> <span class="s1">'</span><span class="si">%s</span><span class="s1">:</span><span class="si">%d%s</span><span class="s1">'</span> <span class="o">%</span> <span class="p">(</span><span class="n">url</span><span class="o">.</span><span class="n">rsplit</span><span class="p">(</span><span class="s1">':'</span><span class="p">,</span> <span class="mi">1</span><span class="p">)[</span><span class="mi">0</span><span class="p">],</span> <span class="n">port</span><span class="p">,</span> <span class="s2">"/"</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">return</span> <span class="s1">'http://</span><span class="si">%s</span><span class="s1">:</span><span class="si">%d%s</span><span class="s1">'</span> <span class="o">%</span> <span class="p">(</span><span class="n">url</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">':'</span><span class="p">)[</span><span class="mi">0</span><span class="p">],</span> <span class="n">port</span><span class="p">,</span> <span class="s2">"/"</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">_eval_panel</span><span class="p">(</span><span class="n">panel</span><span class="p">,</span> <span class="n">server_id</span><span class="p">,</span> <span class="n">title</span><span class="p">,</span> <span class="n">location</span><span class="p">,</span> <span class="n">doc</span><span class="p">):</span>
+    <span class="kn">from</span> <span class="nn">..template</span> <span class="kn">import</span> <span class="n">BaseTemplate</span>
+    <span class="kn">from</span> <span class="nn">..pane</span> <span class="kn">import</span> <span class="n">panel</span> <span class="k">as</span> <span class="n">as_panel</span>
+
+    <span class="k">with</span> <span class="n">set_curdoc</span><span class="p">(</span><span class="n">doc</span><span class="p">):</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">panel</span><span class="p">,</span> <span class="p">(</span><span class="n">FunctionType</span><span class="p">,</span> <span class="n">MethodType</span><span class="p">)):</span>
+            <span class="n">panel</span> <span class="o">=</span> <span class="n">panel</span><span class="p">()</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">panel</span><span class="p">,</span> <span class="n">BaseTemplate</span><span class="p">):</span>
+            <span class="n">doc</span> <span class="o">=</span> <span class="n">panel</span><span class="o">.</span><span class="n">_modify_doc</span><span class="p">(</span><span class="n">server_id</span><span class="p">,</span> <span class="n">title</span><span class="p">,</span> <span class="n">doc</span><span class="p">,</span> <span class="n">location</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">doc</span> <span class="o">=</span> <span class="n">as_panel</span><span class="p">(</span><span class="n">panel</span><span class="p">)</span><span class="o">.</span><span class="n">_modify_doc</span><span class="p">(</span><span class="n">server_id</span><span class="p">,</span> <span class="n">title</span><span class="p">,</span> <span class="n">doc</span><span class="p">,</span> <span class="n">location</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">doc</span>
+
+<div class="viewcode-block" id="async_execute"><a class="viewcode-back" href="../../../api/panel.io.html#panel.io.server.async_execute">[docs]</a><span class="k">def</span> <span class="nf">async_execute</span><span class="p">(</span><span class="n">func</span><span class="p">):</span>
+    <span class="sd">"""</span>
+<span class="sd">    Wrap async event loop scheduling to ensure that with_lock flag</span>
+<span class="sd">    is propagated from function to partial wrapping it.</span>
+<span class="sd">    """</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">state</span><span class="o">.</span><span class="n">curdoc</span> <span class="ow">or</span> <span class="ow">not</span> <span class="n">state</span><span class="o">.</span><span class="n">curdoc</span><span class="o">.</span><span class="n">session_context</span><span class="p">:</span>
+        <span class="n">ioloop</span> <span class="o">=</span> <span class="n">IOLoop</span><span class="o">.</span><span class="n">current</span><span class="p">()</span>
+        <span class="n">event_loop</span> <span class="o">=</span> <span class="n">ioloop</span><span class="o">.</span><span class="n">asyncio_loop</span>
+        <span class="k">if</span> <span class="n">event_loop</span><span class="o">.</span><span class="n">is_running</span><span class="p">():</span>
+            <span class="n">ioloop</span><span class="o">.</span><span class="n">add_callback</span><span class="p">(</span><span class="n">func</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">event_loop</span><span class="o">.</span><span class="n">run_until_complete</span><span class="p">(</span><span class="n">func</span><span class="p">())</span>
+        <span class="k">return</span>
+
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">func</span><span class="p">,</span> <span class="n">partial</span><span class="p">)</span> <span class="ow">and</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">func</span><span class="o">.</span><span class="n">func</span><span class="p">,</span> <span class="s1">'lock'</span><span class="p">):</span>
+        <span class="n">unlock</span> <span class="o">=</span> <span class="ow">not</span> <span class="n">func</span><span class="o">.</span><span class="n">func</span><span class="o">.</span><span class="n">lock</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">unlock</span> <span class="o">=</span> <span class="ow">not</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">func</span><span class="p">,</span> <span class="s1">'lock'</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">unlock</span><span class="p">:</span>
+        <span class="nd">@wraps</span><span class="p">(</span><span class="n">func</span><span class="p">)</span>
+        <span class="k">async</span> <span class="k">def</span> <span class="nf">wrapper</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kw</span><span class="p">):</span>
+            <span class="k">return</span> <span class="k">await</span> <span class="n">func</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kw</span><span class="p">)</span>
+        <span class="n">wrapper</span><span class="o">.</span><span class="n">nolock</span> <span class="o">=</span> <span class="kc">True</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">wrapper</span> <span class="o">=</span> <span class="n">func</span>
+    <span class="n">state</span><span class="o">.</span><span class="n">curdoc</span><span class="o">.</span><span class="n">add_next_tick_callback</span><span class="p">(</span><span class="n">wrapper</span><span class="p">)</span></div>
+
+<span class="n">param</span><span class="o">.</span><span class="n">parameterized</span><span class="o">.</span><span class="n">async_executor</span> <span class="o">=</span> <span class="n">async_execute</span>
+
+<span class="k">def</span> <span class="nf">_initialize_session_info</span><span class="p">(</span><span class="n">session_context</span><span class="p">):</span>
+    <span class="kn">from</span> <span class="nn">..config</span> <span class="kn">import</span> <span class="n">config</span>
+    <span class="n">session_id</span> <span class="o">=</span> <span class="n">session_context</span><span class="o">.</span><span class="n">id</span>
+    <span class="n">sessions</span> <span class="o">=</span> <span class="n">state</span><span class="o">.</span><span class="n">session_info</span><span class="p">[</span><span class="s1">'sessions'</span><span class="p">]</span>
+    <span class="k">if</span> <span class="n">config</span><span class="o">.</span><span class="n">session_history</span> <span class="o">==</span> <span class="mi">0</span> <span class="ow">or</span> <span class="n">session_id</span> <span class="ow">in</span> <span class="n">sessions</span><span class="p">:</span>
+        <span class="k">return</span>
+
+    <span class="n">state</span><span class="o">.</span><span class="n">session_info</span><span class="p">[</span><span class="s1">'total'</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span>
+    <span class="k">if</span> <span class="n">config</span><span class="o">.</span><span class="n">session_history</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">sessions</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="n">config</span><span class="o">.</span><span class="n">session_history</span><span class="p">:</span>
+        <span class="n">old_history</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">sessions</span><span class="o">.</span><span class="n">items</span><span class="p">())</span>
+        <span class="n">sessions</span> <span class="o">=</span> <span class="n">OrderedDict</span><span class="p">(</span><span class="n">old_history</span><span class="p">[</span><span class="o">-</span><span class="p">(</span><span class="n">config</span><span class="o">.</span><span class="n">session_history</span><span class="o">-</span><span class="mi">1</span><span class="p">):])</span>
+        <span class="n">state</span><span class="o">.</span><span class="n">session_info</span><span class="p">[</span><span class="s1">'sessions'</span><span class="p">]</span> <span class="o">=</span> <span class="n">sessions</span>
+    <span class="n">sessions</span><span class="p">[</span><span class="n">session_id</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s1">'launched'</span><span class="p">:</span> <span class="n">dt</span><span class="o">.</span><span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span><span class="o">.</span><span class="n">timestamp</span><span class="p">(),</span>
+        <span class="s1">'started'</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="s1">'rendered'</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="s1">'ended'</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="s1">'user_agent'</span><span class="p">:</span> <span class="n">session_context</span><span class="o">.</span><span class="n">request</span><span class="o">.</span><span class="n">headers</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'User-Agent'</span><span class="p">)</span>
+    <span class="p">}</span>
+
+<span class="n">state</span><span class="o">.</span><span class="n">on_session_created</span><span class="p">(</span><span class="n">_initialize_session_info</span><span class="p">)</span>
+
+<span class="c1">#---------------------------------------------------------------------</span>
+<span class="c1"># Bokeh patches</span>
+<span class="c1">#---------------------------------------------------------------------</span>
+
+<span class="k">def</span> <span class="nf">server_html_page_for_session</span><span class="p">(</span><span class="n">session</span><span class="p">,</span> <span class="n">resources</span><span class="p">,</span> <span class="n">title</span><span class="p">,</span> <span class="n">template</span><span class="o">=</span><span class="n">BASE_TEMPLATE</span><span class="p">,</span>
+                                 <span class="n">template_variables</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="n">render_item</span> <span class="o">=</span> <span class="n">RenderItem</span><span class="p">(</span>
+        <span class="n">token</span> <span class="o">=</span> <span class="n">session</span><span class="o">.</span><span class="n">token</span><span class="p">,</span>
+        <span class="n">roots</span> <span class="o">=</span> <span class="n">session</span><span class="o">.</span><span class="n">document</span><span class="o">.</span><span class="n">roots</span><span class="p">,</span>
+        <span class="n">use_for_title</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+    <span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">template_variables</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">template_variables</span> <span class="o">=</span> <span class="p">{}</span>
+
+    <span class="n">bundle</span> <span class="o">=</span> <span class="n">bundle_resources</span><span class="p">(</span><span class="n">resources</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">html_page_for_render_items</span><span class="p">(</span><span class="n">bundle</span><span class="p">,</span> <span class="p">{},</span> <span class="p">[</span><span class="n">render_item</span><span class="p">],</span> <span class="n">title</span><span class="p">,</span>
+        <span class="n">template</span><span class="o">=</span><span class="n">template</span><span class="p">,</span> <span class="n">template_variables</span><span class="o">=</span><span class="n">template_variables</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">autoload_js_script</span><span class="p">(</span><span class="n">resources</span><span class="p">,</span> <span class="n">token</span><span class="p">,</span> <span class="n">element_id</span><span class="p">,</span> <span class="n">app_path</span><span class="p">,</span> <span class="n">absolute_url</span><span class="p">):</span>
+    <span class="n">resources</span> <span class="o">=</span> <span class="n">Resources</span><span class="o">.</span><span class="n">from_bokeh</span><span class="p">(</span><span class="n">resources</span><span class="p">)</span>
+    <span class="n">bundle</span> <span class="o">=</span> <span class="n">bundle_resources</span><span class="p">(</span><span class="n">resources</span><span class="p">)</span>
+
+    <span class="n">render_items</span> <span class="o">=</span> <span class="p">[</span><span class="n">RenderItem</span><span class="p">(</span><span class="n">token</span><span class="o">=</span><span class="n">token</span><span class="p">,</span> <span class="n">elementid</span><span class="o">=</span><span class="n">element_id</span><span class="p">,</span> <span class="n">use_for_title</span><span class="o">=</span><span class="kc">False</span><span class="p">)]</span>
+    <span class="n">bundle</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">Script</span><span class="p">(</span><span class="n">script_for_render_items</span><span class="p">({},</span> <span class="n">render_items</span><span class="p">,</span> <span class="n">app_path</span><span class="o">=</span><span class="n">app_path</span><span class="p">,</span> <span class="n">absolute_url</span><span class="o">=</span><span class="n">absolute_url</span><span class="p">)))</span>
+
+    <span class="k">return</span> <span class="n">AUTOLOAD_JS</span><span class="o">.</span><span class="n">render</span><span class="p">(</span><span class="n">bundle</span><span class="o">=</span><span class="n">bundle</span><span class="p">,</span> <span class="n">elementid</span><span class="o">=</span><span class="n">element_id</span><span class="p">)</span>
+
+<span class="c1"># Patch Application to handle session callbacks</span>
+<div class="viewcode-block" id="Application"><a class="viewcode-back" href="../../../api/panel.io.html#panel.io.server.Application">[docs]</a><span class="k">class</span> <span class="nc">Application</span><span class="p">(</span><span class="n">BkApplication</span><span class="p">):</span>
+
+<div class="viewcode-block" id="Application.on_session_created"><a class="viewcode-back" href="../../../api/panel.io.html#panel.io.server.Application.on_session_created">[docs]</a>    <span class="k">async</span> <span class="k">def</span> <span class="nf">on_session_created</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">session_context</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">cb</span> <span class="ow">in</span> <span class="n">state</span><span class="o">.</span><span class="n">_on_session_created</span><span class="p">:</span>
+            <span class="n">cb</span><span class="p">(</span><span class="n">session_context</span><span class="p">)</span>
+        <span class="k">await</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">on_session_created</span><span class="p">(</span><span class="n">session_context</span><span class="p">)</span></div></div>
+
+<span class="n">bokeh</span><span class="o">.</span><span class="n">command</span><span class="o">.</span><span class="n">util</span><span class="o">.</span><span class="n">Application</span> <span class="o">=</span> <span class="n">Application</span>
+
+<span class="c1"># Patch Bokeh DocHandler URL</span>
+<div class="viewcode-block" id="DocHandler"><a class="viewcode-back" href="../../../api/panel.io.html#panel.io.server.DocHandler">[docs]</a><span class="k">class</span> <span class="nc">DocHandler</span><span class="p">(</span><span class="n">BkDocHandler</span><span class="p">):</span>
+
+    <span class="nd">@authenticated</span>
+    <span class="k">async</span> <span class="k">def</span> <span class="nf">get</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="n">session</span> <span class="o">=</span> <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_session</span><span class="p">()</span>
+        <span class="n">r</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">request</span>
+        <span class="n">prefix</span> <span class="o">=</span> <span class="s1">'/'</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">r</span><span class="o">.</span><span class="n">uri</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">'/'</span><span class="p">)[:</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
+        <span class="n">state</span><span class="o">.</span><span class="n">root_url</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">r</span><span class="o">.</span><span class="n">protocol</span><span class="si">}</span><span class="s2">://</span><span class="si">{</span><span class="n">r</span><span class="o">.</span><span class="n">host</span><span class="si">}{</span><span class="n">prefix</span><span class="si">}</span><span class="s2">"</span>
+        <span class="n">resources</span> <span class="o">=</span> <span class="n">Resources</span><span class="o">.</span><span class="n">from_bokeh</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">application</span><span class="o">.</span><span class="n">resources</span><span class="p">())</span>
+        <span class="n">page</span> <span class="o">=</span> <span class="n">server_html_page_for_session</span><span class="p">(</span>
+            <span class="n">session</span><span class="p">,</span> <span class="n">resources</span><span class="o">=</span><span class="n">resources</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="n">session</span><span class="o">.</span><span class="n">document</span><span class="o">.</span><span class="n">title</span><span class="p">,</span>
+            <span class="n">template</span><span class="o">=</span><span class="n">session</span><span class="o">.</span><span class="n">document</span><span class="o">.</span><span class="n">template</span><span class="p">,</span>
+            <span class="n">template_variables</span><span class="o">=</span><span class="n">session</span><span class="o">.</span><span class="n">document</span><span class="o">.</span><span class="n">template_variables</span>
+        <span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">set_header</span><span class="p">(</span><span class="s2">"Content-Type"</span><span class="p">,</span> <span class="s1">'text/html'</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">page</span><span class="p">)</span></div>
+
+<span class="n">per_app_patterns</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="sa">r</span><span class="s1">'/?'</span><span class="p">,</span> <span class="n">DocHandler</span><span class="p">)</span>
+
+<span class="c1"># Patch Bokeh Autoload handler</span>
+<div class="viewcode-block" id="AutoloadJsHandler"><a class="viewcode-back" href="../../../api/panel.io.html#panel.io.server.AutoloadJsHandler">[docs]</a><span class="k">class</span> <span class="nc">AutoloadJsHandler</span><span class="p">(</span><span class="n">BkAutoloadJsHandler</span><span class="p">):</span>
+    <span class="sd">''' Implements a custom Tornado handler for the autoload JS chunk</span>
+
+<span class="sd">    '''</span>
+
+    <span class="k">async</span> <span class="k">def</span> <span class="nf">get</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="n">session</span> <span class="o">=</span> <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_session</span><span class="p">()</span>
+
+        <span class="n">element_id</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_argument</span><span class="p">(</span><span class="s2">"bokeh-autoload-element"</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">element_id</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">send_error</span><span class="p">(</span><span class="n">status_code</span><span class="o">=</span><span class="mi">400</span><span class="p">,</span> <span class="n">reason</span><span class="o">=</span><span class="s1">'No bokeh-autoload-element query parameter'</span><span class="p">)</span>
+            <span class="k">return</span>
+
+        <span class="n">app_path</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_argument</span><span class="p">(</span><span class="s2">"bokeh-app-path"</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="s2">"/"</span><span class="p">)</span>
+        <span class="n">absolute_url</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_argument</span><span class="p">(</span><span class="s2">"bokeh-absolute-url"</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">absolute_url</span><span class="p">:</span>
+            <span class="n">server_url</span> <span class="o">=</span> <span class="s1">'</span><span class="si">{uri.scheme}</span><span class="s1">://</span><span class="si">{uri.netloc}</span><span class="s1">'</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">uri</span><span class="o">=</span><span class="n">urlparse</span><span class="p">(</span><span class="n">absolute_url</span><span class="p">))</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">server_url</span> <span class="o">=</span> <span class="kc">None</span>
+
+        <span class="n">resources</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">application</span><span class="o">.</span><span class="n">resources</span><span class="p">(</span><span class="n">server_url</span><span class="p">)</span>
+        <span class="n">js</span> <span class="o">=</span> <span class="n">autoload_js_script</span><span class="p">(</span><span class="n">resources</span><span class="p">,</span> <span class="n">session</span><span class="o">.</span><span class="n">token</span><span class="p">,</span> <span class="n">element_id</span><span class="p">,</span> <span class="n">app_path</span><span class="p">,</span> <span class="n">absolute_url</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">set_header</span><span class="p">(</span><span class="s2">"Content-Type"</span><span class="p">,</span> <span class="s1">'application/javascript'</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">js</span><span class="p">)</span></div>
+
+<span class="n">per_app_patterns</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="sa">r</span><span class="s1">'/autoload.js'</span><span class="p">,</span> <span class="n">AutoloadJsHandler</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">modify_document</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">doc</span><span class="p">):</span>
+    <span class="kn">from</span> <span class="nn">bokeh.io.doc</span> <span class="kn">import</span> <span class="n">set_curdoc</span> <span class="k">as</span> <span class="n">bk_set_curdoc</span>
+    <span class="kn">from</span> <span class="nn">..config</span> <span class="kn">import</span> <span class="n">config</span>
+
+    <span class="k">if</span> <span class="n">config</span><span class="o">.</span><span class="n">autoreload</span><span class="p">:</span>
+        <span class="n">path</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_runner</span><span class="o">.</span><span class="n">path</span>
+        <span class="n">argv</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_runner</span><span class="o">.</span><span class="n">_argv</span>
+        <span class="n">handler</span> <span class="o">=</span> <span class="nb">type</span><span class="p">(</span><span class="bp">self</span><span class="p">)(</span><span class="n">filename</span><span class="o">=</span><span class="n">path</span><span class="p">,</span> <span class="n">argv</span><span class="o">=</span><span class="n">argv</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_runner</span> <span class="o">=</span> <span class="n">handler</span><span class="o">.</span><span class="n">_runner</span>
+
+    <span class="n">module</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_runner</span><span class="o">.</span><span class="n">new_module</span><span class="p">()</span>
+
+    <span class="c1"># If no module was returned it means the code runner has some permanent</span>
+    <span class="c1"># unfixable problem, e.g. the configured source code has a syntax error</span>
+    <span class="k">if</span> <span class="n">module</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">return</span>
+
+    <span class="c1"># One reason modules are stored is to prevent the module</span>
+    <span class="c1"># from being gc'd before the document is. A symptom of a</span>
+    <span class="c1"># gc'd module is that its globals become None. Additionally</span>
+    <span class="c1"># stored modules are used to provide correct paths to</span>
+    <span class="c1"># custom models resolver.</span>
+    <span class="n">sys</span><span class="o">.</span><span class="n">modules</span><span class="p">[</span><span class="n">module</span><span class="o">.</span><span class="vm">__name__</span><span class="p">]</span> <span class="o">=</span> <span class="n">module</span>
+    <span class="n">doc</span><span class="o">.</span><span class="n">_modules</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">module</span><span class="p">)</span>
+
+    <span class="n">old_doc</span> <span class="o">=</span> <span class="n">curdoc</span><span class="p">()</span>
+    <span class="n">bk_set_curdoc</span><span class="p">(</span><span class="n">doc</span><span class="p">)</span>
+    <span class="n">old_io</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_monkeypatch_io</span><span class="p">()</span>
+
+    <span class="k">if</span> <span class="n">config</span><span class="o">.</span><span class="n">autoreload</span><span class="p">:</span>
+        <span class="n">set_curdoc</span><span class="p">(</span><span class="n">doc</span><span class="p">)</span>
+        <span class="n">state</span><span class="o">.</span><span class="n">onload</span><span class="p">(</span><span class="n">autoreload_watcher</span><span class="p">)</span>
+
+    <span class="k">try</span><span class="p">:</span>
+        <span class="k">def</span> <span class="nf">post_check</span><span class="p">():</span>
+            <span class="n">newdoc</span> <span class="o">=</span> <span class="n">curdoc</span><span class="p">()</span>
+            <span class="c1"># script is supposed to edit the doc not replace it</span>
+            <span class="k">if</span> <span class="n">newdoc</span> <span class="ow">is</span> <span class="ow">not</span> <span class="n">doc</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="s2">"</span><span class="si">%s</span><span class="s2"> at '</span><span class="si">%s</span><span class="s2">' replaced the output document"</span> <span class="o">%</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_origin</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_runner</span><span class="o">.</span><span class="n">path</span><span class="p">))</span>
+
+        <span class="k">def</span> <span class="nf">handle_exception</span><span class="p">(</span><span class="n">handler</span><span class="p">,</span> <span class="n">e</span><span class="p">):</span>
+            <span class="kn">from</span> <span class="nn">bokeh.application.handlers.handler</span> <span class="kn">import</span> <span class="n">handle_exception</span>
+            <span class="kn">from</span> <span class="nn">..pane</span> <span class="kn">import</span> <span class="n">HTML</span>
+
+            <span class="c1"># Clean up</span>
+            <span class="k">del</span> <span class="n">sys</span><span class="o">.</span><span class="n">modules</span><span class="p">[</span><span class="n">module</span><span class="o">.</span><span class="vm">__name__</span><span class="p">]</span>
+            <span class="n">doc</span><span class="o">.</span><span class="n">_modules</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">module</span><span class="p">)</span>
+            <span class="n">bokeh</span><span class="o">.</span><span class="n">application</span><span class="o">.</span><span class="n">handlers</span><span class="o">.</span><span class="n">code_runner</span><span class="o">.</span><span class="n">handle_exception</span> <span class="o">=</span> <span class="n">handle_exception</span>
+            <span class="n">tb</span> <span class="o">=</span> <span class="n">html</span><span class="o">.</span><span class="n">escape</span><span class="p">(</span><span class="n">traceback</span><span class="o">.</span><span class="n">format_exc</span><span class="p">())</span>
+
+            <span class="c1"># Serve error</span>
+            <span class="n">HTML</span><span class="p">(</span>
+                <span class="sa">f</span><span class="s1">'&lt;b&gt;</span><span class="si">{</span><span class="nb">type</span><span class="p">(</span><span class="n">e</span><span class="p">)</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="s1">&lt;/b&gt;: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s1">&lt;/br&gt;&lt;pre style="overflow-y: scroll"&gt;</span><span class="si">{</span><span class="n">tb</span><span class="si">}</span><span class="s1">&lt;/pre&gt;'</span><span class="p">,</span>
+                <span class="n">css_classes</span><span class="o">=</span><span class="p">[</span><span class="s1">'alert'</span><span class="p">,</span> <span class="s1">'alert-danger'</span><span class="p">],</span> <span class="n">sizing_mode</span><span class="o">=</span><span class="s1">'stretch_width'</span>
+            <span class="p">)</span><span class="o">.</span><span class="n">servable</span><span class="p">()</span>
+
+        <span class="k">if</span> <span class="n">config</span><span class="o">.</span><span class="n">autoreload</span><span class="p">:</span>
+            <span class="n">bokeh</span><span class="o">.</span><span class="n">application</span><span class="o">.</span><span class="n">handlers</span><span class="o">.</span><span class="n">code_runner</span><span class="o">.</span><span class="n">handle_exception</span> <span class="o">=</span> <span class="n">handle_exception</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_runner</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">module</span><span class="p">,</span> <span class="n">post_check</span><span class="p">)</span>
+    <span class="k">finally</span><span class="p">:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_unmonkeypatch_io</span><span class="p">(</span><span class="n">old_io</span><span class="p">)</span>
+        <span class="n">bk_set_curdoc</span><span class="p">(</span><span class="n">old_doc</span><span class="p">)</span>
+
+<span class="n">CodeHandler</span><span class="o">.</span><span class="n">modify_document</span> <span class="o">=</span> <span class="n">modify_document</span>
+
+<span class="c1">#---------------------------------------------------------------------</span>
+<span class="c1"># Public API</span>
+<span class="c1">#---------------------------------------------------------------------</span>
+
+<span class="k">def</span> <span class="nf">init_doc</span><span class="p">(</span><span class="n">doc</span><span class="p">):</span>
+    <span class="n">doc</span> <span class="o">=</span> <span class="n">doc</span> <span class="ow">or</span> <span class="n">curdoc</span><span class="p">()</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">doc</span><span class="o">.</span><span class="n">session_context</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">doc</span>
+
+    <span class="n">session_id</span> <span class="o">=</span> <span class="n">doc</span><span class="o">.</span><span class="n">session_context</span><span class="o">.</span><span class="n">id</span>
+    <span class="n">sessions</span> <span class="o">=</span> <span class="n">state</span><span class="o">.</span><span class="n">session_info</span><span class="p">[</span><span class="s1">'sessions'</span><span class="p">]</span>
+    <span class="k">if</span> <span class="n">session_id</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">sessions</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">doc</span>
+
+    <span class="n">sessions</span><span class="p">[</span><span class="n">session_id</span><span class="p">]</span><span class="o">.</span><span class="n">update</span><span class="p">({</span>
+        <span class="s1">'started'</span><span class="p">:</span> <span class="n">dt</span><span class="o">.</span><span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span><span class="o">.</span><span class="n">timestamp</span><span class="p">()</span>
+    <span class="p">})</span>
+    <span class="n">doc</span><span class="o">.</span><span class="n">on_event</span><span class="p">(</span><span class="s1">'document_ready'</span><span class="p">,</span> <span class="n">state</span><span class="o">.</span><span class="n">_init_session</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">doc</span>
+
+<span class="nd">@contextmanager</span>
+<span class="k">def</span> <span class="nf">set_curdoc</span><span class="p">(</span><span class="n">doc</span><span class="p">):</span>
+    <span class="n">state</span><span class="o">.</span><span class="n">curdoc</span> <span class="o">=</span> <span class="n">doc</span>
+    <span class="k">yield</span>
+    <span class="n">state</span><span class="o">.</span><span class="n">curdoc</span> <span class="o">=</span> <span class="kc">None</span>
+
+<div class="viewcode-block" id="with_lock"><a class="viewcode-back" href="../../../api/panel.io.html#panel.io.server.with_lock">[docs]</a><span class="k">def</span> <span class="nf">with_lock</span><span class="p">(</span><span class="n">func</span><span class="p">):</span>
+    <span class="sd">"""</span>
+<span class="sd">    Wrap a callback function to execute with a lock allowing the</span>
+<span class="sd">    function to modify bokeh models directly.</span>
+
+<span class="sd">    Arguments</span>
+<span class="sd">    ---------</span>
+<span class="sd">    func: callable</span>
+<span class="sd">      The callable to wrap</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    wrapper: callable</span>
+<span class="sd">      Function wrapped to execute without a Document lock.</span>
+<span class="sd">    """</span>
+    <span class="k">if</span> <span class="n">inspect</span><span class="o">.</span><span class="n">iscoroutinefunction</span><span class="p">(</span><span class="n">func</span><span class="p">):</span>
+        <span class="nd">@wraps</span><span class="p">(</span><span class="n">func</span><span class="p">)</span>
+        <span class="k">async</span> <span class="k">def</span> <span class="nf">wrapper</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kw</span><span class="p">):</span>
+            <span class="k">return</span> <span class="k">await</span> <span class="n">func</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kw</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="nd">@wraps</span><span class="p">(</span><span class="n">func</span><span class="p">)</span>
+        <span class="k">def</span> <span class="nf">wrapper</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kw</span><span class="p">):</span>
+            <span class="k">return</span> <span class="n">func</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kw</span><span class="p">)</span>
+    <span class="n">wrapper</span><span class="o">.</span><span class="n">lock</span> <span class="o">=</span> <span class="kc">True</span>
+    <span class="k">return</span> <span class="n">wrapper</span></div>
+
+
+<div class="viewcode-block" id="unlocked"><a class="viewcode-back" href="../../../api/panel.io.html#panel.io.server.unlocked">[docs]</a><span class="nd">@contextmanager</span>
+<span class="k">def</span> <span class="nf">unlocked</span><span class="p">():</span>
+    <span class="sd">"""</span>
+<span class="sd">    Context manager which unlocks a Document and dispatches</span>
+<span class="sd">    ModelChangedEvents triggered in the context body to all sockets</span>
+<span class="sd">    on current sessions.</span>
+<span class="sd">    """</span>
+    <span class="n">curdoc</span> <span class="o">=</span> <span class="n">state</span><span class="o">.</span><span class="n">curdoc</span>
+    <span class="k">if</span> <span class="n">curdoc</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="n">curdoc</span><span class="o">.</span><span class="n">session_context</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="n">curdoc</span><span class="o">.</span><span class="n">session_context</span><span class="o">.</span><span class="n">session</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">yield</span>
+        <span class="k">return</span>
+    <span class="n">connections</span> <span class="o">=</span> <span class="n">curdoc</span><span class="o">.</span><span class="n">session_context</span><span class="o">.</span><span class="n">session</span><span class="o">.</span><span class="n">_subscribed_connections</span>
+
+    <span class="n">hold</span> <span class="o">=</span> <span class="n">curdoc</span><span class="o">.</span><span class="n">_hold</span>
+    <span class="k">if</span> <span class="n">hold</span><span class="p">:</span>
+        <span class="n">old_events</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">curdoc</span><span class="o">.</span><span class="n">_held_events</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">old_events</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">curdoc</span><span class="o">.</span><span class="n">hold</span><span class="p">()</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="k">yield</span>
+        <span class="n">events</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">conn</span> <span class="ow">in</span> <span class="n">connections</span><span class="p">:</span>
+            <span class="n">socket</span> <span class="o">=</span> <span class="n">conn</span><span class="o">.</span><span class="n">_socket</span>
+            <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">socket</span><span class="p">,</span> <span class="s1">'write_lock'</span><span class="p">)</span> <span class="ow">and</span> <span class="n">socket</span><span class="o">.</span><span class="n">write_lock</span><span class="o">.</span><span class="n">_block</span><span class="o">.</span><span class="n">_value</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="n">state</span><span class="o">.</span><span class="n">_locks</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">socket</span><span class="p">)</span>
+            <span class="n">locked</span> <span class="o">=</span> <span class="n">socket</span> <span class="ow">in</span> <span class="n">state</span><span class="o">.</span><span class="n">_locks</span>
+            <span class="k">for</span> <span class="n">event</span> <span class="ow">in</span> <span class="n">curdoc</span><span class="o">.</span><span class="n">_held_events</span><span class="p">:</span>
+                <span class="k">if</span> <span class="p">(</span><span class="nb">isinstance</span><span class="p">(</span><span class="n">event</span><span class="p">,</span> <span class="n">ModelChangedEvent</span><span class="p">)</span> <span class="ow">and</span> <span class="n">event</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">old_events</span>
+                    <span class="ow">and</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">socket</span><span class="p">,</span> <span class="s1">'write_message'</span><span class="p">)</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">locked</span><span class="p">):</span>
+                    <span class="n">msg</span> <span class="o">=</span> <span class="n">conn</span><span class="o">.</span><span class="n">protocol</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="s1">'PATCH-DOC'</span><span class="p">,</span> <span class="p">[</span><span class="n">event</span><span class="p">])</span>
+                    <span class="n">WebSocketHandler</span><span class="o">.</span><span class="n">write_message</span><span class="p">(</span><span class="n">socket</span><span class="p">,</span> <span class="n">msg</span><span class="o">.</span><span class="n">header_json</span><span class="p">)</span>
+                    <span class="n">WebSocketHandler</span><span class="o">.</span><span class="n">write_message</span><span class="p">(</span><span class="n">socket</span><span class="p">,</span> <span class="n">msg</span><span class="o">.</span><span class="n">metadata_json</span><span class="p">)</span>
+                    <span class="n">WebSocketHandler</span><span class="o">.</span><span class="n">write_message</span><span class="p">(</span><span class="n">socket</span><span class="p">,</span> <span class="n">msg</span><span class="o">.</span><span class="n">content_json</span><span class="p">)</span>
+                    <span class="k">for</span> <span class="n">header</span><span class="p">,</span> <span class="n">payload</span> <span class="ow">in</span> <span class="n">msg</span><span class="o">.</span><span class="n">_buffers</span><span class="p">:</span>
+                        <span class="n">WebSocketHandler</span><span class="o">.</span><span class="n">write_message</span><span class="p">(</span><span class="n">socket</span><span class="p">,</span> <span class="n">header</span><span class="p">)</span>
+                        <span class="n">WebSocketHandler</span><span class="o">.</span><span class="n">write_message</span><span class="p">(</span><span class="n">socket</span><span class="p">,</span> <span class="n">payload</span><span class="p">,</span> <span class="n">binary</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+                <span class="k">elif</span> <span class="n">event</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">events</span><span class="p">:</span>
+                    <span class="n">events</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">event</span><span class="p">)</span>
+        <span class="n">curdoc</span><span class="o">.</span><span class="n">_held_events</span> <span class="o">=</span> <span class="n">events</span>
+    <span class="k">finally</span><span class="p">:</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">hold</span><span class="p">:</span>
+            <span class="n">curdoc</span><span class="o">.</span><span class="n">unhold</span><span class="p">()</span></div>
+
+
+<div class="viewcode-block" id="serve"><a class="viewcode-back" href="../../../api/panel.io.html#panel.io.server.serve">[docs]</a><span class="k">def</span> <span class="nf">serve</span><span class="p">(</span><span class="n">panels</span><span class="p">,</span> <span class="n">port</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">address</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">websocket_origin</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">loop</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+          <span class="n">show</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">start</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">location</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+          <span class="n">threaded</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="sd">"""</span>
+<span class="sd">    Allows serving one or more panel objects on a single server.</span>
+<span class="sd">    The panels argument should be either a Panel object or a function</span>
+<span class="sd">    returning a Panel object or a dictionary of these two. If a</span>
+<span class="sd">    dictionary is supplied the keys represent the slugs at which</span>
+<span class="sd">    each app is served, e.g. `serve({'app': panel1, 'app2': panel2})`</span>
+<span class="sd">    will serve apps at /app and /app2 on the server.</span>
+
+<span class="sd">    Arguments</span>
+<span class="sd">    ---------</span>
+<span class="sd">    panel: Viewable, function or {str: Viewable or function}</span>
+<span class="sd">      A Panel object, a function returning a Panel object or a</span>
+<span class="sd">      dictionary mapping from the URL slug to either.</span>
+<span class="sd">    port: int (optional, default=0)</span>
+<span class="sd">      Allows specifying a specific port</span>
+<span class="sd">    address : str</span>
+<span class="sd">      The address the server should listen on for HTTP requests.</span>
+<span class="sd">    websocket_origin: str or list(str) (optional)</span>
+<span class="sd">      A list of hosts that can connect to the websocket.</span>
+
+<span class="sd">      This is typically required when embedding a server app in</span>
+<span class="sd">      an external web site.</span>
+
+<span class="sd">      If None, "localhost" is used.</span>
+<span class="sd">    loop : tornado.ioloop.IOLoop (optional, default=IOLoop.current())</span>
+<span class="sd">      The tornado IOLoop to run the Server on</span>
+<span class="sd">    show : boolean (optional, default=False)</span>
+<span class="sd">      Whether to open the server in a new browser tab on start</span>
+<span class="sd">    start : boolean(optional, default=False)</span>
+<span class="sd">      Whether to start the Server</span>
+<span class="sd">    title: str or {str: str} (optional, default=None)</span>
+<span class="sd">      An HTML title for the application or a dictionary mapping</span>
+<span class="sd">      from the URL slug to a customized title</span>
+<span class="sd">    verbose: boolean (optional, default=True)</span>
+<span class="sd">      Whether to print the address and port</span>
+<span class="sd">    location : boolean or panel.io.location.Location</span>
+<span class="sd">      Whether to create a Location component to observe and</span>
+<span class="sd">      set the URL location.</span>
+<span class="sd">    threaded: boolean (default=False)</span>
+<span class="sd">      Whether to start the server on a new Thread</span>
+<span class="sd">    kwargs: dict</span>
+<span class="sd">      Additional keyword arguments to pass to Server instance</span>
+<span class="sd">    """</span>
+    <span class="n">kwargs</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">kwargs</span><span class="p">,</span> <span class="o">**</span><span class="nb">dict</span><span class="p">(</span>
+        <span class="n">port</span><span class="o">=</span><span class="n">port</span><span class="p">,</span> <span class="n">address</span><span class="o">=</span><span class="n">address</span><span class="p">,</span> <span class="n">websocket_origin</span><span class="o">=</span><span class="n">websocket_origin</span><span class="p">,</span>
+        <span class="n">loop</span><span class="o">=</span><span class="n">loop</span><span class="p">,</span> <span class="n">show</span><span class="o">=</span><span class="n">show</span><span class="p">,</span> <span class="n">start</span><span class="o">=</span><span class="n">start</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="n">title</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="n">verbose</span><span class="p">,</span>
+        <span class="n">location</span><span class="o">=</span><span class="n">location</span>
+    <span class="p">))</span>
+    <span class="k">if</span> <span class="n">threaded</span><span class="p">:</span>
+        <span class="kn">from</span> <span class="nn">tornado.ioloop</span> <span class="kn">import</span> <span class="n">IOLoop</span>
+        <span class="n">kwargs</span><span class="p">[</span><span class="s1">'loop'</span><span class="p">]</span> <span class="o">=</span> <span class="n">loop</span> <span class="o">=</span> <span class="n">IOLoop</span><span class="p">()</span> <span class="k">if</span> <span class="n">loop</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">loop</span>
+        <span class="n">server</span> <span class="o">=</span> <span class="n">StoppableThread</span><span class="p">(</span>
+            <span class="n">target</span><span class="o">=</span><span class="n">get_server</span><span class="p">,</span> <span class="n">io_loop</span><span class="o">=</span><span class="n">loop</span><span class="p">,</span> <span class="n">args</span><span class="o">=</span><span class="p">(</span><span class="n">panels</span><span class="p">,),</span> <span class="n">kwargs</span><span class="o">=</span><span class="n">kwargs</span>
+        <span class="p">)</span>
+        <span class="n">server</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">server</span> <span class="o">=</span> <span class="n">get_server</span><span class="p">(</span><span class="n">panels</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">server</span></div>
+
+
+<div class="viewcode-block" id="ProxyFallbackHandler"><a class="viewcode-back" href="../../../api/panel.io.html#panel.io.server.ProxyFallbackHandler">[docs]</a><span class="k">class</span> <span class="nc">ProxyFallbackHandler</span><span class="p">(</span><span class="n">RequestHandler</span><span class="p">):</span>
+    <span class="sd">"""A `RequestHandler` that wraps another HTTP server callback and</span>
+<span class="sd">    proxies the subpath.</span>
+<span class="sd">    """</span>
+
+    <span class="k">def</span> <span class="nf">initialize</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">fallback</span><span class="p">,</span> <span class="n">proxy</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">fallback</span> <span class="o">=</span> <span class="n">fallback</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">proxy</span> <span class="o">=</span> <span class="n">proxy</span>
+
+<div class="viewcode-block" id="ProxyFallbackHandler.prepare"><a class="viewcode-back" href="../../../api/panel.io.html#panel.io.server.ProxyFallbackHandler.prepare">[docs]</a>    <span class="k">def</span> <span class="nf">prepare</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">proxy</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">request</span><span class="o">.</span><span class="n">path</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">request</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">proxy</span><span class="p">,</span> <span class="s1">''</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">fallback</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">request</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_finished</span> <span class="o">=</span> <span class="kc">True</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">on_finish</span><span class="p">()</span></div></div>
+
+
+<div class="viewcode-block" id="get_static_routes"><a class="viewcode-back" href="../../../api/panel.io.html#panel.io.server.get_static_routes">[docs]</a><span class="k">def</span> <span class="nf">get_static_routes</span><span class="p">(</span><span class="n">static_dirs</span><span class="p">):</span>
+    <span class="sd">"""</span>
+<span class="sd">    Returns a list of tornado routes of StaticFileHandlers given a</span>
+<span class="sd">    dictionary of slugs and file paths to serve.</span>
+<span class="sd">    """</span>
+    <span class="n">patterns</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">slug</span><span class="p">,</span> <span class="n">path</span> <span class="ow">in</span> <span class="n">static_dirs</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">slug</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s1">'/'</span><span class="p">):</span>
+            <span class="n">slug</span> <span class="o">=</span> <span class="s1">'/'</span> <span class="o">+</span> <span class="n">slug</span>
+        <span class="k">if</span> <span class="n">slug</span> <span class="o">==</span> <span class="s1">'/static'</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">"Static file route may not use /static "</span>
+                             <span class="s2">"this is reserved for internal use."</span><span class="p">)</span>
+        <span class="n">path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isdir</span><span class="p">(</span><span class="n">path</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">"Cannot serve non-existent path </span><span class="si">%s</span><span class="s2">"</span> <span class="o">%</span> <span class="n">path</span><span class="p">)</span>
+        <span class="n">patterns</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+            <span class="p">(</span><span class="sa">r</span><span class="s2">"</span><span class="si">%s</span><span class="s2">/(.*)"</span> <span class="o">%</span> <span class="n">slug</span><span class="p">,</span> <span class="n">StaticFileHandler</span><span class="p">,</span> <span class="p">{</span><span class="s2">"path"</span><span class="p">:</span> <span class="n">path</span><span class="p">})</span>
+        <span class="p">)</span>
+    <span class="k">return</span> <span class="n">patterns</span></div>
+
+
+<div class="viewcode-block" id="get_server"><a class="viewcode-back" href="../../../api/panel.io.html#panel.io.server.get_server">[docs]</a><span class="k">def</span> <span class="nf">get_server</span><span class="p">(</span><span class="n">panel</span><span class="p">,</span> <span class="n">port</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">address</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">websocket_origin</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+               <span class="n">loop</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">show</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">start</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+               <span class="n">verbose</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">location</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">static_dirs</span><span class="o">=</span><span class="p">{},</span>
+               <span class="n">oauth_provider</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">oauth_key</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">oauth_secret</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+               <span class="n">oauth_extra_params</span><span class="o">=</span><span class="p">{},</span> <span class="n">cookie_secret</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+               <span class="n">oauth_encryption_key</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">session_history</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="sd">"""</span>
+<span class="sd">    Returns a Server instance with this panel attached as the root</span>
+<span class="sd">    app.</span>
+
+<span class="sd">    Arguments</span>
+<span class="sd">    ---------</span>
+<span class="sd">    panel: Viewable, function or {str: Viewable}</span>
+<span class="sd">      A Panel object, a function returning a Panel object or a</span>
+<span class="sd">      dictionary mapping from the URL slug to either.</span>
+<span class="sd">    port: int (optional, default=0)</span>
+<span class="sd">      Allows specifying a specific port</span>
+<span class="sd">    address : str</span>
+<span class="sd">      The address the server should listen on for HTTP requests.</span>
+<span class="sd">    websocket_origin: str or list(str) (optional)</span>
+<span class="sd">      A list of hosts that can connect to the websocket.</span>
+
+<span class="sd">      This is typically required when embedding a server app in</span>
+<span class="sd">      an external web site.</span>
+
+<span class="sd">      If None, "localhost" is used.</span>
+<span class="sd">    loop : tornado.ioloop.IOLoop (optional, default=IOLoop.current())</span>
+<span class="sd">      The tornado IOLoop to run the Server on.</span>
+<span class="sd">    show : boolean (optional, default=False)</span>
+<span class="sd">      Whether to open the server in a new browser tab on start.</span>
+<span class="sd">    start : boolean(optional, default=False)</span>
+<span class="sd">      Whether to start the Server.</span>
+<span class="sd">    title : str or {str: str} (optional, default=None)</span>
+<span class="sd">      An HTML title for the application or a dictionary mapping</span>
+<span class="sd">      from the URL slug to a customized title.</span>
+<span class="sd">    verbose: boolean (optional, default=False)</span>
+<span class="sd">      Whether to report the address and port.</span>
+<span class="sd">    location : boolean or panel.io.location.Location</span>
+<span class="sd">      Whether to create a Location component to observe and</span>
+<span class="sd">      set the URL location.</span>
+<span class="sd">    static_dirs: dict (optional, default={})</span>
+<span class="sd">      A dictionary of routes and local paths to serve as static file</span>
+<span class="sd">      directories on those routes.</span>
+<span class="sd">    oauth_provider: str</span>
+<span class="sd">      One of the available OAuth providers</span>
+<span class="sd">    oauth_key: str (optional, default=None)</span>
+<span class="sd">      The public OAuth identifier</span>
+<span class="sd">    oauth_secret: str (optional, default=None)</span>
+<span class="sd">      The client secret for the OAuth provider</span>
+<span class="sd">    oauth_extra_params: dict (optional, default={})</span>
+<span class="sd">      Additional information for the OAuth provider</span>
+<span class="sd">    cookie_secret: str (optional, default=None)</span>
+<span class="sd">      A random secret string to sign cookies (required for OAuth)</span>
+<span class="sd">    oauth_encryption_key: str (optional, default=False)</span>
+<span class="sd">      A random encryption key used for encrypting OAuth user</span>
+<span class="sd">      information and access tokens.</span>
+<span class="sd">    session_history: int (optional, default=None)</span>
+<span class="sd">      The amount of session history to accumulate. If set to non-zero</span>
+<span class="sd">      and non-None value will launch a REST endpoint at</span>
+<span class="sd">      /rest/session_info, which returns information about the session</span>
+<span class="sd">      history.</span>
+<span class="sd">    kwargs: dict</span>
+<span class="sd">      Additional keyword arguments to pass to Server instance.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    server : bokeh.server.server.Server</span>
+<span class="sd">      Bokeh Server instance running this panel</span>
+<span class="sd">    """</span>
+    <span class="kn">from</span> <span class="nn">..config</span> <span class="kn">import</span> <span class="n">config</span>
+    <span class="kn">from</span> <span class="nn">.rest</span> <span class="kn">import</span> <span class="n">REST_PROVIDERS</span>
+
+    <span class="n">server_id</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">'server_id'</span><span class="p">,</span> <span class="n">uuid</span><span class="o">.</span><span class="n">uuid4</span><span class="p">()</span><span class="o">.</span><span class="n">hex</span><span class="p">)</span>
+    <span class="n">kwargs</span><span class="p">[</span><span class="s1">'extra_patterns'</span><span class="p">]</span> <span class="o">=</span> <span class="n">extra_patterns</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'extra_patterns'</span><span class="p">,</span> <span class="p">[])</span>
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">panel</span><span class="p">,</span> <span class="nb">dict</span><span class="p">):</span>
+        <span class="n">apps</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="k">for</span> <span class="n">slug</span><span class="p">,</span> <span class="n">app</span> <span class="ow">in</span> <span class="n">panel</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">title</span><span class="p">,</span> <span class="nb">dict</span><span class="p">):</span>
+                <span class="k">try</span><span class="p">:</span>
+                    <span class="n">title_</span> <span class="o">=</span> <span class="n">title</span><span class="p">[</span><span class="n">slug</span><span class="p">]</span>
+                <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>
+                    <span class="k">raise</span> <span class="ne">KeyError</span><span class="p">(</span>
+                        <span class="s2">"Keys of the title dictionnary and of the apps "</span>
+                        <span class="sa">f</span><span class="s2">"dictionary must match. No </span><span class="si">{</span><span class="n">slug</span><span class="si">}</span><span class="s2"> key found in the "</span>
+                        <span class="s2">"title dictionary."</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">title_</span> <span class="o">=</span> <span class="n">title</span>
+            <span class="n">slug</span> <span class="o">=</span> <span class="n">slug</span> <span class="k">if</span> <span class="n">slug</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s1">'/'</span><span class="p">)</span> <span class="k">else</span> <span class="s1">'/'</span><span class="o">+</span><span class="n">slug</span>
+            <span class="k">if</span> <span class="s1">'flask'</span> <span class="ow">in</span> <span class="n">sys</span><span class="o">.</span><span class="n">modules</span><span class="p">:</span>
+                <span class="kn">from</span> <span class="nn">flask</span> <span class="kn">import</span> <span class="n">Flask</span>
+                <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">app</span><span class="p">,</span> <span class="n">Flask</span><span class="p">):</span>
+                    <span class="n">wsgi</span> <span class="o">=</span> <span class="n">WSGIContainer</span><span class="p">(</span><span class="n">app</span><span class="p">)</span>
+                    <span class="k">if</span> <span class="n">slug</span> <span class="o">==</span> <span class="s1">'/'</span><span class="p">:</span>
+                        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">'Flask apps must be served on a subpath.'</span><span class="p">)</span>
+                    <span class="k">if</span> <span class="ow">not</span> <span class="n">slug</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s1">'/'</span><span class="p">):</span>
+                        <span class="n">slug</span> <span class="o">+=</span> <span class="s1">'/'</span>
+                    <span class="n">extra_patterns</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="s1">'^'</span><span class="o">+</span><span class="n">slug</span><span class="o">+</span><span class="s1">'.*'</span><span class="p">,</span> <span class="n">ProxyFallbackHandler</span><span class="p">,</span>
+                                           <span class="nb">dict</span><span class="p">(</span><span class="n">fallback</span><span class="o">=</span><span class="n">wsgi</span><span class="p">,</span> <span class="n">proxy</span><span class="o">=</span><span class="n">slug</span><span class="p">)))</span>
+                    <span class="k">continue</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">app</span><span class="p">,</span> <span class="n">pathlib</span><span class="o">.</span><span class="n">Path</span><span class="p">):</span>
+                <span class="n">app</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">app</span><span class="p">)</span> <span class="c1"># enables serving apps from Paths</span>
+            <span class="k">if</span> <span class="p">(</span><span class="nb">isinstance</span><span class="p">(</span><span class="n">app</span><span class="p">,</span> <span class="nb">str</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span><span class="n">app</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s2">".py"</span><span class="p">)</span> <span class="ow">or</span> <span class="n">app</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s2">".ipynb"</span><span class="p">))</span>
+                <span class="ow">and</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isfile</span><span class="p">(</span><span class="n">app</span><span class="p">)):</span>
+                <span class="n">apps</span><span class="p">[</span><span class="n">slug</span><span class="p">]</span> <span class="o">=</span> <span class="n">build_single_handler_application</span><span class="p">(</span><span class="n">app</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">handler</span> <span class="o">=</span> <span class="n">FunctionHandler</span><span class="p">(</span><span class="n">partial</span><span class="p">(</span><span class="n">_eval_panel</span><span class="p">,</span> <span class="n">app</span><span class="p">,</span> <span class="n">server_id</span><span class="p">,</span> <span class="n">title_</span><span class="p">,</span> <span class="n">location</span><span class="p">))</span>
+                <span class="n">apps</span><span class="p">[</span><span class="n">slug</span><span class="p">]</span> <span class="o">=</span> <span class="n">Application</span><span class="p">(</span><span class="n">handler</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">handler</span> <span class="o">=</span> <span class="n">FunctionHandler</span><span class="p">(</span><span class="n">partial</span><span class="p">(</span><span class="n">_eval_panel</span><span class="p">,</span> <span class="n">panel</span><span class="p">,</span> <span class="n">server_id</span><span class="p">,</span> <span class="n">title</span><span class="p">,</span> <span class="n">location</span><span class="p">))</span>
+        <span class="n">apps</span> <span class="o">=</span> <span class="p">{</span><span class="s1">'/'</span><span class="p">:</span> <span class="n">Application</span><span class="p">(</span><span class="n">handler</span><span class="p">)}</span>
+
+    <span class="n">extra_patterns</span> <span class="o">+=</span> <span class="n">get_static_routes</span><span class="p">(</span><span class="n">static_dirs</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">session_history</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">config</span><span class="o">.</span><span class="n">session_history</span> <span class="o">=</span> <span class="n">session_history</span>
+    <span class="k">if</span> <span class="n">config</span><span class="o">.</span><span class="n">session_history</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="n">pattern</span> <span class="o">=</span> <span class="n">REST_PROVIDERS</span><span class="p">[</span><span class="s1">'param'</span><span class="p">]([],</span> <span class="s1">'rest'</span><span class="p">)</span>
+        <span class="n">extra_patterns</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">pattern</span><span class="p">)</span>
+        <span class="n">state</span><span class="o">.</span><span class="n">publish</span><span class="p">(</span><span class="s1">'session_info'</span><span class="p">,</span> <span class="n">state</span><span class="p">,</span> <span class="p">[</span><span class="s1">'session_info'</span><span class="p">])</span>
+
+    <span class="n">opts</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">kwargs</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">loop</span><span class="p">:</span>
+        <span class="n">loop</span><span class="o">.</span><span class="n">make_current</span><span class="p">()</span>
+        <span class="n">opts</span><span class="p">[</span><span class="s1">'io_loop'</span><span class="p">]</span> <span class="o">=</span> <span class="n">loop</span>
+    <span class="k">elif</span> <span class="n">opts</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'num_procs'</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="n">opts</span><span class="p">[</span><span class="s1">'io_loop'</span><span class="p">]</span> <span class="o">=</span> <span class="n">IOLoop</span><span class="o">.</span><span class="n">current</span><span class="p">()</span>
+
+    <span class="k">if</span> <span class="s1">'index'</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">opts</span><span class="p">:</span>
+        <span class="n">opts</span><span class="p">[</span><span class="s1">'index'</span><span class="p">]</span> <span class="o">=</span> <span class="n">INDEX_HTML</span>
+
+    <span class="k">if</span> <span class="n">address</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">opts</span><span class="p">[</span><span class="s1">'address'</span><span class="p">]</span> <span class="o">=</span> <span class="n">address</span>
+
+    <span class="k">if</span> <span class="n">websocket_origin</span><span class="p">:</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">websocket_origin</span><span class="p">,</span> <span class="nb">list</span><span class="p">):</span>
+            <span class="n">websocket_origin</span> <span class="o">=</span> <span class="p">[</span><span class="n">websocket_origin</span><span class="p">]</span>
+        <span class="n">opts</span><span class="p">[</span><span class="s1">'allow_websocket_origin'</span><span class="p">]</span> <span class="o">=</span> <span class="n">websocket_origin</span>
+
+    <span class="c1"># Configure OAuth</span>
+    <span class="kn">from</span> <span class="nn">..config</span> <span class="kn">import</span> <span class="n">config</span>
+    <span class="k">if</span> <span class="n">config</span><span class="o">.</span><span class="n">oauth_provider</span><span class="p">:</span>
+        <span class="kn">from</span> <span class="nn">..auth</span> <span class="kn">import</span> <span class="n">OAuthProvider</span>
+        <span class="n">opts</span><span class="p">[</span><span class="s1">'auth_provider'</span><span class="p">]</span> <span class="o">=</span> <span class="n">OAuthProvider</span><span class="p">()</span>
+    <span class="k">if</span> <span class="n">oauth_provider</span><span class="p">:</span>
+        <span class="n">config</span><span class="o">.</span><span class="n">oauth_provider</span> <span class="o">=</span> <span class="n">oauth_provider</span>
+    <span class="k">if</span> <span class="n">oauth_key</span><span class="p">:</span>
+        <span class="n">config</span><span class="o">.</span><span class="n">oauth_key</span> <span class="o">=</span> <span class="n">oauth_key</span>
+    <span class="k">if</span> <span class="n">oauth_extra_params</span><span class="p">:</span>
+        <span class="n">config</span><span class="o">.</span><span class="n">oauth_extra_params</span> <span class="o">=</span> <span class="n">oauth_extra_params</span>
+    <span class="k">if</span> <span class="n">cookie_secret</span><span class="p">:</span>
+        <span class="n">config</span><span class="o">.</span><span class="n">cookie_secret</span> <span class="o">=</span> <span class="n">cookie_secret</span>
+    <span class="n">opts</span><span class="p">[</span><span class="s1">'cookie_secret'</span><span class="p">]</span> <span class="o">=</span> <span class="n">config</span><span class="o">.</span><span class="n">cookie_secret</span>
+
+    <span class="n">server</span> <span class="o">=</span> <span class="n">Server</span><span class="p">(</span><span class="n">apps</span><span class="p">,</span> <span class="n">port</span><span class="o">=</span><span class="n">port</span><span class="p">,</span> <span class="o">**</span><span class="n">opts</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">verbose</span><span class="p">:</span>
+        <span class="n">address</span> <span class="o">=</span> <span class="n">server</span><span class="o">.</span><span class="n">address</span> <span class="ow">or</span> <span class="s1">'localhost'</span>
+        <span class="n">url</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">"http://</span><span class="si">{</span><span class="n">address</span><span class="si">}</span><span class="s2">:</span><span class="si">{</span><span class="n">server</span><span class="o">.</span><span class="n">port</span><span class="si">}{</span><span class="n">server</span><span class="o">.</span><span class="n">prefix</span><span class="si">}</span><span class="s2">"</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Launching server at </span><span class="si">{</span><span class="n">url</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+
+    <span class="n">state</span><span class="o">.</span><span class="n">_servers</span><span class="p">[</span><span class="n">server_id</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">server</span><span class="p">,</span> <span class="n">panel</span><span class="p">,</span> <span class="p">[])</span>
+
+    <span class="k">if</span> <span class="n">show</span><span class="p">:</span>
+        <span class="k">def</span> <span class="nf">show_callback</span><span class="p">():</span>
+            <span class="n">server</span><span class="o">.</span><span class="n">show</span><span class="p">(</span><span class="s1">'/login'</span> <span class="k">if</span> <span class="n">config</span><span class="o">.</span><span class="n">oauth_provider</span> <span class="k">else</span> <span class="s1">'/'</span><span class="p">)</span>
+        <span class="n">server</span><span class="o">.</span><span class="n">io_loop</span><span class="o">.</span><span class="n">add_callback</span><span class="p">(</span><span class="n">show_callback</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">sig_exit</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="n">server</span><span class="o">.</span><span class="n">io_loop</span><span class="o">.</span><span class="n">add_callback_from_signal</span><span class="p">(</span><span class="n">do_stop</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">do_stop</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="n">server</span><span class="o">.</span><span class="n">io_loop</span><span class="o">.</span><span class="n">stop</span><span class="p">()</span>
+
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">signal</span><span class="o">.</span><span class="n">signal</span><span class="p">(</span><span class="n">signal</span><span class="o">.</span><span class="n">SIGINT</span><span class="p">,</span> <span class="n">sig_exit</span><span class="p">)</span>
+    <span class="k">except</span> <span class="ne">ValueError</span><span class="p">:</span>
+        <span class="k">pass</span> <span class="c1"># Can't use signal on a thread</span>
+
+    <span class="k">if</span> <span class="n">start</span><span class="p">:</span>
+        <span class="n">server</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">server</span><span class="o">.</span><span class="n">io_loop</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
+        <span class="k">except</span> <span class="ne">RuntimeError</span><span class="p">:</span>
+            <span class="k">pass</span>
+    <span class="k">return</span> <span class="n">server</span></div>
+
+
+<div class="viewcode-block" id="StoppableThread"><a class="viewcode-back" href="../../../api/panel.io.html#panel.io.server.StoppableThread">[docs]</a><span class="k">class</span> <span class="nc">StoppableThread</span><span class="p">(</span><span class="n">threading</span><span class="o">.</span><span class="n">Thread</span><span class="p">):</span>
+    <span class="sd">"""Thread class with a stop() method."""</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">io_loop</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">io_loop</span> <span class="o">=</span> <span class="n">io_loop</span>
+
+<div class="viewcode-block" id="StoppableThread.run"><a class="viewcode-back" href="../../../api/panel.io.html#panel.io.server.StoppableThread.run">[docs]</a>    <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s1">'_target'</span><span class="p">):</span>
+            <span class="n">target</span><span class="p">,</span> <span class="n">args</span><span class="p">,</span> <span class="n">kwargs</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_target</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_args</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_kwargs</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">target</span><span class="p">,</span> <span class="n">args</span><span class="p">,</span> <span class="n">kwargs</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_Thread__target</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_Thread__args</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_Thread__kwargs</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">target</span><span class="p">:</span>
+            <span class="k">return</span>
+        <span class="n">bokeh_server</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">bokeh_server</span> <span class="o">=</span> <span class="n">target</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="k">finally</span><span class="p">:</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">bokeh_server</span><span class="p">,</span> <span class="n">Server</span><span class="p">):</span>
+                <span class="n">bokeh_server</span><span class="o">.</span><span class="n">stop</span><span class="p">()</span>
+            <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s1">'_target'</span><span class="p">):</span>
+                <span class="k">del</span> <span class="bp">self</span><span class="o">.</span><span class="n">_target</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_args</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_kwargs</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">del</span> <span class="bp">self</span><span class="o">.</span><span class="n">_Thread__target</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_Thread__args</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_Thread__kwargs</span></div>
+
+    <span class="k">def</span> <span class="nf">stop</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">io_loop</span><span class="o">.</span><span class="n">add_callback</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">io_loop</span><span class="o">.</span><span class="n">stop</span><span class="p">)</span></div>
+</pre></div>
+</div>
+</div>
+<!-- END MAIN BODY OF DOCS ––––––––––––– -->
+<!-- Google Analytics -->
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async="" src="https://www.googletagmanager.com/gtag/js?id=UA-154795830-2"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-154795830-2', { 'anonymize_ip': true });
+</script>
+<!-- MathJax Config -->
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}
+});
+</script>
+<!-- End Document
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+</body>
+</html>

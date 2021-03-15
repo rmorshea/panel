@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<!-- Basic Page Needs
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+<meta charset="utf-8"/>
+<title>panel.theme Package — Panel 0.11.1+g238199f-dirty documentation</title>
+<meta content="High-level dashboarding for python visualization libraries" name="description"/>
+<meta content="Panel contributors" name="author"/>
+<!-- Mobile Specific Metas
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<!-- FONT
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+<script src="https://ajax.googleapis.com/ajax/libs/webfont/1.6.16/webfont.js"></script>
+<script>
+    WebFont.load({
+      google: {
+        families: ['Source Sans Pro']
+      }
+    });
+  </script>
+<!-- CSS
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+<link href="../_static/css/main.css" rel="stylesheet"/>
+<link href="../_static/nbsite.css" rel="stylesheet"/>
+<link href="../_static/site.css" rel="stylesheet"/>
+<!-- Scripts
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script async="" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML" type="text/javascript">
+</script>
+<script src="../_static/js/main.js"></script>
+<!-- Favicon
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+<link href="../_static/favicon.ico" rel="icon" type="image/png"/>
+<!-- Canonical
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+<link href="https://panel.holoviz.org/api/panel.template.theme.html" rel="canonical">
+</link></head>
+<body class="">
+<header class="navigation">
+<div class="wrapper">
+<a class="logo" href="../index.html">
+<img alt="Logo" src="../_static/logo_horizontal.png"/>
+</a>
+<a class="navigation-menu-button" href="javascript:void(0)" id="js-mobile-menu">Menu</a>
+<nav>
+<ul class="navigation-menu show" id="js-navigation-menu">
+<li class="nav-link doc-head"><a href="//discourse.holoviz.org">Discourse</a></li>
+<li class="nav-link doc-head"><a href="//twitter.com/Panel_org">Twitter</a></li>
+<li class="nav-link doc-head"><a href="//github.com/pyviz/panel">Github</a></li>
+<li class="nav-link">
+<div style="display:inline-block;vertical-align: middle;">
+<div class="search-bar">
+<form action="../search.html" method="get" role="search">
+<input name="q" placeholder="Search" type="search"/>
+<button type="submit">
+<img alt="Search Icon" src="https://raw.githubusercontent.com/thoughtbot/refills/master/source/images/search-icon-black.png"/>
+</button>
+</form>
+</div>
+</div>
+</li>
+</ul>
+</nav>
+</div>
+</header>
+<div class="second-nav">
+<nav>
+<ul class="navigation-menu show">
+<li class="nav-link doc-head"><a href="../getting_started/index.html">Getting started</a></li>
+<li class="nav-link doc-head"><a href="../user_guide/index.html">User Guide</a></li>
+<li class="nav-link doc-head"><a href="../gallery/index.html">Gallery</a></li>
+<li class="nav-link doc-head"><a href="../reference/index.html">Reference Gallery</a></li>
+<li class="nav-link doc-head"><a href="../developer_guide/index.html">Developer Guide</a></li>
+<li class="nav-link doc-head"><a href="../releases.html">Releases</a></li>
+<li class="nav-link doc-head"><a href="index.html">API</a></li>
+<li class="nav-link doc-head"><a href="../FAQ.html">FAQ</a></li>
+<li class="nav-link doc-head"><a href="../about.html">About</a></li>
+</ul>
+</nav>
+</div>
+<!-- MAIN BODY OF DOCS –––––––––––––––––– -->
+<div class="docs section">
+<div id="hacketyhackhack"> <!-- style="width:20%;margin-right: 100px;"> --> <!--style="display: none;"> style="display:none;"> -->
+<div class="toc" style="width:15%; margin-right:20px;">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../index.html">Home</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting_started/index.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../user_guide/index.html">User Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../gallery/index.html">Gallery</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/index.html">Reference Gallery</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../developer_guide/index.html">Developer Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="index.html">API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Comparisons.html">Comparisons</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../releases.html">Releases</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Roadmap.html">Road Map</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../FAQ.html">FAQ</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://github.com/pyviz/panel">Github source</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../about.html">About</a></li>
+</ul>
+</div>
+</div>
+<div class="content"> <!-- style="max-width:80%;margin-left:auto;margin-right: auto;">-->
+<div class="section" id="panel-theme-package">
+<h1>panel.theme Package<a class="headerlink" href="#panel-theme-package" title="Permalink to this headline">¶</a></h1>
+<hr class="docutils"/>
+<div class="section" id="theme-package">
+<h2><code class="xref py py-mod docutils literal notranslate"><span class="pre">theme</span></code> Package<a class="headerlink" href="#theme-package" title="Permalink to this headline">¶</a></h2>
+<div class="graphviz"><img alt="Inheritance diagram of panel.template.theme" class="inheritance graphviz" src="../_images/inheritance-22b30e679b02cde132667561231033548b626269.png" usemap="#inheritanceb0aa0f4453"/></div>
+<map id="inheritanceb0aa0f4453" name="inheritanceb0aa0f4453">
+<area alt="" coords="587,5,834,31" href="#panel.template.theme.DarkTheme" id="node1" shape="rect" target="_top" title="The DefaultTheme uses the standard Panel color palette."/>
+<area alt="" coords="315,31,531,56" href="#panel.template.theme.Theme" id="node2" shape="rect" target="_top" title="A Theme customizes the look and feel of a Template by providing"/>
+<area alt="" coords="579,55,843,80" href="#panel.template.theme.DefaultTheme" id="node3" shape="rect" target="_top" title="The DefaultTheme uses the standard Panel color palette."/>
+</map><span class="target" id="module-panel.template.theme"></span><dl class="py class">
+<dt id="panel.template.theme.DarkTheme">
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">panel.template.theme.</span></code><code class="sig-name descname"><span class="pre">DarkTheme</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fig</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">holomap</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">widgets</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fps</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_frames</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">size</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dpi</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">filename</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">info</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">css</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">widget_location</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/panel/template/theme.html#DarkTheme"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#panel.template.theme.DarkTheme" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#panel.template.theme.Theme" title="panel.template.theme.Theme"><code class="xref py py-class docutils literal notranslate"><span class="pre">panel.template.theme.Theme</span></code></a></p>
+<p>The DefaultTheme uses the standard Panel color palette.</p>
+<p>Parameters inherited from:</p>
+<blockquote>
+<div><p><a class="reference internal" href="#panel.template.theme.Theme" title="panel.template.theme.Theme"><code class="xref py py-class docutils literal notranslate"><span class="pre">panel.template.theme.Theme</span></code></a>: css</p>
+</div></blockquote>
+<p><code class="docutils literal notranslate"><span class="pre">base_css</span></code> = param.Filename(default=PosixPath(‘/home/runner/work/panel/panel/panel/template/theme/dark.css’), search_paths=[])</p>
+<p><code class="docutils literal notranslate"><span class="pre">bokeh_theme</span></code> = param.ClassSelector(class_=(&lt;class ‘bokeh.themes.theme.Theme’&gt;, &lt;class ‘str’&gt;), default=&lt;bokeh.themes.theme.Theme object at 0x7f5acceb3b90&gt;)</p>
+</dd></dl>
+<dl class="py class">
+<dt id="panel.template.theme.DefaultTheme">
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">panel.template.theme.</span></code><code class="sig-name descname"><span class="pre">DefaultTheme</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fig</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">holomap</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">widgets</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fps</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_frames</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">size</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dpi</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">filename</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">info</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">css</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">widget_location</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/panel/template/theme.html#DefaultTheme"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#panel.template.theme.DefaultTheme" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#panel.template.theme.Theme" title="panel.template.theme.Theme"><code class="xref py py-class docutils literal notranslate"><span class="pre">panel.template.theme.Theme</span></code></a></p>
+<p>The DefaultTheme uses the standard Panel color palette.</p>
+<p>Parameters inherited from:</p>
+<blockquote>
+<div><p><a class="reference internal" href="#panel.template.theme.Theme" title="panel.template.theme.Theme"><code class="xref py py-class docutils literal notranslate"><span class="pre">panel.template.theme.Theme</span></code></a>: css, bokeh_theme</p>
+</div></blockquote>
+<p><code class="docutils literal notranslate"><span class="pre">base_css</span></code> = param.Filename(default=PosixPath(‘/home/runner/work/panel/panel/panel/template/theme/default.css’), search_paths=[])</p>
+</dd></dl>
+<dl class="py class">
+<dt id="panel.template.theme.Theme">
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">panel.template.theme.</span></code><code class="sig-name descname"><span class="pre">Theme</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fig</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">holomap</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">widgets</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fps</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_frames</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">size</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dpi</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">filename</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">info</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">css</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">widget_location</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/panel/template/theme.html#Theme"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#panel.template.theme.Theme" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">param.parameterized.Parameterized</span></code></p>
+<p>A Theme customizes the look and feel of a Template by providing
+custom CSS and bokeh Theme class.</p>
+<p>When adding a new theme a generic Theme class should be created,
+which is what users will important and set on the Template.theme
+parameter. Additionally a concrete implementation of the Theme
+should be created specific to the particular Template being used.</p>
+<p>For example when adding a DarkTheme there should be a
+corresponding MaterialDarkTheme which declares the Template class
+on its _template class variable. In this way a user can always use
+the generic Theme but the actual CSS and bokeh Theme will depend
+on the exact Template being used.</p>
+<p><code class="docutils literal notranslate"><span class="pre">base_css</span></code> = param.Filename(search_paths=[])</p>
+<p><code class="docutils literal notranslate"><span class="pre">css</span></code> = param.Filename(search_paths=[])</p>
+<p><code class="docutils literal notranslate"><span class="pre">bokeh_theme</span></code> = param.ClassSelector(class_=(&lt;class ‘bokeh.themes.theme.Theme’&gt;, &lt;class ‘str’&gt;))</p>
+</dd></dl>
+<hr class="docutils"/>
+</div>
+</div>
+</div>
+</div>
+<!-- END MAIN BODY OF DOCS ––––––––––––– -->
+<!-- Google Analytics -->
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async="" src="https://www.googletagmanager.com/gtag/js?id=UA-154795830-2"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-154795830-2', { 'anonymize_ip': true });
+</script>
+<!-- MathJax Config -->
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}
+});
+</script>
+<!-- End Document
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+</body>
+</html>

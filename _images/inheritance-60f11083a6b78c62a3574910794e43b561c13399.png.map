@@ -1,0 +1,7 @@
+<map id="inheritance9a6da73fe0" name="inheritance9a6da73fe0">
+<area shape="rect" id="node1" href="#panel.template.base.BaseTemplate" target="_top" title="panel.template.base.BaseTemplate" alt="" coords="315,31,567,56"/>
+<area shape="rect" id="node4" href="#panel.template.base.BasicTemplate" target="_top" title="BasicTemplate provides a baseclass for templates with a basic" alt="" coords="615,5,869,31"/>
+<area shape="rect" id="node5" href="#panel.template.base.Template" target="_top" title="A Template is a high&#45;level component to render multiple Panel" alt="" coords="632,55,852,80"/>
+<area shape="rect" id="node2" title="params(name=String)" alt="" coords="5,5,267,31"/>
+<area shape="rect" id="node3" href="panel.viewable.html#panel.viewable.ServableMixin" target="_top" title="Mixin to define methods shared by objects which can served." alt="" coords="27,55,245,80"/>
+</map>

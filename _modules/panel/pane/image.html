@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<!-- Basic Page Needs
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+<meta charset="utf-8"/>
+<title>panel.pane.image — Panel 0.11.1+g238199f-dirty documentation</title>
+<meta content="High-level dashboarding for python visualization libraries" name="description"/>
+<meta content="Panel contributors" name="author"/>
+<!-- Mobile Specific Metas
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<!-- FONT
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+<script src="https://ajax.googleapis.com/ajax/libs/webfont/1.6.16/webfont.js"></script>
+<script>
+    WebFont.load({
+      google: {
+        families: ['Source Sans Pro']
+      }
+    });
+  </script>
+<!-- CSS
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+<link href="../../../_static/css/main.css" rel="stylesheet"/>
+<link href="../../../_static/nbsite.css" rel="stylesheet"/>
+<link href="../../../_static/site.css" rel="stylesheet"/>
+<!-- Scripts
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script async="" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML" type="text/javascript">
+</script>
+<script src="../../../_static/js/main.js"></script>
+<!-- Favicon
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+<link href="../../../_static/favicon.ico" rel="icon" type="image/png"/>
+<!-- Canonical
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+<link href="https://panel.holoviz.org/_modules/panel/pane/image.html" rel="canonical">
+</link></head>
+<body class="">
+<header class="navigation">
+<div class="wrapper">
+<a class="logo" href="../../../index.html">
+<img alt="Logo" src="../../../_static/logo_horizontal.png"/>
+</a>
+<a class="navigation-menu-button" href="javascript:void(0)" id="js-mobile-menu">Menu</a>
+<nav>
+<ul class="navigation-menu show" id="js-navigation-menu">
+<li class="nav-link doc-head"><a href="//discourse.holoviz.org">Discourse</a></li>
+<li class="nav-link doc-head"><a href="//twitter.com/Panel_org">Twitter</a></li>
+<li class="nav-link doc-head"><a href="//github.com/pyviz/panel">Github</a></li>
+<li class="nav-link">
+<div style="display:inline-block;vertical-align: middle;">
+<div class="search-bar">
+<form action="../../../search.html" method="get" role="search">
+<input name="q" placeholder="Search" type="search"/>
+<button type="submit">
+<img alt="Search Icon" src="https://raw.githubusercontent.com/thoughtbot/refills/master/source/images/search-icon-black.png"/>
+</button>
+</form>
+</div>
+</div>
+</li>
+</ul>
+</nav>
+</div>
+</header>
+<div class="second-nav">
+<nav>
+<ul class="navigation-menu show">
+<li class="nav-link doc-head"><a href="../../../getting_started/index.html">Getting started</a></li>
+<li class="nav-link doc-head"><a href="../../../user_guide/index.html">User Guide</a></li>
+<li class="nav-link doc-head"><a href="../../../gallery/index.html">Gallery</a></li>
+<li class="nav-link doc-head"><a href="../../../reference/index.html">Reference Gallery</a></li>
+<li class="nav-link doc-head"><a href="../../../developer_guide/index.html">Developer Guide</a></li>
+<li class="nav-link doc-head"><a href="../../../releases.html">Releases</a></li>
+<li class="nav-link doc-head"><a href="../../../api/index.html">API</a></li>
+<li class="nav-link doc-head"><a href="../../../FAQ.html">FAQ</a></li>
+<li class="nav-link doc-head"><a href="../../../about.html">About</a></li>
+</ul>
+</nav>
+</div>
+<!-- MAIN BODY OF DOCS –––––––––––––––––– -->
+<div class="docs section">
+<div id="hacketyhackhack"> <!-- style="width:20%;margin-right: 100px;"> --> <!--style="display: none;"> style="display:none;"> -->
+<div class="toc" style="width:15%; margin-right:20px;">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../index.html">Home</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../getting_started/index.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../user_guide/index.html">User Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../gallery/index.html">Gallery</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../reference/index.html">Reference Gallery</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../developer_guide/index.html">Developer Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/index.html">API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../Comparisons.html">Comparisons</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../releases.html">Releases</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../Roadmap.html">Road Map</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../FAQ.html">FAQ</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://github.com/pyviz/panel">Github source</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../about.html">About</a></li>
+</ul>
+</div>
+</div>
+<div class="content"> <!-- style="max-width:80%;margin-left:auto;margin-right: auto;">-->
+<h1>Source code for panel.pane.image</h1><div class="highlight"><pre>
+<span></span><span class="sd">"""</span>
+<span class="sd">Contains Image panes including renderers for PNG, SVG, GIF and JPG</span>
+<span class="sd">file types.</span>
+<span class="sd">"""</span>
+<span class="kn">import</span> <span class="nn">base64</span>
+
+<span class="kn">from</span> <span class="nn">io</span> <span class="kn">import</span> <span class="n">BytesIO</span>
+<span class="kn">from</span> <span class="nn">six</span> <span class="kn">import</span> <span class="n">string_types</span>
+
+<span class="kn">import</span> <span class="nn">param</span>
+
+<span class="kn">from</span> <span class="nn">.markup</span> <span class="kn">import</span> <span class="n">escape</span><span class="p">,</span> <span class="n">DivPaneBase</span>
+<span class="kn">from</span> <span class="nn">..util</span> <span class="kn">import</span> <span class="n">isfile</span><span class="p">,</span> <span class="n">isurl</span>
+
+
+<div class="viewcode-block" id="ImageBase"><a class="viewcode-back" href="../../../api/panel.pane.html#panel.pane.image.ImageBase">[docs]</a><span class="k">class</span> <span class="nc">ImageBase</span><span class="p">(</span><span class="n">DivPaneBase</span><span class="p">):</span>
+    <span class="sd">"""</span>
+<span class="sd">    Encodes an image as base64 and wraps it in a Bokeh Div model.</span>
+<span class="sd">    This is an abstract base class that needs the image type</span>
+<span class="sd">    to be specified and specific code for determining the image shape.</span>
+
+<span class="sd">    The imgtype determines the filetype, extension, and MIME type for</span>
+<span class="sd">    this image. Each image type (png,jpg,gif) has a base class that</span>
+<span class="sd">    supports anything with a `_repr_X_` method (where X is `png`,</span>
+<span class="sd">    `gif`, etc.), a local file with the given file extension, or a</span>
+<span class="sd">    HTTP(S) url with the given extension.  Subclasses of each type can</span>
+<span class="sd">    provide their own way of obtaining or generating a PNG.</span>
+<span class="sd">    """</span>
+
+    <span class="n">alt_text</span> <span class="o">=</span> <span class="n">param</span><span class="o">.</span><span class="n">String</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="s2">"""</span>
+<span class="s2">        alt text to add to the image tag. The alt text is shown when a</span>
+<span class="s2">        user cannot load or display the image."""</span><span class="p">)</span>
+
+    <span class="n">link_url</span> <span class="o">=</span> <span class="n">param</span><span class="o">.</span><span class="n">String</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="s2">"""</span>
+<span class="s2">        A link URL to make the image clickable and link to some other</span>
+<span class="s2">        website."""</span><span class="p">)</span>
+
+    <span class="n">embed</span> <span class="o">=</span> <span class="n">param</span><span class="o">.</span><span class="n">Boolean</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="s2">"""</span>
+<span class="s2">        Whether to embed the image as base64."""</span><span class="p">)</span>
+
+    <span class="n">imgtype</span> <span class="o">=</span> <span class="s1">'None'</span>
+
+    <span class="n">_rerender_params</span> <span class="o">=</span> <span class="p">[</span><span class="s1">'alt_text'</span><span class="p">,</span> <span class="s1">'link_url'</span><span class="p">,</span> <span class="s1">'embed'</span><span class="p">,</span> <span class="s1">'object'</span><span class="p">,</span> <span class="s1">'style'</span><span class="p">,</span> <span class="s1">'width'</span><span class="p">,</span> <span class="s1">'height'</span><span class="p">]</span>
+
+    <span class="n">_target_transforms</span> <span class="o">=</span> <span class="p">{</span><span class="s1">'object'</span><span class="p">:</span> <span class="s2">"""'&lt;img src="' + value + '"&gt;&lt;/img&gt;'"""</span><span class="p">}</span>
+
+    <span class="n">__abstract</span> <span class="o">=</span> <span class="kc">True</span>
+
+<div class="viewcode-block" id="ImageBase.applies"><a class="viewcode-back" href="../../../api/panel.pane.html#panel.pane.image.ImageBase.applies">[docs]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">applies</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">obj</span><span class="p">):</span>
+        <span class="n">imgtype</span> <span class="o">=</span> <span class="bp">cls</span><span class="o">.</span><span class="n">imgtype</span>
+        <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="s1">'_repr_</span><span class="si">{}</span><span class="s1">_'</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">imgtype</span><span class="p">)):</span>
+            <span class="k">return</span> <span class="kc">True</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="n">string_types</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">isfile</span><span class="p">(</span><span class="n">obj</span><span class="p">)</span> <span class="ow">and</span> <span class="n">obj</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s1">'.'</span><span class="o">+</span><span class="n">imgtype</span><span class="p">):</span>
+                <span class="k">return</span> <span class="kc">True</span>
+            <span class="k">if</span> <span class="n">isurl</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="p">[</span><span class="bp">cls</span><span class="o">.</span><span class="n">imgtype</span><span class="p">]):</span>
+                <span class="k">return</span> <span class="kc">True</span>
+            <span class="k">elif</span> <span class="n">isurl</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="kc">None</span><span class="p">):</span>
+                <span class="k">return</span> <span class="mi">0</span>
+        <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="s1">'read'</span><span class="p">):</span>  <span class="c1"># Check for file like object</span>
+            <span class="k">return</span> <span class="kc">True</span>
+        <span class="k">return</span> <span class="kc">False</span></div>
+
+    <span class="k">def</span> <span class="nf">_type_error</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">object</span><span class="p">):</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="nb">object</span><span class="p">,</span> <span class="n">string_types</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">"</span><span class="si">%s</span><span class="s2"> pane cannot parse string that is not a filename "</span>
+                             <span class="s2">"or URL."</span> <span class="o">%</span> <span class="nb">type</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="vm">__name__</span><span class="p">)</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">_type_error</span><span class="p">(</span><span class="nb">object</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">_img</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">object</span><span class="p">,</span> <span class="s1">'_repr_</span><span class="si">{}</span><span class="s1">_'</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">imgtype</span><span class="p">)):</span>
+            <span class="k">return</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">object</span><span class="p">,</span> <span class="s1">'_repr_'</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">imgtype</span> <span class="o">+</span> <span class="s1">'_'</span><span class="p">)()</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">object</span><span class="p">,</span> <span class="n">string_types</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">isfile</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">object</span><span class="p">):</span>
+                <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">object</span><span class="p">,</span> <span class="s1">'rb'</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+                    <span class="k">return</span> <span class="n">f</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+        <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">object</span><span class="p">,</span> <span class="s1">'read'</span><span class="p">):</span>
+            <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">object</span><span class="p">,</span> <span class="s1">'seek'</span><span class="p">):</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">object</span><span class="o">.</span><span class="n">seek</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">object</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+        <span class="k">if</span> <span class="n">isurl</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">object</span><span class="p">,</span> <span class="kc">None</span><span class="p">):</span>
+            <span class="kn">import</span> <span class="nn">requests</span>
+            <span class="n">r</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">request</span><span class="p">(</span><span class="n">url</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">object</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s1">'GET'</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">r</span><span class="o">.</span><span class="n">content</span>
+
+    <span class="k">def</span> <span class="nf">_b64</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_img</span><span class="p">()</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="nb">bytes</span><span class="p">):</span>
+            <span class="n">data</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s1">'utf-8'</span><span class="p">)</span>
+        <span class="n">b64</span> <span class="o">=</span> <span class="n">base64</span><span class="o">.</span><span class="n">b64encode</span><span class="p">(</span><span class="n">data</span><span class="p">)</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s2">"utf-8"</span><span class="p">)</span>
+        <span class="k">return</span> <span class="s2">"data:image/"</span><span class="o">+</span><span class="bp">self</span><span class="o">.</span><span class="n">imgtype</span><span class="o">+</span><span class="sa">f</span><span class="s2">";base64,</span><span class="si">{</span><span class="n">b64</span><span class="si">}</span><span class="s2">"</span>
+
+    <span class="k">def</span> <span class="nf">_imgshape</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">):</span>
+        <span class="sd">"""Calculate and return image width,height"""</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span>
+
+    <span class="k">def</span> <span class="nf">_get_properties</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">p</span> <span class="o">=</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">_get_properties</span><span class="p">()</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">object</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">return</span> <span class="nb">dict</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="s1">'&lt;img&gt;&lt;/img&gt;'</span><span class="p">)</span>
+        <span class="n">data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_img</span><span class="p">()</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="nb">bytes</span><span class="p">):</span>
+            <span class="n">data</span> <span class="o">=</span> <span class="n">base64</span><span class="o">.</span><span class="n">b64decode</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+        <span class="n">width</span><span class="p">,</span> <span class="n">height</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_imgshape</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">width</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">height</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="n">height</span> <span class="o">=</span> <span class="nb">int</span><span class="p">((</span><span class="bp">self</span><span class="o">.</span><span class="n">width</span><span class="o">/</span><span class="n">width</span><span class="p">)</span><span class="o">*</span><span class="n">height</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">height</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">height</span>
+            <span class="n">width</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">width</span>
+        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">height</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">width</span> <span class="o">=</span> <span class="nb">int</span><span class="p">((</span><span class="bp">self</span><span class="o">.</span><span class="n">height</span><span class="o">/</span><span class="n">height</span><span class="p">)</span><span class="o">*</span><span class="n">width</span><span class="p">)</span>
+            <span class="n">height</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">height</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">embed</span><span class="p">:</span>
+            <span class="n">src</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">object</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">b64</span> <span class="o">=</span> <span class="n">base64</span><span class="o">.</span><span class="n">b64encode</span><span class="p">(</span><span class="n">data</span><span class="p">)</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s2">"utf-8"</span><span class="p">)</span>
+            <span class="n">src</span> <span class="o">=</span> <span class="s2">"data:image/"</span><span class="o">+</span><span class="bp">self</span><span class="o">.</span><span class="n">imgtype</span><span class="o">+</span><span class="s2">";base64,</span><span class="si">{b64}</span><span class="s2">"</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">b64</span><span class="o">=</span><span class="n">b64</span><span class="p">)</span>
+
+        <span class="n">smode</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">sizing_mode</span>
+        <span class="k">if</span> <span class="n">smode</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">'fixed'</span><span class="p">,</span> <span class="kc">None</span><span class="p">]:</span>
+            <span class="n">w</span><span class="p">,</span> <span class="n">h</span> <span class="o">=</span> <span class="s1">'</span><span class="si">%s</span><span class="s1">px'</span> <span class="o">%</span> <span class="n">width</span><span class="p">,</span> <span class="s1">'</span><span class="si">%s</span><span class="s1">px'</span> <span class="o">%</span> <span class="n">height</span>
+        <span class="k">elif</span> <span class="n">smode</span> <span class="o">==</span> <span class="s1">'stretch_both'</span><span class="p">:</span>
+            <span class="n">w</span><span class="p">,</span> <span class="n">h</span> <span class="o">=</span> <span class="s1">'100%'</span><span class="p">,</span> <span class="s1">'100%'</span>
+        <span class="k">elif</span> <span class="n">smode</span> <span class="o">==</span> <span class="s1">'stretch_width'</span><span class="p">:</span>
+            <span class="n">w</span><span class="p">,</span> <span class="n">h</span> <span class="o">=</span> <span class="s1">'</span><span class="si">%s</span><span class="s1">px'</span> <span class="o">%</span> <span class="n">width</span><span class="p">,</span> <span class="s1">'100%'</span>
+        <span class="k">elif</span> <span class="n">smode</span> <span class="o">==</span> <span class="s1">'stretch_height'</span><span class="p">:</span>
+            <span class="n">w</span><span class="p">,</span> <span class="n">h</span> <span class="o">=</span> <span class="s1">'100%'</span><span class="p">,</span> <span class="s1">'</span><span class="si">%s</span><span class="s1">px'</span> <span class="o">%</span> <span class="n">height</span>
+        <span class="k">elif</span> <span class="n">smode</span> <span class="o">==</span> <span class="s1">'scale_height'</span><span class="p">:</span>
+            <span class="n">w</span><span class="p">,</span> <span class="n">h</span> <span class="o">=</span> <span class="s1">'auto'</span><span class="p">,</span> <span class="s1">'100%'</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">w</span><span class="p">,</span> <span class="n">h</span> <span class="o">=</span> <span class="s1">'100%'</span><span class="p">,</span> <span class="s1">'auto'</span>
+
+        <span class="n">html</span> <span class="o">=</span> <span class="s1">'&lt;img src="</span><span class="si">{src}</span><span class="s1">" width="</span><span class="si">{width}</span><span class="s1">" height="</span><span class="si">{height}</span><span class="s1">" alt="</span><span class="si">{alt}</span><span class="s1">"&gt;&lt;/img&gt;'</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+            <span class="n">src</span><span class="o">=</span><span class="n">src</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="n">w</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="n">h</span><span class="p">,</span> <span class="n">alt</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">alt_text</span> <span class="ow">or</span> <span class="s1">''</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">link_url</span><span class="p">:</span>
+            <span class="n">html</span> <span class="o">=</span> <span class="s1">'&lt;a href="</span><span class="si">{url}</span><span class="s1">" target="_blank"&gt;</span><span class="si">{html}</span><span class="s1">&lt;/a&gt;'</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+                <span class="n">url</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">link_url</span><span class="p">,</span> <span class="n">html</span><span class="o">=</span><span class="n">html</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="nb">dict</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="n">width</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="n">height</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="n">escape</span><span class="p">(</span><span class="n">html</span><span class="p">))</span></div>
+
+
+<div class="viewcode-block" id="PNG"><a class="viewcode-back" href="../../../api/panel.pane.html#panel.pane.image.PNG">[docs]</a><span class="k">class</span> <span class="nc">PNG</span><span class="p">(</span><span class="n">ImageBase</span><span class="p">):</span>
+
+    <span class="n">imgtype</span> <span class="o">=</span> <span class="s1">'png'</span>
+
+    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">_imgshape</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">data</span><span class="p">):</span>
+        <span class="kn">import</span> <span class="nn">struct</span>
+        <span class="n">w</span><span class="p">,</span> <span class="n">h</span> <span class="o">=</span> <span class="n">struct</span><span class="o">.</span><span class="n">unpack</span><span class="p">(</span><span class="s1">'&gt;LL'</span><span class="p">,</span> <span class="n">data</span><span class="p">[</span><span class="mi">16</span><span class="p">:</span><span class="mi">24</span><span class="p">])</span>
+        <span class="k">return</span> <span class="nb">int</span><span class="p">(</span><span class="n">w</span><span class="p">),</span> <span class="nb">int</span><span class="p">(</span><span class="n">h</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="GIF"><a class="viewcode-back" href="../../../api/panel.pane.html#panel.pane.image.GIF">[docs]</a><span class="k">class</span> <span class="nc">GIF</span><span class="p">(</span><span class="n">ImageBase</span><span class="p">):</span>
+
+    <span class="n">imgtype</span> <span class="o">=</span> <span class="s1">'gif'</span>
+
+    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">_imgshape</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">data</span><span class="p">):</span>
+        <span class="kn">import</span> <span class="nn">struct</span>
+        <span class="n">w</span><span class="p">,</span> <span class="n">h</span> <span class="o">=</span> <span class="n">struct</span><span class="o">.</span><span class="n">unpack</span><span class="p">(</span><span class="s2">"&lt;HH"</span><span class="p">,</span> <span class="n">data</span><span class="p">[</span><span class="mi">6</span><span class="p">:</span><span class="mi">10</span><span class="p">])</span>
+        <span class="k">return</span> <span class="nb">int</span><span class="p">(</span><span class="n">w</span><span class="p">),</span> <span class="nb">int</span><span class="p">(</span><span class="n">h</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="JPG"><a class="viewcode-back" href="../../../api/panel.pane.html#panel.pane.image.JPG">[docs]</a><span class="k">class</span> <span class="nc">JPG</span><span class="p">(</span><span class="n">ImageBase</span><span class="p">):</span>
+
+    <span class="n">imgtype</span> <span class="o">=</span> <span class="s1">'jpg'</span>
+
+    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">_imgshape</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">data</span><span class="p">):</span>
+        <span class="kn">import</span> <span class="nn">struct</span>
+        <span class="n">b</span> <span class="o">=</span> <span class="n">BytesIO</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+        <span class="n">b</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+        <span class="n">c</span> <span class="o">=</span> <span class="n">b</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+        <span class="k">while</span> <span class="p">(</span><span class="n">c</span> <span class="ow">and</span> <span class="nb">ord</span><span class="p">(</span><span class="n">c</span><span class="p">)</span> <span class="o">!=</span> <span class="mh">0xDA</span><span class="p">):</span>
+            <span class="k">while</span> <span class="p">(</span><span class="nb">ord</span><span class="p">(</span><span class="n">c</span><span class="p">)</span> <span class="o">!=</span> <span class="mh">0xFF</span><span class="p">):</span> <span class="n">c</span> <span class="o">=</span> <span class="n">b</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+            <span class="k">while</span> <span class="p">(</span><span class="nb">ord</span><span class="p">(</span><span class="n">c</span><span class="p">)</span> <span class="o">==</span> <span class="mh">0xFF</span><span class="p">):</span> <span class="n">c</span> <span class="o">=</span> <span class="n">b</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+            <span class="k">if</span> <span class="p">(</span><span class="nb">ord</span><span class="p">(</span><span class="n">c</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="mh">0xC0</span> <span class="ow">and</span> <span class="nb">ord</span><span class="p">(</span><span class="n">c</span><span class="p">)</span> <span class="o">&lt;=</span> <span class="mh">0xC3</span><span class="p">):</span>
+                <span class="n">b</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+                <span class="n">h</span><span class="p">,</span> <span class="n">w</span> <span class="o">=</span> <span class="n">struct</span><span class="o">.</span><span class="n">unpack</span><span class="p">(</span><span class="s2">"&gt;HH"</span><span class="p">,</span> <span class="n">b</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="mi">4</span><span class="p">))</span>
+                <span class="k">break</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">b</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">struct</span><span class="o">.</span><span class="n">unpack</span><span class="p">(</span><span class="s2">"&gt;H"</span><span class="p">,</span> <span class="n">b</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="mi">2</span><span class="p">))[</span><span class="mi">0</span><span class="p">])</span><span class="o">-</span><span class="mi">2</span><span class="p">)</span>
+            <span class="n">c</span> <span class="o">=</span> <span class="n">b</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+        <span class="k">return</span> <span class="nb">int</span><span class="p">(</span><span class="n">w</span><span class="p">),</span> <span class="nb">int</span><span class="p">(</span><span class="n">h</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="SVG"><a class="viewcode-back" href="../../../api/panel.pane.html#panel.pane.image.SVG">[docs]</a><span class="k">class</span> <span class="nc">SVG</span><span class="p">(</span><span class="n">ImageBase</span><span class="p">):</span>
+
+    <span class="n">encode</span> <span class="o">=</span> <span class="n">param</span><span class="o">.</span><span class="n">Boolean</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="s2">"""</span>
+<span class="s2">        Whether to enable base64 encoding of the SVG, base64 encoded</span>
+<span class="s2">        SVGs do not support links."""</span><span class="p">)</span>
+
+    <span class="n">imgtype</span> <span class="o">=</span> <span class="s1">'svg'</span>
+
+    <span class="n">_rerender_params</span> <span class="o">=</span> <span class="n">ImageBase</span><span class="o">.</span><span class="n">_rerender_params</span> <span class="o">+</span> <span class="p">[</span><span class="s1">'encode'</span><span class="p">]</span>
+
+<div class="viewcode-block" id="SVG.applies"><a class="viewcode-back" href="../../../api/panel.pane.html#panel.pane.image.SVG.applies">[docs]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">applies</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">obj</span><span class="p">):</span>
+        <span class="k">return</span> <span class="p">(</span><span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">applies</span><span class="p">(</span><span class="n">obj</span><span class="p">)</span> <span class="ow">or</span>
+                <span class="p">(</span><span class="nb">isinstance</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="n">string_types</span><span class="p">)</span> <span class="ow">and</span> <span class="n">obj</span><span class="o">.</span><span class="n">lstrip</span><span class="p">()</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s1">'&lt;svg'</span><span class="p">)))</span></div>
+
+    <span class="k">def</span> <span class="nf">_type_error</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">object</span><span class="p">):</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="nb">object</span><span class="p">,</span> <span class="n">string_types</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">"</span><span class="si">%s</span><span class="s2"> pane cannot parse string that is not a filename, "</span>
+                             <span class="s2">"URL or a SVG XML contents."</span> <span class="o">%</span> <span class="nb">type</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="vm">__name__</span><span class="p">)</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">_type_error</span><span class="p">(</span><span class="nb">object</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">_img</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">if</span> <span class="p">(</span><span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">object</span><span class="p">,</span> <span class="n">string_types</span><span class="p">)</span> <span class="ow">and</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">object</span><span class="o">.</span><span class="n">lstrip</span><span class="p">()</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s1">'&lt;svg'</span><span class="p">)):</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">object</span>
+        <span class="k">return</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">_img</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="nf">_b64</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_img</span><span class="p">()</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="nb">bytes</span><span class="p">):</span>
+            <span class="n">data</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s1">'utf-8'</span><span class="p">)</span>
+        <span class="n">b64</span> <span class="o">=</span> <span class="n">base64</span><span class="o">.</span><span class="n">b64encode</span><span class="p">(</span><span class="n">data</span><span class="p">)</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s2">"utf-8"</span><span class="p">)</span>
+        <span class="k">return</span> <span class="sa">f</span><span class="s2">"data:image/svg+xml;base64,</span><span class="si">{</span><span class="n">b64</span><span class="si">}</span><span class="s2">"</span>
+
+    <span class="k">def</span> <span class="nf">_imgshape</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">):</span>
+        <span class="k">return</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">width</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">height</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">_get_properties</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">p</span> <span class="o">=</span> <span class="nb">super</span><span class="p">(</span><span class="n">ImageBase</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">_get_properties</span><span class="p">()</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">object</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">return</span> <span class="nb">dict</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="s1">'&lt;img&gt;&lt;/img&gt;'</span><span class="p">)</span>
+        <span class="n">data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_img</span><span class="p">()</span>
+        <span class="n">width</span><span class="p">,</span> <span class="n">height</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_imgshape</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="nb">bytes</span><span class="p">):</span>
+            <span class="n">data</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s1">'utf-8'</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">encode</span><span class="p">:</span>
+            <span class="n">b64</span> <span class="o">=</span> <span class="n">base64</span><span class="o">.</span><span class="n">b64encode</span><span class="p">(</span><span class="n">data</span><span class="p">)</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s2">"utf-8"</span><span class="p">)</span>
+            <span class="n">src</span> <span class="o">=</span> <span class="s2">"data:image/svg+xml;base64,</span><span class="si">{b64}</span><span class="s2">"</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">b64</span><span class="o">=</span><span class="n">b64</span><span class="p">)</span>
+            <span class="n">html</span> <span class="o">=</span> <span class="s2">"&lt;img src='</span><span class="si">{src}</span><span class="s2">' width=</span><span class="si">{width}</span><span class="s2"> height=</span><span class="si">{height}</span><span class="s2">&gt;&lt;/img&gt;"</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+                <span class="n">src</span><span class="o">=</span><span class="n">src</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="n">width</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="n">height</span>
+            <span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">html</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s2">"utf-8"</span><span class="p">)</span>
+        <span class="k">return</span> <span class="nb">dict</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="n">width</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="n">height</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="n">escape</span><span class="p">(</span><span class="n">html</span><span class="p">))</span></div>
+</pre></div>
+</div>
+</div>
+<!-- END MAIN BODY OF DOCS ––––––––––––– -->
+<!-- Google Analytics -->
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async="" src="https://www.googletagmanager.com/gtag/js?id=UA-154795830-2"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-154795830-2', { 'anonymize_ip': true });
+</script>
+<!-- MathJax Config -->
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}
+});
+</script>
+<!-- End Document
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+</body>
+</html>

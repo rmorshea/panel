@@ -1,0 +1,516 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<!-- Basic Page Needs
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+<meta charset="utf-8"/>
+<title>Reference Gallery — Panel 0.11.1+g238199f-dirty documentation</title>
+<meta content="High-level dashboarding for python visualization libraries" name="description"/>
+<meta content="Panel contributors" name="author"/>
+<!-- Mobile Specific Metas
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<!-- FONT
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+<script src="https://ajax.googleapis.com/ajax/libs/webfont/1.6.16/webfont.js"></script>
+<script>
+    WebFont.load({
+      google: {
+        families: ['Source Sans Pro']
+      }
+    });
+  </script>
+<!-- CSS
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+<link href="../_static/css/main.css" rel="stylesheet"/>
+<link href="../_static/nbsite.css" rel="stylesheet"/>
+<link href="../_static/site.css" rel="stylesheet"/>
+<!-- Scripts
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script async="" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML" type="text/javascript">
+</script>
+<script src="../_static/js/main.js"></script>
+<!-- Favicon
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+<link href="../_static/favicon.ico" rel="icon" type="image/png"/>
+<!-- Canonical
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+<link href="https://panel.holoviz.org/reference/index.html" rel="canonical">
+</link></head>
+<body class="">
+<header class="navigation">
+<div class="wrapper">
+<a class="logo" href="../index.html">
+<img alt="Logo" src="../_static/logo_horizontal.png"/>
+</a>
+<a class="navigation-menu-button" href="javascript:void(0)" id="js-mobile-menu">Menu</a>
+<nav>
+<ul class="navigation-menu show" id="js-navigation-menu">
+<li class="nav-link doc-head"><a href="//discourse.holoviz.org">Discourse</a></li>
+<li class="nav-link doc-head"><a href="//twitter.com/Panel_org">Twitter</a></li>
+<li class="nav-link doc-head"><a href="//github.com/pyviz/panel">Github</a></li>
+<li class="nav-link">
+<div style="display:inline-block;vertical-align: middle;">
+<div class="search-bar">
+<form action="../search.html" method="get" role="search">
+<input name="q" placeholder="Search" type="search"/>
+<button type="submit">
+<img alt="Search Icon" src="https://raw.githubusercontent.com/thoughtbot/refills/master/source/images/search-icon-black.png"/>
+</button>
+</form>
+</div>
+</div>
+</li>
+</ul>
+</nav>
+</div>
+</header>
+<div class="second-nav">
+<nav>
+<ul class="navigation-menu show">
+<li class="nav-link doc-head"><a href="../getting_started/index.html">Getting started</a></li>
+<li class="nav-link doc-head"><a href="../user_guide/index.html">User Guide</a></li>
+<li class="nav-link doc-head"><a href="../gallery/index.html">Gallery</a></li>
+<li class="nav-link doc-head"><a href="#">Reference Gallery</a></li>
+<li class="nav-link doc-head"><a href="../developer_guide/index.html">Developer Guide</a></li>
+<li class="nav-link doc-head"><a href="../releases.html">Releases</a></li>
+<li class="nav-link doc-head"><a href="../api/index.html">API</a></li>
+<li class="nav-link doc-head"><a href="../FAQ.html">FAQ</a></li>
+<li class="nav-link doc-head"><a href="../about.html">About</a></li>
+</ul>
+</nav>
+</div>
+<!-- MAIN BODY OF DOCS –––––––––––––––––– -->
+<div class="docs section">
+<div id="hacketyhackhack"> <!-- style="width:20%;margin-right: 100px;"> --> <!--style="display: none;"> style="display:none;"> -->
+<div class="toc" style="width:15%; margin-right:20px;">
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../index.html">Home</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting_started/index.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../user_guide/index.html">User Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../gallery/index.html">Gallery</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Reference Gallery</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../developer_guide/index.html">Developer Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/index.html">API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Comparisons.html">Comparisons</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../releases.html">Releases</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Roadmap.html">Road Map</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../FAQ.html">FAQ</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://github.com/pyviz/panel">Github source</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../about.html">About</a></li>
+</ul>
+</div>
+</div>
+<div class="content"> <!-- style="max-width:80%;margin-left:auto;margin-right: auto;">-->
+<div class="section" id="reference-gallery">
+<h1>Reference Gallery<a class="headerlink" href="#reference-gallery" title="Permalink to this headline">¶</a></h1>
+<div class="section sphx-glr-section" id="panes-section"><h2>Panes</h2><div class="sphx-glr-thumbcontainer example" tooltip="Ace"><div class="figure align-default" id="id1">
+<img alt="../_images/Ace.png" src="../_images/Ace.png">
+<p class="caption"><span class="caption-text"><a class="reference internal" href="panes/Ace.html#panes-gallery-ace"><span class="std std-ref">Ace</span></a></span><a class="headerlink" href="#id1" title="Permalink to this image">¶</a></p>
+</img></div>
+</div><div class="sphx-glr-thumbcontainer example" tooltip="Alert"><div class="figure align-default" id="id2">
+<img alt="../_images/Alert.png" src="../_images/Alert.png">
+<p class="caption"><span class="caption-text"><a class="reference internal" href="panes/Alert.html#panes-gallery-alert"><span class="std std-ref">Alert</span></a></span><a class="headerlink" href="#id2" title="Permalink to this image">¶</a></p>
+</img></div>
+</div><div class="sphx-glr-thumbcontainer example" tooltip="Audio"><div class="figure align-default" id="id3">
+<img alt="../_images/Audio.png" src="../_images/Audio.png"/>
+<p class="caption"><span class="caption-text"><a class="reference internal" href="panes/Audio.html#panes-gallery-audio"><span class="std std-ref">Audio</span></a></span><a class="headerlink" href="#id3" title="Permalink to this image">¶</a></p>
+</div>
+</div><div class="sphx-glr-thumbcontainer example" tooltip="Bokeh"><div class="figure align-default" id="id4">
+<img alt="../_images/Bokeh.png" src="../_images/Bokeh.png"/>
+<p class="caption"><span class="caption-text"><a class="reference internal" href="panes/Bokeh.html#panes-gallery-bokeh"><span class="std std-ref">Bokeh</span></a></span><a class="headerlink" href="#id4" title="Permalink to this image">¶</a></p>
+</div>
+</div><div class="sphx-glr-thumbcontainer example" tooltip="Dataframe"><div class="figure align-default" id="id5">
+<img alt="../_images/DataFrame.png" src="../_images/DataFrame.png"/>
+<p class="caption"><span class="caption-text"><a class="reference internal" href="panes/DataFrame.html#panes-gallery-dataframe"><span class="std std-ref">Dataframe</span></a></span><a class="headerlink" href="#id5" title="Permalink to this image">¶</a></p>
+</div>
+</div><div class="sphx-glr-thumbcontainer example" tooltip="Deckgl"><div class="figure align-default" id="id6">
+<img alt="../_images/DeckGL.png" src="../_images/DeckGL.png"/>
+<p class="caption"><span class="caption-text"><a class="reference internal" href="panes/DeckGL.html#panes-gallery-deckgl"><span class="std std-ref">Deckgl</span></a></span><a class="headerlink" href="#id6" title="Permalink to this image">¶</a></p>
+</div>
+</div><div class="sphx-glr-thumbcontainer example" tooltip="Echarts"><div class="figure align-default" id="id7">
+<img alt="../_images/ECharts.png" src="../_images/ECharts.png"/>
+<p class="caption"><span class="caption-text"><a class="reference internal" href="panes/ECharts.html#panes-gallery-echarts"><span class="std std-ref">Echarts</span></a></span><a class="headerlink" href="#id7" title="Permalink to this image">¶</a></p>
+</div>
+</div><div class="sphx-glr-thumbcontainer example" tooltip="Gif"><div class="figure align-default" id="id8">
+<img alt="../_images/GIF.png" src="../_images/GIF.png"/>
+<p class="caption"><span class="caption-text"><a class="reference internal" href="panes/GIF.html#panes-gallery-gif"><span class="std std-ref">Gif</span></a></span><a class="headerlink" href="#id8" title="Permalink to this image">¶</a></p>
+</div>
+</div><div class="sphx-glr-thumbcontainer example" tooltip="Html"><div class="figure align-default" id="id9">
+<img alt="../_images/HTML.png" src="../_images/HTML.png"/>
+<p class="caption"><span class="caption-text"><a class="reference internal" href="panes/HTML.html#panes-gallery-html"><span class="std std-ref">Html</span></a></span><a class="headerlink" href="#id9" title="Permalink to this image">¶</a></p>
+</div>
+</div><div class="sphx-glr-thumbcontainer example" tooltip="Holoviews"><div class="figure align-default" id="id10">
+<img alt="../_images/HoloViews.png" src="../_images/HoloViews.png"/>
+<p class="caption"><span class="caption-text"><a class="reference internal" href="panes/HoloViews.html#panes-gallery-holoviews"><span class="std std-ref">Holoviews</span></a></span><a class="headerlink" href="#id10" title="Permalink to this image">¶</a></p>
+</div>
+</div><div class="sphx-glr-thumbcontainer example" tooltip="Idom"><div class="figure align-default" id="id11">
+<img alt="../_images/IDOM.png" src="../_images/IDOM.png"/>
+<p class="caption"><span class="caption-text"><a class="reference internal" href="panes/IDOM.html#panes-gallery-idom"><span class="std std-ref">Idom</span></a></span><a class="headerlink" href="#id11" title="Permalink to this image">¶</a></p>
+</div>
+</div><div class="sphx-glr-thumbcontainer example" tooltip="Ipywidget"><div class="figure align-default" id="id12">
+<img alt="../_images/IPyWidget.png" src="../_images/IPyWidget.png"/>
+<p class="caption"><span class="caption-text"><a class="reference internal" href="panes/IPyWidget.html#panes-gallery-ipywidget"><span class="std std-ref">Ipywidget</span></a></span><a class="headerlink" href="#id12" title="Permalink to this image">¶</a></p>
+</div>
+</div><div class="sphx-glr-thumbcontainer example" tooltip="Jpg"><div class="figure align-default" id="id13">
+<img alt="../_images/JPG.png" src="../_images/JPG.png"/>
+<p class="caption"><span class="caption-text"><a class="reference internal" href="panes/JPG.html#panes-gallery-jpg"><span class="std std-ref">Jpg</span></a></span><a class="headerlink" href="#id13" title="Permalink to this image">¶</a></p>
+</div>
+</div><div class="sphx-glr-thumbcontainer example" tooltip="Json"><div class="figure align-default" id="id14">
+<img alt="../_images/JSON.png" src="../_images/JSON.png"/>
+<p class="caption"><span class="caption-text"><a class="reference internal" href="panes/JSON.html#panes-gallery-json"><span class="std std-ref">Json</span></a></span><a class="headerlink" href="#id14" title="Permalink to this image">¶</a></p>
+</div>
+</div><div class="sphx-glr-thumbcontainer example" tooltip="Latex"><div class="figure align-default" id="id15">
+<img alt="../_images/LaTeX.png" src="../_images/LaTeX.png"/>
+<p class="caption"><span class="caption-text"><a class="reference internal" href="panes/LaTeX.html#panes-gallery-latex"><span class="std std-ref">Latex</span></a></span><a class="headerlink" href="#id15" title="Permalink to this image">¶</a></p>
+</div>
+</div><div class="sphx-glr-thumbcontainer example" tooltip="Markdown"><div class="figure align-default" id="id16">
+<img alt="../_images/Markdown.png" src="../_images/Markdown.png"/>
+<p class="caption"><span class="caption-text"><a class="reference internal" href="panes/Markdown.html#panes-gallery-markdown"><span class="std std-ref">Markdown</span></a></span><a class="headerlink" href="#id16" title="Permalink to this image">¶</a></p>
+</div>
+</div><div class="sphx-glr-thumbcontainer example" tooltip="Matplotlib"><div class="figure align-default" id="id17">
+<img alt="../_images/Matplotlib.png" src="../_images/Matplotlib.png"/>
+<p class="caption"><span class="caption-text"><a class="reference internal" href="panes/Matplotlib.html#panes-gallery-matplotlib"><span class="std std-ref">Matplotlib</span></a></span><a class="headerlink" href="#id17" title="Permalink to this image">¶</a></p>
+</div>
+</div><div class="sphx-glr-thumbcontainer example" tooltip="Png"><div class="figure align-default" id="id18">
+<img alt="../_images/PNG.png" src="../_images/PNG.png"/>
+<p class="caption"><span class="caption-text"><a class="reference internal" href="panes/PNG.html#panes-gallery-png"><span class="std std-ref">Png</span></a></span><a class="headerlink" href="#id18" title="Permalink to this image">¶</a></p>
+</div>
+</div><div class="sphx-glr-thumbcontainer example" tooltip="Param"><div class="figure align-default" id="id19">
+<img alt="../_images/Param.png" src="../_images/Param.png"/>
+<p class="caption"><span class="caption-text"><a class="reference internal" href="panes/Param.html#panes-gallery-param"><span class="std std-ref">Param</span></a></span><a class="headerlink" href="#id19" title="Permalink to this image">¶</a></p>
+</div>
+</div><div class="sphx-glr-thumbcontainer example" tooltip="Perspective"><div class="figure align-default" id="id20">
+<img alt="../_images/Perspective.png" src="../_images/Perspective.png"/>
+<p class="caption"><span class="caption-text"><a class="reference internal" href="panes/Perspective.html#panes-gallery-perspective"><span class="std std-ref">Perspective</span></a></span><a class="headerlink" href="#id20" title="Permalink to this image">¶</a></p>
+</div>
+</div><div class="sphx-glr-thumbcontainer example" tooltip="Plotly"><div class="figure align-default" id="id21">
+<img alt="../_images/Plotly.png" src="../_images/Plotly.png"/>
+<p class="caption"><span class="caption-text"><a class="reference internal" href="panes/Plotly.html#panes-gallery-plotly"><span class="std std-ref">Plotly</span></a></span><a class="headerlink" href="#id21" title="Permalink to this image">¶</a></p>
+</div>
+</div><div class="sphx-glr-thumbcontainer example" tooltip="Svg"><div class="figure align-default" id="id22">
+<img alt="../_images/SVG.png" src="../_images/SVG.png"/>
+<p class="caption"><span class="caption-text"><a class="reference internal" href="panes/SVG.html#panes-gallery-svg"><span class="std std-ref">Svg</span></a></span><a class="headerlink" href="#id22" title="Permalink to this image">¶</a></p>
+</div>
+</div><div class="sphx-glr-thumbcontainer example" tooltip="Str"><div class="figure align-default" id="id23">
+<img alt="../_images/Str.png" src="../_images/Str.png"/>
+<p class="caption"><span class="caption-text"><a class="reference internal" href="panes/Str.html#panes-gallery-str"><span class="std std-ref">Str</span></a></span><a class="headerlink" href="#id23" title="Permalink to this image">¶</a></p>
+</div>
+</div><div class="sphx-glr-thumbcontainer example" tooltip="Streamz"><div class="figure align-default" id="id24">
+<img alt="../_images/Streamz.png" src="../_images/Streamz.png"/>
+<p class="caption"><span class="caption-text"><a class="reference internal" href="panes/Streamz.html#panes-gallery-streamz"><span class="std std-ref">Streamz</span></a></span><a class="headerlink" href="#id24" title="Permalink to this image">¶</a></p>
+</div>
+</div><div class="sphx-glr-thumbcontainer example" tooltip="Vtk"><div class="figure align-default" id="id25">
+<img alt="../_images/VTK.png" src="../_images/VTK.png"/>
+<p class="caption"><span class="caption-text"><a class="reference internal" href="panes/VTK.html#panes-gallery-vtk"><span class="std std-ref">Vtk</span></a></span><a class="headerlink" href="#id25" title="Permalink to this image">¶</a></p>
+</div>
+</div><div class="sphx-glr-thumbcontainer example" tooltip="Vtkjs"><div class="figure align-default" id="id26">
+<img alt="../_images/VTKJS.png" src="../_images/VTKJS.png"/>
+<p class="caption"><span class="caption-text"><a class="reference internal" href="panes/VTKJS.html#panes-gallery-vtkjs"><span class="std std-ref">Vtkjs</span></a></span><a class="headerlink" href="#id26" title="Permalink to this image">¶</a></p>
+</div>
+</div><div class="sphx-glr-thumbcontainer example" tooltip="Vtkvolume"><div class="figure align-default" id="id27">
+<img alt="../_images/VTKVolume.png" src="../_images/VTKVolume.png"/>
+<p class="caption"><span class="caption-text"><a class="reference internal" href="panes/VTKVolume.html#panes-gallery-vtkvolume"><span class="std std-ref">Vtkvolume</span></a></span><a class="headerlink" href="#id27" title="Permalink to this image">¶</a></p>
+</div>
+</div><div class="sphx-glr-thumbcontainer example" tooltip="Vega"><div class="figure align-default" id="id28">
+<img alt="../_images/Vega.png" src="../_images/Vega.png"/>
+<p class="caption"><span class="caption-text"><a class="reference internal" href="panes/Vega.html#panes-gallery-vega"><span class="std std-ref">Vega</span></a></span><a class="headerlink" href="#id28" title="Permalink to this image">¶</a></p>
+</div>
+</div><div class="sphx-glr-thumbcontainer example" tooltip="Video"><div class="figure align-default" id="id29">
+<img alt="../_images/Video.png" src="../_images/Video.png"/>
+<p class="caption"><span class="caption-text"><a class="reference internal" href="panes/Video.html#panes-gallery-video"><span class="std std-ref">Video</span></a></span><a class="headerlink" href="#id29" title="Permalink to this image">¶</a></p>
+</div>
+</div><div style="clear:both"></div></div><div class="section sphx-glr-section" id="layouts-section"><h2>Layouts</h2><div class="sphx-glr-thumbcontainer example" tooltip="Accordion"><div class="figure align-default" id="id30">
+<img alt="../_images/Accordion.png" src="../_images/Accordion.png"/>
+<p class="caption"><span class="caption-text"><a class="reference internal" href="layouts/Accordion.html#layouts-gallery-accordion"><span class="std std-ref">Accordion</span></a></span><a class="headerlink" href="#id30" title="Permalink to this image">¶</a></p>
+</div>
+</div><div class="sphx-glr-thumbcontainer example" tooltip="Card"><div class="figure align-default" id="id31">
+<img alt="../_images/Card.png" src="../_images/Card.png"/>
+<p class="caption"><span class="caption-text"><a class="reference internal" href="layouts/Card.html#layouts-gallery-card"><span class="std std-ref">Card</span></a></span><a class="headerlink" href="#id31" title="Permalink to this image">¶</a></p>
+</div>
+</div><div class="sphx-glr-thumbcontainer example" tooltip="Column"><div class="figure align-default" id="id32">
+<img alt="../_images/Column.png" src="../_images/Column.png"/>
+<p class="caption"><span class="caption-text"><a class="reference internal" href="layouts/Column.html#layouts-gallery-column"><span class="std std-ref">Column</span></a></span><a class="headerlink" href="#id32" title="Permalink to this image">¶</a></p>
+</div>
+</div><div class="sphx-glr-thumbcontainer example" tooltip="Divider"><div class="figure align-default" id="id33">
+<img alt="../_images/Divider.png" src="../_images/Divider.png"/>
+<p class="caption"><span class="caption-text"><a class="reference internal" href="layouts/Divider.html#layouts-gallery-divider"><span class="std std-ref">Divider</span></a></span><a class="headerlink" href="#id33" title="Permalink to this image">¶</a></p>
+</div>
+</div><div class="sphx-glr-thumbcontainer example" tooltip="Gridbox"><div class="figure align-default" id="id34">
+<img alt="../_images/GridBox.png" src="../_images/GridBox.png"/>
+<p class="caption"><span class="caption-text"><a class="reference internal" href="layouts/GridBox.html#layouts-gallery-gridbox"><span class="std std-ref">Gridbox</span></a></span><a class="headerlink" href="#id34" title="Permalink to this image">¶</a></p>
+</div>
+</div><div class="sphx-glr-thumbcontainer example" tooltip="Gridspec"><div class="figure align-default" id="id35">
+<img alt="../_images/GridSpec.png" src="../_images/GridSpec.png"/>
+<p class="caption"><span class="caption-text"><a class="reference internal" href="layouts/GridSpec.html#layouts-gallery-gridspec"><span class="std std-ref">Gridspec</span></a></span><a class="headerlink" href="#id35" title="Permalink to this image">¶</a></p>
+</div>
+</div><div class="sphx-glr-thumbcontainer example" tooltip="Row"><div class="figure align-default" id="id36">
+<img alt="../_images/Row.png" src="../_images/Row.png"/>
+<p class="caption"><span class="caption-text"><a class="reference internal" href="layouts/Row.html#layouts-gallery-row"><span class="std std-ref">Row</span></a></span><a class="headerlink" href="#id36" title="Permalink to this image">¶</a></p>
+</div>
+</div><div class="sphx-glr-thumbcontainer example" tooltip="Tabs"><div class="figure align-default" id="id37">
+<img alt="../_images/Tabs.png" src="../_images/Tabs.png"/>
+<p class="caption"><span class="caption-text"><a class="reference internal" href="layouts/Tabs.html#layouts-gallery-tabs"><span class="std std-ref">Tabs</span></a></span><a class="headerlink" href="#id37" title="Permalink to this image">¶</a></p>
+</div>
+</div><div class="sphx-glr-thumbcontainer example" tooltip="Widgetbox"><div class="figure align-default" id="id38">
+<img alt="../_images/WidgetBox.png" src="../_images/WidgetBox.png"/>
+<p class="caption"><span class="caption-text"><a class="reference internal" href="layouts/WidgetBox.html#layouts-gallery-widgetbox"><span class="std std-ref">Widgetbox</span></a></span><a class="headerlink" href="#id38" title="Permalink to this image">¶</a></p>
+</div>
+</div><div style="clear:both"></div></div><div class="section sphx-glr-section" id="templates-section"><h2>Templates</h2><div class="sphx-glr-thumbcontainer example" tooltip="Bootstrap"><div class="figure align-default" id="id39">
+<img alt="../_images/Bootstrap.png" src="../_images/Bootstrap.png"/>
+<p class="caption"><span class="caption-text"><a class="reference internal" href="templates/Bootstrap.html#templates-gallery-bootstrap"><span class="std std-ref">Bootstrap</span></a></span><a class="headerlink" href="#id39" title="Permalink to this image">¶</a></p>
+</div>
+</div><div class="sphx-glr-thumbcontainer example" tooltip="Fastgridtemplate"><div class="figure align-default" id="id40">
+<img alt="../_images/FastGridTemplate.png" src="../_images/FastGridTemplate.png"/>
+<p class="caption"><span class="caption-text"><a class="reference internal" href="templates/FastGridTemplate.html#templates-gallery-fastgridtemplate"><span class="std std-ref">Fastgridtemplate</span></a></span><a class="headerlink" href="#id40" title="Permalink to this image">¶</a></p>
+</div>
+</div><div class="sphx-glr-thumbcontainer example" tooltip="Fastlisttemplate"><div class="figure align-default" id="id41">
+<img alt="../_images/FastListTemplate.png" src="../_images/FastListTemplate.png"/>
+<p class="caption"><span class="caption-text"><a class="reference internal" href="templates/FastListTemplate.html#templates-gallery-fastlisttemplate"><span class="std std-ref">Fastlisttemplate</span></a></span><a class="headerlink" href="#id41" title="Permalink to this image">¶</a></p>
+</div>
+</div><div class="sphx-glr-thumbcontainer example" tooltip="Goldenlayout"><div class="figure align-default" id="id42">
+<img alt="../_images/GoldenLayout.png" src="../_images/GoldenLayout.png"/>
+<p class="caption"><span class="caption-text"><a class="reference internal" href="templates/GoldenLayout.html#templates-gallery-goldenlayout"><span class="std std-ref">Goldenlayout</span></a></span><a class="headerlink" href="#id42" title="Permalink to this image">¶</a></p>
+</div>
+</div><div class="sphx-glr-thumbcontainer example" tooltip="Material"><div class="figure align-default" id="id43">
+<img alt="../_images/Material.png" src="../_images/Material.png"/>
+<p class="caption"><span class="caption-text"><a class="reference internal" href="templates/Material.html#templates-gallery-material"><span class="std std-ref">Material</span></a></span><a class="headerlink" href="#id43" title="Permalink to this image">¶</a></p>
+</div>
+</div><div class="sphx-glr-thumbcontainer example" tooltip="React"><div class="figure align-default" id="id44">
+<img alt="../_images/React.png" src="../_images/React.png"/>
+<p class="caption"><span class="caption-text"><a class="reference internal" href="templates/React.html#templates-gallery-react"><span class="std std-ref">React</span></a></span><a class="headerlink" href="#id44" title="Permalink to this image">¶</a></p>
+</div>
+</div><div class="sphx-glr-thumbcontainer example" tooltip="Vanilla"><div class="figure align-default" id="id45">
+<img alt="../_images/Vanilla.png" src="../_images/Vanilla.png"/>
+<p class="caption"><span class="caption-text"><a class="reference internal" href="templates/Vanilla.html#templates-gallery-vanilla"><span class="std std-ref">Vanilla</span></a></span><a class="headerlink" href="#id45" title="Permalink to this image">¶</a></p>
+</div>
+</div><div style="clear:both"></div></div><div class="section sphx-glr-section" id="indicators-section"><h2>Indicators</h2><div class="sphx-glr-thumbcontainer example" tooltip="Booleanstatus"><div class="figure align-default" id="id46">
+<img alt="../_images/BooleanStatus.png" src="../_images/BooleanStatus.png"/>
+<p class="caption"><span class="caption-text"><a class="reference internal" href="indicators/BooleanStatus.html#indicators-gallery-booleanstatus"><span class="std std-ref">Booleanstatus</span></a></span><a class="headerlink" href="#id46" title="Permalink to this image">¶</a></p>
+</div>
+</div><div class="sphx-glr-thumbcontainer example" tooltip="Dial"><div class="figure align-default" id="id47">
+<img alt="../_images/Dial.png" src="../_images/Dial.png"/>
+<p class="caption"><span class="caption-text"><a class="reference internal" href="indicators/Dial.html#indicators-gallery-dial"><span class="std std-ref">Dial</span></a></span><a class="headerlink" href="#id47" title="Permalink to this image">¶</a></p>
+</div>
+</div><div class="sphx-glr-thumbcontainer example" tooltip="Gauge"><div class="figure align-default" id="id48">
+<img alt="../_images/Gauge.png" src="../_images/Gauge.png"/>
+<p class="caption"><span class="caption-text"><a class="reference internal" href="indicators/Gauge.html#indicators-gallery-gauge"><span class="std std-ref">Gauge</span></a></span><a class="headerlink" href="#id48" title="Permalink to this image">¶</a></p>
+</div>
+</div><div class="sphx-glr-thumbcontainer example" tooltip="Loadingspinner"><div class="figure align-default" id="id49">
+<img alt="../_images/LoadingSpinner.png" src="../_images/LoadingSpinner.png"/>
+<p class="caption"><span class="caption-text"><a class="reference internal" href="indicators/LoadingSpinner.html#indicators-gallery-loadingspinner"><span class="std std-ref">Loadingspinner</span></a></span><a class="headerlink" href="#id49" title="Permalink to this image">¶</a></p>
+</div>
+</div><div class="sphx-glr-thumbcontainer example" tooltip="Number"><div class="figure align-default" id="id50">
+<img alt="../_images/Number.png" src="../_images/Number.png"/>
+<p class="caption"><span class="caption-text"><a class="reference internal" href="indicators/Number.html#indicators-gallery-number"><span class="std std-ref">Number</span></a></span><a class="headerlink" href="#id50" title="Permalink to this image">¶</a></p>
+</div>
+</div><div class="sphx-glr-thumbcontainer example" tooltip="Progress"><div class="figure align-default" id="id51">
+<img alt="../_images/Progress.png" src="../_images/Progress.png"/>
+<p class="caption"><span class="caption-text"><a class="reference internal" href="indicators/Progress.html#indicators-gallery-progress"><span class="std std-ref">Progress</span></a></span><a class="headerlink" href="#id51" title="Permalink to this image">¶</a></p>
+</div>
+</div><div class="sphx-glr-thumbcontainer example" tooltip="Trend"><div class="figure align-default" id="id52">
+<img alt="../_images/Trend.png" src="../_images/Trend.png"/>
+<p class="caption"><span class="caption-text"><a class="reference internal" href="indicators/Trend.html#indicators-gallery-trend"><span class="std std-ref">Trend</span></a></span><a class="headerlink" href="#id52" title="Permalink to this image">¶</a></p>
+</div>
+</div><div style="clear:both"></div></div><div class="section sphx-glr-section" id="widgets-section"><h2>Widgets</h2><div class="sphx-glr-thumbcontainer example" tooltip="Ace"><div class="figure align-default" id="id53">
+<img alt="../_images/Ace1.png" src="../_images/Ace1.png"/>
+<p class="caption"><span class="caption-text"><a class="reference internal" href="widgets/Ace.html#widgets-gallery-ace"><span class="std std-ref">Ace</span></a></span><a class="headerlink" href="#id53" title="Permalink to this image">¶</a></p>
+</div>
+</div><div class="sphx-glr-thumbcontainer example" tooltip="Audio"><div class="figure align-default" id="id54">
+<img alt="../_images/Audio1.png" src="../_images/Audio1.png"/>
+<p class="caption"><span class="caption-text"><a class="reference internal" href="widgets/Audio.html#widgets-gallery-audio"><span class="std std-ref">Audio</span></a></span><a class="headerlink" href="#id54" title="Permalink to this image">¶</a></p>
+</div>
+</div><div class="sphx-glr-thumbcontainer example" tooltip="Autocompleteinput"><div class="figure align-default" id="id55">
+<img alt="../_images/AutocompleteInput.png" src="../_images/AutocompleteInput.png"/>
+<p class="caption"><span class="caption-text"><a class="reference internal" href="widgets/AutocompleteInput.html#widgets-gallery-autocompleteinput"><span class="std std-ref">Autocompleteinput</span></a></span><a class="headerlink" href="#id55" title="Permalink to this image">¶</a></p>
+</div>
+</div><div class="sphx-glr-thumbcontainer example" tooltip="Button"><div class="figure align-default" id="id56">
+<img alt="../_images/Button.png" src="../_images/Button.png"/>
+<p class="caption"><span class="caption-text"><a class="reference internal" href="widgets/Button.html#widgets-gallery-button"><span class="std std-ref">Button</span></a></span><a class="headerlink" href="#id56" title="Permalink to this image">¶</a></p>
+</div>
+</div><div class="sphx-glr-thumbcontainer example" tooltip="Checkboxgroup"><div class="figure align-default" id="id57">
+<img alt="../_images/CheckBoxGroup.png" src="../_images/CheckBoxGroup.png"/>
+<p class="caption"><span class="caption-text"><a class="reference internal" href="widgets/CheckBoxGroup.html#widgets-gallery-checkboxgroup"><span class="std std-ref">Checkboxgroup</span></a></span><a class="headerlink" href="#id57" title="Permalink to this image">¶</a></p>
+</div>
+</div><div class="sphx-glr-thumbcontainer example" tooltip="Checkbuttongroup"><div class="figure align-default" id="id58">
+<img alt="../_images/CheckButtonGroup.png" src="../_images/CheckButtonGroup.png"/>
+<p class="caption"><span class="caption-text"><a class="reference internal" href="widgets/CheckButtonGroup.html#widgets-gallery-checkbuttongroup"><span class="std std-ref">Checkbuttongroup</span></a></span><a class="headerlink" href="#id58" title="Permalink to this image">¶</a></p>
+</div>
+</div><div class="sphx-glr-thumbcontainer example" tooltip="Checkbox"><div class="figure align-default" id="id59">
+<img alt="../_images/Checkbox.png" src="../_images/Checkbox.png"/>
+<p class="caption"><span class="caption-text"><a class="reference internal" href="widgets/Checkbox.html#widgets-gallery-checkbox"><span class="std std-ref">Checkbox</span></a></span><a class="headerlink" href="#id59" title="Permalink to this image">¶</a></p>
+</div>
+</div><div class="sphx-glr-thumbcontainer example" tooltip="Colorpicker"><div class="figure align-default" id="id60">
+<img alt="../_images/ColorPicker.png" src="../_images/ColorPicker.png"/>
+<p class="caption"><span class="caption-text"><a class="reference internal" href="widgets/ColorPicker.html#widgets-gallery-colorpicker"><span class="std std-ref">Colorpicker</span></a></span><a class="headerlink" href="#id60" title="Permalink to this image">¶</a></p>
+</div>
+</div><div class="sphx-glr-thumbcontainer example" tooltip="Crossselector"><div class="figure align-default" id="id61">
+<img alt="../_images/CrossSelector.png" src="../_images/CrossSelector.png"/>
+<p class="caption"><span class="caption-text"><a class="reference internal" href="widgets/CrossSelector.html#widgets-gallery-crossselector"><span class="std std-ref">Crossselector</span></a></span><a class="headerlink" href="#id61" title="Permalink to this image">¶</a></p>
+</div>
+</div><div class="sphx-glr-thumbcontainer example" tooltip="Dataframe"><div class="figure align-default" id="id62">
+<img alt="../_images/DataFrame1.png" src="../_images/DataFrame1.png"/>
+<p class="caption"><span class="caption-text"><a class="reference internal" href="widgets/DataFrame.html#widgets-gallery-dataframe"><span class="std std-ref">Dataframe</span></a></span><a class="headerlink" href="#id62" title="Permalink to this image">¶</a></p>
+</div>
+</div><div class="sphx-glr-thumbcontainer example" tooltip="Datepicker"><div class="figure align-default" id="id63">
+<img alt="../_images/DatePicker.png" src="../_images/DatePicker.png"/>
+<p class="caption"><span class="caption-text"><a class="reference internal" href="widgets/DatePicker.html#widgets-gallery-datepicker"><span class="std std-ref">Datepicker</span></a></span><a class="headerlink" href="#id63" title="Permalink to this image">¶</a></p>
+</div>
+</div><div class="sphx-glr-thumbcontainer example" tooltip="Daterangeslider"><div class="figure align-default" id="id64">
+<img alt="../_images/DateRangeSlider.png" src="../_images/DateRangeSlider.png"/>
+<p class="caption"><span class="caption-text"><a class="reference internal" href="widgets/DateRangeSlider.html#widgets-gallery-daterangeslider"><span class="std std-ref">Daterangeslider</span></a></span><a class="headerlink" href="#id64" title="Permalink to this image">¶</a></p>
+</div>
+</div><div class="sphx-glr-thumbcontainer example" tooltip="Dateslider"><div class="figure align-default" id="id65">
+<img alt="../_images/DateSlider.png" src="../_images/DateSlider.png"/>
+<p class="caption"><span class="caption-text"><a class="reference internal" href="widgets/DateSlider.html#widgets-gallery-dateslider"><span class="std std-ref">Dateslider</span></a></span><a class="headerlink" href="#id65" title="Permalink to this image">¶</a></p>
+</div>
+</div><div class="sphx-glr-thumbcontainer example" tooltip="Datetimeinput"><div class="figure align-default" id="id66">
+<img alt="../_images/DatetimeInput.png" src="../_images/DatetimeInput.png"/>
+<p class="caption"><span class="caption-text"><a class="reference internal" href="widgets/DatetimeInput.html#widgets-gallery-datetimeinput"><span class="std std-ref">Datetimeinput</span></a></span><a class="headerlink" href="#id66" title="Permalink to this image">¶</a></p>
+</div>
+</div><div class="sphx-glr-thumbcontainer example" tooltip="Datetimerangeinput"><div class="figure align-default" id="id67">
+<img alt="../_images/DatetimeRangeInput.png" src="../_images/DatetimeRangeInput.png"/>
+<p class="caption"><span class="caption-text"><a class="reference internal" href="widgets/DatetimeRangeInput.html#widgets-gallery-datetimerangeinput"><span class="std std-ref">Datetimerangeinput</span></a></span><a class="headerlink" href="#id67" title="Permalink to this image">¶</a></p>
+</div>
+</div><div class="sphx-glr-thumbcontainer example" tooltip="Discreteplayer"><div class="figure align-default" id="id68">
+<img alt="../_images/DiscretePlayer.png" src="../_images/DiscretePlayer.png"/>
+<p class="caption"><span class="caption-text"><a class="reference internal" href="widgets/DiscretePlayer.html#widgets-gallery-discreteplayer"><span class="std std-ref">Discreteplayer</span></a></span><a class="headerlink" href="#id68" title="Permalink to this image">¶</a></p>
+</div>
+</div><div class="sphx-glr-thumbcontainer example" tooltip="Discreteslider"><div class="figure align-default" id="id69">
+<img alt="../_images/DiscreteSlider.png" src="../_images/DiscreteSlider.png"/>
+<p class="caption"><span class="caption-text"><a class="reference internal" href="widgets/DiscreteSlider.html#widgets-gallery-discreteslider"><span class="std std-ref">Discreteslider</span></a></span><a class="headerlink" href="#id69" title="Permalink to this image">¶</a></p>
+</div>
+</div><div class="sphx-glr-thumbcontainer example" tooltip="Filedownload"><div class="figure align-default" id="id70">
+<img alt="../_images/FileDownload.png" src="../_images/FileDownload.png"/>
+<p class="caption"><span class="caption-text"><a class="reference internal" href="widgets/FileDownload.html#widgets-gallery-filedownload"><span class="std std-ref">Filedownload</span></a></span><a class="headerlink" href="#id70" title="Permalink to this image">¶</a></p>
+</div>
+</div><div class="sphx-glr-thumbcontainer example" tooltip="Fileinput"><div class="figure align-default" id="id71">
+<img alt="../_images/FileInput.png" src="../_images/FileInput.png"/>
+<p class="caption"><span class="caption-text"><a class="reference internal" href="widgets/FileInput.html#widgets-gallery-fileinput"><span class="std std-ref">Fileinput</span></a></span><a class="headerlink" href="#id71" title="Permalink to this image">¶</a></p>
+</div>
+</div><div class="sphx-glr-thumbcontainer example" tooltip="Fileselector"><div class="figure align-default" id="id72">
+<img alt="../_images/FileSelector.png" src="../_images/FileSelector.png"/>
+<p class="caption"><span class="caption-text"><a class="reference internal" href="widgets/FileSelector.html#widgets-gallery-fileselector"><span class="std std-ref">Fileselector</span></a></span><a class="headerlink" href="#id72" title="Permalink to this image">¶</a></p>
+</div>
+</div><div class="sphx-glr-thumbcontainer example" tooltip="Floatinput"><div class="figure align-default" id="id73">
+<img alt="../_images/FloatInput.png" src="../_images/FloatInput.png"/>
+<p class="caption"><span class="caption-text"><a class="reference internal" href="widgets/FloatInput.html#widgets-gallery-floatinput"><span class="std std-ref">Floatinput</span></a></span><a class="headerlink" href="#id73" title="Permalink to this image">¶</a></p>
+</div>
+</div><div class="sphx-glr-thumbcontainer example" tooltip="Floatslider"><div class="figure align-default" id="id74">
+<img alt="../_images/FloatSlider.png" src="../_images/FloatSlider.png"/>
+<p class="caption"><span class="caption-text"><a class="reference internal" href="widgets/FloatSlider.html#widgets-gallery-floatslider"><span class="std std-ref">Floatslider</span></a></span><a class="headerlink" href="#id74" title="Permalink to this image">¶</a></p>
+</div>
+</div><div class="sphx-glr-thumbcontainer example" tooltip="Intinput"><div class="figure align-default" id="id75">
+<img alt="../_images/IntInput.png" src="../_images/IntInput.png"/>
+<p class="caption"><span class="caption-text"><a class="reference internal" href="widgets/IntInput.html#widgets-gallery-intinput"><span class="std std-ref">Intinput</span></a></span><a class="headerlink" href="#id75" title="Permalink to this image">¶</a></p>
+</div>
+</div><div class="sphx-glr-thumbcontainer example" tooltip="Intrangeslider"><div class="figure align-default" id="id76">
+<img alt="../_images/IntRangeSlider.png" src="../_images/IntRangeSlider.png"/>
+<p class="caption"><span class="caption-text"><a class="reference internal" href="widgets/IntRangeSlider.html#widgets-gallery-intrangeslider"><span class="std std-ref">Intrangeslider</span></a></span><a class="headerlink" href="#id76" title="Permalink to this image">¶</a></p>
+</div>
+</div><div class="sphx-glr-thumbcontainer example" tooltip="Intslider"><div class="figure align-default" id="id77">
+<img alt="../_images/IntSlider.png" src="../_images/IntSlider.png"/>
+<p class="caption"><span class="caption-text"><a class="reference internal" href="widgets/IntSlider.html#widgets-gallery-intslider"><span class="std std-ref">Intslider</span></a></span><a class="headerlink" href="#id77" title="Permalink to this image">¶</a></p>
+</div>
+</div><div class="sphx-glr-thumbcontainer example" tooltip="Literalinput"><div class="figure align-default" id="id78">
+<img alt="../_images/LiteralInput.png" src="../_images/LiteralInput.png"/>
+<p class="caption"><span class="caption-text"><a class="reference internal" href="widgets/LiteralInput.html#widgets-gallery-literalinput"><span class="std std-ref">Literalinput</span></a></span><a class="headerlink" href="#id78" title="Permalink to this image">¶</a></p>
+</div>
+</div><div class="sphx-glr-thumbcontainer example" tooltip="Menubutton"><div class="figure align-default" id="id79">
+<img alt="../_images/MenuButton.png" src="../_images/MenuButton.png"/>
+<p class="caption"><span class="caption-text"><a class="reference internal" href="widgets/MenuButton.html#widgets-gallery-menubutton"><span class="std std-ref">Menubutton</span></a></span><a class="headerlink" href="#id79" title="Permalink to this image">¶</a></p>
+</div>
+</div><div class="sphx-glr-thumbcontainer example" tooltip="Multichoice"><div class="figure align-default" id="id80">
+<img alt="../_images/MultiChoice.png" src="../_images/MultiChoice.png"/>
+<p class="caption"><span class="caption-text"><a class="reference internal" href="widgets/MultiChoice.html#widgets-gallery-multichoice"><span class="std std-ref">Multichoice</span></a></span><a class="headerlink" href="#id80" title="Permalink to this image">¶</a></p>
+</div>
+</div><div class="sphx-glr-thumbcontainer example" tooltip="Multiselect"><div class="figure align-default" id="id81">
+<img alt="../_images/MultiSelect.png" src="../_images/MultiSelect.png"/>
+<p class="caption"><span class="caption-text"><a class="reference internal" href="widgets/MultiSelect.html#widgets-gallery-multiselect"><span class="std std-ref">Multiselect</span></a></span><a class="headerlink" href="#id81" title="Permalink to this image">¶</a></p>
+</div>
+</div><div class="sphx-glr-thumbcontainer example" tooltip="Passwordinput"><div class="figure align-default" id="id82">
+<img alt="../_images/PasswordInput.png" src="../_images/PasswordInput.png"/>
+<p class="caption"><span class="caption-text"><a class="reference internal" href="widgets/PasswordInput.html#widgets-gallery-passwordinput"><span class="std std-ref">Passwordinput</span></a></span><a class="headerlink" href="#id82" title="Permalink to this image">¶</a></p>
+</div>
+</div><div class="sphx-glr-thumbcontainer example" tooltip="Player"><div class="figure align-default" id="id83">
+<img alt="../_images/Player.png" src="../_images/Player.png"/>
+<p class="caption"><span class="caption-text"><a class="reference internal" href="widgets/Player.html#widgets-gallery-player"><span class="std std-ref">Player</span></a></span><a class="headerlink" href="#id83" title="Permalink to this image">¶</a></p>
+</div>
+</div><div class="sphx-glr-thumbcontainer example" tooltip="Progress"><div class="figure align-default" id="id84">
+<img alt="../_images/Progress1.png" src="../_images/Progress1.png"/>
+<p class="caption"><span class="caption-text"><a class="reference internal" href="widgets/Progress.html#widgets-gallery-progress"><span class="std std-ref">Progress</span></a></span><a class="headerlink" href="#id84" title="Permalink to this image">¶</a></p>
+</div>
+</div><div class="sphx-glr-thumbcontainer example" tooltip="Radioboxgroup"><div class="figure align-default" id="id85">
+<img alt="../_images/RadioBoxGroup.png" src="../_images/RadioBoxGroup.png"/>
+<p class="caption"><span class="caption-text"><a class="reference internal" href="widgets/RadioBoxGroup.html#widgets-gallery-radioboxgroup"><span class="std std-ref">Radioboxgroup</span></a></span><a class="headerlink" href="#id85" title="Permalink to this image">¶</a></p>
+</div>
+</div><div class="sphx-glr-thumbcontainer example" tooltip="Radiobuttongroup"><div class="figure align-default" id="id86">
+<img alt="../_images/RadioButtonGroup.png" src="../_images/RadioButtonGroup.png"/>
+<p class="caption"><span class="caption-text"><a class="reference internal" href="widgets/RadioButtonGroup.html#widgets-gallery-radiobuttongroup"><span class="std std-ref">Radiobuttongroup</span></a></span><a class="headerlink" href="#id86" title="Permalink to this image">¶</a></p>
+</div>
+</div><div class="sphx-glr-thumbcontainer example" tooltip="Rangeslider"><div class="figure align-default" id="id87">
+<img alt="../_images/RangeSlider.png" src="../_images/RangeSlider.png"/>
+<p class="caption"><span class="caption-text"><a class="reference internal" href="widgets/RangeSlider.html#widgets-gallery-rangeslider"><span class="std std-ref">Rangeslider</span></a></span><a class="headerlink" href="#id87" title="Permalink to this image">¶</a></p>
+</div>
+</div><div class="sphx-glr-thumbcontainer example" tooltip="Select"><div class="figure align-default" id="id88">
+<img alt="../_images/Select.png" src="../_images/Select.png"/>
+<p class="caption"><span class="caption-text"><a class="reference internal" href="widgets/Select.html#widgets-gallery-select"><span class="std std-ref">Select</span></a></span><a class="headerlink" href="#id88" title="Permalink to this image">¶</a></p>
+</div>
+</div><div class="sphx-glr-thumbcontainer example" tooltip="Speechtotext"><div class="figure align-default" id="id89">
+<img alt="../_images/SpeechToText.png" src="../_images/SpeechToText.png"/>
+<p class="caption"><span class="caption-text"><a class="reference internal" href="widgets/SpeechToText.html#widgets-gallery-speechtotext"><span class="std std-ref">Speechtotext</span></a></span><a class="headerlink" href="#id89" title="Permalink to this image">¶</a></p>
+</div>
+</div><div class="sphx-glr-thumbcontainer example" tooltip="Statictext"><div class="figure align-default" id="id90">
+<img alt="../_images/StaticText.png" src="../_images/StaticText.png"/>
+<p class="caption"><span class="caption-text"><a class="reference internal" href="widgets/StaticText.html#widgets-gallery-statictext"><span class="std std-ref">Statictext</span></a></span><a class="headerlink" href="#id90" title="Permalink to this image">¶</a></p>
+</div>
+</div><div class="sphx-glr-thumbcontainer example" tooltip="Tabulator"><div class="figure align-default" id="id91">
+<img alt="../_images/Tabulator.png" src="../_images/Tabulator.png"/>
+<p class="caption"><span class="caption-text"><a class="reference internal" href="widgets/Tabulator.html#widgets-gallery-tabulator"><span class="std std-ref">Tabulator</span></a></span><a class="headerlink" href="#id91" title="Permalink to this image">¶</a></p>
+</div>
+</div><div class="sphx-glr-thumbcontainer example" tooltip="Textareainput"><div class="figure align-default" id="id92">
+<img alt="../_images/TextAreaInput.png" src="../_images/TextAreaInput.png"/>
+<p class="caption"><span class="caption-text"><a class="reference internal" href="widgets/TextAreaInput.html#widgets-gallery-textareainput"><span class="std std-ref">Textareainput</span></a></span><a class="headerlink" href="#id92" title="Permalink to this image">¶</a></p>
+</div>
+</div><div class="sphx-glr-thumbcontainer example" tooltip="Textinput"><div class="figure align-default" id="id93">
+<img alt="../_images/TextInput.png" src="../_images/TextInput.png"/>
+<p class="caption"><span class="caption-text"><a class="reference internal" href="widgets/TextInput.html#widgets-gallery-textinput"><span class="std std-ref">Textinput</span></a></span><a class="headerlink" href="#id93" title="Permalink to this image">¶</a></p>
+</div>
+</div><div class="sphx-glr-thumbcontainer example" tooltip="Texttospeech"><div class="figure align-default" id="id94">
+<img alt="../_images/TextToSpeech.png" src="../_images/TextToSpeech.png"/>
+<p class="caption"><span class="caption-text"><a class="reference internal" href="widgets/TextToSpeech.html#widgets-gallery-texttospeech"><span class="std std-ref">Texttospeech</span></a></span><a class="headerlink" href="#id94" title="Permalink to this image">¶</a></p>
+</div>
+</div><div class="sphx-glr-thumbcontainer example" tooltip="Toggle"><div class="figure align-default" id="id95">
+<img alt="../_images/Toggle.png" src="../_images/Toggle.png"/>
+<p class="caption"><span class="caption-text"><a class="reference internal" href="widgets/Toggle.html#widgets-gallery-toggle"><span class="std std-ref">Toggle</span></a></span><a class="headerlink" href="#id95" title="Permalink to this image">¶</a></p>
+</div>
+</div><div class="sphx-glr-thumbcontainer example" tooltip="Videostream"><div class="figure align-default" id="id96">
+<img alt="../_images/VideoStream.png" src="../_images/VideoStream.png"/>
+<p class="caption"><span class="caption-text"><a class="reference internal" href="widgets/VideoStream.html#widgets-gallery-videostream"><span class="std std-ref">Videostream</span></a></span><a class="headerlink" href="#id96" title="Permalink to this image">¶</a></p>
+</div>
+</div><div style="clear:both"></div></div></div>
+</div>
+</div>
+<!-- END MAIN BODY OF DOCS ––––––––––––– -->
+<!-- Google Analytics -->
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async="" src="https://www.googletagmanager.com/gtag/js?id=UA-154795830-2"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-154795830-2', { 'anonymize_ip': true });
+</script>
+<!-- MathJax Config -->
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}
+});
+</script>
+<!-- End Document
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+</body>
+</html>

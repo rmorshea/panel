@@ -1,0 +1,935 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<!-- Basic Page Needs
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+<meta charset="utf-8"/>
+<title>panel.viewable — Panel 0.11.1+g238199f-dirty documentation</title>
+<meta content="High-level dashboarding for python visualization libraries" name="description"/>
+<meta content="Panel contributors" name="author"/>
+<!-- Mobile Specific Metas
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<!-- FONT
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+<script src="https://ajax.googleapis.com/ajax/libs/webfont/1.6.16/webfont.js"></script>
+<script>
+    WebFont.load({
+      google: {
+        families: ['Source Sans Pro']
+      }
+    });
+  </script>
+<!-- CSS
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+<link href="../../_static/css/main.css" rel="stylesheet"/>
+<link href="../../_static/nbsite.css" rel="stylesheet"/>
+<link href="../../_static/site.css" rel="stylesheet"/>
+<!-- Scripts
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script async="" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML" type="text/javascript">
+</script>
+<script src="../../_static/js/main.js"></script>
+<!-- Favicon
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+<link href="../../_static/favicon.ico" rel="icon" type="image/png"/>
+<!-- Canonical
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+<link href="https://panel.holoviz.org/_modules/panel/viewable.html" rel="canonical">
+</link></head>
+<body class="">
+<header class="navigation">
+<div class="wrapper">
+<a class="logo" href="../../index.html">
+<img alt="Logo" src="../../_static/logo_horizontal.png"/>
+</a>
+<a class="navigation-menu-button" href="javascript:void(0)" id="js-mobile-menu">Menu</a>
+<nav>
+<ul class="navigation-menu show" id="js-navigation-menu">
+<li class="nav-link doc-head"><a href="//discourse.holoviz.org">Discourse</a></li>
+<li class="nav-link doc-head"><a href="//twitter.com/Panel_org">Twitter</a></li>
+<li class="nav-link doc-head"><a href="//github.com/pyviz/panel">Github</a></li>
+<li class="nav-link">
+<div style="display:inline-block;vertical-align: middle;">
+<div class="search-bar">
+<form action="../../search.html" method="get" role="search">
+<input name="q" placeholder="Search" type="search"/>
+<button type="submit">
+<img alt="Search Icon" src="https://raw.githubusercontent.com/thoughtbot/refills/master/source/images/search-icon-black.png"/>
+</button>
+</form>
+</div>
+</div>
+</li>
+</ul>
+</nav>
+</div>
+</header>
+<div class="second-nav">
+<nav>
+<ul class="navigation-menu show">
+<li class="nav-link doc-head"><a href="../../getting_started/index.html">Getting started</a></li>
+<li class="nav-link doc-head"><a href="../../user_guide/index.html">User Guide</a></li>
+<li class="nav-link doc-head"><a href="../../gallery/index.html">Gallery</a></li>
+<li class="nav-link doc-head"><a href="../../reference/index.html">Reference Gallery</a></li>
+<li class="nav-link doc-head"><a href="../../developer_guide/index.html">Developer Guide</a></li>
+<li class="nav-link doc-head"><a href="../../releases.html">Releases</a></li>
+<li class="nav-link doc-head"><a href="../../api/index.html">API</a></li>
+<li class="nav-link doc-head"><a href="../../FAQ.html">FAQ</a></li>
+<li class="nav-link doc-head"><a href="../../about.html">About</a></li>
+</ul>
+</nav>
+</div>
+<!-- MAIN BODY OF DOCS –––––––––––––––––– -->
+<div class="docs section">
+<div id="hacketyhackhack"> <!-- style="width:20%;margin-right: 100px;"> --> <!--style="display: none;"> style="display:none;"> -->
+<div class="toc" style="width:15%; margin-right:20px;">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../index.html">Home</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../getting_started/index.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../user_guide/index.html">User Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../gallery/index.html">Gallery</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../reference/index.html">Reference Gallery</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../developer_guide/index.html">Developer Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../api/index.html">API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Comparisons.html">Comparisons</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../releases.html">Releases</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Roadmap.html">Road Map</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../FAQ.html">FAQ</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://github.com/pyviz/panel">Github source</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../about.html">About</a></li>
+</ul>
+</div>
+</div>
+<div class="content"> <!-- style="max-width:80%;margin-left:auto;margin-right: auto;">-->
+<h1>Source code for panel.viewable</h1><div class="highlight"><pre>
+<span></span><span class="sd">"""</span>
+<span class="sd">Defines the baseclasses that make a component render to a bokeh model</span>
+<span class="sd">and become viewable including:</span>
+
+<span class="sd">* Layoutable: Defines parameters concerned with layout and style</span>
+<span class="sd">* ServableMixin: Mixin class that defines methods to serve object on server</span>
+<span class="sd">* Renderable: Defines methods to render a component as a bokeh model</span>
+<span class="sd">* Viewable: Defines methods to view the component in the</span>
+<span class="sd">  notebook, on the server or in static exports</span>
+<span class="sd">"""</span>
+<span class="kn">import</span> <span class="nn">datetime</span> <span class="k">as</span> <span class="nn">dt</span>
+<span class="kn">import</span> <span class="nn">logging</span>
+<span class="kn">import</span> <span class="nn">sys</span>
+<span class="kn">import</span> <span class="nn">traceback</span>
+<span class="kn">import</span> <span class="nn">uuid</span>
+
+<span class="kn">from</span> <span class="nn">functools</span> <span class="kn">import</span> <span class="n">partial</span>
+
+<span class="kn">import</span> <span class="nn">param</span>
+
+<span class="kn">from</span> <span class="nn">bokeh.document.document</span> <span class="kn">import</span> <span class="n">Document</span> <span class="k">as</span> <span class="n">_Document</span>
+<span class="kn">from</span> <span class="nn">bokeh.io</span> <span class="kn">import</span> <span class="n">curdoc</span> <span class="k">as</span> <span class="n">_curdoc</span>
+<span class="kn">from</span> <span class="nn">pyviz_comms</span> <span class="kn">import</span> <span class="n">JupyterCommManager</span>
+
+<span class="kn">from</span> <span class="nn">.config</span> <span class="kn">import</span> <span class="n">config</span><span class="p">,</span> <span class="n">panel_extension</span>
+<span class="kn">from</span> <span class="nn">.io.embed</span> <span class="kn">import</span> <span class="n">embed_state</span>
+<span class="kn">from</span> <span class="nn">.io.loading</span> <span class="kn">import</span> <span class="n">start_loading_spinner</span><span class="p">,</span> <span class="n">stop_loading_spinner</span>
+<span class="kn">from</span> <span class="nn">.io.model</span> <span class="kn">import</span> <span class="n">add_to_doc</span><span class="p">,</span> <span class="n">patch_cds_msg</span>
+<span class="kn">from</span> <span class="nn">.io.notebook</span> <span class="kn">import</span> <span class="p">(</span>
+    <span class="n">ipywidget</span><span class="p">,</span> <span class="n">render_mimebundle</span><span class="p">,</span> <span class="n">render_model</span><span class="p">,</span> <span class="n">show_embed</span><span class="p">,</span> <span class="n">show_server</span>
+<span class="p">)</span>
+<span class="kn">from</span> <span class="nn">.io.save</span> <span class="kn">import</span> <span class="n">save</span>
+<span class="kn">from</span> <span class="nn">.io.state</span> <span class="kn">import</span> <span class="n">state</span>
+<span class="kn">from</span> <span class="nn">.io.server</span> <span class="kn">import</span> <span class="n">init_doc</span><span class="p">,</span> <span class="n">serve</span>
+<span class="kn">from</span> <span class="nn">.util</span> <span class="kn">import</span> <span class="n">escape</span><span class="p">,</span> <span class="n">param_reprs</span>
+
+
+<div class="viewcode-block" id="Layoutable"><a class="viewcode-back" href="../../api/panel.viewable.html#panel.viewable.Layoutable">[docs]</a><span class="k">class</span> <span class="nc">Layoutable</span><span class="p">(</span><span class="n">param</span><span class="o">.</span><span class="n">Parameterized</span><span class="p">):</span>
+    <span class="sd">"""</span>
+<span class="sd">    Layoutable defines shared style and layout related parameters</span>
+<span class="sd">    for all Panel components with a visual representation.</span>
+<span class="sd">    """</span>
+
+    <span class="n">align</span> <span class="o">=</span> <span class="n">param</span><span class="o">.</span><span class="n">ClassSelector</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="s1">'start'</span><span class="p">,</span>
+                                <span class="n">class_</span><span class="o">=</span><span class="p">(</span><span class="nb">str</span><span class="p">,</span> <span class="nb">tuple</span><span class="p">),</span> <span class="n">doc</span><span class="o">=</span><span class="s2">"""</span>
+<span class="s2">        Whether the object should be aligned with the start, end or</span>
+<span class="s2">        center of its container. If set as a tuple it will declare</span>
+<span class="s2">        (vertical, horizontal) alignment."""</span><span class="p">)</span>
+
+    <span class="n">aspect_ratio</span> <span class="o">=</span> <span class="n">param</span><span class="o">.</span><span class="n">Parameter</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="s2">"""</span>
+<span class="s2">        Describes the proportional relationship between component's</span>
+<span class="s2">        width and height.  This works if any of component's dimensions</span>
+<span class="s2">        are flexible in size. If set to a number, ``width / height =</span>
+<span class="s2">        aspect_ratio`` relationship will be maintained.  Otherwise, if</span>
+<span class="s2">        set to ``"auto"``, component's preferred width and height will</span>
+<span class="s2">        be used to determine the aspect (if not set, no aspect will be</span>
+<span class="s2">        preserved)."""</span><span class="p">)</span>
+
+    <span class="n">background</span> <span class="o">=</span> <span class="n">param</span><span class="o">.</span><span class="n">Parameter</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="s2">"""</span>
+<span class="s2">        Background color of the component."""</span><span class="p">)</span>
+
+    <span class="n">css_classes</span> <span class="o">=</span> <span class="n">param</span><span class="o">.</span><span class="n">List</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="s2">"""</span>
+<span class="s2">        CSS classes to apply to the layout."""</span><span class="p">)</span>
+
+    <span class="n">width</span> <span class="o">=</span> <span class="n">param</span><span class="o">.</span><span class="n">Integer</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">bounds</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="kc">None</span><span class="p">),</span> <span class="n">doc</span><span class="o">=</span><span class="s2">"""</span>
+<span class="s2">        The width of the component (in pixels). This can be either</span>
+<span class="s2">        fixed or preferred width, depending on width sizing policy."""</span><span class="p">)</span>
+
+    <span class="n">height</span> <span class="o">=</span> <span class="n">param</span><span class="o">.</span><span class="n">Integer</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">bounds</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="kc">None</span><span class="p">),</span> <span class="n">doc</span><span class="o">=</span><span class="s2">"""</span>
+<span class="s2">        The height of the component (in pixels).  This can be either</span>
+<span class="s2">        fixed or preferred height, depending on height sizing policy."""</span><span class="p">)</span>
+
+    <span class="n">min_width</span> <span class="o">=</span> <span class="n">param</span><span class="o">.</span><span class="n">Integer</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">bounds</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="kc">None</span><span class="p">),</span> <span class="n">doc</span><span class="o">=</span><span class="s2">"""</span>
+<span class="s2">        Minimal width of the component (in pixels) if width is adjustable."""</span><span class="p">)</span>
+
+    <span class="n">min_height</span> <span class="o">=</span> <span class="n">param</span><span class="o">.</span><span class="n">Integer</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">bounds</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="kc">None</span><span class="p">),</span> <span class="n">doc</span><span class="o">=</span><span class="s2">"""</span>
+<span class="s2">        Minimal height of the component (in pixels) if height is adjustable."""</span><span class="p">)</span>
+
+    <span class="n">max_width</span> <span class="o">=</span> <span class="n">param</span><span class="o">.</span><span class="n">Integer</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">bounds</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="kc">None</span><span class="p">),</span> <span class="n">doc</span><span class="o">=</span><span class="s2">"""</span>
+<span class="s2">        Minimal width of the component (in pixels) if width is adjustable."""</span><span class="p">)</span>
+
+    <span class="n">max_height</span> <span class="o">=</span> <span class="n">param</span><span class="o">.</span><span class="n">Integer</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">bounds</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="kc">None</span><span class="p">),</span> <span class="n">doc</span><span class="o">=</span><span class="s2">"""</span>
+<span class="s2">        Minimal height of the component (in pixels) if height is adjustable."""</span><span class="p">)</span>
+
+    <span class="n">margin</span> <span class="o">=</span> <span class="n">param</span><span class="o">.</span><span class="n">Parameter</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="s2">"""</span>
+<span class="s2">        Allows to create additional space around the component. May</span>
+<span class="s2">        be specified as a two-tuple of the form (vertical, horizontal)</span>
+<span class="s2">        or a four-tuple (top, right, bottom, left)."""</span><span class="p">)</span>
+
+    <span class="n">width_policy</span> <span class="o">=</span> <span class="n">param</span><span class="o">.</span><span class="n">ObjectSelector</span><span class="p">(</span>
+        <span class="n">default</span><span class="o">=</span><span class="s2">"auto"</span><span class="p">,</span> <span class="n">objects</span><span class="o">=</span><span class="p">[</span><span class="s1">'auto'</span><span class="p">,</span> <span class="s1">'fixed'</span><span class="p">,</span> <span class="s1">'fit'</span><span class="p">,</span> <span class="s1">'min'</span><span class="p">,</span> <span class="s1">'max'</span><span class="p">],</span> <span class="n">doc</span><span class="o">=</span><span class="s2">"""</span>
+<span class="s2">        Describes how the component should maintain its width.</span>
+
+<span class="s2">        ``"auto"``</span>
+<span class="s2">            Use component's preferred sizing policy.</span>
+
+<span class="s2">        ``"fixed"``</span>
+<span class="s2">            Use exactly ``width`` pixels. Component will overflow if</span>
+<span class="s2">            it can't fit in the available horizontal space.</span>
+
+<span class="s2">        ``"fit"``</span>
+<span class="s2">            Use component's preferred width (if set) and allow it to</span>
+<span class="s2">            fit into the available horizontal space within the minimum</span>
+<span class="s2">            and maximum width bounds (if set). Component's width</span>
+<span class="s2">            neither will be aggressively minimized nor maximized.</span>
+
+<span class="s2">        ``"min"``</span>
+<span class="s2">            Use as little horizontal space as possible, not less than</span>
+<span class="s2">            the minimum width (if set).  The starting point is the</span>
+<span class="s2">            preferred width (if set). The width of the component may</span>
+<span class="s2">            shrink or grow depending on the parent layout, aspect</span>
+<span class="s2">            management and other factors.</span>
+
+<span class="s2">        ``"max"``</span>
+<span class="s2">            Use as much horizontal space as possible, not more than</span>
+<span class="s2">            the maximum width (if set).  The starting point is the</span>
+<span class="s2">            preferred width (if set). The width of the component may</span>
+<span class="s2">            shrink or grow depending on the parent layout, aspect</span>
+<span class="s2">            management and other factors.</span>
+<span class="s2">    """</span><span class="p">)</span>
+
+    <span class="n">height_policy</span> <span class="o">=</span> <span class="n">param</span><span class="o">.</span><span class="n">ObjectSelector</span><span class="p">(</span>
+        <span class="n">default</span><span class="o">=</span><span class="s2">"auto"</span><span class="p">,</span> <span class="n">objects</span><span class="o">=</span><span class="p">[</span><span class="s1">'auto'</span><span class="p">,</span> <span class="s1">'fixed'</span><span class="p">,</span> <span class="s1">'fit'</span><span class="p">,</span> <span class="s1">'min'</span><span class="p">,</span> <span class="s1">'max'</span><span class="p">],</span> <span class="n">doc</span><span class="o">=</span><span class="s2">"""</span>
+<span class="s2">        Describes how the component should maintain its height.</span>
+
+<span class="s2">        ``"auto"``</span>
+<span class="s2">            Use component's preferred sizing policy.</span>
+
+<span class="s2">        ``"fixed"``</span>
+<span class="s2">            Use exactly ``height`` pixels. Component will overflow if</span>
+<span class="s2">            it can't fit in the available vertical space.</span>
+
+<span class="s2">        ``"fit"``</span>
+<span class="s2">            Use component's preferred height (if set) and allow to fit</span>
+<span class="s2">            into the available vertical space within the minimum and</span>
+<span class="s2">            maximum height bounds (if set). Component's height neither</span>
+<span class="s2">            will be aggressively minimized nor maximized.</span>
+
+<span class="s2">        ``"min"``</span>
+<span class="s2">            Use as little vertical space as possible, not less than</span>
+<span class="s2">            the minimum height (if set).  The starting point is the</span>
+<span class="s2">            preferred height (if set). The height of the component may</span>
+<span class="s2">            shrink or grow depending on the parent layout, aspect</span>
+<span class="s2">            management and other factors.</span>
+
+<span class="s2">        ``"max"``</span>
+<span class="s2">            Use as much vertical space as possible, not more than the</span>
+<span class="s2">            maximum height (if set).  The starting point is the</span>
+<span class="s2">            preferred height (if set). The height of the component may</span>
+<span class="s2">            shrink or grow depending on the parent layout, aspect</span>
+<span class="s2">            management and other factors.</span>
+<span class="s2">    """</span><span class="p">)</span>
+
+    <span class="n">sizing_mode</span> <span class="o">=</span> <span class="n">param</span><span class="o">.</span><span class="n">ObjectSelector</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">objects</span><span class="o">=</span><span class="p">[</span>
+        <span class="s1">'fixed'</span><span class="p">,</span> <span class="s1">'stretch_width'</span><span class="p">,</span> <span class="s1">'stretch_height'</span><span class="p">,</span> <span class="s1">'stretch_both'</span><span class="p">,</span>
+        <span class="s1">'scale_width'</span><span class="p">,</span> <span class="s1">'scale_height'</span><span class="p">,</span> <span class="s1">'scale_both'</span><span class="p">,</span> <span class="kc">None</span><span class="p">],</span> <span class="n">doc</span><span class="o">=</span><span class="s2">"""</span>
+
+<span class="s2">        How the component should size itself.</span>
+
+<span class="s2">        This is a high-level setting for maintaining width and height</span>
+<span class="s2">        of the component. To gain more fine grained control over</span>
+<span class="s2">        sizing, use ``width_policy``, ``height_policy`` and</span>
+<span class="s2">        ``aspect_ratio`` instead (those take precedence over</span>
+<span class="s2">        ``sizing_mode``).</span>
+
+<span class="s2">        ``"fixed"``</span>
+<span class="s2">            Component is not responsive. It will retain its original</span>
+<span class="s2">            width and height regardless of any subsequent browser</span>
+<span class="s2">            window resize events.</span>
+
+<span class="s2">        ``"stretch_width"``</span>
+<span class="s2">            Component will responsively resize to stretch to the</span>
+<span class="s2">            available width, without maintaining any aspect ratio. The</span>
+<span class="s2">            height of the component depends on the type of the</span>
+<span class="s2">            component and may be fixed or fit to component's contents.</span>
+
+<span class="s2">        ``"stretch_height"``</span>
+<span class="s2">            Component will responsively resize to stretch to the</span>
+<span class="s2">            available height, without maintaining any aspect</span>
+<span class="s2">            ratio. The width of the component depends on the type of</span>
+<span class="s2">            the component and may be fixed or fit to component's</span>
+<span class="s2">            contents.</span>
+
+<span class="s2">        ``"stretch_both"``</span>
+<span class="s2">            Component is completely responsive, independently in width</span>
+<span class="s2">            and height, and will occupy all the available horizontal</span>
+<span class="s2">            and vertical space, even if this changes the aspect ratio</span>
+<span class="s2">            of the component.</span>
+
+<span class="s2">        ``"scale_width"``</span>
+<span class="s2">            Component will responsively resize to stretch to the</span>
+<span class="s2">            available width, while maintaining the original or</span>
+<span class="s2">            provided aspect ratio.</span>
+
+<span class="s2">        ``"scale_height"``</span>
+<span class="s2">            Component will responsively resize to stretch to the</span>
+<span class="s2">            available height, while maintaining the original or</span>
+<span class="s2">            provided aspect ratio.</span>
+
+<span class="s2">        ``"scale_both"``</span>
+<span class="s2">            Component will responsively resize to both the available</span>
+<span class="s2">            width and height, while maintaining the original or</span>
+<span class="s2">            provided aspect ratio.</span>
+<span class="s2">    """</span><span class="p">)</span>
+
+    <span class="n">__abstract</span> <span class="o">=</span> <span class="kc">True</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">params</span><span class="p">):</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">params</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'width'</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span>
+            <span class="n">params</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'height'</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span>
+            <span class="n">params</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'width_policy'</span><span class="p">)</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">and</span>
+            <span class="n">params</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'height_policy'</span><span class="p">)</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">and</span>
+            <span class="s1">'sizing_mode'</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">params</span><span class="p">):</span>
+            <span class="n">params</span><span class="p">[</span><span class="s1">'sizing_mode'</span><span class="p">]</span> <span class="o">=</span> <span class="s1">'fixed'</span>
+        <span class="k">elif</span> <span class="p">(</span><span class="ow">not</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">param</span><span class="o">.</span><span class="n">sizing_mode</span><span class="o">.</span><span class="n">constant</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">param</span><span class="o">.</span><span class="n">sizing_mode</span><span class="o">.</span><span class="n">readonly</span><span class="p">)</span> <span class="ow">and</span>
+              <span class="nb">type</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">sizing_mode</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">):</span>
+            <span class="n">params</span><span class="p">[</span><span class="s1">'sizing_mode'</span><span class="p">]</span> <span class="o">=</span> <span class="n">params</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'sizing_mode'</span><span class="p">,</span> <span class="n">config</span><span class="o">.</span><span class="n">sizing_mode</span><span class="p">)</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="o">**</span><span class="n">params</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="ServableMixin"><a class="viewcode-back" href="../../api/panel.viewable.html#panel.viewable.ServableMixin">[docs]</a><span class="k">class</span> <span class="nc">ServableMixin</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="sd">"""</span>
+<span class="sd">    Mixin to define methods shared by objects which can served.</span>
+<span class="sd">    """</span>
+
+    <span class="k">def</span> <span class="nf">_modify_doc</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">server_id</span><span class="p">,</span> <span class="n">title</span><span class="p">,</span> <span class="n">doc</span><span class="p">,</span> <span class="n">location</span><span class="p">):</span>
+        <span class="sd">"""</span>
+<span class="sd">        Callback to handle FunctionHandler document creation.</span>
+<span class="sd">        """</span>
+        <span class="k">if</span> <span class="n">server_id</span><span class="p">:</span>
+            <span class="n">state</span><span class="o">.</span><span class="n">_servers</span><span class="p">[</span><span class="n">server_id</span><span class="p">][</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">doc</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">server_doc</span><span class="p">(</span><span class="n">doc</span><span class="p">,</span> <span class="n">title</span><span class="p">,</span> <span class="n">location</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">_add_location</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">doc</span><span class="p">,</span> <span class="n">location</span><span class="p">,</span> <span class="n">root</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="kn">from</span> <span class="nn">.io.location</span> <span class="kn">import</span> <span class="n">Location</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">location</span><span class="p">,</span> <span class="n">Location</span><span class="p">):</span>
+            <span class="n">loc</span> <span class="o">=</span> <span class="n">location</span>
+        <span class="k">elif</span> <span class="n">doc</span> <span class="ow">in</span> <span class="n">state</span><span class="o">.</span><span class="n">_locations</span><span class="p">:</span>
+            <span class="n">loc</span> <span class="o">=</span> <span class="n">state</span><span class="o">.</span><span class="n">_locations</span><span class="p">[</span><span class="n">doc</span><span class="p">]</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">loc</span> <span class="o">=</span> <span class="n">Location</span><span class="p">()</span>
+        <span class="n">state</span><span class="o">.</span><span class="n">_locations</span><span class="p">[</span><span class="n">doc</span><span class="p">]</span> <span class="o">=</span> <span class="n">loc</span>
+        <span class="k">if</span> <span class="n">root</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">loc_model</span> <span class="o">=</span> <span class="n">loc</span><span class="o">.</span><span class="n">_get_root</span><span class="p">(</span><span class="n">doc</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">loc_model</span> <span class="o">=</span> <span class="n">loc</span><span class="o">.</span><span class="n">_get_model</span><span class="p">(</span><span class="n">doc</span><span class="p">,</span> <span class="n">root</span><span class="p">)</span>
+        <span class="n">loc_model</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="s1">'location'</span>
+        <span class="n">doc</span><span class="o">.</span><span class="n">add_root</span><span class="p">(</span><span class="n">loc_model</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">loc</span>
+
+    <span class="k">def</span> <span class="nf">_on_msg</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ref</span><span class="p">,</span> <span class="n">manager</span><span class="p">,</span> <span class="n">msg</span><span class="p">):</span>
+        <span class="sd">"""</span>
+<span class="sd">        Handles Protocol messages arriving from the client comm.</span>
+<span class="sd">        """</span>
+        <span class="n">root</span><span class="p">,</span> <span class="n">doc</span><span class="p">,</span> <span class="n">comm</span> <span class="o">=</span> <span class="n">state</span><span class="o">.</span><span class="n">_views</span><span class="p">[</span><span class="n">ref</span><span class="p">][</span><span class="mi">1</span><span class="p">:]</span>
+        <span class="n">patch_cds_msg</span><span class="p">(</span><span class="n">root</span><span class="p">,</span> <span class="n">msg</span><span class="p">)</span>
+        <span class="n">held</span> <span class="o">=</span> <span class="n">doc</span><span class="o">.</span><span class="n">_hold</span>
+        <span class="n">patch</span> <span class="o">=</span> <span class="n">manager</span><span class="o">.</span><span class="n">assemble</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+        <span class="n">doc</span><span class="o">.</span><span class="n">hold</span><span class="p">()</span>
+        <span class="n">patch</span><span class="o">.</span><span class="n">apply_to_document</span><span class="p">(</span><span class="n">doc</span><span class="p">,</span> <span class="n">comm</span><span class="o">.</span><span class="n">id</span><span class="p">)</span>
+        <span class="n">doc</span><span class="o">.</span><span class="n">unhold</span><span class="p">()</span>
+        <span class="k">if</span> <span class="n">held</span><span class="p">:</span>
+            <span class="n">doc</span><span class="o">.</span><span class="n">hold</span><span class="p">(</span><span class="n">held</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">_on_error</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ref</span><span class="p">,</span> <span class="n">error</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">ref</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">state</span><span class="o">.</span><span class="n">_handles</span> <span class="ow">or</span> <span class="n">config</span><span class="o">.</span><span class="n">console_output</span> <span class="ow">in</span> <span class="p">[</span><span class="kc">None</span><span class="p">,</span> <span class="s1">'disable'</span><span class="p">]:</span>
+            <span class="k">return</span>
+        <span class="n">handle</span><span class="p">,</span> <span class="n">accumulator</span> <span class="o">=</span> <span class="n">state</span><span class="o">.</span><span class="n">_handles</span><span class="p">[</span><span class="n">ref</span><span class="p">]</span>
+        <span class="n">formatted</span> <span class="o">=</span> <span class="s1">'</span><span class="se">\n</span><span class="s1">&lt;pre&gt;'</span><span class="o">+</span><span class="n">escape</span><span class="p">(</span><span class="n">traceback</span><span class="o">.</span><span class="n">format_exc</span><span class="p">())</span><span class="o">+</span><span class="s1">'&lt;/pre&gt;</span><span class="se">\n</span><span class="s1">'</span>
+        <span class="k">if</span> <span class="n">config</span><span class="o">.</span><span class="n">console_output</span> <span class="o">==</span> <span class="s1">'accumulate'</span><span class="p">:</span>
+            <span class="n">accumulator</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">formatted</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">config</span><span class="o">.</span><span class="n">console_output</span> <span class="o">==</span> <span class="s1">'replace'</span><span class="p">:</span>
+            <span class="n">accumulator</span><span class="p">[:]</span> <span class="o">=</span> <span class="p">[</span><span class="n">formatted</span><span class="p">]</span>
+        <span class="k">if</span> <span class="n">accumulator</span><span class="p">:</span>
+            <span class="n">handle</span><span class="o">.</span><span class="n">update</span><span class="p">({</span><span class="s1">'text/html'</span><span class="p">:</span> <span class="s1">'</span><span class="se">\n</span><span class="s1">'</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">accumulator</span><span class="p">)},</span> <span class="n">raw</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">_on_stdout</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ref</span><span class="p">,</span> <span class="n">stdout</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">ref</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">state</span><span class="o">.</span><span class="n">_handles</span> <span class="ow">or</span> <span class="n">config</span><span class="o">.</span><span class="n">console_output</span> <span class="ow">is</span> <span class="p">[</span><span class="kc">None</span><span class="p">,</span> <span class="s1">'disable'</span><span class="p">]:</span>
+            <span class="k">return</span>
+        <span class="n">handle</span><span class="p">,</span> <span class="n">accumulator</span> <span class="o">=</span> <span class="n">state</span><span class="o">.</span><span class="n">_handles</span><span class="p">[</span><span class="n">ref</span><span class="p">]</span>
+        <span class="n">formatted</span> <span class="o">=</span> <span class="p">[</span><span class="s2">"</span><span class="si">%s</span><span class="s2">&lt;/br&gt;"</span> <span class="o">%</span> <span class="n">o</span> <span class="k">for</span> <span class="n">o</span> <span class="ow">in</span> <span class="n">stdout</span><span class="p">]</span>
+        <span class="k">if</span> <span class="n">config</span><span class="o">.</span><span class="n">console_output</span> <span class="o">==</span> <span class="s1">'accumulate'</span><span class="p">:</span>
+            <span class="n">accumulator</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">formatted</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">config</span><span class="o">.</span><span class="n">console_output</span> <span class="o">==</span> <span class="s1">'replace'</span><span class="p">:</span>
+            <span class="n">accumulator</span><span class="p">[:]</span> <span class="o">=</span> <span class="n">formatted</span>
+        <span class="k">if</span> <span class="n">accumulator</span><span class="p">:</span>
+            <span class="n">handle</span><span class="o">.</span><span class="n">update</span><span class="p">({</span><span class="s1">'text/html'</span><span class="p">:</span> <span class="s1">'</span><span class="se">\n</span><span class="s1">'</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">accumulator</span><span class="p">)},</span> <span class="n">raw</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+    <span class="c1">#----------------------------------------------------------------</span>
+    <span class="c1"># Public API</span>
+    <span class="c1">#----------------------------------------------------------------</span>
+
+<div class="viewcode-block" id="ServableMixin.servable"><a class="viewcode-back" href="../../api/panel.viewable.html#panel.viewable.ServableMixin.servable">[docs]</a>    <span class="k">def</span> <span class="nf">servable</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">location</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+        <span class="sd">"""</span>
+<span class="sd">        Serves the object if in a `panel serve` context and returns</span>
+<span class="sd">        the Panel object to allow it to display itself in a notebook</span>
+<span class="sd">        context.</span>
+<span class="sd">        Arguments</span>
+<span class="sd">        ---------</span>
+<span class="sd">        title : str</span>
+<span class="sd">          A string title to give the Document (if served as an app)</span>
+<span class="sd">        location : boolean or panel.io.location.Location</span>
+<span class="sd">          Whether to create a Location component to observe and</span>
+<span class="sd">          set the URL location.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        The Panel object itself</span>
+<span class="sd">        """</span>
+        <span class="k">if</span> <span class="n">_curdoc</span><span class="p">()</span><span class="o">.</span><span class="n">session_context</span><span class="p">:</span>
+            <span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="s1">'bokeh'</span><span class="p">)</span>
+            <span class="k">for</span> <span class="n">handler</span> <span class="ow">in</span> <span class="n">logger</span><span class="o">.</span><span class="n">handlers</span><span class="p">:</span>
+                <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">handler</span><span class="p">,</span> <span class="n">logging</span><span class="o">.</span><span class="n">StreamHandler</span><span class="p">):</span>
+                    <span class="n">handler</span><span class="o">.</span><span class="n">setLevel</span><span class="p">(</span><span class="n">logging</span><span class="o">.</span><span class="n">WARN</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">server_doc</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="n">title</span><span class="p">,</span> <span class="n">location</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span></div>
+
+<div class="viewcode-block" id="ServableMixin.show"><a class="viewcode-back" href="../../api/panel.viewable.html#panel.viewable.ServableMixin.show">[docs]</a>    <span class="k">def</span> <span class="nf">show</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">port</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">address</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">websocket_origin</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+             <span class="n">threaded</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="nb">open</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">location</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="sd">"""</span>
+<span class="sd">        Starts a Bokeh server and displays the Viewable in a new tab.</span>
+
+<span class="sd">        Arguments</span>
+<span class="sd">        ---------</span>
+<span class="sd">        title : str</span>
+<span class="sd">          A string title to give the Document (if served as an app)</span>
+<span class="sd">        port: int (optional, default=0)</span>
+<span class="sd">          Allows specifying a specific port</span>
+<span class="sd">        address : str</span>
+<span class="sd">          The address the server should listen on for HTTP requests.</span>
+<span class="sd">        websocket_origin: str or list(str) (optional)</span>
+<span class="sd">          A list of hosts that can connect to the websocket.</span>
+<span class="sd">          This is typically required when embedding a server app in</span>
+<span class="sd">          an external web site.</span>
+<span class="sd">          If None, "localhost" is used.</span>
+<span class="sd">        threaded: boolean (optional, default=False)</span>
+<span class="sd">          Whether to launch the Server on a separate thread, allowing</span>
+<span class="sd">          interactive use.</span>
+<span class="sd">        verbose: boolean (optional, default=True)</span>
+<span class="sd">          Whether to print the address and port</span>
+<span class="sd">        open : boolean (optional, default=True)</span>
+<span class="sd">          Whether to open the server in a new browser tab</span>
+<span class="sd">        location : boolean or panel.io.location.Location</span>
+<span class="sd">          Whether to create a Location component to observe and</span>
+<span class="sd">          set the URL location.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        server: bokeh.server.Server or threading.Thread</span>
+<span class="sd">          Returns the Bokeh server instance or the thread the server</span>
+<span class="sd">          was launched on (if threaded=True)</span>
+<span class="sd">        """</span>
+        <span class="k">return</span> <span class="n">serve</span><span class="p">(</span>
+            <span class="bp">self</span><span class="p">,</span> <span class="n">port</span><span class="o">=</span><span class="n">port</span><span class="p">,</span> <span class="n">address</span><span class="o">=</span><span class="n">address</span><span class="p">,</span> <span class="n">websocket_origin</span><span class="o">=</span><span class="n">websocket_origin</span><span class="p">,</span>
+            <span class="n">show</span><span class="o">=</span><span class="nb">open</span><span class="p">,</span> <span class="n">start</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="n">title</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="n">verbose</span><span class="p">,</span>
+            <span class="n">location</span><span class="o">=</span><span class="n">location</span><span class="p">,</span> <span class="n">threaded</span><span class="o">=</span><span class="n">threaded</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span>
+        <span class="p">)</span></div></div>
+
+
+<div class="viewcode-block" id="Renderable"><a class="viewcode-back" href="../../api/panel.viewable.html#panel.viewable.Renderable">[docs]</a><span class="k">class</span> <span class="nc">Renderable</span><span class="p">(</span><span class="n">param</span><span class="o">.</span><span class="n">Parameterized</span><span class="p">):</span>
+    <span class="sd">"""</span>
+<span class="sd">    Baseclass for objects which can be rendered to a Bokeh model.</span>
+
+<span class="sd">    It therefore declare APIs for initializing the models from</span>
+<span class="sd">    parameter values.</span>
+<span class="sd">    """</span>
+
+    <span class="n">__abstract</span> <span class="o">=</span> <span class="kc">True</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">params</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="o">**</span><span class="n">params</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_callbacks</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_documents</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_models</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_comms</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_kernels</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_found_links</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="nf">_get_model</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">doc</span><span class="p">,</span> <span class="n">root</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">parent</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">comm</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="sd">"""</span>
+<span class="sd">        Converts the objects being wrapped by the viewable into a</span>
+<span class="sd">        bokeh model that can be composed in a bokeh layout.</span>
+
+<span class="sd">        Arguments</span>
+<span class="sd">        ----------</span>
+<span class="sd">        doc: bokeh.Document</span>
+<span class="sd">          Bokeh document the bokeh model will be attached to.</span>
+<span class="sd">        root: bokeh.Model</span>
+<span class="sd">          The root layout the viewable will become part of.</span>
+<span class="sd">        parent: bokeh.Model</span>
+<span class="sd">          The parent layout the viewable will become part of.</span>
+<span class="sd">        comm: pyviz_comms.Comm</span>
+<span class="sd">          Optional pyviz_comms when working in notebook</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        model: bokeh.Model</span>
+<span class="sd">        """</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span>
+
+    <span class="k">def</span> <span class="nf">_cleanup</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">root</span><span class="p">):</span>
+        <span class="sd">"""</span>
+<span class="sd">        Clean up method which is called when a Viewable is destroyed.</span>
+
+<span class="sd">        Arguments</span>
+<span class="sd">        ---------</span>
+<span class="sd">        root: bokeh.model.Model</span>
+<span class="sd">          Bokeh model for the view being cleaned up</span>
+<span class="sd">        """</span>
+        <span class="n">ref</span> <span class="o">=</span> <span class="n">root</span><span class="o">.</span><span class="n">ref</span><span class="p">[</span><span class="s1">'id'</span><span class="p">]</span>
+        <span class="k">if</span> <span class="n">ref</span> <span class="ow">in</span> <span class="n">state</span><span class="o">.</span><span class="n">_handles</span><span class="p">:</span>
+            <span class="k">del</span> <span class="n">state</span><span class="o">.</span><span class="n">_handles</span><span class="p">[</span><span class="n">ref</span><span class="p">]</span>
+
+    <span class="k">def</span> <span class="nf">_preprocess</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">root</span><span class="p">):</span>
+        <span class="sd">"""</span>
+<span class="sd">        Applies preprocessing hooks to the model.</span>
+<span class="sd">        """</span>
+        <span class="n">hooks</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_preprocessing_hooks</span><span class="o">+</span><span class="bp">self</span><span class="o">.</span><span class="n">_hooks</span>
+        <span class="k">for</span> <span class="n">hook</span> <span class="ow">in</span> <span class="n">hooks</span><span class="p">:</span>
+            <span class="n">hook</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">root</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">_render_model</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">comm</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">doc</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">doc</span> <span class="o">=</span> <span class="n">_Document</span><span class="p">()</span>
+        <span class="k">if</span> <span class="n">comm</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">comm</span> <span class="o">=</span> <span class="n">state</span><span class="o">.</span><span class="n">_comm_manager</span><span class="o">.</span><span class="n">get_server_comm</span><span class="p">()</span>
+        <span class="n">model</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_root</span><span class="p">(</span><span class="n">doc</span><span class="p">,</span> <span class="n">comm</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">config</span><span class="o">.</span><span class="n">embed</span><span class="p">:</span>
+            <span class="n">embed_state</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">model</span><span class="p">,</span> <span class="n">doc</span><span class="p">,</span>
+                        <span class="n">json</span><span class="o">=</span><span class="n">config</span><span class="o">.</span><span class="n">embed_json</span><span class="p">,</span>
+                        <span class="n">json_prefix</span><span class="o">=</span><span class="n">config</span><span class="o">.</span><span class="n">embed_json_prefix</span><span class="p">,</span>
+                        <span class="n">save_path</span><span class="o">=</span><span class="n">config</span><span class="o">.</span><span class="n">embed_save_path</span><span class="p">,</span>
+                        <span class="n">load_path</span><span class="o">=</span><span class="n">config</span><span class="o">.</span><span class="n">embed_load_path</span><span class="p">,</span>
+                        <span class="n">progress</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">add_to_doc</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">doc</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">model</span>
+
+    <span class="k">def</span> <span class="nf">_init_params</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="p">{</span><span class="n">k</span><span class="p">:</span> <span class="n">v</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">param</span><span class="o">.</span><span class="n">get_param_values</span><span class="p">()</span> <span class="k">if</span> <span class="n">v</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">}</span>
+
+    <span class="k">def</span> <span class="nf">_server_destroy</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">session_context</span><span class="p">):</span>
+        <span class="sd">"""</span>
+<span class="sd">        Server lifecycle hook triggered when session is destroyed.</span>
+<span class="sd">        """</span>
+        <span class="n">session_id</span> <span class="o">=</span> <span class="n">session_context</span><span class="o">.</span><span class="n">id</span>
+        <span class="n">sessions</span> <span class="o">=</span> <span class="n">state</span><span class="o">.</span><span class="n">session_info</span><span class="p">[</span><span class="s1">'sessions'</span><span class="p">]</span>
+        <span class="k">if</span> <span class="n">session_id</span> <span class="ow">in</span> <span class="n">sessions</span> <span class="ow">and</span> <span class="n">sessions</span><span class="p">[</span><span class="n">session_id</span><span class="p">][</span><span class="s1">'ended'</span><span class="p">]</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">session</span> <span class="o">=</span> <span class="n">sessions</span><span class="p">[</span><span class="n">session_id</span><span class="p">]</span>
+            <span class="k">if</span> <span class="n">session</span><span class="p">[</span><span class="s1">'rendered'</span><span class="p">]</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="n">state</span><span class="o">.</span><span class="n">session_info</span><span class="p">[</span><span class="s1">'live'</span><span class="p">]</span> <span class="o">-=</span> <span class="mi">1</span>
+            <span class="n">session</span><span class="p">[</span><span class="s1">'ended'</span><span class="p">]</span> <span class="o">=</span> <span class="n">dt</span><span class="o">.</span><span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span><span class="o">.</span><span class="n">timestamp</span><span class="p">()</span>
+        <span class="n">doc</span> <span class="o">=</span> <span class="n">session_context</span><span class="o">.</span><span class="n">_document</span>
+        <span class="n">root</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_documents</span><span class="p">[</span><span class="n">doc</span><span class="p">]</span>
+        <span class="n">ref</span> <span class="o">=</span> <span class="n">root</span><span class="o">.</span><span class="n">ref</span><span class="p">[</span><span class="s1">'id'</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_cleanup</span><span class="p">(</span><span class="n">root</span><span class="p">)</span>
+        <span class="k">del</span> <span class="bp">self</span><span class="o">.</span><span class="n">_documents</span><span class="p">[</span><span class="n">doc</span><span class="p">]</span>
+        <span class="k">if</span> <span class="n">ref</span> <span class="ow">in</span> <span class="n">state</span><span class="o">.</span><span class="n">_views</span><span class="p">:</span>
+            <span class="k">del</span> <span class="n">state</span><span class="o">.</span><span class="n">_views</span><span class="p">[</span><span class="n">ref</span><span class="p">]</span>
+        <span class="k">if</span> <span class="n">doc</span> <span class="ow">in</span> <span class="n">state</span><span class="o">.</span><span class="n">_locations</span><span class="p">:</span>
+            <span class="n">loc</span> <span class="o">=</span> <span class="n">state</span><span class="o">.</span><span class="n">_locations</span><span class="p">[</span><span class="n">doc</span><span class="p">]</span>
+            <span class="n">loc</span><span class="o">.</span><span class="n">_cleanup</span><span class="p">(</span><span class="n">root</span><span class="p">)</span>
+            <span class="k">del</span> <span class="n">state</span><span class="o">.</span><span class="n">_locations</span><span class="p">[</span><span class="n">doc</span><span class="p">]</span>
+
+<div class="viewcode-block" id="Renderable.get_root"><a class="viewcode-back" href="../../api/panel.viewable.html#panel.viewable.Renderable.get_root">[docs]</a>    <span class="k">def</span> <span class="nf">get_root</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">comm</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">preprocess</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+        <span class="sd">"""</span>
+<span class="sd">        Returns the root model and applies pre-processing hooks</span>
+
+<span class="sd">        Arguments</span>
+<span class="sd">        ---------</span>
+<span class="sd">        doc: bokeh.Document</span>
+<span class="sd">          Bokeh document the bokeh model will be attached to.</span>
+<span class="sd">        comm: pyviz_comms.Comm</span>
+<span class="sd">          Optional pyviz_comms when working in notebook</span>
+<span class="sd">        preprocess: boolean (default=True)</span>
+<span class="sd">          Whether to run preprocessing hooks</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        Returns the bokeh model corresponding to this panel object</span>
+<span class="sd">        """</span>
+        <span class="n">doc</span> <span class="o">=</span> <span class="n">init_doc</span><span class="p">(</span><span class="n">doc</span><span class="p">)</span>
+        <span class="n">root</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_model</span><span class="p">(</span><span class="n">doc</span><span class="p">,</span> <span class="n">comm</span><span class="o">=</span><span class="n">comm</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">preprocess</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_preprocess</span><span class="p">(</span><span class="n">root</span><span class="p">)</span>
+        <span class="n">ref</span> <span class="o">=</span> <span class="n">root</span><span class="o">.</span><span class="n">ref</span><span class="p">[</span><span class="s1">'id'</span><span class="p">]</span>
+        <span class="n">state</span><span class="o">.</span><span class="n">_views</span><span class="p">[</span><span class="n">ref</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">root</span><span class="p">,</span> <span class="n">doc</span><span class="p">,</span> <span class="n">comm</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">root</span></div></div>
+
+
+<div class="viewcode-block" id="Viewable"><a class="viewcode-back" href="../../api/panel.viewable.html#panel.viewable.Viewable">[docs]</a><span class="k">class</span> <span class="nc">Viewable</span><span class="p">(</span><span class="n">Renderable</span><span class="p">,</span> <span class="n">Layoutable</span><span class="p">,</span> <span class="n">ServableMixin</span><span class="p">):</span>
+    <span class="sd">"""</span>
+<span class="sd">    Viewable is the baseclass all visual components in the panel</span>
+<span class="sd">    library are built on. It defines the interface for declaring any</span>
+<span class="sd">    object that displays itself by transforming the object(s) being</span>
+<span class="sd">    wrapped into models that can be served using bokeh's layout</span>
+<span class="sd">    engine. The class also defines various methods that allow Viewable</span>
+<span class="sd">    objects to be displayed in the notebook and on bokeh server.</span>
+<span class="sd">    """</span>
+
+    <span class="n">loading</span> <span class="o">=</span> <span class="n">param</span><span class="o">.</span><span class="n">Boolean</span><span class="p">(</span><span class="n">doc</span><span class="o">=</span><span class="s2">"""</span>
+<span class="s2">        Whether or not the Viewable is loading. If True a loading spinner</span>
+<span class="s2">        is shown on top of the Viewable."""</span><span class="p">)</span>
+
+    <span class="n">_preprocessing_hooks</span> <span class="o">=</span> <span class="p">[]</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">params</span><span class="p">):</span>
+        <span class="n">hooks</span> <span class="o">=</span> <span class="n">params</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">'hooks'</span><span class="p">,</span> <span class="p">[])</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="o">**</span><span class="n">params</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_hooks</span> <span class="o">=</span> <span class="n">hooks</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_update_loading</span><span class="p">()</span>
+        <span class="n">watcher</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">param</span><span class="o">.</span><span class="n">watch</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_update_loading</span><span class="p">,</span> <span class="s1">'loading'</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_callbacks</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">watcher</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">_update_loading</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">_</span><span class="p">):</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">loading</span><span class="p">:</span>
+            <span class="n">start_loading_spinner</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">stop_loading_spinner</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">depth</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
+        <span class="k">return</span> <span class="s1">'</span><span class="si">{cls}</span><span class="s1">(</span><span class="si">{params}</span><span class="s1">)'</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">cls</span><span class="o">=</span><span class="nb">type</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="vm">__name__</span><span class="p">,</span>
+                                        <span class="n">params</span><span class="o">=</span><span class="s1">', '</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">param_reprs</span><span class="p">(</span><span class="bp">self</span><span class="p">)))</span>
+
+    <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="fm">__repr__</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="nf">_repr_mimebundle_</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">include</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">exclude</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="n">loaded</span> <span class="o">=</span> <span class="n">panel_extension</span><span class="o">.</span><span class="n">_loaded</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">loaded</span> <span class="ow">and</span> <span class="s1">'holoviews'</span> <span class="ow">in</span> <span class="n">sys</span><span class="o">.</span><span class="n">modules</span><span class="p">:</span>
+            <span class="kn">import</span> <span class="nn">holoviews</span> <span class="k">as</span> <span class="nn">hv</span>
+            <span class="n">loaded</span> <span class="o">=</span> <span class="n">hv</span><span class="o">.</span><span class="n">extension</span><span class="o">.</span><span class="n">_loaded</span>
+
+
+        <span class="k">if</span> <span class="n">config</span><span class="o">.</span><span class="n">comms</span> <span class="ow">in</span> <span class="p">(</span><span class="s1">'vscode'</span><span class="p">,</span> <span class="s1">'ipywidgets'</span><span class="p">):</span>
+            <span class="n">widget</span> <span class="o">=</span> <span class="n">ipywidget</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+            <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">widget</span><span class="p">,</span> <span class="s1">'_repr_mimebundle_'</span><span class="p">):</span>
+                <span class="k">return</span> <span class="n">widget</span><span class="o">.</span><span class="n">_repr_mimebundle_</span><span class="p">(</span><span class="n">include</span><span class="p">,</span> <span class="n">exclude</span><span class="p">)</span>
+            <span class="n">plaintext</span> <span class="o">=</span> <span class="nb">repr</span><span class="p">(</span><span class="n">widget</span><span class="p">)</span>
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">plaintext</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">110</span><span class="p">:</span>
+                <span class="n">plaintext</span> <span class="o">=</span> <span class="n">plaintext</span><span class="p">[:</span><span class="mi">110</span><span class="p">]</span> <span class="o">+</span> <span class="s1">'…'</span>
+            <span class="n">data</span> <span class="o">=</span> <span class="p">{</span>
+                <span class="s1">'text/plain'</span><span class="p">:</span> <span class="n">plaintext</span><span class="p">,</span>
+            <span class="p">}</span>
+            <span class="k">if</span> <span class="n">widget</span><span class="o">.</span><span class="n">_view_name</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="n">data</span><span class="p">[</span><span class="s1">'application/vnd.jupyter.widget-view+json'</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span>
+                    <span class="s1">'version_major'</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span>
+                    <span class="s1">'version_minor'</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+                    <span class="s1">'model_id'</span><span class="p">:</span> <span class="n">widget</span><span class="o">.</span><span class="n">_model_id</span>
+                <span class="p">}</span>
+            <span class="k">if</span> <span class="n">config</span><span class="o">.</span><span class="n">comms</span> <span class="o">==</span> <span class="s1">'vscode'</span><span class="p">:</span>
+                <span class="kn">from</span> <span class="nn">IPython.display</span> <span class="kn">import</span> <span class="n">display</span>
+                <span class="n">display</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">raw</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+                <span class="k">return</span> <span class="p">{</span><span class="s1">'text/html'</span><span class="p">:</span> <span class="s1">'&lt;div style="display: none"&gt;&lt;/div&gt;'</span><span class="p">},</span> <span class="p">{}</span>
+            <span class="k">return</span> <span class="n">data</span><span class="p">,</span> <span class="p">{}</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">loaded</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">param</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s1">'Displaying Panel objects in the notebook '</span>
+                               <span class="s1">'requires the panel extension to be loaded. '</span>
+                               <span class="s1">'Ensure you run pn.extension() before '</span>
+                               <span class="s1">'displaying objects in the notebook.'</span><span class="p">)</span>
+            <span class="k">return</span> <span class="kc">None</span>
+
+        <span class="k">if</span> <span class="n">config</span><span class="o">.</span><span class="n">comms</span> <span class="o">==</span> <span class="s1">'colab'</span><span class="p">:</span>
+            <span class="kn">from</span> <span class="nn">.io.notebook</span> <span class="kn">import</span> <span class="n">load_notebook</span>
+            <span class="n">load_notebook</span><span class="p">(</span><span class="n">config</span><span class="o">.</span><span class="n">inline</span><span class="p">)</span>
+
+        <span class="k">try</span><span class="p">:</span>
+            <span class="kn">from</span> <span class="nn">IPython</span> <span class="kn">import</span> <span class="n">get_ipython</span>
+            <span class="k">assert</span> <span class="n">get_ipython</span><span class="p">()</span><span class="o">.</span><span class="n">kernel</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
+            <span class="n">state</span><span class="o">.</span><span class="n">_comm_manager</span> <span class="o">=</span> <span class="n">JupyterCommManager</span>
+        <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
+            <span class="k">pass</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">state</span><span class="o">.</span><span class="n">_views</span><span class="p">:</span>
+            <span class="c1"># Initialize the global Location</span>
+            <span class="kn">from</span> <span class="nn">.io.location</span> <span class="kn">import</span> <span class="n">Location</span>
+            <span class="n">state</span><span class="o">.</span><span class="n">_location</span> <span class="o">=</span> <span class="n">location</span> <span class="o">=</span> <span class="n">Location</span><span class="p">()</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">location</span> <span class="o">=</span> <span class="kc">None</span>
+
+        <span class="kn">from</span> <span class="nn">IPython.display</span> <span class="kn">import</span> <span class="n">display</span>
+        <span class="kn">from</span> <span class="nn">.models.comm_manager</span> <span class="kn">import</span> <span class="n">CommManager</span>
+
+        <span class="n">doc</span> <span class="o">=</span> <span class="n">_Document</span><span class="p">()</span>
+        <span class="n">comm</span> <span class="o">=</span> <span class="n">state</span><span class="o">.</span><span class="n">_comm_manager</span><span class="o">.</span><span class="n">get_server_comm</span><span class="p">()</span>
+        <span class="n">model</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_render_model</span><span class="p">(</span><span class="n">doc</span><span class="p">,</span> <span class="n">comm</span><span class="p">)</span>
+        <span class="n">ref</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">ref</span><span class="p">[</span><span class="s1">'id'</span><span class="p">]</span>
+        <span class="n">manager</span> <span class="o">=</span> <span class="n">CommManager</span><span class="p">(</span><span class="n">comm_id</span><span class="o">=</span><span class="n">comm</span><span class="o">.</span><span class="n">id</span><span class="p">,</span> <span class="n">plot_id</span><span class="o">=</span><span class="n">ref</span><span class="p">)</span>
+        <span class="n">client_comm</span> <span class="o">=</span> <span class="n">state</span><span class="o">.</span><span class="n">_comm_manager</span><span class="o">.</span><span class="n">get_client_comm</span><span class="p">(</span>
+            <span class="n">on_msg</span><span class="o">=</span><span class="n">partial</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_on_msg</span><span class="p">,</span> <span class="n">ref</span><span class="p">,</span> <span class="n">manager</span><span class="p">),</span>
+            <span class="n">on_error</span><span class="o">=</span><span class="n">partial</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_on_error</span><span class="p">,</span> <span class="n">ref</span><span class="p">),</span>
+            <span class="n">on_stdout</span><span class="o">=</span><span class="n">partial</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_on_stdout</span><span class="p">,</span> <span class="n">ref</span><span class="p">)</span>
+        <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_comms</span><span class="p">[</span><span class="n">ref</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">comm</span><span class="p">,</span> <span class="n">client_comm</span><span class="p">)</span>
+        <span class="n">manager</span><span class="o">.</span><span class="n">client_comm_id</span> <span class="o">=</span> <span class="n">client_comm</span><span class="o">.</span><span class="n">id</span>
+
+        <span class="k">if</span> <span class="n">config</span><span class="o">.</span><span class="n">console_output</span> <span class="o">!=</span> <span class="s1">'disable'</span><span class="p">:</span>
+            <span class="n">handle</span> <span class="o">=</span> <span class="n">display</span><span class="p">(</span><span class="n">display_id</span><span class="o">=</span><span class="n">uuid</span><span class="o">.</span><span class="n">uuid4</span><span class="p">()</span><span class="o">.</span><span class="n">hex</span><span class="p">)</span>
+            <span class="n">state</span><span class="o">.</span><span class="n">_handles</span><span class="p">[</span><span class="n">ref</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">handle</span><span class="p">,</span> <span class="p">[])</span>
+
+        <span class="k">if</span> <span class="n">config</span><span class="o">.</span><span class="n">embed</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">render_model</span><span class="p">(</span><span class="n">model</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">render_mimebundle</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">doc</span><span class="p">,</span> <span class="n">comm</span><span class="p">,</span> <span class="n">manager</span><span class="p">,</span> <span class="n">location</span><span class="p">)</span>
+
+    <span class="c1">#----------------------------------------------------------------</span>
+    <span class="c1"># Public API</span>
+    <span class="c1">#----------------------------------------------------------------</span>
+
+<div class="viewcode-block" id="Viewable.clone"><a class="viewcode-back" href="../../api/panel.viewable.html#panel.viewable.Viewable.clone">[docs]</a>    <span class="k">def</span> <span class="nf">clone</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">params</span><span class="p">):</span>
+        <span class="sd">"""</span>
+<span class="sd">        Makes a copy of the object sharing the same parameters.</span>
+
+<span class="sd">        Arguments</span>
+<span class="sd">        ---------</span>
+<span class="sd">        params: Keyword arguments override the parameters on the clone.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        Cloned Viewable object</span>
+<span class="sd">        """</span>
+        <span class="n">inherited</span> <span class="o">=</span> <span class="p">{</span><span class="n">p</span><span class="p">:</span> <span class="n">v</span> <span class="k">for</span> <span class="n">p</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">param</span><span class="o">.</span><span class="n">get_param_values</span><span class="p">()</span>
+                     <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">param</span><span class="p">[</span><span class="n">p</span><span class="p">]</span><span class="o">.</span><span class="n">readonly</span><span class="p">}</span>
+        <span class="k">return</span> <span class="nb">type</span><span class="p">(</span><span class="bp">self</span><span class="p">)(</span><span class="o">**</span><span class="nb">dict</span><span class="p">(</span><span class="n">inherited</span><span class="p">,</span> <span class="o">**</span><span class="n">params</span><span class="p">))</span></div>
+
+<div class="viewcode-block" id="Viewable.pprint"><a class="viewcode-back" href="../../api/panel.viewable.html#panel.viewable.Viewable.pprint">[docs]</a>    <span class="k">def</span> <span class="nf">pprint</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">"""</span>
+<span class="sd">        Prints a compositional repr of the class.</span>
+<span class="sd">        """</span>
+        <span class="nb">print</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Viewable.select"><a class="viewcode-back" href="../../api/panel.viewable.html#panel.viewable.Viewable.select">[docs]</a>    <span class="k">def</span> <span class="nf">select</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">selector</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="sd">"""</span>
+<span class="sd">        Iterates over the Viewable and any potential children in the</span>
+<span class="sd">        applying the Selector.</span>
+
+<span class="sd">        Arguments</span>
+<span class="sd">        ---------</span>
+<span class="sd">        selector: type or callable or None</span>
+<span class="sd">          The selector allows selecting a subset of Viewables by</span>
+<span class="sd">          declaring a type or callable function to filter by.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        viewables: list(Viewable)</span>
+<span class="sd">        """</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">selector</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span>
+            <span class="p">(</span><span class="nb">isinstance</span><span class="p">(</span><span class="n">selector</span><span class="p">,</span> <span class="nb">type</span><span class="p">)</span> <span class="ow">and</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">selector</span><span class="p">))</span> <span class="ow">or</span>
+            <span class="p">(</span><span class="n">callable</span><span class="p">(</span><span class="n">selector</span><span class="p">)</span> <span class="ow">and</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">selector</span><span class="p">,</span> <span class="nb">type</span><span class="p">)</span> <span class="ow">and</span> <span class="n">selector</span><span class="p">(</span><span class="bp">self</span><span class="p">))):</span>
+            <span class="k">return</span> <span class="p">[</span><span class="bp">self</span><span class="p">]</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="p">[]</span></div>
+
+<div class="viewcode-block" id="Viewable.app"><a class="viewcode-back" href="../../api/panel.viewable.html#panel.viewable.Viewable.app">[docs]</a>    <span class="k">def</span> <span class="nf">app</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">notebook_url</span><span class="o">=</span><span class="s2">"localhost:8888"</span><span class="p">,</span> <span class="n">port</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
+        <span class="sd">"""</span>
+<span class="sd">        Displays a bokeh server app inline in the notebook.</span>
+
+<span class="sd">        Arguments</span>
+<span class="sd">        ---------</span>
+<span class="sd">        notebook_url: str</span>
+<span class="sd">          URL to the notebook server</span>
+<span class="sd">        port: int (optional, default=0)</span>
+<span class="sd">          Allows specifying a specific port</span>
+<span class="sd">        """</span>
+        <span class="k">return</span> <span class="n">show_server</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">notebook_url</span><span class="p">,</span> <span class="n">port</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Viewable.embed"><a class="viewcode-back" href="../../api/panel.viewable.html#panel.viewable.Viewable.embed">[docs]</a>    <span class="k">def</span> <span class="nf">embed</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">max_states</span><span class="o">=</span><span class="mi">1000</span><span class="p">,</span> <span class="n">max_opts</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">json</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">json_prefix</span><span class="o">=</span><span class="s1">''</span><span class="p">,</span>
+              <span class="n">save_path</span><span class="o">=</span><span class="s1">'./'</span><span class="p">,</span> <span class="n">load_path</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">progress</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">states</span><span class="o">=</span><span class="p">{}):</span>
+        <span class="sd">"""</span>
+<span class="sd">        Renders a static version of a panel in a notebook by evaluating</span>
+<span class="sd">        the set of states defined by the widgets in the model. Note</span>
+<span class="sd">        this will only work well for simple apps with a relatively</span>
+<span class="sd">        small state space.</span>
+
+<span class="sd">        Arguments</span>
+<span class="sd">        ---------</span>
+<span class="sd">        max_states: int</span>
+<span class="sd">          The maximum number of states to embed</span>
+<span class="sd">        max_opts: int</span>
+<span class="sd">          The maximum number of states for a single widget</span>
+<span class="sd">        json: boolean (default=True)</span>
+<span class="sd">          Whether to export the data to json files</span>
+<span class="sd">        json_prefix: str (default='')</span>
+<span class="sd">          Prefix for JSON filename</span>
+<span class="sd">        save_path: str (default='./')</span>
+<span class="sd">          The path to save json files to</span>
+<span class="sd">        load_path: str (default=None)</span>
+<span class="sd">          The path or URL the json files will be loaded from.</span>
+<span class="sd">        progress: boolean (default=False)</span>
+<span class="sd">          Whether to report progress</span>
+<span class="sd">        states: dict (default={})</span>
+<span class="sd">          A dictionary specifying the widget values to embed for each widget</span>
+<span class="sd">        """</span>
+        <span class="n">show_embed</span><span class="p">(</span>
+            <span class="bp">self</span><span class="p">,</span> <span class="n">max_states</span><span class="p">,</span> <span class="n">max_opts</span><span class="p">,</span> <span class="n">json</span><span class="p">,</span> <span class="n">json_prefix</span><span class="p">,</span> <span class="n">save_path</span><span class="p">,</span>
+            <span class="n">load_path</span><span class="p">,</span> <span class="n">progress</span><span class="p">,</span> <span class="n">states</span>
+        <span class="p">)</span></div>
+
+<div class="viewcode-block" id="Viewable.save"><a class="viewcode-back" href="../../api/panel.viewable.html#panel.viewable.Viewable.save">[docs]</a>    <span class="k">def</span> <span class="nf">save</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">filename</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">resources</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">template</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+             <span class="n">template_variables</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">embed</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">max_states</span><span class="o">=</span><span class="mi">1000</span><span class="p">,</span>
+             <span class="n">max_opts</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">embed_json</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">json_prefix</span><span class="o">=</span><span class="s1">''</span><span class="p">,</span> <span class="n">save_path</span><span class="o">=</span><span class="s1">'./'</span><span class="p">,</span>
+             <span class="n">load_path</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">progress</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">embed_states</span><span class="o">=</span><span class="p">{}):</span>
+        <span class="sd">"""</span>
+<span class="sd">        Saves Panel objects to file.</span>
+
+<span class="sd">        Arguments</span>
+<span class="sd">        ---------</span>
+<span class="sd">        filename: string or file-like object</span>
+<span class="sd">           Filename to save the plot to</span>
+<span class="sd">        title: string</span>
+<span class="sd">           Optional title for the plot</span>
+<span class="sd">        resources: bokeh resources</span>
+<span class="sd">           One of the valid bokeh.resources (e.g. CDN or INLINE)</span>
+<span class="sd">        template:</span>
+<span class="sd">           passed to underlying io.save</span>
+<span class="sd">        template_variables:</span>
+<span class="sd">           passed to underlying io.save</span>
+<span class="sd">        embed: bool</span>
+<span class="sd">           Whether the state space should be embedded in the saved file.</span>
+<span class="sd">        max_states: int</span>
+<span class="sd">           The maximum number of states to embed</span>
+<span class="sd">        max_opts: int</span>
+<span class="sd">           The maximum number of states for a single widget</span>
+<span class="sd">        embed_json: boolean (default=True)</span>
+<span class="sd">           Whether to export the data to json files</span>
+<span class="sd">        json_prefix: str (default='')</span>
+<span class="sd">           Prefix for the auto-generated json directory</span>
+<span class="sd">        save_path: str (default='./')</span>
+<span class="sd">           The path to save json files to</span>
+<span class="sd">        load_path: str (default=None)</span>
+<span class="sd">           The path or URL the json files will be loaded from.</span>
+<span class="sd">        progress: boolean (default=True)</span>
+<span class="sd">          Whether to report progress</span>
+<span class="sd">        embed_states: dict (default={})</span>
+<span class="sd">          A dictionary specifying the widget values to embed for each widget</span>
+<span class="sd">        """</span>
+        <span class="k">return</span> <span class="n">save</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">filename</span><span class="p">,</span> <span class="n">title</span><span class="p">,</span> <span class="n">resources</span><span class="p">,</span> <span class="n">template</span><span class="p">,</span>
+                    <span class="n">template_variables</span><span class="p">,</span> <span class="n">embed</span><span class="p">,</span> <span class="n">max_states</span><span class="p">,</span> <span class="n">max_opts</span><span class="p">,</span>
+                    <span class="n">embed_json</span><span class="p">,</span> <span class="n">json_prefix</span><span class="p">,</span> <span class="n">save_path</span><span class="p">,</span> <span class="n">load_path</span><span class="p">,</span>
+                    <span class="n">progress</span><span class="p">,</span> <span class="n">embed_states</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Viewable.server_doc"><a class="viewcode-back" href="../../api/panel.viewable.html#panel.viewable.Viewable.server_doc">[docs]</a>    <span class="k">def</span> <span class="nf">server_doc</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">location</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+        <span class="sd">"""</span>
+<span class="sd">        Returns a serveable bokeh Document with the panel attached</span>
+
+<span class="sd">        Arguments</span>
+<span class="sd">        ---------</span>
+<span class="sd">        doc : bokeh.Document (optional)</span>
+<span class="sd">          The bokeh Document to attach the panel to as a root,</span>
+<span class="sd">          defaults to bokeh.io.curdoc()</span>
+<span class="sd">        title : str</span>
+<span class="sd">          A string title to give the Document</span>
+<span class="sd">        location : boolean or panel.io.location.Location</span>
+<span class="sd">          Whether to create a Location component to observe and</span>
+<span class="sd">          set the URL location.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        doc : bokeh.Document</span>
+<span class="sd">          The bokeh document the panel was attached to</span>
+<span class="sd">        """</span>
+        <span class="n">doc</span> <span class="o">=</span> <span class="n">init_doc</span><span class="p">(</span><span class="n">doc</span><span class="p">)</span>
+        <span class="n">title</span> <span class="o">=</span> <span class="n">title</span> <span class="ow">or</span> <span class="s1">'Panel Application'</span>
+        <span class="n">doc</span><span class="o">.</span><span class="n">title</span> <span class="o">=</span> <span class="n">title</span>
+        <span class="n">model</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_root</span><span class="p">(</span><span class="n">doc</span><span class="p">)</span>
+        <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">doc</span><span class="p">,</span> <span class="s1">'on_session_destroyed'</span><span class="p">):</span>
+            <span class="n">doc</span><span class="o">.</span><span class="n">on_session_destroyed</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_server_destroy</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_documents</span><span class="p">[</span><span class="n">doc</span><span class="p">]</span> <span class="o">=</span> <span class="n">model</span>
+        <span class="n">add_to_doc</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">doc</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">location</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">_add_location</span><span class="p">(</span><span class="n">doc</span><span class="p">,</span> <span class="n">location</span><span class="p">,</span> <span class="n">model</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">doc</span></div></div>
+
+
+<div class="viewcode-block" id="Viewer"><a class="viewcode-back" href="../../api/panel.viewable.html#panel.viewable.Viewer">[docs]</a><span class="k">class</span> <span class="nc">Viewer</span><span class="p">(</span><span class="n">param</span><span class="o">.</span><span class="n">Parameterized</span><span class="p">):</span>
+    <span class="sd">"""</span>
+<span class="sd">    A baseclass for custom components that behave like a Panel object.</span>
+<span class="sd">    By implementing __panel__ method an instance of this class will</span>
+<span class="sd">    behave like the returned Panel component when placed in a layout,</span>
+<span class="sd">    render itself in a notebook and provide show and servable methods.</span>
+<span class="sd">    """</span>
+
+    <span class="k">def</span> <span class="nf">__panel__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">"""</span>
+<span class="sd">        Subclasses should return a Panel component to be rendered.</span>
+<span class="sd">        """</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span>
+
+<div class="viewcode-block" id="Viewer.servable"><a class="viewcode-back" href="../../api/panel.viewable.html#panel.viewable.Viewer.servable">[docs]</a>    <span class="k">def</span> <span class="nf">servable</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">location</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__panel__</span><span class="p">()</span><span class="o">.</span><span class="n">servable</span><span class="p">(</span><span class="n">title</span><span class="p">,</span> <span class="n">location</span><span class="p">)</span></div>
+
+    <span class="n">servable</span><span class="o">.</span><span class="vm">__doc__</span> <span class="o">=</span> <span class="n">ServableMixin</span><span class="o">.</span><span class="n">servable</span><span class="o">.</span><span class="vm">__doc__</span>
+
+<div class="viewcode-block" id="Viewer.show"><a class="viewcode-back" href="../../api/panel.viewable.html#panel.viewable.Viewer.show">[docs]</a>    <span class="k">def</span> <span class="nf">show</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">port</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">address</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">websocket_origin</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+             <span class="n">threaded</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="nb">open</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">location</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__panel__</span><span class="p">()</span><span class="o">.</span><span class="n">show</span><span class="p">(</span>
+            <span class="n">title</span><span class="p">,</span> <span class="n">port</span><span class="p">,</span> <span class="n">address</span><span class="p">,</span> <span class="n">websocket_origin</span><span class="p">,</span> <span class="n">threaded</span><span class="p">,</span>
+            <span class="n">verbose</span><span class="p">,</span> <span class="nb">open</span><span class="p">,</span> <span class="n">location</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span>
+        <span class="p">)</span></div>
+
+    <span class="n">show</span><span class="o">.</span><span class="vm">__doc__</span> <span class="o">=</span> <span class="n">ServableMixin</span><span class="o">.</span><span class="n">show</span><span class="o">.</span><span class="vm">__doc__</span>
+
+    <span class="k">def</span> <span class="nf">_repr_mimebundle_</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">include</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">exclude</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__panel__</span><span class="p">()</span><span class="o">.</span><span class="n">_repr_mimebundle_</span><span class="p">(</span><span class="n">include</span><span class="p">,</span> <span class="n">exclude</span><span class="p">)</span></div>
+</pre></div>
+</div>
+</div>
+<!-- END MAIN BODY OF DOCS ––––––––––––– -->
+<!-- Google Analytics -->
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async="" src="https://www.googletagmanager.com/gtag/js?id=UA-154795830-2"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-154795830-2', { 'anonymize_ip': true });
+</script>
+<!-- MathJax Config -->
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}
+});
+</script>
+<!-- End Document
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+</body>
+</html>

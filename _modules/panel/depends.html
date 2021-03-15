@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<!-- Basic Page Needs
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+<meta charset="utf-8"/>
+<title>panel.depends — Panel 0.11.1+g238199f-dirty documentation</title>
+<meta content="High-level dashboarding for python visualization libraries" name="description"/>
+<meta content="Panel contributors" name="author"/>
+<!-- Mobile Specific Metas
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<!-- FONT
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+<script src="https://ajax.googleapis.com/ajax/libs/webfont/1.6.16/webfont.js"></script>
+<script>
+    WebFont.load({
+      google: {
+        families: ['Source Sans Pro']
+      }
+    });
+  </script>
+<!-- CSS
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+<link href="../../_static/css/main.css" rel="stylesheet"/>
+<link href="../../_static/nbsite.css" rel="stylesheet"/>
+<link href="../../_static/site.css" rel="stylesheet"/>
+<!-- Scripts
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script async="" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML" type="text/javascript">
+</script>
+<script src="../../_static/js/main.js"></script>
+<!-- Favicon
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+<link href="../../_static/favicon.ico" rel="icon" type="image/png"/>
+<!-- Canonical
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+<link href="https://panel.holoviz.org/_modules/panel/depends.html" rel="canonical">
+</link></head>
+<body class="">
+<header class="navigation">
+<div class="wrapper">
+<a class="logo" href="../../index.html">
+<img alt="Logo" src="../../_static/logo_horizontal.png"/>
+</a>
+<a class="navigation-menu-button" href="javascript:void(0)" id="js-mobile-menu">Menu</a>
+<nav>
+<ul class="navigation-menu show" id="js-navigation-menu">
+<li class="nav-link doc-head"><a href="//discourse.holoviz.org">Discourse</a></li>
+<li class="nav-link doc-head"><a href="//twitter.com/Panel_org">Twitter</a></li>
+<li class="nav-link doc-head"><a href="//github.com/pyviz/panel">Github</a></li>
+<li class="nav-link">
+<div style="display:inline-block;vertical-align: middle;">
+<div class="search-bar">
+<form action="../../search.html" method="get" role="search">
+<input name="q" placeholder="Search" type="search"/>
+<button type="submit">
+<img alt="Search Icon" src="https://raw.githubusercontent.com/thoughtbot/refills/master/source/images/search-icon-black.png"/>
+</button>
+</form>
+</div>
+</div>
+</li>
+</ul>
+</nav>
+</div>
+</header>
+<div class="second-nav">
+<nav>
+<ul class="navigation-menu show">
+<li class="nav-link doc-head"><a href="../../getting_started/index.html">Getting started</a></li>
+<li class="nav-link doc-head"><a href="../../user_guide/index.html">User Guide</a></li>
+<li class="nav-link doc-head"><a href="../../gallery/index.html">Gallery</a></li>
+<li class="nav-link doc-head"><a href="../../reference/index.html">Reference Gallery</a></li>
+<li class="nav-link doc-head"><a href="../../developer_guide/index.html">Developer Guide</a></li>
+<li class="nav-link doc-head"><a href="../../releases.html">Releases</a></li>
+<li class="nav-link doc-head"><a href="../../api/index.html">API</a></li>
+<li class="nav-link doc-head"><a href="../../FAQ.html">FAQ</a></li>
+<li class="nav-link doc-head"><a href="../../about.html">About</a></li>
+</ul>
+</nav>
+</div>
+<!-- MAIN BODY OF DOCS –––––––––––––––––– -->
+<div class="docs section">
+<div id="hacketyhackhack"> <!-- style="width:20%;margin-right: 100px;"> --> <!--style="display: none;"> style="display:none;"> -->
+<div class="toc" style="width:15%; margin-right:20px;">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../index.html">Home</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../getting_started/index.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../user_guide/index.html">User Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../gallery/index.html">Gallery</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../reference/index.html">Reference Gallery</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../developer_guide/index.html">Developer Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../api/index.html">API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Comparisons.html">Comparisons</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../releases.html">Releases</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Roadmap.html">Road Map</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../FAQ.html">FAQ</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://github.com/pyviz/panel">Github source</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../about.html">About</a></li>
+</ul>
+</div>
+</div>
+<div class="content"> <!-- style="max-width:80%;margin-left:auto;margin-right: auto;">-->
+<h1>Source code for panel.depends</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">param</span>
+
+<span class="kn">from</span> <span class="nn">.widgets</span> <span class="kn">import</span> <span class="n">Widget</span>
+
+<span class="n">ipywidget_classes</span> <span class="o">=</span> <span class="p">{}</span>
+
+
+<span class="k">def</span> <span class="nf">param_value_if_widget</span><span class="p">(</span><span class="n">arg</span><span class="p">):</span>
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">arg</span><span class="p">,</span> <span class="n">Widget</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">arg</span><span class="o">.</span><span class="n">param</span><span class="o">.</span><span class="n">value</span>
+
+    <span class="kn">from</span> <span class="nn">.pane.ipywidget</span> <span class="kn">import</span> <span class="n">IPyWidget</span>
+    <span class="k">if</span> <span class="n">IPyWidget</span><span class="o">.</span><span class="n">applies</span><span class="p">(</span><span class="n">arg</span><span class="p">)</span> <span class="ow">and</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">arg</span><span class="p">,</span> <span class="s1">'value'</span><span class="p">):</span>
+        <span class="n">name</span> <span class="o">=</span> <span class="nb">type</span><span class="p">(</span><span class="n">arg</span><span class="p">)</span><span class="o">.</span><span class="vm">__name__</span>
+        <span class="k">if</span> <span class="n">name</span> <span class="ow">in</span> <span class="n">ipywidget_classes</span><span class="p">:</span>
+            <span class="n">ipy_param</span> <span class="o">=</span> <span class="n">ipywidget_classes</span><span class="p">[</span><span class="n">name</span><span class="p">]</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">ipy_param</span> <span class="o">=</span> <span class="n">param</span><span class="o">.</span><span class="n">parameterized_class</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="p">{</span><span class="s1">'value'</span><span class="p">:</span> <span class="n">param</span><span class="o">.</span><span class="n">Parameter</span><span class="p">()})</span>
+        <span class="n">ipywidget_classes</span><span class="p">[</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="n">ipy_param</span>
+        <span class="n">ipy_inst</span> <span class="o">=</span> <span class="n">ipy_param</span><span class="p">(</span><span class="n">value</span><span class="o">=</span><span class="n">arg</span><span class="o">.</span><span class="n">value</span><span class="p">)</span>
+        <span class="n">arg</span><span class="o">.</span><span class="n">observe</span><span class="p">(</span><span class="k">lambda</span> <span class="n">event</span><span class="p">:</span> <span class="n">ipy_inst</span><span class="o">.</span><span class="n">param</span><span class="o">.</span><span class="n">set_param</span><span class="p">(</span><span class="n">value</span><span class="o">=</span><span class="n">event</span><span class="p">[</span><span class="s1">'new'</span><span class="p">]),</span> <span class="s1">'value'</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">ipy_inst</span><span class="o">.</span><span class="n">param</span><span class="o">.</span><span class="n">value</span>
+    <span class="k">return</span> <span class="n">arg</span>
+
+
+<div class="viewcode-block" id="depends"><a class="viewcode-back" href="../../api/panel.depends.html#panel.depends.depends">[docs]</a><span class="k">def</span> <span class="nf">depends</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="sd">"""</span>
+<span class="sd">    Python decorator annotating a function or Parameterized method to</span>
+<span class="sd">    express its dependencies on a set of Parameters. This declaration</span>
+<span class="sd">    allows Panel to watch those dependencies and then invoke the</span>
+<span class="sd">    function or method to get an updated output when one of the</span>
+<span class="sd">    dependencies changes.</span>
+
+<span class="sd">    This function is the same as the corresponding param.depends</span>
+<span class="sd">    decorator, but extended so that if widgets are provided as</span>
+<span class="sd">    dependencies, the underlying `value` Parameter of the widget is</span>
+<span class="sd">    extracted as the actual dependency. This extension is solely for</span>
+<span class="sd">    syntactic convenience, allowing the widget to be passed in as a</span>
+<span class="sd">    synonym for the underlying parameter. Apart from that extension,</span>
+<span class="sd">    this decorator otherwise behaves the same as the underlying Param</span>
+<span class="sd">    depends decorator.</span>
+
+<span class="sd">    For the Panel version of the decorator, the specified dependencies</span>
+<span class="sd">    can either be Parameter instances, Panel or ipywidgets widgets,</span>
+<span class="sd">    or, if a Parameterized method is supplied rather than a function,</span>
+<span class="sd">    they can be defined either as string names of Parameters of this</span>
+<span class="sd">    object or as Parameter objects of this object's subobjects (i.e.,</span>
+<span class="sd">    Parameterized objects that are values of this object's</span>
+<span class="sd">    Parameters). See the docs for the corresponding param.depends</span>
+<span class="sd">    decorator for further details.</span>
+<span class="sd">    """</span>
+    <span class="n">updated_args</span> <span class="o">=</span> <span class="p">[</span><span class="n">param_value_if_widget</span><span class="p">(</span><span class="n">a</span><span class="p">)</span> <span class="k">for</span> <span class="n">a</span> <span class="ow">in</span>  <span class="n">args</span><span class="p">]</span>
+    <span class="n">updated_kwargs</span> <span class="o">=</span> <span class="p">{</span><span class="n">k</span><span class="p">:</span> <span class="n">param_value_if_widget</span><span class="p">(</span><span class="n">v</span><span class="p">)</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">items</span><span class="p">()}</span>
+    <span class="k">return</span> <span class="n">param</span><span class="o">.</span><span class="n">depends</span><span class="p">(</span><span class="o">*</span><span class="n">updated_args</span><span class="p">,</span> <span class="o">**</span><span class="n">updated_kwargs</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="bind"><a class="viewcode-back" href="../../api/panel.depends.html#panel.depends.bind">[docs]</a><span class="k">def</span> <span class="nf">bind</span><span class="p">(</span><span class="n">function</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="n">watch</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="sd">"""</span>
+<span class="sd">    Given a function, returns a wrapper function that binds the values</span>
+<span class="sd">    of some or all arguments to Parameter values and expresses Param</span>
+<span class="sd">    dependencies on those values, so that the function can be invoked</span>
+<span class="sd">    whenever the underlying values change.</span>
+
+<span class="sd">    This function is the same as param.bind, but extended so that if</span>
+<span class="sd">    widgets are provided as values, the underlying `value` Parameter</span>
+<span class="sd">    of the widget is extracted as the actual argument value and</span>
+<span class="sd">    dependency. This extension is solely for syntactic convenience,</span>
+<span class="sd">    allowing the widget to be passed in as a synonym for the</span>
+<span class="sd">    underlying parameter. Apart from that extension, this function</span>
+<span class="sd">    otherwise behaves the same as the corresponding Param function.</span>
+
+<span class="sd">    This function allows dynamically recomputing the output of the</span>
+<span class="sd">    provided function whenever one of the bound parameters</span>
+<span class="sd">    changes. For Panel, the parameters are typically values of</span>
+<span class="sd">    widgets, making it simple to have output that reacts to changes in</span>
+<span class="sd">    the widgets. Arguments an also be bound to other parameters (not</span>
+<span class="sd">    part of widgets) or even to constants (as for functools.partial).</span>
+
+<span class="sd">    Arguments</span>
+<span class="sd">    ---------</span>
+<span class="sd">    function: callable</span>
+<span class="sd">        The function to bind constant or dynamic args and kwargs to.</span>
+<span class="sd">    args: object, param.Parameter, panel.widget.Widget, or ipywidget</span>
+<span class="sd">        Positional arguments to bind to the function.</span>
+<span class="sd">    watch: boolean</span>
+<span class="sd">        Whether to evaluate the function automatically whenever one of</span>
+<span class="sd">        the bound parameters changes.</span>
+<span class="sd">    kwargs: object, param.Parameter, panel.widget.Widget, or ipywidget</span>
+<span class="sd">        Keyword arguments to bind to the function.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    Returns a new function with the args and kwargs bound to it and</span>
+<span class="sd">    annotated with all dependencies.</span>
+<span class="sd">    """</span>
+    <span class="n">updated_args</span> <span class="o">=</span> <span class="p">[</span><span class="n">param_value_if_widget</span><span class="p">(</span><span class="n">a</span><span class="p">)</span> <span class="k">for</span> <span class="n">a</span> <span class="ow">in</span> <span class="n">args</span><span class="p">]</span>
+    <span class="n">updated_kwargs</span> <span class="o">=</span> <span class="p">{</span><span class="n">k</span><span class="p">:</span> <span class="n">param_value_if_widget</span><span class="p">(</span><span class="n">v</span><span class="p">)</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">items</span><span class="p">()}</span>
+    <span class="k">return</span> <span class="n">_param_bind</span><span class="p">(</span><span class="n">function</span><span class="p">,</span> <span class="o">*</span><span class="n">updated_args</span><span class="p">,</span> <span class="n">watch</span><span class="o">=</span><span class="n">watch</span><span class="p">,</span> <span class="o">**</span><span class="n">updated_kwargs</span><span class="p">)</span></div>
+
+
+<span class="c1"># Temporary; to move to Param</span>
+<span class="k">def</span> <span class="nf">_param_bind</span><span class="p">(</span><span class="n">function</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="n">watch</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="sd">"""</span>
+<span class="sd">    Given a function, returns a wrapper function that binds the values</span>
+<span class="sd">    of some or all arguments to Parameter values and expresses Param</span>
+<span class="sd">    dependencies on those values, so that the function can be invoked</span>
+<span class="sd">    whenever the underlying values change and the output will reflect</span>
+<span class="sd">    those updated values.</span>
+
+<span class="sd">    As for functools.partial, arguments can also be bound to constants,</span>
+<span class="sd">    which allows all of the arguments to be bound, leaving a simple</span>
+<span class="sd">    callable object.</span>
+
+<span class="sd">    Arguments</span>
+<span class="sd">    ---------</span>
+<span class="sd">    function: callable</span>
+<span class="sd">        The function to bind constant or dynamic args and kwargs to.</span>
+<span class="sd">    args: object, param.Parameter</span>
+<span class="sd">        Positional arguments to bind to the function.</span>
+<span class="sd">    watch: boolean</span>
+<span class="sd">        Whether to evaluate the function automatically whenever one of</span>
+<span class="sd">        the bound parameters changes.</span>
+<span class="sd">    kwargs: object, param.Parameter</span>
+<span class="sd">        Keyword arguments to bind to the function.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    Returns a new function with the args and kwargs bound to it and</span>
+<span class="sd">    annotated with all dependencies.</span>
+<span class="sd">    """</span>
+    <span class="n">dependencies</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">arg</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">args</span><span class="p">):</span>
+        <span class="n">p</span> <span class="o">=</span> <span class="n">param_value_if_widget</span><span class="p">(</span><span class="n">arg</span><span class="p">)</span>
+        <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="s1">'_dinfo'</span><span class="p">):</span>
+            <span class="k">for</span> <span class="n">j</span><span class="p">,</span> <span class="n">arg</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">p</span><span class="o">.</span><span class="n">_dinfo</span><span class="p">[</span><span class="s1">'dependencies'</span><span class="p">]):</span>
+                <span class="n">dependencies</span><span class="p">[</span><span class="sa">f</span><span class="s1">'__arg</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s1">_arg</span><span class="si">{</span><span class="n">j</span><span class="si">}</span><span class="s1">'</span><span class="p">]</span> <span class="o">=</span> <span class="n">arg</span>
+            <span class="k">for</span> <span class="n">kw</span><span class="p">,</span> <span class="n">kwarg</span> <span class="ow">in</span> <span class="n">p</span><span class="o">.</span><span class="n">_dinfo</span><span class="p">[</span><span class="s1">'kw'</span><span class="p">]</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+                <span class="n">dependencies</span><span class="p">[</span><span class="sa">f</span><span class="s1">'__arg</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s1">_arg_</span><span class="si">{</span><span class="n">kw</span><span class="si">}</span><span class="s1">'</span><span class="p">]</span> <span class="o">=</span> <span class="n">kwarg</span>
+        <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">param</span><span class="o">.</span><span class="n">Parameter</span><span class="p">):</span>
+            <span class="n">dependencies</span><span class="p">[</span><span class="sa">f</span><span class="s1">'__arg</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s1">'</span><span class="p">]</span> <span class="o">=</span> <span class="n">p</span>
+    <span class="k">for</span> <span class="n">kw</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+        <span class="n">p</span> <span class="o">=</span> <span class="n">param_value_if_widget</span><span class="p">(</span><span class="n">v</span><span class="p">)</span>
+        <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="s1">'_dinfo'</span><span class="p">):</span>
+            <span class="k">for</span> <span class="n">j</span><span class="p">,</span> <span class="n">arg</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">p</span><span class="o">.</span><span class="n">_dinfo</span><span class="p">[</span><span class="s1">'dependencies'</span><span class="p">]):</span>
+                <span class="n">dependencies</span><span class="p">[</span><span class="sa">f</span><span class="s1">'__kwarg_</span><span class="si">{</span><span class="n">kw</span><span class="si">}</span><span class="s1">_arg</span><span class="si">{</span><span class="n">j</span><span class="si">}</span><span class="s1">'</span><span class="p">]</span> <span class="o">=</span> <span class="n">arg</span>
+            <span class="k">for</span> <span class="n">pkw</span><span class="p">,</span> <span class="n">kwarg</span> <span class="ow">in</span> <span class="n">p</span><span class="o">.</span><span class="n">_dinfo</span><span class="p">[</span><span class="s1">'kw'</span><span class="p">]</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+                <span class="n">dependencies</span><span class="p">[</span><span class="sa">f</span><span class="s1">'__kwarg_</span><span class="si">{</span><span class="n">kw</span><span class="si">}</span><span class="s1">_</span><span class="si">{</span><span class="n">pkw</span><span class="si">}</span><span class="s1">'</span><span class="p">]</span> <span class="o">=</span> <span class="n">kwarg</span>
+        <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">param</span><span class="o">.</span><span class="n">Parameter</span><span class="p">):</span>
+            <span class="n">dependencies</span><span class="p">[</span><span class="n">kw</span><span class="p">]</span> <span class="o">=</span> <span class="n">p</span>
+
+    <span class="nd">@depends</span><span class="p">(</span><span class="o">**</span><span class="n">dependencies</span><span class="p">,</span> <span class="n">watch</span><span class="o">=</span><span class="n">watch</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">wrapped</span><span class="p">(</span><span class="o">*</span><span class="n">wargs</span><span class="p">,</span> <span class="o">**</span><span class="n">wkwargs</span><span class="p">):</span>
+        <span class="n">combined_args</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">arg</span> <span class="ow">in</span> <span class="n">args</span><span class="p">:</span>
+            <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">arg</span><span class="p">,</span> <span class="s1">'_dinfo'</span><span class="p">):</span>
+                <span class="n">arg</span> <span class="o">=</span> <span class="n">arg</span><span class="p">()</span>
+            <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">arg</span><span class="p">,</span> <span class="n">param</span><span class="o">.</span><span class="n">Parameter</span><span class="p">):</span>
+                <span class="n">arg</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">arg</span><span class="o">.</span><span class="n">owner</span><span class="p">,</span> <span class="n">arg</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
+            <span class="n">combined_args</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">arg</span><span class="p">)</span>
+        <span class="n">combined_args</span> <span class="o">+=</span> <span class="nb">list</span><span class="p">(</span><span class="n">wargs</span><span class="p">)</span>
+        <span class="n">combined_kwargs</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="k">for</span> <span class="n">kw</span><span class="p">,</span> <span class="n">arg</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">arg</span><span class="p">,</span> <span class="s1">'_dinfo'</span><span class="p">):</span>
+                <span class="n">arg</span> <span class="o">=</span> <span class="n">arg</span><span class="p">()</span>
+            <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">arg</span><span class="p">,</span> <span class="n">param</span><span class="o">.</span><span class="n">Parameter</span><span class="p">):</span>
+                <span class="n">arg</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">arg</span><span class="o">.</span><span class="n">owner</span><span class="p">,</span> <span class="n">arg</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
+            <span class="n">combined_kwargs</span><span class="p">[</span><span class="n">kw</span><span class="p">]</span> <span class="o">=</span> <span class="n">arg</span>
+        <span class="k">for</span> <span class="n">kw</span><span class="p">,</span> <span class="n">arg</span> <span class="ow">in</span> <span class="n">wkwargs</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="k">if</span> <span class="n">kw</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s1">'__arg'</span><span class="p">):</span>
+                <span class="k">continue</span>
+            <span class="n">combined_kwargs</span><span class="p">[</span><span class="n">kw</span><span class="p">]</span> <span class="o">=</span> <span class="n">arg</span>
+
+        <span class="k">return</span> <span class="n">function</span><span class="p">(</span><span class="o">*</span><span class="n">combined_args</span><span class="p">,</span> <span class="o">**</span><span class="n">combined_kwargs</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">wrapped</span>
+</pre></div>
+</div>
+</div>
+<!-- END MAIN BODY OF DOCS ––––––––––––– -->
+<!-- Google Analytics -->
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async="" src="https://www.googletagmanager.com/gtag/js?id=UA-154795830-2"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-154795830-2', { 'anonymize_ip': true });
+</script>
+<!-- MathJax Config -->
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}
+});
+</script>
+<!-- End Document
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+</body>
+</html>

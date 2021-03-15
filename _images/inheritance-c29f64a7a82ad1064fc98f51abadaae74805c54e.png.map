@@ -1,0 +1,9 @@
+<map id="inheritance6ae2df98d2" name="inheritance6ae2df98d2">
+<area shape="rect" id="node1" href="#panel.template.fast.theme.FastDarkTheme" target="_top" title="panel.template.fast.theme.FastDarkTheme" alt="" coords="862,27,1140,50"/>
+<area shape="rect" id="node2" href="panel.template.theme.html#panel.template.theme.DarkTheme" target="_top" title="The DefaultTheme uses the standard Panel color palette." alt="" coords="577,27,803,50"/>
+<area shape="rect" id="node3" href="#panel.template.fast.theme.FastDefaultTheme" target="_top" title="panel.template.fast.theme.FastDefaultTheme" alt="" coords="855,72,1147,95"/>
+<area shape="rect" id="node4" href="panel.template.theme.html#panel.template.theme.DefaultTheme" target="_top" title="The DefaultTheme uses the standard Panel color palette." alt="" coords="569,72,811,95"/>
+<area shape="rect" id="node5" href="#panel.template.fast.theme.FastStyle" target="_top" title="The FastStyle class provides the different colors and icons used" alt="" coords="288,5,525,28"/>
+<area shape="rect" id="node6" title="params(name=String)" alt="" coords="5,28,244,51"/>
+<area shape="rect" id="node7" href="panel.template.theme.html#panel.template.theme.Theme" target="_top" title="A Theme customizes the look and feel of a Template by providing" alt="" coords="308,50,506,73"/>
+</map>

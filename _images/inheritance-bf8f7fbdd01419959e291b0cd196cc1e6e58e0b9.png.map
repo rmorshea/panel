@@ -1,0 +1,9 @@
+<map id="inheritance31d4e9f919" name="inheritance31d4e9f919">
+<area shape="rect" id="node1" title="Base class for all class types that have Bokeh properties." alt="" coords="63,4,241,24"/>
+<area shape="rect" id="node2" title="Base class for all objects stored in Bokeh &#160;|Document| instances." alt="" coords="337,43,455,62"/>
+<area shape="rect" id="node6" title="The base class for layoutable components." alt="" coords="492,43,683,62"/>
+<area shape="rect" id="node3" title="A mixin class to provide an interface for registering and" alt="" coords="4,43,300,62"/>
+<area shape="rect" id="node4" title="A mixin class to provide an interface for registering and" alt="" coords="11,81,293,101"/>
+<area shape="rect" id="node5" title="A component which size is determined by its HTML content." alt="" coords="720,43,900,62"/>
+<area shape="rect" id="node7" href="#panel.models.perspective.Perspective" target="_top" title="panel.models.perspective.Perspective" alt="" coords="937,43,1148,62"/>
+</map>

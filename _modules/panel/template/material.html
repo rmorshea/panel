@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<!-- Basic Page Needs
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+<meta charset="utf-8"/>
+<title>panel.template.material — Panel 0.11.1+g238199f-dirty documentation</title>
+<meta content="High-level dashboarding for python visualization libraries" name="description"/>
+<meta content="Panel contributors" name="author"/>
+<!-- Mobile Specific Metas
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<!-- FONT
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+<script src="https://ajax.googleapis.com/ajax/libs/webfont/1.6.16/webfont.js"></script>
+<script>
+    WebFont.load({
+      google: {
+        families: ['Source Sans Pro']
+      }
+    });
+  </script>
+<!-- CSS
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+<link href="../../../_static/css/main.css" rel="stylesheet"/>
+<link href="../../../_static/nbsite.css" rel="stylesheet"/>
+<link href="../../../_static/site.css" rel="stylesheet"/>
+<!-- Scripts
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script async="" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML" type="text/javascript">
+</script>
+<script src="../../../_static/js/main.js"></script>
+<!-- Favicon
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+<link href="../../../_static/favicon.ico" rel="icon" type="image/png"/>
+<!-- Canonical
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+<link href="https://panel.holoviz.org/_modules/panel/template/material.html" rel="canonical">
+</link></head>
+<body class="">
+<header class="navigation">
+<div class="wrapper">
+<a class="logo" href="../../../index.html">
+<img alt="Logo" src="../../../_static/logo_horizontal.png"/>
+</a>
+<a class="navigation-menu-button" href="javascript:void(0)" id="js-mobile-menu">Menu</a>
+<nav>
+<ul class="navigation-menu show" id="js-navigation-menu">
+<li class="nav-link doc-head"><a href="//discourse.holoviz.org">Discourse</a></li>
+<li class="nav-link doc-head"><a href="//twitter.com/Panel_org">Twitter</a></li>
+<li class="nav-link doc-head"><a href="//github.com/pyviz/panel">Github</a></li>
+<li class="nav-link">
+<div style="display:inline-block;vertical-align: middle;">
+<div class="search-bar">
+<form action="../../../search.html" method="get" role="search">
+<input name="q" placeholder="Search" type="search"/>
+<button type="submit">
+<img alt="Search Icon" src="https://raw.githubusercontent.com/thoughtbot/refills/master/source/images/search-icon-black.png"/>
+</button>
+</form>
+</div>
+</div>
+</li>
+</ul>
+</nav>
+</div>
+</header>
+<div class="second-nav">
+<nav>
+<ul class="navigation-menu show">
+<li class="nav-link doc-head"><a href="../../../getting_started/index.html">Getting started</a></li>
+<li class="nav-link doc-head"><a href="../../../user_guide/index.html">User Guide</a></li>
+<li class="nav-link doc-head"><a href="../../../gallery/index.html">Gallery</a></li>
+<li class="nav-link doc-head"><a href="../../../reference/index.html">Reference Gallery</a></li>
+<li class="nav-link doc-head"><a href="../../../developer_guide/index.html">Developer Guide</a></li>
+<li class="nav-link doc-head"><a href="../../../releases.html">Releases</a></li>
+<li class="nav-link doc-head"><a href="../../../api/index.html">API</a></li>
+<li class="nav-link doc-head"><a href="../../../FAQ.html">FAQ</a></li>
+<li class="nav-link doc-head"><a href="../../../about.html">About</a></li>
+</ul>
+</nav>
+</div>
+<!-- MAIN BODY OF DOCS –––––––––––––––––– -->
+<div class="docs section">
+<div id="hacketyhackhack"> <!-- style="width:20%;margin-right: 100px;"> --> <!--style="display: none;"> style="display:none;"> -->
+<div class="toc" style="width:15%; margin-right:20px;">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../index.html">Home</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../getting_started/index.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../user_guide/index.html">User Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../gallery/index.html">Gallery</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../reference/index.html">Reference Gallery</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../developer_guide/index.html">Developer Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/index.html">API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../Comparisons.html">Comparisons</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../releases.html">Releases</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../Roadmap.html">Road Map</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../FAQ.html">FAQ</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://github.com/pyviz/panel">Github source</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../about.html">About</a></li>
+</ul>
+</div>
+</div>
+<div class="content"> <!-- style="max-width:80%;margin-left:auto;margin-right: auto;">-->
+<h1>Source code for panel.template.material</h1><div class="highlight"><pre>
+<span></span><span class="sd">"""</span>
+<span class="sd">Material template based on the material web components library.</span>
+<span class="sd">"""</span>
+<span class="kn">import</span> <span class="nn">pathlib</span>
+
+<span class="kn">import</span> <span class="nn">param</span>
+
+<span class="kn">from</span> <span class="nn">bokeh.themes</span> <span class="kn">import</span> <span class="n">Theme</span> <span class="k">as</span> <span class="n">_BkTheme</span>
+
+<span class="kn">from</span> <span class="nn">...layout</span> <span class="kn">import</span> <span class="n">Card</span>
+<span class="kn">from</span> <span class="nn">..base</span> <span class="kn">import</span> <span class="n">BasicTemplate</span>
+<span class="kn">from</span> <span class="nn">..theme</span> <span class="kn">import</span> <span class="n">DefaultTheme</span><span class="p">,</span> <span class="n">DarkTheme</span>
+
+
+<div class="viewcode-block" id="MaterialTemplate"><a class="viewcode-back" href="../../../api/panel.template.material.html#panel.template.material.MaterialTemplate">[docs]</a><span class="k">class</span> <span class="nc">MaterialTemplate</span><span class="p">(</span><span class="n">BasicTemplate</span><span class="p">):</span>
+    <span class="sd">"""</span>
+<span class="sd">    MaterialTemplate is built on top of Material web components.</span>
+<span class="sd">    """</span>
+
+    <span class="n">_css</span> <span class="o">=</span> <span class="n">pathlib</span><span class="o">.</span><span class="n">Path</span><span class="p">(</span><span class="vm">__file__</span><span class="p">)</span><span class="o">.</span><span class="n">parent</span> <span class="o">/</span> <span class="s1">'material.css'</span>
+
+    <span class="n">_template</span> <span class="o">=</span> <span class="n">pathlib</span><span class="o">.</span><span class="n">Path</span><span class="p">(</span><span class="vm">__file__</span><span class="p">)</span><span class="o">.</span><span class="n">parent</span> <span class="o">/</span> <span class="s1">'material.html'</span>
+
+    <span class="n">_modifiers</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="n">Card</span><span class="p">:</span> <span class="p">{</span>
+            <span class="s1">'children'</span><span class="p">:</span> <span class="p">{</span><span class="s1">'margin'</span><span class="p">:</span> <span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">10</span><span class="p">)},</span>
+            <span class="s1">'title_css_classes'</span><span class="p">:</span> <span class="p">[</span><span class="s1">'mdc-card-title'</span><span class="p">],</span>
+            <span class="s1">'css_classes'</span><span class="p">:</span> <span class="p">[</span><span class="s1">'mdc-card'</span><span class="p">],</span>
+            <span class="s1">'header_css_classes'</span><span class="p">:</span> <span class="p">[</span><span class="s1">'mdc-card__primary-action'</span><span class="p">],</span>
+            <span class="s1">'button_css_classes'</span><span class="p">:</span> <span class="p">[</span><span class="s1">'mdc-button'</span><span class="p">,</span> <span class="s1">'mdc-card-button'</span><span class="p">],</span>
+            <span class="s1">'margin'</span><span class="p">:</span> <span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span>
+        <span class="p">},</span>
+    <span class="p">}</span>
+
+    <span class="n">_resources</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s1">'css'</span><span class="p">:</span> <span class="p">{</span>
+            <span class="s1">'material'</span><span class="p">:</span> <span class="s2">"https://unpkg.com/material-components-web@7.0.0/dist/material-components-web.min.css"</span><span class="p">,</span>
+        <span class="p">},</span>
+        <span class="s1">'js'</span><span class="p">:</span> <span class="p">{</span>
+            <span class="s1">'material'</span><span class="p">:</span> <span class="s2">"https://unpkg.com/material-components-web@7.0.0/dist/material-components-web.min.js"</span>
+        <span class="p">}</span>
+    <span class="p">}</span></div>
+
+
+<span class="n">MATERIAL_FONT</span> <span class="o">=</span> <span class="s2">"Roboto, sans-serif, Verdana"</span>
+<span class="n">MATERIAL_THEME</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s2">"attrs"</span><span class="p">:</span> <span class="p">{</span>
+            <span class="s2">"Axis"</span><span class="p">:</span> <span class="p">{</span>
+                <span class="s2">"major_label_text_font"</span><span class="p">:</span> <span class="n">MATERIAL_FONT</span><span class="p">,</span>
+                <span class="s2">"major_label_text_font_size"</span><span class="p">:</span> <span class="s2">"1.025em"</span><span class="p">,</span>
+                <span class="s2">"axis_label_standoff"</span><span class="p">:</span> <span class="mi">10</span><span class="p">,</span>
+                <span class="s2">"axis_label_text_font"</span><span class="p">:</span> <span class="n">MATERIAL_FONT</span><span class="p">,</span>
+                <span class="s2">"axis_label_text_font_size"</span><span class="p">:</span> <span class="s2">"1.25em"</span><span class="p">,</span>
+                <span class="s2">"axis_label_text_font_style"</span><span class="p">:</span> <span class="s2">"normal"</span><span class="p">,</span>
+            <span class="p">},</span>
+            <span class="s2">"Legend"</span><span class="p">:</span> <span class="p">{</span>
+                <span class="s2">"spacing"</span><span class="p">:</span> <span class="mi">8</span><span class="p">,</span>
+                <span class="s2">"glyph_width"</span><span class="p">:</span> <span class="mi">15</span><span class="p">,</span>
+                <span class="s2">"label_standoff"</span><span class="p">:</span> <span class="mi">8</span><span class="p">,</span>
+                <span class="s2">"label_text_font"</span><span class="p">:</span> <span class="n">MATERIAL_FONT</span><span class="p">,</span>
+                <span class="s2">"label_text_font_size"</span><span class="p">:</span> <span class="s2">"1.025em"</span><span class="p">,</span>
+            <span class="p">},</span>
+            <span class="s2">"ColorBar"</span><span class="p">:</span> <span class="p">{</span>
+                <span class="s2">"title_text_font"</span><span class="p">:</span> <span class="n">MATERIAL_FONT</span><span class="p">,</span>
+                <span class="s2">"title_text_font_size"</span><span class="p">:</span> <span class="s2">"1.025em"</span><span class="p">,</span>
+                <span class="s2">"title_text_font_style"</span><span class="p">:</span> <span class="s2">"normal"</span><span class="p">,</span>
+                <span class="s2">"major_label_text_font"</span><span class="p">:</span> <span class="n">MATERIAL_FONT</span><span class="p">,</span>
+                <span class="s2">"major_label_text_font_size"</span><span class="p">:</span> <span class="s2">"1.025em"</span><span class="p">,</span>
+            <span class="p">},</span>
+            <span class="s2">"Title"</span><span class="p">:</span> <span class="p">{</span>
+                <span class="s2">"text_font"</span><span class="p">:</span> <span class="n">MATERIAL_FONT</span><span class="p">,</span>
+                <span class="s2">"text_font_size"</span><span class="p">:</span> <span class="s2">"1.15em"</span><span class="p">,</span>
+            <span class="p">},</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+
+
+<span class="n">MATERIAL_DARK_100</span> <span class="o">=</span> <span class="s2">"rgb(48,48,48)"</span>
+<span class="n">MATERIAL_DARK_75</span> <span class="o">=</span> <span class="s2">"rgb(57,57,57)"</span>
+<span class="n">MATERIAL_DARK_50</span> <span class="o">=</span> <span class="s2">"rgb(66,66,66)"</span>
+<span class="n">MATERIAL_DARK_25</span> <span class="o">=</span> <span class="s2">"rgb(77,77,77)"</span>
+<span class="n">MATERIAL_TEXT_DIGITAL_DARK</span> <span class="o">=</span> <span class="s2">"rgb(236,236,236)"</span>
+
+<span class="n">MATERIAL_DARK_THEME</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s2">"attrs"</span><span class="p">:</span> <span class="p">{</span>
+            <span class="s2">"Figure"</span><span class="p">:</span> <span class="p">{</span>
+                <span class="s2">"background_fill_color"</span><span class="p">:</span> <span class="n">MATERIAL_DARK_50</span><span class="p">,</span>
+                <span class="s2">"border_fill_color"</span><span class="p">:</span> <span class="n">MATERIAL_DARK_100</span><span class="p">,</span>
+                <span class="s2">"outline_line_color"</span><span class="p">:</span> <span class="n">MATERIAL_DARK_75</span><span class="p">,</span>
+                <span class="s2">"outline_line_alpha"</span><span class="p">:</span> <span class="mf">0.25</span><span class="p">,</span>
+            <span class="p">},</span>
+            <span class="s2">"Grid"</span><span class="p">:</span> <span class="p">{</span><span class="s2">"grid_line_color"</span><span class="p">:</span> <span class="n">MATERIAL_TEXT_DIGITAL_DARK</span><span class="p">,</span> <span class="s2">"grid_line_alpha"</span><span class="p">:</span> <span class="mf">0.25</span><span class="p">},</span>
+            <span class="s2">"Axis"</span><span class="p">:</span> <span class="p">{</span>
+                <span class="s2">"major_tick_line_alpha"</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+                <span class="s2">"major_tick_line_color"</span><span class="p">:</span> <span class="n">MATERIAL_TEXT_DIGITAL_DARK</span><span class="p">,</span>
+                <span class="s2">"minor_tick_line_alpha"</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+                <span class="s2">"minor_tick_line_color"</span><span class="p">:</span> <span class="n">MATERIAL_TEXT_DIGITAL_DARK</span><span class="p">,</span>
+                <span class="s2">"axis_line_alpha"</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+                <span class="s2">"axis_line_color"</span><span class="p">:</span> <span class="n">MATERIAL_TEXT_DIGITAL_DARK</span><span class="p">,</span>
+                <span class="s2">"major_label_text_color"</span><span class="p">:</span> <span class="n">MATERIAL_TEXT_DIGITAL_DARK</span><span class="p">,</span>
+                <span class="s2">"major_label_text_font"</span><span class="p">:</span> <span class="n">MATERIAL_FONT</span><span class="p">,</span>
+                <span class="s2">"major_label_text_font_size"</span><span class="p">:</span> <span class="s2">"1.025em"</span><span class="p">,</span>
+                <span class="s2">"axis_label_standoff"</span><span class="p">:</span> <span class="mi">10</span><span class="p">,</span>
+                <span class="s2">"axis_label_text_color"</span><span class="p">:</span> <span class="n">MATERIAL_TEXT_DIGITAL_DARK</span><span class="p">,</span>
+                <span class="s2">"axis_label_text_font"</span><span class="p">:</span> <span class="n">MATERIAL_FONT</span><span class="p">,</span>
+                <span class="s2">"axis_label_text_font_size"</span><span class="p">:</span> <span class="s2">"1.25em"</span><span class="p">,</span>
+                <span class="s2">"axis_label_text_font_style"</span><span class="p">:</span> <span class="s2">"normal"</span><span class="p">,</span>
+            <span class="p">},</span>
+            <span class="s2">"Legend"</span><span class="p">:</span> <span class="p">{</span>
+                <span class="s2">"spacing"</span><span class="p">:</span> <span class="mi">8</span><span class="p">,</span>
+                <span class="s2">"glyph_width"</span><span class="p">:</span> <span class="mi">15</span><span class="p">,</span>
+                <span class="s2">"label_standoff"</span><span class="p">:</span> <span class="mi">8</span><span class="p">,</span>
+                <span class="s2">"label_text_color"</span><span class="p">:</span> <span class="n">MATERIAL_TEXT_DIGITAL_DARK</span><span class="p">,</span>
+                <span class="s2">"label_text_font"</span><span class="p">:</span> <span class="n">MATERIAL_FONT</span><span class="p">,</span>
+                <span class="s2">"label_text_font_size"</span><span class="p">:</span> <span class="s2">"1.025em"</span><span class="p">,</span>
+                <span class="s2">"border_line_alpha"</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+                <span class="s2">"background_fill_alpha"</span><span class="p">:</span> <span class="mf">0.25</span><span class="p">,</span>
+                <span class="s2">"background_fill_color"</span><span class="p">:</span> <span class="n">MATERIAL_DARK_75</span><span class="p">,</span>
+            <span class="p">},</span>
+            <span class="s2">"ColorBar"</span><span class="p">:</span> <span class="p">{</span>
+                <span class="s2">"title_text_color"</span><span class="p">:</span> <span class="n">MATERIAL_TEXT_DIGITAL_DARK</span><span class="p">,</span>
+                <span class="s2">"title_text_font"</span><span class="p">:</span> <span class="n">MATERIAL_FONT</span><span class="p">,</span>
+                <span class="s2">"title_text_font_size"</span><span class="p">:</span> <span class="s2">"1.025em"</span><span class="p">,</span>
+                <span class="s2">"title_text_font_style"</span><span class="p">:</span> <span class="s2">"normal"</span><span class="p">,</span>
+                <span class="s2">"major_label_text_color"</span><span class="p">:</span> <span class="n">MATERIAL_TEXT_DIGITAL_DARK</span><span class="p">,</span>
+                <span class="s2">"major_label_text_font"</span><span class="p">:</span> <span class="n">MATERIAL_FONT</span><span class="p">,</span>
+                <span class="s2">"major_label_text_font_size"</span><span class="p">:</span> <span class="s2">"1.025em"</span><span class="p">,</span>
+                <span class="s2">"background_fill_color"</span><span class="p">:</span> <span class="n">MATERIAL_DARK_75</span><span class="p">,</span>
+                <span class="s2">"major_tick_line_alpha"</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+                <span class="s2">"bar_line_alpha"</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+            <span class="p">},</span>
+            <span class="s2">"Title"</span><span class="p">:</span> <span class="p">{</span>
+                <span class="s2">"text_color"</span><span class="p">:</span> <span class="n">MATERIAL_TEXT_DIGITAL_DARK</span><span class="p">,</span>
+                <span class="s2">"text_font"</span><span class="p">:</span> <span class="n">MATERIAL_FONT</span><span class="p">,</span>
+                <span class="s2">"text_font_size"</span><span class="p">:</span> <span class="s2">"1.15em"</span><span class="p">,</span>
+            <span class="p">},</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+
+
+<div class="viewcode-block" id="MaterialDefaultTheme"><a class="viewcode-back" href="../../../api/panel.template.material.html#panel.template.material.MaterialDefaultTheme">[docs]</a><span class="k">class</span> <span class="nc">MaterialDefaultTheme</span><span class="p">(</span><span class="n">DefaultTheme</span><span class="p">):</span>
+
+    <span class="n">css</span> <span class="o">=</span> <span class="n">param</span><span class="o">.</span><span class="n">Filename</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="n">pathlib</span><span class="o">.</span><span class="n">Path</span><span class="p">(</span><span class="vm">__file__</span><span class="p">)</span><span class="o">.</span><span class="n">parent</span> <span class="o">/</span> <span class="s1">'default.css'</span><span class="p">)</span>
+
+    <span class="n">bokeh_theme</span> <span class="o">=</span> <span class="n">param</span><span class="o">.</span><span class="n">ClassSelector</span><span class="p">(</span><span class="n">class_</span><span class="o">=</span><span class="p">(</span><span class="n">_BkTheme</span><span class="p">,</span> <span class="nb">str</span><span class="p">),</span>
+                                      <span class="n">default</span><span class="o">=</span><span class="n">_BkTheme</span><span class="p">(</span><span class="n">json</span><span class="o">=</span><span class="n">MATERIAL_THEME</span><span class="p">))</span>
+
+    <span class="n">_template</span> <span class="o">=</span> <span class="n">MaterialTemplate</span></div>
+
+
+<div class="viewcode-block" id="MaterialDarkTheme"><a class="viewcode-back" href="../../../api/panel.template.material.html#panel.template.material.MaterialDarkTheme">[docs]</a><span class="k">class</span> <span class="nc">MaterialDarkTheme</span><span class="p">(</span><span class="n">DarkTheme</span><span class="p">):</span>
+    <span class="sd">"""</span>
+<span class="sd">    The MaterialDarkTheme is a Dark Theme in the style of Material Design</span>
+<span class="sd">    """</span>
+
+    <span class="n">css</span> <span class="o">=</span> <span class="n">param</span><span class="o">.</span><span class="n">Filename</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="n">pathlib</span><span class="o">.</span><span class="n">Path</span><span class="p">(</span><span class="vm">__file__</span><span class="p">)</span><span class="o">.</span><span class="n">parent</span> <span class="o">/</span> <span class="s1">'dark.css'</span><span class="p">)</span>
+    
+    <span class="n">bokeh_theme</span> <span class="o">=</span> <span class="n">param</span><span class="o">.</span><span class="n">ClassSelector</span><span class="p">(</span><span class="n">class_</span><span class="o">=</span><span class="p">(</span><span class="n">_BkTheme</span><span class="p">,</span> <span class="nb">str</span><span class="p">),</span>
+                                      <span class="n">default</span><span class="o">=</span><span class="n">_BkTheme</span><span class="p">(</span><span class="n">json</span><span class="o">=</span><span class="n">MATERIAL_DARK_THEME</span><span class="p">))</span>
+
+    <span class="n">_template</span> <span class="o">=</span> <span class="n">MaterialTemplate</span></div>
+</pre></div>
+</div>
+</div>
+<!-- END MAIN BODY OF DOCS ––––––––––––– -->
+<!-- Google Analytics -->
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async="" src="https://www.googletagmanager.com/gtag/js?id=UA-154795830-2"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-154795830-2', { 'anonymize_ip': true });
+</script>
+<!-- MathJax Config -->
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}
+});
+</script>
+<!-- End Document
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+</body>
+</html>

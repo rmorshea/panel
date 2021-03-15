@@ -1,0 +1,784 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<!-- Basic Page Needs
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+<meta charset="utf-8"/>
+<title>panel.widgets.indicators — Panel 0.11.1+g238199f-dirty documentation</title>
+<meta content="High-level dashboarding for python visualization libraries" name="description"/>
+<meta content="Panel contributors" name="author"/>
+<!-- Mobile Specific Metas
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<!-- FONT
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+<script src="https://ajax.googleapis.com/ajax/libs/webfont/1.6.16/webfont.js"></script>
+<script>
+    WebFont.load({
+      google: {
+        families: ['Source Sans Pro']
+      }
+    });
+  </script>
+<!-- CSS
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+<link href="../../../_static/css/main.css" rel="stylesheet"/>
+<link href="../../../_static/nbsite.css" rel="stylesheet"/>
+<link href="../../../_static/site.css" rel="stylesheet"/>
+<!-- Scripts
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script async="" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML" type="text/javascript">
+</script>
+<script src="../../../_static/js/main.js"></script>
+<!-- Favicon
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+<link href="../../../_static/favicon.ico" rel="icon" type="image/png"/>
+<!-- Canonical
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+<link href="https://panel.holoviz.org/_modules/panel/widgets/indicators.html" rel="canonical">
+</link></head>
+<body class="">
+<header class="navigation">
+<div class="wrapper">
+<a class="logo" href="../../../index.html">
+<img alt="Logo" src="../../../_static/logo_horizontal.png"/>
+</a>
+<a class="navigation-menu-button" href="javascript:void(0)" id="js-mobile-menu">Menu</a>
+<nav>
+<ul class="navigation-menu show" id="js-navigation-menu">
+<li class="nav-link doc-head"><a href="//discourse.holoviz.org">Discourse</a></li>
+<li class="nav-link doc-head"><a href="//twitter.com/Panel_org">Twitter</a></li>
+<li class="nav-link doc-head"><a href="//github.com/pyviz/panel">Github</a></li>
+<li class="nav-link">
+<div style="display:inline-block;vertical-align: middle;">
+<div class="search-bar">
+<form action="../../../search.html" method="get" role="search">
+<input name="q" placeholder="Search" type="search"/>
+<button type="submit">
+<img alt="Search Icon" src="https://raw.githubusercontent.com/thoughtbot/refills/master/source/images/search-icon-black.png"/>
+</button>
+</form>
+</div>
+</div>
+</li>
+</ul>
+</nav>
+</div>
+</header>
+<div class="second-nav">
+<nav>
+<ul class="navigation-menu show">
+<li class="nav-link doc-head"><a href="../../../getting_started/index.html">Getting started</a></li>
+<li class="nav-link doc-head"><a href="../../../user_guide/index.html">User Guide</a></li>
+<li class="nav-link doc-head"><a href="../../../gallery/index.html">Gallery</a></li>
+<li class="nav-link doc-head"><a href="../../../reference/index.html">Reference Gallery</a></li>
+<li class="nav-link doc-head"><a href="../../../developer_guide/index.html">Developer Guide</a></li>
+<li class="nav-link doc-head"><a href="../../../releases.html">Releases</a></li>
+<li class="nav-link doc-head"><a href="../../../api/index.html">API</a></li>
+<li class="nav-link doc-head"><a href="../../../FAQ.html">FAQ</a></li>
+<li class="nav-link doc-head"><a href="../../../about.html">About</a></li>
+</ul>
+</nav>
+</div>
+<!-- MAIN BODY OF DOCS –––––––––––––––––– -->
+<div class="docs section">
+<div id="hacketyhackhack"> <!-- style="width:20%;margin-right: 100px;"> --> <!--style="display: none;"> style="display:none;"> -->
+<div class="toc" style="width:15%; margin-right:20px;">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../index.html">Home</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../getting_started/index.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../user_guide/index.html">User Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../gallery/index.html">Gallery</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../reference/index.html">Reference Gallery</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../developer_guide/index.html">Developer Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/index.html">API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../Comparisons.html">Comparisons</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../releases.html">Releases</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../Roadmap.html">Road Map</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../FAQ.html">FAQ</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://github.com/pyviz/panel">Github source</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../about.html">About</a></li>
+</ul>
+</div>
+</div>
+<div class="content"> <!-- style="max-width:80%;margin-left:auto;margin-right: auto;">-->
+<h1>Source code for panel.widgets.indicators</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">sys</span>
+
+<span class="kn">from</span> <span class="nn">math</span> <span class="kn">import</span> <span class="n">pi</span>
+
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">param</span>
+
+<span class="kn">from</span> <span class="nn">bokeh.plotting</span> <span class="kn">import</span> <span class="n">figure</span>
+<span class="kn">from</span> <span class="nn">bokeh.models</span> <span class="kn">import</span> <span class="n">ColumnDataSource</span>
+
+<span class="kn">from</span> <span class="nn">..models</span> <span class="kn">import</span> <span class="p">(</span>
+    <span class="n">HTML</span><span class="p">,</span> <span class="n">Progress</span> <span class="k">as</span> <span class="n">_BkProgress</span><span class="p">,</span> <span class="n">TrendIndicator</span> <span class="k">as</span> <span class="n">_BkTrendIndicator</span>
+<span class="p">)</span>
+<span class="kn">from</span> <span class="nn">..reactive</span> <span class="kn">import</span> <span class="n">SyncableData</span>
+<span class="kn">from</span> <span class="nn">..util</span> <span class="kn">import</span> <span class="n">escape</span><span class="p">,</span> <span class="n">updating</span>
+<span class="kn">from</span> <span class="nn">.base</span> <span class="kn">import</span> <span class="n">Widget</span>
+
+<span class="n">RED</span>   <span class="o">=</span> <span class="s2">"#d9534f"</span>
+<span class="n">GREEN</span> <span class="o">=</span> <span class="s2">"#5cb85c"</span>
+<span class="n">BLUE</span>  <span class="o">=</span> <span class="s2">"#428bca"</span>
+
+
+<div class="viewcode-block" id="Indicator"><a class="viewcode-back" href="../../../api/panel.widgets.html#panel.widgets.indicators.Indicator">[docs]</a><span class="k">class</span> <span class="nc">Indicator</span><span class="p">(</span><span class="n">Widget</span><span class="p">):</span>
+    <span class="sd">"""</span>
+<span class="sd">    Indicator is a baseclass for widgets which indicate some state.</span>
+<span class="sd">    """</span>
+
+    <span class="n">sizing_mode</span> <span class="o">=</span> <span class="n">param</span><span class="o">.</span><span class="n">ObjectSelector</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="s1">'fixed'</span><span class="p">,</span> <span class="n">objects</span><span class="o">=</span><span class="p">[</span>
+        <span class="s1">'fixed'</span><span class="p">,</span> <span class="s1">'stretch_width'</span><span class="p">,</span> <span class="s1">'stretch_height'</span><span class="p">,</span> <span class="s1">'stretch_both'</span><span class="p">,</span>
+        <span class="s1">'scale_width'</span><span class="p">,</span> <span class="s1">'scale_height'</span><span class="p">,</span> <span class="s1">'scale_both'</span><span class="p">,</span> <span class="kc">None</span><span class="p">])</span>
+
+    <span class="n">__abstract</span> <span class="o">=</span> <span class="kc">True</span></div>
+
+
+<div class="viewcode-block" id="BooleanIndicator"><a class="viewcode-back" href="../../../api/panel.widgets.html#panel.widgets.indicators.BooleanIndicator">[docs]</a><span class="k">class</span> <span class="nc">BooleanIndicator</span><span class="p">(</span><span class="n">Indicator</span><span class="p">):</span>
+
+    <span class="n">value</span> <span class="o">=</span> <span class="n">param</span><span class="o">.</span><span class="n">Boolean</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="s2">"""</span>
+<span class="s2">        Whether the indicator is active or not."""</span><span class="p">)</span>
+
+    <span class="n">__abstract</span> <span class="o">=</span> <span class="kc">True</span></div>
+
+
+<div class="viewcode-block" id="BooleanStatus"><a class="viewcode-back" href="../../../api/panel.widgets.html#panel.widgets.indicators.BooleanStatus">[docs]</a><span class="k">class</span> <span class="nc">BooleanStatus</span><span class="p">(</span><span class="n">BooleanIndicator</span><span class="p">):</span>
+
+    <span class="n">color</span> <span class="o">=</span> <span class="n">param</span><span class="o">.</span><span class="n">ObjectSelector</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="s1">'dark'</span><span class="p">,</span> <span class="n">objects</span><span class="o">=</span><span class="p">[</span>
+        <span class="s1">'primary'</span><span class="p">,</span> <span class="s1">'secondary'</span><span class="p">,</span> <span class="s1">'success'</span><span class="p">,</span> <span class="s1">'info'</span><span class="p">,</span> <span class="s1">'danger'</span><span class="p">,</span> <span class="s1">'warning'</span><span class="p">,</span>
+        <span class="s1">'light'</span><span class="p">,</span> <span class="s1">'dark'</span><span class="p">])</span>
+
+    <span class="n">height</span> <span class="o">=</span> <span class="n">param</span><span class="o">.</span><span class="n">Integer</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="s2">"""</span>
+<span class="s2">        height of the circle."""</span><span class="p">)</span>
+
+    <span class="n">width</span> <span class="o">=</span> <span class="n">param</span><span class="o">.</span><span class="n">Integer</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="s2">"""</span>
+<span class="s2">        Width of the circle."""</span><span class="p">)</span>
+
+    <span class="n">value</span> <span class="o">=</span> <span class="n">param</span><span class="o">.</span><span class="n">Boolean</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="s2">"""</span>
+<span class="s2">        Whether the indicator is active or not."""</span><span class="p">)</span>
+
+    <span class="n">_widget_type</span> <span class="o">=</span> <span class="n">HTML</span>
+
+    <span class="n">_rename</span> <span class="o">=</span> <span class="p">{</span><span class="s1">'color'</span><span class="p">:</span> <span class="kc">None</span><span class="p">}</span>
+
+    <span class="k">def</span> <span class="nf">_process_param_change</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">msg</span><span class="p">):</span>
+        <span class="n">msg</span> <span class="o">=</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">_process_param_change</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+        <span class="n">value</span> <span class="o">=</span> <span class="n">msg</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">'value'</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">value</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">msg</span>
+        <span class="n">msg</span><span class="p">[</span><span class="s1">'css_classes'</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="s1">'dot-filled'</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">color</span><span class="p">]</span> <span class="k">if</span> <span class="n">value</span> <span class="k">else</span> <span class="p">[</span><span class="s1">'dot'</span><span class="p">]</span>
+        <span class="k">return</span> <span class="n">msg</span></div>
+
+
+<div class="viewcode-block" id="LoadingSpinner"><a class="viewcode-back" href="../../../api/panel.widgets.html#panel.widgets.indicators.LoadingSpinner">[docs]</a><span class="k">class</span> <span class="nc">LoadingSpinner</span><span class="p">(</span><span class="n">BooleanIndicator</span><span class="p">):</span>
+
+    <span class="n">bgcolor</span> <span class="o">=</span> <span class="n">param</span><span class="o">.</span><span class="n">ObjectSelector</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="s1">'light'</span><span class="p">,</span> <span class="n">objects</span><span class="o">=</span><span class="p">[</span><span class="s1">'dark'</span><span class="p">,</span> <span class="s1">'light'</span><span class="p">])</span>
+
+    <span class="n">color</span> <span class="o">=</span> <span class="n">param</span><span class="o">.</span><span class="n">ObjectSelector</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="s1">'dark'</span><span class="p">,</span> <span class="n">objects</span><span class="o">=</span><span class="p">[</span>
+        <span class="s1">'primary'</span><span class="p">,</span> <span class="s1">'secondary'</span><span class="p">,</span> <span class="s1">'success'</span><span class="p">,</span> <span class="s1">'info'</span><span class="p">,</span> <span class="s1">'danger'</span><span class="p">,</span> <span class="s1">'warning'</span><span class="p">,</span>
+        <span class="s1">'light'</span><span class="p">,</span> <span class="s1">'dark'</span><span class="p">])</span>
+
+    <span class="n">height</span> <span class="o">=</span> <span class="n">param</span><span class="o">.</span><span class="n">Integer</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="mi">125</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="s2">"""</span>
+<span class="s2">        height of the circle."""</span><span class="p">)</span>
+
+    <span class="n">width</span> <span class="o">=</span> <span class="n">param</span><span class="o">.</span><span class="n">Integer</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="mi">125</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="s2">"""</span>
+<span class="s2">        Width of the circle."""</span><span class="p">)</span>
+
+    <span class="n">value</span> <span class="o">=</span> <span class="n">param</span><span class="o">.</span><span class="n">Boolean</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="s2">"""</span>
+<span class="s2">        Whether the indicator is active or not."""</span><span class="p">)</span>
+
+    <span class="n">_widget_type</span> <span class="o">=</span> <span class="n">HTML</span>
+
+    <span class="n">_rename</span> <span class="o">=</span> <span class="p">{</span><span class="s1">'color'</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span> <span class="s1">'bgcolor'</span><span class="p">:</span> <span class="kc">None</span><span class="p">}</span>
+
+    <span class="k">def</span> <span class="nf">_process_param_change</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">msg</span><span class="p">):</span>
+        <span class="n">msg</span> <span class="o">=</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">_process_param_change</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+        <span class="n">value</span> <span class="o">=</span> <span class="n">msg</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">'value'</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">value</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">msg</span>
+        <span class="n">color_cls</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">'</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">color</span><span class="si">}</span><span class="s1">-</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">bgcolor</span><span class="si">}</span><span class="s1">'</span>
+        <span class="n">msg</span><span class="p">[</span><span class="s1">'css_classes'</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="s1">'loader'</span><span class="p">,</span> <span class="s1">'spin'</span><span class="p">,</span> <span class="n">color_cls</span><span class="p">]</span> <span class="k">if</span> <span class="n">value</span> <span class="k">else</span> <span class="p">[</span><span class="s1">'loader'</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">bgcolor</span><span class="p">]</span>
+        <span class="k">return</span> <span class="n">msg</span></div>
+
+
+<div class="viewcode-block" id="ValueIndicator"><a class="viewcode-back" href="../../../api/panel.widgets.html#panel.widgets.indicators.ValueIndicator">[docs]</a><span class="k">class</span> <span class="nc">ValueIndicator</span><span class="p">(</span><span class="n">Indicator</span><span class="p">):</span>
+    <span class="sd">"""</span>
+<span class="sd">    A ValueIndicator provides a visual representation for a numeric</span>
+<span class="sd">    value.</span>
+<span class="sd">    """</span>
+
+    <span class="n">value</span> <span class="o">=</span> <span class="n">param</span><span class="o">.</span><span class="n">Number</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">allow_None</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+    <span class="n">__abstract</span> <span class="o">=</span> <span class="kc">True</span></div>
+
+
+<div class="viewcode-block" id="Progress"><a class="viewcode-back" href="../../../api/panel.widgets.html#panel.widgets.indicators.Progress">[docs]</a><span class="k">class</span> <span class="nc">Progress</span><span class="p">(</span><span class="n">ValueIndicator</span><span class="p">):</span>
+
+    <span class="n">active</span> <span class="o">=</span> <span class="n">param</span><span class="o">.</span><span class="n">Boolean</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="s2">"""</span>
+<span class="s2">        If no value is set the active property toggles animation of the</span>
+<span class="s2">        progress bar on and off."""</span><span class="p">)</span>
+
+    <span class="n">bar_color</span> <span class="o">=</span> <span class="n">param</span><span class="o">.</span><span class="n">ObjectSelector</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="s1">'success'</span><span class="p">,</span> <span class="n">objects</span><span class="o">=</span><span class="p">[</span>
+        <span class="s1">'primary'</span><span class="p">,</span> <span class="s1">'secondary'</span><span class="p">,</span> <span class="s1">'success'</span><span class="p">,</span> <span class="s1">'info'</span><span class="p">,</span> <span class="s1">'danger'</span><span class="p">,</span> <span class="s1">'warning'</span><span class="p">,</span>
+        <span class="s1">'light'</span><span class="p">,</span> <span class="s1">'dark'</span><span class="p">])</span>
+
+    <span class="nb">max</span> <span class="o">=</span> <span class="n">param</span><span class="o">.</span><span class="n">Integer</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="s2">"The maximum value of the progress bar."</span><span class="p">)</span>
+
+    <span class="n">value</span> <span class="o">=</span> <span class="n">param</span><span class="o">.</span><span class="n">Integer</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">bounds</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="kc">None</span><span class="p">),</span> <span class="n">doc</span><span class="o">=</span><span class="s2">"""</span>
+<span class="s2">        The current value of the progress bar. If set to None the progress</span>
+<span class="s2">        bar will be indeterminate and animate depending on the active</span>
+<span class="s2">        parameter."""</span><span class="p">)</span>
+
+    <span class="n">_rename</span> <span class="o">=</span> <span class="p">{</span><span class="s1">'name'</span><span class="p">:</span> <span class="kc">None</span><span class="p">}</span>
+
+    <span class="n">_widget_type</span> <span class="o">=</span> <span class="n">_BkProgress</span>
+
+    <span class="nd">@param</span><span class="o">.</span><span class="n">depends</span><span class="p">(</span><span class="s1">'max'</span><span class="p">,</span> <span class="n">watch</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">_update_value_bounds</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">param</span><span class="o">.</span><span class="n">value</span><span class="o">.</span><span class="n">bounds</span> <span class="o">=</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">max</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="o">**</span><span class="n">params</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="o">**</span><span class="n">params</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_update_value_bounds</span><span class="p">()</span></div>
+
+
+<div class="viewcode-block" id="Number"><a class="viewcode-back" href="../../../api/panel.widgets.html#panel.widgets.indicators.Number">[docs]</a><span class="k">class</span> <span class="nc">Number</span><span class="p">(</span><span class="n">ValueIndicator</span><span class="p">):</span>
+    <span class="sd">"""</span>
+<span class="sd">    The Number indicator renders the value as text optionally colored</span>
+<span class="sd">    according to the color thresholds.</span>
+<span class="sd">    """</span>
+
+    <span class="n">default_color</span> <span class="o">=</span> <span class="n">param</span><span class="o">.</span><span class="n">String</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="s1">'black'</span><span class="p">)</span>
+
+    <span class="n">colors</span> <span class="o">=</span> <span class="n">param</span><span class="o">.</span><span class="n">List</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+
+    <span class="nb">format</span> <span class="o">=</span> <span class="n">param</span><span class="o">.</span><span class="n">String</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="s1">'</span><span class="si">{value}</span><span class="s1">'</span><span class="p">)</span>
+
+    <span class="n">font_size</span> <span class="o">=</span> <span class="n">param</span><span class="o">.</span><span class="n">String</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="s1">'54pt'</span><span class="p">)</span>
+
+    <span class="n">nan_format</span> <span class="o">=</span> <span class="n">param</span><span class="o">.</span><span class="n">String</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="s1">'-'</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="s2">"""</span>
+<span class="s2">      How to format nan values."""</span><span class="p">)</span>
+
+    <span class="n">title_size</span> <span class="o">=</span> <span class="n">param</span><span class="o">.</span><span class="n">String</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="s1">'18pt'</span><span class="p">)</span>
+
+    <span class="n">_rename</span> <span class="o">=</span> <span class="p">{}</span>
+
+    <span class="n">_widget_type</span> <span class="o">=</span> <span class="n">HTML</span>
+
+    <span class="k">def</span> <span class="nf">_process_param_change</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">msg</span><span class="p">):</span>
+        <span class="n">msg</span> <span class="o">=</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">_process_param_change</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+        <span class="n">font_size</span> <span class="o">=</span> <span class="n">msg</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">'font_size'</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">font_size</span><span class="p">)</span>
+        <span class="n">title_font_size</span> <span class="o">=</span> <span class="n">msg</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">'title_size'</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">title_size</span><span class="p">)</span>
+        <span class="n">name</span> <span class="o">=</span> <span class="n">msg</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">'name'</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
+        <span class="nb">format</span> <span class="o">=</span> <span class="n">msg</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">'format'</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">format</span><span class="p">)</span>
+        <span class="n">value</span> <span class="o">=</span> <span class="n">msg</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">'value'</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">value</span><span class="p">)</span>
+        <span class="n">nan_format</span> <span class="o">=</span> <span class="n">msg</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">'nan_format'</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">nan_format</span><span class="p">)</span>
+        <span class="n">color</span> <span class="o">=</span> <span class="n">msg</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">'default_color'</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">default_color</span><span class="p">)</span>
+        <span class="n">colors</span> <span class="o">=</span> <span class="n">msg</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">'colors'</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">colors</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">val</span><span class="p">,</span> <span class="n">clr</span> <span class="ow">in</span> <span class="p">(</span><span class="n">colors</span> <span class="ow">or</span> <span class="p">[])[::</span><span class="o">-</span><span class="mi">1</span><span class="p">]:</span>
+            <span class="k">if</span> <span class="n">value</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">value</span> <span class="o">&lt;=</span> <span class="n">val</span><span class="p">:</span>
+                <span class="n">color</span> <span class="o">=</span> <span class="n">clr</span>
+        <span class="k">if</span> <span class="n">value</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">value</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="s1">'nan'</span><span class="p">)</span>
+        <span class="n">value</span> <span class="o">=</span> <span class="nb">format</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">value</span><span class="o">=</span><span class="n">value</span><span class="p">)</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">'nan'</span><span class="p">,</span> <span class="n">nan_format</span><span class="p">)</span>
+        <span class="n">text</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">'&lt;div style="font-size: </span><span class="si">{</span><span class="n">font_size</span><span class="si">}</span><span class="s1">; color: </span><span class="si">{</span><span class="n">color</span><span class="si">}</span><span class="s1">"&gt;</span><span class="si">{</span><span class="n">value</span><span class="si">}</span><span class="s1">&lt;/div&gt;'</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">:</span>
+            <span class="n">title_font_size</span> <span class="o">=</span> <span class="n">msg</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">'title_size'</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">title_size</span><span class="p">)</span>
+            <span class="n">text</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">'&lt;div style="font-size: </span><span class="si">{</span><span class="n">title_font_size</span><span class="si">}</span><span class="s1">; color: </span><span class="si">{</span><span class="n">color</span><span class="si">}</span><span class="s1">"&gt;</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s1">&lt;/div&gt;</span><span class="se">\n</span><span class="si">{</span><span class="n">text</span><span class="si">}</span><span class="s1">'</span>
+        <span class="n">msg</span><span class="p">[</span><span class="s1">'text'</span><span class="p">]</span> <span class="o">=</span> <span class="n">escape</span><span class="p">(</span><span class="n">text</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">msg</span></div>
+
+
+<div class="viewcode-block" id="String"><a class="viewcode-back" href="../../../api/panel.widgets.html#panel.widgets.indicators.String">[docs]</a><span class="k">class</span> <span class="nc">String</span><span class="p">(</span><span class="n">ValueIndicator</span><span class="p">):</span>
+    <span class="sd">"""</span>
+<span class="sd">    The String indicator renders a string with a title.</span>
+<span class="sd">    """</span>
+
+    <span class="n">default_color</span> <span class="o">=</span> <span class="n">param</span><span class="o">.</span><span class="n">String</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="s1">'black'</span><span class="p">)</span>
+
+    <span class="n">font_size</span> <span class="o">=</span> <span class="n">param</span><span class="o">.</span><span class="n">String</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="s1">'54pt'</span><span class="p">)</span>
+
+    <span class="n">title_size</span> <span class="o">=</span> <span class="n">param</span><span class="o">.</span><span class="n">String</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="s1">'18pt'</span><span class="p">)</span>
+
+    <span class="n">value</span> <span class="o">=</span> <span class="n">param</span><span class="o">.</span><span class="n">String</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">allow_None</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+    <span class="n">_rename</span> <span class="o">=</span> <span class="p">{}</span>
+
+    <span class="n">_widget_type</span> <span class="o">=</span> <span class="n">HTML</span>
+
+    <span class="k">def</span> <span class="nf">_process_param_change</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">msg</span><span class="p">):</span>
+        <span class="n">msg</span> <span class="o">=</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">_process_param_change</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+        <span class="n">font_size</span> <span class="o">=</span> <span class="n">msg</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">'font_size'</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">font_size</span><span class="p">)</span>
+        <span class="n">title_font_size</span> <span class="o">=</span> <span class="n">msg</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">'title_size'</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">title_size</span><span class="p">)</span>
+        <span class="n">name</span> <span class="o">=</span> <span class="n">msg</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">'name'</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
+        <span class="n">value</span> <span class="o">=</span> <span class="n">msg</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">'value'</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">value</span><span class="p">)</span>
+        <span class="n">color</span> <span class="o">=</span> <span class="n">msg</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">'default_color'</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">default_color</span><span class="p">)</span>
+        <span class="n">text</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">'&lt;div style="font-size: </span><span class="si">{</span><span class="n">font_size</span><span class="si">}</span><span class="s1">; color: </span><span class="si">{</span><span class="n">color</span><span class="si">}</span><span class="s1">"&gt;</span><span class="si">{</span><span class="n">value</span><span class="si">}</span><span class="s1">&lt;/div&gt;'</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">:</span>
+            <span class="n">title_font_size</span> <span class="o">=</span> <span class="n">msg</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">'title_size'</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">title_size</span><span class="p">)</span>
+            <span class="n">text</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">'&lt;div style="font-size: </span><span class="si">{</span><span class="n">title_font_size</span><span class="si">}</span><span class="s1">; color: </span><span class="si">{</span><span class="n">color</span><span class="si">}</span><span class="s1">"&gt;</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s1">&lt;/div&gt;</span><span class="se">\n</span><span class="si">{</span><span class="n">text</span><span class="si">}</span><span class="s1">'</span>
+        <span class="n">msg</span><span class="p">[</span><span class="s1">'text'</span><span class="p">]</span> <span class="o">=</span> <span class="n">escape</span><span class="p">(</span><span class="n">text</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">msg</span></div>
+
+
+<div class="viewcode-block" id="Gauge"><a class="viewcode-back" href="../../../api/panel.widgets.html#panel.widgets.indicators.Gauge">[docs]</a><span class="k">class</span> <span class="nc">Gauge</span><span class="p">(</span><span class="n">ValueIndicator</span><span class="p">):</span>
+    <span class="sd">"""</span>
+<span class="sd">    A Gauge represents a value in some range as a position on</span>
+<span class="sd">    speedometer or gauge. It is similar to a Dial but visually a lot</span>
+<span class="sd">    busier.</span>
+<span class="sd">    """</span>
+
+    <span class="n">annulus_width</span> <span class="o">=</span> <span class="n">param</span><span class="o">.</span><span class="n">Integer</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="s2">"""</span>
+<span class="s2">      Width of the gauge annulus."""</span><span class="p">)</span>
+
+    <span class="n">bounds</span> <span class="o">=</span> <span class="n">param</span><span class="o">.</span><span class="n">Range</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">100</span><span class="p">),</span> <span class="n">doc</span><span class="o">=</span><span class="s2">"""</span>
+<span class="s2">      The upper and lower bound of the dial."""</span><span class="p">)</span>
+
+    <span class="n">colors</span> <span class="o">=</span> <span class="n">param</span><span class="o">.</span><span class="n">List</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="s2">"""</span>
+<span class="s2">      Color thresholds for the Gauge, specified as a list of tuples</span>
+<span class="s2">      of the fractional threshold and the color to switch to."""</span><span class="p">)</span>
+
+    <span class="n">custom_opts</span> <span class="o">=</span> <span class="n">param</span><span class="o">.</span><span class="n">Dict</span><span class="p">(</span><span class="n">doc</span><span class="o">=</span><span class="s2">"""</span>
+<span class="s2">      Additional options to pass to the ECharts Gauge definition."""</span><span class="p">)</span>
+
+    <span class="n">height</span> <span class="o">=</span> <span class="n">param</span><span class="o">.</span><span class="n">Integer</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="mi">300</span><span class="p">,</span> <span class="n">bounds</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="kc">None</span><span class="p">))</span>
+
+    <span class="n">end_angle</span> <span class="o">=</span> <span class="n">param</span><span class="o">.</span><span class="n">Number</span><span class="p">(</span><span class="n">default</span><span class="o">=-</span><span class="mi">45</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="s2">"""</span>
+<span class="s2">      Angle at which the gauge ends."""</span><span class="p">)</span>
+
+    <span class="nb">format</span> <span class="o">=</span> <span class="n">param</span><span class="o">.</span><span class="n">String</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="s1">'</span><span class="si">{value}</span><span class="s1">%'</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="s2">"""</span>
+<span class="s2">      Formatting string for the value indicator."""</span><span class="p">)</span>
+
+    <span class="n">num_splits</span> <span class="o">=</span> <span class="n">param</span><span class="o">.</span><span class="n">Integer</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="s2">"""</span>
+<span class="s2">      Number of splits along the gauge."""</span><span class="p">)</span>
+
+    <span class="n">show_ticks</span> <span class="o">=</span> <span class="n">param</span><span class="o">.</span><span class="n">Boolean</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="s2">"""</span>
+<span class="s2">      Whether to show ticks along the dials."""</span><span class="p">)</span>
+
+    <span class="n">show_labels</span> <span class="o">=</span> <span class="n">param</span><span class="o">.</span><span class="n">Boolean</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="s2">"""</span>
+<span class="s2">      Whether to show tick labels along the dials."""</span><span class="p">)</span>
+
+    <span class="n">start_angle</span> <span class="o">=</span> <span class="n">param</span><span class="o">.</span><span class="n">Number</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="mi">225</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="s2">"""</span>
+<span class="s2">      Angle at which the gauge starts."""</span><span class="p">)</span>
+
+    <span class="n">tooltip_format</span> <span class="o">=</span> <span class="n">param</span><span class="o">.</span><span class="n">String</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="s1">'</span><span class="si">{b}</span><span class="s1"> : </span><span class="si">{c}</span><span class="s1">%'</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="s2">"""</span>
+<span class="s2">      Formatting string for the hover tooltip."""</span><span class="p">)</span>
+
+    <span class="n">title_size</span> <span class="o">=</span> <span class="n">param</span><span class="o">.</span><span class="n">Integer</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="mi">18</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="s2">"""</span>
+<span class="s2">      Size of title font."""</span><span class="p">)</span>
+
+    <span class="n">value</span> <span class="o">=</span> <span class="n">param</span><span class="o">.</span><span class="n">Number</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="mi">25</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="s2">"""</span>
+<span class="s2">      Value to indicate on the gauge a value within the declared bounds."""</span><span class="p">)</span>
+
+    <span class="n">width</span> <span class="o">=</span> <span class="n">param</span><span class="o">.</span><span class="n">Integer</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="mi">300</span><span class="p">,</span> <span class="n">bounds</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="kc">None</span><span class="p">))</span>
+
+    <span class="n">_rename</span> <span class="o">=</span> <span class="p">{}</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">_widget_type</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">if</span> <span class="s1">'panel.models.echarts'</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">sys</span><span class="o">.</span><span class="n">modules</span><span class="p">:</span>
+            <span class="kn">from</span> <span class="nn">..models.echarts</span> <span class="kn">import</span> <span class="n">ECharts</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">ECharts</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">modules</span><span class="p">[</span><span class="s1">'panel.models.echarts'</span><span class="p">],</span> <span class="s1">'ECharts'</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">ECharts</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">params</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="o">**</span><span class="n">params</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_update_value_bounds</span><span class="p">()</span>
+
+    <span class="nd">@param</span><span class="o">.</span><span class="n">depends</span><span class="p">(</span><span class="s1">'bounds'</span><span class="p">,</span> <span class="n">watch</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">_update_value_bounds</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">param</span><span class="o">.</span><span class="n">value</span><span class="o">.</span><span class="n">bounds</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">bounds</span>
+
+    <span class="k">def</span> <span class="nf">_process_param_change</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">msg</span><span class="p">):</span>
+        <span class="n">msg</span> <span class="o">=</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">_process_param_change</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+        <span class="n">vmin</span><span class="p">,</span> <span class="n">vmax</span> <span class="o">=</span> <span class="n">msg</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">'bounds'</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">bounds</span><span class="p">)</span>
+        <span class="n">msg</span><span class="p">[</span><span class="s1">'data'</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s1">'tooltip'</span><span class="p">:</span> <span class="p">{</span>
+                <span class="s1">'formatter'</span><span class="p">:</span> <span class="n">msg</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">'tooltip_format'</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">tooltip_format</span><span class="p">)</span>
+            <span class="p">},</span>
+            <span class="s1">'series'</span><span class="p">:</span> <span class="p">[{</span>
+                <span class="s1">'name'</span><span class="p">:</span> <span class="s1">'Gauge'</span><span class="p">,</span>
+                <span class="s1">'type'</span><span class="p">:</span> <span class="s1">'gauge'</span><span class="p">,</span>
+                <span class="s1">'axisTick'</span><span class="p">:</span> <span class="p">{</span><span class="s1">'show'</span><span class="p">:</span> <span class="n">msg</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">'show_ticks'</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">show_ticks</span><span class="p">)},</span>
+                <span class="s1">'axisLabel'</span><span class="p">:</span> <span class="p">{</span><span class="s1">'show'</span><span class="p">:</span> <span class="n">msg</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">'show_labels'</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">show_labels</span><span class="p">)},</span>
+                <span class="s1">'title'</span><span class="p">:</span> <span class="p">{</span><span class="s1">'fontWeight'</span><span class="p">:</span> <span class="s1">'bold'</span><span class="p">,</span> <span class="s1">'fontSize'</span><span class="p">:</span> <span class="n">msg</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">'title_size'</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">title_size</span><span class="p">)},</span>
+                <span class="s1">'splitLine'</span><span class="p">:</span> <span class="p">{</span><span class="s1">'show'</span><span class="p">:</span> <span class="kc">True</span><span class="p">},</span>
+                <span class="s1">'radius'</span><span class="p">:</span> <span class="s1">'100%'</span><span class="p">,</span>
+                <span class="s1">'detail'</span><span class="p">:</span> <span class="p">{</span><span class="s1">'formatter'</span><span class="p">:</span> <span class="n">msg</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">'format'</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">format</span><span class="p">)},</span>
+                <span class="s1">'min'</span><span class="p">:</span> <span class="n">vmin</span><span class="p">,</span>
+                <span class="s1">'max'</span><span class="p">:</span> <span class="n">vmax</span><span class="p">,</span>
+                <span class="s1">'startAngle'</span><span class="p">:</span> <span class="n">msg</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">'start_angle'</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">start_angle</span><span class="p">),</span>
+                <span class="s1">'endAngle'</span><span class="p">:</span> <span class="n">msg</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">'end_angle'</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">end_angle</span><span class="p">),</span>
+                <span class="s1">'splitNumber'</span><span class="p">:</span> <span class="n">msg</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">'num_splits'</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">num_splits</span><span class="p">),</span>
+                <span class="s1">'data'</span><span class="p">:</span> <span class="p">[{</span><span class="s1">'value'</span><span class="p">:</span> <span class="n">msg</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">'value'</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">value</span><span class="p">),</span> <span class="s1">'name'</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">}],</span>
+                <span class="s1">'axisLine'</span><span class="p">:</span> <span class="p">{</span>
+                    <span class="s1">'lineStyle'</span><span class="p">:</span> <span class="p">{</span>
+                        <span class="s1">'width'</span><span class="p">:</span> <span class="n">msg</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">'annulus_width'</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">annulus_width</span><span class="p">),</span>
+                    <span class="p">}</span>
+                <span class="p">}</span>
+            <span class="p">}]</span>
+        <span class="p">}</span>
+        <span class="n">colors</span> <span class="o">=</span> <span class="n">msg</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">'colors'</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">colors</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">colors</span><span class="p">:</span>
+            <span class="n">msg</span><span class="p">[</span><span class="s1">'data'</span><span class="p">][</span><span class="s1">'series'</span><span class="p">][</span><span class="mi">0</span><span class="p">][</span><span class="s1">'axisLine'</span><span class="p">][</span><span class="s1">'lineStyle'</span><span class="p">][</span><span class="s1">'color'</span><span class="p">]</span> <span class="o">=</span> <span class="n">colors</span>
+        <span class="n">custom_opts</span> <span class="o">=</span> <span class="n">msg</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">'custom_opts'</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">custom_opts</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">custom_opts</span><span class="p">:</span>
+            <span class="n">gauge</span> <span class="o">=</span> <span class="n">msg</span><span class="p">[</span><span class="s1">'data'</span><span class="p">][</span><span class="s1">'series'</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+            <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">custom_opts</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+                <span class="k">if</span> <span class="n">k</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">gauge</span> <span class="ow">or</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">gauge</span><span class="p">[</span><span class="n">k</span><span class="p">],</span> <span class="nb">dict</span><span class="p">):</span>
+                    <span class="n">gauge</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="n">v</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">gauge</span><span class="p">[</span><span class="n">k</span><span class="p">]</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">v</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">msg</span></div>
+
+
+<div class="viewcode-block" id="Dial"><a class="viewcode-back" href="../../../api/panel.widgets.html#panel.widgets.indicators.Dial">[docs]</a><span class="k">class</span> <span class="nc">Dial</span><span class="p">(</span><span class="n">ValueIndicator</span><span class="p">):</span>
+    <span class="sd">"""</span>
+<span class="sd">    A Dial represents a value in some range as a position on an</span>
+<span class="sd">    annular dial. It is similar to a Gauge but more minimal visually.</span>
+<span class="sd">    """</span>
+
+    <span class="n">annulus_width</span> <span class="o">=</span> <span class="n">param</span><span class="o">.</span><span class="n">Number</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="s2">"""</span>
+<span class="s2">      Width of the radial annulus as a fraction of the total."""</span><span class="p">)</span>
+
+    <span class="n">bounds</span> <span class="o">=</span> <span class="n">param</span><span class="o">.</span><span class="n">Range</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">100</span><span class="p">),</span> <span class="n">doc</span><span class="o">=</span><span class="s2">"""</span>
+<span class="s2">      The upper and lower bound of the dial."""</span><span class="p">)</span>
+
+    <span class="n">colors</span> <span class="o">=</span> <span class="n">param</span><span class="o">.</span><span class="n">List</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="s2">"""</span>
+<span class="s2">      Color thresholds for the Dial, specified as a list of tuples</span>
+<span class="s2">      of the fractional threshold and the color to switch to."""</span><span class="p">)</span>
+
+    <span class="n">default_color</span> <span class="o">=</span> <span class="n">param</span><span class="o">.</span><span class="n">String</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="s1">'lightblue'</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="s2">"""</span>
+<span class="s2">      Color of the radial annulus if not color thresholds are supplied."""</span><span class="p">)</span>
+
+    <span class="n">end_angle</span> <span class="o">=</span> <span class="n">param</span><span class="o">.</span><span class="n">Number</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="mi">25</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="s2">"""</span>
+<span class="s2">      Angle at which the dial ends."""</span><span class="p">)</span>
+
+    <span class="nb">format</span> <span class="o">=</span> <span class="n">param</span><span class="o">.</span><span class="n">String</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="s1">'</span><span class="si">{value}</span><span class="s1">%'</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="s2">"""</span>
+<span class="s2">      Formatting string for the value indicator and lower/upper bounds."""</span><span class="p">)</span>
+
+    <span class="n">height</span> <span class="o">=</span> <span class="n">param</span><span class="o">.</span><span class="n">Integer</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="mi">250</span><span class="p">,</span> <span class="n">bounds</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="kc">None</span><span class="p">))</span>
+
+    <span class="n">nan_format</span> <span class="o">=</span> <span class="n">param</span><span class="o">.</span><span class="n">String</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="s1">'-'</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="s2">"""</span>
+<span class="s2">      How to format nan values."""</span><span class="p">)</span>
+
+    <span class="n">needle_color</span> <span class="o">=</span> <span class="n">param</span><span class="o">.</span><span class="n">String</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="s1">'black'</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="s2">"""</span>
+<span class="s2">      Color of the Dial needle."""</span><span class="p">)</span>
+
+    <span class="n">needle_width</span> <span class="o">=</span> <span class="n">param</span><span class="o">.</span><span class="n">Number</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="s2">"""</span>
+<span class="s2">      Radial width of the needle."""</span><span class="p">)</span>
+
+    <span class="n">start_angle</span> <span class="o">=</span> <span class="n">param</span><span class="o">.</span><span class="n">Number</span><span class="p">(</span><span class="n">default</span><span class="o">=-</span><span class="mi">205</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="s2">"""</span>
+<span class="s2">      Angle at which the dial starts."""</span><span class="p">)</span>
+
+    <span class="n">tick_size</span> <span class="o">=</span> <span class="n">param</span><span class="o">.</span><span class="n">String</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="s2">"""</span>
+<span class="s2">      Font size of the Dial min/max labels."""</span><span class="p">)</span>
+
+    <span class="n">title_size</span> <span class="o">=</span> <span class="n">param</span><span class="o">.</span><span class="n">String</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="s2">"""</span>
+<span class="s2">      Font size of the Dial title."""</span><span class="p">)</span>
+
+    <span class="n">unfilled_color</span> <span class="o">=</span> <span class="n">param</span><span class="o">.</span><span class="n">String</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="s1">'whitesmoke'</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="s2">"""</span>
+<span class="s2">      Color of the unfilled region of the Dial."""</span><span class="p">)</span>
+
+    <span class="n">value_size</span> <span class="o">=</span> <span class="n">param</span><span class="o">.</span><span class="n">String</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="s2">"""</span>
+<span class="s2">      Font size of the Dial value label."""</span><span class="p">)</span>
+
+    <span class="n">value</span> <span class="o">=</span> <span class="n">param</span><span class="o">.</span><span class="n">Number</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="mi">25</span><span class="p">,</span> <span class="n">allow_None</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="s2">"""</span>
+<span class="s2">      Value to indicate on the dial a value within the declared bounds."""</span><span class="p">)</span>
+
+    <span class="n">width</span> <span class="o">=</span> <span class="n">param</span><span class="o">.</span><span class="n">Integer</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="mi">250</span><span class="p">,</span> <span class="n">bounds</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="kc">None</span><span class="p">))</span>
+
+    <span class="n">_manual_params</span> <span class="o">=</span> <span class="p">[</span>
+        <span class="s1">'value'</span><span class="p">,</span> <span class="s1">'start_angle'</span><span class="p">,</span> <span class="s1">'end_angle'</span><span class="p">,</span> <span class="s1">'bounds'</span><span class="p">,</span>
+        <span class="s1">'annulus_width'</span><span class="p">,</span> <span class="s1">'format'</span><span class="p">,</span> <span class="s1">'background'</span><span class="p">,</span> <span class="s1">'needle_width'</span><span class="p">,</span>
+        <span class="s1">'tick_size'</span><span class="p">,</span> <span class="s1">'title_size'</span><span class="p">,</span> <span class="s1">'value_size'</span><span class="p">,</span> <span class="s1">'colors'</span><span class="p">,</span>
+        <span class="s1">'default_color'</span><span class="p">,</span> <span class="s1">'unfilled_color'</span><span class="p">,</span> <span class="s1">'height'</span><span class="p">,</span>
+        <span class="s1">'width'</span><span class="p">,</span> <span class="s1">'nan_format'</span><span class="p">,</span> <span class="s1">'needle_color'</span>
+    <span class="p">]</span>
+
+    <span class="n">_data_params</span> <span class="o">=</span> <span class="n">_manual_params</span>
+
+    <span class="n">_rename</span> <span class="o">=</span> <span class="p">{</span><span class="s1">'background'</span><span class="p">:</span> <span class="s1">'background_fill_color'</span><span class="p">}</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">params</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="o">**</span><span class="n">params</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_update_value_bounds</span><span class="p">()</span>
+
+    <span class="nd">@param</span><span class="o">.</span><span class="n">depends</span><span class="p">(</span><span class="s1">'bounds'</span><span class="p">,</span> <span class="n">watch</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">_update_value_bounds</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">param</span><span class="o">.</span><span class="n">value</span><span class="o">.</span><span class="n">bounds</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">bounds</span>
+
+    <span class="k">def</span> <span class="nf">_get_data</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">vmin</span><span class="p">,</span> <span class="n">vmax</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">bounds</span>
+        <span class="n">value</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">value</span>
+        <span class="k">if</span> <span class="n">value</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">value</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="s1">'nan'</span><span class="p">)</span>
+        <span class="n">fraction</span> <span class="o">=</span> <span class="p">(</span><span class="n">value</span><span class="o">-</span><span class="n">vmin</span><span class="p">)</span><span class="o">/</span><span class="p">(</span><span class="n">vmax</span><span class="o">-</span><span class="n">vmin</span><span class="p">)</span>
+        <span class="n">start</span> <span class="o">=</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">radians</span><span class="p">(</span><span class="mi">360</span><span class="o">-</span><span class="bp">self</span><span class="o">.</span><span class="n">start_angle</span><span class="p">)</span> <span class="o">-</span> <span class="n">pi</span> <span class="o">%</span> <span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">pi</span><span class="p">))</span> <span class="o">+</span> <span class="n">pi</span>
+        <span class="n">end</span> <span class="o">=</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">radians</span><span class="p">(</span><span class="mi">360</span><span class="o">-</span><span class="bp">self</span><span class="o">.</span><span class="n">end_angle</span><span class="p">)</span> <span class="o">-</span> <span class="n">pi</span> <span class="o">%</span> <span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">pi</span><span class="p">))</span> <span class="o">+</span> <span class="n">pi</span>
+        <span class="n">distance</span> <span class="o">=</span> <span class="p">(</span><span class="nb">abs</span><span class="p">(</span><span class="n">end</span><span class="o">-</span><span class="n">start</span><span class="p">)</span> <span class="o">%</span> <span class="p">(</span><span class="n">pi</span><span class="o">*</span><span class="mi">2</span><span class="p">))</span>
+        <span class="k">if</span> <span class="n">end</span><span class="o">&gt;</span><span class="n">start</span><span class="p">:</span>
+            <span class="n">distance</span> <span class="o">=</span> <span class="p">(</span><span class="n">pi</span><span class="o">*</span><span class="mi">2</span><span class="p">)</span><span class="o">-</span><span class="n">distance</span>
+        <span class="n">radial_fraction</span> <span class="o">=</span> <span class="n">distance</span><span class="o">*</span><span class="n">fraction</span>
+        <span class="n">angle</span> <span class="o">=</span> <span class="n">start</span> <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">isnan</span><span class="p">(</span><span class="n">fraction</span><span class="p">)</span> <span class="k">else</span> <span class="p">(</span><span class="n">start</span><span class="o">-</span><span class="n">radial_fraction</span><span class="p">)</span>
+        <span class="n">inner_radius</span> <span class="o">=</span> <span class="mi">1</span><span class="o">-</span><span class="bp">self</span><span class="o">.</span><span class="n">annulus_width</span>
+
+        <span class="n">color</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">default_color</span>
+        <span class="k">for</span> <span class="n">val</span><span class="p">,</span> <span class="n">clr</span> <span class="ow">in</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">colors</span> <span class="ow">or</span> <span class="p">[])[::</span><span class="o">-</span><span class="mi">1</span><span class="p">]:</span>
+            <span class="k">if</span> <span class="n">fraction</span> <span class="o">&lt;=</span> <span class="n">val</span><span class="p">:</span>
+                <span class="n">color</span> <span class="o">=</span> <span class="n">clr</span>
+
+        <span class="n">annulus_data</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s1">'starts'</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">start</span><span class="p">,</span> <span class="n">angle</span><span class="p">]),</span>
+            <span class="s1">'ends'</span> <span class="p">:</span>  <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">angle</span><span class="p">,</span> <span class="n">end</span><span class="p">]),</span>
+            <span class="s1">'color'</span><span class="p">:</span>  <span class="p">[</span><span class="n">color</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">unfilled_color</span><span class="p">],</span>
+            <span class="s1">'radius'</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">inner_radius</span><span class="p">,</span> <span class="n">inner_radius</span><span class="p">])</span>
+        <span class="p">}</span>
+
+        <span class="n">x0s</span><span class="p">,</span> <span class="n">y0s</span><span class="p">,</span> <span class="n">x1s</span><span class="p">,</span> <span class="n">y1s</span><span class="p">,</span> <span class="n">clrs</span> <span class="o">=</span> <span class="p">[],</span> <span class="p">[],</span> <span class="p">[],</span> <span class="p">[],</span> <span class="p">[]</span>
+        <span class="n">colors</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">colors</span> <span class="ow">or</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="p">(</span><span class="n">val</span><span class="p">,</span> <span class="n">_</span><span class="p">),</span> <span class="p">(</span><span class="n">_</span><span class="p">,</span> <span class="n">clr</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">colors</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="n">colors</span><span class="p">[</span><span class="mi">1</span><span class="p">:]):</span>
+            <span class="n">tangle</span> <span class="o">=</span> <span class="n">start</span><span class="o">-</span><span class="p">(</span><span class="n">distance</span><span class="o">*</span><span class="n">val</span><span class="p">)</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">vmin</span> <span class="o">+</span> <span class="n">val</span> <span class="o">*</span> <span class="p">(</span><span class="n">vmax</span><span class="o">-</span><span class="n">vmin</span><span class="p">))</span> <span class="o">&lt;=</span> <span class="n">value</span><span class="p">:</span>
+                <span class="k">continue</span>
+            <span class="n">x0</span><span class="p">,</span> <span class="n">y0</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">tangle</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">tangle</span><span class="p">)</span>
+            <span class="n">x1</span><span class="p">,</span> <span class="n">y1</span> <span class="o">=</span> <span class="n">x0</span><span class="o">*</span><span class="n">inner_radius</span><span class="p">,</span> <span class="n">y0</span><span class="o">*</span><span class="n">inner_radius</span>
+            <span class="n">x0s</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">x0</span><span class="p">)</span>
+            <span class="n">y0s</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">y0</span><span class="p">)</span>
+            <span class="n">x1s</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">x1</span><span class="p">)</span>
+            <span class="n">y1s</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">y1</span><span class="p">)</span>
+            <span class="n">clrs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">clr</span><span class="p">)</span>
+
+        <span class="n">threshold_data</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s1">'x0'</span><span class="p">:</span> <span class="n">x0s</span><span class="p">,</span> <span class="s1">'y0'</span><span class="p">:</span> <span class="n">y0s</span><span class="p">,</span> <span class="s1">'x1'</span><span class="p">:</span> <span class="n">x1s</span><span class="p">,</span> <span class="s1">'y1'</span><span class="p">:</span> <span class="n">y1s</span><span class="p">,</span> <span class="s1">'color'</span><span class="p">:</span> <span class="n">clrs</span>
+        <span class="p">}</span>
+
+        <span class="n">center_radius</span> <span class="o">=</span> <span class="mi">1</span><span class="o">-</span><span class="bp">self</span><span class="o">.</span><span class="n">annulus_width</span><span class="o">/</span><span class="mf">2.</span>
+        <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">angle</span><span class="p">)</span><span class="o">*</span><span class="n">center_radius</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">angle</span><span class="p">)</span><span class="o">*</span><span class="n">center_radius</span>
+        <span class="n">needle_start</span> <span class="o">=</span> <span class="n">pi</span><span class="o">+</span><span class="n">angle</span><span class="o">-</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">needle_width</span><span class="o">/</span><span class="mf">2.</span><span class="p">)</span>
+        <span class="n">needle_end</span> <span class="o">=</span> <span class="n">pi</span><span class="o">+</span><span class="n">angle</span><span class="o">+</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">needle_width</span><span class="o">/</span><span class="mf">2.</span><span class="p">)</span>
+        <span class="n">needle_data</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s1">'x'</span><span class="p">:</span>      <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">x</span><span class="p">]),</span>
+            <span class="s1">'y'</span><span class="p">:</span>      <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">y</span><span class="p">]),</span>
+            <span class="s1">'start'</span><span class="p">:</span>  <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">needle_start</span><span class="p">]),</span>
+            <span class="s1">'end'</span><span class="p">:</span>    <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">needle_end</span><span class="p">]),</span>
+            <span class="s1">'radius'</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">center_radius</span><span class="p">])</span>
+        <span class="p">}</span>
+
+        <span class="n">value</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">format</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">value</span><span class="o">=</span><span class="n">value</span><span class="p">)</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">'nan'</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">nan_format</span><span class="p">)</span>
+        <span class="n">min_value</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">format</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">value</span><span class="o">=</span><span class="n">vmin</span><span class="p">)</span>
+        <span class="n">max_value</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">format</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">value</span><span class="o">=</span><span class="n">vmax</span><span class="p">)</span>
+        <span class="n">tminx</span><span class="p">,</span> <span class="n">tminy</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">start</span><span class="p">)</span><span class="o">*</span><span class="n">center_radius</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">start</span><span class="p">)</span><span class="o">*</span><span class="n">center_radius</span>
+        <span class="n">tmaxx</span><span class="p">,</span> <span class="n">tmaxy</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">end</span><span class="p">)</span><span class="o">*</span><span class="n">center_radius</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">end</span><span class="p">)</span><span class="o">*</span><span class="n">center_radius</span>
+        <span class="n">tmin_angle</span><span class="p">,</span> <span class="n">tmax_angle</span> <span class="o">=</span> <span class="n">start</span><span class="o">+</span><span class="n">pi</span><span class="p">,</span> <span class="n">end</span><span class="o">+</span><span class="n">pi</span> <span class="o">%</span> <span class="n">pi</span>
+        <span class="n">scale</span> <span class="o">=</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">height</span><span class="o">/</span><span class="mi">400</span><span class="p">)</span>
+        <span class="n">title_size</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">title_size</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">title_size</span> <span class="k">else</span> <span class="s1">'</span><span class="si">%s</span><span class="s1">pt'</span> <span class="o">%</span> <span class="p">(</span><span class="n">scale</span><span class="o">*</span><span class="mi">32</span><span class="p">)</span>
+        <span class="n">value_size</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">value_size</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">value_size</span> <span class="k">else</span> <span class="s1">'</span><span class="si">%s</span><span class="s1">pt'</span> <span class="o">%</span> <span class="p">(</span><span class="n">scale</span><span class="o">*</span><span class="mi">48</span><span class="p">)</span>
+        <span class="n">tick_size</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">tick_size</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">tick_size</span> <span class="k">else</span> <span class="s1">'</span><span class="si">%s</span><span class="s1">pt'</span> <span class="o">%</span> <span class="p">(</span><span class="n">scale</span><span class="o">*</span><span class="mi">18</span><span class="p">)</span>
+
+        <span class="n">text_data</span><span class="o">=</span> <span class="p">{</span>
+            <span class="s1">'x'</span><span class="p">:</span>    <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">tminx</span><span class="p">,</span> <span class="n">tmaxx</span><span class="p">]),</span>
+            <span class="s1">'y'</span><span class="p">:</span>    <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="o">-.</span><span class="mi">2</span><span class="p">,</span> <span class="o">-.</span><span class="mi">5</span><span class="p">,</span> <span class="n">tminy</span><span class="p">,</span> <span class="n">tmaxy</span><span class="p">]),</span>
+            <span class="s1">'text'</span><span class="p">:</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="n">min_value</span><span class="p">,</span> <span class="n">max_value</span><span class="p">],</span>
+            <span class="s1">'rot'</span><span class="p">:</span>  <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">tmin_angle</span><span class="p">,</span> <span class="n">tmax_angle</span><span class="p">]),</span>
+            <span class="s1">'size'</span><span class="p">:</span> <span class="p">[</span><span class="n">title_size</span><span class="p">,</span> <span class="n">value_size</span><span class="p">,</span> <span class="n">tick_size</span><span class="p">,</span> <span class="n">tick_size</span><span class="p">],</span>
+            <span class="s1">'color'</span><span class="p">:</span> <span class="p">[</span><span class="s1">'black'</span><span class="p">,</span> <span class="n">color</span><span class="p">,</span> <span class="s1">'black'</span><span class="p">,</span> <span class="s1">'black'</span><span class="p">]</span>
+        <span class="p">}</span>
+        <span class="k">return</span> <span class="n">annulus_data</span><span class="p">,</span> <span class="n">needle_data</span><span class="p">,</span> <span class="n">threshold_data</span><span class="p">,</span> <span class="n">text_data</span>
+
+    <span class="k">def</span> <span class="nf">_get_model</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">doc</span><span class="p">,</span> <span class="n">root</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">parent</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">comm</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="n">params</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_process_param_change</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_init_params</span><span class="p">())</span>
+        <span class="n">model</span> <span class="o">=</span> <span class="n">figure</span><span class="p">(</span>
+            <span class="n">x_range</span><span class="o">=</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">),</span> <span class="n">y_range</span><span class="o">=</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">),</span> <span class="n">tools</span><span class="o">=</span><span class="p">[],</span>
+            <span class="n">outline_line_color</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">toolbar_location</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+            <span class="n">width</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">width</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">height</span><span class="p">,</span> <span class="o">**</span><span class="n">params</span>
+        <span class="p">)</span>
+        <span class="n">model</span><span class="o">.</span><span class="n">xaxis</span><span class="o">.</span><span class="n">visible</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="n">model</span><span class="o">.</span><span class="n">yaxis</span><span class="o">.</span><span class="n">visible</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="n">model</span><span class="o">.</span><span class="n">grid</span><span class="o">.</span><span class="n">visible</span> <span class="o">=</span> <span class="kc">False</span>
+
+        <span class="n">annulus</span><span class="p">,</span> <span class="n">needle</span><span class="p">,</span> <span class="n">threshold</span><span class="p">,</span> <span class="n">text</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_data</span><span class="p">()</span>
+
+        <span class="c1"># Draw annulus</span>
+        <span class="n">annulus_source</span> <span class="o">=</span> <span class="n">ColumnDataSource</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">annulus</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">'annulus_source'</span><span class="p">)</span>
+        <span class="n">model</span><span class="o">.</span><span class="n">annular_wedge</span><span class="p">(</span>
+            <span class="n">x</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">inner_radius</span><span class="o">=</span><span class="s1">'radius'</span><span class="p">,</span> <span class="n">outer_radius</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">start_angle</span><span class="o">=</span><span class="s1">'starts'</span><span class="p">,</span>
+            <span class="n">end_angle</span><span class="o">=</span><span class="s1">'ends'</span><span class="p">,</span> <span class="n">line_color</span><span class="o">=</span><span class="s1">'gray'</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">'color'</span><span class="p">,</span> <span class="n">direction</span><span class="o">=</span><span class="s1">'clock'</span><span class="p">,</span>
+            <span class="n">source</span><span class="o">=</span><span class="n">annulus_source</span>
+        <span class="p">)</span>
+
+        <span class="c1"># Draw needle</span>
+        <span class="n">needle_source</span> <span class="o">=</span> <span class="n">ColumnDataSource</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">needle</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">'needle_source'</span><span class="p">)</span>
+        <span class="n">model</span><span class="o">.</span><span class="n">wedge</span><span class="p">(</span>
+            <span class="n">x</span><span class="o">=</span><span class="s1">'x'</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s1">'y'</span><span class="p">,</span> <span class="n">radius</span><span class="o">=</span><span class="s1">'radius'</span><span class="p">,</span> <span class="n">start_angle</span><span class="o">=</span><span class="s1">'start'</span><span class="p">,</span> <span class="n">end_angle</span><span class="o">=</span><span class="s1">'end'</span><span class="p">,</span>
+            <span class="n">fill_color</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">needle_color</span><span class="p">,</span> <span class="n">line_color</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">needle_color</span><span class="p">,</span>
+            <span class="n">source</span><span class="o">=</span><span class="n">needle_source</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">'needle_renderer'</span>
+        <span class="p">)</span>
+
+        <span class="c1"># Draw thresholds</span>
+        <span class="n">threshold_source</span> <span class="o">=</span> <span class="n">ColumnDataSource</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">threshold</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">'threshold_source'</span><span class="p">)</span>
+        <span class="n">model</span><span class="o">.</span><span class="n">segment</span><span class="p">(</span>
+            <span class="n">x0</span><span class="o">=</span><span class="s1">'x0'</span><span class="p">,</span> <span class="n">x1</span><span class="o">=</span><span class="s1">'x1'</span><span class="p">,</span> <span class="n">y0</span><span class="o">=</span><span class="s1">'y0'</span><span class="p">,</span> <span class="n">y1</span><span class="o">=</span><span class="s1">'y1'</span><span class="p">,</span> <span class="n">line_color</span><span class="o">=</span><span class="s1">'color'</span><span class="p">,</span> <span class="n">source</span><span class="o">=</span><span class="n">threshold_source</span><span class="p">,</span>
+            <span class="n">line_width</span><span class="o">=</span><span class="mi">2</span>
+        <span class="p">)</span>
+
+        <span class="c1"># Draw labels</span>
+        <span class="n">text_source</span> <span class="o">=</span> <span class="n">ColumnDataSource</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">text</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">'label_source'</span><span class="p">)</span>
+        <span class="n">model</span><span class="o">.</span><span class="n">text</span><span class="p">(</span>
+            <span class="n">x</span><span class="o">=</span><span class="s1">'x'</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s1">'y'</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="s1">'text'</span><span class="p">,</span> <span class="n">font_size</span><span class="o">=</span><span class="s1">'size'</span><span class="p">,</span> <span class="n">text_align</span><span class="o">=</span><span class="s1">'center'</span><span class="p">,</span>
+            <span class="n">text_color</span><span class="o">=</span><span class="s1">'color'</span><span class="p">,</span> <span class="n">source</span><span class="o">=</span><span class="n">text_source</span><span class="p">,</span> <span class="n">text_baseline</span><span class="o">=</span><span class="s1">'top'</span><span class="p">,</span>
+            <span class="n">angle</span><span class="o">=</span><span class="s1">'rot'</span>
+        <span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">root</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">root</span> <span class="o">=</span> <span class="n">model</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_models</span><span class="p">[</span><span class="n">root</span><span class="o">.</span><span class="n">ref</span><span class="p">[</span><span class="s1">'id'</span><span class="p">]]</span> <span class="o">=</span> <span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">parent</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">model</span>
+
+    <span class="k">def</span> <span class="nf">_manual_update</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">events</span><span class="p">,</span> <span class="n">model</span><span class="p">,</span> <span class="n">doc</span><span class="p">,</span> <span class="n">root</span><span class="p">,</span> <span class="n">parent</span><span class="p">,</span> <span class="n">comm</span><span class="p">):</span>
+        <span class="n">update_data</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="k">for</span> <span class="n">event</span> <span class="ow">in</span> <span class="n">events</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">event</span><span class="o">.</span><span class="n">name</span> <span class="ow">in</span> <span class="p">(</span><span class="s1">'width'</span><span class="p">,</span> <span class="s1">'height'</span><span class="p">):</span>
+                <span class="n">model</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="o">**</span><span class="p">{</span><span class="n">event</span><span class="o">.</span><span class="n">name</span><span class="p">:</span> <span class="n">event</span><span class="o">.</span><span class="n">new</span><span class="p">})</span>
+            <span class="k">if</span> <span class="n">event</span><span class="o">.</span><span class="n">name</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_data_params</span><span class="p">:</span>
+                <span class="n">update_data</span> <span class="o">=</span> <span class="kc">True</span>
+            <span class="k">elif</span> <span class="n">event</span><span class="o">.</span><span class="n">name</span> <span class="o">==</span> <span class="s1">'needle_color'</span><span class="p">:</span>
+                <span class="n">needle_r</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s1">'needle_renderer'</span><span class="p">)</span>
+                <span class="n">needle_r</span><span class="o">.</span><span class="n">glyph</span><span class="o">.</span><span class="n">line_color</span> <span class="o">=</span> <span class="n">event</span><span class="o">.</span><span class="n">new</span>
+                <span class="n">needle_r</span><span class="o">.</span><span class="n">glyph</span><span class="o">.</span><span class="n">fill_color</span> <span class="o">=</span> <span class="n">event</span><span class="o">.</span><span class="n">new</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">update_data</span><span class="p">:</span>
+            <span class="k">return</span>
+        <span class="n">annulus</span><span class="p">,</span> <span class="n">needle</span><span class="p">,</span> <span class="n">threshold</span><span class="p">,</span> <span class="n">labels</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_data</span><span class="p">()</span>
+        <span class="n">model</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s1">'annulus_source'</span><span class="p">)</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">annulus</span><span class="p">)</span>
+        <span class="n">model</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s1">'needle_source'</span><span class="p">)</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">needle</span><span class="p">)</span>
+        <span class="n">model</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s1">'threshold_source'</span><span class="p">)</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">threshold</span><span class="p">)</span>
+        <span class="n">model</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s1">'label_source'</span><span class="p">)</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">labels</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Trend"><a class="viewcode-back" href="../../../api/panel.widgets.html#panel.widgets.indicators.Trend">[docs]</a><span class="k">class</span> <span class="nc">Trend</span><span class="p">(</span><span class="n">SyncableData</span><span class="p">,</span> <span class="n">Indicator</span><span class="p">):</span>
+    <span class="sd">"""</span>
+<span class="sd">    The Trend indicator enables the user to display a Dashboard KPI Card.</span>
+
+<span class="sd">    The card can be layout out as:</span>
+
+<span class="sd">    * a column (text and plot on top of each other) or</span>
+<span class="sd">    * a row (text and plot after each other)</span>
+
+<span class="sd">    The text section is responsive and resizes on window resize.</span>
+<span class="sd">    """</span>
+
+    <span class="n">data</span> <span class="o">=</span> <span class="n">param</span><span class="o">.</span><span class="n">Parameter</span><span class="p">(</span><span class="n">doc</span><span class="o">=</span><span class="s2">"""</span>
+<span class="s2">      The plot data declared as a dictionary of arrays or a DataFrame."""</span><span class="p">)</span>
+
+    <span class="n">layout</span> <span class="o">=</span> <span class="n">param</span><span class="o">.</span><span class="n">ObjectSelector</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="s2">"column"</span><span class="p">,</span> <span class="n">objects</span><span class="o">=</span><span class="p">[</span><span class="s2">"column"</span><span class="p">,</span> <span class="s2">"row"</span><span class="p">])</span>
+
+    <span class="n">plot_x</span> <span class="o">=</span> <span class="n">param</span><span class="o">.</span><span class="n">String</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="s2">"x"</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="s2">"""</span>
+<span class="s2">      The name of the key in the plot_data to use on the x-axis."""</span><span class="p">)</span>
+
+    <span class="n">plot_y</span> <span class="o">=</span> <span class="n">param</span><span class="o">.</span><span class="n">String</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="s2">"y"</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="s2">"""</span>
+<span class="s2">      The name of the key in the plot_data to use on the y-axis."""</span><span class="p">)</span>
+
+    <span class="n">plot_color</span> <span class="o">=</span> <span class="n">param</span><span class="o">.</span><span class="n">String</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="n">BLUE</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="s2">"""</span>
+<span class="s2">      The color to use in the plot."""</span><span class="p">)</span>
+
+    <span class="n">plot_type</span> <span class="o">=</span> <span class="n">param</span><span class="o">.</span><span class="n">ObjectSelector</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="s2">"bar"</span><span class="p">,</span> <span class="n">objects</span><span class="o">=</span><span class="p">[</span><span class="s2">"line"</span><span class="p">,</span> <span class="s2">"step"</span><span class="p">,</span> <span class="s2">"area"</span><span class="p">,</span> <span class="s2">"bar"</span><span class="p">],</span> <span class="n">doc</span><span class="o">=</span><span class="s2">"""</span>
+<span class="s2">      The plot type to render the plot data as."""</span><span class="p">)</span>
+
+    <span class="n">pos_color</span> <span class="o">=</span> <span class="n">param</span><span class="o">.</span><span class="n">String</span><span class="p">(</span><span class="n">GREEN</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="s2">"""</span>
+<span class="s2">      The color used to indicate a positive change."""</span><span class="p">)</span>
+
+    <span class="n">neg_color</span> <span class="o">=</span> <span class="n">param</span><span class="o">.</span><span class="n">String</span><span class="p">(</span><span class="n">RED</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="s2">"""</span>
+<span class="s2">      The color used to indicate a negative change."""</span><span class="p">)</span>
+
+    <span class="n">title</span> <span class="o">=</span> <span class="n">param</span><span class="o">.</span><span class="n">String</span><span class="p">(</span><span class="n">doc</span><span class="o">=</span><span class="s2">"""The title or a short description of the card"""</span><span class="p">)</span>
+
+    <span class="n">value</span> <span class="o">=</span> <span class="n">param</span><span class="o">.</span><span class="n">Parameter</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="s1">'auto'</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="s2">"""</span>
+<span class="s2">      The primary value to be displayed."""</span><span class="p">)</span>
+
+    <span class="n">value_change</span> <span class="o">=</span> <span class="n">param</span><span class="o">.</span><span class="n">Parameter</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="s1">'auto'</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="s2">"""</span>
+<span class="s2">      A secondary value. For example the change in percent."""</span><span class="p">)</span>
+
+    <span class="n">_data_params</span> <span class="o">=</span> <span class="p">[</span><span class="s1">'data'</span><span class="p">]</span>
+
+    <span class="n">_manual_params</span> <span class="o">=</span> <span class="p">[</span><span class="s1">'data'</span><span class="p">]</span>
+
+    <span class="n">_rename</span> <span class="o">=</span> <span class="p">{</span><span class="s1">'data'</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span> <span class="s1">'selection'</span><span class="p">:</span> <span class="kc">None</span><span class="p">}</span>
+
+    <span class="n">_widget_type</span> <span class="o">=</span> <span class="n">_BkTrendIndicator</span>
+
+    <span class="k">def</span> <span class="nf">_get_data</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">None</span><span class="p">,</span> <span class="p">{</span><span class="bp">self</span><span class="o">.</span><span class="n">plot_x</span><span class="p">:</span> <span class="p">[],</span> <span class="bp">self</span><span class="o">.</span><span class="n">plot_y</span><span class="p">:</span> <span class="p">[]}</span>
+        <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">,</span> <span class="nb">dict</span><span class="p">):</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">,</span> <span class="n">ColumnDataSource</span><span class="o">.</span><span class="n">from_df</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">_init_params</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">props</span> <span class="o">=</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">_init_params</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_processed</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_data</span><span class="p">()</span>
+        <span class="n">props</span><span class="p">[</span><span class="s1">'source'</span><span class="p">]</span> <span class="o">=</span> <span class="n">ColumnDataSource</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_data</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">props</span>
+
+    <span class="k">def</span> <span class="nf">_trigger_auto_values</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">trigger</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">value</span> <span class="o">==</span> <span class="s1">'auto'</span><span class="p">:</span>
+            <span class="n">trigger</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">'value'</span><span class="p">)</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">value_change</span> <span class="o">==</span> <span class="s1">'auto'</span><span class="p">:</span>
+            <span class="n">trigger</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">'value_change'</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">trigger</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">param</span><span class="o">.</span><span class="n">trigger</span><span class="p">(</span><span class="o">*</span><span class="n">trigger</span><span class="p">)</span>
+
+    <span class="nd">@updating</span>
+    <span class="k">def</span> <span class="nf">_stream</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">stream</span><span class="p">,</span> <span class="n">rollover</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_trigger_auto_values</span><span class="p">()</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">_stream</span><span class="p">(</span><span class="n">stream</span><span class="p">,</span> <span class="n">rollover</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">_update_cds</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">events</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">_update_cds</span><span class="p">(</span><span class="o">*</span><span class="n">events</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_trigger_auto_values</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="nf">_process_param_change</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">msg</span><span class="p">):</span>
+        <span class="n">msg</span> <span class="o">=</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">_process_param_change</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+        <span class="n">ys</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">plot_y</span><span class="p">,</span> <span class="p">[])</span>
+        <span class="k">if</span> <span class="s1">'value'</span> <span class="ow">in</span> <span class="n">msg</span> <span class="ow">and</span> <span class="n">msg</span><span class="p">[</span><span class="s1">'value'</span><span class="p">]</span> <span class="o">==</span> <span class="s1">'auto'</span><span class="p">:</span>
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">ys</span><span class="p">):</span>
+                <span class="n">msg</span><span class="p">[</span><span class="s1">'value'</span><span class="p">]</span> <span class="o">=</span> <span class="n">ys</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">msg</span><span class="p">[</span><span class="s1">'value'</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="k">if</span> <span class="s1">'value_change'</span> <span class="ow">in</span> <span class="n">msg</span> <span class="ow">and</span> <span class="n">msg</span><span class="p">[</span><span class="s1">'value_change'</span><span class="p">]</span> <span class="o">==</span> <span class="s1">'auto'</span><span class="p">:</span>
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">ys</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+                <span class="n">y1</span><span class="p">,</span> <span class="n">y2</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">plot_y</span><span class="p">)[</span><span class="o">-</span><span class="mi">2</span><span class="p">:]</span>
+                <span class="n">msg</span><span class="p">[</span><span class="s1">'value_change'</span><span class="p">]</span> <span class="o">=</span> <span class="n">y2</span><span class="o">/</span><span class="n">y1</span> <span class="o">-</span> <span class="mi">1</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">msg</span><span class="p">[</span><span class="s1">'value_change'</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="k">return</span> <span class="n">msg</span></div>
+</pre></div>
+</div>
+</div>
+<!-- END MAIN BODY OF DOCS ––––––––––––– -->
+<!-- Google Analytics -->
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async="" src="https://www.googletagmanager.com/gtag/js?id=UA-154795830-2"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-154795830-2', { 'anonymize_ip': true });
+</script>
+<!-- MathJax Config -->
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}
+});
+</script>
+<!-- End Document
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+</body>
+</html>

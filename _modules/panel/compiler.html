@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<!-- Basic Page Needs
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+<meta charset="utf-8"/>
+<title>panel.compiler — Panel 0.11.1+g238199f-dirty documentation</title>
+<meta content="High-level dashboarding for python visualization libraries" name="description"/>
+<meta content="Panel contributors" name="author"/>
+<!-- Mobile Specific Metas
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<!-- FONT
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+<script src="https://ajax.googleapis.com/ajax/libs/webfont/1.6.16/webfont.js"></script>
+<script>
+    WebFont.load({
+      google: {
+        families: ['Source Sans Pro']
+      }
+    });
+  </script>
+<!-- CSS
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+<link href="../../_static/css/main.css" rel="stylesheet"/>
+<link href="../../_static/nbsite.css" rel="stylesheet"/>
+<link href="../../_static/site.css" rel="stylesheet"/>
+<!-- Scripts
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script async="" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML" type="text/javascript">
+</script>
+<script src="../../_static/js/main.js"></script>
+<!-- Favicon
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+<link href="../../_static/favicon.ico" rel="icon" type="image/png"/>
+<!-- Canonical
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+<link href="https://panel.holoviz.org/_modules/panel/compiler.html" rel="canonical">
+</link></head>
+<body class="">
+<header class="navigation">
+<div class="wrapper">
+<a class="logo" href="../../index.html">
+<img alt="Logo" src="../../_static/logo_horizontal.png"/>
+</a>
+<a class="navigation-menu-button" href="javascript:void(0)" id="js-mobile-menu">Menu</a>
+<nav>
+<ul class="navigation-menu show" id="js-navigation-menu">
+<li class="nav-link doc-head"><a href="//discourse.holoviz.org">Discourse</a></li>
+<li class="nav-link doc-head"><a href="//twitter.com/Panel_org">Twitter</a></li>
+<li class="nav-link doc-head"><a href="//github.com/pyviz/panel">Github</a></li>
+<li class="nav-link">
+<div style="display:inline-block;vertical-align: middle;">
+<div class="search-bar">
+<form action="../../search.html" method="get" role="search">
+<input name="q" placeholder="Search" type="search"/>
+<button type="submit">
+<img alt="Search Icon" src="https://raw.githubusercontent.com/thoughtbot/refills/master/source/images/search-icon-black.png"/>
+</button>
+</form>
+</div>
+</div>
+</li>
+</ul>
+</nav>
+</div>
+</header>
+<div class="second-nav">
+<nav>
+<ul class="navigation-menu show">
+<li class="nav-link doc-head"><a href="../../getting_started/index.html">Getting started</a></li>
+<li class="nav-link doc-head"><a href="../../user_guide/index.html">User Guide</a></li>
+<li class="nav-link doc-head"><a href="../../gallery/index.html">Gallery</a></li>
+<li class="nav-link doc-head"><a href="../../reference/index.html">Reference Gallery</a></li>
+<li class="nav-link doc-head"><a href="../../developer_guide/index.html">Developer Guide</a></li>
+<li class="nav-link doc-head"><a href="../../releases.html">Releases</a></li>
+<li class="nav-link doc-head"><a href="../../api/index.html">API</a></li>
+<li class="nav-link doc-head"><a href="../../FAQ.html">FAQ</a></li>
+<li class="nav-link doc-head"><a href="../../about.html">About</a></li>
+</ul>
+</nav>
+</div>
+<!-- MAIN BODY OF DOCS –––––––––––––––––– -->
+<div class="docs section">
+<div id="hacketyhackhack"> <!-- style="width:20%;margin-right: 100px;"> --> <!--style="display: none;"> style="display:none;"> -->
+<div class="toc" style="width:15%; margin-right:20px;">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../index.html">Home</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../getting_started/index.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../user_guide/index.html">User Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../gallery/index.html">Gallery</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../reference/index.html">Reference Gallery</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../developer_guide/index.html">Developer Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../api/index.html">API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Comparisons.html">Comparisons</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../releases.html">Releases</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Roadmap.html">Road Map</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../FAQ.html">FAQ</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://github.com/pyviz/panel">Github source</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../about.html">About</a></li>
+</ul>
+</div>
+</div>
+<div class="content"> <!-- style="max-width:80%;margin-left:auto;margin-right: auto;">-->
+<h1>Source code for panel.compiler</h1><div class="highlight"><pre>
+<span></span><span class="sd">"""</span>
+<span class="sd">Utilities for building custom models included in panel.</span>
+<span class="sd">"""</span>
+<span class="kn">import</span> <span class="nn">glob</span>
+<span class="kn">import</span> <span class="nn">inspect</span>
+<span class="kn">import</span> <span class="nn">io</span>
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">pathlib</span>
+<span class="kn">import</span> <span class="nn">shutil</span>
+<span class="kn">import</span> <span class="nn">tarfile</span>
+
+<span class="kn">import</span> <span class="nn">param</span>
+<span class="kn">import</span> <span class="nn">requests</span>
+
+<span class="kn">from</span> <span class="nn">bokeh.model</span> <span class="kn">import</span> <span class="n">Model</span>
+
+<span class="c1">#---------------------------------------------------------------------</span>
+<span class="c1"># Public API</span>
+<span class="c1">#---------------------------------------------------------------------</span>
+
+<div class="viewcode-block" id="require_components"><a class="viewcode-back" href="../../api/panel.compiler.html#panel.compiler.require_components">[docs]</a><span class="k">def</span> <span class="nf">require_components</span><span class="p">():</span>
+    <span class="sd">"""</span>
+<span class="sd">    Returns JS snippet to load the required dependencies in the classic</span>
+<span class="sd">    notebook using REQUIRE JS.</span>
+<span class="sd">    """</span>
+    <span class="kn">from</span> <span class="nn">.config</span> <span class="kn">import</span> <span class="n">config</span>
+
+    <span class="n">configs</span><span class="p">,</span> <span class="n">requirements</span><span class="p">,</span> <span class="n">exports</span> <span class="o">=</span> <span class="p">[],</span> <span class="p">[],</span> <span class="p">[]</span>
+    <span class="n">js_requires</span> <span class="o">=</span> <span class="p">[]</span>
+
+    <span class="kn">from</span> <span class="nn">bokeh.model</span> <span class="kn">import</span> <span class="n">Model</span>
+    <span class="k">for</span> <span class="n">qual_name</span><span class="p">,</span> <span class="n">model</span> <span class="ow">in</span> <span class="n">Model</span><span class="o">.</span><span class="n">model_class_reverse_map</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+        <span class="c1"># We need to enable Models from Panel as well as Panel extensions</span>
+        <span class="c1"># like awesome_panel_extensions.</span>
+        <span class="c1"># The Bokeh models do not have "." in the qual_name</span>
+        <span class="k">if</span> <span class="s2">"."</span> <span class="ow">in</span> <span class="n">qual_name</span><span class="p">:</span>
+            <span class="n">js_requires</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">model</span><span class="p">)</span>
+
+    <span class="k">for</span> <span class="n">export</span><span class="p">,</span> <span class="n">js</span> <span class="ow">in</span> <span class="n">config</span><span class="o">.</span><span class="n">js_files</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+        <span class="n">name</span> <span class="o">=</span> <span class="n">js</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">'/'</span><span class="p">)[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">'.min'</span><span class="p">,</span> <span class="s1">''</span><span class="p">)</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">'.'</span><span class="p">)[</span><span class="o">-</span><span class="mi">2</span><span class="p">]</span>
+        <span class="n">conf</span> <span class="o">=</span> <span class="p">{</span><span class="s1">'paths'</span><span class="p">:</span> <span class="p">{</span><span class="n">name</span><span class="p">:</span> <span class="n">js</span><span class="p">[:</span><span class="o">-</span><span class="mi">3</span><span class="p">]},</span> <span class="s1">'exports'</span><span class="p">:</span> <span class="p">{</span><span class="n">name</span><span class="p">:</span> <span class="n">export</span><span class="p">}}</span>
+        <span class="n">js_requires</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">conf</span><span class="p">)</span>
+
+    <span class="n">skip_import</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="k">for</span> <span class="n">model</span> <span class="ow">in</span> <span class="n">js_requires</span><span class="p">:</span>
+        <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="s1">'__js_skip__'</span><span class="p">):</span>
+            <span class="n">skip_import</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">__js_skip__</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="p">(</span><span class="nb">hasattr</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="s1">'__js_require__'</span><span class="p">)</span> <span class="ow">or</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="nb">dict</span><span class="p">)):</span>
+            <span class="k">continue</span>
+
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="nb">dict</span><span class="p">):</span>
+            <span class="n">model_require</span> <span class="o">=</span> <span class="n">model</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">model_require</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">__js_require__</span>
+
+        <span class="n">model_exports</span> <span class="o">=</span> <span class="n">model_require</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">'exports'</span><span class="p">,</span> <span class="p">{})</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">any</span><span class="p">(</span><span class="n">model_require</span> <span class="o">==</span> <span class="n">config</span> <span class="k">for</span> <span class="n">config</span> <span class="ow">in</span> <span class="n">configs</span><span class="p">):</span>
+            <span class="n">configs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">model_require</span><span class="p">)</span>
+
+        <span class="k">for</span> <span class="n">req</span> <span class="ow">in</span> <span class="nb">list</span><span class="p">(</span><span class="n">model_require</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'paths'</span><span class="p">,</span> <span class="p">[])):</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">req</span><span class="p">,</span> <span class="nb">tuple</span><span class="p">):</span>
+                <span class="n">model_require</span><span class="p">[</span><span class="s1">'paths'</span><span class="p">][</span><span class="n">req</span><span class="p">[</span><span class="mi">0</span><span class="p">]]</span> <span class="o">=</span> <span class="n">model_require</span><span class="p">[</span><span class="s1">'paths'</span><span class="p">]</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="n">req</span><span class="p">)</span>
+
+            <span class="n">export</span> <span class="o">=</span> <span class="n">req</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">req</span><span class="p">,</span> <span class="nb">tuple</span><span class="p">)</span> <span class="k">else</span> <span class="n">req</span>
+            <span class="k">if</span> <span class="n">export</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">model_exports</span><span class="p">:</span>
+                <span class="k">continue</span>
+
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">req</span><span class="p">,</span> <span class="nb">tuple</span><span class="p">):</span>
+                <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">req</span><span class="p">[</span><span class="mi">1</span><span class="p">]:</span>
+                    <span class="k">if</span> <span class="n">r</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">requirements</span><span class="p">:</span>
+                        <span class="n">requirements</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">r</span><span class="p">)</span>
+                <span class="n">req</span> <span class="o">=</span> <span class="n">req</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="k">elif</span> <span class="n">req</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">requirements</span><span class="p">:</span>
+                <span class="n">requirements</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">req</span><span class="p">)</span>
+
+            <span class="n">export</span> <span class="o">=</span> <span class="n">model_exports</span><span class="p">[</span><span class="n">req</span><span class="p">]</span>
+            <span class="k">for</span> <span class="n">e</span> <span class="ow">in</span> <span class="p">(</span><span class="n">export</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">export</span><span class="p">,</span> <span class="nb">list</span><span class="p">)</span> <span class="k">else</span> <span class="p">[</span><span class="n">export</span><span class="p">]):</span>
+                <span class="k">if</span> <span class="n">export</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">exports</span> <span class="ow">and</span> <span class="n">export</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                    <span class="n">exports</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">export</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">configs</span><span class="p">,</span> <span class="n">requirements</span><span class="p">,</span> <span class="n">exports</span><span class="p">,</span> <span class="n">skip_import</span></div>
+
+
+<span class="k">def</span> <span class="nf">write_bundled_files</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">files</span><span class="p">,</span> <span class="n">bundle_dir</span><span class="p">,</span> <span class="n">explicit_dir</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">ext</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="n">model_name</span> <span class="o">=</span> <span class="n">name</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">'.'</span><span class="p">)[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
+    <span class="k">for</span> <span class="n">bundle_file</span> <span class="ow">in</span> <span class="n">files</span><span class="p">:</span>
+        <span class="n">bundle_file</span> <span class="o">=</span> <span class="n">bundle_file</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">'?'</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">response</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">bundle_file</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">response</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">bundle_file</span><span class="p">,</span> <span class="n">verify</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+            <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+                <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Failed to fetch </span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2"> dependency: </span><span class="si">{</span><span class="n">bundle_file</span><span class="si">}</span><span class="s2">. Errored with </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">."</span><span class="p">)</span>
+                <span class="k">continue</span>
+        <span class="n">bundle_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="o">*</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="o">*</span><span class="n">bundle_file</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">'//'</span><span class="p">)[</span><span class="mi">1</span><span class="p">:])</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">'/'</span><span class="p">)[</span><span class="mi">1</span><span class="p">:])</span>
+        <span class="n">obj_dir</span> <span class="o">=</span> <span class="n">explicit_dir</span> <span class="ow">or</span> <span class="n">model_name</span>
+        <span class="n">filename</span> <span class="o">=</span> <span class="n">bundle_dir</span><span class="o">.</span><span class="n">joinpath</span><span class="p">(</span><span class="n">obj_dir</span><span class="p">,</span> <span class="n">bundle_path</span><span class="p">)</span>
+        <span class="n">filename</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">mkdir</span><span class="p">(</span><span class="n">parents</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="n">filename</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">ext</span> <span class="ow">and</span> <span class="ow">not</span> <span class="nb">str</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="n">ext</span><span class="p">):</span>
+            <span class="n">filename</span> <span class="o">+=</span> <span class="sa">f</span><span class="s1">'.</span><span class="si">{</span><span class="n">ext</span><span class="si">}</span><span class="s1">'</span>
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="s1">'w'</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s2">"utf-8"</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+            <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="n">content</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s1">'utf-8'</span><span class="p">))</span>
+
+<span class="k">def</span> <span class="nf">write_bundled_tarball</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">tarball</span><span class="p">,</span> <span class="n">bundle_dir</span><span class="p">,</span> <span class="n">module</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+    <span class="n">model_name</span> <span class="o">=</span> <span class="n">name</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">'.'</span><span class="p">)[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">response</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">tarball</span><span class="p">[</span><span class="s1">'tar'</span><span class="p">])</span>
+    <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
+        <span class="n">response</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">tarball</span><span class="p">[</span><span class="s1">'tar'</span><span class="p">],</span> <span class="n">verify</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+    <span class="n">f</span> <span class="o">=</span> <span class="n">io</span><span class="o">.</span><span class="n">BytesIO</span><span class="p">()</span>
+    <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="n">content</span><span class="p">)</span>
+    <span class="n">f</span><span class="o">.</span><span class="n">seek</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+    <span class="n">tar_obj</span> <span class="o">=</span> <span class="n">tarfile</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">fileobj</span><span class="o">=</span><span class="n">f</span><span class="p">)</span>
+    <span class="n">exclude</span> <span class="o">=</span> <span class="n">tarball</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'exclude'</span><span class="p">,</span> <span class="p">[])</span>
+    <span class="k">for</span> <span class="n">tarf</span> <span class="ow">in</span> <span class="n">tar_obj</span><span class="p">:</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">tarf</span><span class="o">.</span><span class="n">name</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="n">tarball</span><span class="p">[</span><span class="s1">'src'</span><span class="p">])</span> <span class="ow">or</span> <span class="ow">not</span> <span class="n">tarf</span><span class="o">.</span><span class="n">isfile</span><span class="p">():</span>
+            <span class="k">continue</span>
+        <span class="n">path</span> <span class="o">=</span> <span class="n">tarf</span><span class="o">.</span><span class="n">name</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="n">tarball</span><span class="p">[</span><span class="s1">'src'</span><span class="p">],</span> <span class="s1">''</span><span class="p">)</span>
+        <span class="k">if</span> <span class="nb">any</span><span class="p">(</span><span class="n">path</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="n">exc</span><span class="p">)</span> <span class="k">for</span> <span class="n">exc</span> <span class="ow">in</span> <span class="n">exclude</span><span class="p">):</span>
+            <span class="k">continue</span>
+        <span class="n">bundle_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="o">*</span><span class="n">path</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">'/'</span><span class="p">))</span>
+        <span class="n">dest_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="o">*</span><span class="n">tarball</span><span class="p">[</span><span class="s1">'dest'</span><span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">'/'</span><span class="p">))</span>
+        <span class="n">filename</span> <span class="o">=</span> <span class="n">bundle_dir</span><span class="o">.</span><span class="n">joinpath</span><span class="p">(</span><span class="n">model_name</span><span class="p">,</span> <span class="n">dest_path</span><span class="p">,</span> <span class="n">bundle_path</span><span class="p">)</span>
+        <span class="n">filename</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">mkdir</span><span class="p">(</span><span class="n">parents</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="n">fobj</span> <span class="o">=</span> <span class="n">tar_obj</span><span class="o">.</span><span class="n">extractfile</span><span class="p">(</span><span class="n">tarf</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
+        <span class="n">content</span> <span class="o">=</span> <span class="n">fobj</span><span class="o">.</span><span class="n">read</span><span class="p">()</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s1">'utf-8'</span><span class="p">)</span>
+        <span class="n">filename</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">module</span> <span class="ow">and</span> <span class="n">filename</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s1">'.js'</span><span class="p">):</span>
+            <span class="n">filename</span> <span class="o">=</span> <span class="n">filename</span><span class="p">[:</span><span class="o">-</span><span class="mi">3</span><span class="p">]</span>
+            <span class="k">if</span> <span class="n">filename</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s1">'index'</span><span class="p">):</span>
+                <span class="n">filename</span> <span class="o">+=</span> <span class="s1">'.mjs'</span>
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="s1">'w'</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s2">"utf-8"</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+            <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">content</span><span class="p">)</span>
+    <span class="n">tar_obj</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+
+            
+<span class="k">def</span> <span class="nf">bundle_resources</span><span class="p">():</span>
+    <span class="kn">from</span> <span class="nn">.config</span> <span class="kn">import</span> <span class="n">panel_extension</span>
+    <span class="kn">from</span> <span class="nn">.template.base</span> <span class="kn">import</span> <span class="n">BasicTemplate</span>
+    <span class="kn">from</span> <span class="nn">.template.theme</span> <span class="kn">import</span> <span class="n">Theme</span>
+
+    <span class="k">for</span> <span class="n">imp</span> <span class="ow">in</span> <span class="n">panel_extension</span><span class="o">.</span><span class="n">_imports</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
+        <span class="k">if</span> <span class="n">imp</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s1">'panel.'</span><span class="p">):</span>
+            <span class="nb">__import__</span><span class="p">(</span><span class="n">imp</span><span class="p">)</span>
+
+    <span class="n">bundle_dir</span> <span class="o">=</span> <span class="n">pathlib</span><span class="o">.</span><span class="n">Path</span><span class="p">(</span><span class="vm">__file__</span><span class="p">)</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">joinpath</span><span class="p">(</span><span class="s1">'dist'</span><span class="p">,</span> <span class="s1">'bundled'</span><span class="p">)</span>
+
+    <span class="c1"># Extract Model dependencies</span>
+    <span class="n">js_files</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="n">css_files</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">model</span> <span class="ow">in</span> <span class="n">Model</span><span class="o">.</span><span class="n">model_class_reverse_map</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">name</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s1">'panel.'</span><span class="p">):</span>
+            <span class="k">continue</span>
+        <span class="n">prev_jsfiles</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="s1">'__javascript_raw__'</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+        <span class="n">prev_jsbundle</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="s1">'__tarball__'</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+        <span class="n">prev_cls</span> <span class="o">=</span> <span class="n">model</span>
+        <span class="k">for</span> <span class="bp">cls</span> <span class="ow">in</span> <span class="n">model</span><span class="o">.</span><span class="vm">__mro__</span><span class="p">[</span><span class="mi">1</span><span class="p">:]:</span>
+            <span class="n">jsfiles</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="s1">'__javascript_raw__'</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+            <span class="k">if</span> <span class="p">((</span><span class="n">jsfiles</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">prev_jsfiles</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">)</span> <span class="ow">or</span>
+                <span class="p">(</span><span class="n">jsfiles</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">jsfiles</span> <span class="o">!=</span> <span class="n">prev_jsfiles</span><span class="p">)):</span>
+                <span class="k">if</span> <span class="n">prev_jsbundle</span><span class="p">:</span>
+                    <span class="n">js_files</span><span class="p">[</span><span class="n">prev_cls</span><span class="o">.</span><span class="vm">__name__</span><span class="p">]</span> <span class="o">=</span> <span class="n">prev_jsbundle</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">js_files</span><span class="p">[</span><span class="n">prev_cls</span><span class="o">.</span><span class="vm">__name__</span><span class="p">]</span> <span class="o">=</span> <span class="n">prev_jsfiles</span>
+                <span class="k">break</span>
+            <span class="n">prev_cls</span> <span class="o">=</span> <span class="bp">cls</span>
+        <span class="n">prev_cssfiles</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="s1">'__css_raw__'</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+        <span class="n">prev_cls</span> <span class="o">=</span> <span class="n">model</span>
+        <span class="k">for</span> <span class="bp">cls</span> <span class="ow">in</span> <span class="n">model</span><span class="o">.</span><span class="vm">__mro__</span><span class="p">[</span><span class="mi">1</span><span class="p">:]:</span>
+            <span class="n">cssfiles</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="s1">'__css_raw__'</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+            <span class="k">if</span> <span class="p">((</span><span class="n">cssfiles</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">prev_cssfiles</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">)</span> <span class="ow">or</span>
+                <span class="p">(</span><span class="n">cssfiles</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">cssfiles</span> <span class="o">!=</span> <span class="n">prev_cssfiles</span><span class="p">)):</span>
+                <span class="n">css_files</span><span class="p">[</span><span class="n">prev_cls</span><span class="o">.</span><span class="vm">__name__</span><span class="p">]</span> <span class="o">=</span> <span class="n">prev_cssfiles</span>
+                <span class="k">break</span>
+            <span class="n">prev_cls</span> <span class="o">=</span> <span class="bp">cls</span>
+
+    <span class="c1"># Bundle Model dependencies</span>
+    <span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">jsfiles</span> <span class="ow">in</span> <span class="n">js_files</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">jsfiles</span><span class="p">,</span> <span class="nb">dict</span><span class="p">):</span>
+            <span class="n">write_bundled_tarball</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">jsfiles</span><span class="p">,</span> <span class="n">bundle_dir</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">write_bundled_files</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">jsfiles</span><span class="p">,</span> <span class="n">bundle_dir</span><span class="p">)</span>
+
+    <span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">cssfiles</span> <span class="ow">in</span> <span class="n">css_files</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+        <span class="n">write_bundled_files</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">cssfiles</span><span class="p">,</span> <span class="n">bundle_dir</span><span class="p">)</span>
+
+    <span class="c1"># Bundle Template resources</span>
+    <span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">template</span> <span class="ow">in</span> <span class="n">param</span><span class="o">.</span><span class="n">concrete_descendents</span><span class="p">(</span><span class="n">BasicTemplate</span><span class="p">)</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+        <span class="c1"># Bundle Template._resources</span>
+        <span class="k">if</span> <span class="n">template</span><span class="o">.</span><span class="n">_resources</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'bundle'</span><span class="p">,</span> <span class="kc">True</span><span class="p">):</span>
+            <span class="n">write_bundled_files</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="nb">list</span><span class="p">(</span><span class="n">template</span><span class="o">.</span><span class="n">_resources</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'css'</span><span class="p">,</span> <span class="p">{})</span><span class="o">.</span><span class="n">values</span><span class="p">()),</span> <span class="n">bundle_dir</span><span class="p">,</span> <span class="s1">'css'</span><span class="p">)</span>
+            <span class="n">write_bundled_files</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="nb">list</span><span class="p">(</span><span class="n">template</span><span class="o">.</span><span class="n">_resources</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'js'</span><span class="p">,</span> <span class="p">{})</span><span class="o">.</span><span class="n">values</span><span class="p">()),</span> <span class="n">bundle_dir</span><span class="p">,</span> <span class="s1">'js'</span><span class="p">)</span>
+            <span class="n">js_modules</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="k">for</span> <span class="n">tar_name</span><span class="p">,</span> <span class="n">js_module</span> <span class="ow">in</span> <span class="n">template</span><span class="o">.</span><span class="n">_resources</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'js_modules'</span><span class="p">,</span> <span class="p">{})</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+                <span class="k">if</span> <span class="n">tar_name</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">template</span><span class="o">.</span><span class="n">_resources</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'tarball'</span><span class="p">,</span> <span class="p">{}):</span>
+                    <span class="n">js_modules</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">js_module</span><span class="p">)</span>
+            <span class="n">write_bundled_files</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">js_modules</span><span class="p">,</span> <span class="n">bundle_dir</span><span class="p">,</span> <span class="s1">'js'</span><span class="p">,</span> <span class="n">ext</span><span class="o">=</span><span class="s1">'mjs'</span><span class="p">)</span>
+            <span class="k">for</span> <span class="n">tarball</span> <span class="ow">in</span> <span class="n">template</span><span class="o">.</span><span class="n">_resources</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'tarball'</span><span class="p">,</span> <span class="p">{})</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
+                <span class="n">write_bundled_tarball</span><span class="p">(</span><span class="s1">'js'</span><span class="p">,</span> <span class="n">tarball</span><span class="p">,</span> <span class="n">bundle_dir</span><span class="p">,</span> <span class="n">module</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+        <span class="c1"># Bundle CSS files in template dir</span>
+        <span class="n">template_dir</span> <span class="o">=</span> <span class="n">pathlib</span><span class="o">.</span><span class="n">Path</span><span class="p">(</span><span class="n">inspect</span><span class="o">.</span><span class="n">getfile</span><span class="p">(</span><span class="n">template</span><span class="p">))</span><span class="o">.</span><span class="n">parent</span>
+        <span class="n">dest_dir</span> <span class="o">=</span> <span class="n">bundle_dir</span> <span class="o">/</span> <span class="n">name</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
+        <span class="n">dest_dir</span><span class="o">.</span><span class="n">mkdir</span><span class="p">(</span><span class="n">parents</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">css</span> <span class="ow">in</span> <span class="n">glob</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">template_dir</span> <span class="o">/</span> <span class="s1">'*.css'</span><span class="p">)):</span>
+            <span class="n">shutil</span><span class="o">.</span><span class="n">copyfile</span><span class="p">(</span><span class="n">css</span><span class="p">,</span> <span class="n">dest_dir</span> <span class="o">/</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">basename</span><span class="p">(</span><span class="n">css</span><span class="p">))</span>
+
+        <span class="c1"># Bundle Template._css</span>
+        <span class="n">template_css</span> <span class="o">=</span> <span class="n">template</span><span class="o">.</span><span class="n">_css</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">template_css</span><span class="p">,</span> <span class="nb">list</span><span class="p">):</span>
+            <span class="n">template_css</span> <span class="o">=</span> <span class="p">[</span><span class="n">template_css</span><span class="p">]</span> <span class="k">if</span> <span class="n">template_css</span> <span class="k">else</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">css</span> <span class="ow">in</span> <span class="n">template_css</span><span class="p">:</span>
+            <span class="n">tmpl_name</span> <span class="o">=</span> <span class="n">name</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
+            <span class="k">for</span> <span class="bp">cls</span> <span class="ow">in</span> <span class="n">template</span><span class="o">.</span><span class="vm">__mro__</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="o">-</span><span class="mi">5</span><span class="p">]:</span>
+                <span class="n">tmpl_css</span> <span class="o">=</span> <span class="bp">cls</span><span class="o">.</span><span class="n">_css</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">cls</span><span class="o">.</span><span class="n">_css</span><span class="p">,</span> <span class="nb">list</span><span class="p">)</span> <span class="k">else</span> <span class="p">[</span><span class="bp">cls</span><span class="o">.</span><span class="n">_css</span><span class="p">]</span>
+                <span class="k">if</span> <span class="n">css</span> <span class="ow">in</span> <span class="n">tmpl_css</span><span class="p">:</span>
+                    <span class="n">tmpl_name</span> <span class="o">=</span> <span class="bp">cls</span><span class="o">.</span><span class="vm">__name__</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
+            <span class="n">tmpl_dest_dir</span> <span class="o">=</span> <span class="n">bundle_dir</span> <span class="o">/</span> <span class="n">tmpl_name</span>
+            <span class="n">tmpl_dest_dir</span><span class="o">.</span><span class="n">mkdir</span><span class="p">(</span><span class="n">parents</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+            <span class="n">shutil</span><span class="o">.</span><span class="n">copyfile</span><span class="p">(</span><span class="n">css</span><span class="p">,</span> <span class="n">tmpl_dest_dir</span> <span class="o">/</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">basename</span><span class="p">(</span><span class="n">css</span><span class="p">))</span>
+
+        <span class="c1"># Bundle Template._js</span>
+        <span class="n">template_js</span> <span class="o">=</span> <span class="n">template</span><span class="o">.</span><span class="n">_js</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">template_js</span><span class="p">,</span> <span class="nb">list</span><span class="p">):</span>
+            <span class="n">template_js</span> <span class="o">=</span> <span class="p">[</span><span class="n">template_js</span><span class="p">]</span> <span class="k">if</span> <span class="n">template_js</span> <span class="k">else</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">js</span> <span class="ow">in</span> <span class="n">template_js</span><span class="p">:</span>
+            <span class="n">tmpl_name</span> <span class="o">=</span> <span class="n">name</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
+            <span class="k">for</span> <span class="bp">cls</span> <span class="ow">in</span> <span class="n">template</span><span class="o">.</span><span class="vm">__mro__</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="o">-</span><span class="mi">5</span><span class="p">]:</span>
+                <span class="n">tmpl_js</span> <span class="o">=</span> <span class="bp">cls</span><span class="o">.</span><span class="n">_js</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">cls</span><span class="o">.</span><span class="n">_js</span><span class="p">,</span> <span class="nb">list</span><span class="p">)</span> <span class="k">else</span> <span class="p">[</span><span class="bp">cls</span><span class="o">.</span><span class="n">_js</span><span class="p">]</span>
+                <span class="k">if</span> <span class="n">js</span> <span class="ow">in</span> <span class="n">tmpl_js</span><span class="p">:</span>
+                    <span class="n">tmpl_name</span> <span class="o">=</span> <span class="bp">cls</span><span class="o">.</span><span class="vm">__name__</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
+            <span class="n">tmpl_dest_dir</span> <span class="o">=</span> <span class="n">bundle_dir</span> <span class="o">/</span> <span class="n">tmpl_name</span>
+            <span class="n">shutil</span><span class="o">.</span><span class="n">copyfile</span><span class="p">(</span><span class="n">js</span><span class="p">,</span> <span class="n">tmpl_dest_dir</span> <span class="o">/</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">basename</span><span class="p">(</span><span class="n">js</span><span class="p">))</span>
+
+    <span class="c1"># Bundle base themes</span>
+    <span class="n">dest_dir</span> <span class="o">=</span> <span class="n">bundle_dir</span> <span class="o">/</span> <span class="s1">'theme'</span>
+    <span class="n">theme_dir</span> <span class="o">=</span> <span class="n">pathlib</span><span class="o">.</span><span class="n">Path</span><span class="p">(</span><span class="n">inspect</span><span class="o">.</span><span class="n">getfile</span><span class="p">(</span><span class="n">Theme</span><span class="p">))</span><span class="o">.</span><span class="n">parent</span>
+    <span class="n">dest_dir</span><span class="o">.</span><span class="n">mkdir</span><span class="p">(</span><span class="n">parents</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">css</span> <span class="ow">in</span> <span class="n">glob</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">theme_dir</span> <span class="o">/</span> <span class="s1">'*.css'</span><span class="p">)):</span>
+        <span class="n">shutil</span><span class="o">.</span><span class="n">copyfile</span><span class="p">(</span><span class="n">css</span><span class="p">,</span> <span class="n">dest_dir</span> <span class="o">/</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">basename</span><span class="p">(</span><span class="n">css</span><span class="p">))</span>
+
+    <span class="c1"># Bundle Theme classes</span>
+    <span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">theme</span> <span class="ow">in</span> <span class="n">param</span><span class="o">.</span><span class="n">concrete_descendents</span><span class="p">(</span><span class="n">Theme</span><span class="p">)</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+        <span class="k">if</span> <span class="n">theme</span><span class="o">.</span><span class="n">base_css</span><span class="p">:</span>
+            <span class="n">theme_bundle_dir</span> <span class="o">=</span> <span class="n">bundle_dir</span> <span class="o">/</span> <span class="n">theme</span><span class="o">.</span><span class="n">param</span><span class="o">.</span><span class="n">base_css</span><span class="o">.</span><span class="n">owner</span><span class="o">.</span><span class="vm">__name__</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
+            <span class="n">theme_bundle_dir</span><span class="o">.</span><span class="n">mkdir</span><span class="p">(</span><span class="n">parents</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+            <span class="n">shutil</span><span class="o">.</span><span class="n">copyfile</span><span class="p">(</span><span class="n">theme</span><span class="o">.</span><span class="n">base_css</span><span class="p">,</span> <span class="n">theme_bundle_dir</span> <span class="o">/</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">basename</span><span class="p">(</span><span class="n">theme</span><span class="o">.</span><span class="n">base_css</span><span class="p">))</span>
+        <span class="k">if</span> <span class="n">theme</span><span class="o">.</span><span class="n">css</span><span class="p">:</span>
+            <span class="n">tmplt_bundle_dir</span> <span class="o">=</span> <span class="n">bundle_dir</span> <span class="o">/</span> <span class="n">theme</span><span class="o">.</span><span class="n">_template</span><span class="o">.</span><span class="vm">__name__</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
+            <span class="n">tmplt_bundle_dir</span><span class="o">.</span><span class="n">mkdir</span><span class="p">(</span><span class="n">parents</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+            <span class="n">shutil</span><span class="o">.</span><span class="n">copyfile</span><span class="p">(</span><span class="n">theme</span><span class="o">.</span><span class="n">css</span><span class="p">,</span> <span class="n">tmplt_bundle_dir</span> <span class="o">/</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">basename</span><span class="p">(</span><span class="n">theme</span><span class="o">.</span><span class="n">css</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<!-- END MAIN BODY OF DOCS ––––––––––––– -->
+<!-- Google Analytics -->
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async="" src="https://www.googletagmanager.com/gtag/js?id=UA-154795830-2"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-154795830-2', { 'anonymize_ip': true });
+</script>
+<!-- MathJax Config -->
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}
+});
+</script>
+<!-- End Document
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+</body>
+</html>

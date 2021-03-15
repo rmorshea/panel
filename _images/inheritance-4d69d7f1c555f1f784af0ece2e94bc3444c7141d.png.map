@@ -1,0 +1,5 @@
+<map id="inheritance9453ee87d3" name="inheritance9453ee87d3">
+<area shape="rect" id="node1" title="Abstract base class for subcommands" alt="" coords="5,5,321,31"/>
+<area shape="rect" id="node2" title="Subcommand to launch the Bokeh server." alt="" coords="369,5,680,31"/>
+<area shape="rect" id="node3" href="#panel.command.serve.Serve" target="_top" title="panel.command.serve.Serve" alt="" coords="728,5,936,31"/>
+</map>

@@ -1,0 +1,9 @@
+<map id="inheritanced56089082d" name="inheritanced56089082d">
+<area shape="rect" id="node1" title="Base class for all class types that have Bokeh properties." alt="" coords="64,4,247,24"/>
+<area shape="rect" id="node2" title="Base class for all objects stored in Bokeh &#160;|Document| instances." alt="" coords="345,44,465,64"/>
+<area shape="rect" id="node6" title="The base class for layoutable components." alt="" coords="504,44,699,64"/>
+<area shape="rect" id="node3" title="A mixin class to provide an interface for registering and" alt="" coords="4,44,307,64"/>
+<area shape="rect" id="node4" title="A mixin class to provide an interface for registering and" alt="" coords="11,83,300,103"/>
+<area shape="rect" id="node5" title="A component which size is determined by its HTML content." alt="" coords="738,44,921,64"/>
+<area shape="rect" id="node7" href="#panel.models.deckgl.DeckGLPlot" target="_top" title="A Bokeh model that wraps around a DeckGL plot and renders it inside a HTMLBox" alt="" coords="960,44,1148,64"/>
+</map>

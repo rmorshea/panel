@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<!-- Basic Page Needs
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+<meta charset="utf-8"/>
+<title>panel.io.rest — Panel 0.11.1+g238199f-dirty documentation</title>
+<meta content="High-level dashboarding for python visualization libraries" name="description"/>
+<meta content="Panel contributors" name="author"/>
+<!-- Mobile Specific Metas
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<!-- FONT
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+<script src="https://ajax.googleapis.com/ajax/libs/webfont/1.6.16/webfont.js"></script>
+<script>
+    WebFont.load({
+      google: {
+        families: ['Source Sans Pro']
+      }
+    });
+  </script>
+<!-- CSS
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+<link href="../../../_static/css/main.css" rel="stylesheet"/>
+<link href="../../../_static/nbsite.css" rel="stylesheet"/>
+<link href="../../../_static/site.css" rel="stylesheet"/>
+<!-- Scripts
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script async="" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML" type="text/javascript">
+</script>
+<script src="../../../_static/js/main.js"></script>
+<!-- Favicon
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+<link href="../../../_static/favicon.ico" rel="icon" type="image/png"/>
+<!-- Canonical
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+<link href="https://panel.holoviz.org/_modules/panel/io/rest.html" rel="canonical">
+</link></head>
+<body class="">
+<header class="navigation">
+<div class="wrapper">
+<a class="logo" href="../../../index.html">
+<img alt="Logo" src="../../../_static/logo_horizontal.png"/>
+</a>
+<a class="navigation-menu-button" href="javascript:void(0)" id="js-mobile-menu">Menu</a>
+<nav>
+<ul class="navigation-menu show" id="js-navigation-menu">
+<li class="nav-link doc-head"><a href="//discourse.holoviz.org">Discourse</a></li>
+<li class="nav-link doc-head"><a href="//twitter.com/Panel_org">Twitter</a></li>
+<li class="nav-link doc-head"><a href="//github.com/pyviz/panel">Github</a></li>
+<li class="nav-link">
+<div style="display:inline-block;vertical-align: middle;">
+<div class="search-bar">
+<form action="../../../search.html" method="get" role="search">
+<input name="q" placeholder="Search" type="search"/>
+<button type="submit">
+<img alt="Search Icon" src="https://raw.githubusercontent.com/thoughtbot/refills/master/source/images/search-icon-black.png"/>
+</button>
+</form>
+</div>
+</div>
+</li>
+</ul>
+</nav>
+</div>
+</header>
+<div class="second-nav">
+<nav>
+<ul class="navigation-menu show">
+<li class="nav-link doc-head"><a href="../../../getting_started/index.html">Getting started</a></li>
+<li class="nav-link doc-head"><a href="../../../user_guide/index.html">User Guide</a></li>
+<li class="nav-link doc-head"><a href="../../../gallery/index.html">Gallery</a></li>
+<li class="nav-link doc-head"><a href="../../../reference/index.html">Reference Gallery</a></li>
+<li class="nav-link doc-head"><a href="../../../developer_guide/index.html">Developer Guide</a></li>
+<li class="nav-link doc-head"><a href="../../../releases.html">Releases</a></li>
+<li class="nav-link doc-head"><a href="../../../api/index.html">API</a></li>
+<li class="nav-link doc-head"><a href="../../../FAQ.html">FAQ</a></li>
+<li class="nav-link doc-head"><a href="../../../about.html">About</a></li>
+</ul>
+</nav>
+</div>
+<!-- MAIN BODY OF DOCS –––––––––––––––––– -->
+<div class="docs section">
+<div id="hacketyhackhack"> <!-- style="width:20%;margin-right: 100px;"> --> <!--style="display: none;"> style="display:none;"> -->
+<div class="toc" style="width:15%; margin-right:20px;">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../index.html">Home</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../getting_started/index.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../user_guide/index.html">User Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../gallery/index.html">Gallery</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../reference/index.html">Reference Gallery</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../developer_guide/index.html">Developer Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/index.html">API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../Comparisons.html">Comparisons</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../releases.html">Releases</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../Roadmap.html">Road Map</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../FAQ.html">FAQ</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://github.com/pyviz/panel">Github source</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../about.html">About</a></li>
+</ul>
+</div>
+</div>
+<div class="content"> <!-- style="max-width:80%;margin-left:auto;margin-right: auto;">-->
+<h1>Source code for panel.io.rest</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">json</span>
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">pkg_resources</span>
+<span class="kn">import</span> <span class="nn">tempfile</span>
+<span class="kn">import</span> <span class="nn">traceback</span>
+
+<span class="kn">from</span> <span class="nn">unittest.mock</span> <span class="kn">import</span> <span class="n">MagicMock</span>
+<span class="kn">from</span> <span class="nn">urllib.parse</span> <span class="kn">import</span> <span class="n">parse_qs</span>
+
+<span class="kn">import</span> <span class="nn">param</span>
+
+<span class="kn">from</span> <span class="nn">runpy</span> <span class="kn">import</span> <span class="n">run_path</span>
+<span class="kn">from</span> <span class="nn">tornado</span> <span class="kn">import</span> <span class="n">web</span>
+<span class="kn">from</span> <span class="nn">tornado.wsgi</span> <span class="kn">import</span> <span class="n">WSGIContainer</span>
+
+<span class="kn">from</span> <span class="nn">.state</span> <span class="kn">import</span> <span class="n">state</span>
+
+
+<div class="viewcode-block" id="HTTPError"><a class="viewcode-back" href="../../../api/panel.io.html#panel.io.rest.HTTPError">[docs]</a><span class="k">class</span> <span class="nc">HTTPError</span><span class="p">(</span><span class="n">web</span><span class="o">.</span><span class="n">HTTPError</span><span class="p">):</span>
+    <span class="sd">"""</span>
+<span class="sd">    Custom HTTPError type</span>
+<span class="sd">    """</span></div>
+
+
+<div class="viewcode-block" id="BaseHandler"><a class="viewcode-back" href="../../../api/panel.io.html#panel.io.rest.BaseHandler">[docs]</a><span class="k">class</span> <span class="nc">BaseHandler</span><span class="p">(</span><span class="n">web</span><span class="o">.</span><span class="n">RequestHandler</span><span class="p">):</span>
+
+<div class="viewcode-block" id="BaseHandler.write_error"><a class="viewcode-back" href="../../../api/panel.io.html#panel.io.rest.BaseHandler.write_error">[docs]</a>    <span class="k">def</span> <span class="nf">write_error</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">status_code</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">set_header</span><span class="p">(</span><span class="s1">'Content-Type'</span><span class="p">,</span> <span class="s1">'application/json'</span><span class="p">)</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">settings</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"serve_traceback"</span><span class="p">)</span> <span class="ow">and</span> <span class="s2">"exc_info"</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="p">:</span>
+            <span class="c1"># in debug mode, try to send a traceback</span>
+            <span class="n">lines</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">traceback</span><span class="o">.</span><span class="n">format_exception</span><span class="p">(</span><span class="o">*</span><span class="n">kwargs</span><span class="p">[</span><span class="s2">"exc_info"</span><span class="p">]):</span>
+                <span class="n">lines</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">line</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">finish</span><span class="p">(</span><span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">({</span>
+                <span class="s1">'error'</span><span class="p">:</span> <span class="p">{</span>
+                    <span class="s1">'code'</span><span class="p">:</span> <span class="n">status_code</span><span class="p">,</span>
+                    <span class="s1">'message'</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">_reason</span><span class="p">,</span>
+                    <span class="s1">'traceback'</span><span class="p">:</span> <span class="n">lines</span><span class="p">,</span>
+                <span class="p">}</span>
+            <span class="p">}))</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">finish</span><span class="p">(</span><span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">({</span>
+                <span class="s1">'error'</span><span class="p">:</span> <span class="p">{</span>
+                    <span class="s1">'code'</span><span class="p">:</span> <span class="n">status_code</span><span class="p">,</span>
+                    <span class="s1">'message'</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">_reason</span><span class="p">,</span>
+                <span class="p">}</span>
+            <span class="p">}))</span></div></div>
+
+<div class="viewcode-block" id="ParamHandler"><a class="viewcode-back" href="../../../api/panel.io.html#panel.io.rest.ParamHandler">[docs]</a><span class="k">class</span> <span class="nc">ParamHandler</span><span class="p">(</span><span class="n">BaseHandler</span><span class="p">):</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">app</span><span class="p">,</span> <span class="n">request</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">root</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">'root'</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">app</span><span class="p">,</span> <span class="n">request</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+
+    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">serialize</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">parameterized</span><span class="p">,</span> <span class="n">parameters</span><span class="p">):</span>
+        <span class="n">values</span> <span class="o">=</span> <span class="p">{</span><span class="n">p</span><span class="p">:</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">parameterized</span><span class="p">,</span> <span class="n">p</span><span class="p">)</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">parameters</span><span class="p">}</span>
+        <span class="k">return</span> <span class="n">parameterized</span><span class="o">.</span><span class="n">param</span><span class="o">.</span><span class="n">serialize_parameters</span><span class="p">(</span><span class="n">values</span><span class="p">)</span>
+
+    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">deserialize</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">parameterized</span><span class="p">,</span> <span class="n">parameters</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">parameters</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">p</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">parameterized</span><span class="o">.</span><span class="n">param</span><span class="p">:</span>
+                <span class="n">reason</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">"'</span><span class="si">{</span><span class="n">p</span><span class="si">}</span><span class="s2">' query parameter not recognized."</span>
+                <span class="k">raise</span> <span class="n">HTTPError</span><span class="p">(</span><span class="n">reason</span><span class="o">=</span><span class="n">reason</span><span class="p">,</span> <span class="n">status_code</span><span class="o">=</span><span class="mi">400</span><span class="p">)</span>
+        <span class="k">return</span> <span class="p">{</span><span class="n">p</span><span class="p">:</span> <span class="n">parameterized</span><span class="o">.</span><span class="n">param</span><span class="o">.</span><span class="n">deserialize_value</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">v</span><span class="p">)</span>
+                <span class="k">for</span> <span class="n">p</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">parameters</span><span class="o">.</span><span class="n">items</span><span class="p">()}</span>
+
+    <span class="k">async</span> <span class="k">def</span> <span class="nf">get</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">path</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">request</span><span class="o">.</span><span class="n">path</span>
+        <span class="n">endpoint</span> <span class="o">=</span> <span class="n">path</span><span class="p">[</span><span class="n">path</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">root</span><span class="p">)</span><span class="o">+</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">root</span><span class="p">):]</span>
+        <span class="n">parameterized</span><span class="p">,</span> <span class="n">parameters</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">state</span><span class="o">.</span><span class="n">_rest_endpoints</span><span class="o">.</span><span class="n">get</span><span class="p">(</span>
+            <span class="n">endpoint</span><span class="p">,</span> <span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+        <span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">parameterized</span><span class="p">:</span>
+            <span class="k">return</span>
+        <span class="n">args</span> <span class="o">=</span> <span class="n">parse_qs</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">request</span><span class="o">.</span><span class="n">query</span><span class="p">)</span>
+        <span class="n">params</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">deserialize</span><span class="p">(</span><span class="n">parameterized</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">args</span><span class="p">)</span>
+        <span class="n">parameterized</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">param</span><span class="o">.</span><span class="n">set_param</span><span class="p">(</span><span class="o">**</span><span class="n">params</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">set_header</span><span class="p">(</span><span class="s1">'Content-Type'</span><span class="p">,</span> <span class="s1">'application/json'</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">serialize</span><span class="p">(</span><span class="n">parameterized</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">parameters</span><span class="p">))</span></div>
+
+
+<span class="k">def</span> <span class="nf">build_tranquilize_application</span><span class="p">(</span><span class="n">files</span><span class="p">):</span>
+    <span class="kn">from</span> <span class="nn">tranquilizer.handler</span> <span class="kn">import</span> <span class="n">ScriptHandler</span><span class="p">,</span> <span class="n">NotebookHandler</span>
+    <span class="kn">from</span> <span class="nn">tranquilizer.main</span> <span class="kn">import</span> <span class="n">make_app</span><span class="p">,</span> <span class="n">UnsupportedFileType</span>
+
+    <span class="n">functions</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">filename</span> <span class="ow">in</span> <span class="n">files</span><span class="p">:</span>
+        <span class="n">extension</span> <span class="o">=</span> <span class="n">filename</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">'.'</span><span class="p">)[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+        <span class="k">if</span> <span class="n">extension</span> <span class="o">==</span> <span class="s1">'py'</span><span class="p">:</span>
+            <span class="n">source</span> <span class="o">=</span> <span class="n">ScriptHandler</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">extension</span> <span class="o">==</span> <span class="s1">'ipynb'</span><span class="p">:</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="kn">import</span> <span class="nn">nbconvert</span> <span class="c1"># noqa</span>
+            <span class="k">except</span> <span class="ne">ImportError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span> <span class="c1"># pragma no cover</span>
+                <span class="k">raise</span> <span class="ne">ImportError</span><span class="p">(</span><span class="s2">"Please install nbconvert to serve Jupyter Notebooks."</span><span class="p">)</span> <span class="kn">from</span> <span class="nn">e</span>
+
+            <span class="n">source</span> <span class="o">=</span> <span class="n">NotebookHandler</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">UnsupportedFileType</span><span class="p">(</span><span class="s1">'</span><span class="si">{}</span><span class="s1"> is not a script (.py) or notebook (.ipynb)'</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">filename</span><span class="p">))</span>
+        <span class="n">functions</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">source</span><span class="o">.</span><span class="n">tranquilized_functions</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">make_app</span><span class="p">(</span><span class="n">functions</span><span class="p">,</span> <span class="s1">'Panel REST API'</span><span class="p">,</span> <span class="n">prefix</span><span class="o">=</span><span class="s1">'rest/'</span><span class="p">)</span>
+
+
+<div class="viewcode-block" id="tranquilizer_rest_provider"><a class="viewcode-back" href="../../../api/panel.io.html#panel.io.rest.tranquilizer_rest_provider">[docs]</a><span class="k">def</span> <span class="nf">tranquilizer_rest_provider</span><span class="p">(</span><span class="n">files</span><span class="p">,</span> <span class="n">endpoint</span><span class="p">):</span>
+    <span class="sd">"""</span>
+<span class="sd">    Returns a Tranquilizer based REST API. Builds the API by evaluating</span>
+<span class="sd">    the scripts and notebooks being served and finding all tranquilized</span>
+<span class="sd">    functions inside them.</span>
+
+<span class="sd">    Arguments</span>
+<span class="sd">    ---------</span>
+<span class="sd">    files: list(str)</span>
+<span class="sd">      A list of paths being served</span>
+<span class="sd">    endpoint: str</span>
+<span class="sd">      The endpoint to serve the REST API on</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    A Tornado routing pattern containing the route and handler</span>
+<span class="sd">    """</span>
+    <span class="n">app</span> <span class="o">=</span> <span class="n">build_tranquilize_application</span><span class="p">(</span><span class="n">files</span><span class="p">)</span>
+    <span class="n">tr</span> <span class="o">=</span> <span class="n">WSGIContainer</span><span class="p">(</span><span class="n">app</span><span class="p">)</span>
+    <span class="k">return</span> <span class="p">[(</span><span class="sa">r</span><span class="s2">"^/</span><span class="si">%s</span><span class="s2">/.*"</span> <span class="o">%</span> <span class="n">endpoint</span><span class="p">,</span> <span class="n">web</span><span class="o">.</span><span class="n">FallbackHandler</span><span class="p">,</span> <span class="nb">dict</span><span class="p">(</span><span class="n">fallback</span><span class="o">=</span><span class="n">tr</span><span class="p">))]</span></div>
+
+
+<div class="viewcode-block" id="param_rest_provider"><a class="viewcode-back" href="../../../api/panel.io.html#panel.io.rest.param_rest_provider">[docs]</a><span class="k">def</span> <span class="nf">param_rest_provider</span><span class="p">(</span><span class="n">files</span><span class="p">,</span> <span class="n">endpoint</span><span class="p">):</span>
+    <span class="sd">"""</span>
+<span class="sd">    Returns a Param based REST API given the scripts or notebooks</span>
+<span class="sd">    containing the tranquilized functions.</span>
+
+<span class="sd">    Arguments</span>
+<span class="sd">    ---------</span>
+<span class="sd">    files: list(str)</span>
+<span class="sd">      A list of paths being served</span>
+<span class="sd">    endpoint: str</span>
+<span class="sd">      The endpoint to serve the REST API on</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    A Tornado routing pattern containing the route and handler</span>
+<span class="sd">    """</span>
+    <span class="k">for</span> <span class="n">filename</span> <span class="ow">in</span> <span class="n">files</span><span class="p">:</span>
+        <span class="n">extension</span> <span class="o">=</span> <span class="n">filename</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">'.'</span><span class="p">)[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+        <span class="k">if</span> <span class="n">extension</span> <span class="o">==</span> <span class="s1">'py'</span><span class="p">:</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">run_path</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>
+            <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
+                <span class="n">param</span><span class="o">.</span><span class="n">main</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s2">"Could not run app script on REST server startup."</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">extension</span> <span class="o">==</span> <span class="s1">'ipynb'</span><span class="p">:</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="kn">import</span> <span class="nn">nbconvert</span> <span class="c1"># noqa</span>
+            <span class="k">except</span> <span class="ne">ImportError</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">ImportError</span><span class="p">(</span><span class="s2">"Please install nbconvert to serve Jupyter Notebooks."</span><span class="p">)</span>
+            <span class="kn">from</span> <span class="nn">nbconvert</span> <span class="kn">import</span> <span class="n">ScriptExporter</span>
+            <span class="n">exporter</span> <span class="o">=</span> <span class="n">ScriptExporter</span><span class="p">()</span>
+            <span class="n">source</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">exporter</span><span class="o">.</span><span class="n">from_filename</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>
+            <span class="n">source_dir</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>
+            <span class="k">with</span> <span class="n">tempfile</span><span class="o">.</span><span class="n">NamedTemporaryFile</span><span class="p">(</span><span class="n">mode</span><span class="o">=</span><span class="s1">'w'</span><span class="p">,</span> <span class="nb">dir</span><span class="o">=</span><span class="n">source_dir</span><span class="p">,</span> <span class="n">delete</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span> <span class="k">as</span> <span class="n">tmp</span><span class="p">:</span>
+                <span class="n">tmp</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">source</span><span class="p">)</span>
+                <span class="n">tmp</span><span class="o">.</span><span class="n">flush</span><span class="p">()</span>
+                <span class="k">try</span><span class="p">:</span>
+                    <span class="n">run_path</span><span class="p">(</span><span class="n">tmp</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="n">init_globals</span><span class="o">=</span><span class="p">{</span><span class="s1">'get_ipython'</span><span class="p">:</span> <span class="n">MagicMock</span><span class="p">()})</span>
+                <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
+                    <span class="n">param</span><span class="o">.</span><span class="n">main</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s2">"Could not run app notebook on REST server startup."</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">'</span><span class="si">{}</span><span class="s1"> is not a script (.py) or notebook (.ipynb)'</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">filename</span><span class="p">))</span>
+
+    <span class="k">if</span> <span class="n">endpoint</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">endpoint</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s1">'/'</span><span class="p">):</span>
+        <span class="n">endpoint</span> <span class="o">+=</span> <span class="s1">'/'</span>
+    <span class="k">return</span> <span class="p">[((</span><span class="sa">r</span><span class="s2">"^/</span><span class="si">%s</span><span class="s2">.*"</span> <span class="o">%</span> <span class="n">endpoint</span> <span class="k">if</span> <span class="n">endpoint</span> <span class="k">else</span> <span class="sa">r</span><span class="s2">"^.*"</span><span class="p">),</span> <span class="n">ParamHandler</span><span class="p">,</span> <span class="nb">dict</span><span class="p">(</span><span class="n">root</span><span class="o">=</span><span class="n">endpoint</span><span class="p">))]</span></div>
+
+
+<span class="n">REST_PROVIDERS</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s1">'tranquilizer'</span><span class="p">:</span> <span class="n">tranquilizer_rest_provider</span><span class="p">,</span>
+    <span class="s1">'param'</span><span class="p">:</span> <span class="n">param_rest_provider</span>
+<span class="p">}</span>
+
+<span class="c1"># Populate REST Providers from external extensions</span>
+<span class="k">for</span> <span class="n">entry_point</span> <span class="ow">in</span> <span class="n">pkg_resources</span><span class="o">.</span><span class="n">iter_entry_points</span><span class="p">(</span><span class="s1">'panel.io.rest'</span><span class="p">):</span>
+    <span class="n">REST_PROVIDERS</span><span class="p">[</span><span class="n">entry_point</span><span class="o">.</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="n">entry_point</span><span class="o">.</span><span class="n">resolve</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<!-- END MAIN BODY OF DOCS ––––––––––––– -->
+<!-- Google Analytics -->
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async="" src="https://www.googletagmanager.com/gtag/js?id=UA-154795830-2"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-154795830-2', { 'anonymize_ip': true });
+</script>
+<!-- MathJax Config -->
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}
+});
+</script>
+<!-- End Document
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+</body>
+</html>

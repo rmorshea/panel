@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<!-- Basic Page Needs
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+<meta charset="utf-8"/>
+<title>panel.models.widgets — Panel 0.11.1+g238199f-dirty documentation</title>
+<meta content="High-level dashboarding for python visualization libraries" name="description"/>
+<meta content="Panel contributors" name="author"/>
+<!-- Mobile Specific Metas
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<!-- FONT
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+<script src="https://ajax.googleapis.com/ajax/libs/webfont/1.6.16/webfont.js"></script>
+<script>
+    WebFont.load({
+      google: {
+        families: ['Source Sans Pro']
+      }
+    });
+  </script>
+<!-- CSS
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+<link href="../../../_static/css/main.css" rel="stylesheet"/>
+<link href="../../../_static/nbsite.css" rel="stylesheet"/>
+<link href="../../../_static/site.css" rel="stylesheet"/>
+<!-- Scripts
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script async="" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML" type="text/javascript">
+</script>
+<script src="../../../_static/js/main.js"></script>
+<!-- Favicon
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+<link href="../../../_static/favicon.ico" rel="icon" type="image/png"/>
+<!-- Canonical
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+<link href="https://panel.holoviz.org/_modules/panel/models/widgets.html" rel="canonical">
+</link></head>
+<body class="">
+<header class="navigation">
+<div class="wrapper">
+<a class="logo" href="../../../index.html">
+<img alt="Logo" src="../../../_static/logo_horizontal.png"/>
+</a>
+<a class="navigation-menu-button" href="javascript:void(0)" id="js-mobile-menu">Menu</a>
+<nav>
+<ul class="navigation-menu show" id="js-navigation-menu">
+<li class="nav-link doc-head"><a href="//discourse.holoviz.org">Discourse</a></li>
+<li class="nav-link doc-head"><a href="//twitter.com/Panel_org">Twitter</a></li>
+<li class="nav-link doc-head"><a href="//github.com/pyviz/panel">Github</a></li>
+<li class="nav-link">
+<div style="display:inline-block;vertical-align: middle;">
+<div class="search-bar">
+<form action="../../../search.html" method="get" role="search">
+<input name="q" placeholder="Search" type="search"/>
+<button type="submit">
+<img alt="Search Icon" src="https://raw.githubusercontent.com/thoughtbot/refills/master/source/images/search-icon-black.png"/>
+</button>
+</form>
+</div>
+</div>
+</li>
+</ul>
+</nav>
+</div>
+</header>
+<div class="second-nav">
+<nav>
+<ul class="navigation-menu show">
+<li class="nav-link doc-head"><a href="../../../getting_started/index.html">Getting started</a></li>
+<li class="nav-link doc-head"><a href="../../../user_guide/index.html">User Guide</a></li>
+<li class="nav-link doc-head"><a href="../../../gallery/index.html">Gallery</a></li>
+<li class="nav-link doc-head"><a href="../../../reference/index.html">Reference Gallery</a></li>
+<li class="nav-link doc-head"><a href="../../../developer_guide/index.html">Developer Guide</a></li>
+<li class="nav-link doc-head"><a href="../../../releases.html">Releases</a></li>
+<li class="nav-link doc-head"><a href="../../../api/index.html">API</a></li>
+<li class="nav-link doc-head"><a href="../../../FAQ.html">FAQ</a></li>
+<li class="nav-link doc-head"><a href="../../../about.html">About</a></li>
+</ul>
+</nav>
+</div>
+<!-- MAIN BODY OF DOCS –––––––––––––––––– -->
+<div class="docs section">
+<div id="hacketyhackhack"> <!-- style="width:20%;margin-right: 100px;"> --> <!--style="display: none;"> style="display:none;"> -->
+<div class="toc" style="width:15%; margin-right:20px;">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../index.html">Home</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../getting_started/index.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../user_guide/index.html">User Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../gallery/index.html">Gallery</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../reference/index.html">Reference Gallery</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../developer_guide/index.html">Developer Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/index.html">API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../Comparisons.html">Comparisons</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../releases.html">Releases</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../Roadmap.html">Road Map</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../FAQ.html">FAQ</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://github.com/pyviz/panel">Github source</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../about.html">About</a></li>
+</ul>
+</div>
+</div>
+<div class="content"> <!-- style="max-width:80%;margin-left:auto;margin-right: auto;">-->
+<h1>Source code for panel.models.widgets</h1><div class="highlight"><pre>
+<span></span><span class="sd">"""</span>
+<span class="sd">Custom bokeh Widget models.</span>
+<span class="sd">"""</span>
+<span class="kn">from</span> <span class="nn">bokeh.core.enums</span> <span class="kn">import</span> <span class="n">ButtonType</span>
+
+<span class="kn">from</span> <span class="nn">bokeh.core.properties</span> <span class="kn">import</span> <span class="p">(</span>
+    <span class="n">Any</span><span class="p">,</span> <span class="n">Bool</span><span class="p">,</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">Either</span><span class="p">,</span> <span class="n">Enum</span><span class="p">,</span> <span class="n">Float</span><span class="p">,</span> <span class="n">Int</span><span class="p">,</span> <span class="n">List</span><span class="p">,</span> <span class="n">Nullable</span><span class="p">,</span>
+    <span class="n">Override</span><span class="p">,</span> <span class="n">String</span><span class="p">,</span> <span class="n">Tuple</span>
+<span class="p">)</span>
+<span class="kn">from</span> <span class="nn">bokeh.models.layouts</span> <span class="kn">import</span> <span class="n">HTMLBox</span>
+<span class="kn">from</span> <span class="nn">bokeh.models.widgets</span> <span class="kn">import</span> <span class="n">InputWidget</span><span class="p">,</span> <span class="n">Widget</span>
+
+
+<div class="viewcode-block" id="Player"><a class="viewcode-back" href="../../../api/panel.models.html#panel.models.widgets.Player">[docs]</a><span class="k">class</span> <span class="nc">Player</span><span class="p">(</span><span class="n">Widget</span><span class="p">):</span>
+    <span class="sd">"""</span>
+<span class="sd">    The Player widget provides controls to play through a number of frames.</span>
+<span class="sd">    """</span>
+
+    <span class="n">start</span> <span class="o">=</span> <span class="n">Int</span><span class="p">(</span><span class="n">help</span><span class="o">=</span><span class="s2">"Lower bound of the Player slider"</span><span class="p">)</span>
+
+    <span class="n">end</span> <span class="o">=</span> <span class="n">Int</span><span class="p">(</span><span class="n">help</span><span class="o">=</span><span class="s2">"Upper bound of the Player slider"</span><span class="p">)</span>
+
+    <span class="n">value</span> <span class="o">=</span> <span class="n">Int</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s2">"Current value of the player app"</span><span class="p">)</span>
+
+    <span class="n">step</span> <span class="o">=</span> <span class="n">Int</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s2">"Number of steps to advance the player by."</span><span class="p">)</span>
+
+    <span class="n">interval</span> <span class="o">=</span> <span class="n">Int</span><span class="p">(</span><span class="mi">500</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s2">"Interval between updates"</span><span class="p">)</span>
+
+    <span class="n">direction</span> <span class="o">=</span> <span class="n">Int</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s2">"""</span>
+<span class="s2">        Current play direction of the Player (-1: playing in reverse,</span>
+<span class="s2">        0: paused, 1: playing)"""</span><span class="p">)</span>
+
+    <span class="n">loop_policy</span> <span class="o">=</span> <span class="n">Enum</span><span class="p">(</span><span class="s1">'once'</span><span class="p">,</span> <span class="s1">'reflect'</span><span class="p">,</span> <span class="s1">'loop'</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="s1">'once'</span><span class="p">)</span>
+
+    <span class="n">show_loop_controls</span> <span class="o">=</span> <span class="n">Bool</span><span class="p">(</span><span class="kc">True</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s2">"""Whether the loop controls</span>
+<span class="s2">        radio buttons are shown"""</span><span class="p">)</span>
+
+    <span class="n">width</span> <span class="o">=</span> <span class="n">Override</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="mi">400</span><span class="p">)</span>
+
+    <span class="n">height</span> <span class="o">=</span> <span class="n">Override</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="mi">250</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="SingleSelect"><a class="viewcode-back" href="../../../api/panel.models.html#panel.models.widgets.SingleSelect">[docs]</a><span class="k">class</span> <span class="nc">SingleSelect</span><span class="p">(</span><span class="n">InputWidget</span><span class="p">):</span>
+    <span class="sd">''' Single-select widget.</span>
+
+<span class="sd">    '''</span>
+
+    <span class="n">options</span> <span class="o">=</span> <span class="n">List</span><span class="p">(</span><span class="n">Either</span><span class="p">(</span><span class="n">String</span><span class="p">,</span> <span class="n">Tuple</span><span class="p">(</span><span class="n">String</span><span class="p">,</span> <span class="n">String</span><span class="p">)),</span> <span class="n">help</span><span class="o">=</span><span class="s2">"""</span>
+<span class="s2">    Available selection options. Options may be provided either as a list of</span>
+<span class="s2">    possible string values, or as a list of tuples, each of the form</span>
+<span class="s2">    ``(value, label)``. In the latter case, the visible widget text for each</span>
+<span class="s2">    value will be corresponding given label.</span>
+<span class="s2">    """</span><span class="p">)</span>
+
+    <span class="n">value</span> <span class="o">=</span> <span class="n">String</span><span class="p">(</span><span class="n">help</span><span class="o">=</span><span class="s2">"Initial or selected value."</span><span class="p">)</span>
+
+    <span class="n">size</span> <span class="o">=</span> <span class="n">Int</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s2">"""</span>
+<span class="s2">    The number of visible options in the dropdown list. (This uses the</span>
+<span class="s2">    ``select`` HTML element's ``size`` attribute. Some browsers might not</span>
+<span class="s2">    show less than 3 options.)</span>
+<span class="s2">    """</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Audio"><a class="viewcode-back" href="../../../api/panel.models.html#panel.models.widgets.Audio">[docs]</a><span class="k">class</span> <span class="nc">Audio</span><span class="p">(</span><span class="n">HTMLBox</span><span class="p">):</span>
+
+    <span class="n">loop</span> <span class="o">=</span> <span class="n">Bool</span><span class="p">(</span><span class="kc">False</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s2">"""Whether the audio should loop"""</span><span class="p">)</span>
+
+    <span class="n">paused</span> <span class="o">=</span> <span class="n">Bool</span><span class="p">(</span><span class="kc">False</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s2">"""Whether the audio is paused"""</span><span class="p">)</span>
+
+    <span class="n">time</span> <span class="o">=</span> <span class="n">Float</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s2">"""</span>
+<span class="s2">        The current time stamp of the audio playback"""</span><span class="p">)</span>
+
+    <span class="n">throttle</span> <span class="o">=</span> <span class="n">Int</span><span class="p">(</span><span class="mi">250</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s2">"""</span>
+<span class="s2">        The frequency at which the time value is updated in milliseconds."""</span><span class="p">)</span>
+
+    <span class="n">value</span> <span class="o">=</span> <span class="n">Any</span><span class="p">(</span><span class="n">help</span><span class="o">=</span><span class="s2">"Encoded file data"</span><span class="p">)</span>
+
+    <span class="n">volume</span> <span class="o">=</span> <span class="n">Int</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s2">"""The volume of the audio player."""</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Video"><a class="viewcode-back" href="../../../api/panel.models.html#panel.models.widgets.Video">[docs]</a><span class="k">class</span> <span class="nc">Video</span><span class="p">(</span><span class="n">HTMLBox</span><span class="p">):</span>
+
+    <span class="n">loop</span> <span class="o">=</span> <span class="n">Bool</span><span class="p">(</span><span class="kc">False</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s2">"""Whether the video should loop"""</span><span class="p">)</span>
+
+    <span class="n">paused</span> <span class="o">=</span> <span class="n">Bool</span><span class="p">(</span><span class="kc">False</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s2">"""Whether the video is paused"""</span><span class="p">)</span>
+
+    <span class="n">time</span> <span class="o">=</span> <span class="n">Float</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s2">"""</span>
+<span class="s2">        The current time stamp of the video playback"""</span><span class="p">)</span>
+
+    <span class="n">throttle</span> <span class="o">=</span> <span class="n">Int</span><span class="p">(</span><span class="mi">250</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s2">"""</span>
+<span class="s2">        The frequency at which the time value is updated in milliseconds."""</span><span class="p">)</span>
+
+    <span class="n">value</span> <span class="o">=</span> <span class="n">Any</span><span class="p">(</span><span class="n">help</span><span class="o">=</span><span class="s2">"Encoded file data"</span><span class="p">)</span>
+
+    <span class="n">volume</span> <span class="o">=</span> <span class="n">Int</span><span class="p">(</span><span class="n">help</span><span class="o">=</span><span class="s2">"""The volume of the video player."""</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="VideoStream"><a class="viewcode-back" href="../../../api/panel.models.html#panel.models.widgets.VideoStream">[docs]</a><span class="k">class</span> <span class="nc">VideoStream</span><span class="p">(</span><span class="n">HTMLBox</span><span class="p">):</span>
+
+    <span class="nb">format</span> <span class="o">=</span> <span class="n">Enum</span><span class="p">(</span><span class="s1">'png'</span><span class="p">,</span> <span class="s1">'jpeg'</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="s1">'png'</span><span class="p">)</span>
+
+    <span class="n">paused</span> <span class="o">=</span> <span class="n">Bool</span><span class="p">(</span><span class="kc">False</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s2">"""Whether the video is paused"""</span><span class="p">)</span>
+
+    <span class="n">snapshot</span> <span class="o">=</span> <span class="n">Bool</span><span class="p">(</span><span class="kc">False</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s2">"""On change generate a snapshot of the current video frame"""</span><span class="p">)</span>
+
+    <span class="n">timeout</span> <span class="o">=</span> <span class="n">Nullable</span><span class="p">(</span><span class="n">Int</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s2">"""</span>
+<span class="s2">        The timeout between snapshots (if None snapshot only generated</span>
+<span class="s2">        when snapshot property is changed"""</span><span class="p">)</span>
+
+    <span class="n">value</span> <span class="o">=</span> <span class="n">Any</span><span class="p">(</span><span class="n">help</span><span class="o">=</span><span class="s2">"""Snapshot Data"""</span><span class="p">)</span>
+
+    <span class="n">height</span> <span class="o">=</span> <span class="n">Override</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="mi">240</span><span class="p">)</span>
+
+    <span class="n">width</span> <span class="o">=</span> <span class="n">Override</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="mi">320</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Progress"><a class="viewcode-back" href="../../../api/panel.models.html#panel.models.widgets.Progress">[docs]</a><span class="k">class</span> <span class="nc">Progress</span><span class="p">(</span><span class="n">HTMLBox</span><span class="p">):</span>
+
+    <span class="n">active</span> <span class="o">=</span> <span class="n">Bool</span><span class="p">(</span><span class="kc">True</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s2">"""Whether to animate the bar"""</span><span class="p">)</span>
+
+    <span class="n">bar_color</span> <span class="o">=</span> <span class="n">Enum</span><span class="p">(</span><span class="s1">'primary'</span><span class="p">,</span> <span class="s1">'secondary'</span><span class="p">,</span> <span class="s1">'success'</span><span class="p">,</span> <span class="s1">'info'</span><span class="p">,</span>
+                     <span class="s1">'danger'</span><span class="p">,</span> <span class="s1">'warning'</span><span class="p">,</span> <span class="s1">'light'</span><span class="p">,</span> <span class="s1">'dark'</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="s1">'primary'</span><span class="p">)</span>
+
+    <span class="nb">max</span> <span class="o">=</span> <span class="n">Int</span><span class="p">(</span><span class="mi">100</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s2">"""Maximum value"""</span><span class="p">)</span>
+
+    <span class="n">value</span> <span class="o">=</span> <span class="n">Int</span><span class="p">(</span><span class="n">help</span><span class="o">=</span><span class="s2">"""Current value"""</span><span class="p">)</span>
+
+    <span class="n">style</span> <span class="o">=</span> <span class="n">Dict</span><span class="p">(</span><span class="n">String</span><span class="p">,</span> <span class="n">Any</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="p">{},</span> <span class="n">help</span><span class="o">=</span><span class="s2">"""</span>
+<span class="s2">    Raw CSS style declaration. Note this may be web browser dependent.</span>
+<span class="s2">    """</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="FileDownload"><a class="viewcode-back" href="../../../api/panel.models.html#panel.models.widgets.FileDownload">[docs]</a><span class="k">class</span> <span class="nc">FileDownload</span><span class="p">(</span><span class="n">InputWidget</span><span class="p">):</span>
+
+    <span class="n">auto</span> <span class="o">=</span> <span class="n">Bool</span><span class="p">(</span><span class="kc">False</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s2">"""Whether to download on click"""</span><span class="p">)</span>
+
+    <span class="n">button_type</span> <span class="o">=</span> <span class="n">Enum</span><span class="p">(</span><span class="n">ButtonType</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s2">"""</span>
+<span class="s2">    A style for the button, signifying it's role.</span>
+<span class="s2">    """</span><span class="p">)</span>
+
+    <span class="n">clicks</span> <span class="o">=</span> <span class="n">Int</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s2">"""</span>
+<span class="s2">    A private property that used to trigger ``on_click`` event handler.</span>
+<span class="s2">    """</span><span class="p">)</span>
+
+    <span class="n">data</span> <span class="o">=</span> <span class="n">String</span><span class="p">(</span><span class="n">help</span><span class="o">=</span><span class="s2">"""Encoded URI data."""</span><span class="p">)</span>
+
+    <span class="n">label</span> <span class="o">=</span> <span class="n">String</span><span class="p">(</span><span class="s2">""</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s2">"""The text label for the button to display."""</span><span class="p">)</span>
+
+    <span class="n">filename</span> <span class="o">=</span> <span class="n">String</span><span class="p">(</span><span class="n">help</span><span class="o">=</span><span class="s2">"""Filename to use on download"""</span><span class="p">)</span>
+
+    <span class="n">_transfers</span> <span class="o">=</span> <span class="n">Int</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s2">"""</span>
+<span class="s2">    A private property to create and click the link.</span>
+<span class="s2">    """</span><span class="p">)</span>
+
+    <span class="n">title</span> <span class="o">=</span> <span class="n">Override</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="s1">''</span><span class="p">)</span></div>
+</pre></div>
+</div>
+</div>
+<!-- END MAIN BODY OF DOCS ––––––––––––– -->
+<!-- Google Analytics -->
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async="" src="https://www.googletagmanager.com/gtag/js?id=UA-154795830-2"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-154795830-2', { 'anonymize_ip': true });
+</script>
+<!-- MathJax Config -->
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}
+});
+</script>
+<!-- End Document
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+</body>
+</html>

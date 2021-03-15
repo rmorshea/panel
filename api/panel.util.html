@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<!-- Basic Page Needs
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+<meta charset="utf-8"/>
+<title>util Module — Panel 0.11.1+g238199f-dirty documentation</title>
+<meta content="High-level dashboarding for python visualization libraries" name="description"/>
+<meta content="Panel contributors" name="author"/>
+<!-- Mobile Specific Metas
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<!-- FONT
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+<script src="https://ajax.googleapis.com/ajax/libs/webfont/1.6.16/webfont.js"></script>
+<script>
+    WebFont.load({
+      google: {
+        families: ['Source Sans Pro']
+      }
+    });
+  </script>
+<!-- CSS
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+<link href="../_static/css/main.css" rel="stylesheet"/>
+<link href="../_static/nbsite.css" rel="stylesheet"/>
+<link href="../_static/site.css" rel="stylesheet"/>
+<!-- Scripts
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script async="" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML" type="text/javascript">
+</script>
+<script src="../_static/js/main.js"></script>
+<!-- Favicon
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+<link href="../_static/favicon.ico" rel="icon" type="image/png"/>
+<!-- Canonical
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+<link href="https://panel.holoviz.org/api/panel.util.html" rel="canonical">
+</link></head>
+<body class="">
+<header class="navigation">
+<div class="wrapper">
+<a class="logo" href="../index.html">
+<img alt="Logo" src="../_static/logo_horizontal.png"/>
+</a>
+<a class="navigation-menu-button" href="javascript:void(0)" id="js-mobile-menu">Menu</a>
+<nav>
+<ul class="navigation-menu show" id="js-navigation-menu">
+<li class="nav-link doc-head"><a href="//discourse.holoviz.org">Discourse</a></li>
+<li class="nav-link doc-head"><a href="//twitter.com/Panel_org">Twitter</a></li>
+<li class="nav-link doc-head"><a href="//github.com/pyviz/panel">Github</a></li>
+<li class="nav-link">
+<div style="display:inline-block;vertical-align: middle;">
+<div class="search-bar">
+<form action="../search.html" method="get" role="search">
+<input name="q" placeholder="Search" type="search"/>
+<button type="submit">
+<img alt="Search Icon" src="https://raw.githubusercontent.com/thoughtbot/refills/master/source/images/search-icon-black.png"/>
+</button>
+</form>
+</div>
+</div>
+</li>
+</ul>
+</nav>
+</div>
+</header>
+<div class="second-nav">
+<nav>
+<ul class="navigation-menu show">
+<li class="nav-link doc-head"><a href="../getting_started/index.html">Getting started</a></li>
+<li class="nav-link doc-head"><a href="../user_guide/index.html">User Guide</a></li>
+<li class="nav-link doc-head"><a href="../gallery/index.html">Gallery</a></li>
+<li class="nav-link doc-head"><a href="../reference/index.html">Reference Gallery</a></li>
+<li class="nav-link doc-head"><a href="../developer_guide/index.html">Developer Guide</a></li>
+<li class="nav-link doc-head"><a href="../releases.html">Releases</a></li>
+<li class="nav-link doc-head"><a href="index.html">API</a></li>
+<li class="nav-link doc-head"><a href="../FAQ.html">FAQ</a></li>
+<li class="nav-link doc-head"><a href="../about.html">About</a></li>
+</ul>
+</nav>
+</div>
+<!-- MAIN BODY OF DOCS –––––––––––––––––– -->
+<div class="docs section">
+<div id="hacketyhackhack"> <!-- style="width:20%;margin-right: 100px;"> --> <!--style="display: none;"> style="display:none;"> -->
+<div class="toc" style="width:15%; margin-right:20px;">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../index.html">Home</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting_started/index.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../user_guide/index.html">User Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../gallery/index.html">Gallery</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/index.html">Reference Gallery</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../developer_guide/index.html">Developer Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="index.html">API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Comparisons.html">Comparisons</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../releases.html">Releases</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Roadmap.html">Road Map</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../FAQ.html">FAQ</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://github.com/pyviz/panel">Github source</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../about.html">About</a></li>
+</ul>
+</div>
+</div>
+<div class="content"> <!-- style="max-width:80%;margin-left:auto;margin-right: auto;">-->
+<div class="section" id="util-module">
+<h1>util Module<a class="headerlink" href="#util-module" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="id1">
+<h2><code class="xref py py-mod docutils literal notranslate"><span class="pre">util</span></code> Module<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
+<span class="target" id="module-panel.util"></span><p>Various general utilities used in the panel codebase.</p>
+<dl class="py function">
+<dt id="panel.util.abbreviated_repr">
+<code class="sig-prename descclassname"><span class="pre">panel.util.</span></code><code class="sig-name descname"><span class="pre">abbreviated_repr</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_length</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">25</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">natural_breaks</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">(',',</span> <span class="pre">'</span> <span class="pre">')</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/panel/util.html#abbreviated_repr"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#panel.util.abbreviated_repr" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns an abbreviated repr for the supplied object. Attempts to
+find a natural break point while adhering to the maximum length.</p>
+</dd></dl>
+<dl class="py function">
+<dt id="panel.util.as_unicode">
+<code class="sig-prename descclassname"><span class="pre">panel.util.</span></code><code class="sig-name descname"><span class="pre">as_unicode</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">obj</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/panel/util.html#as_unicode"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#panel.util.as_unicode" title="Permalink to this definition">¶</a></dt>
+<dd><p>Safely casts any object to unicode including regular string
+(i.e. bytes) types in python 2.</p>
+</dd></dl>
+<dl class="py function">
+<dt id="panel.util.edit_readonly">
+<code class="sig-prename descclassname"><span class="pre">panel.util.</span></code><code class="sig-name descname"><span class="pre">edit_readonly</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">parameterized</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/panel/util.html#edit_readonly"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#panel.util.edit_readonly" title="Permalink to this definition">¶</a></dt>
+<dd><p>Temporarily set parameters on Parameterized object to readonly=False
+to allow editing them.</p>
+</dd></dl>
+<dl class="py function">
+<dt id="panel.util.full_groupby">
+<code class="sig-prename descclassname"><span class="pre">panel.util.</span></code><code class="sig-name descname"><span class="pre">full_groupby</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="pre">l</span></em>, <em class="sig-param"><span class="pre">key=&lt;function</span> <span class="pre">&lt;lambda&gt;&gt;</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/panel/util.html#full_groupby"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#panel.util.full_groupby" title="Permalink to this definition">¶</a></dt>
+<dd><p>Groupby implementation which does not require a prior sort</p>
+</dd></dl>
+<dl class="py function">
+<dt id="panel.util.get_method_owner">
+<code class="sig-prename descclassname"><span class="pre">panel.util.</span></code><code class="sig-name descname"><span class="pre">get_method_owner</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">meth</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/panel/util.html#get_method_owner"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#panel.util.get_method_owner" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the instance owning the supplied instancemethod or
+the class owning the supplied classmethod.</p>
+</dd></dl>
+<dl class="py function">
+<dt id="panel.util.indexOf">
+<code class="sig-prename descclassname"><span class="pre">panel.util.</span></code><code class="sig-name descname"><span class="pre">indexOf</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">obj</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">objs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/panel/util.html#indexOf"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#panel.util.indexOf" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the index of an object in a list of objects. Unlike the
+list.index method this function only checks for identity not
+equality.</p>
+</dd></dl>
+<dl class="py function">
+<dt id="panel.util.isIn">
+<code class="sig-prename descclassname"><span class="pre">panel.util.</span></code><code class="sig-name descname"><span class="pre">isIn</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">obj</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">objs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/panel/util.html#isIn"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#panel.util.isIn" title="Permalink to this definition">¶</a></dt>
+<dd><p>Checks if the object is in the list of objects safely.</p>
+</dd></dl>
+<dl class="py function">
+<dt id="panel.util.is_parameterized">
+<code class="sig-prename descclassname"><span class="pre">panel.util.</span></code><code class="sig-name descname"><span class="pre">is_parameterized</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">obj</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/panel/util.html#is_parameterized"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#panel.util.is_parameterized" title="Permalink to this definition">¶</a></dt>
+<dd><p>Whether an object is a Parameterized class or instance.</p>
+</dd></dl>
+<dl class="py function">
+<dt id="panel.util.isdatetime">
+<code class="sig-prename descclassname"><span class="pre">panel.util.</span></code><code class="sig-name descname"><span class="pre">isdatetime</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/panel/util.html#isdatetime"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#panel.util.isdatetime" title="Permalink to this definition">¶</a></dt>
+<dd><p>Whether the array or scalar is recognized datetime type.</p>
+</dd></dl>
+<dl class="py function">
+<dt id="panel.util.isfile">
+<code class="sig-prename descclassname"><span class="pre">panel.util.</span></code><code class="sig-name descname"><span class="pre">isfile</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/panel/util.html#isfile"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#panel.util.isfile" title="Permalink to this definition">¶</a></dt>
+<dd><p>Safe version of os.path.isfile robust to path length issues on Windows</p>
+</dd></dl>
+<dl class="py function">
+<dt id="panel.util.param_name">
+<code class="sig-prename descclassname"><span class="pre">panel.util.</span></code><code class="sig-name descname"><span class="pre">param_name</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/panel/util.html#param_name"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#panel.util.param_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>Removes the integer id from a Parameterized class name.</p>
+</dd></dl>
+<dl class="py function">
+<dt id="panel.util.param_reprs">
+<code class="sig-prename descclassname"><span class="pre">panel.util.</span></code><code class="sig-name descname"><span class="pre">param_reprs</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">parameterized</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">skip</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/panel/util.html#param_reprs"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#panel.util.param_reprs" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a list of reprs for parameters on the parameterized object.
+Skips default and empty values.</p>
+</dd></dl>
+<dl class="py function">
+<dt id="panel.util.parse_query">
+<code class="sig-prename descclassname"><span class="pre">panel.util.</span></code><code class="sig-name descname"><span class="pre">parse_query</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">query</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/panel/util.html#parse_query"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#panel.util.parse_query" title="Permalink to this definition">¶</a></dt>
+<dd><p>Parses a url query string, e.g. ?a=1&amp;b=2.1&amp;c=string, converting
+numeric strings to int or float types.</p>
+</dd></dl>
+<dl class="py function">
+<dt id="panel.util.recursive_parameterized">
+<code class="sig-prename descclassname"><span class="pre">panel.util.</span></code><code class="sig-name descname"><span class="pre">recursive_parameterized</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">parameterized</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">objects</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/panel/util.html#recursive_parameterized"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#panel.util.recursive_parameterized" title="Permalink to this definition">¶</a></dt>
+<dd><p>Recursively searches a Parameterized object for other Parmeterized
+objects.</p>
+</dd></dl>
+<dl class="py function">
+<dt id="panel.util.unicode_repr">
+<code class="sig-prename descclassname"><span class="pre">panel.util.</span></code><code class="sig-name descname"><span class="pre">unicode_repr</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">obj</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/panel/util.html#unicode_repr"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#panel.util.unicode_repr" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a repr without the unicode prefix.</p>
+</dd></dl>
+<dl class="py function">
+<dt id="panel.util.value_as_datetime">
+<code class="sig-prename descclassname"><span class="pre">panel.util.</span></code><code class="sig-name descname"><span class="pre">value_as_datetime</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/panel/util.html#value_as_datetime"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#panel.util.value_as_datetime" title="Permalink to this definition">¶</a></dt>
+<dd><p>Retrieve the value tuple as a tuple of datetime objects.</p>
+</dd></dl>
+</div>
+</div>
+</div>
+</div>
+<!-- END MAIN BODY OF DOCS ––––––––––––– -->
+<!-- Google Analytics -->
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async="" src="https://www.googletagmanager.com/gtag/js?id=UA-154795830-2"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-154795830-2', { 'anonymize_ip': true });
+</script>
+<!-- MathJax Config -->
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}
+});
+</script>
+<!-- End Document
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+</body>
+</html>

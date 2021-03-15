@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<!-- Basic Page Needs
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+<meta charset="utf-8"/>
+<title>panel.pane.markup — Panel 0.11.1+g238199f-dirty documentation</title>
+<meta content="High-level dashboarding for python visualization libraries" name="description"/>
+<meta content="Panel contributors" name="author"/>
+<!-- Mobile Specific Metas
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<!-- FONT
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+<script src="https://ajax.googleapis.com/ajax/libs/webfont/1.6.16/webfont.js"></script>
+<script>
+    WebFont.load({
+      google: {
+        families: ['Source Sans Pro']
+      }
+    });
+  </script>
+<!-- CSS
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+<link href="../../../_static/css/main.css" rel="stylesheet"/>
+<link href="../../../_static/nbsite.css" rel="stylesheet"/>
+<link href="../../../_static/site.css" rel="stylesheet"/>
+<!-- Scripts
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script async="" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML" type="text/javascript">
+</script>
+<script src="../../../_static/js/main.js"></script>
+<!-- Favicon
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+<link href="../../../_static/favicon.ico" rel="icon" type="image/png"/>
+<!-- Canonical
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+<link href="https://panel.holoviz.org/_modules/panel/pane/markup.html" rel="canonical">
+</link></head>
+<body class="">
+<header class="navigation">
+<div class="wrapper">
+<a class="logo" href="../../../index.html">
+<img alt="Logo" src="../../../_static/logo_horizontal.png"/>
+</a>
+<a class="navigation-menu-button" href="javascript:void(0)" id="js-mobile-menu">Menu</a>
+<nav>
+<ul class="navigation-menu show" id="js-navigation-menu">
+<li class="nav-link doc-head"><a href="//discourse.holoviz.org">Discourse</a></li>
+<li class="nav-link doc-head"><a href="//twitter.com/Panel_org">Twitter</a></li>
+<li class="nav-link doc-head"><a href="//github.com/pyviz/panel">Github</a></li>
+<li class="nav-link">
+<div style="display:inline-block;vertical-align: middle;">
+<div class="search-bar">
+<form action="../../../search.html" method="get" role="search">
+<input name="q" placeholder="Search" type="search"/>
+<button type="submit">
+<img alt="Search Icon" src="https://raw.githubusercontent.com/thoughtbot/refills/master/source/images/search-icon-black.png"/>
+</button>
+</form>
+</div>
+</div>
+</li>
+</ul>
+</nav>
+</div>
+</header>
+<div class="second-nav">
+<nav>
+<ul class="navigation-menu show">
+<li class="nav-link doc-head"><a href="../../../getting_started/index.html">Getting started</a></li>
+<li class="nav-link doc-head"><a href="../../../user_guide/index.html">User Guide</a></li>
+<li class="nav-link doc-head"><a href="../../../gallery/index.html">Gallery</a></li>
+<li class="nav-link doc-head"><a href="../../../reference/index.html">Reference Gallery</a></li>
+<li class="nav-link doc-head"><a href="../../../developer_guide/index.html">Developer Guide</a></li>
+<li class="nav-link doc-head"><a href="../../../releases.html">Releases</a></li>
+<li class="nav-link doc-head"><a href="../../../api/index.html">API</a></li>
+<li class="nav-link doc-head"><a href="../../../FAQ.html">FAQ</a></li>
+<li class="nav-link doc-head"><a href="../../../about.html">About</a></li>
+</ul>
+</nav>
+</div>
+<!-- MAIN BODY OF DOCS –––––––––––––––––– -->
+<div class="docs section">
+<div id="hacketyhackhack"> <!-- style="width:20%;margin-right: 100px;"> --> <!--style="display: none;"> style="display:none;"> -->
+<div class="toc" style="width:15%; margin-right:20px;">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../index.html">Home</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../getting_started/index.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../user_guide/index.html">User Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../gallery/index.html">Gallery</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../reference/index.html">Reference Gallery</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../developer_guide/index.html">Developer Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/index.html">API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../Comparisons.html">Comparisons</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../releases.html">Releases</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../Roadmap.html">Road Map</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../FAQ.html">FAQ</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://github.com/pyviz/panel">Github source</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../about.html">About</a></li>
+</ul>
+</div>
+</div>
+<div class="content"> <!-- style="max-width:80%;margin-left:auto;margin-right: auto;">-->
+<h1>Source code for panel.pane.markup</h1><div class="highlight"><pre>
+<span></span><span class="sd">"""</span>
+<span class="sd">Pane class which render various markup languages including HTML,</span>
+<span class="sd">Markdown, and also regular strings.</span>
+<span class="sd">"""</span>
+<span class="kn">import</span> <span class="nn">json</span>
+<span class="kn">import</span> <span class="nn">textwrap</span>
+
+<span class="kn">from</span> <span class="nn">six</span> <span class="kn">import</span> <span class="n">string_types</span>
+
+<span class="kn">import</span> <span class="nn">param</span>
+
+<span class="kn">from</span> <span class="nn">..models</span> <span class="kn">import</span> <span class="n">HTML</span> <span class="k">as</span> <span class="n">_BkHTML</span><span class="p">,</span> <span class="n">JSON</span> <span class="k">as</span> <span class="n">_BkJSON</span>
+<span class="kn">from</span> <span class="nn">..util</span> <span class="kn">import</span> <span class="n">escape</span>
+<span class="kn">from</span> <span class="nn">..viewable</span> <span class="kn">import</span> <span class="n">Layoutable</span>
+<span class="kn">from</span> <span class="nn">.base</span> <span class="kn">import</span> <span class="n">PaneBase</span>
+
+
+<div class="viewcode-block" id="DivPaneBase"><a class="viewcode-back" href="../../../api/panel.pane.html#panel.pane.markup.DivPaneBase">[docs]</a><span class="k">class</span> <span class="nc">DivPaneBase</span><span class="p">(</span><span class="n">PaneBase</span><span class="p">):</span>
+    <span class="sd">"""</span>
+<span class="sd">    Baseclass for Panes which render HTML inside a Bokeh Div.</span>
+<span class="sd">    See the documentation for Bokeh Div for more detail about</span>
+<span class="sd">    the supported options like style and sizing_mode.</span>
+<span class="sd">    """</span>
+
+    <span class="n">style</span> <span class="o">=</span> <span class="n">param</span><span class="o">.</span><span class="n">Dict</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="s2">"""</span>
+<span class="s2">        Dictionary of CSS property:value pairs to apply to this Div."""</span><span class="p">)</span>
+
+    <span class="n">_bokeh_model</span> <span class="o">=</span> <span class="n">_BkHTML</span>
+
+    <span class="n">_rename</span> <span class="o">=</span> <span class="p">{</span><span class="s1">'object'</span><span class="p">:</span> <span class="s1">'text'</span><span class="p">}</span>
+
+    <span class="n">_updates</span> <span class="o">=</span> <span class="kc">True</span>
+
+    <span class="n">__abstract</span> <span class="o">=</span> <span class="kc">True</span>
+
+    <span class="k">def</span> <span class="nf">_get_properties</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="p">{</span><span class="n">p</span> <span class="p">:</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">p</span><span class="p">)</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="nb">list</span><span class="p">(</span><span class="n">Layoutable</span><span class="o">.</span><span class="n">param</span><span class="p">)</span> <span class="o">+</span> <span class="p">[</span><span class="s1">'style'</span><span class="p">]</span>
+                <span class="k">if</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">p</span><span class="p">)</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">}</span>
+
+    <span class="k">def</span> <span class="nf">_get_model</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">doc</span><span class="p">,</span> <span class="n">root</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">parent</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">comm</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="n">model</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_bokeh_model</span><span class="p">(</span><span class="o">**</span><span class="bp">self</span><span class="o">.</span><span class="n">_get_properties</span><span class="p">())</span>
+        <span class="k">if</span> <span class="n">root</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">root</span> <span class="o">=</span> <span class="n">model</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_models</span><span class="p">[</span><span class="n">root</span><span class="o">.</span><span class="n">ref</span><span class="p">[</span><span class="s1">'id'</span><span class="p">]]</span> <span class="o">=</span> <span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">parent</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">model</span>
+
+    <span class="k">def</span> <span class="nf">_update</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ref</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">model</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="n">model</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="o">**</span><span class="bp">self</span><span class="o">.</span><span class="n">_get_properties</span><span class="p">())</span></div>
+
+
+<div class="viewcode-block" id="HTML"><a class="viewcode-back" href="../../../api/panel.pane.html#panel.pane.markup.HTML">[docs]</a><span class="k">class</span> <span class="nc">HTML</span><span class="p">(</span><span class="n">DivPaneBase</span><span class="p">):</span>
+    <span class="sd">"""</span>
+<span class="sd">    HTML panes wrap HTML text in a Panel HTML model. The</span>
+<span class="sd">    provided object can either be a text string, or an object that</span>
+<span class="sd">    has a `_repr_html_` method that can be called to get the HTML</span>
+<span class="sd">    text string.  The height and width can optionally be specified, to</span>
+<span class="sd">    allow room for whatever is being wrapped.</span>
+<span class="sd">    """</span>
+
+    <span class="c1"># Priority is dependent on the data type</span>
+    <span class="n">priority</span> <span class="o">=</span> <span class="kc">None</span>
+
+<div class="viewcode-block" id="HTML.applies"><a class="viewcode-back" href="../../../api/panel.pane.html#panel.pane.markup.HTML.applies">[docs]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">applies</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">obj</span><span class="p">):</span>
+        <span class="n">module</span><span class="p">,</span> <span class="n">name</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="s1">'__module__'</span><span class="p">,</span> <span class="s1">''</span><span class="p">),</span> <span class="nb">type</span><span class="p">(</span><span class="n">obj</span><span class="p">)</span><span class="o">.</span><span class="vm">__name__</span>
+        <span class="k">if</span> <span class="p">((</span><span class="nb">any</span><span class="p">(</span><span class="n">m</span> <span class="ow">in</span> <span class="n">module</span> <span class="k">for</span> <span class="n">m</span> <span class="ow">in</span> <span class="p">(</span><span class="s1">'pandas'</span><span class="p">,</span> <span class="s1">'dask'</span><span class="p">))</span> <span class="ow">and</span>
+            <span class="n">name</span> <span class="ow">in</span> <span class="p">(</span><span class="s1">'DataFrame'</span><span class="p">,</span> <span class="s1">'Series'</span><span class="p">))</span> <span class="ow">or</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="s1">'_repr_html_'</span><span class="p">)):</span>
+            <span class="k">return</span> <span class="mf">0.2</span>
+        <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="n">string_types</span><span class="p">):</span>
+            <span class="k">return</span> <span class="kc">None</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">False</span></div>
+
+    <span class="k">def</span> <span class="nf">_get_properties</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">properties</span> <span class="o">=</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">_get_properties</span><span class="p">()</span>
+        <span class="n">text</span> <span class="o">=</span> <span class="s1">''</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">object</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="bp">self</span><span class="o">.</span><span class="n">object</span>
+        <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">text</span><span class="p">,</span> <span class="s1">'_repr_html_'</span><span class="p">):</span>
+            <span class="n">text</span> <span class="o">=</span> <span class="n">text</span><span class="o">.</span><span class="n">_repr_html_</span><span class="p">()</span>
+        <span class="k">return</span> <span class="nb">dict</span><span class="p">(</span><span class="n">properties</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="n">escape</span><span class="p">(</span><span class="n">text</span><span class="p">))</span></div>
+
+
+<div class="viewcode-block" id="DataFrame"><a class="viewcode-back" href="../../../api/panel.pane.html#panel.pane.markup.DataFrame">[docs]</a><span class="k">class</span> <span class="nc">DataFrame</span><span class="p">(</span><span class="n">HTML</span><span class="p">):</span>
+    <span class="sd">"""</span>
+<span class="sd">    DataFrame renders pandas, dask and streamz DataFrame types using</span>
+<span class="sd">    their custom HTML repr. In the case of a streamz DataFrame the</span>
+<span class="sd">    rendered data will update periodically.</span>
+
+<span class="sd">    """</span>
+
+    <span class="n">bold_rows</span> <span class="o">=</span> <span class="n">param</span><span class="o">.</span><span class="n">Boolean</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="s2">"""</span>
+<span class="s2">        Make the row labels bold in the output."""</span><span class="p">)</span>
+
+    <span class="n">border</span> <span class="o">=</span> <span class="n">param</span><span class="o">.</span><span class="n">Integer</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="s2">"""</span>
+<span class="s2">        A ``border=border`` attribute is included in the opening</span>
+<span class="s2">        `&lt;table&gt;` tag."""</span><span class="p">)</span>
+
+    <span class="n">classes</span> <span class="o">=</span> <span class="n">param</span><span class="o">.</span><span class="n">List</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="p">[</span><span class="s1">'panel-df'</span><span class="p">],</span> <span class="n">doc</span><span class="o">=</span><span class="s2">"""</span>
+<span class="s2">        CSS class(es) to apply to the resulting html table."""</span><span class="p">)</span>
+
+    <span class="n">col_space</span> <span class="o">=</span> <span class="n">param</span><span class="o">.</span><span class="n">ClassSelector</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">class_</span><span class="o">=</span><span class="p">(</span><span class="nb">str</span><span class="p">,</span> <span class="nb">int</span><span class="p">),</span> <span class="n">doc</span><span class="o">=</span><span class="s2">"""</span>
+<span class="s2">        The minimum width of each column in CSS length units. An int</span>
+<span class="s2">        is assumed to be px units."""</span><span class="p">)</span>
+
+    <span class="n">decimal</span> <span class="o">=</span> <span class="n">param</span><span class="o">.</span><span class="n">String</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="s1">'.'</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="s2">"""</span>
+<span class="s2">        Character recognized as decimal separator, e.g. ',' in Europe."""</span><span class="p">)</span>
+
+    <span class="n">float_format</span> <span class="o">=</span> <span class="n">param</span><span class="o">.</span><span class="n">Callable</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="s2">"""</span>
+<span class="s2">        Formatter function to apply to columns' elements if they are</span>
+<span class="s2">        floats. The result of this function must be a unicode string."""</span><span class="p">)</span>
+
+    <span class="n">formatters</span> <span class="o">=</span> <span class="n">param</span><span class="o">.</span><span class="n">ClassSelector</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">class_</span><span class="o">=</span><span class="p">(</span><span class="nb">dict</span><span class="p">,</span> <span class="nb">list</span><span class="p">),</span> <span class="n">doc</span><span class="o">=</span><span class="s2">"""</span>
+<span class="s2">        Formatter functions to apply to columns' elements by position</span>
+<span class="s2">        or name. The result of each function must be a unicode string."""</span><span class="p">)</span>
+
+    <span class="n">header</span> <span class="o">=</span> <span class="n">param</span><span class="o">.</span><span class="n">Boolean</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="s2">"""</span>
+<span class="s2">        Whether to print column labels."""</span><span class="p">)</span>
+
+    <span class="n">index</span> <span class="o">=</span> <span class="n">param</span><span class="o">.</span><span class="n">Boolean</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="s2">"""</span>
+<span class="s2">        Whether to print index (row) labels."""</span><span class="p">)</span>
+
+    <span class="n">index_names</span> <span class="o">=</span> <span class="n">param</span><span class="o">.</span><span class="n">Boolean</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="s2">"""</span>
+<span class="s2">        Prints the names of the indexes."""</span><span class="p">)</span>
+
+    <span class="n">justify</span> <span class="o">=</span> <span class="n">param</span><span class="o">.</span><span class="n">ObjectSelector</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">allow_None</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">objects</span><span class="o">=</span><span class="p">[</span>
+        <span class="s1">'left'</span><span class="p">,</span> <span class="s1">'right'</span><span class="p">,</span> <span class="s1">'center'</span><span class="p">,</span> <span class="s1">'justify'</span><span class="p">,</span> <span class="s1">'justify-all'</span><span class="p">,</span> <span class="s1">'start'</span><span class="p">,</span>
+        <span class="s1">'end'</span><span class="p">,</span> <span class="s1">'inherit'</span><span class="p">,</span> <span class="s1">'match-parent'</span><span class="p">,</span> <span class="s1">'initial'</span><span class="p">,</span> <span class="s1">'unset'</span><span class="p">],</span> <span class="n">doc</span><span class="o">=</span><span class="s2">"""</span>
+<span class="s2">        How to justify the column labels."""</span><span class="p">)</span>
+
+    <span class="n">max_rows</span> <span class="o">=</span> <span class="n">param</span><span class="o">.</span><span class="n">Integer</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="s2">"""</span>
+<span class="s2">        Maximum number of rows to display."""</span><span class="p">)</span>
+
+    <span class="n">max_cols</span> <span class="o">=</span> <span class="n">param</span><span class="o">.</span><span class="n">Integer</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="s2">"""</span>
+<span class="s2">        Maximum number of columns to display."""</span><span class="p">)</span>
+
+    <span class="n">na_rep</span> <span class="o">=</span> <span class="n">param</span><span class="o">.</span><span class="n">String</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="s1">'NaN'</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="s2">"""</span>
+<span class="s2">        String representation of NAN to use."""</span><span class="p">)</span>
+
+    <span class="n">render_links</span> <span class="o">=</span> <span class="n">param</span><span class="o">.</span><span class="n">Boolean</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="s2">"""</span>
+<span class="s2">        Convert URLs to HTML links."""</span><span class="p">)</span>
+
+    <span class="n">show_dimensions</span> <span class="o">=</span> <span class="n">param</span><span class="o">.</span><span class="n">Boolean</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="s2">"""</span>
+<span class="s2">        Display DataFrame dimensions (number of rows by number of</span>
+<span class="s2">        columns)."""</span><span class="p">)</span>
+
+    <span class="n">sparsify</span> <span class="o">=</span> <span class="n">param</span><span class="o">.</span><span class="n">Boolean</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="s2">"""</span>
+<span class="s2">        Set to False for a DataFrame with a hierarchical index to</span>
+<span class="s2">        print every multi-index key at each row."""</span><span class="p">)</span>
+
+    <span class="n">_object</span> <span class="o">=</span> <span class="n">param</span><span class="o">.</span><span class="n">Parameter</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="s2">"""Hidden parameter."""</span><span class="p">)</span>
+
+    <span class="n">_dask_params</span> <span class="o">=</span> <span class="p">[</span><span class="s1">'max_rows'</span><span class="p">]</span>
+
+    <span class="n">_rerender_params</span> <span class="o">=</span> <span class="p">[</span>
+        <span class="s1">'object'</span><span class="p">,</span> <span class="s1">'_object'</span><span class="p">,</span> <span class="s1">'bold_rows'</span><span class="p">,</span> <span class="s1">'border'</span><span class="p">,</span> <span class="s1">'classes'</span><span class="p">,</span>
+        <span class="s1">'col_space'</span><span class="p">,</span> <span class="s1">'decimal'</span><span class="p">,</span> <span class="s1">'float_format'</span><span class="p">,</span> <span class="s1">'formatters'</span><span class="p">,</span>
+        <span class="s1">'header'</span><span class="p">,</span> <span class="s1">'index'</span><span class="p">,</span> <span class="s1">'index_names'</span><span class="p">,</span> <span class="s1">'justify'</span><span class="p">,</span> <span class="s1">'max_rows'</span><span class="p">,</span>
+        <span class="s1">'max_cols'</span><span class="p">,</span> <span class="s1">'na_rep'</span><span class="p">,</span> <span class="s1">'render_links'</span><span class="p">,</span> <span class="s1">'show_dimensions'</span><span class="p">,</span>
+        <span class="s1">'sparsify'</span><span class="p">,</span> <span class="s1">'sizing_mode'</span>
+    <span class="p">]</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">object</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">params</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="nb">object</span><span class="p">,</span> <span class="o">**</span><span class="n">params</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_stream</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_setup_stream</span><span class="p">()</span>
+
+<div class="viewcode-block" id="DataFrame.applies"><a class="viewcode-back" href="../../../api/panel.pane.html#panel.pane.markup.DataFrame.applies">[docs]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">applies</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">obj</span><span class="p">):</span>
+        <span class="n">module</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="s1">'__module__'</span><span class="p">,</span> <span class="s1">''</span><span class="p">)</span>
+        <span class="n">name</span> <span class="o">=</span> <span class="nb">type</span><span class="p">(</span><span class="n">obj</span><span class="p">)</span><span class="o">.</span><span class="vm">__name__</span>
+        <span class="k">if</span> <span class="p">(</span><span class="nb">any</span><span class="p">(</span><span class="n">m</span> <span class="ow">in</span> <span class="n">module</span> <span class="k">for</span> <span class="n">m</span> <span class="ow">in</span> <span class="p">(</span><span class="s1">'pandas'</span><span class="p">,</span> <span class="s1">'dask'</span><span class="p">,</span> <span class="s1">'streamz'</span><span class="p">))</span> <span class="ow">and</span>
+            <span class="n">name</span> <span class="ow">in</span> <span class="p">(</span><span class="s1">'DataFrame'</span><span class="p">,</span> <span class="s1">'Series'</span><span class="p">,</span> <span class="s1">'Random'</span><span class="p">,</span> <span class="s1">'DataFrames'</span><span class="p">,</span> <span class="s1">'Seriess'</span><span class="p">)):</span>
+            <span class="k">return</span> <span class="mf">0.3</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">False</span></div>
+
+    <span class="k">def</span> <span class="nf">_set_object</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">object</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_object</span> <span class="o">=</span> <span class="nb">object</span>
+
+    <span class="nd">@param</span><span class="o">.</span><span class="n">depends</span><span class="p">(</span><span class="s1">'object'</span><span class="p">,</span> <span class="n">watch</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">_setup_stream</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_models</span> <span class="ow">or</span> <span class="ow">not</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">object</span><span class="p">,</span> <span class="s1">'stream'</span><span class="p">):</span>
+            <span class="k">return</span>
+        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">_stream</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_stream</span><span class="o">.</span><span class="n">destroy</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_stream</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_stream</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">object</span><span class="o">.</span><span class="n">stream</span><span class="o">.</span><span class="n">latest</span><span class="p">()</span><span class="o">.</span><span class="n">rate_limit</span><span class="p">(</span><span class="mf">0.5</span><span class="p">)</span><span class="o">.</span><span class="n">gather</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_stream</span><span class="o">.</span><span class="n">sink</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_set_object</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">_get_model</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">doc</span><span class="p">,</span> <span class="n">root</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">parent</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">comm</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="n">model</span> <span class="o">=</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">_get_model</span><span class="p">(</span><span class="n">doc</span><span class="p">,</span> <span class="n">root</span><span class="p">,</span> <span class="n">parent</span><span class="p">,</span> <span class="n">comm</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_setup_stream</span><span class="p">()</span>
+        <span class="k">return</span> <span class="n">model</span>
+
+    <span class="k">def</span> <span class="nf">_cleanup</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">model</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">_cleanup</span><span class="p">(</span><span class="n">model</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_models</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">_stream</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_stream</span><span class="o">.</span><span class="n">destroy</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_stream</span> <span class="o">=</span> <span class="kc">None</span>
+
+    <span class="k">def</span> <span class="nf">_get_properties</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">properties</span> <span class="o">=</span> <span class="n">DivPaneBase</span><span class="o">.</span><span class="n">_get_properties</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_stream</span><span class="p">:</span>
+            <span class="n">df</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_object</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">df</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">object</span>
+        <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="s1">'to_frame'</span><span class="p">):</span>
+            <span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">to_frame</span><span class="p">()</span>
+
+        <span class="n">module</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="s1">'__module__'</span><span class="p">,</span> <span class="s1">''</span><span class="p">)</span>
+        <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="s1">'to_html'</span><span class="p">):</span>
+            <span class="k">if</span> <span class="s1">'dask'</span> <span class="ow">in</span> <span class="n">module</span><span class="p">:</span>
+                <span class="n">html</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">to_html</span><span class="p">(</span><span class="n">max_rows</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">max_rows</span><span class="p">)</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">'border="1"'</span><span class="p">,</span> <span class="s1">''</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">kwargs</span> <span class="o">=</span> <span class="p">{</span><span class="n">p</span><span class="p">:</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">p</span><span class="p">)</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_rerender_params</span>
+                          <span class="k">if</span> <span class="n">p</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">DivPaneBase</span><span class="o">.</span><span class="n">param</span> <span class="ow">and</span> <span class="n">p</span> <span class="o">!=</span> <span class="s1">'_object'</span><span class="p">}</span>
+                <span class="n">html</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">to_html</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">html</span> <span class="o">=</span> <span class="s1">''</span>
+        <span class="k">return</span> <span class="nb">dict</span><span class="p">(</span><span class="n">properties</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="n">escape</span><span class="p">(</span><span class="n">html</span><span class="p">))</span></div>
+
+
+<div class="viewcode-block" id="Str"><a class="viewcode-back" href="../../../api/panel.pane.html#panel.pane.markup.Str">[docs]</a><span class="k">class</span> <span class="nc">Str</span><span class="p">(</span><span class="n">DivPaneBase</span><span class="p">):</span>
+    <span class="sd">"""</span>
+<span class="sd">    A Str pane renders any object for which `str()` can be called,</span>
+<span class="sd">    escaping any HTML markup and then wrapping the resulting string in</span>
+<span class="sd">    a bokeh Div model.  Set to a low priority because generally one</span>
+<span class="sd">    will want a better representation, but allows arbitrary objects to</span>
+<span class="sd">    be used as a Pane (numbers, arrays, objects, etc.).</span>
+<span class="sd">    """</span>
+
+    <span class="n">priority</span> <span class="o">=</span> <span class="mi">0</span>
+
+    <span class="n">_target_transforms</span> <span class="o">=</span> <span class="p">{</span><span class="s1">'object'</span><span class="p">:</span> <span class="s2">"""JSON.stringify(value).replace(/,/g, ", ").replace(/:/g, ": ")"""</span><span class="p">}</span>
+
+    <span class="n">_bokeh_model</span> <span class="o">=</span> <span class="n">_BkHTML</span>
+
+<div class="viewcode-block" id="Str.applies"><a class="viewcode-back" href="../../../api/panel.pane.html#panel.pane.markup.Str.applies">[docs]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">applies</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">obj</span><span class="p">):</span>
+        <span class="k">return</span> <span class="kc">True</span></div>
+
+    <span class="k">def</span> <span class="nf">_get_properties</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">properties</span> <span class="o">=</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">_get_properties</span><span class="p">()</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">object</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">text</span> <span class="o">=</span> <span class="s1">''</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">text</span> <span class="o">=</span> <span class="s1">'&lt;pre&gt;'</span><span class="o">+</span><span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">object</span><span class="p">)</span><span class="o">+</span><span class="s1">'&lt;/pre&gt;'</span>
+        <span class="k">return</span> <span class="nb">dict</span><span class="p">(</span><span class="n">properties</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="n">escape</span><span class="p">(</span><span class="n">text</span><span class="p">))</span></div>
+
+
+<div class="viewcode-block" id="Markdown"><a class="viewcode-back" href="../../../api/panel.pane.html#panel.pane.markup.Markdown">[docs]</a><span class="k">class</span> <span class="nc">Markdown</span><span class="p">(</span><span class="n">DivPaneBase</span><span class="p">):</span>
+    <span class="sd">"""</span>
+<span class="sd">    A Markdown pane renders the markdown markup language to HTML and</span>
+<span class="sd">    displays it inside a bokeh Div model. It has no explicit</span>
+<span class="sd">    priority since it cannot be easily be distinguished from a</span>
+<span class="sd">    standard string, therefore it has to be invoked explicitly.</span>
+<span class="sd">    """</span>
+
+    <span class="n">dedent</span> <span class="o">=</span> <span class="n">param</span><span class="o">.</span><span class="n">Boolean</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="s2">"""</span>
+<span class="s2">        Whether to dedent common whitespace across all lines."""</span><span class="p">)</span>
+
+    <span class="n">extensions</span> <span class="o">=</span> <span class="n">param</span><span class="o">.</span><span class="n">List</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="p">[</span>
+        <span class="s2">"extra"</span><span class="p">,</span> <span class="s2">"smarty"</span><span class="p">,</span> <span class="s2">"codehilite"</span><span class="p">],</span> <span class="n">doc</span><span class="o">=</span><span class="s2">"""</span>
+<span class="s2">        Markdown extension to apply when transforming markup."""</span><span class="p">)</span>
+
+    <span class="c1"># Priority depends on the data type</span>
+    <span class="n">priority</span> <span class="o">=</span> <span class="kc">None</span>
+
+    <span class="n">_target_transforms</span> <span class="o">=</span> <span class="p">{</span><span class="s1">'object'</span><span class="p">:</span> <span class="kc">None</span><span class="p">}</span>
+
+    <span class="n">_rerender_params</span> <span class="o">=</span> <span class="p">[</span><span class="s1">'object'</span><span class="p">,</span> <span class="s1">'dedent'</span><span class="p">,</span> <span class="s1">'extensions'</span><span class="p">,</span> <span class="s1">'css_classes'</span><span class="p">]</span>
+
+<div class="viewcode-block" id="Markdown.applies"><a class="viewcode-back" href="../../../api/panel.pane.html#panel.pane.markup.Markdown.applies">[docs]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">applies</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">obj</span><span class="p">):</span>
+        <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="s1">'_repr_markdown_'</span><span class="p">):</span>
+            <span class="k">return</span> <span class="mf">0.3</span>
+        <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="n">string_types</span><span class="p">):</span>
+            <span class="k">return</span> <span class="mf">0.1</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">False</span></div>
+
+    <span class="k">def</span> <span class="nf">_get_properties</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="kn">import</span> <span class="nn">markdown</span>
+        <span class="n">data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">object</span>
+        <span class="k">if</span> <span class="n">data</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">data</span> <span class="o">=</span> <span class="s1">''</span>
+        <span class="k">elif</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">string_types</span><span class="p">):</span>
+            <span class="n">data</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">_repr_markdown_</span><span class="p">()</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">dedent</span><span class="p">:</span>
+            <span class="n">data</span> <span class="o">=</span> <span class="n">textwrap</span><span class="o">.</span><span class="n">dedent</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+        <span class="n">properties</span> <span class="o">=</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">_get_properties</span><span class="p">()</span>
+        <span class="n">properties</span><span class="p">[</span><span class="s1">'style'</span><span class="p">]</span> <span class="o">=</span> <span class="n">properties</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'style'</span><span class="p">,</span> <span class="p">{})</span>
+        <span class="n">css_classes</span> <span class="o">=</span> <span class="n">properties</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">'css_classes'</span><span class="p">,</span> <span class="p">[])</span> <span class="o">+</span> <span class="p">[</span><span class="s1">'markdown'</span><span class="p">]</span>
+        <span class="n">html</span> <span class="o">=</span> <span class="n">markdown</span><span class="o">.</span><span class="n">markdown</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">extensions</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">extensions</span><span class="p">,</span>
+                                 <span class="n">output_format</span><span class="o">=</span><span class="s1">'html5'</span><span class="p">)</span>
+        <span class="k">return</span> <span class="nb">dict</span><span class="p">(</span><span class="n">properties</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="n">escape</span><span class="p">(</span><span class="n">html</span><span class="p">),</span> <span class="n">css_classes</span><span class="o">=</span><span class="n">css_classes</span><span class="p">)</span></div>
+
+
+
+<div class="viewcode-block" id="JSON"><a class="viewcode-back" href="../../../api/panel.pane.html#panel.pane.markup.JSON">[docs]</a><span class="k">class</span> <span class="nc">JSON</span><span class="p">(</span><span class="n">DivPaneBase</span><span class="p">):</span>
+
+    <span class="n">depth</span> <span class="o">=</span> <span class="n">param</span><span class="o">.</span><span class="n">Integer</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">bounds</span><span class="o">=</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="kc">None</span><span class="p">),</span> <span class="n">doc</span><span class="o">=</span><span class="s2">"""</span>
+<span class="s2">        Depth to which the JSON tree will be expanded on initialization."""</span><span class="p">)</span>
+
+    <span class="n">encoder</span> <span class="o">=</span> <span class="n">param</span><span class="o">.</span><span class="n">ClassSelector</span><span class="p">(</span><span class="n">class_</span><span class="o">=</span><span class="n">json</span><span class="o">.</span><span class="n">JSONEncoder</span><span class="p">,</span> <span class="n">is_instance</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="s2">"""</span>
+<span class="s2">        Custom JSONEncoder class used to serialize objects to JSON string."""</span><span class="p">)</span>
+
+    <span class="n">hover_preview</span> <span class="o">=</span> <span class="n">param</span><span class="o">.</span><span class="n">Boolean</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="s2">"""</span>
+<span class="s2">        Whether to display a hover preview for collapsed nodes."""</span><span class="p">)</span>
+
+    <span class="n">margin</span> <span class="o">=</span> <span class="n">param</span><span class="o">.</span><span class="n">Parameter</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">5</span><span class="p">),</span> <span class="n">doc</span><span class="o">=</span><span class="s2">"""</span>
+<span class="s2">        Allows to create additional space around the component. May</span>
+<span class="s2">        be specified as a two-tuple of the form (vertical, horizontal)</span>
+<span class="s2">        or a four-tuple (top, right, bottom, left)."""</span><span class="p">)</span>
+
+    <span class="n">theme</span> <span class="o">=</span> <span class="n">param</span><span class="o">.</span><span class="n">ObjectSelector</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="s2">"dark"</span><span class="p">,</span> <span class="n">objects</span><span class="o">=</span><span class="p">[</span><span class="s2">"light"</span><span class="p">,</span> <span class="s2">"dark"</span><span class="p">],</span> <span class="n">doc</span><span class="o">=</span><span class="s2">"""</span>
+<span class="s2">        Whether the JSON tree view is expanded by default."""</span><span class="p">)</span>
+
+    <span class="n">priority</span> <span class="o">=</span> <span class="kc">None</span>
+
+    <span class="n">_applies_kw</span> <span class="o">=</span> <span class="kc">True</span>
+    <span class="n">_bokeh_model</span> <span class="o">=</span> <span class="n">_BkJSON</span>
+    <span class="n">_rename</span> <span class="o">=</span> <span class="p">{</span><span class="s2">"name"</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span> <span class="s2">"object"</span><span class="p">:</span> <span class="s2">"text"</span><span class="p">,</span> <span class="s2">"encoder"</span><span class="p">:</span> <span class="kc">None</span><span class="p">}</span>
+
+    <span class="n">_rerender_params</span> <span class="o">=</span> <span class="p">[</span><span class="s1">'object'</span><span class="p">,</span> <span class="s1">'depth'</span><span class="p">,</span> <span class="s1">'encoder'</span><span class="p">,</span> <span class="s1">'hover_preview'</span><span class="p">,</span> <span class="s1">'theme'</span><span class="p">]</span>
+
+<div class="viewcode-block" id="JSON.applies"><a class="viewcode-back" href="../../../api/panel.pane.html#panel.pane.markup.JSON.applies">[docs]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">applies</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">obj</span><span class="p">,</span> <span class="o">**</span><span class="n">params</span><span class="p">):</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="p">(</span><span class="nb">list</span><span class="p">,</span> <span class="nb">dict</span><span class="p">)):</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="bp">cls</span><span class="o">=</span><span class="n">params</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'encoder'</span><span class="p">,</span> <span class="bp">cls</span><span class="o">.</span><span class="n">encoder</span><span class="p">))</span>
+            <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
+                <span class="k">return</span> <span class="kc">False</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">return</span> <span class="mf">0.1</span>
+        <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="n">string_types</span><span class="p">):</span>
+            <span class="k">return</span> <span class="mi">0</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">None</span></div>
+
+    <span class="k">def</span> <span class="nf">_get_properties</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">properties</span> <span class="o">=</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">_get_properties</span><span class="p">()</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">object</span><span class="p">,</span> <span class="n">string_types</span><span class="p">):</span>
+            <span class="n">text</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">object</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">text</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">object</span> <span class="ow">or</span> <span class="p">{},</span> <span class="bp">cls</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">encoder</span><span class="p">)</span>
+        <span class="n">depth</span> <span class="o">=</span> <span class="kc">None</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">depth</span> <span class="o">&lt;</span> <span class="mi">0</span> <span class="k">else</span> <span class="bp">self</span><span class="o">.</span><span class="n">depth</span>
+        <span class="k">return</span> <span class="nb">dict</span><span class="p">(</span><span class="n">text</span><span class="o">=</span><span class="n">text</span><span class="p">,</span> <span class="n">theme</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">theme</span><span class="p">,</span> <span class="n">depth</span><span class="o">=</span><span class="n">depth</span><span class="p">,</span>
+                    <span class="n">hover_preview</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">hover_preview</span><span class="p">,</span> <span class="o">**</span><span class="n">properties</span><span class="p">)</span></div>
+</pre></div>
+</div>
+</div>
+<!-- END MAIN BODY OF DOCS ––––––––––––– -->
+<!-- Google Analytics -->
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async="" src="https://www.googletagmanager.com/gtag/js?id=UA-154795830-2"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-154795830-2', { 'anonymize_ip': true });
+</script>
+<!-- MathJax Config -->
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}
+});
+</script>
+<!-- End Document
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+</body>
+</html>

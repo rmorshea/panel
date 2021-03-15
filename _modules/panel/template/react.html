@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<!-- Basic Page Needs
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+<meta charset="utf-8"/>
+<title>panel.template.react — Panel 0.11.1+g238199f-dirty documentation</title>
+<meta content="High-level dashboarding for python visualization libraries" name="description"/>
+<meta content="Panel contributors" name="author"/>
+<!-- Mobile Specific Metas
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<!-- FONT
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+<script src="https://ajax.googleapis.com/ajax/libs/webfont/1.6.16/webfont.js"></script>
+<script>
+    WebFont.load({
+      google: {
+        families: ['Source Sans Pro']
+      }
+    });
+  </script>
+<!-- CSS
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+<link href="../../../_static/css/main.css" rel="stylesheet"/>
+<link href="../../../_static/nbsite.css" rel="stylesheet"/>
+<link href="../../../_static/site.css" rel="stylesheet"/>
+<!-- Scripts
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script async="" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML" type="text/javascript">
+</script>
+<script src="../../../_static/js/main.js"></script>
+<!-- Favicon
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+<link href="../../../_static/favicon.ico" rel="icon" type="image/png"/>
+<!-- Canonical
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+<link href="https://panel.holoviz.org/_modules/panel/template/react.html" rel="canonical">
+</link></head>
+<body class="">
+<header class="navigation">
+<div class="wrapper">
+<a class="logo" href="../../../index.html">
+<img alt="Logo" src="../../../_static/logo_horizontal.png"/>
+</a>
+<a class="navigation-menu-button" href="javascript:void(0)" id="js-mobile-menu">Menu</a>
+<nav>
+<ul class="navigation-menu show" id="js-navigation-menu">
+<li class="nav-link doc-head"><a href="//discourse.holoviz.org">Discourse</a></li>
+<li class="nav-link doc-head"><a href="//twitter.com/Panel_org">Twitter</a></li>
+<li class="nav-link doc-head"><a href="//github.com/pyviz/panel">Github</a></li>
+<li class="nav-link">
+<div style="display:inline-block;vertical-align: middle;">
+<div class="search-bar">
+<form action="../../../search.html" method="get" role="search">
+<input name="q" placeholder="Search" type="search"/>
+<button type="submit">
+<img alt="Search Icon" src="https://raw.githubusercontent.com/thoughtbot/refills/master/source/images/search-icon-black.png"/>
+</button>
+</form>
+</div>
+</div>
+</li>
+</ul>
+</nav>
+</div>
+</header>
+<div class="second-nav">
+<nav>
+<ul class="navigation-menu show">
+<li class="nav-link doc-head"><a href="../../../getting_started/index.html">Getting started</a></li>
+<li class="nav-link doc-head"><a href="../../../user_guide/index.html">User Guide</a></li>
+<li class="nav-link doc-head"><a href="../../../gallery/index.html">Gallery</a></li>
+<li class="nav-link doc-head"><a href="../../../reference/index.html">Reference Gallery</a></li>
+<li class="nav-link doc-head"><a href="../../../developer_guide/index.html">Developer Guide</a></li>
+<li class="nav-link doc-head"><a href="../../../releases.html">Releases</a></li>
+<li class="nav-link doc-head"><a href="../../../api/index.html">API</a></li>
+<li class="nav-link doc-head"><a href="../../../FAQ.html">FAQ</a></li>
+<li class="nav-link doc-head"><a href="../../../about.html">About</a></li>
+</ul>
+</nav>
+</div>
+<!-- MAIN BODY OF DOCS –––––––––––––––––– -->
+<div class="docs section">
+<div id="hacketyhackhack"> <!-- style="width:20%;margin-right: 100px;"> --> <!--style="display: none;"> style="display:none;"> -->
+<div class="toc" style="width:15%; margin-right:20px;">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../index.html">Home</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../getting_started/index.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../user_guide/index.html">User Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../gallery/index.html">Gallery</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../reference/index.html">Reference Gallery</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../developer_guide/index.html">Developer Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/index.html">API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../Comparisons.html">Comparisons</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../releases.html">Releases</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../Roadmap.html">Road Map</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../FAQ.html">FAQ</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://github.com/pyviz/panel">Github source</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../about.html">About</a></li>
+</ul>
+</div>
+</div>
+<div class="content"> <!-- style="max-width:80%;margin-left:auto;margin-right: auto;">-->
+<h1>Source code for panel.template.react</h1><div class="highlight"><pre>
+<span></span><span class="sd">"""</span>
+<span class="sd">React template</span>
+<span class="sd">"""</span>
+<span class="kn">import</span> <span class="nn">pathlib</span>
+
+<span class="kn">import</span> <span class="nn">param</span>
+
+<span class="kn">from</span> <span class="nn">...depends</span> <span class="kn">import</span> <span class="n">depends</span>
+<span class="kn">from</span> <span class="nn">...layout</span> <span class="kn">import</span> <span class="n">Card</span><span class="p">,</span> <span class="n">GridSpec</span>
+<span class="kn">from</span> <span class="nn">..base</span> <span class="kn">import</span> <span class="n">BasicTemplate</span>
+<span class="kn">from</span> <span class="nn">..theme</span> <span class="kn">import</span> <span class="n">DarkTheme</span><span class="p">,</span> <span class="n">DefaultTheme</span>
+
+
+<div class="viewcode-block" id="ReactTemplate"><a class="viewcode-back" href="../../../api/panel.template.react.html#panel.template.react.ReactTemplate">[docs]</a><span class="k">class</span> <span class="nc">ReactTemplate</span><span class="p">(</span><span class="n">BasicTemplate</span><span class="p">):</span>
+    <span class="sd">"""</span>
+<span class="sd">    ReactTemplate is built on top of React Grid Layout web components.</span>
+<span class="sd">    """</span>
+
+    <span class="n">compact</span> <span class="o">=</span> <span class="n">param</span><span class="o">.</span><span class="n">ObjectSelector</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">objects</span><span class="o">=</span><span class="p">[</span><span class="kc">None</span><span class="p">,</span> <span class="s1">'vertical'</span><span class="p">,</span> <span class="s1">'horizontal'</span><span class="p">,</span> <span class="s1">'both'</span><span class="p">])</span>
+
+    <span class="n">cols</span> <span class="o">=</span> <span class="n">param</span><span class="o">.</span><span class="n">Dict</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="p">{</span><span class="s1">'lg'</span><span class="p">:</span> <span class="mi">12</span><span class="p">,</span> <span class="s1">'md'</span><span class="p">:</span> <span class="mi">10</span><span class="p">,</span> <span class="s1">'sm'</span><span class="p">:</span> <span class="mi">6</span><span class="p">,</span> <span class="s1">'xs'</span><span class="p">:</span> <span class="mi">4</span><span class="p">,</span> <span class="s1">'xxs'</span><span class="p">:</span> <span class="mi">2</span><span class="p">})</span>
+
+    <span class="n">breakpoints</span> <span class="o">=</span> <span class="n">param</span><span class="o">.</span><span class="n">Dict</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="p">{</span><span class="s1">'lg'</span><span class="p">:</span> <span class="mi">1200</span><span class="p">,</span> <span class="s1">'md'</span><span class="p">:</span> <span class="mi">996</span><span class="p">,</span> <span class="s1">'sm'</span><span class="p">:</span> <span class="mi">768</span><span class="p">,</span> <span class="s1">'xs'</span><span class="p">:</span> <span class="mi">480</span><span class="p">,</span> <span class="s1">'xxs'</span><span class="p">:</span> <span class="mi">0</span><span class="p">})</span>
+
+    <span class="n">main</span> <span class="o">=</span> <span class="n">param</span><span class="o">.</span><span class="n">ClassSelector</span><span class="p">(</span><span class="n">class_</span><span class="o">=</span><span class="n">GridSpec</span><span class="p">,</span> <span class="n">constant</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="s2">"""</span>
+<span class="s2">        A list-like container which populates the main area."""</span><span class="p">)</span>
+
+    <span class="n">row_height</span> <span class="o">=</span> <span class="n">param</span><span class="o">.</span><span class="n">Integer</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="mi">150</span><span class="p">)</span>
+
+    <span class="n">_css</span> <span class="o">=</span> <span class="n">pathlib</span><span class="o">.</span><span class="n">Path</span><span class="p">(</span><span class="vm">__file__</span><span class="p">)</span><span class="o">.</span><span class="n">parent</span> <span class="o">/</span> <span class="s1">'react.css'</span>
+
+    <span class="n">_template</span> <span class="o">=</span> <span class="n">pathlib</span><span class="o">.</span><span class="n">Path</span><span class="p">(</span><span class="vm">__file__</span><span class="p">)</span><span class="o">.</span><span class="n">parent</span> <span class="o">/</span> <span class="s1">'react.html'</span>
+
+    <span class="n">_modifiers</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="n">Card</span><span class="p">:</span> <span class="p">{</span>
+            <span class="s1">'children'</span><span class="p">:</span> <span class="p">{</span><span class="s1">'margin'</span><span class="p">:</span> <span class="p">(</span><span class="mi">20</span><span class="p">,</span> <span class="mi">20</span><span class="p">)},</span>
+            <span class="s1">'margin'</span><span class="p">:</span> <span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+
+    <span class="n">_resources</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s1">'js'</span><span class="p">:</span> <span class="p">{</span>
+            <span class="s1">'react'</span><span class="p">:</span> <span class="s2">"https://unpkg.com/react@16/umd/react.development.js"</span><span class="p">,</span>
+            <span class="s1">'react-dom'</span><span class="p">:</span> <span class="s2">"https://unpkg.com/react-dom@16/umd/react-dom.development.js"</span><span class="p">,</span>
+            <span class="s1">'babel'</span><span class="p">:</span> <span class="s2">"https://unpkg.com/babel-standalone@latest/babel.min.js"</span><span class="p">,</span>
+            <span class="s1">'react-grid'</span><span class="p">:</span> <span class="s2">"https://cdnjs.cloudflare.com/ajax/libs/react-grid-layout/1.1.1/react-grid-layout.min.js"</span>
+        <span class="p">},</span>
+        <span class="s1">'css'</span><span class="p">:</span> <span class="p">{</span>
+            <span class="s1">'bootstrap'</span><span class="p">:</span> <span class="s2">"https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"</span><span class="p">,</span>
+            <span class="s1">'font-awesome'</span><span class="p">:</span> <span class="s2">"https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">params</span><span class="p">):</span>
+        <span class="k">if</span> <span class="s1">'main'</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">params</span><span class="p">:</span>
+            <span class="n">params</span><span class="p">[</span><span class="s1">'main'</span><span class="p">]</span> <span class="o">=</span> <span class="n">GridSpec</span><span class="p">(</span><span class="n">ncols</span><span class="o">=</span><span class="mi">12</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s1">'override'</span><span class="p">)</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="o">**</span><span class="n">params</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_update_render_vars</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="nf">_update_render_items</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">_update_render_items</span><span class="p">(</span><span class="n">event</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">event</span><span class="o">.</span><span class="n">obj</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">main</span><span class="p">:</span>
+            <span class="k">return</span>
+        <span class="n">layouts</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="p">((</span><span class="n">y0</span><span class="p">,</span> <span class="n">x0</span><span class="p">,</span> <span class="n">y1</span><span class="p">,</span> <span class="n">x1</span><span class="p">),</span> <span class="n">v</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">main</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">items</span><span class="p">()):</span>
+            <span class="k">if</span> <span class="n">x0</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span> <span class="n">x0</span> <span class="o">=</span> <span class="mi">0</span>
+            <span class="k">if</span> <span class="n">x1</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span> <span class="n">x1</span> <span class="o">=</span> <span class="mi">12</span>
+            <span class="k">if</span> <span class="n">y0</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span> <span class="n">y0</span> <span class="o">=</span> <span class="mi">0</span>
+            <span class="k">if</span> <span class="n">y1</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span> <span class="n">y1</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">main</span><span class="o">.</span><span class="n">nrows</span>
+            <span class="n">layouts</span><span class="o">.</span><span class="n">append</span><span class="p">({</span><span class="s1">'x'</span><span class="p">:</span> <span class="n">x0</span><span class="p">,</span> <span class="s1">'y'</span><span class="p">:</span> <span class="n">y0</span><span class="p">,</span> <span class="s1">'w'</span><span class="p">:</span> <span class="n">x1</span><span class="o">-</span><span class="n">x0</span><span class="p">,</span> <span class="s1">'h'</span><span class="p">:</span> <span class="n">y1</span><span class="o">-</span><span class="n">y0</span><span class="p">,</span> <span class="s1">'i'</span><span class="p">:</span> <span class="nb">str</span><span class="p">(</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">)})</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_render_variables</span><span class="p">[</span><span class="s1">'layouts'</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="s1">'lg'</span><span class="p">:</span> <span class="n">layouts</span><span class="p">,</span> <span class="s1">'md'</span><span class="p">:</span> <span class="n">layouts</span><span class="p">}</span>
+
+    <span class="nd">@depends</span><span class="p">(</span><span class="s1">'cols'</span><span class="p">,</span> <span class="s1">'breakpoints'</span><span class="p">,</span> <span class="s1">'row_height'</span><span class="p">,</span> <span class="s1">'compact'</span><span class="p">,</span> <span class="n">watch</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">_update_render_vars</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_render_variables</span><span class="p">[</span><span class="s1">'breakpoints'</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">breakpoints</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_render_variables</span><span class="p">[</span><span class="s1">'cols'</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cols</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_render_variables</span><span class="p">[</span><span class="s1">'rowHeight'</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">row_height</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_render_variables</span><span class="p">[</span><span class="s1">'compact'</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">compact</span></div>
+
+
+<div class="viewcode-block" id="ReactDefaultTheme"><a class="viewcode-back" href="../../../api/panel.template.react.html#panel.template.react.ReactDefaultTheme">[docs]</a><span class="k">class</span> <span class="nc">ReactDefaultTheme</span><span class="p">(</span><span class="n">DefaultTheme</span><span class="p">):</span>
+
+    <span class="n">css</span> <span class="o">=</span> <span class="n">param</span><span class="o">.</span><span class="n">Filename</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="n">pathlib</span><span class="o">.</span><span class="n">Path</span><span class="p">(</span><span class="vm">__file__</span><span class="p">)</span><span class="o">.</span><span class="n">parent</span> <span class="o">/</span> <span class="s1">'default.css'</span><span class="p">)</span>
+
+    <span class="n">_template</span> <span class="o">=</span> <span class="n">ReactTemplate</span></div>
+
+
+<div class="viewcode-block" id="ReactDarkTheme"><a class="viewcode-back" href="../../../api/panel.template.react.html#panel.template.react.ReactDarkTheme">[docs]</a><span class="k">class</span> <span class="nc">ReactDarkTheme</span><span class="p">(</span><span class="n">DarkTheme</span><span class="p">):</span>
+
+    <span class="n">css</span> <span class="o">=</span> <span class="n">param</span><span class="o">.</span><span class="n">Filename</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="n">pathlib</span><span class="o">.</span><span class="n">Path</span><span class="p">(</span><span class="vm">__file__</span><span class="p">)</span><span class="o">.</span><span class="n">parent</span> <span class="o">/</span> <span class="s1">'dark.css'</span><span class="p">)</span>
+
+    <span class="n">_template</span> <span class="o">=</span> <span class="n">ReactTemplate</span></div>
+</pre></div>
+</div>
+</div>
+<!-- END MAIN BODY OF DOCS ––––––––––––– -->
+<!-- Google Analytics -->
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async="" src="https://www.googletagmanager.com/gtag/js?id=UA-154795830-2"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-154795830-2', { 'anonymize_ip': true });
+</script>
+<!-- MathJax Config -->
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}
+});
+</script>
+<!-- End Document
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+</body>
+</html>

@@ -1,0 +1,568 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<!-- Basic Page Needs
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+<meta charset="utf-8"/>
+<title>bokeh.application.application — Panel 0.11.1+g238199f-dirty documentation</title>
+<meta content="High-level dashboarding for python visualization libraries" name="description"/>
+<meta content="Panel contributors" name="author"/>
+<!-- Mobile Specific Metas
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<!-- FONT
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+<script src="https://ajax.googleapis.com/ajax/libs/webfont/1.6.16/webfont.js"></script>
+<script>
+    WebFont.load({
+      google: {
+        families: ['Source Sans Pro']
+      }
+    });
+  </script>
+<!-- CSS
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+<link href="../../../_static/css/main.css" rel="stylesheet"/>
+<link href="../../../_static/nbsite.css" rel="stylesheet"/>
+<link href="../../../_static/site.css" rel="stylesheet"/>
+<!-- Scripts
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script async="" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML" type="text/javascript">
+</script>
+<script src="../../../_static/js/main.js"></script>
+<!-- Favicon
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+<link href="../../../_static/favicon.ico" rel="icon" type="image/png"/>
+<!-- Canonical
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+<link href="https://panel.holoviz.org/_modules/bokeh/application/application.html" rel="canonical">
+</link></head>
+<body class="">
+<header class="navigation">
+<div class="wrapper">
+<a class="logo" href="../../../index.html">
+<img alt="Logo" src="../../../_static/logo_horizontal.png"/>
+</a>
+<a class="navigation-menu-button" href="javascript:void(0)" id="js-mobile-menu">Menu</a>
+<nav>
+<ul class="navigation-menu show" id="js-navigation-menu">
+<li class="nav-link doc-head"><a href="//discourse.holoviz.org">Discourse</a></li>
+<li class="nav-link doc-head"><a href="//twitter.com/Panel_org">Twitter</a></li>
+<li class="nav-link doc-head"><a href="//github.com/pyviz/panel">Github</a></li>
+<li class="nav-link">
+<div style="display:inline-block;vertical-align: middle;">
+<div class="search-bar">
+<form action="../../../search.html" method="get" role="search">
+<input name="q" placeholder="Search" type="search"/>
+<button type="submit">
+<img alt="Search Icon" src="https://raw.githubusercontent.com/thoughtbot/refills/master/source/images/search-icon-black.png"/>
+</button>
+</form>
+</div>
+</div>
+</li>
+</ul>
+</nav>
+</div>
+</header>
+<div class="second-nav">
+<nav>
+<ul class="navigation-menu show">
+<li class="nav-link doc-head"><a href="../../../getting_started/index.html">Getting started</a></li>
+<li class="nav-link doc-head"><a href="../../../user_guide/index.html">User Guide</a></li>
+<li class="nav-link doc-head"><a href="../../../gallery/index.html">Gallery</a></li>
+<li class="nav-link doc-head"><a href="../../../reference/index.html">Reference Gallery</a></li>
+<li class="nav-link doc-head"><a href="../../../developer_guide/index.html">Developer Guide</a></li>
+<li class="nav-link doc-head"><a href="../../../releases.html">Releases</a></li>
+<li class="nav-link doc-head"><a href="../../../api/index.html">API</a></li>
+<li class="nav-link doc-head"><a href="../../../FAQ.html">FAQ</a></li>
+<li class="nav-link doc-head"><a href="../../../about.html">About</a></li>
+</ul>
+</nav>
+</div>
+<!-- MAIN BODY OF DOCS –––––––––––––––––– -->
+<div class="docs section">
+<div id="hacketyhackhack"> <!-- style="width:20%;margin-right: 100px;"> --> <!--style="display: none;"> style="display:none;"> -->
+<div class="toc" style="width:15%; margin-right:20px;">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../index.html">Home</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../getting_started/index.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../user_guide/index.html">User Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../gallery/index.html">Gallery</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../reference/index.html">Reference Gallery</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../developer_guide/index.html">Developer Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/index.html">API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../Comparisons.html">Comparisons</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../releases.html">Releases</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../Roadmap.html">Road Map</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../FAQ.html">FAQ</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://github.com/pyviz/panel">Github source</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../about.html">About</a></li>
+</ul>
+</div>
+</div>
+<div class="content"> <!-- style="max-width:80%;margin-left:auto;margin-right: auto;">-->
+<h1>Source code for bokeh.application.application</h1><div class="highlight"><pre>
+<span></span><span class="c1">#-----------------------------------------------------------------------------</span>
+<span class="c1"># Copyright (c) 2012 - 2021, Anaconda, Inc., and Bokeh Contributors.</span>
+<span class="c1"># All rights reserved.</span>
+<span class="c1">#</span>
+<span class="c1"># The full license is in the file LICENSE.txt, distributed with this software.</span>
+<span class="c1">#-----------------------------------------------------------------------------</span>
+<span class="sd">''' Provide the ``Application`` class.</span>
+
+<span class="sd">Application instances are factories for creating new Bokeh Documents.</span>
+
+<span class="sd">When a Bokeh server session is initiated, the Bokeh server asks the Application</span>
+<span class="sd">for a new Document to service the session. To do this, the Application first</span>
+<span class="sd">creates a new empty Document, then it passes this new Document to the</span>
+<span class="sd">``modify_document`` method of each of its handlers. When all handlers have</span>
+<span class="sd">updated the Document, it is used to service the user session.</span>
+
+<span class="sd">'''</span>
+
+<span class="c1">#-----------------------------------------------------------------------------</span>
+<span class="c1"># Boilerplate</span>
+<span class="c1">#-----------------------------------------------------------------------------</span>
+<span class="kn">import</span> <span class="nn">logging</span> <span class="c1"># isort:skip</span>
+<span class="n">log</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
+
+<span class="c1">#-----------------------------------------------------------------------------</span>
+<span class="c1"># Imports</span>
+<span class="c1">#-----------------------------------------------------------------------------</span>
+
+<span class="c1"># Standard library imports</span>
+<span class="kn">from</span> <span class="nn">abc</span> <span class="kn">import</span> <span class="n">ABCMeta</span><span class="p">,</span> <span class="n">abstractmethod</span>
+
+<span class="c1"># Bokeh imports</span>
+<span class="kn">from</span> <span class="nn">..document</span> <span class="kn">import</span> <span class="n">Document</span>
+<span class="kn">from</span> <span class="nn">..settings</span> <span class="kn">import</span> <span class="n">settings</span>
+
+<span class="c1">#-----------------------------------------------------------------------------</span>
+<span class="c1"># Globals and constants</span>
+<span class="c1">#-----------------------------------------------------------------------------</span>
+
+<span class="n">__all__</span> <span class="o">=</span> <span class="p">(</span>
+    <span class="s1">'Application'</span><span class="p">,</span>
+    <span class="s1">'ServerContext'</span><span class="p">,</span>
+    <span class="s1">'SessionContext'</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="c1">#-----------------------------------------------------------------------------</span>
+<span class="c1"># General API</span>
+<span class="c1">#-----------------------------------------------------------------------------</span>
+
+<span class="c1">#-----------------------------------------------------------------------------</span>
+<span class="c1"># Dev API</span>
+<span class="c1">#-----------------------------------------------------------------------------</span>
+
+<span class="k">class</span> <span class="nc">Application</span><span class="p">:</span>
+    <span class="sd">''' An Application is a factory for Document instances.</span>
+
+<span class="sd">    '''</span>
+
+    <span class="c1"># This is so that bokeh.io.show can check if a passed in object is an</span>
+    <span class="c1"># Application without having to import Application directly. This module</span>
+    <span class="c1"># depends on tornado and we have made a commitment that "basic" modules</span>
+    <span class="c1"># will function without bringing in tornado.</span>
+    <span class="n">_is_a_bokeh_application_class</span> <span class="o">=</span> <span class="kc">True</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">handlers</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="sd">''' Application factory.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            handlers (seq[Handler]): List of handlers to call.</span>
+<span class="sd">                The URL is taken from the first one only.</span>
+
+<span class="sd">        Keyword Args:</span>
+<span class="sd">            metadata (dict): arbitrary user-supplied JSON data to make available</span>
+<span class="sd">                with the application.</span>
+
+<span class="sd">                The server will provide a URL ``http://applicationurl/metadata``</span>
+<span class="sd">                which returns a JSON blob of the form:</span>
+
+<span class="sd">                .. code-block:: json</span>
+
+<span class="sd">                    {</span>
+<span class="sd">                        "data": {</span>
+<span class="sd">                            "hi": "hi",</span>
+<span class="sd">                            "there": "there"</span>
+<span class="sd">                        },</span>
+<span class="sd">                        "url": "/myapp"</span>
+<span class="sd">                    }</span>
+
+<span class="sd">                The user-supplied metadata is returned as-is under the</span>
+<span class="sd">                ``"data"`` key in the blob.</span>
+
+<span class="sd">        '''</span>
+        <span class="n">metadata</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">'metadata'</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">kwargs</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">"Invalid keyword argument: </span><span class="si">%s</span><span class="s2">"</span> <span class="o">%</span>
+                <span class="nb">list</span><span class="p">(</span><span class="n">kwargs</span><span class="o">.</span><span class="n">keys</span><span class="p">())[</span><span class="mi">0</span><span class="p">])</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_static_path</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_handlers</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_metadata</span> <span class="o">=</span> <span class="n">metadata</span>
+        <span class="k">for</span> <span class="n">h</span> <span class="ow">in</span> <span class="n">handlers</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">h</span><span class="p">)</span>
+
+    <span class="c1"># Properties --------------------------------------------------------------</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">handlers</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">''' The ordered list of handlers this Application is configured with.</span>
+
+<span class="sd">        '''</span>
+        <span class="k">return</span> <span class="nb">tuple</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_handlers</span><span class="p">)</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">metadata</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">''' Arbitrary user-supplied metadata to associate with this application.</span>
+
+<span class="sd">        '''</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_metadata</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">safe_to_fork</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">'''</span>
+
+<span class="sd">        '''</span>
+        <span class="k">return</span> <span class="nb">all</span><span class="p">(</span><span class="n">handler</span><span class="o">.</span><span class="n">safe_to_fork</span> <span class="k">for</span> <span class="n">handler</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_handlers</span><span class="p">)</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">static_path</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">''' Path to any (optional) static resources specified by handlers.</span>
+
+<span class="sd">        '''</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_static_path</span>
+
+    <span class="c1"># Public methods ----------------------------------------------------------</span>
+
+<div class="viewcode-block" id="Application.add"><a class="viewcode-back" href="../../../api/panel.io.html#panel.io.server.Application.add">[docs]</a>    <span class="k">def</span> <span class="nf">add</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">handler</span><span class="p">):</span>
+        <span class="sd">''' Add a handler to the pipeline used to initialize new documents.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            handler (Handler) : a handler for this Application to use to</span>
+<span class="sd">                process Documents</span>
+
+<span class="sd">        '''</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_handlers</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">handler</span><span class="p">)</span>
+
+        <span class="c1"># make sure there is at most one static path</span>
+        <span class="n">static_paths</span> <span class="o">=</span> <span class="p">{</span><span class="n">h</span><span class="o">.</span><span class="n">static_path</span><span class="p">()</span> <span class="k">for</span> <span class="n">h</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">handlers</span><span class="p">}</span>
+        <span class="n">static_paths</span><span class="o">.</span><span class="n">discard</span><span class="p">(</span><span class="kc">None</span><span class="p">)</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">static_paths</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="s2">"More than one static path requested for app: </span><span class="si">%r</span><span class="s2">"</span> <span class="o">%</span> <span class="nb">list</span><span class="p">(</span><span class="n">static_paths</span><span class="p">))</span>
+        <span class="k">elif</span> <span class="nb">len</span><span class="p">(</span><span class="n">static_paths</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_static_path</span> <span class="o">=</span> <span class="n">static_paths</span><span class="o">.</span><span class="n">pop</span><span class="p">()</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_static_path</span> <span class="o">=</span> <span class="kc">None</span></div>
+
+<div class="viewcode-block" id="Application.create_document"><a class="viewcode-back" href="../../../api/panel.io.html#panel.io.server.Application.create_document">[docs]</a>    <span class="k">def</span> <span class="nf">create_document</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">''' Creates and initializes a document using the Application's handlers.</span>
+
+<span class="sd">        '''</span>
+        <span class="n">doc</span> <span class="o">=</span> <span class="n">Document</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">initialize_document</span><span class="p">(</span><span class="n">doc</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">doc</span></div>
+
+<div class="viewcode-block" id="Application.initialize_document"><a class="viewcode-back" href="../../../api/panel.io.html#panel.io.server.Application.initialize_document">[docs]</a>    <span class="k">def</span> <span class="nf">initialize_document</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">doc</span><span class="p">):</span>
+        <span class="sd">''' Fills in a new document using the Application's handlers.</span>
+
+<span class="sd">        '''</span>
+        <span class="k">for</span> <span class="n">h</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_handlers</span><span class="p">:</span>
+            <span class="c1"># TODO (havocp) we need to check the 'failed' flag on each handler</span>
+            <span class="c1"># and build a composite error display. In develop mode, we want to</span>
+            <span class="c1"># somehow get these errors to the client.</span>
+            <span class="n">h</span><span class="o">.</span><span class="n">modify_document</span><span class="p">(</span><span class="n">doc</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">h</span><span class="o">.</span><span class="n">failed</span><span class="p">:</span>
+                <span class="n">log</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">"Error running application handler </span><span class="si">%r</span><span class="s2">: </span><span class="si">%s</span><span class="s2"> </span><span class="si">%s</span><span class="s2"> "</span><span class="p">,</span> <span class="n">h</span><span class="p">,</span> <span class="n">h</span><span class="o">.</span><span class="n">error</span><span class="p">,</span> <span class="n">h</span><span class="o">.</span><span class="n">error_detail</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">settings</span><span class="o">.</span><span class="n">perform_document_validation</span><span class="p">():</span>
+            <span class="n">doc</span><span class="o">.</span><span class="n">validate</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="Application.on_server_loaded"><a class="viewcode-back" href="../../../api/panel.io.html#panel.io.server.Application.on_server_loaded">[docs]</a>    <span class="k">def</span> <span class="nf">on_server_loaded</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">server_context</span><span class="p">):</span>
+        <span class="sd">''' Invoked to execute code when a new session is created.</span>
+
+<span class="sd">        This method calls ``on_server_loaded`` on each handler, in order,</span>
+<span class="sd">        with the server context passed as the only argument.</span>
+
+<span class="sd">        '''</span>
+        <span class="k">for</span> <span class="n">h</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_handlers</span><span class="p">:</span>
+            <span class="n">h</span><span class="o">.</span><span class="n">on_server_loaded</span><span class="p">(</span><span class="n">server_context</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Application.on_server_unloaded"><a class="viewcode-back" href="../../../api/panel.io.html#panel.io.server.Application.on_server_unloaded">[docs]</a>    <span class="k">def</span> <span class="nf">on_server_unloaded</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">server_context</span><span class="p">):</span>
+        <span class="sd">''' Invoked to execute code when the server cleanly exits. (Before</span>
+<span class="sd">        stopping the server's ``IOLoop``.)</span>
+
+<span class="sd">        This method calls ``on_server_unloaded`` on each handler, in order,</span>
+<span class="sd">        with the server context passed as the only argument.</span>
+
+<span class="sd">        .. warning::</span>
+<span class="sd">            In practice this code may not run, since servers are often killed</span>
+<span class="sd">            by a signal.</span>
+
+<span class="sd">        '''</span>
+        <span class="k">for</span> <span class="n">h</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_handlers</span><span class="p">:</span>
+            <span class="n">h</span><span class="o">.</span><span class="n">on_server_unloaded</span><span class="p">(</span><span class="n">server_context</span><span class="p">)</span></div>
+
+    <span class="k">async</span> <span class="k">def</span> <span class="nf">on_session_created</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">session_context</span><span class="p">):</span>
+        <span class="sd">''' Invoked to execute code when a new session is created.</span>
+
+<span class="sd">        This method calls ``on_session_created`` on each handler, in order,</span>
+<span class="sd">        with the session context passed as the only argument.</span>
+
+<span class="sd">        May return a ``Future`` which will delay session creation until the</span>
+<span class="sd">        ``Future`` completes.</span>
+
+<span class="sd">        '''</span>
+        <span class="k">for</span> <span class="n">h</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_handlers</span><span class="p">:</span>
+            <span class="k">await</span> <span class="n">h</span><span class="o">.</span><span class="n">on_session_created</span><span class="p">(</span><span class="n">session_context</span><span class="p">)</span>
+        <span class="k">return</span> <span class="kc">None</span>
+
+<div class="viewcode-block" id="Application.on_session_destroyed"><a class="viewcode-back" href="../../../api/panel.io.html#panel.io.server.Application.on_session_destroyed">[docs]</a>    <span class="k">async</span> <span class="k">def</span> <span class="nf">on_session_destroyed</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">session_context</span><span class="p">):</span>
+        <span class="sd">''' Invoked to execute code when a session is destroyed.</span>
+
+<span class="sd">        This method calls ``on_session_destroyed`` on each handler, in order,</span>
+<span class="sd">        with the session context passed as the only argument.</span>
+
+<span class="sd">        Afterwards, ``session_context.destroyed`` will be ``True``.</span>
+
+<span class="sd">        '''</span>
+        <span class="k">for</span> <span class="n">h</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_handlers</span><span class="p">:</span>
+            <span class="k">await</span> <span class="n">h</span><span class="o">.</span><span class="n">on_session_destroyed</span><span class="p">(</span><span class="n">session_context</span><span class="p">)</span>
+        <span class="k">return</span> <span class="kc">None</span></div>
+
+<div class="viewcode-block" id="Application.process_request"><a class="viewcode-back" href="../../../api/panel.io.html#panel.io.server.Application.process_request">[docs]</a>    <span class="k">def</span> <span class="nf">process_request</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">):</span>
+        <span class="sd">''' Processes incoming HTTP request returning a dictionary of</span>
+<span class="sd">        additional data to add to the session_context.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            request: HTTP request</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            A dictionary of JSON serializable data to be included on</span>
+<span class="sd">            the session context.</span>
+<span class="sd">        '''</span>
+        <span class="n">request_data</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="k">for</span> <span class="n">h</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_handlers</span><span class="p">:</span>
+            <span class="n">request_data</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">h</span><span class="o">.</span><span class="n">process_request</span><span class="p">(</span><span class="n">request</span><span class="p">))</span>
+        <span class="k">return</span> <span class="n">request_data</span></div>
+
+
+<span class="k">class</span> <span class="nc">ServerContext</span><span class="p">(</span><span class="n">metaclass</span><span class="o">=</span><span class="n">ABCMeta</span><span class="p">):</span>
+    <span class="sd">''' A harness for server-specific information and tasks related to</span>
+<span class="sd">    collections of Bokeh sessions.</span>
+
+<span class="sd">    *This base class is probably not of interest to general users.*</span>
+
+<span class="sd">    '''</span>
+
+    <span class="c1"># Properties --------------------------------------------------------------</span>
+
+    <span class="nd">@property</span>
+    <span class="nd">@abstractmethod</span>
+    <span class="k">def</span> <span class="nf">sessions</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">''' ``SessionContext`` instances belonging to this application.</span>
+
+<span class="sd">        *Subclasses must implement this method.*</span>
+
+<span class="sd">        '''</span>
+        <span class="k">pass</span>
+
+    <span class="c1"># Public methods ----------------------------------------------------------</span>
+
+    <span class="nd">@abstractmethod</span>
+    <span class="k">def</span> <span class="nf">add_next_tick_callback</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">callback</span><span class="p">):</span>
+        <span class="sd">''' Add a callback to be run on the next tick of the event loop.</span>
+
+<span class="sd">        *Subclasses must implement this method.*</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            callback (callable) : a callback to add</span>
+
+<span class="sd">                The callback will execute on the next tick of the event loop,</span>
+<span class="sd">                and should have the form ``def callback()`` (i.e. it should</span>
+<span class="sd">                not accept any arguments)</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            an ID that can be used with ``remove_next_tick_callback``.</span>
+
+<span class="sd">        '''</span>
+        <span class="k">pass</span>
+
+    <span class="nd">@abstractmethod</span>
+    <span class="k">def</span> <span class="nf">add_periodic_callback</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">callback</span><span class="p">,</span> <span class="n">period_milliseconds</span><span class="p">):</span>
+        <span class="sd">''' Add a callback to be run periodically until it is removed.</span>
+
+<span class="sd">        *Subclasses must implement this method.*</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            callback (callable) : a callback to add</span>
+
+<span class="sd">                The callback will execute periodically on the event loop</span>
+<span class="sd">                as specified, and should have the form ``def callback()``</span>
+<span class="sd">                (i.e. it should not accept any arguments)</span>
+
+<span class="sd">            period_milliseconds (int) : number of milliseconds to wait</span>
+<span class="sd">                between executing the callback.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            an ID that can be used with ``remove_periodic_callback``.</span>
+
+<span class="sd">        '''</span>
+        <span class="k">pass</span>
+
+    <span class="nd">@abstractmethod</span>
+    <span class="k">def</span> <span class="nf">add_timeout_callback</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">callback</span><span class="p">,</span> <span class="n">timeout_milliseconds</span><span class="p">):</span>
+        <span class="sd">''' Add a callback to be run once after timeout_milliseconds.</span>
+
+<span class="sd">        *Subclasses must implement this method.*</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            callback (callable) : a callback to add</span>
+
+<span class="sd">                The callback will execute once on the event loop after the</span>
+<span class="sd">                timeout has passed, and should have the form ``def callback()``</span>
+<span class="sd">                (i.e. it should not accept any arguments)</span>
+
+<span class="sd">            timeout_milliseconds (int) : number of milliseconds to wait before</span>
+<span class="sd">                executing the callback.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            an ID that can be used with ``remove_timeout_callback``.</span>
+
+<span class="sd">        '''</span>
+        <span class="k">pass</span>
+
+    <span class="nd">@abstractmethod</span>
+    <span class="k">def</span> <span class="nf">remove_next_tick_callback</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">callback_id</span><span class="p">):</span>
+        <span class="sd">''' Remove a callback added with ``add_next_tick_callback``, before</span>
+<span class="sd">        it runs.</span>
+
+<span class="sd">         *Subclasses must implement this method.*</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            callback_id : the ID returned from ``add_next_tick_callback``</span>
+
+<span class="sd">        '''</span>
+        <span class="k">pass</span>
+
+    <span class="nd">@abstractmethod</span>
+    <span class="k">def</span> <span class="nf">remove_periodic_callback</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">callback_id</span><span class="p">):</span>
+        <span class="sd">''' Removes a callback added with ``add_periodic_callback``.</span>
+
+<span class="sd">        *Subclasses must implement this method.*</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            callback_id : the ID returned from ``add_periodic_callback``</span>
+
+<span class="sd">        '''</span>
+        <span class="k">pass</span>
+
+    <span class="nd">@abstractmethod</span>
+    <span class="k">def</span> <span class="nf">remove_timeout_callback</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">callback_id</span><span class="p">):</span>
+        <span class="sd">''' Remove a callback added with ``add_timeout_callback``, before it</span>
+<span class="sd">        runs.</span>
+
+<span class="sd">        *Subclasses must implement this method.*</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            callback_id : the ID returned from ``add_timeout_callback``</span>
+
+<span class="sd">        '''</span>
+        <span class="k">pass</span>
+
+<span class="k">class</span> <span class="nc">SessionContext</span><span class="p">(</span><span class="n">metaclass</span><span class="o">=</span><span class="n">ABCMeta</span><span class="p">):</span>
+    <span class="sd">''' A harness for server-specific information and tasks related to</span>
+<span class="sd">    Bokeh sessions.</span>
+
+<span class="sd">    *This base class is probably not of interest to general users.*</span>
+
+<span class="sd">    '''</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">server_context</span><span class="p">,</span> <span class="n">session_id</span><span class="p">):</span>
+        <span class="sd">'''</span>
+
+<span class="sd">        '''</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_server_context</span> <span class="o">=</span> <span class="n">server_context</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_id</span> <span class="o">=</span> <span class="n">session_id</span>
+
+    <span class="c1"># Properties --------------------------------------------------------------</span>
+
+    <span class="nd">@property</span>
+    <span class="nd">@abstractmethod</span>
+    <span class="k">def</span> <span class="nf">destroyed</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">''' If ``True``, the session has been discarded and cannot be used.</span>
+
+<span class="sd">        A new session with the same ID could be created later but this instance</span>
+<span class="sd">        will not come back to life.</span>
+
+<span class="sd">        '''</span>
+        <span class="k">pass</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">id</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">''' The unique ID for the session associated with this context.</span>
+
+<span class="sd">        '''</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_id</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">server_context</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">''' The server context for this session context</span>
+
+<span class="sd">        '''</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_server_context</span>
+
+    <span class="c1"># Public methods ----------------------------------------------------------</span>
+
+    <span class="nd">@abstractmethod</span>
+    <span class="k">def</span> <span class="nf">with_locked_document</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">func</span><span class="p">):</span>
+        <span class="sd">''' Runs a function with the document lock held, passing the</span>
+<span class="sd">        document to the function.</span>
+
+<span class="sd">        *Subclasses must implement this method.*</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            func (callable): function that takes a single parameter (the Document)</span>
+<span class="sd">                and returns ``None`` or a ``Future``</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            a ``Future`` containing the result of the function</span>
+
+<span class="sd">        '''</span>
+        <span class="k">pass</span>
+
+<span class="c1">#-----------------------------------------------------------------------------</span>
+<span class="c1"># Private API</span>
+<span class="c1">#-----------------------------------------------------------------------------</span>
+
+<span class="c1">#-----------------------------------------------------------------------------</span>
+<span class="c1"># Code</span>
+<span class="c1">#-----------------------------------------------------------------------------</span>
+</pre></div>
+</div>
+</div>
+<!-- END MAIN BODY OF DOCS ––––––––––––– -->
+<!-- Google Analytics -->
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async="" src="https://www.googletagmanager.com/gtag/js?id=UA-154795830-2"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-154795830-2', { 'anonymize_ip': true });
+</script>
+<!-- MathJax Config -->
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}
+});
+</script>
+<!-- End Document
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+</body>
+</html>

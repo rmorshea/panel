@@ -1,0 +1,16 @@
+<map id="inheritanceecdf410245" name="inheritanceecdf410245">
+<area shape="rect" id="node1" href="#panel.pane.base.PaneBase" target="_top" title="PaneBase is the abstract baseclass for all atomic displayable units" alt="" coords="595,46,708,61"/>
+<area shape="rect" id="node5" href="#panel.pane.markup.DivPaneBase" target="_top" title="Baseclass for Panes which render HTML inside a Bokeh Div." alt="" coords="735,46,872,61"/>
+<area shape="rect" id="node2" href="panel.reactive.html#panel.reactive.Reactive" target="_top" title="Reactive is a Viewable object that also supports syncing between" alt="" coords="467,46,568,61"/>
+<area shape="rect" id="node3" href="#panel.pane.image.GIF" target="_top" title="panel.pane.image.GIF" alt="" coords="1053,3,1147,18"/>
+<area shape="rect" id="node4" href="#panel.pane.image.ImageBase" target="_top" title="Encodes an image as base64 and wraps it in a Bokeh Div model." alt="" coords="899,46,1023,61"/>
+<area shape="rect" id="node6" href="#panel.pane.image.JPG" target="_top" title="panel.pane.image.JPG" alt="" coords="1052,31,1147,46"/>
+<area shape="rect" id="node7" href="#panel.pane.image.PNG" target="_top" title="panel.pane.image.PNG" alt="" coords="1051,60,1149,74"/>
+<area shape="rect" id="node8" href="#panel.pane.image.SVG" target="_top" title="panel.pane.image.SVG" alt="" coords="1051,88,1149,103"/>
+<area shape="rect" id="node9" href="panel.reactive.html#panel.reactive.Syncable" target="_top" title="Syncable is an extension of the Renderable object which can not" alt="" coords="335,31,438,46"/>
+<area shape="rect" id="node10" href="panel.viewable.html#panel.viewable.Viewable" target="_top" title="Viewable is the baseclass all visual components in the panel" alt="" coords="333,60,440,74"/>
+<area shape="rect" id="node11" href="panel.viewable.html#panel.viewable.Renderable" target="_top" title="Baseclass for objects which can be rendered to a Bokeh model." alt="" coords="186,31,300,46"/>
+<area shape="rect" id="node12" href="panel.viewable.html#panel.viewable.Layoutable" target="_top" title="Layoutable defines shared style and layout related parameters" alt="" coords="187,60,300,74"/>
+<area shape="rect" id="node13" title="params(name=String)" alt="" coords="3,46,153,61"/>
+<area shape="rect" id="node14" href="panel.viewable.html#panel.viewable.ServableMixin" target="_top" title="Mixin to define methods shared by objects which can served." alt="" coords="181,88,306,103"/>
+</map>

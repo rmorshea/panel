@@ -1,0 +1,6 @@
+<map id="inheritanceeea9dc4c03" name="inheritanceeea9dc4c03">
+<area shape="rect" id="node1" href="#panel.io.location.Location" target="_top" title="The Location component can be made available in a server context" alt="" coords="788,5,977,31"/>
+<area shape="rect" id="node2" href="panel.reactive.html#panel.reactive.Syncable" target="_top" title="Syncable is an extension of the Renderable object which can not" alt="" coords="561,5,740,31"/>
+<area shape="rect" id="node3" href="panel.viewable.html#panel.viewable.Renderable" target="_top" title="Baseclass for objects which can be rendered to a Bokeh model." alt="" coords="315,5,513,31"/>
+<area shape="rect" id="node4" title="params(name=String)" alt="" coords="5,5,267,31"/>
+</map>

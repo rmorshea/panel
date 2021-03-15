@@ -1,0 +1,13 @@
+<map id="inheritancebb002f87c6" name="inheritancebb002f87c6">
+<area shape="rect" id="node1" href="panel.reactive.html#panel.reactive.Reactive" target="_top" title="Reactive is a Viewable object that also supports syncing between" alt="" coords="614,41,746,60"/>
+<area shape="rect" id="node8" href="#panel.widgets.base.Widget" target="_top" title="Widgets allow syncing changes in bokeh widget models with the" alt="" coords="782,41,932,60"/>
+<area shape="rect" id="node2" href="panel.reactive.html#panel.reactive.Syncable" target="_top" title="Syncable is an extension of the Renderable object which can not" alt="" coords="440,22,575,41"/>
+<area shape="rect" id="node3" href="panel.viewable.html#panel.viewable.Viewable" target="_top" title="Viewable is the baseclass all visual components in the panel" alt="" coords="438,59,578,78"/>
+<area shape="rect" id="node4" href="panel.viewable.html#panel.viewable.Renderable" target="_top" title="Baseclass for objects which can be rendered to a Bokeh model." alt="" coords="244,22,394,41"/>
+<area shape="rect" id="node5" href="panel.viewable.html#panel.viewable.Layoutable" target="_top" title="Layoutable defines shared style and layout related parameters" alt="" coords="245,59,394,78"/>
+<area shape="rect" id="node6" title="params(name=String)" alt="" coords="4,41,201,60"/>
+<area shape="rect" id="node7" href="panel.viewable.html#panel.viewable.ServableMixin" target="_top" title="Mixin to define methods shared by objects which can served." alt="" coords="237,97,401,116"/>
+<area shape="rect" id="node10" href="#panel.widgets.misc.FileDownload" target="_top" title="panel.widgets.misc.FileDownload" alt="" coords="968,22,1148,41"/>
+<area shape="rect" id="node11" href="#panel.widgets.misc.VideoStream" target="_top" title="panel.widgets.misc.VideoStream" alt="" coords="969,59,1147,78"/>
+<area shape="rect" id="node9" href="#panel.widgets.misc.Audio" target="_top" title="panel.widgets.misc.Audio" alt="" coords="31,4,174,23"/>
+</map>

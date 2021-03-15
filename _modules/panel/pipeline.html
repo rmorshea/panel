@@ -1,0 +1,759 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<!-- Basic Page Needs
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+<meta charset="utf-8"/>
+<title>panel.pipeline — Panel 0.11.1+g238199f-dirty documentation</title>
+<meta content="High-level dashboarding for python visualization libraries" name="description"/>
+<meta content="Panel contributors" name="author"/>
+<!-- Mobile Specific Metas
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<!-- FONT
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+<script src="https://ajax.googleapis.com/ajax/libs/webfont/1.6.16/webfont.js"></script>
+<script>
+    WebFont.load({
+      google: {
+        families: ['Source Sans Pro']
+      }
+    });
+  </script>
+<!-- CSS
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+<link href="../../_static/css/main.css" rel="stylesheet"/>
+<link href="../../_static/nbsite.css" rel="stylesheet"/>
+<link href="../../_static/site.css" rel="stylesheet"/>
+<!-- Scripts
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script async="" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML" type="text/javascript">
+</script>
+<script src="../../_static/js/main.js"></script>
+<!-- Favicon
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+<link href="../../_static/favicon.ico" rel="icon" type="image/png"/>
+<!-- Canonical
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+<link href="https://panel.holoviz.org/_modules/panel/pipeline.html" rel="canonical">
+</link></head>
+<body class="">
+<header class="navigation">
+<div class="wrapper">
+<a class="logo" href="../../index.html">
+<img alt="Logo" src="../../_static/logo_horizontal.png"/>
+</a>
+<a class="navigation-menu-button" href="javascript:void(0)" id="js-mobile-menu">Menu</a>
+<nav>
+<ul class="navigation-menu show" id="js-navigation-menu">
+<li class="nav-link doc-head"><a href="//discourse.holoviz.org">Discourse</a></li>
+<li class="nav-link doc-head"><a href="//twitter.com/Panel_org">Twitter</a></li>
+<li class="nav-link doc-head"><a href="//github.com/pyviz/panel">Github</a></li>
+<li class="nav-link">
+<div style="display:inline-block;vertical-align: middle;">
+<div class="search-bar">
+<form action="../../search.html" method="get" role="search">
+<input name="q" placeholder="Search" type="search"/>
+<button type="submit">
+<img alt="Search Icon" src="https://raw.githubusercontent.com/thoughtbot/refills/master/source/images/search-icon-black.png"/>
+</button>
+</form>
+</div>
+</div>
+</li>
+</ul>
+</nav>
+</div>
+</header>
+<div class="second-nav">
+<nav>
+<ul class="navigation-menu show">
+<li class="nav-link doc-head"><a href="../../getting_started/index.html">Getting started</a></li>
+<li class="nav-link doc-head"><a href="../../user_guide/index.html">User Guide</a></li>
+<li class="nav-link doc-head"><a href="../../gallery/index.html">Gallery</a></li>
+<li class="nav-link doc-head"><a href="../../reference/index.html">Reference Gallery</a></li>
+<li class="nav-link doc-head"><a href="../../developer_guide/index.html">Developer Guide</a></li>
+<li class="nav-link doc-head"><a href="../../releases.html">Releases</a></li>
+<li class="nav-link doc-head"><a href="../../api/index.html">API</a></li>
+<li class="nav-link doc-head"><a href="../../FAQ.html">FAQ</a></li>
+<li class="nav-link doc-head"><a href="../../about.html">About</a></li>
+</ul>
+</nav>
+</div>
+<!-- MAIN BODY OF DOCS –––––––––––––––––– -->
+<div class="docs section">
+<div id="hacketyhackhack"> <!-- style="width:20%;margin-right: 100px;"> --> <!--style="display: none;"> style="display:none;"> -->
+<div class="toc" style="width:15%; margin-right:20px;">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../index.html">Home</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../getting_started/index.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../user_guide/index.html">User Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../gallery/index.html">Gallery</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../reference/index.html">Reference Gallery</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../developer_guide/index.html">Developer Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../api/index.html">API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Comparisons.html">Comparisons</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../releases.html">Releases</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Roadmap.html">Road Map</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../FAQ.html">FAQ</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://github.com/pyviz/panel">Github source</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../about.html">About</a></li>
+</ul>
+</div>
+</div>
+<div class="content"> <!-- style="max-width:80%;margin-left:auto;margin-right: auto;">-->
+<h1>Source code for panel.pipeline</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">sys</span>
+<span class="kn">import</span> <span class="nn">traceback</span> <span class="k">as</span> <span class="nn">tb</span>
+
+<span class="kn">from</span> <span class="nn">collections</span> <span class="kn">import</span> <span class="n">OrderedDict</span><span class="p">,</span> <span class="n">defaultdict</span>
+
+<span class="kn">import</span> <span class="nn">param</span>
+
+<span class="kn">from</span> <span class="nn">.layout</span> <span class="kn">import</span> <span class="n">Row</span><span class="p">,</span> <span class="n">Column</span><span class="p">,</span> <span class="n">HSpacer</span><span class="p">,</span> <span class="n">VSpacer</span>
+<span class="kn">from</span> <span class="nn">.pane</span> <span class="kn">import</span> <span class="n">HoloViews</span><span class="p">,</span> <span class="n">Pane</span><span class="p">,</span> <span class="n">Markdown</span>
+<span class="kn">from</span> <span class="nn">.widgets</span> <span class="kn">import</span> <span class="n">Button</span><span class="p">,</span> <span class="n">Select</span>
+<span class="kn">from</span> <span class="nn">.param</span> <span class="kn">import</span> <span class="n">Param</span>
+<span class="kn">from</span> <span class="nn">.util</span> <span class="kn">import</span> <span class="n">param_reprs</span>
+<span class="kn">from</span> <span class="nn">.viewable</span> <span class="kn">import</span> <span class="n">Viewer</span>
+
+
+<div class="viewcode-block" id="PipelineError"><a class="viewcode-back" href="../../api/panel.pipeline.html#panel.pipeline.PipelineError">[docs]</a><span class="k">class</span> <span class="nc">PipelineError</span><span class="p">(</span><span class="ne">RuntimeError</span><span class="p">):</span>
+    <span class="sd">"""</span>
+<span class="sd">    Custom error type which can be raised to display custom error</span>
+<span class="sd">    message in a Pipeline.</span>
+<span class="sd">    """</span></div>
+
+
+<div class="viewcode-block" id="traverse"><a class="viewcode-back" href="../../api/panel.pipeline.html#panel.pipeline.traverse">[docs]</a><span class="k">def</span> <span class="nf">traverse</span><span class="p">(</span><span class="n">graph</span><span class="p">,</span> <span class="n">v</span><span class="p">,</span> <span class="n">visited</span><span class="p">):</span>
+    <span class="sd">"""</span>
+<span class="sd">    Traverse the graph from a node and mark visited vertices.</span>
+<span class="sd">    """</span>
+    <span class="n">visited</span><span class="p">[</span><span class="n">v</span><span class="p">]</span> <span class="o">=</span> <span class="kc">True</span>
+    <span class="c1"># Recur for all the vertices adjacent to this vertex</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">graph</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="p">[]):</span>
+        <span class="k">if</span> <span class="n">visited</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">==</span> <span class="kc">False</span><span class="p">:</span>
+            <span class="n">traverse</span><span class="p">(</span><span class="n">graph</span><span class="p">,</span> <span class="n">i</span><span class="p">,</span> <span class="n">visited</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="find_route"><a class="viewcode-back" href="../../api/panel.pipeline.html#panel.pipeline.find_route">[docs]</a><span class="k">def</span> <span class="nf">find_route</span><span class="p">(</span><span class="n">graph</span><span class="p">,</span> <span class="n">current</span><span class="p">,</span> <span class="n">target</span><span class="p">):</span>
+    <span class="sd">"""</span>
+<span class="sd">    Find a route to the target node from the current node.</span>
+<span class="sd">    """</span>
+    <span class="n">next_nodes</span> <span class="o">=</span> <span class="n">graph</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">current</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">next_nodes</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">return</span> <span class="kc">None</span>
+    <span class="k">elif</span> <span class="n">target</span> <span class="ow">in</span> <span class="n">next_nodes</span><span class="p">:</span>
+        <span class="k">return</span> <span class="p">[</span><span class="n">target</span><span class="p">]</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="n">next_nodes</span><span class="p">:</span>
+            <span class="n">route</span> <span class="o">=</span> <span class="n">find_route</span><span class="p">(</span><span class="n">graph</span><span class="p">,</span> <span class="n">n</span><span class="p">,</span> <span class="n">target</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">route</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="k">continue</span>
+            <span class="k">return</span> <span class="p">[</span><span class="n">n</span><span class="p">]</span><span class="o">+</span><span class="n">route</span>
+        <span class="k">return</span> <span class="kc">None</span></div>
+
+
+<div class="viewcode-block" id="get_root"><a class="viewcode-back" href="../../api/panel.pipeline.html#panel.pipeline.get_root">[docs]</a><span class="k">def</span> <span class="nf">get_root</span><span class="p">(</span><span class="n">graph</span><span class="p">):</span>
+    <span class="sd">"""</span>
+<span class="sd">    Search for the root node by finding nodes without inputs.</span>
+<span class="sd">    """</span>
+    <span class="c1"># Find root node</span>
+    <span class="n">roots</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">targets</span> <span class="o">=</span> <span class="p">[</span><span class="n">t</span> <span class="k">for</span> <span class="n">ts</span> <span class="ow">in</span> <span class="n">graph</span><span class="o">.</span><span class="n">values</span><span class="p">()</span> <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">ts</span><span class="p">]</span>
+    <span class="k">for</span> <span class="n">src</span> <span class="ow">in</span> <span class="n">graph</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">src</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">targets</span><span class="p">:</span>
+            <span class="n">roots</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">src</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">roots</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">"Graph has more than one node with no "</span>
+                         <span class="s2">"incoming edges. Ensure that the graph "</span>
+                         <span class="s2">"only has a single source node."</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="nb">len</span><span class="p">(</span><span class="n">roots</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">"Graph has no source node. Ensure that the "</span>
+                         <span class="s2">"graph is not cyclic and has a single "</span>
+                         <span class="s2">"starting point."</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">roots</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span></div>
+
+
+<div class="viewcode-block" id="is_traversable"><a class="viewcode-back" href="../../api/panel.pipeline.html#panel.pipeline.is_traversable">[docs]</a><span class="k">def</span> <span class="nf">is_traversable</span><span class="p">(</span><span class="n">root</span><span class="p">,</span> <span class="n">graph</span><span class="p">,</span> <span class="n">stages</span><span class="p">):</span>
+    <span class="sd">"""</span>
+<span class="sd">    Check if the graph is fully traversable from the root node.</span>
+<span class="sd">    """</span>
+    <span class="c1"># Ensure graph is traverable from root</span>
+    <span class="n">int_graph</span> <span class="o">=</span> <span class="p">{</span><span class="n">stages</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="n">s</span><span class="p">):</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">stages</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="n">t</span><span class="p">)</span> <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">tgts</span><span class="p">)</span>
+                 <span class="k">for</span> <span class="n">s</span><span class="p">,</span> <span class="n">tgts</span> <span class="ow">in</span> <span class="n">graph</span><span class="o">.</span><span class="n">items</span><span class="p">()}</span>
+    <span class="n">visited</span> <span class="o">=</span> <span class="p">[</span><span class="kc">False</span><span class="p">]</span><span class="o">*</span><span class="nb">len</span><span class="p">(</span><span class="n">stages</span><span class="p">)</span>
+    <span class="n">traverse</span><span class="p">(</span><span class="n">int_graph</span><span class="p">,</span> <span class="n">stages</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="n">root</span><span class="p">),</span> <span class="n">visited</span><span class="p">)</span>
+    <span class="k">return</span> <span class="nb">all</span><span class="p">(</span><span class="n">visited</span><span class="p">)</span></div>
+
+
+<span class="k">def</span> <span class="nf">get_depth</span><span class="p">(</span><span class="n">node</span><span class="p">,</span> <span class="n">graph</span><span class="p">,</span> <span class="n">depth</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
+    <span class="n">depths</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">sub</span> <span class="ow">in</span> <span class="n">graph</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">node</span><span class="p">,</span> <span class="p">[]):</span>
+        <span class="n">depths</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">get_depth</span><span class="p">(</span><span class="n">sub</span><span class="p">,</span> <span class="n">graph</span><span class="p">,</span> <span class="n">depth</span><span class="o">+</span><span class="mi">1</span><span class="p">))</span>
+    <span class="k">return</span> <span class="nb">max</span><span class="p">(</span><span class="n">depths</span><span class="p">)</span> <span class="k">if</span> <span class="n">depths</span> <span class="k">else</span> <span class="n">depth</span><span class="o">+</span><span class="mi">1</span>
+
+
+<span class="k">def</span> <span class="nf">get_breadths</span><span class="p">(</span><span class="n">node</span><span class="p">,</span> <span class="n">graph</span><span class="p">,</span> <span class="n">depth</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">breadths</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">breadths</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">breadths</span> <span class="o">=</span> <span class="n">defaultdict</span><span class="p">(</span><span class="nb">list</span><span class="p">)</span>
+        <span class="n">breadths</span><span class="p">[</span><span class="n">depth</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">node</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">sub</span> <span class="ow">in</span> <span class="n">graph</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">node</span><span class="p">,</span> <span class="p">[]):</span>
+        <span class="k">if</span> <span class="n">sub</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">breadths</span><span class="p">[</span><span class="n">depth</span><span class="o">+</span><span class="mi">1</span><span class="p">]:</span>
+            <span class="n">breadths</span><span class="p">[</span><span class="n">depth</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">sub</span><span class="p">)</span>
+        <span class="n">get_breadths</span><span class="p">(</span><span class="n">sub</span><span class="p">,</span> <span class="n">graph</span><span class="p">,</span> <span class="n">depth</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="n">breadths</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">breadths</span>
+
+
+
+<div class="viewcode-block" id="Pipeline"><a class="viewcode-back" href="../../api/panel.pipeline.html#panel.pipeline.Pipeline">[docs]</a><span class="k">class</span> <span class="nc">Pipeline</span><span class="p">(</span><span class="n">Viewer</span><span class="p">):</span>
+    <span class="sd">"""</span>
+<span class="sd">    A Pipeline represents a directed graph of stages, which each</span>
+<span class="sd">    return a panel object to render. A pipeline therefore represents</span>
+<span class="sd">    a UI workflow of multiple linear or branching stages.</span>
+
+<span class="sd">    The Pipeline layout consists of a number of sub-components:</span>
+
+<span class="sd">    * header:</span>
+
+<span class="sd">      * title: The name of the current stage.</span>
+<span class="sd">      * error: A field to display the error state.</span>
+<span class="sd">      * network: A network diagram representing the pipeline.</span>
+<span class="sd">      * buttons: All navigation buttons and selectors.</span>
+<span class="sd">      * prev_button: The button to go to the previous stage.</span>
+<span class="sd">      * prev_selector: The selector widget to select between</span>
+<span class="sd">        previous branching stages.</span>
+<span class="sd">      * next_button: The button to go to the previous stage</span>
+<span class="sd">      * next_selector: The selector widget to select the next</span>
+<span class="sd">        branching stages.</span>
+
+<span class="sd">    * stage: The contents of the current pipeline stage.</span>
+
+<span class="sd">    By default any outputs of one stage annotated with the</span>
+<span class="sd">    param.output decorator are fed into the next stage. Additionally,</span>
+<span class="sd">    if the inherit_params parameter is set any parameters which are</span>
+<span class="sd">    declared on both the previous and next stage are also inherited.</span>
+
+<span class="sd">    The stages are declared using the add_stage method and must each</span>
+<span class="sd">    be given a unique name. By default any stages will simply be</span>
+<span class="sd">    connected linearly, but an explicit graph can be declared using</span>
+<span class="sd">    the define_graph method.</span>
+<span class="sd">    """</span>
+
+    <span class="n">auto_advance</span> <span class="o">=</span> <span class="n">param</span><span class="o">.</span><span class="n">Boolean</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="s2">"""</span>
+<span class="s2">        Whether to automatically advance if the ready parameter is True."""</span><span class="p">)</span>
+
+    <span class="n">debug</span> <span class="o">=</span> <span class="n">param</span><span class="o">.</span><span class="n">Boolean</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="s2">"""</span>
+<span class="s2">        Whether to raise errors, useful for debugging while building</span>
+<span class="s2">        an application."""</span><span class="p">)</span>
+
+    <span class="n">inherit_params</span> <span class="o">=</span> <span class="n">param</span><span class="o">.</span><span class="n">Boolean</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="s2">"""</span>
+<span class="s2">        Whether parameters should be inherited between pipeline</span>
+<span class="s2">        stages."""</span><span class="p">)</span>
+
+    <span class="n">next_parameter</span> <span class="o">=</span> <span class="n">param</span><span class="o">.</span><span class="n">String</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="s2">"""</span>
+<span class="s2">        Parameter name to watch to switch between different branching</span>
+<span class="s2">        stages"""</span><span class="p">)</span>
+
+    <span class="n">ready_parameter</span> <span class="o">=</span> <span class="n">param</span><span class="o">.</span><span class="n">String</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="s2">"""</span>
+<span class="s2">        Parameter name to watch to check whether a stage is ready."""</span><span class="p">)</span>
+
+    <span class="n">show_header</span> <span class="o">=</span> <span class="n">param</span><span class="o">.</span><span class="n">Boolean</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="s2">"""</span>
+<span class="s2">        Whether to show the header with the title, network diagram,</span>
+<span class="s2">        and buttons."""</span><span class="p">)</span>
+
+    <span class="nb">next</span> <span class="o">=</span> <span class="n">param</span><span class="o">.</span><span class="n">Action</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="o">.</span><span class="n">param</span><span class="o">.</span><span class="n">trigger</span><span class="p">(</span><span class="s1">'next'</span><span class="p">))</span>
+
+    <span class="n">previous</span> <span class="o">=</span> <span class="n">param</span><span class="o">.</span><span class="n">Action</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="o">.</span><span class="n">param</span><span class="o">.</span><span class="n">trigger</span><span class="p">(</span><span class="s1">'previous'</span><span class="p">))</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">stages</span><span class="o">=</span><span class="p">[],</span> <span class="n">graph</span><span class="o">=</span><span class="p">{},</span> <span class="o">**</span><span class="n">params</span><span class="p">):</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="kn">import</span> <span class="nn">holoviews</span> <span class="k">as</span> <span class="nn">hv</span>
+        <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ImportError</span><span class="p">(</span><span class="s1">'Pipeline requires holoviews to be installed'</span><span class="p">)</span>
+
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="o">**</span><span class="n">params</span><span class="p">)</span>
+
+        <span class="c1"># Initialize internal state</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_stage</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_stages</span> <span class="o">=</span> <span class="n">OrderedDict</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_states</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_state</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_linear</span> <span class="o">=</span> <span class="kc">True</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_block</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_error</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_graph</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_route</span> <span class="o">=</span> <span class="p">[]</span>
+
+        <span class="c1"># Declare UI components</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_progress_sel</span> <span class="o">=</span> <span class="n">hv</span><span class="o">.</span><span class="n">streams</span><span class="o">.</span><span class="n">Selection1D</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_progress_sel</span><span class="o">.</span><span class="n">add_subscriber</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_set_stage</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">prev_button</span> <span class="o">=</span> <span class="n">Param</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">param</span><span class="o">.</span><span class="n">previous</span><span class="p">)</span><span class="o">.</span><span class="n">layout</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">prev_button</span><span class="o">.</span><span class="n">width</span> <span class="o">=</span> <span class="mi">125</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">prev_selector</span> <span class="o">=</span> <span class="n">Select</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">125</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">next_button</span> <span class="o">=</span> <span class="n">Param</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">param</span><span class="o">.</span><span class="n">next</span><span class="p">)</span><span class="o">.</span><span class="n">layout</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">next_button</span><span class="o">.</span><span class="n">width</span> <span class="o">=</span> <span class="mi">125</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">next_selector</span> <span class="o">=</span> <span class="n">Select</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">125</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">prev_button</span><span class="o">.</span><span class="n">disabled</span> <span class="o">=</span> <span class="kc">True</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">next_selector</span><span class="o">.</span><span class="n">param</span><span class="o">.</span><span class="n">watch</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_update_progress</span><span class="p">,</span> <span class="s1">'value'</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">network</span> <span class="o">=</span> <span class="n">HoloViews</span><span class="p">(</span><span class="n">backend</span><span class="o">=</span><span class="s1">'bokeh'</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">title</span> <span class="o">=</span> <span class="n">Markdown</span><span class="p">(</span><span class="s1">'# Header'</span><span class="p">,</span> <span class="n">margin</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">error</span> <span class="o">=</span> <span class="n">Row</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">buttons</span> <span class="o">=</span> <span class="n">Row</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">prev_button</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">next_button</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">header</span> <span class="o">=</span> <span class="n">Row</span><span class="p">(</span>
+            <span class="n">Column</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">title</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">error</span><span class="p">),</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">network</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">buttons</span><span class="p">,</span>
+            <span class="n">sizing_mode</span><span class="o">=</span><span class="s1">'stretch_width'</span>
+        <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">network</span><span class="o">.</span><span class="n">object</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_make_progress</span><span class="p">()</span>
+        <span class="n">spinner</span> <span class="o">=</span> <span class="n">Pane</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="vm">__file__</span><span class="p">),</span> <span class="s1">'assets'</span><span class="p">,</span> <span class="s1">'spinner.gif'</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_spinner_layout</span> <span class="o">=</span> <span class="n">Row</span><span class="p">(</span>
+            <span class="n">HSpacer</span><span class="p">(),</span>
+            <span class="n">Column</span><span class="p">(</span><span class="n">VSpacer</span><span class="p">(),</span> <span class="n">spinner</span><span class="p">,</span> <span class="n">VSpacer</span><span class="p">()),</span>
+            <span class="n">HSpacer</span><span class="p">()</span>
+        <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">stage</span> <span class="o">=</span> <span class="n">Row</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">layout</span> <span class="o">=</span> <span class="n">Column</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">header</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">stage</span><span class="p">,</span> <span class="n">sizing_mode</span><span class="o">=</span><span class="s1">'stretch_width'</span><span class="p">)</span>
+
+        <span class="c1"># Initialize stages and the graph</span>
+        <span class="k">for</span> <span class="n">stage</span> <span class="ow">in</span> <span class="n">stages</span><span class="p">:</span>
+            <span class="n">kwargs</span> <span class="o">=</span> <span class="p">{}</span>
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">stage</span><span class="p">)</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>
+                <span class="n">name</span><span class="p">,</span> <span class="n">stage</span> <span class="o">=</span> <span class="n">stage</span>
+            <span class="k">elif</span> <span class="nb">len</span><span class="p">(</span><span class="n">stage</span><span class="p">)</span> <span class="o">==</span> <span class="mi">3</span><span class="p">:</span>
+                <span class="n">name</span><span class="p">,</span> <span class="n">stage</span><span class="p">,</span> <span class="n">kwargs</span> <span class="o">=</span> <span class="n">stage</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">add_stage</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">stage</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">define_graph</span><span class="p">(</span><span class="n">graph</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">__panel__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">layout</span>
+
+    <span class="k">def</span> <span class="nf">_validate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">stage</span><span class="p">):</span>
+        <span class="k">if</span> <span class="nb">any</span><span class="p">(</span><span class="n">stage</span> <span class="ow">is</span> <span class="n">s</span> <span class="k">for</span> <span class="n">n</span><span class="p">,</span> <span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="n">kw</span><span class="p">)</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_stages</span><span class="o">.</span><span class="n">items</span><span class="p">()):</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">'Stage </span><span class="si">%s</span><span class="s1"> is already in pipeline'</span> <span class="o">%</span> <span class="n">stage</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="ow">not</span> <span class="p">((</span><span class="nb">isinstance</span><span class="p">(</span><span class="n">stage</span><span class="p">,</span> <span class="nb">type</span><span class="p">)</span> <span class="ow">and</span> <span class="nb">issubclass</span><span class="p">(</span><span class="n">stage</span><span class="p">,</span> <span class="n">param</span><span class="o">.</span><span class="n">Parameterized</span><span class="p">))</span>
+                  <span class="ow">or</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">stage</span><span class="p">,</span> <span class="n">param</span><span class="o">.</span><span class="n">Parameterized</span><span class="p">)):</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">'Pipeline stages must be Parameterized classes or instances.'</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">repr_str</span> <span class="o">=</span> <span class="s1">'Pipeline:'</span>
+        <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="p">(</span><span class="n">stage</span><span class="p">,</span> <span class="n">_</span><span class="p">))</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_stages</span><span class="o">.</span><span class="n">items</span><span class="p">()):</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">stage</span><span class="p">,</span> <span class="n">param</span><span class="o">.</span><span class="n">Parameterized</span><span class="p">):</span>
+                <span class="n">cls_name</span> <span class="o">=</span> <span class="nb">type</span><span class="p">(</span><span class="n">stage</span><span class="p">)</span><span class="o">.</span><span class="vm">__name__</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">cls_name</span> <span class="o">=</span> <span class="n">stage</span><span class="o">.</span><span class="vm">__name__</span>
+            <span class="n">params</span> <span class="o">=</span> <span class="s1">', '</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">param_reprs</span><span class="p">(</span><span class="n">stage</span><span class="p">))</span>
+            <span class="n">repr_str</span> <span class="o">+=</span> <span class="s1">'</span><span class="se">\n</span><span class="s1">    [</span><span class="si">%d</span><span class="s1">] </span><span class="si">%s</span><span class="s1">: </span><span class="si">%s</span><span class="s1">(</span><span class="si">%s</span><span class="s1">)'</span> <span class="o">%</span> <span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">cls_name</span><span class="p">,</span> <span class="n">params</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">repr_str</span>
+
+    <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="fm">__repr__</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="fm">__getitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">index</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_stages</span><span class="p">[</span><span class="n">index</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+
+    <span class="k">def</span> <span class="nf">_unblock</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">):</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_state</span> <span class="ow">is</span> <span class="ow">not</span> <span class="n">event</span><span class="o">.</span><span class="n">obj</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">_block</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_block</span> <span class="o">=</span> <span class="kc">False</span>
+            <span class="k">return</span>
+
+        <span class="n">button</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">next_button</span>
+        <span class="k">if</span> <span class="n">button</span><span class="o">.</span><span class="n">disabled</span> <span class="ow">and</span> <span class="n">event</span><span class="o">.</span><span class="n">new</span><span class="p">:</span>
+            <span class="n">button</span><span class="o">.</span><span class="n">disabled</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="k">elif</span> <span class="ow">not</span> <span class="n">button</span><span class="o">.</span><span class="n">disabled</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">event</span><span class="o">.</span><span class="n">new</span><span class="p">:</span>
+            <span class="n">button</span><span class="o">.</span><span class="n">disabled</span> <span class="o">=</span> <span class="kc">True</span>
+
+        <span class="n">stage_kwargs</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_stages</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">_stage</span><span class="p">][</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+        <span class="k">if</span> <span class="n">event</span><span class="o">.</span><span class="n">new</span> <span class="ow">and</span> <span class="n">stage_kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'auto_advance'</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">auto_advance</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_next</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="nf">_select_next</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">):</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_state</span> <span class="ow">is</span> <span class="ow">not</span> <span class="n">event</span><span class="o">.</span><span class="n">obj</span><span class="p">:</span>
+            <span class="k">return</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">next_selector</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="n">event</span><span class="o">.</span><span class="n">new</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_update_progress</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="nf">_init_stage</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">stage</span><span class="p">,</span> <span class="n">stage_kwargs</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_stages</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">_stage</span><span class="p">]</span>
+
+        <span class="n">previous</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">src</span><span class="p">,</span> <span class="n">tgts</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_graph</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_stage</span> <span class="ow">in</span> <span class="n">tgts</span><span class="p">:</span>
+                <span class="n">previous</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">src</span><span class="p">)</span>
+        <span class="n">prev_states</span> <span class="o">=</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">_states</span><span class="p">[</span><span class="n">prev</span><span class="p">]</span> <span class="k">for</span> <span class="n">prev</span> <span class="ow">in</span> <span class="n">previous</span> <span class="k">if</span> <span class="n">prev</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_states</span><span class="p">]</span>
+
+        <span class="n">outputs</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">kwargs</span><span class="p">,</span> <span class="n">results</span> <span class="o">=</span> <span class="p">{},</span> <span class="p">{}</span>
+        <span class="k">for</span> <span class="n">state</span> <span class="ow">in</span> <span class="n">prev_states</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="p">(</span><span class="n">_</span><span class="p">,</span> <span class="n">method</span><span class="p">,</span> <span class="n">index</span><span class="p">)</span> <span class="ow">in</span> <span class="n">state</span><span class="o">.</span><span class="n">param</span><span class="o">.</span><span class="n">outputs</span><span class="p">()</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+                <span class="k">if</span> <span class="n">name</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">stage</span><span class="o">.</span><span class="n">param</span><span class="p">:</span>
+                    <span class="k">continue</span>
+                <span class="k">if</span> <span class="n">method</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">results</span><span class="p">:</span>
+                    <span class="n">results</span><span class="p">[</span><span class="n">method</span><span class="p">]</span> <span class="o">=</span> <span class="n">method</span><span class="p">()</span>
+                <span class="n">result</span> <span class="o">=</span> <span class="n">results</span><span class="p">[</span><span class="n">method</span><span class="p">]</span>
+                <span class="k">if</span> <span class="n">index</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                    <span class="n">result</span> <span class="o">=</span> <span class="n">result</span><span class="p">[</span><span class="n">index</span><span class="p">]</span>
+                <span class="n">kwargs</span><span class="p">[</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="n">result</span>
+                <span class="n">outputs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">stage_kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'inherit_params'</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">inherit_params</span><span class="p">):</span>
+                <span class="n">ignored</span> <span class="o">=</span> <span class="p">[</span><span class="n">stage_kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">p</span><span class="p">)</span> <span class="ow">or</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">p</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+                           <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="p">(</span><span class="s1">'ready_parameter'</span><span class="p">,</span> <span class="s1">'next_parameter'</span><span class="p">)]</span>
+                <span class="n">params</span> <span class="o">=</span> <span class="p">[</span><span class="n">k</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">state</span><span class="o">.</span><span class="n">param</span><span class="o">.</span><span class="n">objects</span><span class="p">(</span><span class="s1">'existing'</span><span class="p">)</span><span class="o">.</span><span class="n">items</span><span class="p">()</span>
+                          <span class="k">if</span> <span class="n">k</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">ignored</span><span class="p">]</span>
+                <span class="n">kwargs</span><span class="o">.</span><span class="n">update</span><span class="p">({</span><span class="n">k</span><span class="p">:</span> <span class="n">v</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">state</span><span class="o">.</span><span class="n">param</span><span class="o">.</span><span class="n">get_param_values</span><span class="p">()</span>
+                               <span class="k">if</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">stage</span><span class="o">.</span><span class="n">param</span> <span class="ow">and</span> <span class="n">k</span> <span class="o">!=</span> <span class="s1">'name'</span> <span class="ow">and</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">params</span><span class="p">})</span>
+
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">stage</span><span class="p">,</span> <span class="n">param</span><span class="o">.</span><span class="n">Parameterized</span><span class="p">):</span>
+            <span class="n">stage</span><span class="o">.</span><span class="n">param</span><span class="o">.</span><span class="n">set_param</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_state</span> <span class="o">=</span> <span class="n">stage</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_state</span> <span class="o">=</span> <span class="n">stage</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+
+        <span class="c1"># Hide widgets for parameters that are supplied by the previous stage</span>
+        <span class="k">for</span> <span class="n">output</span> <span class="ow">in</span> <span class="n">outputs</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_state</span><span class="o">.</span><span class="n">param</span><span class="p">[</span><span class="n">output</span><span class="p">]</span><span class="o">.</span><span class="n">precedence</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span>
+
+        <span class="n">ready_param</span> <span class="o">=</span> <span class="n">stage_kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'ready_parameter'</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">ready_parameter</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">ready_param</span> <span class="ow">and</span> <span class="n">ready_param</span> <span class="ow">in</span> <span class="n">stage</span><span class="o">.</span><span class="n">param</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_state</span><span class="o">.</span><span class="n">param</span><span class="o">.</span><span class="n">watch</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_unblock</span><span class="p">,</span> <span class="n">ready_param</span><span class="p">,</span> <span class="n">onlychanged</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+
+        <span class="n">next_param</span> <span class="o">=</span> <span class="n">stage_kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'next_parameter'</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">next_parameter</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">next_param</span> <span class="ow">and</span> <span class="n">next_param</span> <span class="ow">in</span> <span class="n">stage</span><span class="o">.</span><span class="n">param</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_state</span><span class="o">.</span><span class="n">param</span><span class="o">.</span><span class="n">watch</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_select_next</span><span class="p">,</span> <span class="n">next_param</span><span class="p">,</span> <span class="n">onlychanged</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_states</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">_stage</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_state</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_state</span><span class="o">.</span><span class="n">panel</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="nf">_set_stage</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">index</span><span class="p">):</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">index</span><span class="p">:</span>
+            <span class="k">return</span>
+        <span class="n">stage</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_progress_sel</span><span class="o">.</span><span class="n">source</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">index</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="mi">2</span><span class="p">]</span>
+        <span class="k">if</span> <span class="n">stage</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">next_selector</span><span class="o">.</span><span class="n">options</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">next_selector</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="n">stage</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">param</span><span class="o">.</span><span class="n">trigger</span><span class="p">(</span><span class="s1">'next'</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">stage</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">prev_selector</span><span class="o">.</span><span class="n">options</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">prev_selector</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="n">stage</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">param</span><span class="o">.</span><span class="n">trigger</span><span class="p">(</span><span class="s1">'previous'</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">stage</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_route</span><span class="p">:</span>
+            <span class="k">while</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_route</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">param</span><span class="o">.</span><span class="n">trigger</span><span class="p">(</span><span class="s1">'previous'</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="c1"># Try currently selected route</span>
+            <span class="n">route</span> <span class="o">=</span> <span class="n">find_route</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_graph</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_next_stage</span><span class="p">,</span> <span class="n">stage</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">route</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="c1"># Try alternate route</span>
+                <span class="n">route</span> <span class="o">=</span> <span class="n">find_route</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_graph</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_stage</span><span class="p">,</span> <span class="n">stage</span><span class="p">)</span>
+                <span class="k">if</span> <span class="n">route</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                    <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">'Could not find route to target node.'</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">route</span> <span class="o">=</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">_next_stage</span><span class="p">]</span> <span class="o">+</span> <span class="n">route</span>
+            <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">route</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">r</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">next_selector</span><span class="o">.</span><span class="n">options</span><span class="p">:</span>
+                    <span class="k">break</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">next_selector</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="n">r</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">param</span><span class="o">.</span><span class="n">trigger</span><span class="p">(</span><span class="s1">'next'</span><span class="p">)</span>
+
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">_next_stage</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">next_selector</span><span class="o">.</span><span class="n">value</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">_prev_stage</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">prev_selector</span><span class="o">.</span><span class="n">value</span>
+
+    <span class="k">def</span> <span class="nf">_update_button</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">stage</span><span class="p">,</span> <span class="n">kwargs</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_stages</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">_stage</span><span class="p">]</span>
+        <span class="n">options</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_graph</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_stage</span><span class="p">,</span> <span class="p">[]))</span>
+        <span class="n">next_param</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'next_parameter'</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">next_parameter</span><span class="p">)</span>
+        <span class="n">option</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_state</span><span class="p">,</span> <span class="n">next_param</span><span class="p">)</span> <span class="k">if</span> <span class="n">next_param</span> <span class="ow">and</span> <span class="n">next_param</span> <span class="ow">in</span> <span class="n">stage</span><span class="o">.</span><span class="n">param</span> <span class="k">else</span> <span class="kc">None</span>
+        <span class="k">if</span> <span class="n">option</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">option</span> <span class="o">=</span> <span class="n">options</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="k">if</span> <span class="n">options</span> <span class="k">else</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">next_selector</span><span class="o">.</span><span class="n">options</span> <span class="o">=</span> <span class="n">options</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">next_selector</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="n">option</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">next_selector</span><span class="o">.</span><span class="n">disabled</span> <span class="o">=</span> <span class="ow">not</span> <span class="nb">bool</span><span class="p">(</span><span class="n">options</span><span class="p">)</span>
+        <span class="n">previous</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">src</span><span class="p">,</span> <span class="n">tgts</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_graph</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_stage</span> <span class="ow">in</span> <span class="n">tgts</span><span class="p">:</span>
+                <span class="n">previous</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">src</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">prev_selector</span><span class="o">.</span><span class="n">options</span> <span class="o">=</span> <span class="n">previous</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">prev_selector</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_route</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="k">if</span> <span class="n">previous</span> <span class="k">else</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">prev_selector</span><span class="o">.</span><span class="n">disabled</span> <span class="o">=</span> <span class="ow">not</span> <span class="nb">bool</span><span class="p">(</span><span class="n">previous</span><span class="p">)</span>
+
+        <span class="c1"># Disable previous button</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_prev_stage</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">prev_button</span><span class="o">.</span><span class="n">disabled</span> <span class="o">=</span> <span class="kc">True</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">prev_button</span><span class="o">.</span><span class="n">disabled</span> <span class="o">=</span> <span class="kc">False</span>
+
+        <span class="c1"># Disable next button</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_next_stage</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">next_button</span><span class="o">.</span><span class="n">disabled</span> <span class="o">=</span> <span class="kc">True</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">ready</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'ready_parameter'</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">ready_parameter</span><span class="p">)</span>
+            <span class="n">disabled</span> <span class="o">=</span> <span class="p">(</span><span class="ow">not</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">stage</span><span class="p">,</span> <span class="n">ready</span><span class="p">))</span> <span class="k">if</span> <span class="n">ready</span> <span class="ow">in</span> <span class="n">stage</span><span class="o">.</span><span class="n">param</span> <span class="k">else</span> <span class="kc">False</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">next_button</span><span class="o">.</span><span class="n">disabled</span> <span class="o">=</span> <span class="n">disabled</span>
+
+    <span class="k">def</span> <span class="nf">_get_error_button</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">e</span><span class="p">):</span>
+        <span class="n">msg</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">e</span><span class="p">)</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">e</span><span class="p">,</span> <span class="n">PipelineError</span><span class="p">)</span> <span class="k">else</span> <span class="s2">""</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">debug</span><span class="p">:</span>
+            <span class="nb">type</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="n">trb</span> <span class="o">=</span> <span class="n">sys</span><span class="o">.</span><span class="n">exc_info</span><span class="p">()</span>
+            <span class="n">tb_list</span> <span class="o">=</span> <span class="n">tb</span><span class="o">.</span><span class="n">format_tb</span><span class="p">(</span><span class="n">trb</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span> <span class="o">+</span> <span class="n">tb</span><span class="o">.</span><span class="n">format_exception_only</span><span class="p">(</span><span class="nb">type</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span>
+            <span class="n">traceback</span> <span class="o">=</span> <span class="p">((</span><span class="s2">"</span><span class="si">%s</span><span class="se">\n\n</span><span class="s2">Traceback (innermost last):</span><span class="se">\n</span><span class="s2">"</span> <span class="o">+</span> <span class="s2">"</span><span class="si">%-20s</span><span class="s2"> </span><span class="si">%s</span><span class="s2">"</span><span class="p">)</span> <span class="o">%</span>
+                         <span class="p">(</span><span class="n">msg</span><span class="p">,</span> <span class="s1">''</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">tb_list</span><span class="p">[</span><span class="o">-</span><span class="mi">5</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">]),</span> <span class="n">tb_list</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]))</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">traceback</span> <span class="o">=</span> <span class="n">msg</span> <span class="ow">or</span> <span class="s2">"Undefined error, enable debug mode."</span>
+        <span class="n">button</span> <span class="o">=</span> <span class="n">Button</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s1">'Error'</span><span class="p">,</span> <span class="n">button_type</span><span class="o">=</span><span class="s1">'danger'</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span>
+                        <span class="n">align</span><span class="o">=</span><span class="s1">'center'</span><span class="p">,</span> <span class="n">margin</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
+        <span class="n">button</span><span class="o">.</span><span class="n">js_on_click</span><span class="p">(</span><span class="n">code</span><span class="o">=</span><span class="s2">"alert(`</span><span class="si">{tb}</span><span class="s2">`)"</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">tb</span><span class="o">=</span><span class="n">traceback</span><span class="p">))</span>
+        <span class="k">return</span> <span class="n">button</span>
+
+    <span class="nd">@param</span><span class="o">.</span><span class="n">depends</span><span class="p">(</span><span class="s1">'next'</span><span class="p">,</span> <span class="n">watch</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">_next</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">prev_state</span><span class="p">,</span> <span class="n">prev_stage</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_state</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_stage</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_stage</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_next_stage</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">stage</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_spinner_layout</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">stage</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_init_stage</span><span class="p">()</span>
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_error</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_stage</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_stage</span> <span class="o">=</span> <span class="n">prev_stage</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_state</span> <span class="o">=</span> <span class="n">prev_state</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">stage</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">prev_state</span><span class="o">.</span><span class="n">panel</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">error</span><span class="p">[:]</span> <span class="o">=</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">_get_error_button</span><span class="p">(</span><span class="n">e</span><span class="p">)]</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">debug</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="n">e</span>
+            <span class="k">return</span> <span class="n">e</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">error</span><span class="p">[:]</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_error</span> <span class="o">=</span> <span class="kc">None</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_update_button</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_route</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_stage</span><span class="p">)</span>
+            <span class="n">stage_kwargs</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_stages</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">_stage</span><span class="p">][</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+            <span class="n">ready_param</span> <span class="o">=</span> <span class="n">stage_kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'ready_parameter'</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">ready_parameter</span><span class="p">)</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">ready_param</span> <span class="ow">and</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_state</span><span class="p">,</span> <span class="n">ready_param</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span> <span class="ow">and</span>
+                <span class="n">stage_kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'auto_advance'</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">auto_advance</span><span class="p">)):</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_next</span><span class="p">()</span>
+        <span class="k">finally</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_update_progress</span><span class="p">()</span>
+
+    <span class="nd">@param</span><span class="o">.</span><span class="n">depends</span><span class="p">(</span><span class="s1">'previous'</span><span class="p">,</span> <span class="n">watch</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">_previous</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">prev_state</span><span class="p">,</span> <span class="n">prev_stage</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_state</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_stage</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_stage</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_prev_stage</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_stage</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_states</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_state</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_states</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">_stage</span><span class="p">]</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">stage</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_state</span><span class="o">.</span><span class="n">panel</span><span class="p">()</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">stage</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_init_stage</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_block</span> <span class="o">=</span> <span class="kc">True</span>
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">error</span><span class="p">[:]</span> <span class="o">=</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">_get_error_button</span><span class="p">(</span><span class="n">e</span><span class="p">)]</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_error</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_stage</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_stage</span> <span class="o">=</span> <span class="n">prev_stage</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_state</span> <span class="o">=</span> <span class="n">prev_state</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">debug</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="n">e</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">error</span><span class="p">[:]</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_error</span> <span class="o">=</span> <span class="kc">None</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_update_button</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_route</span><span class="o">.</span><span class="n">pop</span><span class="p">()</span>
+        <span class="k">finally</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_update_progress</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="nf">_update_progress</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">title</span><span class="o">.</span><span class="n">object</span> <span class="o">=</span> <span class="s1">'## Stage: '</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">_stage</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">network</span><span class="o">.</span><span class="n">object</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_make_progress</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="nf">_make_progress</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="kn">import</span> <span class="nn">holoviews</span> <span class="k">as</span> <span class="nn">hv</span>
+        <span class="kn">import</span> <span class="nn">holoviews.plotting.bokeh</span> <span class="c1"># noqa</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_graph</span><span class="p">:</span>
+            <span class="n">root</span> <span class="o">=</span> <span class="n">get_root</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_graph</span><span class="p">)</span>
+            <span class="n">depth</span> <span class="o">=</span> <span class="n">get_depth</span><span class="p">(</span><span class="n">root</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_graph</span><span class="p">)</span>
+            <span class="n">breadths</span> <span class="o">=</span> <span class="n">get_breadths</span><span class="p">(</span><span class="n">root</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_graph</span><span class="p">)</span>
+            <span class="n">max_breadth</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">v</span><span class="p">)</span> <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">breadths</span><span class="o">.</span><span class="n">values</span><span class="p">())</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">root</span> <span class="o">=</span> <span class="kc">None</span>
+            <span class="n">max_breadth</span><span class="p">,</span> <span class="n">depth</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span>
+            <span class="n">breadths</span> <span class="o">=</span> <span class="p">{}</span>
+
+        <span class="n">height</span> <span class="o">=</span> <span class="mi">80</span> <span class="o">+</span> <span class="p">(</span><span class="n">max_breadth</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="mi">20</span>
+
+        <span class="n">edges</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">src</span><span class="p">,</span> <span class="n">tgts</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_graph</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">tgts</span><span class="p">:</span>
+                <span class="n">edges</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">src</span><span class="p">,</span> <span class="n">t</span><span class="p">))</span>
+
+        <span class="n">nodes</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">depth</span><span class="p">,</span> <span class="n">subnodes</span> <span class="ow">in</span> <span class="n">breadths</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="n">breadth</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">subnodes</span><span class="p">)</span>
+            <span class="n">step</span> <span class="o">=</span> <span class="mf">1.</span><span class="o">/</span><span class="n">breadth</span>
+            <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">n</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">subnodes</span><span class="p">[::</span><span class="o">-</span><span class="mi">1</span><span class="p">]):</span>
+                <span class="k">if</span> <span class="n">n</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">_stage</span><span class="p">:</span>
+                    <span class="n">state</span> <span class="o">=</span> <span class="s1">'active'</span>
+                <span class="k">elif</span> <span class="n">n</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">_error</span><span class="p">:</span>
+                    <span class="n">state</span> <span class="o">=</span> <span class="s1">'error'</span>
+                <span class="k">elif</span> <span class="n">n</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">_next_stage</span><span class="p">:</span>
+                    <span class="n">state</span> <span class="o">=</span> <span class="s1">'next'</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">state</span> <span class="o">=</span> <span class="s1">'inactive'</span>
+                <span class="n">nodes</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">depth</span><span class="p">,</span> <span class="n">step</span><span class="o">/</span><span class="mf">2.</span><span class="o">+</span><span class="n">i</span><span class="o">*</span><span class="n">step</span><span class="p">,</span> <span class="n">n</span><span class="p">,</span> <span class="n">state</span><span class="p">))</span>
+
+        <span class="n">cmap</span> <span class="o">=</span> <span class="p">{</span><span class="s1">'inactive'</span><span class="p">:</span> <span class="s1">'white'</span><span class="p">,</span> <span class="s1">'active'</span><span class="p">:</span> <span class="s1">'#5cb85c'</span><span class="p">,</span> <span class="s1">'error'</span><span class="p">:</span> <span class="s1">'red'</span><span class="p">,</span>
+                <span class="s1">'next'</span><span class="p">:</span> <span class="s1">'yellow'</span><span class="p">}</span>
+
+        <span class="k">def</span> <span class="nf">tap_renderer</span><span class="p">(</span><span class="n">plot</span><span class="p">,</span> <span class="n">element</span><span class="p">):</span>
+            <span class="kn">from</span> <span class="nn">bokeh.models</span> <span class="kn">import</span> <span class="n">TapTool</span>
+            <span class="n">gr</span> <span class="o">=</span> <span class="n">plot</span><span class="o">.</span><span class="n">handles</span><span class="p">[</span><span class="s1">'glyph_renderer'</span><span class="p">]</span>
+            <span class="n">tap</span> <span class="o">=</span> <span class="n">plot</span><span class="o">.</span><span class="n">state</span><span class="o">.</span><span class="n">select_one</span><span class="p">(</span><span class="n">TapTool</span><span class="p">)</span>
+            <span class="n">tap</span><span class="o">.</span><span class="n">renderers</span> <span class="o">=</span> <span class="p">[</span><span class="n">gr</span><span class="p">]</span>
+
+        <span class="n">nodes</span> <span class="o">=</span> <span class="n">hv</span><span class="o">.</span><span class="n">Nodes</span><span class="p">(</span><span class="n">nodes</span><span class="p">,</span> <span class="p">[</span><span class="s1">'x'</span><span class="p">,</span> <span class="s1">'y'</span><span class="p">,</span> <span class="s1">'Stage'</span><span class="p">],</span> <span class="s1">'State'</span><span class="p">)</span><span class="o">.</span><span class="n">opts</span><span class="p">(</span>
+            <span class="n">alpha</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">default_tools</span><span class="o">=</span><span class="p">[</span><span class="s1">'tap'</span><span class="p">],</span> <span class="n">hooks</span><span class="o">=</span><span class="p">[</span><span class="n">tap_renderer</span><span class="p">],</span>
+            <span class="n">hover_alpha</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">selection_alpha</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">nonselection_alpha</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+            <span class="n">axiswise</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">backend</span><span class="o">=</span><span class="s1">'bokeh'</span>
+        <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_progress_sel</span><span class="o">.</span><span class="n">source</span> <span class="o">=</span> <span class="n">nodes</span>
+        <span class="n">graph</span> <span class="o">=</span> <span class="n">hv</span><span class="o">.</span><span class="n">Graph</span><span class="p">((</span><span class="n">edges</span><span class="p">,</span> <span class="n">nodes</span><span class="p">))</span><span class="o">.</span><span class="n">opts</span><span class="p">(</span>
+            <span class="n">edge_hover_line_color</span><span class="o">=</span><span class="s1">'black'</span><span class="p">,</span> <span class="n">node_color</span><span class="o">=</span><span class="s1">'State'</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="n">cmap</span><span class="p">,</span>
+            <span class="n">tools</span><span class="o">=</span><span class="p">[],</span> <span class="n">default_tools</span><span class="o">=</span><span class="p">[</span><span class="s1">'hover'</span><span class="p">],</span> <span class="n">selection_policy</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+            <span class="n">node_hover_fill_color</span><span class="o">=</span><span class="s1">'gray'</span><span class="p">,</span> <span class="n">axiswise</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">backend</span><span class="o">=</span><span class="s1">'bokeh'</span><span class="p">)</span>
+        <span class="n">labels</span> <span class="o">=</span> <span class="n">hv</span><span class="o">.</span><span class="n">Labels</span><span class="p">(</span><span class="n">nodes</span><span class="p">,</span> <span class="p">[</span><span class="s1">'x'</span><span class="p">,</span> <span class="s1">'y'</span><span class="p">],</span> <span class="s1">'Stage'</span><span class="p">)</span><span class="o">.</span><span class="n">opts</span><span class="p">(</span>
+            <span class="n">yoffset</span><span class="o">=-.</span><span class="mi">30</span><span class="p">,</span> <span class="n">default_tools</span><span class="o">=</span><span class="p">[],</span> <span class="n">axiswise</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">backend</span><span class="o">=</span><span class="s1">'bokeh'</span>
+        <span class="p">)</span>
+        <span class="n">plot</span> <span class="o">=</span> <span class="p">(</span><span class="n">graph</span> <span class="o">*</span> <span class="n">labels</span> <span class="o">*</span> <span class="n">nodes</span><span class="p">)</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_linear</span> <span class="k">else</span> <span class="p">(</span><span class="n">graph</span> <span class="o">*</span> <span class="n">nodes</span><span class="p">)</span>
+        <span class="n">plot</span><span class="o">.</span><span class="n">opts</span><span class="p">(</span>
+            <span class="n">xaxis</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">yaxis</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">min_width</span><span class="o">=</span><span class="mi">400</span><span class="p">,</span> <span class="n">responsive</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+            <span class="n">show_frame</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="n">height</span><span class="p">,</span> <span class="n">xlim</span><span class="o">=</span><span class="p">(</span><span class="o">-</span><span class="mf">0.25</span><span class="p">,</span> <span class="n">depth</span><span class="o">+</span><span class="mf">0.25</span><span class="p">),</span>
+            <span class="n">ylim</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="n">default_tools</span><span class="o">=</span><span class="p">[</span><span class="s1">'hover'</span><span class="p">],</span> <span class="n">toolbar</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">backend</span><span class="o">=</span><span class="s1">'bokeh'</span>
+        <span class="p">)</span>
+        <span class="k">return</span> <span class="n">plot</span>
+
+    <span class="c1">#----------------------------------------------------------------</span>
+    <span class="c1"># Public API</span>
+    <span class="c1">#----------------------------------------------------------------</span>
+
+<div class="viewcode-block" id="Pipeline.add_stage"><a class="viewcode-back" href="../../api/panel.pipeline.html#panel.pipeline.Pipeline.add_stage">[docs]</a>    <span class="k">def</span> <span class="nf">add_stage</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">stage</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="sd">"""</span>
+<span class="sd">        Adds a new, named stage to the Pipeline.</span>
+
+<span class="sd">        Arguments</span>
+<span class="sd">        ---------</span>
+<span class="sd">        name: str</span>
+<span class="sd">          A string name for the Pipeline stage</span>
+<span class="sd">        stage: param.Parameterized</span>
+<span class="sd">          A Parameterized object which represents the Pipeline stage.</span>
+<span class="sd">        **kwargs: dict</span>
+<span class="sd">          Additional arguments declaring the behavior of the stage.</span>
+<span class="sd">        """</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_validate</span><span class="p">(</span><span class="n">stage</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">k</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">param</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">"Keyword argument </span><span class="si">%s</span><span class="s2"> is not a valid parameter. "</span> <span class="o">%</span> <span class="n">k</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_linear</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">_graph</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="s2">"Cannot add stage after graph has been defined."</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_stages</span><span class="p">[</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">stage</span><span class="p">,</span> <span class="n">kwargs</span><span class="p">)</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_stages</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_stage</span> <span class="o">=</span> <span class="n">name</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_route</span> <span class="o">=</span> <span class="p">[</span><span class="n">name</span><span class="p">]</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_graph</span> <span class="o">=</span> <span class="p">{}</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">stage</span><span class="p">[:]</span> <span class="o">=</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">_init_stage</span><span class="p">()]</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">previous</span> <span class="o">=</span> <span class="p">[</span><span class="n">s</span> <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_stages</span> <span class="k">if</span> <span class="n">s</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_graph</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_graph</span><span class="p">[</span><span class="n">previous</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">name</span><span class="p">,)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_update_progress</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_update_button</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="Pipeline.define_graph"><a class="viewcode-back" href="../../api/panel.pipeline.html#panel.pipeline.Pipeline.define_graph">[docs]</a>    <span class="k">def</span> <span class="nf">define_graph</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">graph</span><span class="p">,</span> <span class="n">force</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+        <span class="sd">"""</span>
+<span class="sd">        Declares a custom graph structure for the Pipeline overriding</span>
+<span class="sd">        the default linear flow. The graph should be defined as an</span>
+<span class="sd">        adjacency mapping.</span>
+
+<span class="sd">        Arguments</span>
+<span class="sd">        ---------</span>
+<span class="sd">        graph: dict</span>
+<span class="sd">          Dictionary declaring the relationship between different</span>
+<span class="sd">          pipeline stages. Should map from a single stage name to</span>
+<span class="sd">          one or more stage names.</span>
+<span class="sd">        """</span>
+        <span class="n">stages</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_stages</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">stages</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_graph</span> <span class="o">=</span> <span class="p">{}</span>
+            <span class="k">return</span>
+
+        <span class="n">graph</span> <span class="o">=</span> <span class="p">{</span><span class="n">k</span><span class="p">:</span> <span class="n">v</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="nb">tuple</span><span class="p">)</span> <span class="k">else</span> <span class="p">(</span><span class="n">v</span><span class="p">,)</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">graph</span><span class="o">.</span><span class="n">items</span><span class="p">()}</span>
+
+        <span class="n">not_found</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">source</span><span class="p">,</span> <span class="n">targets</span> <span class="ow">in</span> <span class="n">graph</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="k">if</span> <span class="n">source</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">stages</span><span class="p">:</span>
+                <span class="n">not_found</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">source</span><span class="p">)</span>
+            <span class="n">not_found</span> <span class="o">+=</span> <span class="p">[</span><span class="n">t</span> <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">targets</span> <span class="k">if</span> <span class="n">t</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">stages</span><span class="p">]</span>
+        <span class="k">if</span> <span class="n">not_found</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                <span class="s1">'Pipeline stage(s) </span><span class="si">%s</span><span class="s1"> not found, ensure all stages '</span>
+                <span class="s1">'referenced in the graph have been added.'</span> <span class="o">%</span>
+                <span class="p">(</span><span class="n">not_found</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">not_found</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span> <span class="k">else</span> <span class="n">not_found</span><span class="p">)</span>
+            <span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">graph</span><span class="p">:</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_linear</span> <span class="ow">or</span> <span class="n">force</span><span class="p">):</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">"Graph has already been defined, "</span>
+                                 <span class="s2">"cannot override existing graph."</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_linear</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">graph</span> <span class="o">=</span> <span class="p">{</span><span class="n">s</span><span class="p">:</span> <span class="p">(</span><span class="n">t</span><span class="p">,)</span> <span class="k">for</span> <span class="n">s</span><span class="p">,</span> <span class="n">t</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">stages</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="n">stages</span><span class="p">[</span><span class="mi">1</span><span class="p">:])}</span>
+
+        <span class="n">root</span> <span class="o">=</span> <span class="n">get_root</span><span class="p">(</span><span class="n">graph</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">is_traversable</span><span class="p">(</span><span class="n">root</span><span class="p">,</span> <span class="n">graph</span><span class="p">,</span> <span class="n">stages</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">'Graph is not fully traversable from stage: </span><span class="si">%s</span><span class="s1">.'</span>
+                             <span class="o">%</span> <span class="n">root</span><span class="p">)</span>
+
+        <span class="n">reinit</span> <span class="o">=</span> <span class="n">root</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_stage</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_stage</span> <span class="o">=</span> <span class="n">root</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_graph</span> <span class="o">=</span> <span class="n">graph</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_route</span> <span class="o">=</span> <span class="p">[</span><span class="n">root</span><span class="p">]</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_linear</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">buttons</span><span class="p">[:]</span> <span class="o">=</span> <span class="p">[</span>
+                <span class="n">Column</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">prev_selector</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">prev_button</span><span class="p">),</span>
+                <span class="n">Column</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">next_selector</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">next_button</span><span class="p">)</span>
+            <span class="p">]</span>
+        <span class="k">if</span> <span class="n">reinit</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">stage</span><span class="p">[:]</span> <span class="o">=</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">_init_stage</span><span class="p">()]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_update_progress</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_update_button</span><span class="p">()</span></div></div>
+</pre></div>
+</div>
+</div>
+<!-- END MAIN BODY OF DOCS ––––––––––––– -->
+<!-- Google Analytics -->
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async="" src="https://www.googletagmanager.com/gtag/js?id=UA-154795830-2"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-154795830-2', { 'anonymize_ip': true });
+</script>
+<!-- MathJax Config -->
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}
+});
+</script>
+<!-- End Document
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+</body>
+</html>

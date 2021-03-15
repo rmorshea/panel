@@ -1,0 +1,739 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<!-- Basic Page Needs
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+<meta charset="utf-8"/>
+<title>panel.config — Panel 0.11.1+g238199f-dirty documentation</title>
+<meta content="High-level dashboarding for python visualization libraries" name="description"/>
+<meta content="Panel contributors" name="author"/>
+<!-- Mobile Specific Metas
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<!-- FONT
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+<script src="https://ajax.googleapis.com/ajax/libs/webfont/1.6.16/webfont.js"></script>
+<script>
+    WebFont.load({
+      google: {
+        families: ['Source Sans Pro']
+      }
+    });
+  </script>
+<!-- CSS
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+<link href="../../_static/css/main.css" rel="stylesheet"/>
+<link href="../../_static/nbsite.css" rel="stylesheet"/>
+<link href="../../_static/site.css" rel="stylesheet"/>
+<!-- Scripts
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script async="" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML" type="text/javascript">
+</script>
+<script src="../../_static/js/main.js"></script>
+<!-- Favicon
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+<link href="../../_static/favicon.ico" rel="icon" type="image/png"/>
+<!-- Canonical
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+<link href="https://panel.holoviz.org/_modules/panel/config.html" rel="canonical">
+</link></head>
+<body class="">
+<header class="navigation">
+<div class="wrapper">
+<a class="logo" href="../../index.html">
+<img alt="Logo" src="../../_static/logo_horizontal.png"/>
+</a>
+<a class="navigation-menu-button" href="javascript:void(0)" id="js-mobile-menu">Menu</a>
+<nav>
+<ul class="navigation-menu show" id="js-navigation-menu">
+<li class="nav-link doc-head"><a href="//discourse.holoviz.org">Discourse</a></li>
+<li class="nav-link doc-head"><a href="//twitter.com/Panel_org">Twitter</a></li>
+<li class="nav-link doc-head"><a href="//github.com/pyviz/panel">Github</a></li>
+<li class="nav-link">
+<div style="display:inline-block;vertical-align: middle;">
+<div class="search-bar">
+<form action="../../search.html" method="get" role="search">
+<input name="q" placeholder="Search" type="search"/>
+<button type="submit">
+<img alt="Search Icon" src="https://raw.githubusercontent.com/thoughtbot/refills/master/source/images/search-icon-black.png"/>
+</button>
+</form>
+</div>
+</div>
+</li>
+</ul>
+</nav>
+</div>
+</header>
+<div class="second-nav">
+<nav>
+<ul class="navigation-menu show">
+<li class="nav-link doc-head"><a href="../../getting_started/index.html">Getting started</a></li>
+<li class="nav-link doc-head"><a href="../../user_guide/index.html">User Guide</a></li>
+<li class="nav-link doc-head"><a href="../../gallery/index.html">Gallery</a></li>
+<li class="nav-link doc-head"><a href="../../reference/index.html">Reference Gallery</a></li>
+<li class="nav-link doc-head"><a href="../../developer_guide/index.html">Developer Guide</a></li>
+<li class="nav-link doc-head"><a href="../../releases.html">Releases</a></li>
+<li class="nav-link doc-head"><a href="../../api/index.html">API</a></li>
+<li class="nav-link doc-head"><a href="../../FAQ.html">FAQ</a></li>
+<li class="nav-link doc-head"><a href="../../about.html">About</a></li>
+</ul>
+</nav>
+</div>
+<!-- MAIN BODY OF DOCS –––––––––––––––––– -->
+<div class="docs section">
+<div id="hacketyhackhack"> <!-- style="width:20%;margin-right: 100px;"> --> <!--style="display: none;"> style="display:none;"> -->
+<div class="toc" style="width:15%; margin-right:20px;">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../index.html">Home</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../getting_started/index.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../user_guide/index.html">User Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../gallery/index.html">Gallery</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../reference/index.html">Reference Gallery</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../developer_guide/index.html">Developer Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../api/index.html">API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Comparisons.html">Comparisons</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../releases.html">Releases</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Roadmap.html">Road Map</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../FAQ.html">FAQ</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://github.com/pyviz/panel">Github source</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../about.html">About</a></li>
+</ul>
+</div>
+</div>
+<div class="content"> <!-- style="max-width:80%;margin-left:auto;margin-right: auto;">-->
+<h1>Source code for panel.config</h1><div class="highlight"><pre>
+<span></span><span class="sd">"""</span>
+<span class="sd">The config module supplies the global config object and the extension</span>
+<span class="sd">which provides convenient support for  loading and configuring panel</span>
+<span class="sd">components.</span>
+<span class="sd">"""</span>
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">absolute_import</span><span class="p">,</span> <span class="n">division</span><span class="p">,</span> <span class="n">unicode_literals</span>
+
+<span class="kn">import</span> <span class="nn">ast</span>
+<span class="kn">import</span> <span class="nn">inspect</span>
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">sys</span>
+
+<span class="kn">from</span> <span class="nn">contextlib</span> <span class="kn">import</span> <span class="n">contextmanager</span>
+
+<span class="kn">import</span> <span class="nn">param</span>
+
+<span class="kn">from</span> <span class="nn">pyviz_comms</span> <span class="kn">import</span> <span class="p">(</span><span class="n">JupyterCommManager</span> <span class="k">as</span> <span class="n">_JupyterCommManager</span><span class="p">,</span>
+                         <span class="n">extension</span> <span class="k">as</span> <span class="n">_pyviz_extension</span><span class="p">)</span>
+
+<span class="kn">from</span> <span class="nn">.io.notebook</span> <span class="kn">import</span> <span class="n">load_notebook</span>
+<span class="kn">from</span> <span class="nn">.io.state</span> <span class="kn">import</span> <span class="n">state</span>
+
+<span class="n">__version__</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">param</span><span class="o">.</span><span class="n">version</span><span class="o">.</span><span class="n">Version</span><span class="p">(</span>
+    <span class="n">fpath</span><span class="o">=</span><span class="vm">__file__</span><span class="p">,</span> <span class="n">archive_commit</span><span class="o">=</span><span class="s2">"$Format:%h$"</span><span class="p">,</span> <span class="n">reponame</span><span class="o">=</span><span class="s2">"panel"</span><span class="p">))</span>
+
+<span class="n">_LOCAL_DEV_VERSION</span> <span class="o">=</span> <span class="nb">any</span><span class="p">(</span><span class="n">v</span> <span class="ow">in</span> <span class="n">__version__</span> <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="p">(</span><span class="s1">'post'</span><span class="p">,</span> <span class="s1">'dirty'</span><span class="p">))</span>
+
+<span class="c1">#---------------------------------------------------------------------</span>
+<span class="c1"># Public API</span>
+<span class="c1">#---------------------------------------------------------------------</span>
+
+<span class="n">_PATH</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="vm">__file__</span><span class="p">))</span>
+
+
+<div class="viewcode-block" id="validate_config"><a class="viewcode-back" href="../../api/panel.config.html#panel.config.validate_config">[docs]</a><span class="k">def</span> <span class="nf">validate_config</span><span class="p">(</span><span class="n">config</span><span class="p">,</span> <span class="n">parameter</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+    <span class="sd">"""</span>
+<span class="sd">    Validates parameter setting on a hidden config parameter.</span>
+<span class="sd">    """</span>
+    <span class="n">orig</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">config</span><span class="p">,</span> <span class="n">parameter</span><span class="p">)</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="nb">setattr</span><span class="p">(</span><span class="n">config</span><span class="p">,</span> <span class="n">parameter</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span>
+    <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="n">e</span>
+    <span class="k">finally</span><span class="p">:</span>
+        <span class="nb">setattr</span><span class="p">(</span><span class="n">config</span><span class="p">,</span> <span class="n">parameter</span><span class="p">,</span> <span class="n">orig</span><span class="p">)</span></div>
+
+
+<span class="k">class</span> <span class="nc">_base_config</span><span class="p">(</span><span class="n">param</span><span class="o">.</span><span class="n">Parameterized</span><span class="p">):</span>
+
+    <span class="n">css_files</span> <span class="o">=</span> <span class="n">param</span><span class="o">.</span><span class="n">List</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="p">[],</span> <span class="n">doc</span><span class="o">=</span><span class="s2">"""</span>
+<span class="s2">        External CSS files to load."""</span><span class="p">)</span>
+
+    <span class="n">js_files</span> <span class="o">=</span> <span class="n">param</span><span class="o">.</span><span class="n">Dict</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="p">{},</span> <span class="n">doc</span><span class="o">=</span><span class="s2">"""</span>
+<span class="s2">        External JS files to load. Dictionary should map from exported</span>
+<span class="s2">        name to the URL of the JS file."""</span><span class="p">)</span>
+
+    <span class="n">js_modules</span> <span class="o">=</span> <span class="n">param</span><span class="o">.</span><span class="n">Dict</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="p">{},</span> <span class="n">doc</span><span class="o">=</span><span class="s2">"""</span>
+<span class="s2">        External JS fils to load as modules. Dictionary should map from</span>
+<span class="s2">        exported name to the URL of the JS file."""</span><span class="p">)</span>
+
+    <span class="n">raw_css</span> <span class="o">=</span> <span class="n">param</span><span class="o">.</span><span class="n">List</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="p">[],</span> <span class="n">doc</span><span class="o">=</span><span class="s2">"""</span>
+<span class="s2">        List of raw CSS strings to add to load."""</span><span class="p">)</span>
+
+
+<span class="k">class</span> <span class="nc">_config</span><span class="p">(</span><span class="n">_base_config</span><span class="p">):</span>
+    <span class="sd">"""</span>
+<span class="sd">    Holds global configuration options for Panel. The options can be</span>
+<span class="sd">    set directly on the global config instance, via keyword arguments</span>
+<span class="sd">    in the extension or via environment variables. For example to set</span>
+<span class="sd">    the embed option the following approaches can be used:</span>
+
+<span class="sd">        pn.config.embed = True</span>
+
+<span class="sd">        pn.extension(embed=True)</span>
+
+<span class="sd">        os.environ['PANEL_EMBED'] = 'True'</span>
+<span class="sd">    """</span>
+
+    <span class="n">apply_signatures</span> <span class="o">=</span> <span class="n">param</span><span class="o">.</span><span class="n">Boolean</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="s2">"""</span>
+<span class="s2">        Whether to set custom Signature which allows tab-completion</span>
+<span class="s2">        in some IDEs and environments."""</span><span class="p">)</span>
+
+    <span class="n">autoreload</span> <span class="o">=</span> <span class="n">param</span><span class="o">.</span><span class="n">Boolean</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="s2">"""</span>
+<span class="s2">        Whether to autoreload server when script changes."""</span><span class="p">)</span>
+
+    <span class="n">loading_spinner</span> <span class="o">=</span> <span class="n">param</span><span class="o">.</span><span class="n">Selector</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="s1">'arcs'</span><span class="p">,</span> <span class="n">objects</span><span class="o">=</span><span class="p">[</span>
+        <span class="s1">'arc'</span><span class="p">,</span> <span class="s1">'arcs'</span><span class="p">,</span> <span class="s1">'bar'</span><span class="p">,</span> <span class="s1">'dots'</span><span class="p">,</span> <span class="s1">'petal'</span><span class="p">],</span> <span class="n">doc</span><span class="o">=</span><span class="s2">"""</span>
+<span class="s2">        Loading indicator to use when component loading parameter is set."""</span><span class="p">)</span>
+
+    <span class="n">loading_color</span> <span class="o">=</span> <span class="n">param</span><span class="o">.</span><span class="n">Color</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="s1">'#c3c3c3'</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="s2">"""</span>
+<span class="s2">        Color of the loading indicator."""</span><span class="p">)</span>
+
+    <span class="n">safe_embed</span> <span class="o">=</span> <span class="n">param</span><span class="o">.</span><span class="n">Boolean</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="s2">"""</span>
+<span class="s2">        Ensure all bokeh property changes trigger events which are</span>
+<span class="s2">        embedded. Useful when only partial updates are made in an</span>
+<span class="s2">        app, e.g. when working with HoloViews."""</span><span class="p">)</span>
+
+    <span class="n">session_history</span> <span class="o">=</span> <span class="n">param</span><span class="o">.</span><span class="n">Integer</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">bounds</span><span class="o">=</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="kc">None</span><span class="p">),</span> <span class="n">doc</span><span class="o">=</span><span class="s2">"""</span>
+<span class="s2">        If set to a non-negative value this determines the maximum length</span>
+<span class="s2">        of the pn.state.session_info dictionary, which tracks</span>
+<span class="s2">        information about user sessions. A value of -1 indicates an</span>
+<span class="s2">        unlimited history."""</span><span class="p">)</span>
+
+    <span class="n">sizing_mode</span> <span class="o">=</span> <span class="n">param</span><span class="o">.</span><span class="n">ObjectSelector</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">objects</span><span class="o">=</span><span class="p">[</span>
+        <span class="s1">'fixed'</span><span class="p">,</span> <span class="s1">'stretch_width'</span><span class="p">,</span> <span class="s1">'stretch_height'</span><span class="p">,</span> <span class="s1">'stretch_both'</span><span class="p">,</span>
+        <span class="s1">'scale_width'</span><span class="p">,</span> <span class="s1">'scale_height'</span><span class="p">,</span> <span class="s1">'scale_both'</span><span class="p">,</span> <span class="kc">None</span><span class="p">],</span> <span class="n">doc</span><span class="o">=</span><span class="s2">"""</span>
+<span class="s2">        Specify the default sizing mode behavior of panels."""</span><span class="p">)</span>
+
+    <span class="n">_comms</span> <span class="o">=</span> <span class="n">param</span><span class="o">.</span><span class="n">ObjectSelector</span><span class="p">(</span>
+        <span class="n">default</span><span class="o">=</span><span class="s1">'default'</span><span class="p">,</span> <span class="n">objects</span><span class="o">=</span><span class="p">[</span><span class="s1">'default'</span><span class="p">,</span> <span class="s1">'ipywidgets'</span><span class="p">,</span> <span class="s1">'vscode'</span><span class="p">,</span> <span class="s1">'colab'</span><span class="p">],</span> <span class="n">doc</span><span class="o">=</span><span class="s2">"""</span>
+<span class="s2">        Whether to render output in Jupyter with the default Jupyter</span>
+<span class="s2">        extension or use the jupyter_bokeh ipywidget model."""</span><span class="p">)</span>
+
+    <span class="n">_console_output</span> <span class="o">=</span> <span class="n">param</span><span class="o">.</span><span class="n">ObjectSelector</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="s1">'accumulate'</span><span class="p">,</span> <span class="n">allow_None</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                                 <span class="n">objects</span><span class="o">=</span><span class="p">[</span><span class="s1">'accumulate'</span><span class="p">,</span> <span class="s1">'replace'</span><span class="p">,</span> <span class="s1">'disable'</span><span class="p">,</span>
+                                          <span class="kc">False</span><span class="p">],</span> <span class="n">doc</span><span class="o">=</span><span class="s2">"""</span>
+<span class="s2">        How to log errors and stdout output triggered by callbacks</span>
+<span class="s2">        from Javascript in the notebook."""</span><span class="p">)</span>
+
+    <span class="n">_cookie_secret</span> <span class="o">=</span> <span class="n">param</span><span class="o">.</span><span class="n">String</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="s2">"""</span>
+<span class="s2">        Configure to enable getting/setting secure cookies."""</span><span class="p">)</span>
+
+    <span class="n">_embed</span> <span class="o">=</span> <span class="n">param</span><span class="o">.</span><span class="n">Boolean</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">allow_None</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="s2">"""</span>
+<span class="s2">        Whether plot data will be embedded."""</span><span class="p">)</span>
+
+    <span class="n">_embed_json</span> <span class="o">=</span> <span class="n">param</span><span class="o">.</span><span class="n">Boolean</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="s2">"""</span>
+<span class="s2">        Whether to save embedded state to json files."""</span><span class="p">)</span>
+
+    <span class="n">_embed_json_prefix</span> <span class="o">=</span> <span class="n">param</span><span class="o">.</span><span class="n">String</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="s1">''</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="s2">"""</span>
+<span class="s2">        Prefix for randomly generated json directories."""</span><span class="p">)</span>
+
+    <span class="n">_embed_load_path</span> <span class="o">=</span> <span class="n">param</span><span class="o">.</span><span class="n">String</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="s2">"""</span>
+<span class="s2">        Where to load json files for embedded state."""</span><span class="p">)</span>
+
+    <span class="n">_embed_save_path</span> <span class="o">=</span> <span class="n">param</span><span class="o">.</span><span class="n">String</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="s1">'./'</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="s2">"""</span>
+<span class="s2">        Where to save json files for embedded state."""</span><span class="p">)</span>
+
+    <span class="n">_log_level</span> <span class="o">=</span> <span class="n">param</span><span class="o">.</span><span class="n">Selector</span><span class="p">(</span>
+        <span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">objects</span><span class="o">=</span><span class="p">[</span><span class="s1">'DEBUG'</span><span class="p">,</span> <span class="s1">'INFO'</span><span class="p">,</span> <span class="s1">'WARNING'</span><span class="p">,</span> <span class="s1">'ERROR'</span><span class="p">,</span> <span class="s1">'CRITICAL'</span><span class="p">],</span>
+        <span class="n">doc</span><span class="o">=</span><span class="s2">"Log level of Panel loggers"</span><span class="p">)</span>
+
+    <span class="n">_oauth_provider</span> <span class="o">=</span> <span class="n">param</span><span class="o">.</span><span class="n">ObjectSelector</span><span class="p">(</span>
+        <span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">allow_None</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">objects</span><span class="o">=</span><span class="p">[],</span> <span class="n">doc</span><span class="o">=</span><span class="s2">"""</span>
+<span class="s2">        Select between a list of authentification providers."""</span><span class="p">)</span>
+
+    <span class="n">_oauth_key</span> <span class="o">=</span> <span class="n">param</span><span class="o">.</span><span class="n">String</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="s2">"""</span>
+<span class="s2">        A client key to provide to the OAuth provider."""</span><span class="p">)</span>
+
+    <span class="n">_oauth_secret</span> <span class="o">=</span> <span class="n">param</span><span class="o">.</span><span class="n">String</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="s2">"""</span>
+<span class="s2">        A client secret to provide to the OAuth provider."""</span><span class="p">)</span>
+
+    <span class="n">_oauth_jwt_user</span> <span class="o">=</span> <span class="n">param</span><span class="o">.</span><span class="n">String</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="s2">"""</span>
+<span class="s2">        The key in the ID JWT token to consider the user."""</span><span class="p">)</span>
+
+    <span class="n">_oauth_redirect_uri</span> <span class="o">=</span> <span class="n">param</span><span class="o">.</span><span class="n">String</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="s2">"""</span>
+<span class="s2">        A redirect URI to provide to the OAuth provider."""</span><span class="p">)</span>
+
+    <span class="n">_oauth_encryption_key</span> <span class="o">=</span> <span class="n">param</span><span class="o">.</span><span class="n">ClassSelector</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">class_</span><span class="o">=</span><span class="nb">bytes</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="s2">"""</span>
+<span class="s2">        A random string used to encode OAuth related user information."""</span><span class="p">)</span>
+
+    <span class="n">_oauth_extra_params</span> <span class="o">=</span> <span class="n">param</span><span class="o">.</span><span class="n">Dict</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="p">{},</span> <span class="n">doc</span><span class="o">=</span><span class="s2">"""</span>
+<span class="s2">        Additional parameters required for OAuth provider."""</span><span class="p">)</span>
+
+    <span class="n">_inline</span> <span class="o">=</span> <span class="n">param</span><span class="o">.</span><span class="n">Boolean</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="n">_LOCAL_DEV_VERSION</span><span class="p">,</span> <span class="n">allow_None</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="s2">"""</span>
+<span class="s2">        Whether to inline JS and CSS resources. If disabled, resources</span>
+<span class="s2">        are loaded from CDN if one is available."""</span><span class="p">)</span>
+
+    <span class="n">_truthy</span> <span class="o">=</span> <span class="p">[</span><span class="s1">'True'</span><span class="p">,</span> <span class="s1">'true'</span><span class="p">,</span> <span class="s1">'1'</span><span class="p">,</span> <span class="kc">True</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">params</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="o">**</span><span class="n">params</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">param</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">p</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s1">'_'</span><span class="p">):</span>
+                <span class="nb">setattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">p</span><span class="o">+</span><span class="s1">'_'</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+
+    <span class="nd">@contextmanager</span>
+    <span class="k">def</span> <span class="nf">set</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="n">values</span> <span class="o">=</span> <span class="p">[(</span><span class="n">k</span><span class="p">,</span> <span class="n">v</span><span class="p">)</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">param</span><span class="o">.</span><span class="n">get_param_values</span><span class="p">()</span> <span class="k">if</span> <span class="n">k</span> <span class="o">!=</span> <span class="s1">'name'</span><span class="p">]</span>
+        <span class="n">overrides</span> <span class="o">=</span> <span class="p">[(</span><span class="n">k</span><span class="p">,</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">k</span><span class="o">+</span><span class="s1">'_'</span><span class="p">))</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">param</span> <span class="k">if</span> <span class="n">k</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s1">'_'</span><span class="p">)]</span>
+        <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="nb">setattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span><span class="p">)</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">yield</span>
+        <span class="k">finally</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">param</span><span class="o">.</span><span class="n">set_param</span><span class="p">(</span><span class="o">**</span><span class="nb">dict</span><span class="p">(</span><span class="n">values</span><span class="p">))</span>
+            <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">overrides</span><span class="p">:</span>
+                <span class="nb">setattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">k</span><span class="o">+</span><span class="s1">'_'</span><span class="p">,</span> <span class="n">v</span><span class="p">)</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">_doc_build</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'PANEL_DOC_BUILD'</span><span class="p">)</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">console_output</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_console_output_</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">return</span> <span class="s1">'disable'</span> <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_console_output_</span> <span class="k">else</span> <span class="bp">self</span><span class="o">.</span><span class="n">_console_output_</span>
+        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">_doc_build</span><span class="p">:</span>
+            <span class="k">return</span> <span class="s1">'disable'</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'PANEL_CONSOLE_OUTPUT'</span><span class="p">,</span> <span class="n">_config</span><span class="o">.</span><span class="n">_console_output</span><span class="p">)</span>
+
+    <span class="nd">@console_output</span><span class="o">.</span><span class="n">setter</span>
+    <span class="k">def</span> <span class="nf">console_output</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+        <span class="n">validate_config</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s1">'_console_output'</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_console_output_</span> <span class="o">=</span> <span class="n">value</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">embed</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_embed_</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_embed_</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'PANEL_EMBED'</span><span class="p">,</span> <span class="n">_config</span><span class="o">.</span><span class="n">_embed</span><span class="p">)</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_truthy</span>
+
+    <span class="nd">@embed</span><span class="o">.</span><span class="n">setter</span>
+    <span class="k">def</span> <span class="nf">embed</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+        <span class="n">validate_config</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s1">'_embed'</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_embed_</span> <span class="o">=</span> <span class="n">value</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">comms</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_comms_</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_comms_</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'PANEL_COMMS'</span><span class="p">,</span> <span class="n">_config</span><span class="o">.</span><span class="n">_comms</span><span class="p">)</span>
+
+    <span class="nd">@comms</span><span class="o">.</span><span class="n">setter</span>
+    <span class="k">def</span> <span class="nf">comms</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+        <span class="n">validate_config</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s1">'_comms'</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_comms_</span> <span class="o">=</span> <span class="n">value</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">embed_json</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_embed_json_</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_embed_json_</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'PANEL_EMBED_JSON'</span><span class="p">,</span> <span class="n">_config</span><span class="o">.</span><span class="n">_embed_json</span><span class="p">)</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_truthy</span>
+
+    <span class="nd">@embed_json</span><span class="o">.</span><span class="n">setter</span>
+    <span class="k">def</span> <span class="nf">embed_json</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+        <span class="n">validate_config</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s1">'_embed_json'</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_embed_json_</span> <span class="o">=</span> <span class="n">value</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">embed_json_prefix</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_embed_json_prefix_</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_embed_json_prefix_</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'PANEL_EMBED_JSON_PREFIX'</span><span class="p">,</span> <span class="n">_config</span><span class="o">.</span><span class="n">_embed_json_prefix</span><span class="p">)</span>
+
+    <span class="nd">@embed_json_prefix</span><span class="o">.</span><span class="n">setter</span>
+    <span class="k">def</span> <span class="nf">embed_json_prefix</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+        <span class="n">validate_config</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s1">'_embed_json_prefix'</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_embed_json_prefix_</span> <span class="o">=</span> <span class="n">value</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">embed_save_path</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_embed_save_path_</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_embed_save_path_</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'PANEL_EMBED_SAVE_PATH'</span><span class="p">,</span> <span class="n">_config</span><span class="o">.</span><span class="n">_embed_save_path</span><span class="p">)</span>
+
+    <span class="nd">@embed_save_path</span><span class="o">.</span><span class="n">setter</span>
+    <span class="k">def</span> <span class="nf">embed_save_path</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+        <span class="n">validate_config</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s1">'_embed_save_path'</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_embed_save_path_</span> <span class="o">=</span> <span class="n">value</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">embed_load_path</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_embed_load_path_</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_embed_load_path_</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'PANEL_EMBED_LOAD_PATH'</span><span class="p">,</span> <span class="n">_config</span><span class="o">.</span><span class="n">_embed_load_path</span><span class="p">)</span>
+
+    <span class="nd">@embed_load_path</span><span class="o">.</span><span class="n">setter</span>
+    <span class="k">def</span> <span class="nf">embed_load_path</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+        <span class="n">validate_config</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s1">'_embed_load_path'</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_embed_load_path_</span> <span class="o">=</span> <span class="n">value</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">inline</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_inline_</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_inline_</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'PANEL_INLINE'</span><span class="p">,</span> <span class="n">_config</span><span class="o">.</span><span class="n">_inline</span><span class="p">)</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_truthy</span>
+
+    <span class="nd">@inline</span><span class="o">.</span><span class="n">setter</span>
+    <span class="k">def</span> <span class="nf">inline</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+        <span class="n">validate_config</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s1">'_inline'</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_inline_</span> <span class="o">=</span> <span class="n">value</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">log_level</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_log_level_</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_log_level_</span>
+        <span class="k">elif</span> <span class="s1">'PANEL_LOG_LEVEL'</span> <span class="ow">in</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s1">'PANEL_LOG_LEVEL'</span><span class="p">]</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_log_level</span>
+
+    <span class="nd">@log_level</span><span class="o">.</span><span class="n">setter</span>
+    <span class="k">def</span> <span class="nf">log_level</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+        <span class="n">validate_config</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s1">'_log_level'</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_log_level_</span> <span class="o">=</span> <span class="n">value</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">oauth_provider</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_oauth_provider_</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_oauth_provider_</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">provider</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'PANEL_OAUTH_PROVIDER'</span><span class="p">,</span> <span class="n">_config</span><span class="o">.</span><span class="n">_oauth_provider</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">provider</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="k">if</span> <span class="n">provider</span> <span class="k">else</span> <span class="kc">None</span>
+
+    <span class="nd">@oauth_provider</span><span class="o">.</span><span class="n">setter</span>
+    <span class="k">def</span> <span class="nf">oauth_provider</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+        <span class="n">validate_config</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s1">'_oauth_provider'</span><span class="p">,</span> <span class="n">value</span><span class="o">.</span><span class="n">lower</span><span class="p">())</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_oauth_provider_</span> <span class="o">=</span> <span class="n">value</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">oauth_key</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_oauth_key_</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_oauth_key_</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'PANEL_OAUTH_KEY'</span><span class="p">,</span> <span class="n">_config</span><span class="o">.</span><span class="n">_oauth_key</span><span class="p">)</span>
+
+    <span class="nd">@oauth_key</span><span class="o">.</span><span class="n">setter</span>
+    <span class="k">def</span> <span class="nf">oauth_key</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+        <span class="n">validate_config</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s1">'_oauth_key'</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_oauth_key_</span> <span class="o">=</span> <span class="n">value</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">cookie_secret</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_cookie_secret_</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_cookie_secret_</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span>
+                <span class="s1">'PANEL_COOKIE_SECRET'</span><span class="p">,</span>
+                <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'BOKEH_COOKIE_SECRET'</span><span class="p">,</span> <span class="n">_config</span><span class="o">.</span><span class="n">_cookie_secret</span><span class="p">)</span>
+            <span class="p">)</span>
+
+    <span class="nd">@cookie_secret</span><span class="o">.</span><span class="n">setter</span>
+    <span class="k">def</span> <span class="nf">cookie_secret</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+        <span class="n">validate_config</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s1">'_cookie_secret'</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_cookie_secret_</span> <span class="o">=</span> <span class="n">value</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">oauth_secret</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_oauth_secret_</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_oauth_secret_</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'PANEL_OAUTH_SECRET'</span><span class="p">,</span> <span class="n">_config</span><span class="o">.</span><span class="n">_oauth_secret</span><span class="p">)</span>
+
+    <span class="nd">@oauth_secret</span><span class="o">.</span><span class="n">setter</span>
+    <span class="k">def</span> <span class="nf">oauth_secret</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+        <span class="n">validate_config</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s1">'_oauth_secret'</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_oauth_secret_</span> <span class="o">=</span> <span class="n">value</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">oauth_redirect_uri</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_oauth_redirect_uri_</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_oauth_redirect_uri_</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'PANEL_OAUTH_REDIRECT_URI'</span><span class="p">,</span> <span class="n">_config</span><span class="o">.</span><span class="n">_oauth_redirect_uri</span><span class="p">)</span>
+
+    <span class="nd">@oauth_redirect_uri</span><span class="o">.</span><span class="n">setter</span>
+    <span class="k">def</span> <span class="nf">oauth_redirect_uri</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+        <span class="n">validate_config</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s1">'_oauth_redirect_uri'</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_oauth_redirect_uri_</span> <span class="o">=</span> <span class="n">value</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">oauth_jwt_user</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_oauth_jwt_user_</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_oauth_jwt_user_</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'PANEL_OAUTH_JWT_USER'</span><span class="p">,</span> <span class="n">_config</span><span class="o">.</span><span class="n">_oauth_jwt_user</span><span class="p">)</span>
+
+    <span class="nd">@oauth_jwt_user</span><span class="o">.</span><span class="n">setter</span>
+    <span class="k">def</span> <span class="nf">oauth_jwt_user</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+        <span class="n">validate_config</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s1">'_oauth_jwt_user'</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_oauth_jwt_user_</span> <span class="o">=</span> <span class="n">value</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">oauth_encryption_key</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_oauth_encryption_key_</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_oauth_encryption_key_</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'PANEL_OAUTH_ENCRYPTION'</span><span class="p">,</span> <span class="n">_config</span><span class="o">.</span><span class="n">_oauth_encryption_key</span><span class="p">)</span>
+
+    <span class="nd">@oauth_encryption_key</span><span class="o">.</span><span class="n">setter</span>
+    <span class="k">def</span> <span class="nf">oauth_encryption_key</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+        <span class="n">validate_config</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s1">'_oauth_encryption_key'</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_oauth_encryption_key_</span> <span class="o">=</span> <span class="n">value</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">oauth_extra_params</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_oauth_extra_params_</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_oauth_extra_params_</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">if</span> <span class="s1">'PANEL_OAUTH_EXTRA_PARAMS'</span> <span class="ow">in</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">:</span>
+                <span class="k">return</span> <span class="n">ast</span><span class="o">.</span><span class="n">literal_eval</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s1">'PANEL_OAUTH_EXTRA_PARAMS'</span><span class="p">])</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">return</span> <span class="n">_config</span><span class="o">.</span><span class="n">_oauth_extra_params</span>
+
+    <span class="nd">@oauth_extra_params</span><span class="o">.</span><span class="n">setter</span>
+    <span class="k">def</span> <span class="nf">oauth_extra_params</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+        <span class="n">validate_config</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s1">'_oauth_extra_params'</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_oauth_extra_params_</span> <span class="o">=</span> <span class="n">value</span>
+
+        
+
+<span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">_config</span><span class="o">.</span><span class="n">param</span><span class="p">,</span> <span class="s1">'objects'</span><span class="p">):</span>
+    <span class="n">_params</span> <span class="o">=</span> <span class="n">_config</span><span class="o">.</span><span class="n">param</span><span class="o">.</span><span class="n">objects</span><span class="p">()</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="n">_params</span> <span class="o">=</span> <span class="n">_config</span><span class="o">.</span><span class="n">param</span><span class="o">.</span><span class="n">params</span><span class="p">()</span>
+
+<span class="n">config</span> <span class="o">=</span> <span class="n">_config</span><span class="p">(</span><span class="o">**</span><span class="p">{</span><span class="n">k</span><span class="p">:</span> <span class="kc">None</span> <span class="k">if</span> <span class="n">p</span><span class="o">.</span><span class="n">allow_None</span> <span class="k">else</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">_config</span><span class="p">,</span> <span class="n">k</span><span class="p">)</span>
+                    <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">_params</span><span class="o">.</span><span class="n">items</span><span class="p">()</span> <span class="k">if</span> <span class="n">k</span> <span class="o">!=</span> <span class="s1">'name'</span><span class="p">})</span>
+
+
+<div class="viewcode-block" id="panel_extension"><a class="viewcode-back" href="../../api/panel.config.html#panel.config.panel_extension">[docs]</a><span class="k">class</span> <span class="nc">panel_extension</span><span class="p">(</span><span class="n">_pyviz_extension</span><span class="p">):</span>
+    <span class="sd">"""</span>
+<span class="sd">    Initializes the pyviz notebook extension to allow plotting with</span>
+<span class="sd">    bokeh and enable comms.</span>
+<span class="sd">    """</span>
+
+    <span class="n">_loaded</span> <span class="o">=</span> <span class="kc">False</span>
+
+    <span class="n">_imports</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s1">'katex'</span><span class="p">:</span> <span class="s1">'panel.models.katex'</span><span class="p">,</span>
+        <span class="s1">'mathjax'</span><span class="p">:</span> <span class="s1">'panel.models.mathjax'</span><span class="p">,</span>
+        <span class="s1">'plotly'</span><span class="p">:</span> <span class="s1">'panel.models.plotly'</span><span class="p">,</span>
+        <span class="s1">'deckgl'</span><span class="p">:</span> <span class="s1">'panel.models.deckgl'</span><span class="p">,</span>
+        <span class="s1">'vega'</span><span class="p">:</span> <span class="s1">'panel.models.vega'</span><span class="p">,</span>
+        <span class="s1">'vtk'</span><span class="p">:</span> <span class="s1">'panel.models.vtk'</span><span class="p">,</span>
+        <span class="s1">'ace'</span><span class="p">:</span> <span class="s1">'panel.models.ace'</span><span class="p">,</span>
+        <span class="s1">'echarts'</span><span class="p">:</span> <span class="s1">'panel.models.echarts'</span><span class="p">,</span>
+        <span class="s1">'ipywidgets'</span><span class="p">:</span> <span class="s1">'ipywidgets_bokeh.widget'</span><span class="p">,</span>
+        <span class="s1">'perspective'</span><span class="p">:</span> <span class="s1">'panel.models.perspective'</span>
+    <span class="p">}</span>
+
+    <span class="c1"># Check whether these are loaded before rendering</span>
+    <span class="n">_globals</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s1">'deckgl'</span><span class="p">:</span> <span class="s1">'deck'</span><span class="p">,</span>
+        <span class="s1">'echarts'</span><span class="p">:</span> <span class="s1">'echarts'</span><span class="p">,</span>
+        <span class="s1">'katex'</span><span class="p">:</span> <span class="s1">'katex'</span><span class="p">,</span>
+        <span class="s1">'mathjax'</span><span class="p">:</span> <span class="s1">'MathJax'</span><span class="p">,</span>
+        <span class="s1">'plotly'</span><span class="p">:</span> <span class="s1">'Plotly'</span><span class="p">,</span>
+        <span class="s1">'vega'</span><span class="p">:</span> <span class="s1">'vega'</span><span class="p">,</span>
+        <span class="s1">'vtk'</span><span class="p">:</span> <span class="s1">'vtk'</span>
+    <span class="p">}</span>
+
+    <span class="n">_loaded_extensions</span> <span class="o">=</span> <span class="p">[]</span>
+
+    <span class="k">def</span> <span class="fm">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">params</span><span class="p">):</span>
+        <span class="c1"># Abort if IPython not found</span>
+        <span class="k">for</span> <span class="n">arg</span> <span class="ow">in</span> <span class="n">args</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">arg</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_imports</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">param</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s1">'</span><span class="si">%s</span><span class="s1"> extension not recognized and '</span>
+                                   <span class="s1">'will be skipped.'</span> <span class="o">%</span> <span class="n">arg</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="nb">__import__</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_imports</span><span class="p">[</span><span class="n">arg</span><span class="p">])</span>
+
+        <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">params</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="k">if</span> <span class="n">k</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">'raw_css'</span><span class="p">,</span> <span class="s1">'css_files'</span><span class="p">]:</span>
+                <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="nb">list</span><span class="p">):</span>
+                    <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">'</span><span class="si">%s</span><span class="s1"> should be supplied as a list, '</span>
+                                     <span class="s1">'not as a </span><span class="si">%s</span><span class="s1"> type.'</span> <span class="o">%</span>
+                                     <span class="p">(</span><span class="n">k</span><span class="p">,</span> <span class="nb">type</span><span class="p">(</span><span class="n">v</span><span class="p">)</span><span class="o">.</span><span class="vm">__name__</span><span class="p">))</span>
+                <span class="nb">getattr</span><span class="p">(</span><span class="n">config</span><span class="p">,</span> <span class="n">k</span><span class="p">)</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">v</span><span class="p">)</span>
+            <span class="k">elif</span> <span class="n">k</span> <span class="o">==</span> <span class="s1">'js_files'</span><span class="p">:</span>
+                <span class="nb">getattr</span><span class="p">(</span><span class="n">config</span><span class="p">,</span> <span class="n">k</span><span class="p">)</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">v</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="nb">setattr</span><span class="p">(</span><span class="n">config</span><span class="p">,</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">config</span><span class="o">.</span><span class="n">apply_signatures</span> <span class="ow">and</span> <span class="n">sys</span><span class="o">.</span><span class="n">version_info</span><span class="o">.</span><span class="n">major</span> <span class="o">&gt;=</span> <span class="mi">3</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_apply_signatures</span><span class="p">()</span>
+
+        <span class="n">loaded</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_loaded</span>
+
+        <span class="c1"># Short circuit pyvista extension load if VTK is already initialized</span>
+        <span class="k">if</span> <span class="n">loaded</span> <span class="ow">and</span> <span class="n">args</span> <span class="o">==</span> <span class="p">(</span><span class="s1">'vtk'</span><span class="p">,)</span> <span class="ow">and</span> <span class="s1">'vtk'</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_loaded_extensions</span><span class="p">:</span>
+            <span class="n">curframe</span> <span class="o">=</span> <span class="n">inspect</span><span class="o">.</span><span class="n">currentframe</span><span class="p">()</span>
+            <span class="n">calframe</span> <span class="o">=</span> <span class="n">inspect</span><span class="o">.</span><span class="n">getouterframes</span><span class="p">(</span><span class="n">curframe</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">calframe</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="mi">3</span> <span class="ow">and</span> <span class="s1">'pyvista'</span> <span class="ow">in</span> <span class="n">calframe</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">filename</span><span class="p">:</span>
+                <span class="k">return</span>
+
+        <span class="k">if</span> <span class="s1">'holoviews'</span> <span class="ow">in</span> <span class="n">sys</span><span class="o">.</span><span class="n">modules</span><span class="p">:</span>
+            <span class="kn">import</span> <span class="nn">holoviews</span> <span class="k">as</span> <span class="nn">hv</span>
+            <span class="kn">import</span> <span class="nn">holoviews.plotting.bokeh</span> <span class="c1"># noqa</span>
+            <span class="n">loaded</span> <span class="o">=</span> <span class="n">loaded</span> <span class="ow">or</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">hv</span><span class="o">.</span><span class="n">extension</span><span class="p">,</span> <span class="s1">'_loaded'</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span>
+
+            <span class="k">if</span> <span class="n">hv</span><span class="o">.</span><span class="n">Store</span><span class="o">.</span><span class="n">current_backend</span> <span class="ow">in</span> <span class="n">hv</span><span class="o">.</span><span class="n">Store</span><span class="o">.</span><span class="n">renderers</span><span class="p">:</span>
+                <span class="n">backend</span> <span class="o">=</span> <span class="n">hv</span><span class="o">.</span><span class="n">Store</span><span class="o">.</span><span class="n">current_backend</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">backend</span> <span class="o">=</span> <span class="s1">'bokeh'</span>
+            <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">hv</span><span class="o">.</span><span class="n">Store</span><span class="p">,</span> <span class="s1">'set_current_backend'</span><span class="p">):</span>
+                <span class="n">hv</span><span class="o">.</span><span class="n">Store</span><span class="o">.</span><span class="n">set_current_backend</span><span class="p">(</span><span class="n">backend</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">hv</span><span class="o">.</span><span class="n">Store</span><span class="o">.</span><span class="n">current_backend</span> <span class="o">=</span> <span class="n">backend</span>
+
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">ip</span> <span class="o">=</span> <span class="n">params</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">'ip'</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span> <span class="ow">or</span> <span class="n">get_ipython</span><span class="p">()</span> <span class="c1"># noqa (get_ipython)</span>
+        <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
+            <span class="k">return</span>
+
+        <span class="n">newly_loaded</span> <span class="o">=</span> <span class="p">[</span><span class="n">arg</span> <span class="k">for</span> <span class="n">arg</span> <span class="ow">in</span> <span class="n">args</span> <span class="k">if</span> <span class="n">arg</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">panel_extension</span><span class="o">.</span><span class="n">_loaded_extensions</span><span class="p">]</span>
+        <span class="k">if</span> <span class="n">loaded</span> <span class="ow">and</span> <span class="n">newly_loaded</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">param</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span>
+                <span class="s2">"A HoloViz extension was loaded previously. This means "</span>
+                <span class="s2">"the extension is already initialized and the following "</span>
+                <span class="s2">"Panel extensions could not be properly loaded: </span><span class="si">%s</span><span class="s2">. "</span>
+                <span class="s2">"If you are loading custom extensions with pn.extension(...) "</span>
+                <span class="s2">"ensure that this is called before any other HoloViz "</span>
+                <span class="s2">"extension such as hvPlot or HoloViews."</span> <span class="o">%</span> <span class="n">newly_loaded</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">panel_extension</span><span class="o">.</span><span class="n">_loaded_extensions</span> <span class="o">+=</span> <span class="n">newly_loaded</span>
+
+        <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">ip</span><span class="p">,</span> <span class="s1">'kernel'</span><span class="p">)</span> <span class="ow">and</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_loaded</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">config</span><span class="o">.</span><span class="n">_doc_build</span><span class="p">:</span>
+            <span class="c1"># TODO: JLab extension and pyviz_comms should be changed</span>
+            <span class="c1">#       to allow multiple cleanup comms to be registered</span>
+            <span class="n">_JupyterCommManager</span><span class="o">.</span><span class="n">get_client_comm</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_process_comm_msg</span><span class="p">,</span>
+                                                <span class="s2">"hv-extension-comm"</span><span class="p">)</span>
+            <span class="n">state</span><span class="o">.</span><span class="n">_comm_manager</span> <span class="o">=</span> <span class="n">_JupyterCommManager</span>
+
+        <span class="k">if</span> <span class="s1">'ipywidgets'</span> <span class="ow">in</span> <span class="n">sys</span><span class="o">.</span><span class="n">modules</span> <span class="ow">and</span> <span class="n">config</span><span class="o">.</span><span class="n">embed</span><span class="p">:</span>
+            <span class="c1"># In embedded mode the ipywidgets_bokeh model must be loaded</span>
+            <span class="nb">__import__</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_imports</span><span class="p">[</span><span class="s1">'ipywidgets'</span><span class="p">])</span>
+
+        <span class="n">nb_load</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="k">if</span> <span class="s1">'holoviews'</span> <span class="ow">in</span> <span class="n">sys</span><span class="o">.</span><span class="n">modules</span><span class="p">:</span>
+            <span class="k">if</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">hv</span><span class="o">.</span><span class="n">extension</span><span class="p">,</span> <span class="s1">'_loaded'</span><span class="p">,</span> <span class="kc">False</span><span class="p">):</span>
+                <span class="k">return</span>
+            <span class="k">with</span> <span class="n">param</span><span class="o">.</span><span class="n">logging_level</span><span class="p">(</span><span class="s1">'ERROR'</span><span class="p">):</span>
+                <span class="n">hv</span><span class="o">.</span><span class="n">plotting</span><span class="o">.</span><span class="n">Renderer</span><span class="o">.</span><span class="n">load_nb</span><span class="p">(</span><span class="n">config</span><span class="o">.</span><span class="n">inline</span><span class="p">)</span>
+                <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">hv</span><span class="o">.</span><span class="n">plotting</span><span class="o">.</span><span class="n">Renderer</span><span class="p">,</span> <span class="s1">'_render_with_panel'</span><span class="p">):</span>
+                    <span class="n">nb_load</span> <span class="o">=</span> <span class="kc">True</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">nb_load</span> <span class="ow">and</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">ip</span><span class="p">,</span> <span class="s1">'kernel'</span><span class="p">):</span>
+            <span class="n">load_notebook</span><span class="p">(</span><span class="n">config</span><span class="o">.</span><span class="n">inline</span><span class="p">)</span>
+        <span class="n">panel_extension</span><span class="o">.</span><span class="n">_loaded</span> <span class="o">=</span> <span class="kc">True</span>
+
+
+    <span class="k">def</span> <span class="nf">_apply_signatures</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="kn">from</span> <span class="nn">inspect</span> <span class="kn">import</span> <span class="n">Parameter</span><span class="p">,</span> <span class="n">Signature</span>
+        <span class="kn">from</span> <span class="nn">.viewable</span> <span class="kn">import</span> <span class="n">Viewable</span>
+
+        <span class="n">descendants</span> <span class="o">=</span> <span class="n">param</span><span class="o">.</span><span class="n">concrete_descendents</span><span class="p">(</span><span class="n">Viewable</span><span class="p">)</span>
+        <span class="k">for</span> <span class="bp">cls</span> <span class="ow">in</span> <span class="nb">reversed</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">descendants</span><span class="o">.</span><span class="n">values</span><span class="p">())):</span>
+            <span class="k">if</span> <span class="bp">cls</span><span class="o">.</span><span class="vm">__doc__</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s1">'params'</span><span class="p">):</span>
+                <span class="n">prefix</span> <span class="o">=</span> <span class="bp">cls</span><span class="o">.</span><span class="vm">__doc__</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">'</span><span class="se">\n</span><span class="s1">'</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+                <span class="bp">cls</span><span class="o">.</span><span class="vm">__doc__</span> <span class="o">=</span> <span class="bp">cls</span><span class="o">.</span><span class="vm">__doc__</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="n">prefix</span><span class="p">,</span> <span class="s1">''</span><span class="p">)</span>
+            <span class="n">sig</span> <span class="o">=</span> <span class="n">inspect</span><span class="o">.</span><span class="n">signature</span><span class="p">(</span><span class="bp">cls</span><span class="o">.</span><span class="fm">__init__</span><span class="p">)</span>
+            <span class="n">sig_params</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">sig</span><span class="o">.</span><span class="n">parameters</span><span class="o">.</span><span class="n">values</span><span class="p">())</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">sig_params</span> <span class="ow">or</span> <span class="n">sig_params</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">!=</span> <span class="n">Parameter</span><span class="p">(</span><span class="s1">'params'</span><span class="p">,</span> <span class="n">Parameter</span><span class="o">.</span><span class="n">VAR_KEYWORD</span><span class="p">):</span>
+                <span class="k">continue</span>
+            <span class="n">parameters</span> <span class="o">=</span> <span class="n">sig_params</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+
+            <span class="n">processed_kws</span><span class="p">,</span> <span class="n">keyword_groups</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(),</span> <span class="p">[]</span>
+            <span class="k">for</span> <span class="bp">cls</span> <span class="ow">in</span> <span class="nb">reversed</span><span class="p">(</span><span class="bp">cls</span><span class="o">.</span><span class="n">mro</span><span class="p">()):</span>
+                <span class="n">keyword_group</span> <span class="o">=</span> <span class="p">[]</span>
+                <span class="k">for</span> <span class="p">(</span><span class="n">k</span><span class="p">,</span> <span class="n">v</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">sorted</span><span class="p">(</span><span class="bp">cls</span><span class="o">.</span><span class="vm">__dict__</span><span class="o">.</span><span class="n">items</span><span class="p">()):</span>
+                    <span class="k">if</span> <span class="p">(</span><span class="nb">isinstance</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="n">param</span><span class="o">.</span><span class="n">Parameter</span><span class="p">)</span> <span class="ow">and</span> <span class="n">k</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">processed_kws</span>
+                        <span class="ow">and</span> <span class="ow">not</span> <span class="n">v</span><span class="o">.</span><span class="n">readonly</span><span class="p">):</span>
+                        <span class="n">keyword_group</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">k</span><span class="p">)</span>
+                        <span class="n">processed_kws</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">k</span><span class="p">)</span>
+                <span class="n">keyword_groups</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">keyword_group</span><span class="p">)</span>
+
+            <span class="n">parameters</span> <span class="o">+=</span> <span class="p">[</span>
+                <span class="n">Parameter</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">Parameter</span><span class="o">.</span><span class="n">KEYWORD_ONLY</span><span class="p">)</span>
+                <span class="k">for</span> <span class="n">kws</span> <span class="ow">in</span> <span class="nb">reversed</span><span class="p">(</span><span class="n">keyword_groups</span><span class="p">)</span> <span class="k">for</span> <span class="n">name</span> <span class="ow">in</span> <span class="n">kws</span>
+                <span class="k">if</span> <span class="n">name</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">sig</span><span class="o">.</span><span class="n">parameters</span>
+            <span class="p">]</span>
+            <span class="n">parameters</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">Parameter</span><span class="p">(</span><span class="s1">'kwargs'</span><span class="p">,</span> <span class="n">Parameter</span><span class="o">.</span><span class="n">VAR_KEYWORD</span><span class="p">))</span>
+            <span class="bp">cls</span><span class="o">.</span><span class="fm">__init__</span><span class="o">.</span><span class="n">__signature__</span> <span class="o">=</span> <span class="n">Signature</span><span class="p">(</span>
+                <span class="n">parameters</span><span class="p">,</span> <span class="n">return_annotation</span><span class="o">=</span><span class="n">sig</span><span class="o">.</span><span class="n">return_annotation</span>
+            <span class="p">)</span></div>
+
+
+<span class="c1">#---------------------------------------------------------------------</span>
+<span class="c1"># Private API</span>
+<span class="c1">#---------------------------------------------------------------------</span>
+
+<span class="k">def</span> <span class="nf">_cleanup_panel</span><span class="p">(</span><span class="n">msg_id</span><span class="p">):</span>
+    <span class="sd">"""</span>
+<span class="sd">    A cleanup action which is called when a plot is deleted in the notebook</span>
+<span class="sd">    """</span>
+    <span class="k">if</span> <span class="n">msg_id</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">state</span><span class="o">.</span><span class="n">_views</span><span class="p">:</span>
+        <span class="k">return</span>
+    <span class="n">viewable</span><span class="p">,</span> <span class="n">model</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">state</span><span class="o">.</span><span class="n">_views</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="n">msg_id</span><span class="p">)</span>
+    <span class="n">viewable</span><span class="o">.</span><span class="n">_cleanup</span><span class="p">(</span><span class="n">model</span><span class="p">)</span>
+
+
+<span class="k">def</span> <span class="nf">_cleanup_server</span><span class="p">(</span><span class="n">server_id</span><span class="p">):</span>
+    <span class="sd">"""</span>
+<span class="sd">    A cleanup action which is called when a server is deleted in the notebook</span>
+<span class="sd">    """</span>
+    <span class="k">if</span> <span class="n">server_id</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">state</span><span class="o">.</span><span class="n">_servers</span><span class="p">:</span>
+        <span class="k">return</span>
+    <span class="n">server</span><span class="p">,</span> <span class="n">viewable</span><span class="p">,</span> <span class="n">docs</span> <span class="o">=</span> <span class="n">state</span><span class="o">.</span><span class="n">_servers</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="n">server_id</span><span class="p">)</span>
+    <span class="n">server</span><span class="o">.</span><span class="n">stop</span><span class="p">()</span>
+    <span class="k">for</span> <span class="n">doc</span> <span class="ow">in</span> <span class="n">docs</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">root</span> <span class="ow">in</span> <span class="n">doc</span><span class="o">.</span><span class="n">roots</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">root</span><span class="o">.</span><span class="n">ref</span><span class="p">[</span><span class="s1">'id'</span><span class="p">]</span> <span class="ow">in</span> <span class="n">viewable</span><span class="o">.</span><span class="n">_models</span><span class="p">:</span>
+                <span class="n">viewable</span><span class="o">.</span><span class="n">_cleanup</span><span class="p">(</span><span class="n">root</span><span class="p">)</span>
+
+
+<span class="n">panel_extension</span><span class="o">.</span><span class="n">add_delete_action</span><span class="p">(</span><span class="n">_cleanup_panel</span><span class="p">)</span>
+<span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">panel_extension</span><span class="p">,</span> <span class="s1">'add_server_delete_action'</span><span class="p">):</span>
+    <span class="n">panel_extension</span><span class="o">.</span><span class="n">add_server_delete_action</span><span class="p">(</span><span class="n">_cleanup_server</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<!-- END MAIN BODY OF DOCS ––––––––––––– -->
+<!-- Google Analytics -->
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async="" src="https://www.googletagmanager.com/gtag/js?id=UA-154795830-2"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-154795830-2', { 'anonymize_ip': true });
+</script>
+<!-- MathJax Config -->
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}
+});
+</script>
+<!-- End Document
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+</body>
+</html>

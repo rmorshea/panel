@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<!-- Basic Page Needs
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+<meta charset="utf-8"/>
+<title>panel.command.serve — Panel 0.11.1+g238199f-dirty documentation</title>
+<meta content="High-level dashboarding for python visualization libraries" name="description"/>
+<meta content="Panel contributors" name="author"/>
+<!-- Mobile Specific Metas
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<!-- FONT
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+<script src="https://ajax.googleapis.com/ajax/libs/webfont/1.6.16/webfont.js"></script>
+<script>
+    WebFont.load({
+      google: {
+        families: ['Source Sans Pro']
+      }
+    });
+  </script>
+<!-- CSS
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+<link href="../../../_static/css/main.css" rel="stylesheet"/>
+<link href="../../../_static/nbsite.css" rel="stylesheet"/>
+<link href="../../../_static/site.css" rel="stylesheet"/>
+<!-- Scripts
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script async="" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML" type="text/javascript">
+</script>
+<script src="../../../_static/js/main.js"></script>
+<!-- Favicon
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+<link href="../../../_static/favicon.ico" rel="icon" type="image/png"/>
+<!-- Canonical
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+<link href="https://panel.holoviz.org/_modules/panel/command/serve.html" rel="canonical">
+</link></head>
+<body class="">
+<header class="navigation">
+<div class="wrapper">
+<a class="logo" href="../../../index.html">
+<img alt="Logo" src="../../../_static/logo_horizontal.png"/>
+</a>
+<a class="navigation-menu-button" href="javascript:void(0)" id="js-mobile-menu">Menu</a>
+<nav>
+<ul class="navigation-menu show" id="js-navigation-menu">
+<li class="nav-link doc-head"><a href="//discourse.holoviz.org">Discourse</a></li>
+<li class="nav-link doc-head"><a href="//twitter.com/Panel_org">Twitter</a></li>
+<li class="nav-link doc-head"><a href="//github.com/pyviz/panel">Github</a></li>
+<li class="nav-link">
+<div style="display:inline-block;vertical-align: middle;">
+<div class="search-bar">
+<form action="../../../search.html" method="get" role="search">
+<input name="q" placeholder="Search" type="search"/>
+<button type="submit">
+<img alt="Search Icon" src="https://raw.githubusercontent.com/thoughtbot/refills/master/source/images/search-icon-black.png"/>
+</button>
+</form>
+</div>
+</div>
+</li>
+</ul>
+</nav>
+</div>
+</header>
+<div class="second-nav">
+<nav>
+<ul class="navigation-menu show">
+<li class="nav-link doc-head"><a href="../../../getting_started/index.html">Getting started</a></li>
+<li class="nav-link doc-head"><a href="../../../user_guide/index.html">User Guide</a></li>
+<li class="nav-link doc-head"><a href="../../../gallery/index.html">Gallery</a></li>
+<li class="nav-link doc-head"><a href="../../../reference/index.html">Reference Gallery</a></li>
+<li class="nav-link doc-head"><a href="../../../developer_guide/index.html">Developer Guide</a></li>
+<li class="nav-link doc-head"><a href="../../../releases.html">Releases</a></li>
+<li class="nav-link doc-head"><a href="../../../api/index.html">API</a></li>
+<li class="nav-link doc-head"><a href="../../../FAQ.html">FAQ</a></li>
+<li class="nav-link doc-head"><a href="../../../about.html">About</a></li>
+</ul>
+</nav>
+</div>
+<!-- MAIN BODY OF DOCS –––––––––––––––––– -->
+<div class="docs section">
+<div id="hacketyhackhack"> <!-- style="width:20%;margin-right: 100px;"> --> <!--style="display: none;"> style="display:none;"> -->
+<div class="toc" style="width:15%; margin-right:20px;">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../index.html">Home</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../getting_started/index.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../user_guide/index.html">User Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../gallery/index.html">Gallery</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../reference/index.html">Reference Gallery</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../developer_guide/index.html">Developer Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/index.html">API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../Comparisons.html">Comparisons</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../releases.html">Releases</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../Roadmap.html">Road Map</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../FAQ.html">FAQ</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://github.com/pyviz/panel">Github source</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../about.html">About</a></li>
+</ul>
+</div>
+</div>
+<div class="content"> <!-- style="max-width:80%;margin-left:auto;margin-right: auto;">-->
+<h1>Source code for panel.command.serve</h1><div class="highlight"><pre>
+<span></span><span class="sd">"""</span>
+<span class="sd">Subclasses the bokeh serve commandline handler to extend it in various</span>
+<span class="sd">ways.</span>
+<span class="sd">"""</span>
+
+<span class="kn">import</span> <span class="nn">ast</span>
+<span class="kn">import</span> <span class="nn">base64</span>
+<span class="kn">import</span> <span class="nn">logging</span> <span class="c1"># isort:skip</span>
+
+<span class="kn">from</span> <span class="nn">glob</span> <span class="kn">import</span> <span class="n">glob</span>
+<span class="kn">from</span> <span class="nn">urllib.parse</span> <span class="kn">import</span> <span class="n">urljoin</span>
+
+<span class="kn">from</span> <span class="nn">bokeh.command.subcommands.serve</span> <span class="kn">import</span> <span class="n">Serve</span> <span class="k">as</span> <span class="n">_BkServe</span>
+<span class="kn">from</span> <span class="nn">bokeh.command.util</span> <span class="kn">import</span> <span class="n">build_single_handler_applications</span>
+
+<span class="kn">from</span> <span class="nn">..auth</span> <span class="kn">import</span> <span class="n">OAuthProvider</span>
+<span class="kn">from</span> <span class="nn">..config</span> <span class="kn">import</span> <span class="n">config</span>
+<span class="kn">from</span> <span class="nn">..io.rest</span> <span class="kn">import</span> <span class="n">REST_PROVIDERS</span>
+<span class="kn">from</span> <span class="nn">..io.reload</span> <span class="kn">import</span> <span class="n">record_modules</span><span class="p">,</span> <span class="n">watch</span>
+<span class="kn">from</span> <span class="nn">..io.server</span> <span class="kn">import</span> <span class="n">INDEX_HTML</span><span class="p">,</span> <span class="n">get_static_routes</span>
+<span class="kn">from</span> <span class="nn">..io.state</span> <span class="kn">import</span> <span class="n">state</span>
+<span class="kn">from</span> <span class="nn">..util</span> <span class="kn">import</span> <span class="n">edit_readonly</span>
+
+<span class="n">log</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
+
+
+<div class="viewcode-block" id="parse_var"><a class="viewcode-back" href="../../../api/panel.command.html#panel.command.serve.parse_var">[docs]</a><span class="k">def</span> <span class="nf">parse_var</span><span class="p">(</span><span class="n">s</span><span class="p">):</span>
+    <span class="sd">"""</span>
+<span class="sd">    Parse a key, value pair, separated by '='</span>
+<span class="sd">    That's the reverse of ShellArgs.</span>
+
+<span class="sd">    On the command line (argparse) a declaration will typically look like:</span>
+<span class="sd">        foo=hello</span>
+<span class="sd">    or</span>
+<span class="sd">        foo="hello world"</span>
+<span class="sd">    """</span>
+    <span class="n">items</span> <span class="o">=</span> <span class="n">s</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">'='</span><span class="p">)</span>
+    <span class="n">key</span> <span class="o">=</span> <span class="n">items</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span> <span class="c1"># we remove blanks around keys, as is logical</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">items</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="c1"># rejoin the rest:</span>
+        <span class="n">value</span> <span class="o">=</span> <span class="s1">'='</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">items</span><span class="p">[</span><span class="mi">1</span><span class="p">:])</span>
+    <span class="k">return</span> <span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="parse_vars"><a class="viewcode-back" href="../../../api/panel.command.html#panel.command.serve.parse_vars">[docs]</a><span class="k">def</span> <span class="nf">parse_vars</span><span class="p">(</span><span class="n">items</span><span class="p">):</span>
+    <span class="sd">"""</span>
+<span class="sd">    Parse a series of key-value pairs and return a dictionary</span>
+<span class="sd">    """</span>
+    <span class="k">return</span> <span class="nb">dict</span><span class="p">((</span><span class="n">parse_var</span><span class="p">(</span><span class="n">item</span><span class="p">)</span> <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">items</span><span class="p">))</span></div>
+
+
+<div class="viewcode-block" id="Serve"><a class="viewcode-back" href="../../../api/panel.command.html#panel.command.serve.Serve">[docs]</a><span class="k">class</span> <span class="nc">Serve</span><span class="p">(</span><span class="n">_BkServe</span><span class="p">):</span>
+
+    <span class="n">args</span> <span class="o">=</span> <span class="n">_BkServe</span><span class="o">.</span><span class="n">args</span> <span class="o">+</span> <span class="p">(</span>
+        <span class="p">(</span><span class="s1">'--static-dirs'</span><span class="p">,</span> <span class="nb">dict</span><span class="p">(</span>
+            <span class="n">metavar</span><span class="o">=</span><span class="s2">"KEY=VALUE"</span><span class="p">,</span>
+            <span class="n">nargs</span><span class="o">=</span><span class="s1">'+'</span><span class="p">,</span>
+            <span class="n">help</span><span class="o">=</span><span class="p">(</span><span class="s2">"Static directories to serve specified as key=value "</span>
+                  <span class="s2">"pairs mapping from URL route to static file directory."</span><span class="p">)</span>
+        <span class="p">)),</span>
+        <span class="p">(</span><span class="s1">'--oauth-provider'</span><span class="p">,</span> <span class="nb">dict</span><span class="p">(</span>
+            <span class="n">action</span> <span class="o">=</span> <span class="s1">'store'</span><span class="p">,</span>
+            <span class="nb">type</span>   <span class="o">=</span> <span class="nb">str</span><span class="p">,</span>
+            <span class="n">help</span>   <span class="o">=</span> <span class="s2">"The OAuth2 provider to use."</span>
+        <span class="p">)),</span>
+        <span class="p">(</span><span class="s1">'--oauth-key'</span><span class="p">,</span> <span class="nb">dict</span><span class="p">(</span>
+            <span class="n">action</span>  <span class="o">=</span> <span class="s1">'store'</span><span class="p">,</span>
+            <span class="nb">type</span>    <span class="o">=</span> <span class="nb">str</span><span class="p">,</span>
+            <span class="n">help</span>    <span class="o">=</span> <span class="s2">"The OAuth2 key to use"</span><span class="p">,</span>
+        <span class="p">)),</span>
+        <span class="p">(</span><span class="s1">'--oauth-secret'</span><span class="p">,</span> <span class="nb">dict</span><span class="p">(</span>
+            <span class="n">action</span>  <span class="o">=</span> <span class="s1">'store'</span><span class="p">,</span>
+            <span class="nb">type</span>    <span class="o">=</span> <span class="nb">str</span><span class="p">,</span>
+            <span class="n">help</span>    <span class="o">=</span> <span class="s2">"The OAuth2 secret to use"</span><span class="p">,</span>
+        <span class="p">)),</span>
+        <span class="p">(</span><span class="s1">'--oauth-redirect-uri'</span><span class="p">,</span> <span class="nb">dict</span><span class="p">(</span>
+            <span class="n">action</span>  <span class="o">=</span> <span class="s1">'store'</span><span class="p">,</span>
+            <span class="nb">type</span>    <span class="o">=</span> <span class="nb">str</span><span class="p">,</span>
+            <span class="n">help</span>    <span class="o">=</span> <span class="s2">"The OAuth2 redirect URI"</span><span class="p">,</span>
+        <span class="p">)),</span>
+        <span class="p">(</span><span class="s1">'--oauth-extra-params'</span><span class="p">,</span> <span class="nb">dict</span><span class="p">(</span>
+            <span class="n">action</span>  <span class="o">=</span> <span class="s1">'store'</span><span class="p">,</span>
+            <span class="nb">type</span>    <span class="o">=</span> <span class="nb">str</span><span class="p">,</span>
+            <span class="n">help</span>    <span class="o">=</span> <span class="s2">"Additional parameters to use."</span><span class="p">,</span>
+        <span class="p">)),</span>
+        <span class="p">(</span><span class="s1">'--oauth-jwt-user'</span><span class="p">,</span> <span class="nb">dict</span><span class="p">(</span>
+            <span class="n">action</span>  <span class="o">=</span> <span class="s1">'store'</span><span class="p">,</span>
+            <span class="nb">type</span>    <span class="o">=</span> <span class="nb">str</span><span class="p">,</span>
+            <span class="n">help</span>    <span class="o">=</span> <span class="s2">"The key in the ID JWT token to consider the user."</span><span class="p">,</span>
+        <span class="p">)),</span>
+        <span class="p">(</span><span class="s1">'--oauth-encryption-key'</span><span class="p">,</span> <span class="nb">dict</span><span class="p">(</span>
+            <span class="n">action</span> <span class="o">=</span> <span class="s1">'store'</span><span class="p">,</span>
+            <span class="nb">type</span>    <span class="o">=</span> <span class="nb">str</span><span class="p">,</span>
+            <span class="n">help</span>    <span class="o">=</span> <span class="s2">"A random string used to encode the user information."</span>
+        <span class="p">)),</span>
+        <span class="p">(</span><span class="s1">'--rest-provider'</span><span class="p">,</span> <span class="nb">dict</span><span class="p">(</span>
+            <span class="n">action</span> <span class="o">=</span> <span class="s1">'store'</span><span class="p">,</span>
+            <span class="nb">type</span>   <span class="o">=</span> <span class="nb">str</span><span class="p">,</span>
+            <span class="n">help</span>   <span class="o">=</span> <span class="s2">"The interface to use to serve REST API"</span>
+        <span class="p">)),</span>
+        <span class="p">(</span><span class="s1">'--rest-endpoint'</span><span class="p">,</span> <span class="nb">dict</span><span class="p">(</span>
+            <span class="n">action</span>  <span class="o">=</span> <span class="s1">'store'</span><span class="p">,</span>
+            <span class="nb">type</span>    <span class="o">=</span> <span class="nb">str</span><span class="p">,</span>
+            <span class="n">help</span>    <span class="o">=</span> <span class="s2">"Endpoint to store REST API on."</span><span class="p">,</span>
+            <span class="n">default</span> <span class="o">=</span> <span class="s1">'rest'</span>
+        <span class="p">)),</span>
+        <span class="p">(</span><span class="s1">'--rest-session-info'</span><span class="p">,</span> <span class="nb">dict</span><span class="p">(</span>
+            <span class="n">action</span>  <span class="o">=</span> <span class="s1">'store_true'</span><span class="p">,</span>
+            <span class="n">help</span>    <span class="o">=</span> <span class="s2">"Whether to serve session info on the REST API"</span>
+        <span class="p">)),</span>
+        <span class="p">(</span><span class="s1">'--session-history'</span><span class="p">,</span> <span class="nb">dict</span><span class="p">(</span>
+            <span class="n">action</span>  <span class="o">=</span> <span class="s1">'store'</span><span class="p">,</span>
+            <span class="nb">type</span>    <span class="o">=</span> <span class="nb">int</span><span class="p">,</span>
+            <span class="n">help</span>    <span class="o">=</span> <span class="s2">"The length of the session history to record."</span><span class="p">,</span>
+            <span class="n">default</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="p">)),</span>
+        <span class="p">(</span><span class="s1">'--warm'</span><span class="p">,</span> <span class="nb">dict</span><span class="p">(</span>
+            <span class="n">action</span>  <span class="o">=</span> <span class="s1">'store_true'</span><span class="p">,</span>
+            <span class="n">help</span>    <span class="o">=</span> <span class="s2">"Whether to execute scripts on startup to warm up the server."</span>
+        <span class="p">)),</span>
+        <span class="p">(</span><span class="s1">'--autoreload'</span><span class="p">,</span> <span class="nb">dict</span><span class="p">(</span>
+            <span class="n">action</span>  <span class="o">=</span> <span class="s1">'store_true'</span><span class="p">,</span>
+            <span class="n">help</span>    <span class="o">=</span> <span class="s2">"Whether to autoreload source when script changes."</span>
+        <span class="p">))</span>
+    <span class="p">)</span>
+
+<div class="viewcode-block" id="Serve.customize_kwargs"><a class="viewcode-back" href="../../../api/panel.command.html#panel.command.serve.Serve.customize_kwargs">[docs]</a>    <span class="k">def</span> <span class="nf">customize_kwargs</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">args</span><span class="p">,</span> <span class="n">server_kwargs</span><span class="p">):</span>
+        <span class="sd">'''Allows subclasses to customize ``server_kwargs``.</span>
+
+<span class="sd">        Should modify and return a copy of the ``server_kwargs`` dictionary.</span>
+<span class="sd">        '''</span>
+        <span class="n">kwargs</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">server_kwargs</span><span class="p">)</span>
+        <span class="k">if</span> <span class="s1">'index'</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="p">:</span>
+            <span class="n">kwargs</span><span class="p">[</span><span class="s1">'index'</span><span class="p">]</span> <span class="o">=</span> <span class="n">INDEX_HTML</span>
+
+        <span class="c1"># Handle tranquilized functions in the supplied functions</span>
+        <span class="n">kwargs</span><span class="p">[</span><span class="s1">'extra_patterns'</span><span class="p">]</span> <span class="o">=</span> <span class="n">patterns</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'extra_patterns'</span><span class="p">,</span> <span class="p">[])</span>
+
+        <span class="k">if</span> <span class="n">args</span><span class="o">.</span><span class="n">static_dirs</span><span class="p">:</span>
+            <span class="n">static_dirs</span> <span class="o">=</span> <span class="n">parse_vars</span><span class="p">(</span><span class="n">args</span><span class="o">.</span><span class="n">static_dirs</span><span class="p">)</span>
+            <span class="n">patterns</span> <span class="o">+=</span> <span class="n">get_static_routes</span><span class="p">(</span><span class="n">static_dirs</span><span class="p">)</span>
+
+        <span class="n">files</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">args</span><span class="o">.</span><span class="n">files</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">args</span><span class="o">.</span><span class="n">glob</span><span class="p">:</span>
+                <span class="n">files</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">glob</span><span class="p">(</span><span class="n">f</span><span class="p">))</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">files</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
+
+        <span class="n">prefix</span> <span class="o">=</span> <span class="n">args</span><span class="o">.</span><span class="n">prefix</span> <span class="ow">or</span> <span class="s1">''</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">prefix</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s1">'/'</span><span class="p">):</span>
+            <span class="n">prefix</span> <span class="o">+=</span> <span class="s1">'/'</span>
+        <span class="k">with</span> <span class="n">edit_readonly</span><span class="p">(</span><span class="n">state</span><span class="p">):</span>
+            <span class="n">state</span><span class="o">.</span><span class="n">base_url</span> <span class="o">=</span> <span class="n">urljoin</span><span class="p">(</span><span class="s1">'/'</span><span class="p">,</span> <span class="n">prefix</span><span class="p">)</span>
+
+        <span class="c1"># Handle tranquilized functions in the supplied functions</span>
+        <span class="k">if</span> <span class="n">args</span><span class="o">.</span><span class="n">rest_provider</span> <span class="ow">in</span> <span class="n">REST_PROVIDERS</span><span class="p">:</span>
+            <span class="n">pattern</span> <span class="o">=</span> <span class="n">REST_PROVIDERS</span><span class="p">[</span><span class="n">args</span><span class="o">.</span><span class="n">rest_provider</span><span class="p">](</span><span class="n">files</span><span class="p">,</span> <span class="n">args</span><span class="o">.</span><span class="n">rest_endpoint</span><span class="p">)</span>
+            <span class="n">patterns</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">pattern</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">args</span><span class="o">.</span><span class="n">rest_provider</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">"rest-provider </span><span class="si">%r</span><span class="s2"> not recognized."</span> <span class="o">%</span> <span class="n">args</span><span class="o">.</span><span class="n">rest_provider</span><span class="p">)</span>
+
+        <span class="n">config</span><span class="o">.</span><span class="n">autoreload</span> <span class="o">=</span> <span class="n">args</span><span class="o">.</span><span class="n">autoreload</span>
+
+        <span class="k">if</span> <span class="n">config</span><span class="o">.</span><span class="n">autoreload</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">files</span><span class="p">:</span>
+                <span class="n">watch</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">args</span><span class="o">.</span><span class="n">warm</span> <span class="ow">or</span> <span class="n">args</span><span class="o">.</span><span class="n">autoreload</span><span class="p">:</span>
+            <span class="n">argvs</span> <span class="o">=</span> <span class="p">{</span><span class="n">f</span><span class="p">:</span> <span class="n">args</span><span class="o">.</span><span class="n">args</span> <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">files</span><span class="p">}</span>
+            <span class="n">applications</span> <span class="o">=</span> <span class="n">build_single_handler_applications</span><span class="p">(</span><span class="n">files</span><span class="p">,</span> <span class="n">argvs</span><span class="p">)</span>
+            <span class="k">with</span> <span class="n">record_modules</span><span class="p">():</span>
+                <span class="k">for</span> <span class="n">app</span> <span class="ow">in</span> <span class="n">applications</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
+                    <span class="n">app</span><span class="o">.</span><span class="n">create_document</span><span class="p">()</span>
+
+        <span class="n">config</span><span class="o">.</span><span class="n">session_history</span> <span class="o">=</span> <span class="n">args</span><span class="o">.</span><span class="n">session_history</span>
+        <span class="k">if</span> <span class="n">args</span><span class="o">.</span><span class="n">rest_session_info</span><span class="p">:</span>
+            <span class="n">pattern</span> <span class="o">=</span> <span class="n">REST_PROVIDERS</span><span class="p">[</span><span class="s1">'param'</span><span class="p">](</span><span class="n">files</span><span class="p">,</span> <span class="s1">'rest'</span><span class="p">)</span>
+            <span class="n">patterns</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">pattern</span><span class="p">)</span>
+            <span class="n">state</span><span class="o">.</span><span class="n">publish</span><span class="p">(</span><span class="s1">'session_info'</span><span class="p">,</span> <span class="n">state</span><span class="p">,</span> <span class="p">[</span><span class="s1">'session_info'</span><span class="p">])</span>
+
+        <span class="k">if</span> <span class="n">args</span><span class="o">.</span><span class="n">oauth_provider</span><span class="p">:</span>
+            <span class="n">config</span><span class="o">.</span><span class="n">oauth_provider</span> <span class="o">=</span> <span class="n">args</span><span class="o">.</span><span class="n">oauth_provider</span>
+            <span class="k">if</span> <span class="n">config</span><span class="o">.</span><span class="n">oauth_key</span> <span class="ow">and</span> <span class="n">args</span><span class="o">.</span><span class="n">oauth_key</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                    <span class="s2">"Supply OAuth key either using environment variable "</span>
+                    <span class="s2">"or via explicit argument, not both."</span>
+                <span class="p">)</span>
+            <span class="k">elif</span> <span class="n">args</span><span class="o">.</span><span class="n">oauth_key</span><span class="p">:</span>
+                <span class="n">config</span><span class="o">.</span><span class="n">oauth_key</span> <span class="o">=</span> <span class="n">args</span><span class="o">.</span><span class="n">oauth_key</span>
+            <span class="k">elif</span> <span class="ow">not</span> <span class="n">config</span><span class="o">.</span><span class="n">oauth_key</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                    <span class="s2">"When enabling an OAuth provider you must supply "</span>
+                    <span class="s2">"a valid oauth_key either using the --oauth-key "</span>
+                    <span class="s2">"CLI argument or PANEL_OAUTH_KEY environment "</span>
+                    <span class="s2">"variable."</span>
+                <span class="p">)</span>
+
+            <span class="k">if</span> <span class="n">config</span><span class="o">.</span><span class="n">oauth_secret</span> <span class="ow">and</span> <span class="n">args</span><span class="o">.</span><span class="n">oauth_secret</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                    <span class="s2">"Supply OAuth secret either using environment variable "</span>
+                    <span class="s2">"or via explicit argument, not both."</span>
+                <span class="p">)</span>
+            <span class="k">elif</span> <span class="n">args</span><span class="o">.</span><span class="n">oauth_secret</span><span class="p">:</span>
+                <span class="n">config</span><span class="o">.</span><span class="n">oauth_secret</span> <span class="o">=</span> <span class="n">args</span><span class="o">.</span><span class="n">oauth_secret</span>
+            <span class="k">elif</span> <span class="ow">not</span> <span class="n">config</span><span class="o">.</span><span class="n">oauth_secret</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                    <span class="s2">"When enabling an OAuth provider you must supply "</span>
+                    <span class="s2">"a valid OAuth secret either using the --oauth-secret "</span>
+                    <span class="s2">"CLI argument or PANEL_OAUTH_SECRET environment "</span>
+                    <span class="s2">"variable."</span>
+                <span class="p">)</span>
+
+            <span class="k">if</span> <span class="n">args</span><span class="o">.</span><span class="n">oauth_extra_params</span><span class="p">:</span>
+                <span class="n">config</span><span class="o">.</span><span class="n">oauth_extra_params</span> <span class="o">=</span> <span class="n">ast</span><span class="o">.</span><span class="n">literal_eval</span><span class="p">(</span><span class="n">args</span><span class="o">.</span><span class="n">oauth_extra_params</span><span class="p">)</span>
+
+            <span class="k">if</span> <span class="n">config</span><span class="o">.</span><span class="n">oauth_encryption_key</span> <span class="ow">and</span> <span class="n">args</span><span class="o">.</span><span class="n">oauth_encryption_key</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                    <span class="s2">"Supply OAuth encryption key either using environment "</span>
+                    <span class="s2">"variable or via explicit argument, not both."</span>
+                <span class="p">)</span>
+            <span class="k">elif</span> <span class="n">args</span><span class="o">.</span><span class="n">oauth_encryption_key</span><span class="p">:</span>
+                <span class="n">encryption_key</span> <span class="o">=</span> <span class="n">args</span><span class="o">.</span><span class="n">oauth_encryption_key</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s1">'ascii'</span><span class="p">)</span>
+                <span class="k">try</span><span class="p">:</span>
+                    <span class="n">key</span> <span class="o">=</span> <span class="n">base64</span><span class="o">.</span><span class="n">urlsafe_b64decode</span><span class="p">(</span><span class="n">encryption_key</span><span class="p">)</span>
+                <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
+                    <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">"OAuth encryption key was not a valid base64 "</span>
+                                     <span class="s2">"string. Generate an encryption key with "</span>
+                                     <span class="s2">"`panel oauth-secret` and ensure you did not "</span>
+                                     <span class="s2">"truncate the returned string."</span><span class="p">)</span>
+                <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">key</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">32</span><span class="p">:</span>
+                    <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                        <span class="s2">"OAuth encryption key must be 32 url-safe "</span>
+                        <span class="s2">"base64-encoded bytes."</span>
+                    <span class="p">)</span>
+                <span class="n">config</span><span class="o">.</span><span class="n">oauth_encryption_key</span> <span class="o">=</span> <span class="n">encryption_key</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="nb">print</span><span class="p">(</span><span class="s2">"WARNING: OAuth has not been configured with an "</span>
+                      <span class="s2">"encryption key and will potentially leak "</span>
+                      <span class="s2">"credentials in cookies and a JWT token embedded "</span>
+                      <span class="s2">"in the served website. Use at your own risk or "</span>
+                      <span class="s2">"generate a key with the `panel oauth-key` CLI "</span>
+                      <span class="s2">"command and then provide it to `panel serve` "</span>
+                      <span class="s2">"using the PANEL_OAUTH_ENCRYPTION environment "</span>
+                      <span class="s2">"variable or the --oauth-encryption-key CLI "</span>
+                      <span class="s2">"argument."</span><span class="p">)</span>
+
+            <span class="k">if</span> <span class="n">config</span><span class="o">.</span><span class="n">oauth_encryption_key</span><span class="p">:</span>
+                <span class="k">try</span><span class="p">:</span>
+                    <span class="kn">from</span> <span class="nn">cryptography.fernet</span> <span class="kn">import</span> <span class="n">Fernet</span>
+                <span class="k">except</span> <span class="ne">ImportError</span><span class="p">:</span>
+                    <span class="k">raise</span> <span class="ne">ImportError</span><span class="p">(</span>
+                        <span class="s2">"Using OAuth2 provider with Panel requires the "</span>
+                        <span class="s2">"cryptography library. Install it with `pip install "</span>
+                        <span class="s2">"cryptography` or `conda install cryptography`."</span>
+                    <span class="p">)</span>
+                <span class="n">state</span><span class="o">.</span><span class="n">encryption</span> <span class="o">=</span> <span class="n">Fernet</span><span class="p">(</span><span class="n">config</span><span class="o">.</span><span class="n">oauth_encryption_key</span><span class="p">)</span>
+
+            <span class="k">if</span> <span class="n">args</span><span class="o">.</span><span class="n">cookie_secret</span> <span class="ow">and</span> <span class="n">config</span><span class="o">.</span><span class="n">cookie_secret</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                    <span class="s2">"Supply cookie secret either using environment "</span>
+                    <span class="s2">"variable or via explicit argument, not both."</span>
+                <span class="p">)</span>
+            <span class="k">elif</span> <span class="n">args</span><span class="o">.</span><span class="n">cookie_secret</span><span class="p">:</span>
+                <span class="n">config</span><span class="o">.</span><span class="n">cookie_secret</span> <span class="o">=</span> <span class="n">args</span><span class="o">.</span><span class="n">cookie_secret</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                    <span class="s2">"When enabling an OAuth provider you must supply "</span>
+                    <span class="s2">"a valid cookie_secret either using the --cookie-secret "</span>
+                    <span class="s2">"CLI argument or the PANEL_COOKIE_SECRET environment "</span>
+                    <span class="s2">"variable."</span>
+                <span class="p">)</span>
+            <span class="n">kwargs</span><span class="p">[</span><span class="s1">'auth_provider'</span><span class="p">]</span> <span class="o">=</span> <span class="n">OAuthProvider</span><span class="p">()</span>
+
+            <span class="k">if</span> <span class="n">args</span><span class="o">.</span><span class="n">oauth_redirect_uri</span> <span class="ow">and</span> <span class="n">config</span><span class="o">.</span><span class="n">oauth_redirect_uri</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                    <span class="s2">"Supply OAuth redirect URI either using environment "</span>
+                    <span class="s2">"variable or via explicit argument, not both."</span>
+                <span class="p">)</span>
+            <span class="k">elif</span> <span class="n">args</span><span class="o">.</span><span class="n">oauth_redirect_uri</span><span class="p">:</span>
+                <span class="n">config</span><span class="o">.</span><span class="n">oauth_redirect_uri</span> <span class="o">=</span> <span class="n">args</span><span class="o">.</span><span class="n">oauth_redirect_uri</span>
+
+            <span class="k">if</span> <span class="n">args</span><span class="o">.</span><span class="n">oauth_jwt_user</span> <span class="ow">and</span> <span class="n">config</span><span class="o">.</span><span class="n">oauth_jwt_user</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                    <span class="s2">"Supply OAuth JWT user either using environment "</span>
+                    <span class="s2">"variable or via explicit argument, not both."</span>
+                <span class="p">)</span>
+            <span class="k">elif</span> <span class="n">args</span><span class="o">.</span><span class="n">oauth_jwt_user</span><span class="p">:</span>
+                <span class="n">config</span><span class="o">.</span><span class="n">oauth_jwt_user</span> <span class="o">=</span> <span class="n">args</span><span class="o">.</span><span class="n">oauth_jwt_user</span>
+
+        <span class="k">if</span> <span class="n">config</span><span class="o">.</span><span class="n">cookie_secret</span><span class="p">:</span>
+            <span class="n">kwargs</span><span class="p">[</span><span class="s1">'cookie_secret'</span><span class="p">]</span> <span class="o">=</span> <span class="n">config</span><span class="o">.</span><span class="n">cookie_secret</span>
+
+        <span class="k">return</span> <span class="n">kwargs</span></div></div>
+</pre></div>
+</div>
+</div>
+<!-- END MAIN BODY OF DOCS ––––––––––––– -->
+<!-- Google Analytics -->
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async="" src="https://www.googletagmanager.com/gtag/js?id=UA-154795830-2"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-154795830-2', { 'anonymize_ip': true });
+</script>
+<!-- MathJax Config -->
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}
+});
+</script>
+<!-- End Document
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+</body>
+</html>

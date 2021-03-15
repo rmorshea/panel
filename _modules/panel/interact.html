@@ -1,0 +1,662 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<!-- Basic Page Needs
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+<meta charset="utf-8"/>
+<title>panel.interact — Panel 0.11.1+g238199f-dirty documentation</title>
+<meta content="High-level dashboarding for python visualization libraries" name="description"/>
+<meta content="Panel contributors" name="author"/>
+<!-- Mobile Specific Metas
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<!-- FONT
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+<script src="https://ajax.googleapis.com/ajax/libs/webfont/1.6.16/webfont.js"></script>
+<script>
+    WebFont.load({
+      google: {
+        families: ['Source Sans Pro']
+      }
+    });
+  </script>
+<!-- CSS
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+<link href="../../_static/css/main.css" rel="stylesheet"/>
+<link href="../../_static/nbsite.css" rel="stylesheet"/>
+<link href="../../_static/site.css" rel="stylesheet"/>
+<!-- Scripts
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script async="" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML" type="text/javascript">
+</script>
+<script src="../../_static/js/main.js"></script>
+<!-- Favicon
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+<link href="../../_static/favicon.ico" rel="icon" type="image/png"/>
+<!-- Canonical
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+<link href="https://panel.holoviz.org/_modules/panel/interact.html" rel="canonical">
+</link></head>
+<body class="">
+<header class="navigation">
+<div class="wrapper">
+<a class="logo" href="../../index.html">
+<img alt="Logo" src="../../_static/logo_horizontal.png"/>
+</a>
+<a class="navigation-menu-button" href="javascript:void(0)" id="js-mobile-menu">Menu</a>
+<nav>
+<ul class="navigation-menu show" id="js-navigation-menu">
+<li class="nav-link doc-head"><a href="//discourse.holoviz.org">Discourse</a></li>
+<li class="nav-link doc-head"><a href="//twitter.com/Panel_org">Twitter</a></li>
+<li class="nav-link doc-head"><a href="//github.com/pyviz/panel">Github</a></li>
+<li class="nav-link">
+<div style="display:inline-block;vertical-align: middle;">
+<div class="search-bar">
+<form action="../../search.html" method="get" role="search">
+<input name="q" placeholder="Search" type="search"/>
+<button type="submit">
+<img alt="Search Icon" src="https://raw.githubusercontent.com/thoughtbot/refills/master/source/images/search-icon-black.png"/>
+</button>
+</form>
+</div>
+</div>
+</li>
+</ul>
+</nav>
+</div>
+</header>
+<div class="second-nav">
+<nav>
+<ul class="navigation-menu show">
+<li class="nav-link doc-head"><a href="../../getting_started/index.html">Getting started</a></li>
+<li class="nav-link doc-head"><a href="../../user_guide/index.html">User Guide</a></li>
+<li class="nav-link doc-head"><a href="../../gallery/index.html">Gallery</a></li>
+<li class="nav-link doc-head"><a href="../../reference/index.html">Reference Gallery</a></li>
+<li class="nav-link doc-head"><a href="../../developer_guide/index.html">Developer Guide</a></li>
+<li class="nav-link doc-head"><a href="../../releases.html">Releases</a></li>
+<li class="nav-link doc-head"><a href="../../api/index.html">API</a></li>
+<li class="nav-link doc-head"><a href="../../FAQ.html">FAQ</a></li>
+<li class="nav-link doc-head"><a href="../../about.html">About</a></li>
+</ul>
+</nav>
+</div>
+<!-- MAIN BODY OF DOCS –––––––––––––––––– -->
+<div class="docs section">
+<div id="hacketyhackhack"> <!-- style="width:20%;margin-right: 100px;"> --> <!--style="display: none;"> style="display:none;"> -->
+<div class="toc" style="width:15%; margin-right:20px;">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../index.html">Home</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../getting_started/index.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../user_guide/index.html">User Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../gallery/index.html">Gallery</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../reference/index.html">Reference Gallery</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../developer_guide/index.html">Developer Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../api/index.html">API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Comparisons.html">Comparisons</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../releases.html">Releases</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Roadmap.html">Road Map</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../FAQ.html">FAQ</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://github.com/pyviz/panel">Github source</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../about.html">About</a></li>
+</ul>
+</div>
+</div>
+<div class="content"> <!-- style="max-width:80%;margin-left:auto;margin-right: auto;">-->
+<h1>Source code for panel.interact</h1><div class="highlight"><pre>
+<span></span><span class="sd">"""</span>
+<span class="sd">Interact with functions using widgets.</span>
+
+<span class="sd">The interact Pane implemented in this module mirrors</span>
+<span class="sd">ipywidgets.interact in its API and implementation. Large parts of the</span>
+<span class="sd">code were copied directly from ipywidgets:</span>
+
+<span class="sd">Copyright (c) Jupyter Development Team and PyViz Development Team.</span>
+<span class="sd">Distributed under the terms of the Modified BSD License.</span>
+<span class="sd">"""</span>
+<span class="kn">import</span> <span class="nn">types</span>
+
+<span class="kn">from</span> <span class="nn">collections</span> <span class="kn">import</span> <span class="n">OrderedDict</span>
+<span class="kn">from</span> <span class="nn">inspect</span> <span class="kn">import</span> <span class="n">getcallargs</span>
+<span class="kn">from</span> <span class="nn">numbers</span> <span class="kn">import</span> <span class="n">Real</span><span class="p">,</span> <span class="n">Integral</span>
+<span class="kn">from</span> <span class="nn">six</span> <span class="kn">import</span> <span class="n">string_types</span>
+
+<span class="k">try</span><span class="p">:</span>  <span class="c1"># Python &gt;= 3.3</span>
+    <span class="kn">from</span> <span class="nn">inspect</span> <span class="kn">import</span> <span class="n">signature</span><span class="p">,</span> <span class="n">Parameter</span>
+    <span class="kn">from</span> <span class="nn">collections.abc</span> <span class="kn">import</span> <span class="n">Iterable</span><span class="p">,</span> <span class="n">Mapping</span>
+    <span class="n">empty</span> <span class="o">=</span> <span class="n">Parameter</span><span class="o">.</span><span class="n">empty</span>
+<span class="k">except</span> <span class="ne">ImportError</span><span class="p">:</span>
+    <span class="kn">from</span> <span class="nn">collections</span> <span class="kn">import</span> <span class="n">Iterable</span><span class="p">,</span> <span class="n">Mapping</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="kn">from</span> <span class="nn">IPython.utils.signatures</span> <span class="kn">import</span> <span class="n">signature</span><span class="p">,</span> <span class="n">Parameter</span>
+        <span class="n">empty</span> <span class="o">=</span> <span class="n">Parameter</span><span class="o">.</span><span class="n">empty</span>
+    <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
+        <span class="n">signature</span><span class="p">,</span> <span class="n">Parameter</span><span class="p">,</span> <span class="n">empty</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span>
+
+<span class="k">try</span><span class="p">:</span>
+    <span class="kn">from</span> <span class="nn">inspect</span> <span class="kn">import</span> <span class="n">getfullargspec</span> <span class="k">as</span> <span class="n">check_argspec</span>
+<span class="k">except</span> <span class="ne">ImportError</span><span class="p">:</span>
+    <span class="kn">from</span> <span class="nn">inspect</span> <span class="kn">import</span> <span class="n">getargspec</span> <span class="k">as</span> <span class="n">check_argspec</span> <span class="c1"># py2</span>
+
+<span class="kn">import</span> <span class="nn">param</span>
+
+<span class="kn">from</span> <span class="nn">.layout</span> <span class="kn">import</span> <span class="n">Panel</span><span class="p">,</span> <span class="n">Column</span><span class="p">,</span> <span class="n">Row</span>
+<span class="kn">from</span> <span class="nn">.pane</span> <span class="kn">import</span> <span class="n">PaneBase</span><span class="p">,</span> <span class="n">HTML</span><span class="p">,</span> <span class="n">panel</span>
+<span class="kn">from</span> <span class="nn">.pane.base</span> <span class="kn">import</span> <span class="n">ReplacementPane</span>
+<span class="kn">from</span> <span class="nn">.util</span> <span class="kn">import</span> <span class="n">as_unicode</span>
+<span class="kn">from</span> <span class="nn">.viewable</span> <span class="kn">import</span> <span class="n">Viewable</span>
+<span class="kn">from</span> <span class="nn">.widgets</span> <span class="kn">import</span> <span class="p">(</span><span class="n">Checkbox</span><span class="p">,</span> <span class="n">TextInput</span><span class="p">,</span> <span class="n">Widget</span><span class="p">,</span> <span class="n">IntSlider</span><span class="p">,</span> <span class="n">FloatSlider</span><span class="p">,</span>
+                      <span class="n">Select</span><span class="p">,</span> <span class="n">DiscreteSlider</span><span class="p">,</span> <span class="n">Button</span><span class="p">)</span>
+
+
+<span class="k">def</span> <span class="nf">_get_min_max_value</span><span class="p">(</span><span class="nb">min</span><span class="p">,</span> <span class="nb">max</span><span class="p">,</span> <span class="n">value</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">step</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="sd">"""Return min, max, value given input values with possible None."""</span>
+    <span class="c1"># Either min and max need to be given, or value needs to be given</span>
+    <span class="k">if</span> <span class="n">value</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">if</span> <span class="nb">min</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="nb">max</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">'unable to infer range, value from: (</span><span class="si">{0}</span><span class="s1">, </span><span class="si">{1}</span><span class="s1">, </span><span class="si">{2}</span><span class="s1">)'</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">min</span><span class="p">,</span> <span class="nb">max</span><span class="p">,</span> <span class="n">value</span><span class="p">))</span>
+        <span class="n">diff</span> <span class="o">=</span> <span class="nb">max</span> <span class="o">-</span> <span class="nb">min</span>
+        <span class="n">value</span> <span class="o">=</span> <span class="nb">min</span> <span class="o">+</span> <span class="p">(</span><span class="n">diff</span> <span class="o">/</span> <span class="mi">2</span><span class="p">)</span>
+        <span class="c1"># Ensure that value has the same type as diff</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="nb">type</span><span class="p">(</span><span class="n">diff</span><span class="p">)):</span>
+            <span class="n">value</span> <span class="o">=</span> <span class="nb">min</span> <span class="o">+</span> <span class="p">(</span><span class="n">diff</span> <span class="o">//</span> <span class="mi">2</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>  <span class="c1"># value is not None</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="n">Real</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s1">'expected a real number, got: </span><span class="si">%r</span><span class="s1">'</span> <span class="o">%</span> <span class="n">value</span><span class="p">)</span>
+        <span class="c1"># Infer min/max from value</span>
+        <span class="k">if</span> <span class="n">value</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="c1"># This gives (0, 1) of the correct type</span>
+            <span class="n">vrange</span> <span class="o">=</span> <span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="n">value</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">value</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">vrange</span> <span class="o">=</span> <span class="p">(</span><span class="o">-</span><span class="n">value</span><span class="p">,</span> <span class="mi">3</span><span class="o">*</span><span class="n">value</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">vrange</span> <span class="o">=</span> <span class="p">(</span><span class="mi">3</span><span class="o">*</span><span class="n">value</span><span class="p">,</span> <span class="o">-</span><span class="n">value</span><span class="p">)</span>
+        <span class="k">if</span> <span class="nb">min</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="nb">min</span> <span class="o">=</span> <span class="n">vrange</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="k">if</span> <span class="nb">max</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="nb">max</span> <span class="o">=</span> <span class="n">vrange</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+    <span class="k">if</span> <span class="n">step</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="c1"># ensure value is on a step</span>
+        <span class="n">tick</span> <span class="o">=</span> <span class="nb">int</span><span class="p">((</span><span class="n">value</span> <span class="o">-</span> <span class="nb">min</span><span class="p">)</span> <span class="o">/</span> <span class="n">step</span><span class="p">)</span>
+        <span class="n">value</span> <span class="o">=</span> <span class="nb">min</span> <span class="o">+</span> <span class="n">tick</span> <span class="o">*</span> <span class="n">step</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="nb">min</span> <span class="o">&lt;=</span> <span class="n">value</span> <span class="o">&lt;=</span> <span class="nb">max</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">'value must be between min and max (min=</span><span class="si">{0}</span><span class="s1">, value=</span><span class="si">{1}</span><span class="s1">, max=</span><span class="si">{2}</span><span class="s1">)'</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">min</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="nb">max</span><span class="p">))</span>
+    <span class="k">return</span> <span class="nb">min</span><span class="p">,</span> <span class="nb">max</span><span class="p">,</span> <span class="n">value</span>
+
+
+<span class="k">def</span> <span class="nf">_yield_abbreviations_for_parameter</span><span class="p">(</span><span class="n">parameter</span><span class="p">,</span> <span class="n">kwargs</span><span class="p">):</span>
+    <span class="sd">"""Get an abbreviation for a function parameter."""</span>
+    <span class="n">name</span> <span class="o">=</span> <span class="n">parameter</span><span class="o">.</span><span class="n">name</span>
+    <span class="n">kind</span> <span class="o">=</span> <span class="n">parameter</span><span class="o">.</span><span class="n">kind</span>
+    <span class="n">ann</span> <span class="o">=</span> <span class="n">parameter</span><span class="o">.</span><span class="n">annotation</span>
+    <span class="n">default</span> <span class="o">=</span> <span class="n">parameter</span><span class="o">.</span><span class="n">default</span>
+    <span class="n">not_found</span> <span class="o">=</span> <span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">empty</span><span class="p">,</span> <span class="n">empty</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">kind</span> <span class="ow">in</span> <span class="p">(</span><span class="n">Parameter</span><span class="o">.</span><span class="n">POSITIONAL_OR_KEYWORD</span><span class="p">,</span> <span class="n">Parameter</span><span class="o">.</span><span class="n">KEYWORD_ONLY</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">name</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="p">:</span>
+            <span class="n">value</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">ann</span> <span class="ow">is</span> <span class="ow">not</span> <span class="n">empty</span><span class="p">:</span>
+            <span class="n">param</span><span class="o">.</span><span class="n">main</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s2">"Using function annotations to implicitly specify interactive controls is deprecated. "</span>
+                               <span class="s2">"Use an explicit keyword argument for the parameter instead."</span><span class="p">,</span> <span class="ne">DeprecationWarning</span><span class="p">)</span>
+            <span class="n">value</span> <span class="o">=</span> <span class="n">ann</span>
+        <span class="k">elif</span> <span class="n">default</span> <span class="ow">is</span> <span class="ow">not</span> <span class="n">empty</span><span class="p">:</span>
+            <span class="n">value</span> <span class="o">=</span> <span class="n">default</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="p">(</span><span class="n">Iterable</span><span class="p">,</span> <span class="n">Mapping</span><span class="p">)):</span>
+                <span class="n">value</span> <span class="o">=</span> <span class="n">fixed</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">yield</span> <span class="n">not_found</span>
+        <span class="k">yield</span> <span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="n">default</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="n">kind</span> <span class="o">==</span> <span class="n">Parameter</span><span class="o">.</span><span class="n">VAR_KEYWORD</span><span class="p">:</span>
+        <span class="c1"># In this case name=kwargs and we yield the items in kwargs with their keys.</span>
+        <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="n">k</span><span class="p">)</span>
+            <span class="k">yield</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span><span class="p">,</span> <span class="n">empty</span>
+
+
+<span class="k">def</span> <span class="nf">_matches</span><span class="p">(</span><span class="n">o</span><span class="p">,</span> <span class="n">pattern</span><span class="p">):</span>
+    <span class="sd">"""Match a pattern of types in a sequence."""</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="nb">len</span><span class="p">(</span><span class="n">o</span><span class="p">)</span> <span class="o">==</span> <span class="nb">len</span><span class="p">(</span><span class="n">pattern</span><span class="p">):</span>
+        <span class="k">return</span> <span class="kc">False</span>
+    <span class="n">comps</span> <span class="o">=</span> <span class="nb">zip</span><span class="p">(</span><span class="n">o</span><span class="p">,</span><span class="n">pattern</span><span class="p">)</span>
+    <span class="k">return</span> <span class="nb">all</span><span class="p">(</span><span class="nb">isinstance</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span><span class="n">kind</span><span class="p">)</span> <span class="k">for</span> <span class="n">obj</span><span class="p">,</span><span class="n">kind</span> <span class="ow">in</span> <span class="n">comps</span><span class="p">)</span>
+
+
+<div class="viewcode-block" id="interactive"><a class="viewcode-back" href="../../api/panel.interact.html#panel.interact.interactive">[docs]</a><span class="k">class</span> <span class="nc">interactive</span><span class="p">(</span><span class="n">PaneBase</span><span class="p">):</span>
+
+    <span class="n">default_layout</span> <span class="o">=</span> <span class="n">param</span><span class="o">.</span><span class="n">ClassSelector</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="n">Column</span><span class="p">,</span> <span class="n">class_</span><span class="o">=</span><span class="p">(</span><span class="n">Panel</span><span class="p">),</span>
+                                         <span class="n">is_instance</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+
+    <span class="n">manual_update</span> <span class="o">=</span> <span class="n">param</span><span class="o">.</span><span class="n">Boolean</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="s2">"""</span>
+<span class="s2">        Whether to update manually by clicking on button."""</span><span class="p">)</span>
+
+    <span class="n">manual_name</span> <span class="o">=</span> <span class="n">param</span><span class="o">.</span><span class="n">String</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="s1">'Run Interact'</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">object</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="p">{},</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">signature</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ImportError</span><span class="p">(</span><span class="s1">'interact requires either recent Python version '</span>
+                              <span class="s1">'(&gt;=3.3 or IPython to inspect function signatures.'</span><span class="p">)</span>
+
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="nb">object</span><span class="p">,</span> <span class="o">**</span><span class="n">params</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">throttled</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">'throttled'</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span>
+        <span class="n">new_kwargs</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">find_abbreviations</span><span class="p">(</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="c1"># Before we proceed, let's make sure that the user has passed a set of args+kwargs</span>
+        <span class="c1"># that will lead to a valid call of the function. This protects against unspecified</span>
+        <span class="c1"># and doubly-specified arguments.</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">check_argspec</span><span class="p">(</span><span class="nb">object</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">TypeError</span><span class="p">:</span>
+            <span class="c1"># if we can't inspect, we can't validate</span>
+            <span class="k">pass</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">getcallargs</span><span class="p">(</span><span class="nb">object</span><span class="p">,</span> <span class="o">**</span><span class="p">{</span><span class="n">n</span><span class="p">:</span><span class="n">v</span> <span class="k">for</span> <span class="n">n</span><span class="p">,</span><span class="n">v</span><span class="p">,</span><span class="n">_</span> <span class="ow">in</span> <span class="n">new_kwargs</span><span class="p">})</span>
+
+        <span class="n">widgets</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">widgets_from_abbreviations</span><span class="p">(</span><span class="n">new_kwargs</span><span class="p">)</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">manual_update</span><span class="p">:</span>
+            <span class="n">widgets</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="s1">'manual'</span><span class="p">,</span> <span class="n">Button</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">manual_name</span><span class="p">)))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_widgets</span> <span class="o">=</span> <span class="n">OrderedDict</span><span class="p">(</span><span class="n">widgets</span><span class="p">)</span>
+        <span class="n">pane</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">object</span><span class="p">(</span><span class="o">**</span><span class="bp">self</span><span class="o">.</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">pane</span><span class="p">,</span> <span class="n">Viewable</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_pane</span> <span class="o">=</span> <span class="n">pane</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_internal</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_pane</span> <span class="o">=</span> <span class="n">panel</span><span class="p">(</span><span class="n">pane</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_internal</span> <span class="o">=</span> <span class="kc">True</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_inner_layout</span> <span class="o">=</span> <span class="n">Row</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_pane</span><span class="p">)</span>
+        <span class="n">widgets</span> <span class="o">=</span> <span class="p">[</span><span class="n">widget</span> <span class="k">for</span> <span class="n">_</span><span class="p">,</span> <span class="n">widget</span> <span class="ow">in</span> <span class="n">widgets</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">widget</span><span class="p">,</span> <span class="n">Widget</span><span class="p">)]</span>
+        <span class="k">if</span> <span class="s1">'name'</span> <span class="ow">in</span> <span class="n">params</span><span class="p">:</span>
+            <span class="n">widgets</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">HTML</span><span class="p">(</span><span class="s1">'&lt;h2&gt;</span><span class="si">%s</span><span class="s1">&lt;/h2&gt;'</span> <span class="o">%</span> <span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">widget_box</span> <span class="o">=</span> <span class="n">Column</span><span class="p">(</span><span class="o">*</span><span class="n">widgets</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">layout</span><span class="o">.</span><span class="n">objects</span> <span class="o">=</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">widget_box</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_inner_layout</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_link_widgets</span><span class="p">()</span>
+
+    <span class="c1">#----------------------------------------------------------------</span>
+    <span class="c1"># Model API</span>
+    <span class="c1">#----------------------------------------------------------------</span>
+
+    <span class="k">def</span> <span class="nf">_get_model</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">doc</span><span class="p">,</span> <span class="n">root</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">parent</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">comm</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_inner_layout</span><span class="o">.</span><span class="n">_get_model</span><span class="p">(</span><span class="n">doc</span><span class="p">,</span> <span class="n">root</span><span class="p">,</span> <span class="n">parent</span><span class="p">,</span> <span class="n">comm</span><span class="p">)</span>
+
+    <span class="c1">#----------------------------------------------------------------</span>
+    <span class="c1"># Callback API</span>
+    <span class="c1">#----------------------------------------------------------------</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">_synced_params</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="p">[]</span>
+
+    <span class="k">def</span> <span class="nf">_link_widgets</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">manual_update</span><span class="p">:</span>
+            <span class="n">widgets</span> <span class="o">=</span> <span class="p">[(</span><span class="s1">'manual'</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_widgets</span><span class="p">[</span><span class="s1">'manual'</span><span class="p">])]</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">widgets</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_widgets</span><span class="o">.</span><span class="n">items</span><span class="p">()</span>
+
+        <span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">widget</span> <span class="ow">in</span> <span class="n">widgets</span><span class="p">:</span>
+            <span class="k">def</span> <span class="nf">update_pane</span><span class="p">(</span><span class="n">change</span><span class="p">):</span>
+                <span class="c1"># Try updating existing pane</span>
+                <span class="n">new_object</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">object</span><span class="p">(</span><span class="o">**</span><span class="bp">self</span><span class="o">.</span><span class="n">kwargs</span><span class="p">)</span>
+                <span class="n">new_pane</span><span class="p">,</span> <span class="n">internal</span> <span class="o">=</span> <span class="n">ReplacementPane</span><span class="o">.</span><span class="n">_update_from_object</span><span class="p">(</span>
+                    <span class="n">new_object</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_pane</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_internal</span>
+                <span class="p">)</span>
+                <span class="k">if</span> <span class="n">new_pane</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                    <span class="k">return</span>
+
+                <span class="c1"># Replace pane entirely</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_pane</span> <span class="o">=</span> <span class="n">new_pane</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_inner_layout</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">new_pane</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_internal</span> <span class="o">=</span> <span class="n">internal</span>
+
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">throttled</span> <span class="ow">and</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">widget</span><span class="p">,</span> <span class="s1">'value_throttled'</span><span class="p">):</span>
+                <span class="n">v</span> <span class="o">=</span> <span class="s1">'value_throttled'</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">v</span> <span class="o">=</span> <span class="s1">'value'</span>
+
+            <span class="n">pname</span> <span class="o">=</span> <span class="s1">'clicks'</span> <span class="k">if</span> <span class="n">name</span> <span class="o">==</span> <span class="s1">'manual'</span> <span class="k">else</span> <span class="n">v</span>
+            <span class="n">watcher</span> <span class="o">=</span> <span class="n">widget</span><span class="o">.</span><span class="n">param</span><span class="o">.</span><span class="n">watch</span><span class="p">(</span><span class="n">update_pane</span><span class="p">,</span> <span class="n">pname</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_callbacks</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">watcher</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">_cleanup</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">root</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_inner_layout</span><span class="o">.</span><span class="n">_cleanup</span><span class="p">(</span><span class="n">root</span><span class="p">)</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">_cleanup</span><span class="p">(</span><span class="n">root</span><span class="p">)</span>
+
+    <span class="c1">#----------------------------------------------------------------</span>
+    <span class="c1"># Public API</span>
+    <span class="c1">#----------------------------------------------------------------</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">kwargs</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="p">{</span><span class="n">k</span><span class="p">:</span> <span class="n">widget</span><span class="o">.</span><span class="n">value</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">widget</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_widgets</span><span class="o">.</span><span class="n">items</span><span class="p">()</span>
+                <span class="k">if</span> <span class="n">k</span> <span class="o">!=</span> <span class="s1">'manual'</span><span class="p">}</span>
+
+    <span class="k">def</span> <span class="nf">signature</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">signature</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">object</span><span class="p">)</span>
+
+<div class="viewcode-block" id="interactive.find_abbreviations"><a class="viewcode-back" href="../../api/panel.interact.html#panel.interact.interactive.find_abbreviations">[docs]</a>    <span class="k">def</span> <span class="nf">find_abbreviations</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">kwargs</span><span class="p">):</span>
+        <span class="sd">"""Find the abbreviations for the given function and kwargs.</span>
+<span class="sd">        Return (name, abbrev, default) tuples.</span>
+<span class="sd">        """</span>
+        <span class="n">new_kwargs</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">sig</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">signature</span><span class="p">()</span>
+        <span class="k">except</span> <span class="p">(</span><span class="ne">ValueError</span><span class="p">,</span> <span class="ne">TypeError</span><span class="p">):</span>
+            <span class="c1"># can't inspect, no info from function; only use kwargs</span>
+            <span class="k">return</span> <span class="p">[</span> <span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span> <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">items</span><span class="p">()</span> <span class="p">]</span>
+
+        <span class="k">for</span> <span class="n">parameter</span> <span class="ow">in</span> <span class="n">sig</span><span class="o">.</span><span class="n">parameters</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
+            <span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="n">default</span> <span class="ow">in</span> <span class="n">_yield_abbreviations_for_parameter</span><span class="p">(</span><span class="n">parameter</span><span class="p">,</span> <span class="n">kwargs</span><span class="p">):</span>
+                <span class="k">if</span> <span class="n">value</span> <span class="ow">is</span> <span class="n">empty</span><span class="p">:</span>
+                    <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">'cannot find widget or abbreviation for argument: </span><span class="si">{!r}</span><span class="s1">'</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">name</span><span class="p">))</span>
+                <span class="n">new_kwargs</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">name</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="n">default</span><span class="p">))</span>
+        <span class="k">return</span> <span class="n">new_kwargs</span></div>
+
+<div class="viewcode-block" id="interactive.widgets_from_abbreviations"><a class="viewcode-back" href="../../api/panel.interact.html#panel.interact.interactive.widgets_from_abbreviations">[docs]</a>    <span class="k">def</span> <span class="nf">widgets_from_abbreviations</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">seq</span><span class="p">):</span>
+        <span class="sd">"""Given a sequence of (name, abbrev, default) tuples, return a sequence of Widgets."""</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">abbrev</span><span class="p">,</span> <span class="n">default</span> <span class="ow">in</span> <span class="n">seq</span><span class="p">:</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">abbrev</span><span class="p">,</span> <span class="n">fixed</span><span class="p">):</span>
+                <span class="n">widget</span> <span class="o">=</span> <span class="n">abbrev</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">widget</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">widget_from_abbrev</span><span class="p">(</span><span class="n">abbrev</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">default</span><span class="p">)</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="p">(</span><span class="nb">isinstance</span><span class="p">(</span><span class="n">widget</span><span class="p">,</span> <span class="n">Widget</span><span class="p">)</span> <span class="ow">or</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">widget</span><span class="p">,</span> <span class="n">fixed</span><span class="p">)):</span>
+                <span class="k">if</span> <span class="n">widget</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                    <span class="k">continue</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">"</span><span class="si">{!r}</span><span class="s2"> is not a ValueWidget"</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">widget</span><span class="p">))</span>
+            <span class="n">result</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">name</span><span class="p">,</span> <span class="n">widget</span><span class="p">))</span>
+        <span class="k">return</span> <span class="n">result</span></div>
+
+<div class="viewcode-block" id="interactive.applies"><a class="viewcode-back" href="../../api/panel.interact.html#panel.interact.interactive.applies">[docs]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">applies</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="nb">object</span><span class="p">):</span>
+        <span class="k">return</span> <span class="nb">isinstance</span><span class="p">(</span><span class="nb">object</span><span class="p">,</span> <span class="n">types</span><span class="o">.</span><span class="n">FunctionType</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="interactive.widget_from_abbrev"><a class="viewcode-back" href="../../api/panel.interact.html#panel.interact.interactive.widget_from_abbrev">[docs]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">widget_from_abbrev</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">abbrev</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="n">empty</span><span class="p">):</span>
+        <span class="sd">"""Build a ValueWidget instance given an abbreviation or Widget."""</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">abbrev</span><span class="p">,</span> <span class="n">Widget</span><span class="p">):</span>
+            <span class="k">return</span> <span class="n">abbrev</span>
+
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">abbrev</span><span class="p">,</span> <span class="nb">tuple</span><span class="p">):</span>
+            <span class="n">widget</span> <span class="o">=</span> <span class="bp">cls</span><span class="o">.</span><span class="n">widget_from_tuple</span><span class="p">(</span><span class="n">abbrev</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">default</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">default</span> <span class="ow">is</span> <span class="ow">not</span> <span class="n">empty</span><span class="p">:</span>
+                <span class="k">try</span><span class="p">:</span>
+                    <span class="n">widget</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="n">default</span>
+                <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
+                    <span class="c1"># ignore failure to set default</span>
+                    <span class="k">pass</span>
+            <span class="k">return</span> <span class="n">widget</span>
+
+        <span class="c1"># Try single value</span>
+        <span class="n">widget</span> <span class="o">=</span> <span class="bp">cls</span><span class="o">.</span><span class="n">widget_from_single_value</span><span class="p">(</span><span class="n">abbrev</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">widget</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">widget</span>
+
+        <span class="c1"># Something iterable (list, dict, generator, ...). Note that str and</span>
+        <span class="c1"># tuple should be handled before, that is why we check this case last.</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">abbrev</span><span class="p">,</span> <span class="n">Iterable</span><span class="p">):</span>
+            <span class="n">widget</span> <span class="o">=</span> <span class="bp">cls</span><span class="o">.</span><span class="n">widget_from_iterable</span><span class="p">(</span><span class="n">abbrev</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">default</span> <span class="ow">is</span> <span class="ow">not</span> <span class="n">empty</span><span class="p">:</span>
+                <span class="k">try</span><span class="p">:</span>
+                    <span class="n">widget</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="n">default</span>
+                <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
+                    <span class="c1"># ignore failure to set default</span>
+                    <span class="k">pass</span>
+            <span class="k">return</span> <span class="n">widget</span>
+
+        <span class="c1"># No idea...</span>
+        <span class="k">return</span> <span class="n">fixed</span><span class="p">(</span><span class="n">abbrev</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="interactive.widget_from_single_value"><a class="viewcode-back" href="../../api/panel.interact.html#panel.interact.interactive.widget_from_single_value">[docs]</a>    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">widget_from_single_value</span><span class="p">(</span><span class="n">o</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
+        <span class="sd">"""Make widgets from single values, which can be used as parameter defaults."""</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">o</span><span class="p">,</span> <span class="n">string_types</span><span class="p">):</span>
+            <span class="k">return</span> <span class="n">TextInput</span><span class="p">(</span><span class="n">value</span><span class="o">=</span><span class="n">as_unicode</span><span class="p">(</span><span class="n">o</span><span class="p">),</span> <span class="n">name</span><span class="o">=</span><span class="n">name</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">o</span><span class="p">,</span> <span class="nb">bool</span><span class="p">):</span>
+            <span class="k">return</span> <span class="n">Checkbox</span><span class="p">(</span><span class="n">value</span><span class="o">=</span><span class="n">o</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="n">name</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">o</span><span class="p">,</span> <span class="n">Integral</span><span class="p">):</span>
+            <span class="nb">min</span><span class="p">,</span> <span class="nb">max</span><span class="p">,</span> <span class="n">value</span> <span class="o">=</span> <span class="n">_get_min_max_value</span><span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="n">o</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">IntSlider</span><span class="p">(</span><span class="n">value</span><span class="o">=</span><span class="n">o</span><span class="p">,</span> <span class="n">start</span><span class="o">=</span><span class="nb">min</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="nb">max</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="n">name</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">o</span><span class="p">,</span> <span class="n">Real</span><span class="p">):</span>
+            <span class="nb">min</span><span class="p">,</span> <span class="nb">max</span><span class="p">,</span> <span class="n">value</span> <span class="o">=</span> <span class="n">_get_min_max_value</span><span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="n">o</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">FloatSlider</span><span class="p">(</span><span class="n">value</span><span class="o">=</span><span class="n">o</span><span class="p">,</span> <span class="n">start</span><span class="o">=</span><span class="nb">min</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="nb">max</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="n">name</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">None</span></div>
+
+<div class="viewcode-block" id="interactive.widget_from_tuple"><a class="viewcode-back" href="../../api/panel.interact.html#panel.interact.interactive.widget_from_tuple">[docs]</a>    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">widget_from_tuple</span><span class="p">(</span><span class="n">o</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="n">empty</span><span class="p">):</span>
+        <span class="sd">"""Make widgets from a tuple abbreviation."""</span>
+        <span class="n">int_default</span> <span class="o">=</span> <span class="p">(</span><span class="n">default</span> <span class="ow">is</span> <span class="n">empty</span> <span class="ow">or</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">default</span><span class="p">,</span> <span class="nb">int</span><span class="p">))</span>
+        <span class="k">if</span> <span class="n">_matches</span><span class="p">(</span><span class="n">o</span><span class="p">,</span> <span class="p">(</span><span class="n">Real</span><span class="p">,</span> <span class="n">Real</span><span class="p">)):</span>
+            <span class="nb">min</span><span class="p">,</span> <span class="nb">max</span><span class="p">,</span> <span class="n">value</span> <span class="o">=</span> <span class="n">_get_min_max_value</span><span class="p">(</span><span class="n">o</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">o</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+            <span class="k">if</span> <span class="nb">all</span><span class="p">(</span><span class="nb">isinstance</span><span class="p">(</span><span class="n">_</span><span class="p">,</span> <span class="n">Integral</span><span class="p">)</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="n">o</span><span class="p">)</span> <span class="ow">and</span> <span class="n">int_default</span><span class="p">:</span>
+                <span class="bp">cls</span> <span class="o">=</span> <span class="n">IntSlider</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="bp">cls</span> <span class="o">=</span> <span class="n">FloatSlider</span>
+            <span class="k">return</span> <span class="bp">cls</span><span class="p">(</span><span class="n">value</span><span class="o">=</span><span class="n">value</span><span class="p">,</span> <span class="n">start</span><span class="o">=</span><span class="nb">min</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="nb">max</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="n">name</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">_matches</span><span class="p">(</span><span class="n">o</span><span class="p">,</span> <span class="p">(</span><span class="n">Real</span><span class="p">,</span> <span class="n">Real</span><span class="p">,</span> <span class="n">Real</span><span class="p">)):</span>
+            <span class="n">step</span> <span class="o">=</span> <span class="n">o</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
+            <span class="k">if</span> <span class="n">step</span> <span class="o">&lt;=</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">"step must be &gt;= 0, not </span><span class="si">%r</span><span class="s2">"</span> <span class="o">%</span> <span class="n">step</span><span class="p">)</span>
+            <span class="nb">min</span><span class="p">,</span> <span class="nb">max</span><span class="p">,</span> <span class="n">value</span> <span class="o">=</span> <span class="n">_get_min_max_value</span><span class="p">(</span><span class="n">o</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">o</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">step</span><span class="o">=</span><span class="n">step</span><span class="p">)</span>
+            <span class="k">if</span> <span class="nb">all</span><span class="p">(</span><span class="nb">isinstance</span><span class="p">(</span><span class="n">_</span><span class="p">,</span> <span class="n">Integral</span><span class="p">)</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="n">o</span><span class="p">)</span> <span class="ow">and</span> <span class="n">int_default</span><span class="p">:</span>
+                <span class="bp">cls</span> <span class="o">=</span> <span class="n">IntSlider</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="bp">cls</span> <span class="o">=</span> <span class="n">FloatSlider</span>
+            <span class="k">return</span> <span class="bp">cls</span><span class="p">(</span><span class="n">value</span><span class="o">=</span><span class="n">value</span><span class="p">,</span> <span class="n">start</span><span class="o">=</span><span class="nb">min</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="nb">max</span><span class="p">,</span> <span class="n">step</span><span class="o">=</span><span class="n">step</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="n">name</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">_matches</span><span class="p">(</span><span class="n">o</span><span class="p">,</span> <span class="p">(</span><span class="n">Real</span><span class="p">,</span> <span class="n">Real</span><span class="p">,</span> <span class="n">Real</span><span class="p">,</span> <span class="n">Real</span><span class="p">)):</span>
+            <span class="n">step</span> <span class="o">=</span> <span class="n">o</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
+            <span class="k">if</span> <span class="n">step</span> <span class="o">&lt;=</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">"step must be &gt;= 0, not </span><span class="si">%r</span><span class="s2">"</span> <span class="o">%</span> <span class="n">step</span><span class="p">)</span>
+            <span class="nb">min</span><span class="p">,</span> <span class="nb">max</span><span class="p">,</span> <span class="n">value</span> <span class="o">=</span> <span class="n">_get_min_max_value</span><span class="p">(</span><span class="n">o</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">o</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">value</span><span class="o">=</span><span class="n">o</span><span class="p">[</span><span class="mi">3</span><span class="p">],</span> <span class="n">step</span><span class="o">=</span><span class="n">step</span><span class="p">)</span>
+            <span class="k">if</span> <span class="nb">all</span><span class="p">(</span><span class="nb">isinstance</span><span class="p">(</span><span class="n">_</span><span class="p">,</span> <span class="n">Integral</span><span class="p">)</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="n">o</span><span class="p">):</span>
+                <span class="bp">cls</span> <span class="o">=</span> <span class="n">IntSlider</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="bp">cls</span> <span class="o">=</span> <span class="n">FloatSlider</span>
+            <span class="k">return</span> <span class="bp">cls</span><span class="p">(</span><span class="n">value</span><span class="o">=</span><span class="n">value</span><span class="p">,</span> <span class="n">start</span><span class="o">=</span><span class="nb">min</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="nb">max</span><span class="p">,</span> <span class="n">step</span><span class="o">=</span><span class="n">step</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="n">name</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="nb">len</span><span class="p">(</span><span class="n">o</span><span class="p">)</span> <span class="o">==</span> <span class="mi">4</span><span class="p">:</span>
+            <span class="nb">min</span><span class="p">,</span> <span class="nb">max</span><span class="p">,</span> <span class="n">value</span> <span class="o">=</span> <span class="n">_get_min_max_value</span><span class="p">(</span><span class="n">o</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">o</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">value</span><span class="o">=</span><span class="n">o</span><span class="p">[</span><span class="mi">3</span><span class="p">])</span>
+            <span class="k">if</span> <span class="nb">all</span><span class="p">(</span><span class="nb">isinstance</span><span class="p">(</span><span class="n">_</span><span class="p">,</span> <span class="n">Integral</span><span class="p">)</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="p">[</span><span class="n">o</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">o</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">o</span><span class="p">[</span><span class="mi">3</span><span class="p">]]):</span>
+                <span class="bp">cls</span> <span class="o">=</span> <span class="n">IntSlider</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="bp">cls</span> <span class="o">=</span> <span class="n">FloatSlider</span>
+            <span class="k">return</span> <span class="bp">cls</span><span class="p">(</span><span class="n">value</span><span class="o">=</span><span class="n">value</span><span class="p">,</span> <span class="n">start</span><span class="o">=</span><span class="nb">min</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="nb">max</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="n">name</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="interactive.widget_from_iterable"><a class="viewcode-back" href="../../api/panel.interact.html#panel.interact.interactive.widget_from_iterable">[docs]</a>    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">widget_from_iterable</span><span class="p">(</span><span class="n">o</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
+        <span class="sd">"""Make widgets from an iterable. This should not be done for</span>
+<span class="sd">        a string or tuple."""</span>
+        <span class="c1"># Select expects a dict or list, so we convert an arbitrary</span>
+        <span class="c1"># iterable to either of those.</span>
+        <span class="n">values</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">o</span><span class="o">.</span><span class="n">values</span><span class="p">())</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">o</span><span class="p">,</span> <span class="n">Mapping</span><span class="p">)</span> <span class="k">else</span> <span class="nb">list</span><span class="p">(</span><span class="n">o</span><span class="p">)</span>
+        <span class="n">widget_type</span> <span class="o">=</span> <span class="n">DiscreteSlider</span> <span class="k">if</span> <span class="nb">all</span><span class="p">(</span><span class="n">param</span><span class="o">.</span><span class="n">_is_number</span><span class="p">(</span><span class="n">v</span><span class="p">)</span> <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">values</span><span class="p">)</span> <span class="k">else</span> <span class="n">Select</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">o</span><span class="p">,</span> <span class="p">(</span><span class="nb">list</span><span class="p">,</span> <span class="nb">dict</span><span class="p">)):</span>
+            <span class="k">return</span> <span class="n">widget_type</span><span class="p">(</span><span class="n">options</span><span class="o">=</span><span class="n">o</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="n">name</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">o</span><span class="p">,</span> <span class="n">Mapping</span><span class="p">):</span>
+            <span class="k">return</span> <span class="n">widget_type</span><span class="p">(</span><span class="n">options</span><span class="o">=</span><span class="nb">list</span><span class="p">(</span><span class="n">o</span><span class="o">.</span><span class="n">items</span><span class="p">()),</span> <span class="n">name</span><span class="o">=</span><span class="n">name</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">widget_type</span><span class="p">(</span><span class="n">options</span><span class="o">=</span><span class="nb">list</span><span class="p">(</span><span class="n">o</span><span class="p">),</span> <span class="n">name</span><span class="o">=</span><span class="n">name</span><span class="p">)</span></div>
+
+    <span class="c1"># Return a factory for interactive functions</span>
+    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">factory</span><span class="p">(</span><span class="bp">cls</span><span class="p">):</span>
+        <span class="n">options</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">manual_update</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">manual_name</span><span class="o">=</span><span class="s2">"Run Interact"</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">_InteractFactory</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">options</span><span class="p">)</span></div>
+
+
+<span class="k">class</span> <span class="nc">_InteractFactory</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="sd">"""</span>
+<span class="sd">    Factory for instances of :class:`interactive`.</span>
+
+<span class="sd">    Arguments</span>
+<span class="sd">    ---------</span>
+<span class="sd">    cls: class</span>
+<span class="sd">      The subclass of :class:`interactive` to construct.</span>
+<span class="sd">    options: dict</span>
+<span class="sd">      A dict of options used to construct the interactive</span>
+<span class="sd">      function. By default, this is returned by</span>
+<span class="sd">      ``cls.default_options()``.</span>
+<span class="sd">    kwargs: dict</span>
+<span class="sd">      A dict of **kwargs to use for widgets.</span>
+<span class="sd">    """</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="bp">cls</span><span class="p">,</span> <span class="n">options</span><span class="p">,</span> <span class="n">kwargs</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">cls</span> <span class="o">=</span> <span class="bp">cls</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">opts</span> <span class="o">=</span> <span class="n">options</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">kwargs</span> <span class="o">=</span> <span class="n">kwargs</span> <span class="ow">or</span> <span class="p">{}</span>
+
+    <span class="k">def</span> <span class="nf">widget</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">f</span><span class="p">):</span>
+        <span class="sd">"""</span>
+<span class="sd">        Return an interactive function widget for the given function.</span>
+<span class="sd">        The widget is only constructed, not displayed nor attached to</span>
+<span class="sd">        the function.</span>
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        An instance of ``self.cls`` (typically :class:`interactive`).</span>
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        f : function</span>
+<span class="sd">            The function to which the interactive widgets are tied.</span>
+<span class="sd">        """</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">cls</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">opts</span><span class="p">,</span> <span class="o">**</span><span class="bp">self</span><span class="o">.</span><span class="n">kwargs</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="fm">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">__interact_f</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="sd">"""</span>
+<span class="sd">        Make the given function interactive by adding and displaying</span>
+<span class="sd">        the corresponding :class:`interactive` widget.</span>
+<span class="sd">        Expects the first argument to be a function. Parameters to this</span>
+<span class="sd">        function are widget abbreviations passed in as keyword arguments</span>
+<span class="sd">        (``**kwargs``). Can be used as a decorator (see examples).</span>
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        f : __interact_f with interactive widget attached to it.</span>
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        __interact_f : function</span>
+<span class="sd">            The function to which the interactive widgets are tied. The `**kwargs`</span>
+<span class="sd">            should match the function signature. Passed to :func:`interactive()`</span>
+<span class="sd">        **kwargs : various, optional</span>
+<span class="sd">            An interactive widget is created for each keyword argument that is a</span>
+<span class="sd">            valid widget abbreviation. Passed to :func:`interactive()`</span>
+<span class="sd">        Examples</span>
+<span class="sd">        --------</span>
+<span class="sd">        Render an interactive text field that shows the greeting with the passed in</span>
+<span class="sd">        text::</span>
+<span class="sd">            # 1. Using interact as a function</span>
+<span class="sd">            def greeting(text="World"):</span>
+<span class="sd">                print("Hello {}".format(text))</span>
+<span class="sd">            interact(greeting, text="IPython Widgets")</span>
+<span class="sd">            # 2. Using interact as a decorator</span>
+<span class="sd">            @interact</span>
+<span class="sd">            def greeting(text="World"):</span>
+<span class="sd">                print("Hello {}".format(text))</span>
+<span class="sd">            # 3. Using interact as a decorator with named parameters</span>
+<span class="sd">            @interact(text="IPython Widgets")</span>
+<span class="sd">            def greeting(text="World"):</span>
+<span class="sd">                print("Hello {}".format(text))</span>
+<span class="sd">        Render an interactive slider widget and prints square of number::</span>
+<span class="sd">            # 1. Using interact as a function</span>
+<span class="sd">            def square(num=1):</span>
+<span class="sd">                print("{} squared is {}".format(num, num*num))</span>
+<span class="sd">            interact(square, num=5)</span>
+<span class="sd">            # 2. Using interact as a decorator</span>
+<span class="sd">            @interact</span>
+<span class="sd">            def square(num=2):</span>
+<span class="sd">                print("{} squared is {}".format(num, num*num))</span>
+<span class="sd">            # 3. Using interact as a decorator with named parameters</span>
+<span class="sd">            @interact(num=5)</span>
+<span class="sd">            def square(num=2):</span>
+<span class="sd">                print("{} squared is {}".format(num, num*num))</span>
+<span class="sd">        """</span>
+        <span class="c1"># If kwargs are given, replace self by a new</span>
+        <span class="c1"># _InteractFactory with the updated kwargs</span>
+        <span class="k">if</span> <span class="n">kwargs</span><span class="p">:</span>
+            <span class="n">params</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">interactive</span><span class="o">.</span><span class="n">param</span><span class="p">)</span>
+            <span class="n">kw</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">kwargs</span><span class="p">)</span>
+            <span class="n">kw</span><span class="o">.</span><span class="n">update</span><span class="p">({</span><span class="n">k</span><span class="p">:</span> <span class="n">v</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">items</span><span class="p">()</span> <span class="k">if</span> <span class="n">k</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">params</span><span class="p">})</span>
+            <span class="n">opts</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">opts</span><span class="p">,</span> <span class="o">**</span><span class="p">{</span><span class="n">k</span><span class="p">:</span> <span class="n">v</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">items</span><span class="p">()</span> <span class="k">if</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">params</span><span class="p">})</span>
+            <span class="bp">self</span> <span class="o">=</span> <span class="nb">type</span><span class="p">(</span><span class="bp">self</span><span class="p">)(</span><span class="bp">self</span><span class="o">.</span><span class="n">cls</span><span class="p">,</span> <span class="n">opts</span><span class="p">,</span> <span class="n">kw</span><span class="p">)</span>
+
+        <span class="n">f</span> <span class="o">=</span> <span class="n">__interact_f</span>
+        <span class="k">if</span> <span class="n">f</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="c1"># This branch handles the case 3</span>
+            <span class="c1"># @interact(a=30, b=40)</span>
+            <span class="c1"># def f(*args, **kwargs):</span>
+            <span class="c1">#     ...</span>
+            <span class="c1">#</span>
+            <span class="c1"># Simply return the new factory</span>
+            <span class="k">return</span> <span class="bp">self</span>
+        <span class="k">elif</span> <span class="s1">'throttled'</span> <span class="ow">in</span> <span class="n">check_argspec</span><span class="p">(</span><span class="n">f</span><span class="p">)</span><span class="o">.</span><span class="n">args</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">'A function cannot have "throttled" as an argument'</span><span class="p">)</span>
+
+        <span class="c1"># positional arg support in: https://gist.github.com/8851331</span>
+        <span class="c1"># Handle the cases 1 and 2</span>
+        <span class="c1"># 1. interact(f, **kwargs)</span>
+        <span class="c1"># 2. @interact</span>
+        <span class="c1">#    def f(*args, **kwargs):</span>
+        <span class="c1">#        ...</span>
+        <span class="n">w</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">widget</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">f</span><span class="o">.</span><span class="n">widget</span> <span class="o">=</span> <span class="n">w</span>
+        <span class="k">except</span> <span class="ne">AttributeError</span><span class="p">:</span>
+            <span class="c1"># some things (instancemethods) can't have attributes attached,</span>
+            <span class="c1"># so wrap in a lambda</span>
+            <span class="n">f</span> <span class="o">=</span> <span class="k">lambda</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="n">__interact_f</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+            <span class="n">f</span><span class="o">.</span><span class="n">widget</span> <span class="o">=</span> <span class="n">w</span>
+        <span class="k">return</span> <span class="n">w</span><span class="o">.</span><span class="n">layout</span>
+
+    <span class="k">def</span> <span class="nf">options</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwds</span><span class="p">):</span>
+        <span class="sd">"""</span>
+<span class="sd">        Change options for interactive functions.</span>
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        A new :class:`_InteractFactory` which will apply the</span>
+<span class="sd">        options when called.</span>
+<span class="sd">        """</span>
+        <span class="n">opts</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">opts</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">kwds</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">k</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">opts</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">"invalid option </span><span class="si">{!r}</span><span class="s2">"</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">k</span><span class="p">))</span>
+            <span class="n">opts</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="n">kwds</span><span class="p">[</span><span class="n">k</span><span class="p">]</span>
+        <span class="k">return</span> <span class="nb">type</span><span class="p">(</span><span class="bp">self</span><span class="p">)(</span><span class="bp">self</span><span class="o">.</span><span class="n">cls</span><span class="p">,</span> <span class="n">opts</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">kwargs</span><span class="p">)</span>
+
+
+<span class="n">interact</span> <span class="o">=</span> <span class="n">interactive</span><span class="o">.</span><span class="n">factory</span><span class="p">()</span>
+<span class="n">interact_manual</span> <span class="o">=</span> <span class="n">interact</span><span class="o">.</span><span class="n">options</span><span class="p">(</span><span class="n">manual_update</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">manual_name</span><span class="o">=</span><span class="s2">"Run Interact"</span><span class="p">)</span>
+
+
+<div class="viewcode-block" id="fixed"><a class="viewcode-back" href="../../api/panel.interact.html#panel.interact.fixed">[docs]</a><span class="k">class</span> <span class="nc">fixed</span><span class="p">(</span><span class="n">param</span><span class="o">.</span><span class="n">Parameterized</span><span class="p">):</span>
+    <span class="sd">"""A pseudo-widget whose value is fixed and never synced to the client."""</span>
+    <span class="n">value</span> <span class="o">=</span> <span class="n">param</span><span class="o">.</span><span class="n">Parameter</span><span class="p">(</span><span class="n">doc</span><span class="o">=</span><span class="s2">"Any Python object"</span><span class="p">)</span>
+    <span class="n">description</span> <span class="o">=</span> <span class="n">param</span><span class="o">.</span><span class="n">String</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="s1">''</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">value</span><span class="o">=</span><span class="n">value</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+
+<div class="viewcode-block" id="fixed.get_interact_value"><a class="viewcode-back" href="../../api/panel.interact.html#panel.interact.fixed.get_interact_value">[docs]</a>    <span class="k">def</span> <span class="nf">get_interact_value</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">"""Return the value for this widget which should be passed to</span>
+<span class="sd">        interactive functions. Custom widgets can change this method</span>
+<span class="sd">        to process the raw value ``self.value``.</span>
+<span class="sd">        """</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">value</span></div></div>
+</pre></div>
+</div>
+</div>
+<!-- END MAIN BODY OF DOCS ––––––––––––– -->
+<!-- Google Analytics -->
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async="" src="https://www.googletagmanager.com/gtag/js?id=UA-154795830-2"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-154795830-2', { 'anonymize_ip': true });
+</script>
+<!-- MathJax Config -->
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}
+});
+</script>
+<!-- End Document
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+</body>
+</html>

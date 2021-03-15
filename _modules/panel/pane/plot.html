@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<!-- Basic Page Needs
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+<meta charset="utf-8"/>
+<title>panel.pane.plot — Panel 0.11.1+g238199f-dirty documentation</title>
+<meta content="High-level dashboarding for python visualization libraries" name="description"/>
+<meta content="Panel contributors" name="author"/>
+<!-- Mobile Specific Metas
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<!-- FONT
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+<script src="https://ajax.googleapis.com/ajax/libs/webfont/1.6.16/webfont.js"></script>
+<script>
+    WebFont.load({
+      google: {
+        families: ['Source Sans Pro']
+      }
+    });
+  </script>
+<!-- CSS
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+<link href="../../../_static/css/main.css" rel="stylesheet"/>
+<link href="../../../_static/nbsite.css" rel="stylesheet"/>
+<link href="../../../_static/site.css" rel="stylesheet"/>
+<!-- Scripts
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script async="" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML" type="text/javascript">
+</script>
+<script src="../../../_static/js/main.js"></script>
+<!-- Favicon
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+<link href="../../../_static/favicon.ico" rel="icon" type="image/png"/>
+<!-- Canonical
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+<link href="https://panel.holoviz.org/_modules/panel/pane/plot.html" rel="canonical">
+</link></head>
+<body class="">
+<header class="navigation">
+<div class="wrapper">
+<a class="logo" href="../../../index.html">
+<img alt="Logo" src="../../../_static/logo_horizontal.png"/>
+</a>
+<a class="navigation-menu-button" href="javascript:void(0)" id="js-mobile-menu">Menu</a>
+<nav>
+<ul class="navigation-menu show" id="js-navigation-menu">
+<li class="nav-link doc-head"><a href="//discourse.holoviz.org">Discourse</a></li>
+<li class="nav-link doc-head"><a href="//twitter.com/Panel_org">Twitter</a></li>
+<li class="nav-link doc-head"><a href="//github.com/pyviz/panel">Github</a></li>
+<li class="nav-link">
+<div style="display:inline-block;vertical-align: middle;">
+<div class="search-bar">
+<form action="../../../search.html" method="get" role="search">
+<input name="q" placeholder="Search" type="search"/>
+<button type="submit">
+<img alt="Search Icon" src="https://raw.githubusercontent.com/thoughtbot/refills/master/source/images/search-icon-black.png"/>
+</button>
+</form>
+</div>
+</div>
+</li>
+</ul>
+</nav>
+</div>
+</header>
+<div class="second-nav">
+<nav>
+<ul class="navigation-menu show">
+<li class="nav-link doc-head"><a href="../../../getting_started/index.html">Getting started</a></li>
+<li class="nav-link doc-head"><a href="../../../user_guide/index.html">User Guide</a></li>
+<li class="nav-link doc-head"><a href="../../../gallery/index.html">Gallery</a></li>
+<li class="nav-link doc-head"><a href="../../../reference/index.html">Reference Gallery</a></li>
+<li class="nav-link doc-head"><a href="../../../developer_guide/index.html">Developer Guide</a></li>
+<li class="nav-link doc-head"><a href="../../../releases.html">Releases</a></li>
+<li class="nav-link doc-head"><a href="../../../api/index.html">API</a></li>
+<li class="nav-link doc-head"><a href="../../../FAQ.html">FAQ</a></li>
+<li class="nav-link doc-head"><a href="../../../about.html">About</a></li>
+</ul>
+</nav>
+</div>
+<!-- MAIN BODY OF DOCS –––––––––––––––––– -->
+<div class="docs section">
+<div id="hacketyhackhack"> <!-- style="width:20%;margin-right: 100px;"> --> <!--style="display: none;"> style="display:none;"> -->
+<div class="toc" style="width:15%; margin-right:20px;">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../index.html">Home</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../getting_started/index.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../user_guide/index.html">User Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../gallery/index.html">Gallery</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../reference/index.html">Reference Gallery</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../developer_guide/index.html">Developer Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/index.html">API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../Comparisons.html">Comparisons</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../releases.html">Releases</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../Roadmap.html">Road Map</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../FAQ.html">FAQ</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://github.com/pyviz/panel">Github source</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../about.html">About</a></li>
+</ul>
+</div>
+</div>
+<div class="content"> <!-- style="max-width:80%;margin-left:auto;margin-right: auto;">-->
+<h1>Source code for panel.pane.plot</h1><div class="highlight"><pre>
+<span></span><span class="sd">"""</span>
+<span class="sd">Pane class which render plots from different libraries</span>
+<span class="sd">"""</span>
+<span class="kn">import</span> <span class="nn">sys</span>
+
+<span class="kn">from</span> <span class="nn">io</span> <span class="kn">import</span> <span class="n">BytesIO</span>
+
+<span class="kn">from</span> <span class="nn">contextlib</span> <span class="kn">import</span> <span class="n">contextmanager</span>
+
+<span class="kn">import</span> <span class="nn">param</span>
+
+<span class="kn">from</span> <span class="nn">bokeh.models</span> <span class="kn">import</span> <span class="n">CustomJS</span><span class="p">,</span> <span class="n">LayoutDOM</span><span class="p">,</span> <span class="n">Model</span><span class="p">,</span> <span class="n">Spacer</span> <span class="k">as</span> <span class="n">BkSpacer</span>
+
+<span class="kn">from</span> <span class="nn">..io</span> <span class="kn">import</span> <span class="n">remove_root</span>
+<span class="kn">from</span> <span class="nn">..io.notebook</span> <span class="kn">import</span> <span class="n">push</span>
+<span class="kn">from</span> <span class="nn">..viewable</span> <span class="kn">import</span> <span class="n">Layoutable</span>
+<span class="kn">from</span> <span class="nn">.base</span> <span class="kn">import</span> <span class="n">PaneBase</span>
+<span class="kn">from</span> <span class="nn">.ipywidget</span> <span class="kn">import</span> <span class="n">IPyWidget</span>
+<span class="kn">from</span> <span class="nn">.markup</span> <span class="kn">import</span> <span class="n">HTML</span>
+<span class="kn">from</span> <span class="nn">.image</span> <span class="kn">import</span> <span class="n">PNG</span>
+
+
+<span class="nd">@contextmanager</span>
+<span class="k">def</span> <span class="nf">_wrap_callback</span><span class="p">(</span><span class="n">cb</span><span class="p">,</span> <span class="n">wrapped</span><span class="p">,</span> <span class="n">doc</span><span class="p">,</span> <span class="n">comm</span><span class="p">,</span> <span class="n">callbacks</span><span class="p">):</span>
+    <span class="sd">"""</span>
+<span class="sd">    Wraps a bokeh callback ensuring that any events triggered by it</span>
+<span class="sd">    appropriately dispatch events in the notebook. Also temporarily</span>
+<span class="sd">    replaces the wrapped callback with the real one while the callback</span>
+<span class="sd">    is exectuted to ensure the callback can be removed as usual.</span>
+<span class="sd">    """</span>
+    <span class="n">hold</span> <span class="o">=</span> <span class="n">doc</span><span class="o">.</span><span class="n">_hold</span>
+    <span class="n">doc</span><span class="o">.</span><span class="n">hold</span><span class="p">(</span><span class="s1">'combine'</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">wrapped</span> <span class="ow">in</span> <span class="n">callbacks</span><span class="p">:</span>
+        <span class="n">index</span> <span class="o">=</span> <span class="n">callbacks</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="n">wrapped</span><span class="p">)</span>
+        <span class="n">callbacks</span><span class="p">[</span><span class="n">index</span><span class="p">]</span> <span class="o">=</span> <span class="n">cb</span>
+    <span class="k">yield</span>
+    <span class="k">if</span> <span class="n">cb</span> <span class="ow">in</span> <span class="n">callbacks</span><span class="p">:</span>
+        <span class="n">index</span> <span class="o">=</span> <span class="n">callbacks</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="n">cb</span><span class="p">)</span>
+        <span class="n">callbacks</span><span class="p">[</span><span class="n">index</span><span class="p">]</span> <span class="o">=</span> <span class="n">wrapped</span>
+    <span class="n">push</span><span class="p">(</span><span class="n">doc</span><span class="p">,</span> <span class="n">comm</span><span class="p">)</span>
+    <span class="n">doc</span><span class="o">.</span><span class="n">hold</span><span class="p">(</span><span class="n">hold</span><span class="p">)</span>
+
+
+<div class="viewcode-block" id="Bokeh"><a class="viewcode-back" href="../../../api/panel.pane.html#panel.pane.plot.Bokeh">[docs]</a><span class="k">class</span> <span class="nc">Bokeh</span><span class="p">(</span><span class="n">PaneBase</span><span class="p">):</span>
+    <span class="sd">"""</span>
+<span class="sd">    Bokeh panes allow including any Bokeh model in a panel.</span>
+<span class="sd">    """</span>
+
+    <span class="n">priority</span> <span class="o">=</span> <span class="mf">0.8</span>
+
+<div class="viewcode-block" id="Bokeh.applies"><a class="viewcode-back" href="../../../api/panel.pane.html#panel.pane.plot.Bokeh.applies">[docs]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">applies</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">obj</span><span class="p">):</span>
+        <span class="k">return</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="n">LayoutDOM</span><span class="p">)</span></div>
+
+    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">_property_callback_wrapper</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">cb</span><span class="p">,</span> <span class="n">doc</span><span class="p">,</span> <span class="n">comm</span><span class="p">,</span> <span class="n">callbacks</span><span class="p">):</span>
+        <span class="k">def</span> <span class="nf">wrapped_callback</span><span class="p">(</span><span class="n">attr</span><span class="p">,</span> <span class="n">old</span><span class="p">,</span> <span class="n">new</span><span class="p">):</span>
+            <span class="k">with</span> <span class="n">_wrap_callback</span><span class="p">(</span><span class="n">cb</span><span class="p">,</span> <span class="n">wrapped_callback</span><span class="p">,</span> <span class="n">doc</span><span class="p">,</span> <span class="n">comm</span><span class="p">,</span> <span class="n">callbacks</span><span class="p">):</span>
+                <span class="n">cb</span><span class="p">(</span><span class="n">attr</span><span class="p">,</span> <span class="n">old</span><span class="p">,</span> <span class="n">new</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">wrapped_callback</span>
+
+    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">_event_callback_wrapper</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">cb</span><span class="p">,</span> <span class="n">doc</span><span class="p">,</span> <span class="n">comm</span><span class="p">,</span> <span class="n">callbacks</span><span class="p">):</span>
+        <span class="k">def</span> <span class="nf">wrapped_callback</span><span class="p">(</span><span class="n">event</span><span class="p">):</span>
+            <span class="k">with</span> <span class="n">_wrap_callback</span><span class="p">(</span><span class="n">cb</span><span class="p">,</span> <span class="n">wrapped_callback</span><span class="p">,</span> <span class="n">doc</span><span class="p">,</span> <span class="n">comm</span><span class="p">,</span> <span class="n">callbacks</span><span class="p">):</span>
+                <span class="n">cb</span><span class="p">(</span><span class="n">event</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">wrapped_callback</span>
+
+    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">_wrap_bokeh_callbacks</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">root</span><span class="p">,</span> <span class="n">bokeh_model</span><span class="p">,</span> <span class="n">doc</span><span class="p">,</span> <span class="n">comm</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">model</span> <span class="ow">in</span> <span class="n">bokeh_model</span><span class="o">.</span><span class="n">select</span><span class="p">({</span><span class="s1">'type'</span><span class="p">:</span> <span class="n">Model</span><span class="p">}):</span>
+            <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">cbs</span> <span class="ow">in</span> <span class="n">model</span><span class="o">.</span><span class="n">_callbacks</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+                <span class="n">callbacks</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">_callbacks</span><span class="p">[</span><span class="n">key</span><span class="p">]</span>
+                <span class="n">callbacks</span><span class="p">[:]</span> <span class="o">=</span> <span class="p">[</span>
+                    <span class="bp">cls</span><span class="o">.</span><span class="n">_property_callback_wrapper</span><span class="p">(</span><span class="n">cb</span><span class="p">,</span> <span class="n">doc</span><span class="p">,</span> <span class="n">comm</span><span class="p">,</span> <span class="n">callbacks</span><span class="p">)</span>
+                    <span class="k">for</span> <span class="n">cb</span> <span class="ow">in</span> <span class="n">cbs</span>
+                <span class="p">]</span>
+            <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">cbs</span> <span class="ow">in</span> <span class="n">model</span><span class="o">.</span><span class="n">_event_callbacks</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+                <span class="n">callbacks</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">_event_callbacks</span><span class="p">[</span><span class="n">key</span><span class="p">]</span>
+                <span class="n">callbacks</span><span class="p">[:]</span> <span class="o">=</span> <span class="p">[</span>
+                    <span class="bp">cls</span><span class="o">.</span><span class="n">_event_callback_wrapper</span><span class="p">(</span><span class="n">cb</span><span class="p">,</span> <span class="n">doc</span><span class="p">,</span> <span class="n">comm</span><span class="p">,</span> <span class="n">callbacks</span><span class="p">)</span>
+                    <span class="k">for</span> <span class="n">cb</span> <span class="ow">in</span> <span class="n">cbs</span>
+                <span class="p">]</span>
+
+    <span class="k">def</span> <span class="nf">_get_model</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">doc</span><span class="p">,</span> <span class="n">root</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">parent</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">comm</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">root</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_root</span><span class="p">(</span><span class="n">doc</span><span class="p">,</span> <span class="n">comm</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">object</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">model</span> <span class="o">=</span> <span class="n">BkSpacer</span><span class="p">()</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">model</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">object</span>
+
+        <span class="n">properties</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="k">for</span> <span class="n">p</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">param</span><span class="o">.</span><span class="n">get_param_values</span><span class="p">():</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">p</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">Layoutable</span><span class="o">.</span><span class="n">param</span> <span class="ow">or</span> <span class="n">p</span> <span class="o">==</span> <span class="s1">'name'</span> <span class="ow">or</span>
+                <span class="n">value</span> <span class="ow">is</span> <span class="bp">self</span><span class="o">.</span><span class="n">param</span><span class="p">[</span><span class="n">p</span><span class="p">]</span><span class="o">.</span><span class="n">default</span><span class="p">):</span>
+                <span class="k">continue</span>
+            <span class="n">properties</span><span class="p">[</span><span class="n">p</span><span class="p">]</span> <span class="o">=</span> <span class="n">value</span>
+        <span class="n">model</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="o">**</span><span class="n">properties</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">comm</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_wrap_bokeh_callbacks</span><span class="p">(</span><span class="n">root</span><span class="p">,</span> <span class="n">model</span><span class="p">,</span> <span class="n">doc</span><span class="p">,</span> <span class="n">comm</span><span class="p">)</span>
+
+        <span class="n">ref</span> <span class="o">=</span> <span class="n">root</span><span class="o">.</span><span class="n">ref</span><span class="p">[</span><span class="s1">'id'</span><span class="p">]</span>
+        <span class="k">for</span> <span class="n">js</span> <span class="ow">in</span> <span class="n">model</span><span class="o">.</span><span class="n">select</span><span class="p">({</span><span class="s1">'type'</span><span class="p">:</span> <span class="n">CustomJS</span><span class="p">}):</span>
+            <span class="n">js</span><span class="o">.</span><span class="n">code</span> <span class="o">=</span> <span class="n">js</span><span class="o">.</span><span class="n">code</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">ref</span><span class="p">[</span><span class="s1">'id'</span><span class="p">],</span> <span class="n">ref</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">model</span><span class="o">.</span><span class="n">_document</span> <span class="ow">and</span> <span class="n">doc</span> <span class="ow">is</span> <span class="ow">not</span> <span class="n">model</span><span class="o">.</span><span class="n">_document</span><span class="p">:</span>
+            <span class="n">remove_root</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">doc</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_models</span><span class="p">[</span><span class="n">ref</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">parent</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">model</span></div>
+
+
+<div class="viewcode-block" id="Matplotlib"><a class="viewcode-back" href="../../../api/panel.pane.html#panel.pane.plot.Matplotlib">[docs]</a><span class="k">class</span> <span class="nc">Matplotlib</span><span class="p">(</span><span class="n">PNG</span><span class="p">,</span> <span class="n">IPyWidget</span><span class="p">):</span>
+    <span class="sd">"""</span>
+<span class="sd">    A Matplotlib pane renders a matplotlib figure to png and wraps the</span>
+<span class="sd">    base64 encoded data in a bokeh Div model. The size of the image in</span>
+<span class="sd">    pixels is determined by scaling the size of the figure in inches</span>
+<span class="sd">    by a dpi of 72, increasing the dpi therefore controls the</span>
+<span class="sd">    resolution of the image not the displayed size.</span>
+<span class="sd">    """</span>
+
+    <span class="n">dpi</span> <span class="o">=</span> <span class="n">param</span><span class="o">.</span><span class="n">Integer</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="mi">144</span><span class="p">,</span> <span class="n">bounds</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="kc">None</span><span class="p">),</span> <span class="n">doc</span><span class="o">=</span><span class="s2">"""</span>
+<span class="s2">        Scales the dpi of the matplotlib figure."""</span><span class="p">)</span>
+
+    <span class="n">interactive</span> <span class="o">=</span> <span class="n">param</span><span class="o">.</span><span class="n">Boolean</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">constant</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="s2">"""</span>
+<span class="s2">    """</span><span class="p">)</span>
+
+    <span class="n">tight</span> <span class="o">=</span> <span class="n">param</span><span class="o">.</span><span class="n">Boolean</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="s2">"""</span>
+<span class="s2">        Automatically adjust the figure size to fit the</span>
+<span class="s2">        subplots and other artist elements."""</span><span class="p">)</span>
+
+    <span class="n">_rename</span> <span class="o">=</span> <span class="p">{</span><span class="s1">'object'</span><span class="p">:</span> <span class="s1">'text'</span><span class="p">,</span> <span class="s1">'interactive'</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span> <span class="s1">'dpi'</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span>  <span class="s1">'tight'</span><span class="p">:</span> <span class="kc">None</span><span class="p">}</span>
+
+    <span class="n">_rerender_params</span> <span class="o">=</span> <span class="n">PNG</span><span class="o">.</span><span class="n">_rerender_params</span> <span class="o">+</span> <span class="p">[</span><span class="s1">'object'</span><span class="p">,</span> <span class="s1">'dpi'</span><span class="p">,</span> <span class="s1">'tight'</span><span class="p">]</span>
+
+<div class="viewcode-block" id="Matplotlib.applies"><a class="viewcode-back" href="../../../api/panel.pane.html#panel.pane.plot.Matplotlib.applies">[docs]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">applies</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">obj</span><span class="p">):</span>
+        <span class="k">if</span> <span class="s1">'matplotlib'</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">sys</span><span class="o">.</span><span class="n">modules</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">False</span>
+        <span class="kn">from</span> <span class="nn">matplotlib.figure</span> <span class="kn">import</span> <span class="n">Figure</span>
+        <span class="n">is_fig</span> <span class="o">=</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="n">Figure</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">is_fig</span> <span class="ow">and</span> <span class="n">obj</span><span class="o">.</span><span class="n">canvas</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">'Matplotlib figure has no canvas and '</span>
+                             <span class="s1">'cannot be rendered.'</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">is_fig</span></div>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">object</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">params</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="nb">object</span><span class="p">,</span> <span class="o">**</span><span class="n">params</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_managers</span> <span class="o">=</span> <span class="p">{}</span>
+
+    <span class="k">def</span> <span class="nf">_get_widget</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">fig</span><span class="p">):</span>
+        <span class="kn">import</span> <span class="nn">matplotlib</span>
+        <span class="n">old_backend</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">matplotlib</span><span class="o">.</span><span class="n">backends</span><span class="p">,</span> <span class="s1">'backend'</span><span class="p">,</span> <span class="s1">'agg'</span><span class="p">)</span>
+
+        <span class="kn">from</span> <span class="nn">ipympl.backend_nbagg</span> <span class="kn">import</span> <span class="n">FigureManager</span><span class="p">,</span> <span class="n">Canvas</span><span class="p">,</span> <span class="n">is_interactive</span>
+        <span class="kn">from</span> <span class="nn">matplotlib._pylab_helpers</span> <span class="kn">import</span> <span class="n">Gcf</span>
+
+        <span class="n">matplotlib</span><span class="o">.</span><span class="n">use</span><span class="p">(</span><span class="n">old_backend</span><span class="p">)</span>
+
+        <span class="k">def</span> <span class="nf">closer</span><span class="p">(</span><span class="n">event</span><span class="p">):</span>
+            <span class="n">Gcf</span><span class="o">.</span><span class="n">destroy</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+
+        <span class="n">canvas</span> <span class="o">=</span> <span class="n">Canvas</span><span class="p">(</span><span class="n">fig</span><span class="p">)</span>
+        <span class="n">fig</span><span class="o">.</span><span class="n">patch</span><span class="o">.</span><span class="n">set_alpha</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+        <span class="n">manager</span> <span class="o">=</span> <span class="n">FigureManager</span><span class="p">(</span><span class="n">canvas</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">is_interactive</span><span class="p">():</span>
+            <span class="n">fig</span><span class="o">.</span><span class="n">canvas</span><span class="o">.</span><span class="n">draw_idle</span><span class="p">()</span>
+
+        <span class="n">canvas</span><span class="o">.</span><span class="n">mpl_connect</span><span class="p">(</span><span class="s1">'close_event'</span><span class="p">,</span> <span class="n">closer</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">manager</span>
+
+    <span class="k">def</span> <span class="nf">_get_model</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">doc</span><span class="p">,</span> <span class="n">root</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">parent</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">comm</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">interactive</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">PNG</span><span class="o">.</span><span class="n">_get_model</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">doc</span><span class="p">,</span> <span class="n">root</span><span class="p">,</span> <span class="n">parent</span><span class="p">,</span> <span class="n">comm</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">object</span><span class="o">.</span><span class="n">set_dpi</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">dpi</span><span class="p">)</span>
+        <span class="n">manager</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_widget</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">object</span><span class="p">)</span>
+        <span class="n">props</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_process_param_change</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_init_params</span><span class="p">())</span>
+        <span class="n">kwargs</span> <span class="o">=</span> <span class="p">{</span><span class="n">k</span><span class="p">:</span> <span class="n">v</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">props</span><span class="o">.</span><span class="n">items</span><span class="p">()</span>
+                  <span class="k">if</span> <span class="n">k</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_rerender_params</span><span class="o">+</span><span class="p">[</span><span class="s1">'interactive'</span><span class="p">]}</span>
+        <span class="n">model</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_ipywidget</span><span class="p">(</span><span class="n">manager</span><span class="o">.</span><span class="n">canvas</span><span class="p">,</span> <span class="n">doc</span><span class="p">,</span> <span class="n">root</span><span class="p">,</span> <span class="n">comm</span><span class="p">,</span>
+                                    <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">root</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">root</span> <span class="o">=</span> <span class="n">model</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_models</span><span class="p">[</span><span class="n">root</span><span class="o">.</span><span class="n">ref</span><span class="p">[</span><span class="s1">'id'</span><span class="p">]]</span> <span class="o">=</span> <span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">parent</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_managers</span><span class="p">[</span><span class="n">root</span><span class="o">.</span><span class="n">ref</span><span class="p">[</span><span class="s1">'id'</span><span class="p">]]</span> <span class="o">=</span> <span class="n">manager</span>
+        <span class="k">return</span> <span class="n">model</span>
+
+    <span class="k">def</span> <span class="nf">_update</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ref</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">model</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">interactive</span><span class="p">:</span>
+            <span class="n">model</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="o">**</span><span class="bp">self</span><span class="o">.</span><span class="n">_get_properties</span><span class="p">())</span>
+            <span class="k">return</span>
+        <span class="n">manager</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_managers</span><span class="p">[</span><span class="n">ref</span><span class="p">]</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">object</span> <span class="ow">is</span> <span class="ow">not</span> <span class="n">manager</span><span class="o">.</span><span class="n">canvas</span><span class="o">.</span><span class="n">figure</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">object</span><span class="o">.</span><span class="n">set_dpi</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">dpi</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">object</span><span class="o">.</span><span class="n">patch</span><span class="o">.</span><span class="n">set_alpha</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+            <span class="n">manager</span><span class="o">.</span><span class="n">canvas</span><span class="o">.</span><span class="n">figure</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">object</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">object</span><span class="o">.</span><span class="n">set_canvas</span><span class="p">(</span><span class="n">manager</span><span class="o">.</span><span class="n">canvas</span><span class="p">)</span>
+            <span class="n">event</span> <span class="o">=</span> <span class="p">{</span><span class="s1">'width'</span><span class="p">:</span> <span class="n">manager</span><span class="o">.</span><span class="n">canvas</span><span class="o">.</span><span class="n">_width</span><span class="p">,</span>
+                     <span class="s1">'height'</span><span class="p">:</span> <span class="n">manager</span><span class="o">.</span><span class="n">canvas</span><span class="o">.</span><span class="n">_height</span><span class="p">}</span>
+            <span class="n">manager</span><span class="o">.</span><span class="n">canvas</span><span class="o">.</span><span class="n">handle_resize</span><span class="p">(</span><span class="n">event</span><span class="p">)</span>
+        <span class="n">manager</span><span class="o">.</span><span class="n">canvas</span><span class="o">.</span><span class="n">draw_idle</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="nf">_imgshape</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">):</span>
+        <span class="sd">"""Calculate and return image width,height"""</span>
+        <span class="n">w</span><span class="p">,</span> <span class="n">h</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">object</span><span class="o">.</span><span class="n">get_size_inches</span><span class="p">()</span>
+        <span class="k">return</span> <span class="nb">int</span><span class="p">(</span><span class="n">w</span><span class="o">*</span><span class="mi">72</span><span class="p">),</span> <span class="nb">int</span><span class="p">(</span><span class="n">h</span><span class="o">*</span><span class="mi">72</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">_img</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">object</span><span class="o">.</span><span class="n">set_dpi</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">dpi</span><span class="p">)</span>
+        <span class="n">b</span> <span class="o">=</span> <span class="n">BytesIO</span><span class="p">()</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">tight</span><span class="p">:</span>
+            <span class="n">bbox_inches</span> <span class="o">=</span> <span class="s1">'tight'</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">bbox_inches</span> <span class="o">=</span> <span class="kc">None</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">object</span><span class="o">.</span><span class="n">canvas</span><span class="o">.</span><span class="n">print_figure</span><span class="p">(</span><span class="n">b</span><span class="p">,</span> <span class="n">bbox_inches</span><span class="o">=</span><span class="n">bbox_inches</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">b</span><span class="o">.</span><span class="n">getvalue</span><span class="p">()</span></div>
+
+
+<div class="viewcode-block" id="RGGPlot"><a class="viewcode-back" href="../../../api/panel.pane.html#panel.pane.plot.RGGPlot">[docs]</a><span class="k">class</span> <span class="nc">RGGPlot</span><span class="p">(</span><span class="n">PNG</span><span class="p">):</span>
+    <span class="sd">"""</span>
+<span class="sd">    An RGGPlot pane renders an r2py-based ggplot2 figure to png</span>
+<span class="sd">    and wraps the base64-encoded data in a bokeh Div model.</span>
+<span class="sd">    """</span>
+
+    <span class="n">height</span> <span class="o">=</span> <span class="n">param</span><span class="o">.</span><span class="n">Integer</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="mi">400</span><span class="p">)</span>
+
+    <span class="n">width</span> <span class="o">=</span> <span class="n">param</span><span class="o">.</span><span class="n">Integer</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="mi">400</span><span class="p">)</span>
+
+    <span class="n">dpi</span> <span class="o">=</span> <span class="n">param</span><span class="o">.</span><span class="n">Integer</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="mi">144</span><span class="p">,</span> <span class="n">bounds</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="kc">None</span><span class="p">))</span>
+
+    <span class="n">_rerender_params</span> <span class="o">=</span> <span class="n">PNG</span><span class="o">.</span><span class="n">_rerender_params</span> <span class="o">+</span> <span class="p">[</span><span class="s1">'object'</span><span class="p">,</span> <span class="s1">'dpi'</span><span class="p">,</span> <span class="s1">'width'</span><span class="p">,</span> <span class="s1">'height'</span><span class="p">]</span>
+
+<div class="viewcode-block" id="RGGPlot.applies"><a class="viewcode-back" href="../../../api/panel.pane.html#panel.pane.plot.RGGPlot.applies">[docs]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">applies</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">obj</span><span class="p">):</span>
+        <span class="k">return</span> <span class="nb">type</span><span class="p">(</span><span class="n">obj</span><span class="p">)</span><span class="o">.</span><span class="vm">__name__</span> <span class="o">==</span> <span class="s1">'GGPlot'</span> <span class="ow">and</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="s1">'r_repr'</span><span class="p">)</span></div>
+
+    <span class="k">def</span> <span class="nf">_img</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="kn">from</span> <span class="nn">rpy2.robjects.lib</span> <span class="kn">import</span> <span class="n">grdevices</span>
+        <span class="kn">from</span> <span class="nn">rpy2</span> <span class="kn">import</span> <span class="n">robjects</span>
+        <span class="k">with</span> <span class="n">grdevices</span><span class="o">.</span><span class="n">render_to_bytesio</span><span class="p">(</span><span class="n">grdevices</span><span class="o">.</span><span class="n">png</span><span class="p">,</span>
+                 <span class="nb">type</span><span class="o">=</span><span class="s2">"cairo-png"</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">width</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">height</span><span class="p">,</span>
+                 <span class="n">res</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">dpi</span><span class="p">,</span> <span class="n">antialias</span><span class="o">=</span><span class="s2">"subpixel"</span><span class="p">)</span> <span class="k">as</span> <span class="n">b</span><span class="p">:</span>
+            <span class="n">robjects</span><span class="o">.</span><span class="n">r</span><span class="p">(</span><span class="s2">"print"</span><span class="p">)(</span><span class="bp">self</span><span class="o">.</span><span class="n">object</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">b</span><span class="o">.</span><span class="n">getvalue</span><span class="p">()</span></div>
+
+
+<div class="viewcode-block" id="YT"><a class="viewcode-back" href="../../../api/panel.pane.html#panel.pane.plot.YT">[docs]</a><span class="k">class</span> <span class="nc">YT</span><span class="p">(</span><span class="n">HTML</span><span class="p">):</span>
+    <span class="sd">"""</span>
+<span class="sd">    YT panes wrap plottable objects from the YT library.</span>
+<span class="sd">    By default, the height and width are calculated by summing all</span>
+<span class="sd">    contained plots, but can optionally be specified explicitly to</span>
+<span class="sd">    provide additional space.</span>
+<span class="sd">    """</span>
+
+    <span class="n">priority</span> <span class="o">=</span> <span class="mf">0.5</span>
+
+<div class="viewcode-block" id="YT.applies"><a class="viewcode-back" href="../../../api/panel.pane.html#panel.pane.plot.YT.applies">[docs]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">applies</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">obj</span><span class="p">):</span>
+        <span class="k">return</span> <span class="p">(</span><span class="nb">getattr</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="s1">'__module__'</span><span class="p">,</span> <span class="s1">''</span><span class="p">)</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s1">'yt.'</span><span class="p">)</span> <span class="ow">and</span>
+                <span class="nb">hasattr</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="s2">"plots"</span><span class="p">)</span> <span class="ow">and</span>
+                <span class="nb">hasattr</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="s2">"_repr_html_"</span><span class="p">))</span></div>
+
+    <span class="k">def</span> <span class="nf">_get_properties</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">p</span> <span class="o">=</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">_get_properties</span><span class="p">()</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">object</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">p</span>
+
+        <span class="n">width</span> <span class="o">=</span> <span class="n">height</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">width</span>  <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">height</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">k</span><span class="p">,</span><span class="n">v</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">object</span><span class="o">.</span><span class="n">plots</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+                <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="s2">"_repr_png_"</span><span class="p">):</span>
+                    <span class="n">img</span> <span class="o">=</span> <span class="n">v</span><span class="o">.</span><span class="n">_repr_png_</span><span class="p">()</span>
+                    <span class="n">w</span><span class="p">,</span><span class="n">h</span> <span class="o">=</span> <span class="n">PNG</span><span class="o">.</span><span class="n">_imgshape</span><span class="p">(</span><span class="n">img</span><span class="p">)</span>
+                    <span class="n">height</span> <span class="o">+=</span> <span class="n">h</span>
+                    <span class="n">width</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">w</span><span class="p">,</span> <span class="n">width</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">width</span>  <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span> <span class="n">p</span><span class="p">[</span><span class="s2">"width"</span><span class="p">]</span>  <span class="o">=</span> <span class="n">width</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">height</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span> <span class="n">p</span><span class="p">[</span><span class="s2">"height"</span><span class="p">]</span> <span class="o">=</span> <span class="n">height</span>
+
+        <span class="k">return</span> <span class="n">p</span></div>
+
+
+<div class="viewcode-block" id="Folium"><a class="viewcode-back" href="../../../api/panel.pane.html#panel.pane.plot.Folium">[docs]</a><span class="k">class</span> <span class="nc">Folium</span><span class="p">(</span><span class="n">HTML</span><span class="p">):</span>
+    <span class="sd">"""</span>
+<span class="sd">    The Folium pane wraps Folium map components.</span>
+<span class="sd">    """</span>
+
+    <span class="n">sizing_mode</span> <span class="o">=</span> <span class="n">param</span><span class="o">.</span><span class="n">ObjectSelector</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="s1">'stretch_width'</span><span class="p">,</span> <span class="n">objects</span><span class="o">=</span><span class="p">[</span>
+        <span class="s1">'fixed'</span><span class="p">,</span> <span class="s1">'stretch_width'</span><span class="p">,</span> <span class="s1">'stretch_height'</span><span class="p">,</span> <span class="s1">'stretch_both'</span><span class="p">,</span>
+        <span class="s1">'scale_width'</span><span class="p">,</span> <span class="s1">'scale_height'</span><span class="p">,</span> <span class="s1">'scale_both'</span><span class="p">,</span> <span class="kc">None</span><span class="p">])</span>
+
+    <span class="n">priority</span> <span class="o">=</span> <span class="mf">0.6</span>
+
+<div class="viewcode-block" id="Folium.applies"><a class="viewcode-back" href="../../../api/panel.pane.html#panel.pane.plot.Folium.applies">[docs]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">applies</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">obj</span><span class="p">):</span>
+        <span class="k">return</span> <span class="p">(</span><span class="nb">getattr</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="s1">'__module__'</span><span class="p">,</span> <span class="s1">''</span><span class="p">)</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s1">'folium.'</span><span class="p">)</span> <span class="ow">and</span>
+                <span class="nb">hasattr</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="s2">"_repr_html_"</span><span class="p">))</span></div></div>
+</pre></div>
+</div>
+</div>
+<!-- END MAIN BODY OF DOCS ––––––––––––– -->
+<!-- Google Analytics -->
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async="" src="https://www.googletagmanager.com/gtag/js?id=UA-154795830-2"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-154795830-2', { 'anonymize_ip': true });
+</script>
+<!-- MathJax Config -->
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}
+});
+</script>
+<!-- End Document
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+</body>
+</html>

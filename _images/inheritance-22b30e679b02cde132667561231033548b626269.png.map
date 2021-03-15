@@ -1,0 +1,6 @@
+<map id="inheritanceb0aa0f4453" name="inheritanceb0aa0f4453">
+<area shape="rect" id="node1" href="#panel.template.theme.DarkTheme" target="_top" title="The DefaultTheme uses the standard Panel color palette." alt="" coords="587,5,834,31"/>
+<area shape="rect" id="node2" href="#panel.template.theme.Theme" target="_top" title="A Theme customizes the look and feel of a Template by providing" alt="" coords="315,31,531,56"/>
+<area shape="rect" id="node3" href="#panel.template.theme.DefaultTheme" target="_top" title="The DefaultTheme uses the standard Panel color palette." alt="" coords="579,55,843,80"/>
+<area shape="rect" id="node4" title="params(name=String)" alt="" coords="5,31,267,56"/>
+</map>

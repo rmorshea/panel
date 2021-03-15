@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<!-- Basic Page Needs
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+<meta charset="utf-8"/>
+<title>panel.template.fast.grid — Panel 0.11.1+g238199f-dirty documentation</title>
+<meta content="High-level dashboarding for python visualization libraries" name="description"/>
+<meta content="Panel contributors" name="author"/>
+<!-- Mobile Specific Metas
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<!-- FONT
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+<script src="https://ajax.googleapis.com/ajax/libs/webfont/1.6.16/webfont.js"></script>
+<script>
+    WebFont.load({
+      google: {
+        families: ['Source Sans Pro']
+      }
+    });
+  </script>
+<!-- CSS
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+<link href="../../../../_static/css/main.css" rel="stylesheet"/>
+<link href="../../../../_static/nbsite.css" rel="stylesheet"/>
+<link href="../../../../_static/site.css" rel="stylesheet"/>
+<!-- Scripts
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script async="" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML" type="text/javascript">
+</script>
+<script src="../../../../_static/js/main.js"></script>
+<!-- Favicon
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+<link href="../../../../_static/favicon.ico" rel="icon" type="image/png"/>
+<!-- Canonical
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+<link href="https://panel.holoviz.org/_modules/panel/template/fast/grid.html" rel="canonical">
+</link></head>
+<body class="">
+<header class="navigation">
+<div class="wrapper">
+<a class="logo" href="../../../../index.html">
+<img alt="Logo" src="../../../../_static/logo_horizontal.png"/>
+</a>
+<a class="navigation-menu-button" href="javascript:void(0)" id="js-mobile-menu">Menu</a>
+<nav>
+<ul class="navigation-menu show" id="js-navigation-menu">
+<li class="nav-link doc-head"><a href="//discourse.holoviz.org">Discourse</a></li>
+<li class="nav-link doc-head"><a href="//twitter.com/Panel_org">Twitter</a></li>
+<li class="nav-link doc-head"><a href="//github.com/pyviz/panel">Github</a></li>
+<li class="nav-link">
+<div style="display:inline-block;vertical-align: middle;">
+<div class="search-bar">
+<form action="../../../../search.html" method="get" role="search">
+<input name="q" placeholder="Search" type="search"/>
+<button type="submit">
+<img alt="Search Icon" src="https://raw.githubusercontent.com/thoughtbot/refills/master/source/images/search-icon-black.png"/>
+</button>
+</form>
+</div>
+</div>
+</li>
+</ul>
+</nav>
+</div>
+</header>
+<div class="second-nav">
+<nav>
+<ul class="navigation-menu show">
+<li class="nav-link doc-head"><a href="../../../../getting_started/index.html">Getting started</a></li>
+<li class="nav-link doc-head"><a href="../../../../user_guide/index.html">User Guide</a></li>
+<li class="nav-link doc-head"><a href="../../../../gallery/index.html">Gallery</a></li>
+<li class="nav-link doc-head"><a href="../../../../reference/index.html">Reference Gallery</a></li>
+<li class="nav-link doc-head"><a href="../../../../developer_guide/index.html">Developer Guide</a></li>
+<li class="nav-link doc-head"><a href="../../../../releases.html">Releases</a></li>
+<li class="nav-link doc-head"><a href="../../../../api/index.html">API</a></li>
+<li class="nav-link doc-head"><a href="../../../../FAQ.html">FAQ</a></li>
+<li class="nav-link doc-head"><a href="../../../../about.html">About</a></li>
+</ul>
+</nav>
+</div>
+<!-- MAIN BODY OF DOCS –––––––––––––––––– -->
+<div class="docs section">
+<div id="hacketyhackhack"> <!-- style="width:20%;margin-right: 100px;"> --> <!--style="display: none;"> style="display:none;"> -->
+<div class="toc" style="width:15%; margin-right:20px;">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../index.html">Home</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../getting_started/index.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../user_guide/index.html">User Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../gallery/index.html">Gallery</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../reference/index.html">Reference Gallery</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../developer_guide/index.html">Developer Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../api/index.html">API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../Comparisons.html">Comparisons</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../releases.html">Releases</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../Roadmap.html">Road Map</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../FAQ.html">FAQ</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://github.com/pyviz/panel">Github source</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../about.html">About</a></li>
+</ul>
+</div>
+</div>
+<div class="content"> <!-- style="max-width:80%;margin-left:auto;margin-right: auto;">-->
+<h1>Source code for panel.template.fast.grid</h1><div class="highlight"><pre>
+<span></span><span class="sd">"""</span>
+<span class="sd">The Fast GridTemplate provides a grid layout based on React Grid</span>
+<span class="sd">Layout similar to the Panel ReactTemplate but in the Fast.design style</span>
+<span class="sd">and enabling the use of Fast components.</span>
+<span class="sd">"""</span>
+<span class="kn">import</span> <span class="nn">pathlib</span>
+
+<span class="kn">import</span> <span class="nn">param</span>
+
+<span class="kn">from</span> <span class="nn">..base</span> <span class="kn">import</span> <span class="n">FastGridBaseTemplate</span>
+<span class="kn">from</span> <span class="nn">..theme</span> <span class="kn">import</span> <span class="n">FastDefaultTheme</span><span class="p">,</span> <span class="n">FastDarkTheme</span>
+
+
+<div class="viewcode-block" id="FastGridTemplate"><a class="viewcode-back" href="../../../../api/panel.template.fast.grid.html#panel.template.fast.grid.FastGridTemplate">[docs]</a><span class="k">class</span> <span class="nc">FastGridTemplate</span><span class="p">(</span><span class="n">FastGridBaseTemplate</span><span class="p">):</span>
+    <span class="sd">"""</span>
+<span class="sd">    The FastGridTemplate is build on top of Fast.design and the React Grid Layout.</span>
+<span class="sd">    """</span>
+
+    <span class="n">_css</span> <span class="o">=</span> <span class="n">FastGridBaseTemplate</span><span class="o">.</span><span class="n">_css</span> <span class="o">+</span> <span class="p">[</span>
+        <span class="n">pathlib</span><span class="o">.</span><span class="n">Path</span><span class="p">(</span><span class="vm">__file__</span><span class="p">)</span><span class="o">.</span><span class="n">parent</span> <span class="o">/</span> <span class="s2">"fast_grid_template.css"</span>
+    <span class="p">]</span>
+
+    <span class="n">_template</span> <span class="o">=</span> <span class="n">pathlib</span><span class="o">.</span><span class="n">Path</span><span class="p">(</span><span class="vm">__file__</span><span class="p">)</span><span class="o">.</span><span class="n">parent</span> <span class="o">/</span> <span class="s2">"fast_grid_template.html"</span></div>
+
+
+<div class="viewcode-block" id="FastGridDefaultTheme"><a class="viewcode-back" href="../../../../api/panel.template.fast.grid.html#panel.template.fast.grid.FastGridDefaultTheme">[docs]</a><span class="k">class</span> <span class="nc">FastGridDefaultTheme</span><span class="p">(</span><span class="n">FastDefaultTheme</span><span class="p">):</span>
+    <span class="sd">"""The Default Theme of the FastGridTemplate"""</span>
+
+    <span class="n">css</span> <span class="o">=</span> <span class="n">param</span><span class="o">.</span><span class="n">Filename</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="n">pathlib</span><span class="o">.</span><span class="n">Path</span><span class="p">(</span><span class="vm">__file__</span><span class="p">)</span><span class="o">.</span><span class="n">parent</span> <span class="o">/</span> <span class="s2">"default.css"</span><span class="p">)</span>
+
+    <span class="n">_template</span> <span class="o">=</span> <span class="n">FastGridTemplate</span></div>
+
+
+<div class="viewcode-block" id="FastGridDarkTheme"><a class="viewcode-back" href="../../../../api/panel.template.fast.grid.html#panel.template.fast.grid.FastGridDarkTheme">[docs]</a><span class="k">class</span> <span class="nc">FastGridDarkTheme</span><span class="p">(</span><span class="n">FastDarkTheme</span><span class="p">):</span>
+    <span class="sd">"""The Dark Theme of the FastGridTemplate"""</span>
+
+    <span class="n">css</span> <span class="o">=</span> <span class="n">param</span><span class="o">.</span><span class="n">Filename</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="n">pathlib</span><span class="o">.</span><span class="n">Path</span><span class="p">(</span><span class="vm">__file__</span><span class="p">)</span><span class="o">.</span><span class="n">parent</span> <span class="o">/</span> <span class="s2">"dark.css"</span><span class="p">)</span>
+
+    <span class="n">_template</span> <span class="o">=</span> <span class="n">FastGridTemplate</span></div>
+</pre></div>
+</div>
+</div>
+<!-- END MAIN BODY OF DOCS ––––––––––––– -->
+<!-- Google Analytics -->
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async="" src="https://www.googletagmanager.com/gtag/js?id=UA-154795830-2"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-154795830-2', { 'anonymize_ip': true });
+</script>
+<!-- MathJax Config -->
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}
+});
+</script>
+<!-- End Document
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+</body>
+</html>

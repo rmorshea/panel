@@ -1,0 +1,9 @@
+<map id="inheritance7cf7f918b7" name="inheritance7cf7f918b7">
+<area shape="rect" id="node1" title="Base class for all class types that have Bokeh properties." alt="" coords="63,4,242,24"/>
+<area shape="rect" id="node2" title="Base class for all objects stored in Bokeh &#160;|Document| instances." alt="" coords="338,43,456,62"/>
+<area shape="rect" id="node6" title="The base class for layoutable components." alt="" coords="493,43,685,62"/>
+<area shape="rect" id="node3" title="A mixin class to provide an interface for registering and" alt="" coords="4,43,301,62"/>
+<area shape="rect" id="node4" title="A mixin class to provide an interface for registering and" alt="" coords="11,81,294,101"/>
+<area shape="rect" id="node5" title="A component which size is determined by its HTML content." alt="" coords="722,43,902,62"/>
+<area shape="rect" id="node7" href="#panel.models.tabulator.DataTabulator" target="_top" title="A Bokeh Model that enables easy use of Tabulator tables" alt="" coords="940,43,1148,62"/>
+</map>

@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<!-- Basic Page Needs
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+<meta charset="utf-8"/>
+<title>panel Modules — Panel 0.11.1+g238199f-dirty documentation</title>
+<meta content="High-level dashboarding for python visualization libraries" name="description"/>
+<meta content="Panel contributors" name="author"/>
+<!-- Mobile Specific Metas
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<!-- FONT
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+<script src="https://ajax.googleapis.com/ajax/libs/webfont/1.6.16/webfont.js"></script>
+<script>
+    WebFont.load({
+      google: {
+        families: ['Source Sans Pro']
+      }
+    });
+  </script>
+<!-- CSS
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+<link href="../_static/css/main.css" rel="stylesheet"/>
+<link href="../_static/nbsite.css" rel="stylesheet"/>
+<link href="../_static/site.css" rel="stylesheet"/>
+<!-- Scripts
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script async="" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML" type="text/javascript">
+</script>
+<script src="../_static/js/main.js"></script>
+<!-- Favicon
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+<link href="../_static/favicon.ico" rel="icon" type="image/png"/>
+<!-- Canonical
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+<link href="https://panel.holoviz.org/api/modules.html" rel="canonical">
+</link></head>
+<body class="">
+<header class="navigation">
+<div class="wrapper">
+<a class="logo" href="../index.html">
+<img alt="Logo" src="../_static/logo_horizontal.png"/>
+</a>
+<a class="navigation-menu-button" href="javascript:void(0)" id="js-mobile-menu">Menu</a>
+<nav>
+<ul class="navigation-menu show" id="js-navigation-menu">
+<li class="nav-link doc-head"><a href="//discourse.holoviz.org">Discourse</a></li>
+<li class="nav-link doc-head"><a href="//twitter.com/Panel_org">Twitter</a></li>
+<li class="nav-link doc-head"><a href="//github.com/pyviz/panel">Github</a></li>
+<li class="nav-link">
+<div style="display:inline-block;vertical-align: middle;">
+<div class="search-bar">
+<form action="../search.html" method="get" role="search">
+<input name="q" placeholder="Search" type="search"/>
+<button type="submit">
+<img alt="Search Icon" src="https://raw.githubusercontent.com/thoughtbot/refills/master/source/images/search-icon-black.png"/>
+</button>
+</form>
+</div>
+</div>
+</li>
+</ul>
+</nav>
+</div>
+</header>
+<div class="second-nav">
+<nav>
+<ul class="navigation-menu show">
+<li class="nav-link doc-head"><a href="../getting_started/index.html">Getting started</a></li>
+<li class="nav-link doc-head"><a href="../user_guide/index.html">User Guide</a></li>
+<li class="nav-link doc-head"><a href="../gallery/index.html">Gallery</a></li>
+<li class="nav-link doc-head"><a href="../reference/index.html">Reference Gallery</a></li>
+<li class="nav-link doc-head"><a href="../developer_guide/index.html">Developer Guide</a></li>
+<li class="nav-link doc-head"><a href="../releases.html">Releases</a></li>
+<li class="nav-link doc-head"><a href="index.html">API</a></li>
+<li class="nav-link doc-head"><a href="../FAQ.html">FAQ</a></li>
+<li class="nav-link doc-head"><a href="../about.html">About</a></li>
+</ul>
+</nav>
+</div>
+<!-- MAIN BODY OF DOCS –––––––––––––––––– -->
+<div class="docs section">
+<div id="hacketyhackhack"> <!-- style="width:20%;margin-right: 100px;"> --> <!--style="display: none;"> style="display:none;"> -->
+<div class="toc" style="width:15%; margin-right:20px;">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../index.html">Home</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting_started/index.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../user_guide/index.html">User Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../gallery/index.html">Gallery</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/index.html">Reference Gallery</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../developer_guide/index.html">Developer Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="index.html">API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Comparisons.html">Comparisons</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../releases.html">Releases</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Roadmap.html">Road Map</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../FAQ.html">FAQ</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://github.com/pyviz/panel">Github source</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../about.html">About</a></li>
+</ul>
+</div>
+</div>
+<div class="content"> <!-- style="max-width:80%;margin-left:auto;margin-right: auto;">-->
+<div class="section" id="panel-modules">
+<h1>panel Modules<a class="headerlink" href="#panel-modules" title="Permalink to this headline">¶</a></h1>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="panel.__init__.html">__init__ Module</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="panel.__init__.html#id1"><code class="xref py py-mod docutils literal notranslate"><span class="pre">__init__</span></code> Module</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="panel.__main__.html">__main__ Module</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="panel.__main__.html#id1"><code class="xref py py-mod docutils literal notranslate"><span class="pre">__main__</span></code> Module</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="panel.auth.html">auth Module</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="panel.auth.html#id1"><code class="xref py py-mod docutils literal notranslate"><span class="pre">auth</span></code> Module</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="panel.callbacks.html">callbacks Module</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="panel.callbacks.html#id1"><code class="xref py py-mod docutils literal notranslate"><span class="pre">callbacks</span></code> Module</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="panel.command.html">panel.command Package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="panel.command.html#command-package"><code class="xref py py-mod docutils literal notranslate"><span class="pre">command</span></code> Package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="panel.command.html#oauth-secret-module"><code class="xref py py-mod docutils literal notranslate"><span class="pre">oauth_secret</span></code> Module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="panel.command.html#serve-module"><code class="xref py py-mod docutils literal notranslate"><span class="pre">serve</span></code> Module</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="panel.compiler.html">compiler Module</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="panel.compiler.html#id1"><code class="xref py py-mod docutils literal notranslate"><span class="pre">compiler</span></code> Module</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="panel.config.html">config Module</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="panel.config.html#id1"><code class="xref py py-mod docutils literal notranslate"><span class="pre">config</span></code> Module</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="panel.depends.html">depends Module</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="panel.depends.html#id1"><code class="xref py py-mod docutils literal notranslate"><span class="pre">depends</span></code> Module</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="panel.interact.html">interact Module</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="panel.interact.html#id1"><code class="xref py py-mod docutils literal notranslate"><span class="pre">interact</span></code> Module</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="panel.io.html">panel.io Package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="panel.io.html#io-package"><code class="xref py py-mod docutils literal notranslate"><span class="pre">io</span></code> Package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="panel.io.html#callbacks-module"><code class="xref py py-mod docutils literal notranslate"><span class="pre">callbacks</span></code> Module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="panel.io.html#django-module"><code class="xref py py-mod docutils literal notranslate"><span class="pre">django</span></code> Module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="panel.io.html#embed-module"><code class="xref py py-mod docutils literal notranslate"><span class="pre">embed</span></code> Module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="panel.io.html#ipywidget-module"><code class="xref py py-mod docutils literal notranslate"><span class="pre">ipywidget</span></code> Module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="panel.io.html#jupyter-server-extension-module"><code class="xref py py-mod docutils literal notranslate"><span class="pre">jupyter_server_extension</span></code> Module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="panel.io.html#loading-module"><code class="xref py py-mod docutils literal notranslate"><span class="pre">loading</span></code> Module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="panel.io.html#location-module"><code class="xref py py-mod docutils literal notranslate"><span class="pre">location</span></code> Module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="panel.io.html#model-module"><code class="xref py py-mod docutils literal notranslate"><span class="pre">model</span></code> Module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="panel.io.html#notebook-module"><code class="xref py py-mod docutils literal notranslate"><span class="pre">notebook</span></code> Module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="panel.io.html#reload-module"><code class="xref py py-mod docutils literal notranslate"><span class="pre">reload</span></code> Module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="panel.io.html#resources-module"><code class="xref py py-mod docutils literal notranslate"><span class="pre">resources</span></code> Module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="panel.io.html#rest-module"><code class="xref py py-mod docutils literal notranslate"><span class="pre">rest</span></code> Module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="panel.io.html#save-module"><code class="xref py py-mod docutils literal notranslate"><span class="pre">save</span></code> Module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="panel.io.html#server-module"><code class="xref py py-mod docutils literal notranslate"><span class="pre">server</span></code> Module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="panel.io.html#state-module"><code class="xref py py-mod docutils literal notranslate"><span class="pre">state</span></code> Module</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="panel.layout.html">panel.layout Package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="panel.layout.html#layout-package"><code class="xref py py-mod docutils literal notranslate"><span class="pre">layout</span></code> Package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="panel.layout.html#accordion-module"><code class="xref py py-mod docutils literal notranslate"><span class="pre">accordion</span></code> Module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="panel.layout.html#base-module"><code class="xref py py-mod docutils literal notranslate"><span class="pre">base</span></code> Module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="panel.layout.html#card-module"><code class="xref py py-mod docutils literal notranslate"><span class="pre">card</span></code> Module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="panel.layout.html#grid-module"><code class="xref py py-mod docutils literal notranslate"><span class="pre">grid</span></code> Module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="panel.layout.html#spacer-module"><code class="xref py py-mod docutils literal notranslate"><span class="pre">spacer</span></code> Module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="panel.layout.html#tabs-module"><code class="xref py py-mod docutils literal notranslate"><span class="pre">tabs</span></code> Module</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="panel.links.html">links Module</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="panel.links.html#id1"><code class="xref py py-mod docutils literal notranslate"><span class="pre">links</span></code> Module</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="panel.models.html">panel.models Package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="panel.models.html#models-package"><code class="xref py py-mod docutils literal notranslate"><span class="pre">models</span></code> Package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="panel.models.html#ace-module"><code class="xref py py-mod docutils literal notranslate"><span class="pre">ace</span></code> Module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="panel.models.html#comm-manager-module"><code class="xref py py-mod docutils literal notranslate"><span class="pre">comm_manager</span></code> Module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="panel.models.html#deckgl-module"><code class="xref py py-mod docutils literal notranslate"><span class="pre">deckgl</span></code> Module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="panel.models.html#echarts-module"><code class="xref py py-mod docutils literal notranslate"><span class="pre">echarts</span></code> Module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="panel.models.html#enums-module"><code class="xref py py-mod docutils literal notranslate"><span class="pre">enums</span></code> Module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="panel.models.html#idom-module"><code class="xref py py-mod docutils literal notranslate"><span class="pre">idom</span></code> Module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="panel.models.html#ipywidget-module"><code class="xref py py-mod docutils literal notranslate"><span class="pre">ipywidget</span></code> Module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="panel.models.html#katex-module"><code class="xref py py-mod docutils literal notranslate"><span class="pre">katex</span></code> Module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="panel.models.html#layout-module"><code class="xref py py-mod docutils literal notranslate"><span class="pre">layout</span></code> Module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="panel.models.html#location-module"><code class="xref py py-mod docutils literal notranslate"><span class="pre">location</span></code> Module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="panel.models.html#markup-module"><code class="xref py py-mod docutils literal notranslate"><span class="pre">markup</span></code> Module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="panel.models.html#mathjax-module"><code class="xref py py-mod docutils literal notranslate"><span class="pre">mathjax</span></code> Module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="panel.models.html#perspective-module"><code class="xref py py-mod docutils literal notranslate"><span class="pre">perspective</span></code> Module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="panel.models.html#plotly-module"><code class="xref py py-mod docutils literal notranslate"><span class="pre">plotly</span></code> Module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="panel.models.html#speech-to-text-module"><code class="xref py py-mod docutils literal notranslate"><span class="pre">speech_to_text</span></code> Module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="panel.models.html#state-module"><code class="xref py py-mod docutils literal notranslate"><span class="pre">state</span></code> Module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="panel.models.html#tabulator-module"><code class="xref py py-mod docutils literal notranslate"><span class="pre">tabulator</span></code> Module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="panel.models.html#text-to-speech-module"><code class="xref py py-mod docutils literal notranslate"><span class="pre">text_to_speech</span></code> Module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="panel.models.html#trend-module"><code class="xref py py-mod docutils literal notranslate"><span class="pre">trend</span></code> Module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="panel.models.html#vega-module"><code class="xref py py-mod docutils literal notranslate"><span class="pre">vega</span></code> Module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="panel.models.html#vtk-module"><code class="xref py py-mod docutils literal notranslate"><span class="pre">vtk</span></code> Module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="panel.models.html#widgets-module"><code class="xref py py-mod docutils literal notranslate"><span class="pre">widgets</span></code> Module</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="panel.pane.html">panel.pane Package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="panel.pane.html#pane-package"><code class="xref py py-mod docutils literal notranslate"><span class="pre">pane</span></code> Package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="panel.pane.html#ace-module"><code class="xref py py-mod docutils literal notranslate"><span class="pre">ace</span></code> Module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="panel.pane.html#alert-module"><code class="xref py py-mod docutils literal notranslate"><span class="pre">alert</span></code> Module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="panel.pane.html#base-module"><code class="xref py py-mod docutils literal notranslate"><span class="pre">base</span></code> Module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="panel.pane.html#deckgl-module"><code class="xref py py-mod docutils literal notranslate"><span class="pre">deckgl</span></code> Module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="panel.pane.html#echarts-module"><code class="xref py py-mod docutils literal notranslate"><span class="pre">echarts</span></code> Module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="panel.pane.html#equation-module"><code class="xref py py-mod docutils literal notranslate"><span class="pre">equation</span></code> Module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="panel.pane.html#holoviews-module"><code class="xref py py-mod docutils literal notranslate"><span class="pre">holoviews</span></code> Module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="panel.pane.html#idom-module"><code class="xref py py-mod docutils literal notranslate"><span class="pre">idom</span></code> Module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="panel.pane.html#image-module"><code class="xref py py-mod docutils literal notranslate"><span class="pre">image</span></code> Module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="panel.pane.html#ipywidget-module"><code class="xref py py-mod docutils literal notranslate"><span class="pre">ipywidget</span></code> Module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="panel.pane.html#markup-module"><code class="xref py py-mod docutils literal notranslate"><span class="pre">markup</span></code> Module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="panel.pane.html#media-module"><code class="xref py py-mod docutils literal notranslate"><span class="pre">media</span></code> Module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="panel.pane.html#perspective-module"><code class="xref py py-mod docutils literal notranslate"><span class="pre">perspective</span></code> Module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="panel.pane.html#plot-module"><code class="xref py py-mod docutils literal notranslate"><span class="pre">plot</span></code> Module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="panel.pane.html#plotly-module"><code class="xref py py-mod docutils literal notranslate"><span class="pre">plotly</span></code> Module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="panel.pane.html#streamz-module"><code class="xref py py-mod docutils literal notranslate"><span class="pre">streamz</span></code> Module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="panel.pane.html#vega-module"><code class="xref py py-mod docutils literal notranslate"><span class="pre">vega</span></code> Module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="panel.pane.html#subpackages">Subpackages</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="panel.pane.vtk.html">panel.vtk Package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="panel.pane.vtk.html#vtk-package"><code class="xref py py-mod docutils literal notranslate"><span class="pre">vtk</span></code> Package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="panel.pane.vtk.html#enums-module"><code class="xref py py-mod docutils literal notranslate"><span class="pre">enums</span></code> Module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="panel.pane.vtk.html#synchronizable-deserializer-module"><code class="xref py py-mod docutils literal notranslate"><span class="pre">synchronizable_deserializer</span></code> Module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="panel.pane.vtk.html#synchronizable-serializer-module"><code class="xref py py-mod docutils literal notranslate"><span class="pre">synchronizable_serializer</span></code> Module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="panel.pane.vtk.html#vtk-module"><code class="xref py py-mod docutils literal notranslate"><span class="pre">vtk</span></code> Module</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="panel.param.html">param Module</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="panel.param.html#id1"><code class="xref py py-mod docutils literal notranslate"><span class="pre">param</span></code> Module</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="panel.pipeline.html">pipeline Module</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="panel.pipeline.html#id1"><code class="xref py py-mod docutils literal notranslate"><span class="pre">pipeline</span></code> Module</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="panel.reactive.html">reactive Module</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="panel.reactive.html#id1"><code class="xref py py-mod docutils literal notranslate"><span class="pre">reactive</span></code> Module</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="panel.template.html">panel.template Package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="panel.template.html#template-package"><code class="xref py py-mod docutils literal notranslate"><span class="pre">template</span></code> Package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="panel.template.html#base-module"><code class="xref py py-mod docutils literal notranslate"><span class="pre">base</span></code> Module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="panel.template.html#subpackages">Subpackages</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="panel.template.bootstrap.html">panel.bootstrap Package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="panel.template.bootstrap.html#bootstrap-package"><code class="xref py py-mod docutils literal notranslate"><span class="pre">bootstrap</span></code> Package</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="panel.template.fast.html">panel.fast Package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="panel.template.fast.html#fast-package"><code class="xref py py-mod docutils literal notranslate"><span class="pre">fast</span></code> Package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="panel.template.fast.html#base-module"><code class="xref py py-mod docutils literal notranslate"><span class="pre">base</span></code> Module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="panel.template.fast.html#theme-module"><code class="xref py py-mod docutils literal notranslate"><span class="pre">theme</span></code> Module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="panel.template.fast.html#subpackages">Subpackages</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="panel.template.golden.html">panel.golden Package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="panel.template.golden.html#golden-package"><code class="xref py py-mod docutils literal notranslate"><span class="pre">golden</span></code> Package</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="panel.template.material.html">panel.material Package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="panel.template.material.html#material-package"><code class="xref py py-mod docutils literal notranslate"><span class="pre">material</span></code> Package</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="panel.template.react.html">panel.react Package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="panel.template.react.html#react-package"><code class="xref py py-mod docutils literal notranslate"><span class="pre">react</span></code> Package</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="panel.template.theme.html">panel.theme Package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="panel.template.theme.html#theme-package"><code class="xref py py-mod docutils literal notranslate"><span class="pre">theme</span></code> Package</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="panel.template.vanilla.html">panel.vanilla Package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="panel.template.vanilla.html#vanilla-package"><code class="xref py py-mod docutils literal notranslate"><span class="pre">vanilla</span></code> Package</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="panel.util.html">util Module</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="panel.util.html#id1"><code class="xref py py-mod docutils literal notranslate"><span class="pre">util</span></code> Module</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="panel.viewable.html">viewable Module</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="panel.viewable.html#id1"><code class="xref py py-mod docutils literal notranslate"><span class="pre">viewable</span></code> Module</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="panel.widgets.html">panel.widgets Package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="panel.widgets.html#widgets-package"><code class="xref py py-mod docutils literal notranslate"><span class="pre">widgets</span></code> Package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="panel.widgets.html#ace-module"><code class="xref py py-mod docutils literal notranslate"><span class="pre">ace</span></code> Module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="panel.widgets.html#base-module"><code class="xref py py-mod docutils literal notranslate"><span class="pre">base</span></code> Module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="panel.widgets.html#button-module"><code class="xref py py-mod docutils literal notranslate"><span class="pre">button</span></code> Module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="panel.widgets.html#file-selector-module"><code class="xref py py-mod docutils literal notranslate"><span class="pre">file_selector</span></code> Module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="panel.widgets.html#indicators-module"><code class="xref py py-mod docutils literal notranslate"><span class="pre">indicators</span></code> Module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="panel.widgets.html#input-module"><code class="xref py py-mod docutils literal notranslate"><span class="pre">input</span></code> Module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="panel.widgets.html#misc-module"><code class="xref py py-mod docutils literal notranslate"><span class="pre">misc</span></code> Module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="panel.widgets.html#player-module"><code class="xref py py-mod docutils literal notranslate"><span class="pre">player</span></code> Module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="panel.widgets.html#select-module"><code class="xref py py-mod docutils literal notranslate"><span class="pre">select</span></code> Module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="panel.widgets.html#slider-module"><code class="xref py py-mod docutils literal notranslate"><span class="pre">slider</span></code> Module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="panel.widgets.html#speech-to-text-module"><code class="xref py py-mod docutils literal notranslate"><span class="pre">speech_to_text</span></code> Module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="panel.widgets.html#tables-module"><code class="xref py py-mod docutils literal notranslate"><span class="pre">tables</span></code> Module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="panel.widgets.html#text-to-speech-module"><code class="xref py py-mod docutils literal notranslate"><span class="pre">text_to_speech</span></code> Module</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<!-- END MAIN BODY OF DOCS ––––––––––––– -->
+<!-- Google Analytics -->
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async="" src="https://www.googletagmanager.com/gtag/js?id=UA-154795830-2"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-154795830-2', { 'anonymize_ip': true });
+</script>
+<!-- MathJax Config -->
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}
+});
+</script>
+<!-- End Document
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+</body>
+</html>

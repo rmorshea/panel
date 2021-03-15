@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<!-- Basic Page Needs
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+<meta charset="utf-8"/>
+<title>Dynamic tabs — Panel 0.11.1+g238199f-dirty documentation</title>
+<meta content="High-level dashboarding for python visualization libraries" name="description"/>
+<meta content="Panel contributors" name="author"/>
+<!-- Mobile Specific Metas
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<!-- FONT
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+<script src="https://ajax.googleapis.com/ajax/libs/webfont/1.6.16/webfont.js"></script>
+<script>
+    WebFont.load({
+      google: {
+        families: ['Source Sans Pro']
+      }
+    });
+  </script>
+<!-- CSS
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+<link href="../../_static/css/main.css" rel="stylesheet"/>
+<link href="../../_static/nbsite.css" rel="stylesheet"/>
+<link href="../../_static/site.css" rel="stylesheet"/>
+<!-- Scripts
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script async="" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML" type="text/javascript">
+</script>
+<script src="../../_static/js/main.js"></script>
+<!-- Favicon
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+<link href="../../_static/favicon.ico" rel="icon" type="image/png"/>
+<!-- Canonical
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+<link href="https://panel.holoviz.org/gallery/layout/dynamic_tabs.html" rel="canonical">
+</link></head>
+<body class="">
+<header class="navigation">
+<div class="wrapper">
+<a class="logo" href="../../index.html">
+<img alt="Logo" src="../../_static/logo_horizontal.png"/>
+</a>
+<a class="navigation-menu-button" href="javascript:void(0)" id="js-mobile-menu">Menu</a>
+<nav>
+<ul class="navigation-menu show" id="js-navigation-menu">
+<li class="nav-link doc-head"><a href="//discourse.holoviz.org">Discourse</a></li>
+<li class="nav-link doc-head"><a href="//twitter.com/Panel_org">Twitter</a></li>
+<li class="nav-link doc-head"><a href="//github.com/pyviz/panel">Github</a></li>
+<li class="nav-link">
+<div style="display:inline-block;vertical-align: middle;">
+<div class="search-bar">
+<form action="../../search.html" method="get" role="search">
+<input name="q" placeholder="Search" type="search"/>
+<button type="submit">
+<img alt="Search Icon" src="https://raw.githubusercontent.com/thoughtbot/refills/master/source/images/search-icon-black.png"/>
+</button>
+</form>
+</div>
+</div>
+</li>
+</ul>
+</nav>
+</div>
+</header>
+<div class="second-nav">
+<nav>
+<ul class="navigation-menu show">
+<li class="nav-link doc-head"><a href="../../getting_started/index.html">Getting started</a></li>
+<li class="nav-link doc-head"><a href="../../user_guide/index.html">User Guide</a></li>
+<li class="nav-link doc-head"><a href="../index.html">Gallery</a></li>
+<li class="nav-link doc-head"><a href="../../reference/index.html">Reference Gallery</a></li>
+<li class="nav-link doc-head"><a href="../../developer_guide/index.html">Developer Guide</a></li>
+<li class="nav-link doc-head"><a href="../../releases.html">Releases</a></li>
+<li class="nav-link doc-head"><a href="../../api/index.html">API</a></li>
+<li class="nav-link doc-head"><a href="../../FAQ.html">FAQ</a></li>
+<li class="nav-link doc-head"><a href="../../about.html">About</a></li>
+</ul>
+</nav>
+</div>
+<!-- MAIN BODY OF DOCS –––––––––––––––––– -->
+<div class="docs section">
+<div id="hacketyhackhack"> <!-- style="width:20%;margin-right: 100px;"> --> <!--style="display: none;"> style="display:none;"> -->
+<div class="toc" style="width:15%; margin-right:20px;">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../index.html">Home</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../getting_started/index.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../user_guide/index.html">User Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../index.html">Gallery</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../reference/index.html">Reference Gallery</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../developer_guide/index.html">Developer Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../api/index.html">API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Comparisons.html">Comparisons</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../releases.html">Releases</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Roadmap.html">Road Map</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../FAQ.html">FAQ</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://github.com/pyviz/panel">Github source</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../about.html">About</a></li>
+</ul>
+</div>
+</div>
+<div class="content"> <!-- style="max-width:80%;margin-left:auto;margin-right: auto;">-->
+<div class="section" id="dynamic-tabs">
+<span id="layout-gallery-dynamic-tabs"></span><h1>Dynamic tabs<a class="headerlink" href="#dynamic-tabs" title="Permalink to this headline">¶</a></h1>
+<p><a class="reference external" href="https://raw.githubusercontent.com/pyviz/panel/master/examples/gallery/layout/dynamic_tabs.ipynb">Download this notebook from GitHub (right-click to download).</a></p>
+<hr class="docutils"/>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">panel</span> <span class="k">as</span> <span class="nn">pn</span>
+
+<span class="n">pn</span><span class="o">.</span><span class="n">extension</span><span class="p">(</span><span class="s1">'deckgl'</span><span class="p">,</span> <span class="s1">'plotly'</span><span class="p">,</span> <span class="s1">'vega'</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>This example demonstrates how to use the <code>Tabs</code> panel to render a number of complex components without rendering them all at once by enabling the <code>dynamic</code> parameter.</p>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Altair">Altair<a class="anchor-link" href="#Altair">¶</a></h2>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">altair</span> <span class="k">as</span> <span class="nn">alt</span>
+<span class="kn">from</span> <span class="nn">vega_datasets</span> <span class="kn">import</span> <span class="n">data</span>
+
+<span class="n">cars</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">cars</span><span class="p">()</span>
+
+<span class="n">chart</span> <span class="o">=</span> <span class="n">alt</span><span class="o">.</span><span class="n">Chart</span><span class="p">(</span><span class="n">cars</span><span class="p">)</span><span class="o">.</span><span class="n">mark_circle</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="mi">60</span><span class="p">)</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span>
+    <span class="n">x</span><span class="o">=</span><span class="s1">'Horsepower'</span><span class="p">,</span>
+    <span class="n">y</span><span class="o">=</span><span class="s1">'Miles_per_Gallon'</span><span class="p">,</span>
+    <span class="n">color</span><span class="o">=</span><span class="s1">'Origin'</span><span class="p">,</span>
+    <span class="n">tooltip</span><span class="o">=</span><span class="p">[</span><span class="s1">'Name'</span><span class="p">,</span> <span class="s1">'Origin'</span><span class="p">,</span> <span class="s1">'Horsepower'</span><span class="p">,</span> <span class="s1">'Miles_per_Gallon'</span><span class="p">]</span>
+<span class="p">)</span><span class="o">.</span><span class="n">properties</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="s1">'container'</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="s1">'container'</span><span class="p">)</span><span class="o">.</span><span class="n">interactive</span><span class="p">()</span>
+
+<span class="n">altair_pane</span> <span class="o">=</span> <span class="n">pn</span><span class="o">.</span><span class="n">panel</span><span class="p">(</span><span class="n">chart</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Bokeh">Bokeh<a class="anchor-link" href="#Bokeh">¶</a></h2>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">math</span> <span class="kn">import</span> <span class="n">pi</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+
+<span class="kn">from</span> <span class="nn">bokeh.palettes</span> <span class="kn">import</span> <span class="n">Category20c</span><span class="p">,</span> <span class="n">Category20</span>
+<span class="kn">from</span> <span class="nn">bokeh.plotting</span> <span class="kn">import</span> <span class="n">figure</span>
+<span class="kn">from</span> <span class="nn">bokeh.transform</span> <span class="kn">import</span> <span class="n">cumsum</span>
+
+<span class="n">x</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s1">'United States'</span><span class="p">:</span> <span class="mi">157</span><span class="p">,</span>
+    <span class="s1">'United Kingdom'</span><span class="p">:</span> <span class="mi">93</span><span class="p">,</span>
+    <span class="s1">'Japan'</span><span class="p">:</span> <span class="mi">89</span><span class="p">,</span>
+    <span class="s1">'China'</span><span class="p">:</span> <span class="mi">63</span><span class="p">,</span>
+    <span class="s1">'Germany'</span><span class="p">:</span> <span class="mi">44</span><span class="p">,</span>
+    <span class="s1">'India'</span><span class="p">:</span> <span class="mi">42</span><span class="p">,</span>
+    <span class="s1">'Italy'</span><span class="p">:</span> <span class="mi">40</span><span class="p">,</span>
+    <span class="s1">'Australia'</span><span class="p">:</span> <span class="mi">35</span><span class="p">,</span>
+    <span class="s1">'Brazil'</span><span class="p">:</span> <span class="mi">32</span><span class="p">,</span>
+    <span class="s1">'France'</span><span class="p">:</span> <span class="mi">31</span><span class="p">,</span>
+    <span class="s1">'Taiwan'</span><span class="p">:</span> <span class="mi">31</span><span class="p">,</span>
+    <span class="s1">'Spain'</span><span class="p">:</span> <span class="mi">29</span>
+<span class="p">}</span>
+
+<span class="n">data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s1">'value'</span><span class="p">)</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">{</span><span class="s1">'index'</span><span class="p">:</span><span class="s1">'country'</span><span class="p">})</span>
+<span class="n">data</span><span class="p">[</span><span class="s1">'angle'</span><span class="p">]</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s1">'value'</span><span class="p">]</span><span class="o">/</span><span class="n">data</span><span class="p">[</span><span class="s1">'value'</span><span class="p">]</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span> <span class="o">*</span> <span class="mi">2</span><span class="o">*</span><span class="n">pi</span>
+<span class="n">data</span><span class="p">[</span><span class="s1">'color'</span><span class="p">]</span> <span class="o">=</span> <span class="n">Category20c</span><span class="p">[</span><span class="nb">len</span><span class="p">(</span><span class="n">x</span><span class="p">)]</span>
+
+<span class="n">p</span> <span class="o">=</span> <span class="n">figure</span><span class="p">(</span><span class="n">sizing_mode</span><span class="o">=</span><span class="s1">'stretch_both'</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s2">"Pie Chart"</span><span class="p">,</span> <span class="n">toolbar_location</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+           <span class="n">tools</span><span class="o">=</span><span class="s2">"hover"</span><span class="p">,</span> <span class="n">tooltips</span><span class="o">=</span><span class="s2">"@country: @value"</span><span class="p">,</span> <span class="n">x_range</span><span class="o">=</span><span class="p">(</span><span class="o">-</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">),</span> <span class="n">min_height</span><span class="o">=</span><span class="mi">800</span><span class="p">)</span>
+
+<span class="n">r</span> <span class="o">=</span> <span class="n">p</span><span class="o">.</span><span class="n">wedge</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">radius</span><span class="o">=</span><span class="mf">0.4</span><span class="p">,</span>
+        <span class="n">start_angle</span><span class="o">=</span><span class="n">cumsum</span><span class="p">(</span><span class="s1">'angle'</span><span class="p">,</span> <span class="n">include_zero</span><span class="o">=</span><span class="kc">True</span><span class="p">),</span> <span class="n">end_angle</span><span class="o">=</span><span class="n">cumsum</span><span class="p">(</span><span class="s1">'angle'</span><span class="p">),</span>
+        <span class="n">line_color</span><span class="o">=</span><span class="s2">"white"</span><span class="p">,</span> <span class="n">fill_color</span><span class="o">=</span><span class="s1">'color'</span><span class="p">,</span> <span class="n">legend_field</span><span class="o">=</span><span class="s1">'country'</span><span class="p">,</span> <span class="n">source</span><span class="o">=</span><span class="n">data</span><span class="p">)</span>
+
+<span class="n">p</span><span class="o">.</span><span class="n">axis</span><span class="o">.</span><span class="n">axis_label</span><span class="o">=</span><span class="kc">None</span>
+<span class="n">p</span><span class="o">.</span><span class="n">axis</span><span class="o">.</span><span class="n">visible</span><span class="o">=</span><span class="kc">False</span>
+<span class="n">p</span><span class="o">.</span><span class="n">grid</span><span class="o">.</span><span class="n">grid_line_color</span> <span class="o">=</span> <span class="kc">None</span>
+
+<span class="n">bokeh_pane</span> <span class="o">=</span> <span class="n">pn</span><span class="o">.</span><span class="n">pane</span><span class="o">.</span><span class="n">Bokeh</span><span class="p">(</span><span class="n">p</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="DeckGL">DeckGL<a class="anchor-link" href="#DeckGL">¶</a></h2>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span><span class="n">MAPBOX_KEY</span> <span class="o">=</span> <span class="p">(</span>
+    <span class="s2">"pk.eyJ1IjoibWFyY3Nrb3ZtYWRzZW4iLCJhIjoiY2s1anMzcG5rMDYzazNvcm10NTFybTE4cSJ9."</span>
+    <span class="s2">"TV1XBgaMfR-iTLvAXM_Iew"</span>
+<span class="p">)</span>
+
+<span class="n">json_spec</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">"initialViewState"</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s2">"bearing"</span><span class="p">:</span> <span class="o">-</span><span class="mf">27.36</span><span class="p">,</span>
+        <span class="s2">"latitude"</span><span class="p">:</span> <span class="mf">52.2323</span><span class="p">,</span>
+        <span class="s2">"longitude"</span><span class="p">:</span> <span class="o">-</span><span class="mf">1.415</span><span class="p">,</span>
+        <span class="s2">"maxZoom"</span><span class="p">:</span> <span class="mi">15</span><span class="p">,</span>
+        <span class="s2">"minZoom"</span><span class="p">:</span> <span class="mi">5</span><span class="p">,</span>
+        <span class="s2">"pitch"</span><span class="p">:</span> <span class="mf">40.5</span><span class="p">,</span>
+        <span class="s2">"zoom"</span><span class="p">:</span> <span class="mi">6</span>
+    <span class="p">},</span>
+    <span class="s2">"layers"</span><span class="p">:</span> <span class="p">[{</span>
+        <span class="s2">"@@type"</span><span class="p">:</span> <span class="s2">"HexagonLayer"</span><span class="p">,</span>
+        <span class="s2">"autoHighlight"</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>
+        <span class="s2">"coverage"</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+        <span class="s2">"data"</span><span class="p">:</span> <span class="s2">"https://raw.githubusercontent.com/uber-common/deck.gl-data/master/examples/3d-heatmap/heatmap-data.csv"</span><span class="p">,</span>
+        <span class="s2">"elevationRange"</span><span class="p">:</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">3000</span><span class="p">],</span>
+        <span class="s2">"elevationScale"</span><span class="p">:</span> <span class="mi">50</span><span class="p">,</span>
+        <span class="s2">"extruded"</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>
+        <span class="s2">"getPosition"</span><span class="p">:</span> <span class="s2">"@@=[lng, lat]"</span><span class="p">,</span>
+        <span class="s2">"id"</span><span class="p">:</span> <span class="s2">"8a553b25-ef3a-489c-bbe2-e102d18a3211"</span><span class="p">,</span> <span class="s2">"pickable"</span><span class="p">:</span> <span class="kc">True</span>
+    <span class="p">}],</span>
+    <span class="s2">"mapStyle"</span><span class="p">:</span> <span class="s2">"mapbox://styles/mapbox/dark-v9"</span><span class="p">,</span>
+    <span class="s2">"views"</span><span class="p">:</span> <span class="p">[{</span><span class="s2">"@@type"</span><span class="p">:</span> <span class="s2">"MapView"</span><span class="p">,</span> <span class="s2">"controller"</span><span class="p">:</span> <span class="kc">True</span><span class="p">}]</span>
+<span class="p">}</span>
+
+<span class="n">deck_gl</span> <span class="o">=</span> <span class="n">pn</span><span class="o">.</span><span class="n">pane</span><span class="o">.</span><span class="n">DeckGL</span><span class="p">(</span><span class="n">json_spec</span><span class="p">,</span> <span class="n">mapbox_api_key</span><span class="o">=</span><span class="n">MAPBOX_KEY</span><span class="p">,</span> <span class="n">sizing_mode</span><span class="o">=</span><span class="s1">'stretch_width'</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">800</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="HoloViews">HoloViews<a class="anchor-link" href="#HoloViews">¶</a></h2>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">holoviews</span> <span class="k">as</span> <span class="nn">hv</span>
+<span class="kn">import</span> <span class="nn">hvplot.pandas</span>
+<span class="kn">import</span> <span class="nn">holoviews.plotting.bokeh</span>
+
+<span class="k">def</span> <span class="nf">sine</span><span class="p">(</span><span class="n">frequency</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span> <span class="n">amplitude</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span> <span class="n">function</span><span class="o">=</span><span class="s1">'sin'</span><span class="p">):</span>
+    <span class="n">xs</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">200</span><span class="p">)</span><span class="o">/</span><span class="mi">200</span><span class="o">*</span><span class="mf">20.0</span>
+    <span class="n">ys</span> <span class="o">=</span> <span class="n">amplitude</span><span class="o">*</span><span class="nb">getattr</span><span class="p">(</span><span class="n">np</span><span class="p">,</span> <span class="n">function</span><span class="p">)(</span><span class="n">frequency</span><span class="o">*</span><span class="n">xs</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="nb">dict</span><span class="p">(</span><span class="n">y</span><span class="o">=</span><span class="n">ys</span><span class="p">),</span> <span class="n">index</span><span class="o">=</span><span class="n">xs</span><span class="p">)</span><span class="o">.</span><span class="n">hvplot</span><span class="p">(</span><span class="n">responsive</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="n">dmap</span> <span class="o">=</span> <span class="n">hv</span><span class="o">.</span><span class="n">DynamicMap</span><span class="p">(</span><span class="n">sine</span><span class="p">,</span> <span class="n">kdims</span><span class="o">=</span><span class="p">[</span><span class="s1">'frequency'</span><span class="p">,</span> <span class="s1">'amplitude'</span><span class="p">,</span> <span class="s1">'function'</span><span class="p">])</span><span class="o">.</span><span class="n">redim</span><span class="o">.</span><span class="n">range</span><span class="p">(</span>
+    <span class="n">frequency</span><span class="o">=</span><span class="p">(</span><span class="mf">0.1</span><span class="p">,</span> <span class="mi">10</span><span class="p">),</span> <span class="n">amplitude</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">10</span><span class="p">))</span><span class="o">.</span><span class="n">redim</span><span class="o">.</span><span class="n">values</span><span class="p">(</span><span class="n">function</span><span class="o">=</span><span class="p">[</span><span class="s1">'sin'</span><span class="p">,</span> <span class="s1">'cos'</span><span class="p">,</span> <span class="s1">'tan'</span><span class="p">])</span>
+
+<span class="n">hv_panel</span> <span class="o">=</span> <span class="n">pn</span><span class="o">.</span><span class="n">pane</span><span class="o">.</span><span class="n">HoloViews</span><span class="p">(</span><span class="n">dmap</span><span class="p">,</span> <span class="n">widgets</span><span class="o">=</span><span class="p">{</span>
+    <span class="s1">'amplitude'</span><span class="p">:</span> <span class="n">pn</span><span class="o">.</span><span class="n">widgets</span><span class="o">.</span><span class="n">LiteralInput</span><span class="p">(</span><span class="n">value</span><span class="o">=</span><span class="mf">1.</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="p">(</span><span class="nb">float</span><span class="p">,</span> <span class="nb">int</span><span class="p">)),</span>
+    <span class="s1">'function'</span><span class="p">:</span> <span class="n">pn</span><span class="o">.</span><span class="n">widgets</span><span class="o">.</span><span class="n">RadioButtonGroup</span><span class="p">,</span>
+    <span class="s1">'frequency'</span><span class="p">:</span> <span class="p">{</span><span class="s1">'value'</span><span class="p">:</span> <span class="mi">5</span><span class="p">}</span>
+<span class="p">},</span> <span class="n">center</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">sizing_mode</span><span class="o">=</span><span class="s1">'stretch_both'</span><span class="p">)</span><span class="o">.</span><span class="n">layout</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Matplotlib">Matplotlib<a class="anchor-link" href="#Matplotlib">¶</a></h2>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">matplotlib</span>
+
+<span class="n">matplotlib</span><span class="o">.</span><span class="n">use</span><span class="p">(</span><span class="s1">'agg'</span><span class="p">)</span>
+
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+
+<span class="n">Y</span><span class="p">,</span> <span class="n">X</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mgrid</span><span class="p">[</span><span class="o">-</span><span class="mi">3</span><span class="p">:</span><span class="mi">3</span><span class="p">:</span><span class="mi">100</span><span class="n">j</span><span class="p">,</span> <span class="o">-</span><span class="mi">3</span><span class="p">:</span><span class="mi">3</span><span class="p">:</span><span class="mi">100</span><span class="n">j</span><span class="p">]</span>
+<span class="n">U</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span> <span class="o">-</span> <span class="n">X</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="n">Y</span>
+<span class="n">V</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">+</span> <span class="n">X</span> <span class="o">-</span> <span class="n">Y</span><span class="o">**</span><span class="mi">2</span>
+<span class="n">speed</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">U</span><span class="o">*</span><span class="n">U</span> <span class="o">+</span> <span class="n">V</span><span class="o">*</span><span class="n">V</span><span class="p">)</span>
+
+<span class="n">fig0</span><span class="p">,</span> <span class="n">ax0</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
+<span class="n">strm</span> <span class="o">=</span> <span class="n">ax0</span><span class="o">.</span><span class="n">streamplot</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">Y</span><span class="p">,</span> <span class="n">U</span><span class="p">,</span> <span class="n">V</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">U</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="n">plt</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">autumn</span><span class="p">)</span>
+<span class="n">fig0</span><span class="o">.</span><span class="n">colorbar</span><span class="p">(</span><span class="n">strm</span><span class="o">.</span><span class="n">lines</span><span class="p">)</span>
+
+<span class="n">mpl_pane</span> <span class="o">=</span> <span class="n">pn</span><span class="o">.</span><span class="n">pane</span><span class="o">.</span><span class="n">Matplotlib</span><span class="p">(</span><span class="n">fig0</span><span class="p">,</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">144</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Plotly">Plotly<a class="anchor-link" href="#Plotly">¶</a></h2>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">plotly.graph_objs</span> <span class="k">as</span> <span class="nn">go</span>
+
+<span class="n">xx</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mf">3.5</span><span class="p">,</span> <span class="mf">3.5</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span>
+<span class="n">yy</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mf">3.5</span><span class="p">,</span> <span class="mf">3.5</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span>
+<span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">meshgrid</span><span class="p">(</span><span class="n">xx</span><span class="p">,</span> <span class="n">yy</span><span class="p">)</span>
+<span class="n">z</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="p">(</span><span class="n">x</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span><span class="o">-</span><span class="n">y</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span><span class="o">-</span><span class="p">(</span><span class="n">x</span><span class="o">**</span><span class="mi">3</span><span class="o">+</span><span class="n">y</span><span class="o">**</span><span class="mi">4</span><span class="o">-</span><span class="n">x</span><span class="o">/</span><span class="mi">5</span><span class="p">)</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="p">(</span><span class="n">x</span><span class="o">**</span><span class="mi">2</span><span class="o">+</span><span class="n">y</span><span class="o">**</span><span class="mi">2</span><span class="p">))</span>
+
+<span class="n">surface</span> <span class="o">=</span> <span class="n">go</span><span class="o">.</span><span class="n">Surface</span><span class="p">(</span><span class="n">z</span><span class="o">=</span><span class="n">z</span><span class="p">)</span>
+<span class="n">layout</span> <span class="o">=</span> <span class="n">go</span><span class="o">.</span><span class="n">Layout</span><span class="p">(</span>
+    <span class="n">title</span><span class="o">=</span><span class="s1">'Plotly 3D Plot'</span><span class="p">,</span>
+    <span class="n">autosize</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="n">margin</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">t</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span> <span class="n">b</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span> <span class="n">r</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span> <span class="n">l</span><span class="o">=</span><span class="mi">50</span><span class="p">)</span>
+<span class="p">)</span>
+<span class="n">fig</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="p">[</span><span class="n">surface</span><span class="p">],</span> <span class="n">layout</span><span class="o">=</span><span class="n">layout</span><span class="p">)</span>
+
+<span class="n">plotly_pane</span> <span class="o">=</span> <span class="n">pn</span><span class="o">.</span><span class="n">pane</span><span class="o">.</span><span class="n">Plotly</span><span class="p">(</span><span class="n">fig</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Dynamic-Tabs">Dynamic Tabs<a class="anchor-link" href="#Dynamic-Tabs">¶</a></h2>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span><span class="n">pn</span><span class="o">.</span><span class="n">Tabs</span><span class="p">(</span>
+    <span class="p">(</span><span class="s1">'Altair'</span><span class="p">,</span> <span class="n">altair_pane</span><span class="p">),</span>
+    <span class="p">(</span><span class="s1">'Bokeh'</span><span class="p">,</span> <span class="n">bokeh_pane</span><span class="p">),</span>
+    <span class="p">(</span><span class="s1">'deck.GL'</span><span class="p">,</span> <span class="n">deck_gl</span><span class="p">),</span>
+    <span class="p">(</span><span class="s1">'HoloViews'</span><span class="p">,</span> <span class="n">hv_panel</span><span class="p">),</span>
+    <span class="p">(</span><span class="s1">'Matplotlib'</span><span class="p">,</span> <span class="n">mpl_pane</span><span class="p">),</span>
+    <span class="p">(</span><span class="s1">'Plotly'</span><span class="p">,</span> <span class="n">plotly_pane</span><span class="p">),</span>
+    <span class="n">dynamic</span><span class="o">=</span><span class="kc">True</span>
+<span class="p">)</span><span class="o">.</span><span class="n">servable</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div id="scroller-right">
+This web page was generated from a Jupyter notebook and not all
+interactivity will work on this website. <a href="https://raw.githubusercontent.com/holoviz/panel/master/examples/gallery/layout/dynamic_tabs.ipynb">Right click to download and run locally</a> for full
+Python-backed interactivity.
+</div><style>
+  .iframe-container {
+    overflow: hidden;
+    padding-top: 56.25%;
+    position: relative;
+    background: url(https://assets.holoviews.org/static/spinner.gif) center center no-repeat;
+  }
+
+  .iframe-container iframe {
+    border: 0;
+    height: 100%;
+    left: 0;
+    position: absolute;
+    top: 0;
+    width: 100%;
+  }
+</style>
+<div class="iframe-container">
+<iframe frameborder="0" onload="this.parentNode.style.background = 'none'" src="https://panel-gallery.pyviz.demo.anaconda.com/dynamic_tabs" width="100%"></iframe>
+</div><hr class="docutils"/>
+<p><a class="reference external" href="https://raw.githubusercontent.com/pyviz/panel/master/examples/gallery/layout/dynamic_tabs.ipynb">Download this notebook from GitHub (right-click to download).</a></p>
+</div>
+</div>
+</div>
+<!-- END MAIN BODY OF DOCS ––––––––––––– -->
+<!-- Google Analytics -->
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async="" src="https://www.googletagmanager.com/gtag/js?id=UA-154795830-2"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-154795830-2', { 'anonymize_ip': true });
+</script>
+<!-- MathJax Config -->
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}
+});
+</script>
+<!-- End Document
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+</body>
+</html>

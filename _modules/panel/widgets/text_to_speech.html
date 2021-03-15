@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<!-- Basic Page Needs
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+<meta charset="utf-8"/>
+<title>panel.widgets.text_to_speech — Panel 0.11.1+g238199f-dirty documentation</title>
+<meta content="High-level dashboarding for python visualization libraries" name="description"/>
+<meta content="Panel contributors" name="author"/>
+<!-- Mobile Specific Metas
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<!-- FONT
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+<script src="https://ajax.googleapis.com/ajax/libs/webfont/1.6.16/webfont.js"></script>
+<script>
+    WebFont.load({
+      google: {
+        families: ['Source Sans Pro']
+      }
+    });
+  </script>
+<!-- CSS
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+<link href="../../../_static/css/main.css" rel="stylesheet"/>
+<link href="../../../_static/nbsite.css" rel="stylesheet"/>
+<link href="../../../_static/site.css" rel="stylesheet"/>
+<!-- Scripts
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script async="" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML" type="text/javascript">
+</script>
+<script src="../../../_static/js/main.js"></script>
+<!-- Favicon
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+<link href="../../../_static/favicon.ico" rel="icon" type="image/png"/>
+<!-- Canonical
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+<link href="https://panel.holoviz.org/_modules/panel/widgets/text_to_speech.html" rel="canonical">
+</link></head>
+<body class="">
+<header class="navigation">
+<div class="wrapper">
+<a class="logo" href="../../../index.html">
+<img alt="Logo" src="../../../_static/logo_horizontal.png"/>
+</a>
+<a class="navigation-menu-button" href="javascript:void(0)" id="js-mobile-menu">Menu</a>
+<nav>
+<ul class="navigation-menu show" id="js-navigation-menu">
+<li class="nav-link doc-head"><a href="//discourse.holoviz.org">Discourse</a></li>
+<li class="nav-link doc-head"><a href="//twitter.com/Panel_org">Twitter</a></li>
+<li class="nav-link doc-head"><a href="//github.com/pyviz/panel">Github</a></li>
+<li class="nav-link">
+<div style="display:inline-block;vertical-align: middle;">
+<div class="search-bar">
+<form action="../../../search.html" method="get" role="search">
+<input name="q" placeholder="Search" type="search"/>
+<button type="submit">
+<img alt="Search Icon" src="https://raw.githubusercontent.com/thoughtbot/refills/master/source/images/search-icon-black.png"/>
+</button>
+</form>
+</div>
+</div>
+</li>
+</ul>
+</nav>
+</div>
+</header>
+<div class="second-nav">
+<nav>
+<ul class="navigation-menu show">
+<li class="nav-link doc-head"><a href="../../../getting_started/index.html">Getting started</a></li>
+<li class="nav-link doc-head"><a href="../../../user_guide/index.html">User Guide</a></li>
+<li class="nav-link doc-head"><a href="../../../gallery/index.html">Gallery</a></li>
+<li class="nav-link doc-head"><a href="../../../reference/index.html">Reference Gallery</a></li>
+<li class="nav-link doc-head"><a href="../../../developer_guide/index.html">Developer Guide</a></li>
+<li class="nav-link doc-head"><a href="../../../releases.html">Releases</a></li>
+<li class="nav-link doc-head"><a href="../../../api/index.html">API</a></li>
+<li class="nav-link doc-head"><a href="../../../FAQ.html">FAQ</a></li>
+<li class="nav-link doc-head"><a href="../../../about.html">About</a></li>
+</ul>
+</nav>
+</div>
+<!-- MAIN BODY OF DOCS –––––––––––––––––– -->
+<div class="docs section">
+<div id="hacketyhackhack"> <!-- style="width:20%;margin-right: 100px;"> --> <!--style="display: none;"> style="display:none;"> -->
+<div class="toc" style="width:15%; margin-right:20px;">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../index.html">Home</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../getting_started/index.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../user_guide/index.html">User Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../gallery/index.html">Gallery</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../reference/index.html">Reference Gallery</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../developer_guide/index.html">Developer Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/index.html">API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../Comparisons.html">Comparisons</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../releases.html">Releases</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../Roadmap.html">Road Map</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../FAQ.html">FAQ</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://github.com/pyviz/panel">Github source</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../about.html">About</a></li>
+</ul>
+</div>
+</div>
+<div class="content"> <!-- style="max-width:80%;margin-left:auto;margin-right: auto;">-->
+<h1>Source code for panel.widgets.text_to_speech</h1><div class="highlight"><pre>
+<span></span><span class="sd">"""</span>
+<span class="sd">The Panel TextToSpeak Widget provides functionality for *text to</span>
+<span class="sd">speech* via the the HTML5 SpeechSynthesis API.</span>
+
+<span class="sd">See https://developer.mozilla.org/en-US/docs/Web/API/SpeechSynthesis</span>
+
+<span class="sd">The term *utterance* is used throughout the API. It is the smallest</span>
+<span class="sd">unit of speech in spoken language analysis.</span>
+<span class="sd">"""</span>
+<span class="kn">import</span> <span class="nn">uuid</span>
+
+<span class="kn">import</span> <span class="nn">param</span>
+
+<span class="kn">from</span> <span class="nn">..models.text_to_speech</span> <span class="kn">import</span> <span class="n">TextToSpeech</span> <span class="k">as</span> <span class="n">_BkTextToSpeech</span>
+<span class="kn">from</span> <span class="nn">panel.widgets</span> <span class="kn">import</span> <span class="n">Widget</span>
+
+
+<div class="viewcode-block" id="Voice"><a class="viewcode-back" href="../../../api/panel.widgets.html#panel.widgets.text_to_speech.Voice">[docs]</a><span class="k">class</span> <span class="nc">Voice</span><span class="p">(</span><span class="n">param</span><span class="o">.</span><span class="n">Parameterized</span><span class="p">):</span>
+    <span class="sd">"""</span>
+<span class="sd">    The current device (i.e. OS and Browser) provides a list of</span>
+<span class="sd">    Voices. Each with a unique name and speaking a specific language.</span>
+
+<span class="sd">    Wraps the HTML5 SpeecSynthesisVoice API</span>
+
+<span class="sd">    See https://developer.mozilla.org/en-US/docs/Web/API/SpeechSynthesisVoice</span>
+<span class="sd">    """</span>
+
+    <span class="n">default</span> <span class="o">=</span> <span class="n">param</span><span class="o">.</span><span class="n">Boolean</span><span class="p">(</span><span class="n">constant</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="s2">"""</span>
+<span class="s2">        A Boolean indicating whether the voice is the default voice</span>
+<span class="s2">        for the current app language (True), or not (False.)"""</span><span class="p">)</span>
+
+    <span class="n">lang</span> <span class="o">=</span> <span class="n">param</span><span class="o">.</span><span class="n">String</span><span class="p">(</span><span class="n">constant</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="s2">"""</span>
+<span class="s2">        Returns a BCP 47 language tag indicating the language of the voice."""</span><span class="p">)</span>
+
+    <span class="n">local_service</span> <span class="o">=</span> <span class="n">param</span><span class="o">.</span><span class="n">Boolean</span><span class="p">(</span><span class="n">constant</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="s2">"""</span>
+<span class="s2">        A Boolean indicating whether the voice is supplied by a local</span>
+<span class="s2">        speech synthesizer service (True), or a remote speech</span>
+<span class="s2">        synthesizer service (False.)"""</span><span class="p">)</span>
+
+    <span class="n">name</span> <span class="o">=</span> <span class="n">param</span><span class="o">.</span><span class="n">String</span><span class="p">(</span><span class="n">constant</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="s2">"""</span>
+<span class="s2">        Returns a human-readable name that represents the voice."""</span><span class="p">)</span>
+
+    <span class="n">voice_uri</span> <span class="o">=</span> <span class="n">param</span><span class="o">.</span><span class="n">String</span><span class="p">(</span><span class="n">constant</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="s2">"""</span>
+<span class="s2">        Returns the type of URI and location of the speech synthesis</span>
+<span class="s2">        service for this voice."""</span><span class="p">)</span>
+
+<div class="viewcode-block" id="Voice.to_voices_list"><a class="viewcode-back" href="../../../api/panel.widgets.html#panel.widgets.text_to_speech.Voice.to_voices_list">[docs]</a>    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">to_voices_list</span><span class="p">(</span><span class="n">voices</span><span class="p">):</span>
+        <span class="sd">"""Returns a list of Voice objects from the list of dicts provided"""</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">_voice</span> <span class="ow">in</span> <span class="n">voices</span><span class="p">:</span>  <span class="c1"># pylint: disable=not-an-iterable</span>
+            <span class="n">voice</span> <span class="o">=</span> <span class="n">Voice</span><span class="p">(</span><span class="o">**</span><span class="n">_voice</span><span class="p">)</span>
+            <span class="n">result</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">voice</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">result</span></div>
+
+<div class="viewcode-block" id="Voice.group_by_lang"><a class="viewcode-back" href="../../../api/panel.widgets.html#panel.widgets.text_to_speech.Voice.group_by_lang">[docs]</a>    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">group_by_lang</span><span class="p">(</span><span class="n">voices</span><span class="p">):</span>
+        <span class="sd">"""Returns a dictionary where the key is the `lang` and the value is a list of voices</span>
+<span class="sd">        for that language."""</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">voices</span><span class="p">:</span>
+            <span class="k">return</span> <span class="p">{}</span>
+
+        <span class="n">sorted_lang</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">voice</span><span class="o">.</span><span class="n">lang</span> <span class="k">for</span> <span class="n">voice</span> <span class="ow">in</span> <span class="n">voices</span><span class="p">)))</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="p">{</span><span class="n">lang</span><span class="p">:</span> <span class="p">[]</span> <span class="k">for</span> <span class="n">lang</span> <span class="ow">in</span> <span class="n">sorted_lang</span><span class="p">}</span>
+        <span class="k">for</span> <span class="n">voice</span> <span class="ow">in</span> <span class="n">voices</span><span class="p">:</span>
+            <span class="n">result</span><span class="p">[</span><span class="n">voice</span><span class="o">.</span><span class="n">lang</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">voice</span><span class="p">)</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="p">{</span><span class="n">key</span><span class="p">:</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="o">.</span><span class="n">name</span><span class="p">)</span> <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">result</span><span class="o">.</span><span class="n">items</span><span class="p">()}</span>
+        <span class="k">return</span> <span class="n">result</span></div></div>
+
+
+<div class="viewcode-block" id="Utterance"><a class="viewcode-back" href="../../../api/panel.widgets.html#panel.widgets.text_to_speech.Utterance">[docs]</a><span class="k">class</span> <span class="nc">Utterance</span><span class="p">(</span><span class="n">param</span><span class="o">.</span><span class="n">Parameterized</span><span class="p">):</span>
+    <span class="sd">"""</span>
+<span class="sd">    An *utterance* is the smallest unit of speech in spoken language analysis.</span>
+
+<span class="sd">    The Utterance Model wraps the HTML5 SpeechSynthesisUtterance API</span>
+
+<span class="sd">    See https://developer.mozilla.org/en-US/docs/Web/API/SpeechSynthesisUtterance</span>
+<span class="sd">    """</span>
+
+    <span class="n">value</span> <span class="o">=</span> <span class="n">param</span><span class="o">.</span><span class="n">String</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="s2">""</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="s2">"""</span>
+<span class="s2">        The text that will be synthesised when the utterance is</span>
+<span class="s2">        spoken. The text may be provided as plain text, or a</span>
+<span class="s2">        well-formed SSML document."""</span><span class="p">)</span>
+
+    <span class="n">lang</span> <span class="o">=</span> <span class="n">param</span><span class="o">.</span><span class="n">ObjectSelector</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="s2">""</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="s2">"""</span>
+<span class="s2">        The language of the utterance."""</span><span class="p">)</span>
+
+    <span class="n">pitch</span> <span class="o">=</span> <span class="n">param</span><span class="o">.</span><span class="n">Number</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span> <span class="n">bounds</span><span class="o">=</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">2.0</span><span class="p">),</span> <span class="n">doc</span><span class="o">=</span><span class="s2">"""</span>
+<span class="s2">        The pitch at which the utterance will be spoken at expressed</span>
+<span class="s2">        as a number between 0 and 2."""</span><span class="p">)</span>
+
+    <span class="n">rate</span> <span class="o">=</span> <span class="n">param</span><span class="o">.</span><span class="n">Number</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span> <span class="n">bounds</span><span class="o">=</span><span class="p">(</span><span class="mf">0.1</span><span class="p">,</span> <span class="mf">10.0</span><span class="p">),</span> <span class="n">doc</span><span class="o">=</span><span class="s2">"""</span>
+<span class="s2">        The speed at which the utterance will be spoken at expressed</span>
+<span class="s2">        as a number between 0.1 and 10."""</span> <span class="p">)</span>
+
+    <span class="n">voice</span> <span class="o">=</span> <span class="n">param</span><span class="o">.</span><span class="n">ObjectSelector</span><span class="p">(</span><span class="n">doc</span><span class="o">=</span><span class="s2">"""</span>
+<span class="s2">        The voice that will be used to speak the utterance."""</span><span class="p">)</span>
+
+    <span class="n">volume</span> <span class="o">=</span> <span class="n">param</span><span class="o">.</span><span class="n">Number</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span> <span class="n">bounds</span><span class="o">=</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">),</span> <span class="n">doc</span><span class="o">=</span><span class="s2">""" The</span>
+<span class="s2">        volume that the utterance will be spoken at expressed as a</span>
+<span class="s2">        number between 0 and 1."""</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">params</span><span class="p">):</span>
+        <span class="n">voices</span> <span class="o">=</span> <span class="n">params</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">'voices'</span><span class="p">,</span> <span class="p">[])</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="o">**</span><span class="n">params</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_voices_by_language</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">set_voices</span><span class="p">(</span><span class="n">voices</span><span class="p">)</span>
+
+<div class="viewcode-block" id="Utterance.to_dict"><a class="viewcode-back" href="../../../api/panel.widgets.html#panel.widgets.text_to_speech.Utterance.to_dict">[docs]</a>    <span class="k">def</span> <span class="nf">to_dict</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">include_uuid</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+        <span class="sd">"""Returns the object parameter values in a dictionary</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            Dict: [description]</span>
+<span class="sd">        """</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s2">"lang"</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">lang</span><span class="p">,</span>
+            <span class="s2">"pitch"</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">pitch</span><span class="p">,</span>
+            <span class="s2">"rate"</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">rate</span><span class="p">,</span>
+            <span class="s2">"text"</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">value</span><span class="p">,</span>
+            <span class="s2">"volume"</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">volume</span><span class="p">,</span>
+        <span class="p">}</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">voice</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">voice</span><span class="o">.</span><span class="n">name</span><span class="p">:</span>
+            <span class="n">result</span><span class="p">[</span><span class="s2">"voice"</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">voice</span><span class="o">.</span><span class="n">name</span>
+        <span class="k">if</span> <span class="n">include_uuid</span><span class="p">:</span>
+            <span class="n">result</span><span class="p">[</span><span class="s2">"uuid"</span><span class="p">]</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">uuid</span><span class="o">.</span><span class="n">uuid4</span><span class="p">())</span>
+        <span class="k">return</span> <span class="n">result</span></div>
+
+<div class="viewcode-block" id="Utterance.set_voices"><a class="viewcode-back" href="../../../api/panel.widgets.html#panel.widgets.text_to_speech.Utterance.set_voices">[docs]</a>    <span class="k">def</span> <span class="nf">set_voices</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">voices</span><span class="p">):</span>
+        <span class="sd">"""Updates the `lang` and `voice` parameter objects, default and value"""</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">voices</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">param</span><span class="o">.</span><span class="n">lang</span><span class="o">.</span><span class="n">objects</span> <span class="o">=</span> <span class="p">[</span><span class="s2">"en-US"</span><span class="p">]</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">param</span><span class="o">.</span><span class="n">lang</span><span class="o">.</span><span class="n">default</span> <span class="o">=</span> <span class="s2">"en-US"</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">lang</span> <span class="o">=</span> <span class="s2">"en-US"</span>
+            <span class="k">return</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_voices_by_language</span> <span class="o">=</span> <span class="n">Voice</span><span class="o">.</span><span class="n">group_by_lang</span><span class="p">(</span><span class="n">voices</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">param</span><span class="o">.</span><span class="n">lang</span><span class="o">.</span><span class="n">objects</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_voices_by_language</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
+        <span class="k">if</span> <span class="s2">"en-US"</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_voices_by_language</span><span class="p">:</span>
+            <span class="n">default_lang</span> <span class="o">=</span> <span class="s2">"en-US"</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">default_lang</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_voices_by_language</span><span class="o">.</span><span class="n">keys</span><span class="p">())[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">param</span><span class="o">.</span><span class="n">lang</span><span class="o">.</span><span class="n">default</span> <span class="o">=</span> <span class="n">default_lang</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">lang</span> <span class="o">=</span> <span class="n">default_lang</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">param</span><span class="o">.</span><span class="n">trigger</span><span class="p">(</span><span class="s2">"lang"</span><span class="p">)</span></div>
+
+    <span class="nd">@param</span><span class="o">.</span><span class="n">depends</span><span class="p">(</span><span class="s2">"lang"</span><span class="p">,</span> <span class="n">watch</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">_handle_lang_changed</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_voices_by_language</span> <span class="ow">or</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">lang</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">param</span><span class="o">.</span><span class="n">voice</span><span class="o">.</span><span class="n">default</span> <span class="o">=</span> <span class="kc">None</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">voice</span> <span class="o">=</span> <span class="kc">None</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">param</span><span class="o">.</span><span class="n">voice</span><span class="o">.</span><span class="n">objects</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="k">return</span>
+
+        <span class="n">voices</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_voices_by_language</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">lang</span><span class="p">]</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">voice</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">voice</span> <span class="ow">in</span> <span class="n">voices</span><span class="p">:</span>
+            <span class="n">default_voice</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">voice</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">default_voice</span> <span class="o">=</span> <span class="n">voices</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="k">for</span> <span class="n">voice</span> <span class="ow">in</span> <span class="n">voices</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">voice</span><span class="o">.</span><span class="n">default</span><span class="p">:</span>
+                    <span class="n">default_voice</span> <span class="o">=</span> <span class="n">voice</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">param</span><span class="o">.</span><span class="n">voice</span><span class="o">.</span><span class="n">objects</span> <span class="o">=</span> <span class="n">voices</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">param</span><span class="o">.</span><span class="n">voice</span><span class="o">.</span><span class="n">default</span> <span class="o">=</span> <span class="n">default_voice</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">voice</span> <span class="o">=</span> <span class="n">default_voice</span></div>
+
+
+<div class="viewcode-block" id="TextToSpeech"><a class="viewcode-back" href="../../../api/panel.widgets.html#panel.widgets.text_to_speech.TextToSpeech">[docs]</a><span class="k">class</span> <span class="nc">TextToSpeech</span><span class="p">(</span><span class="n">Utterance</span><span class="p">,</span> <span class="n">Widget</span><span class="p">):</span>
+    <span class="sd">"""</span>
+<span class="sd">    The TextToSpeech widget wraps the HTML5 SpeechSynthesis API</span>
+
+<span class="sd">    See https://developer.mozilla.org/en-US/docs/Web/API/SpeechSynthesis</span>
+<span class="sd">    """</span>
+
+    <span class="n">auto_speak</span> <span class="o">=</span> <span class="n">param</span><span class="o">.</span><span class="n">Boolean</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="s2">"""</span>
+<span class="s2">        Whether or not to automatically speak when the value changes."""</span><span class="p">)</span>
+
+    <span class="n">cancel</span> <span class="o">=</span> <span class="n">param</span><span class="o">.</span><span class="n">Event</span><span class="p">(</span><span class="n">doc</span><span class="o">=</span><span class="s2">"""</span>
+<span class="s2">        Removes all utterances from the utterance queue."""</span><span class="p">)</span>
+
+    <span class="n">pause</span> <span class="o">=</span> <span class="n">param</span><span class="o">.</span><span class="n">Event</span><span class="p">(</span><span class="n">doc</span><span class="o">=</span><span class="s2">"""</span>
+<span class="s2">        Puts the TextToSpeak object into a paused state."""</span><span class="p">)</span>
+
+    <span class="n">resume</span> <span class="o">=</span> <span class="n">param</span><span class="o">.</span><span class="n">Event</span><span class="p">(</span><span class="n">doc</span><span class="o">=</span><span class="s2">"""</span>
+<span class="s2">        Puts the TextToSpeak object into a non-paused state: resumes</span>
+<span class="s2">        it if it was already paused."""</span><span class="p">)</span>
+
+    <span class="n">paused</span> <span class="o">=</span> <span class="n">param</span><span class="o">.</span><span class="n">Boolean</span><span class="p">(</span><span class="n">readonly</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="s2">"""</span>
+<span class="s2">        A Boolean that returns true if the TextToSpeak object is in a</span>
+<span class="s2">        paused state."""</span><span class="p">)</span>
+
+    <span class="n">pending</span> <span class="o">=</span> <span class="n">param</span><span class="o">.</span><span class="n">Boolean</span><span class="p">(</span><span class="n">readonly</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="s2">"""</span>
+<span class="s2">        A Boolean that returns true if the utterance queue contains</span>
+<span class="s2">        as-yet-unspoken utterances."""</span><span class="p">)</span>
+
+    <span class="n">speak</span> <span class="o">=</span> <span class="n">param</span><span class="o">.</span><span class="n">Event</span><span class="p">(</span><span class="n">doc</span><span class="o">=</span><span class="s2">"""</span>
+<span class="s2">        Speak. I.e. send a new Utterance to the browser"""</span><span class="p">)</span>
+
+    <span class="n">speaking</span> <span class="o">=</span> <span class="n">param</span><span class="o">.</span><span class="n">Boolean</span><span class="p">(</span><span class="n">readonly</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="s2">"""</span>
+<span class="s2">        A Boolean that returns true if an utterance is currently in</span>
+<span class="s2">        the process of being spoken — even if TextToSpeak is in a</span>
+<span class="s2">        paused state."""</span><span class="p">)</span>
+
+    <span class="n">voices</span> <span class="o">=</span> <span class="n">param</span><span class="o">.</span><span class="n">List</span><span class="p">(</span><span class="n">readonly</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="s2">"""</span>
+<span class="s2">        Returns a list of Voice objects representing all the available</span>
+<span class="s2">        voices on the current device."""</span><span class="p">)</span>
+
+    <span class="n">_voices</span> <span class="o">=</span> <span class="n">param</span><span class="o">.</span><span class="n">List</span><span class="p">()</span>
+
+    <span class="n">_widget_type</span> <span class="o">=</span> <span class="n">_BkTextToSpeech</span>
+
+    <span class="n">_rename</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s2">"auto_speak"</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="s2">"lang"</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="s2">"pitch"</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="s2">"rate"</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="s2">"speak"</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="s2">"value"</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="s2">"voice"</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="s2">"voices"</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="s2">"volume"</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="s2">"_voices"</span><span class="p">:</span> <span class="s2">"voices"</span><span class="p">,</span>
+    <span class="p">}</span>
+
+    <span class="k">def</span> <span class="nf">_process_param_change</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">msg</span><span class="p">):</span>
+        <span class="n">speak</span> <span class="o">=</span> <span class="n">msg</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'speak'</span><span class="p">)</span> <span class="ow">or</span> <span class="p">(</span><span class="s1">'value'</span> <span class="ow">in</span> <span class="n">msg</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">auto_speak</span><span class="p">)</span> 
+        <span class="n">msg</span> <span class="o">=</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">_process_param_change</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">speak</span><span class="p">:</span>
+            <span class="n">msg</span><span class="p">[</span><span class="s1">'speak'</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">to_dict</span><span class="p">()</span>
+        <span class="k">return</span> <span class="n">msg</span>
+
+    <span class="nd">@param</span><span class="o">.</span><span class="n">depends</span><span class="p">(</span><span class="s2">"_voices"</span><span class="p">,</span> <span class="n">watch</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">_update_voices</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">voices</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">_voice</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_voices</span><span class="p">:</span>  <span class="c1"># pylint: disable=not-an-iterable</span>
+            <span class="n">voice</span> <span class="o">=</span> <span class="n">Voice</span><span class="p">(</span><span class="o">**</span><span class="n">_voice</span><span class="p">)</span>
+            <span class="n">voices</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">voice</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">voices</span> <span class="o">=</span> <span class="n">voices</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">set_voices</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">voices</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">depth</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="c1"># We need to do this because otherwise a error is raised when used in notebook</span>
+        <span class="c1"># due to infinite recursion</span>
+        <span class="k">return</span> <span class="sa">f</span><span class="s2">"TextToSpeech(name=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">)"</span>
+
+    <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="sa">f</span><span class="s2">"TextToSpeech(name=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">)"</span></div>
+</pre></div>
+</div>
+</div>
+<!-- END MAIN BODY OF DOCS ––––––––––––– -->
+<!-- Google Analytics -->
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async="" src="https://www.googletagmanager.com/gtag/js?id=UA-154795830-2"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-154795830-2', { 'anonymize_ip': true });
+</script>
+<!-- MathJax Config -->
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}
+});
+</script>
+<!-- End Document
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+</body>
+</html>

@@ -1,0 +1,604 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<!-- Basic Page Needs
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+<meta charset="utf-8"/>
+<title>panel.fast Package — Panel 0.11.1+g238199f-dirty documentation</title>
+<meta content="High-level dashboarding for python visualization libraries" name="description"/>
+<meta content="Panel contributors" name="author"/>
+<!-- Mobile Specific Metas
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<!-- FONT
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+<script src="https://ajax.googleapis.com/ajax/libs/webfont/1.6.16/webfont.js"></script>
+<script>
+    WebFont.load({
+      google: {
+        families: ['Source Sans Pro']
+      }
+    });
+  </script>
+<!-- CSS
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+<link href="../_static/css/main.css" rel="stylesheet"/>
+<link href="../_static/nbsite.css" rel="stylesheet"/>
+<link href="../_static/site.css" rel="stylesheet"/>
+<!-- Scripts
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script async="" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML" type="text/javascript">
+</script>
+<script src="../_static/js/main.js"></script>
+<!-- Favicon
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+<link href="../_static/favicon.ico" rel="icon" type="image/png"/>
+<!-- Canonical
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+<link href="https://panel.holoviz.org/api/panel.template.fast.html" rel="canonical">
+</link></head>
+<body class="">
+<header class="navigation">
+<div class="wrapper">
+<a class="logo" href="../index.html">
+<img alt="Logo" src="../_static/logo_horizontal.png"/>
+</a>
+<a class="navigation-menu-button" href="javascript:void(0)" id="js-mobile-menu">Menu</a>
+<nav>
+<ul class="navigation-menu show" id="js-navigation-menu">
+<li class="nav-link doc-head"><a href="//discourse.holoviz.org">Discourse</a></li>
+<li class="nav-link doc-head"><a href="//twitter.com/Panel_org">Twitter</a></li>
+<li class="nav-link doc-head"><a href="//github.com/pyviz/panel">Github</a></li>
+<li class="nav-link">
+<div style="display:inline-block;vertical-align: middle;">
+<div class="search-bar">
+<form action="../search.html" method="get" role="search">
+<input name="q" placeholder="Search" type="search"/>
+<button type="submit">
+<img alt="Search Icon" src="https://raw.githubusercontent.com/thoughtbot/refills/master/source/images/search-icon-black.png"/>
+</button>
+</form>
+</div>
+</div>
+</li>
+</ul>
+</nav>
+</div>
+</header>
+<div class="second-nav">
+<nav>
+<ul class="navigation-menu show">
+<li class="nav-link doc-head"><a href="../getting_started/index.html">Getting started</a></li>
+<li class="nav-link doc-head"><a href="../user_guide/index.html">User Guide</a></li>
+<li class="nav-link doc-head"><a href="../gallery/index.html">Gallery</a></li>
+<li class="nav-link doc-head"><a href="../reference/index.html">Reference Gallery</a></li>
+<li class="nav-link doc-head"><a href="../developer_guide/index.html">Developer Guide</a></li>
+<li class="nav-link doc-head"><a href="../releases.html">Releases</a></li>
+<li class="nav-link doc-head"><a href="index.html">API</a></li>
+<li class="nav-link doc-head"><a href="../FAQ.html">FAQ</a></li>
+<li class="nav-link doc-head"><a href="../about.html">About</a></li>
+</ul>
+</nav>
+</div>
+<!-- MAIN BODY OF DOCS –––––––––––––––––– -->
+<div class="docs section">
+<div id="hacketyhackhack"> <!-- style="width:20%;margin-right: 100px;"> --> <!--style="display: none;"> style="display:none;"> -->
+<div class="toc" style="width:15%; margin-right:20px;">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../index.html">Home</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting_started/index.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../user_guide/index.html">User Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../gallery/index.html">Gallery</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/index.html">Reference Gallery</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../developer_guide/index.html">Developer Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="index.html">API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Comparisons.html">Comparisons</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../releases.html">Releases</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Roadmap.html">Road Map</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../FAQ.html">FAQ</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://github.com/pyviz/panel">Github source</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../about.html">About</a></li>
+</ul>
+</div>
+</div>
+<div class="content"> <!-- style="max-width:80%;margin-left:auto;margin-right: auto;">-->
+<div class="section" id="panel-fast-package">
+<h1>panel.fast Package<a class="headerlink" href="#panel-fast-package" title="Permalink to this headline">¶</a></h1>
+<hr class="docutils"/>
+<div class="section" id="fast-package">
+<h2><code class="xref py py-mod docutils literal notranslate"><span class="pre">fast</span></code> Package<a class="headerlink" href="#fast-package" title="Permalink to this headline">¶</a></h2>
+<span class="target" id="module-panel.template.fast"></span><p>The Fast Templates provide easy to use, great looking templates for
+Panel based on the <a class="reference external" href="https://fast.design">https://fast.design</a> framework.</p>
+</div>
+<hr class="docutils"/>
+<div class="section" id="base-module">
+<h2><code class="xref py py-mod docutils literal notranslate"><span class="pre">base</span></code> Module<a class="headerlink" href="#base-module" title="Permalink to this headline">¶</a></h2>
+<div class="graphviz"><img alt="Inheritance diagram of panel.template.fast.base" class="inheritance graphviz" src="../_images/inheritance-d27a2c72c5056a942b49375c525543b20949f2fb.png" usemap="#inheritanceff0e72d8c6"/></div>
+<map id="inheritanceff0e72d8c6" name="inheritanceff0e72d8c6">
+<area alt="" coords="225,22,405,40" href="panel.template.html#panel.template.base.BaseTemplate" id="node1" shape="rect" target="_top" title="panel.template.base.BaseTemplate"/>
+<area alt="" coords="439,22,621,40" href="panel.template.html#panel.template.base.BasicTemplate" id="node4" shape="rect" target="_top" title="BasicTemplate provides a baseclass for templates with a basic"/>
+<area alt="" coords="20,39,175,57" href="panel.viewable.html#panel.viewable.ServableMixin" id="node3" shape="rect" target="_top" title="Mixin to define methods shared by objects which can served."/>
+<area alt="" coords="656,4,875,22" href="#panel.template.fast.base.FastBaseTemplate" id="node5" shape="rect" target="_top" title="panel.template.fast.base.FastBaseTemplate"/>
+<area alt="" coords="673,39,858,57" href="panel.template.react.html#panel.template.react.ReactTemplate" id="node7" shape="rect" target="_top" title="ReactTemplate is built on top of React Grid Layout web components."/>
+<area alt="" coords="909,22,1148,40" href="#panel.template.fast.base.FastGridBaseTemplate" id="node6" shape="rect" target="_top" title="Combines the FastTemplate and the React template."/>
+</map><span class="target" id="module-panel.template.fast.base"></span><dl class="py class">
+<dt id="panel.template.fast.base.FastBaseTemplate">
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">panel.template.fast.base.</span></code><code class="sig-name descname"><span class="pre">FastBaseTemplate</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">params</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/panel/template/fast/base.html#FastBaseTemplate"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#panel.template.fast.base.FastBaseTemplate" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="panel.template.html#panel.template.base.BasicTemplate" title="panel.template.base.BasicTemplate"><code class="xref py py-class docutils literal notranslate"><span class="pre">panel.template.base.BasicTemplate</span></code></a></p>
+<p>Parameters inherited from:</p>
+<blockquote>
+<div><p><a class="reference internal" href="panel.template.html#panel.template.base.BasicTemplate" title="panel.template.base.BasicTemplate"><code class="xref py py-class docutils literal notranslate"><span class="pre">panel.template.base.BasicTemplate</span></code></a>: location, config, busy_indicator, header, main, main_max_width, sidebar, modal, logo, favicon, title, site, meta_description, meta_keywords, meta_author, meta_refresh, meta_viewport, base_url, base_target, header_background, header_color, theme</p>
+</div></blockquote>
+<dl class="simple">
+<dt><code class="docutils literal notranslate"><span class="pre">theme_toggle</span></code> = param.Boolean(bounds=(0, 1), default=True)</dt><dd><p>If True a switch to toggle the Theme is shown.</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">sidebar_footer</span></code> = param.String(default=’’)</dt><dd><p>A HTML string appended to the sidebar</p>
+</dd>
+</dl>
+<dl class="py method">
+<dt id="panel.template.fast.base.FastBaseTemplate.close_modal">
+<code class="sig-name descname"><span class="pre">close_modal</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#panel.template.fast.base.FastBaseTemplate.close_modal" title="Permalink to this definition">¶</a></dt>
+<dd><p>Closes the modal area</p>
+</dd></dl>
+<dl class="py method">
+<dt id="panel.template.fast.base.FastBaseTemplate.open_modal">
+<code class="sig-name descname"><span class="pre">open_modal</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#panel.template.fast.base.FastBaseTemplate.open_modal" title="Permalink to this definition">¶</a></dt>
+<dd><p>Opens the modal area</p>
+</dd></dl>
+<dl class="py method">
+<dt id="panel.template.fast.base.FastBaseTemplate.save">
+<code class="sig-name descname"><span class="pre">save</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filename</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">title</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">resources</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">embed</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_states</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1000</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_opts</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">3</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">embed_json</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">json_prefix</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">save_path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'./'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">load_path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#panel.template.fast.base.FastBaseTemplate.save" title="Permalink to this definition">¶</a></dt>
+<dd><p>Saves Panel objects to file.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>filename</strong> (<em>string</em><em> or </em><em>file-like object</em>) – Filename to save the plot to</p></li>
+<li><p><strong>title</strong> (<em>string</em>) – Optional title for the plot</p></li>
+<li><p><strong>resources</strong> (<em>bokeh resources</em>) – One of the valid bokeh.resources (e.g. CDN or INLINE)</p></li>
+<li><p><strong>embed</strong> (<em>bool</em>) – Whether the state space should be embedded in the saved file.</p></li>
+<li><p><strong>max_states</strong> (<em>int</em>) – The maximum number of states to embed</p></li>
+<li><p><strong>max_opts</strong> (<em>int</em>) – The maximum number of states for a single widget</p></li>
+<li><p><strong>embed_json</strong> (<em>boolean</em><em> (</em><em>default=True</em><em>)</em>) – Whether to export the data to json files</p></li>
+<li><p><strong>json_prefix</strong> (<em>str</em><em> (</em><em>default=''</em><em>)</em>) – Prefix for the auto-generated json directory</p></li>
+<li><p><strong>save_path</strong> (<em>str</em><em> (</em><em>default='./'</em><em>)</em>) – The path to save json files to</p></li>
+<li><p><strong>load_path</strong> (<em>str</em><em> (</em><em>default=None</em><em>)</em>) – The path or URL the json files will be loaded from.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+<dl class="py method">
+<dt id="panel.template.fast.base.FastBaseTemplate.select">
+<code class="sig-name descname"><span class="pre">select</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">selector</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#panel.template.fast.base.FastBaseTemplate.select" title="Permalink to this definition">¶</a></dt>
+<dd><p>Iterates over the Template and any potential children in the
+applying the Selector.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>selector</strong> (<em>type</em><em> or </em><em>callable</em><em> or </em><em>None</em>) – The selector allows selecting a subset of Viewables by
+declaring a type or callable function to filter by.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>viewables</strong></p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>list(<a class="reference internal" href="panel.viewable.html#panel.viewable.Viewable" title="panel.viewable.Viewable">Viewable</a>)</p>
+</dd>
+</dl>
+</dd></dl>
+<dl class="py method">
+<dt id="panel.template.fast.base.FastBaseTemplate.servable">
+<code class="sig-name descname"><span class="pre">servable</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">title</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">location</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#panel.template.fast.base.FastBaseTemplate.servable" title="Permalink to this definition">¶</a></dt>
+<dd><p>Serves the object if in a <cite>panel serve</cite> context and returns
+the Panel object to allow it to display itself in a notebook
+context.
+:param title: A string title to give the Document (if served as an app)
+:type title: str
+:param location: Whether to create a Location component to observe and</p>
+<blockquote>
+<div><p>set the URL location.</p>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p></p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>The Panel object itself</p>
+</dd>
+</dl>
+</dd></dl>
+<dl class="py method">
+<dt id="panel.template.fast.base.FastBaseTemplate.server_doc">
+<code class="sig-name descname"><span class="pre">server_doc</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">doc</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">title</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">location</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#panel.template.fast.base.FastBaseTemplate.server_doc" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a servable bokeh Document with the panel attached</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>doc</strong> (<em>bokeh.Document</em><em> (</em><em>optional</em><em>)</em>) – The Bokeh Document to attach the panel to as a root,
+defaults to bokeh.io.curdoc()</p></li>
+<li><p><strong>title</strong> (<em>str</em>) – A string title to give the Document</p></li>
+<li><p><strong>location</strong> (<em>boolean</em><em> or </em><a class="reference internal" href="panel.io.html#panel.io.location.Location" title="panel.io.location.Location"><em>panel.io.location.Location</em></a>) – Whether to create a Location component to observe and
+set the URL location.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>doc</strong> – The Bokeh document the panel was attached to</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>bokeh.Document</p>
+</dd>
+</dl>
+</dd></dl>
+<dl class="py method">
+<dt id="panel.template.fast.base.FastBaseTemplate.show">
+<code class="sig-name descname"><span class="pre">show</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">title</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">port</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">address</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">websocket_origin</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">threaded</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">open</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">location</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#panel.template.fast.base.FastBaseTemplate.show" title="Permalink to this definition">¶</a></dt>
+<dd><p>Starts a Bokeh server and displays the Viewable in a new tab.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>title</strong> (<em>str</em>) – A string title to give the Document (if served as an app)</p></li>
+<li><p><strong>port</strong> (<em>int</em><em> (</em><em>optional</em><em>, </em><em>default=0</em><em>)</em>) – Allows specifying a specific port</p></li>
+<li><p><strong>address</strong> (<em>str</em>) – The address the server should listen on for HTTP requests.</p></li>
+<li><p><strong>websocket_origin</strong> (<em>str</em><em> or </em><em>list</em><em>(</em><em>str</em><em>) </em><em>(</em><em>optional</em><em>)</em>) – A list of hosts that can connect to the websocket.
+This is typically required when embedding a server app in
+an external web site.
+If None, “localhost” is used.</p></li>
+<li><p><strong>threaded</strong> (<em>boolean</em><em> (</em><em>optional</em><em>, </em><em>default=False</em><em>)</em>) – Whether to launch the Server on a separate thread, allowing
+interactive use.</p></li>
+<li><p><strong>verbose</strong> (<em>boolean</em><em> (</em><em>optional</em><em>, </em><em>default=True</em><em>)</em>) – Whether to print the address and port</p></li>
+<li><p><strong>open</strong> (<em>boolean</em><em> (</em><em>optional</em><em>, </em><em>default=True</em><em>)</em>) – Whether to open the server in a new browser tab</p></li>
+<li><p><strong>location</strong> (<em>boolean</em><em> or </em><a class="reference internal" href="panel.io.html#panel.io.location.Location" title="panel.io.location.Location"><em>panel.io.location.Location</em></a>) – Whether to create a Location component to observe and
+set the URL location.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>server</strong> – Returns the Bokeh server instance or the thread the server
+was launched on (if threaded=True)</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>bokeh.server.Server or threading.Thread</p>
+</dd>
+</dl>
+</dd></dl>
+<dl class="py attribute">
+<dt id="panel.template.fast.base.FastBaseTemplate.theme">
+<code class="sig-name descname"><span class="pre">theme</span></code><a class="headerlink" href="#panel.template.fast.base.FastBaseTemplate.theme" title="Permalink to this definition">¶</a></dt>
+<dd><p>alias of <a class="reference internal" href="panel.template.theme.html#panel.template.theme.DefaultTheme" title="panel.template.theme.DefaultTheme"><code class="xref py py-class docutils literal notranslate"><span class="pre">panel.template.theme.DefaultTheme</span></code></a></p>
+</dd></dl>
+</dd></dl>
+<dl class="py class">
+<dt id="panel.template.fast.base.FastGridBaseTemplate">
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">panel.template.fast.base.</span></code><code class="sig-name descname"><span class="pre">FastGridBaseTemplate</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">params</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/panel/template/fast/base.html#FastGridBaseTemplate"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#panel.template.fast.base.FastGridBaseTemplate" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#panel.template.fast.base.FastBaseTemplate" title="panel.template.fast.base.FastBaseTemplate"><code class="xref py py-class docutils literal notranslate"><span class="pre">panel.template.fast.base.FastBaseTemplate</span></code></a>, <a class="reference internal" href="panel.template.react.html#panel.template.react.ReactTemplate" title="panel.template.react.ReactTemplate"><code class="xref py py-class docutils literal notranslate"><span class="pre">panel.template.react.ReactTemplate</span></code></a></p>
+<p>Combines the FastTemplate and the React template.</p>
+<p>Parameters inherited from:</p>
+<blockquote>
+<div><p><a class="reference internal" href="panel.template.html#panel.template.base.BasicTemplate" title="panel.template.base.BasicTemplate"><code class="xref py py-class docutils literal notranslate"><span class="pre">panel.template.base.BasicTemplate</span></code></a>: location, config, busy_indicator, header, main_max_width, sidebar, modal, logo, favicon, title, site, meta_description, meta_keywords, meta_author, meta_refresh, meta_viewport, base_url, base_target, header_background, header_color, theme</p>
+<p><a class="reference internal" href="panel.template.react.html#panel.template.react.ReactTemplate" title="panel.template.react.ReactTemplate"><code class="xref py py-class docutils literal notranslate"><span class="pre">panel.template.react.ReactTemplate</span></code></a>: main, compact, cols, breakpoints, row_height</p>
+<p><a class="reference internal" href="#panel.template.fast.base.FastBaseTemplate" title="panel.template.fast.base.FastBaseTemplate"><code class="xref py py-class docutils literal notranslate"><span class="pre">panel.template.fast.base.FastBaseTemplate</span></code></a>: theme_toggle, sidebar_footer</p>
+</div></blockquote>
+<dl class="py method">
+<dt id="panel.template.fast.base.FastGridBaseTemplate.close_modal">
+<code class="sig-name descname"><span class="pre">close_modal</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#panel.template.fast.base.FastGridBaseTemplate.close_modal" title="Permalink to this definition">¶</a></dt>
+<dd><p>Closes the modal area</p>
+</dd></dl>
+<dl class="py method">
+<dt id="panel.template.fast.base.FastGridBaseTemplate.open_modal">
+<code class="sig-name descname"><span class="pre">open_modal</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#panel.template.fast.base.FastGridBaseTemplate.open_modal" title="Permalink to this definition">¶</a></dt>
+<dd><p>Opens the modal area</p>
+</dd></dl>
+<dl class="py method">
+<dt id="panel.template.fast.base.FastGridBaseTemplate.save">
+<code class="sig-name descname"><span class="pre">save</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filename</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">title</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">resources</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">embed</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_states</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1000</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_opts</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">3</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">embed_json</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">json_prefix</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">save_path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'./'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">load_path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#panel.template.fast.base.FastGridBaseTemplate.save" title="Permalink to this definition">¶</a></dt>
+<dd><p>Saves Panel objects to file.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>filename</strong> (<em>string</em><em> or </em><em>file-like object</em>) – Filename to save the plot to</p></li>
+<li><p><strong>title</strong> (<em>string</em>) – Optional title for the plot</p></li>
+<li><p><strong>resources</strong> (<em>bokeh resources</em>) – One of the valid bokeh.resources (e.g. CDN or INLINE)</p></li>
+<li><p><strong>embed</strong> (<em>bool</em>) – Whether the state space should be embedded in the saved file.</p></li>
+<li><p><strong>max_states</strong> (<em>int</em>) – The maximum number of states to embed</p></li>
+<li><p><strong>max_opts</strong> (<em>int</em>) – The maximum number of states for a single widget</p></li>
+<li><p><strong>embed_json</strong> (<em>boolean</em><em> (</em><em>default=True</em><em>)</em>) – Whether to export the data to json files</p></li>
+<li><p><strong>json_prefix</strong> (<em>str</em><em> (</em><em>default=''</em><em>)</em>) – Prefix for the auto-generated json directory</p></li>
+<li><p><strong>save_path</strong> (<em>str</em><em> (</em><em>default='./'</em><em>)</em>) – The path to save json files to</p></li>
+<li><p><strong>load_path</strong> (<em>str</em><em> (</em><em>default=None</em><em>)</em>) – The path or URL the json files will be loaded from.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+<dl class="py method">
+<dt id="panel.template.fast.base.FastGridBaseTemplate.select">
+<code class="sig-name descname"><span class="pre">select</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">selector</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#panel.template.fast.base.FastGridBaseTemplate.select" title="Permalink to this definition">¶</a></dt>
+<dd><p>Iterates over the Template and any potential children in the
+applying the Selector.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>selector</strong> (<em>type</em><em> or </em><em>callable</em><em> or </em><em>None</em>) – The selector allows selecting a subset of Viewables by
+declaring a type or callable function to filter by.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>viewables</strong></p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>list(<a class="reference internal" href="panel.viewable.html#panel.viewable.Viewable" title="panel.viewable.Viewable">Viewable</a>)</p>
+</dd>
+</dl>
+</dd></dl>
+<dl class="py method">
+<dt id="panel.template.fast.base.FastGridBaseTemplate.servable">
+<code class="sig-name descname"><span class="pre">servable</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">title</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">location</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#panel.template.fast.base.FastGridBaseTemplate.servable" title="Permalink to this definition">¶</a></dt>
+<dd><p>Serves the object if in a <cite>panel serve</cite> context and returns
+the Panel object to allow it to display itself in a notebook
+context.
+:param title: A string title to give the Document (if served as an app)
+:type title: str
+:param location: Whether to create a Location component to observe and</p>
+<blockquote>
+<div><p>set the URL location.</p>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p></p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>The Panel object itself</p>
+</dd>
+</dl>
+</dd></dl>
+<dl class="py method">
+<dt id="panel.template.fast.base.FastGridBaseTemplate.server_doc">
+<code class="sig-name descname"><span class="pre">server_doc</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">doc</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">title</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">location</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#panel.template.fast.base.FastGridBaseTemplate.server_doc" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a servable bokeh Document with the panel attached</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>doc</strong> (<em>bokeh.Document</em><em> (</em><em>optional</em><em>)</em>) – The Bokeh Document to attach the panel to as a root,
+defaults to bokeh.io.curdoc()</p></li>
+<li><p><strong>title</strong> (<em>str</em>) – A string title to give the Document</p></li>
+<li><p><strong>location</strong> (<em>boolean</em><em> or </em><a class="reference internal" href="panel.io.html#panel.io.location.Location" title="panel.io.location.Location"><em>panel.io.location.Location</em></a>) – Whether to create a Location component to observe and
+set the URL location.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>doc</strong> – The Bokeh document the panel was attached to</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>bokeh.Document</p>
+</dd>
+</dl>
+</dd></dl>
+<dl class="py method">
+<dt id="panel.template.fast.base.FastGridBaseTemplate.show">
+<code class="sig-name descname"><span class="pre">show</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">title</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">port</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">address</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">websocket_origin</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">threaded</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">open</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">location</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#panel.template.fast.base.FastGridBaseTemplate.show" title="Permalink to this definition">¶</a></dt>
+<dd><p>Starts a Bokeh server and displays the Viewable in a new tab.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>title</strong> (<em>str</em>) – A string title to give the Document (if served as an app)</p></li>
+<li><p><strong>port</strong> (<em>int</em><em> (</em><em>optional</em><em>, </em><em>default=0</em><em>)</em>) – Allows specifying a specific port</p></li>
+<li><p><strong>address</strong> (<em>str</em>) – The address the server should listen on for HTTP requests.</p></li>
+<li><p><strong>websocket_origin</strong> (<em>str</em><em> or </em><em>list</em><em>(</em><em>str</em><em>) </em><em>(</em><em>optional</em><em>)</em>) – A list of hosts that can connect to the websocket.
+This is typically required when embedding a server app in
+an external web site.
+If None, “localhost” is used.</p></li>
+<li><p><strong>threaded</strong> (<em>boolean</em><em> (</em><em>optional</em><em>, </em><em>default=False</em><em>)</em>) – Whether to launch the Server on a separate thread, allowing
+interactive use.</p></li>
+<li><p><strong>verbose</strong> (<em>boolean</em><em> (</em><em>optional</em><em>, </em><em>default=True</em><em>)</em>) – Whether to print the address and port</p></li>
+<li><p><strong>open</strong> (<em>boolean</em><em> (</em><em>optional</em><em>, </em><em>default=True</em><em>)</em>) – Whether to open the server in a new browser tab</p></li>
+<li><p><strong>location</strong> (<em>boolean</em><em> or </em><a class="reference internal" href="panel.io.html#panel.io.location.Location" title="panel.io.location.Location"><em>panel.io.location.Location</em></a>) – Whether to create a Location component to observe and
+set the URL location.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>server</strong> – Returns the Bokeh server instance or the thread the server
+was launched on (if threaded=True)</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>bokeh.server.Server or threading.Thread</p>
+</dd>
+</dl>
+</dd></dl>
+<dl class="py attribute">
+<dt id="panel.template.fast.base.FastGridBaseTemplate.theme">
+<code class="sig-name descname"><span class="pre">theme</span></code><a class="headerlink" href="#panel.template.fast.base.FastGridBaseTemplate.theme" title="Permalink to this definition">¶</a></dt>
+<dd><p>alias of <a class="reference internal" href="panel.template.theme.html#panel.template.theme.DefaultTheme" title="panel.template.theme.DefaultTheme"><code class="xref py py-class docutils literal notranslate"><span class="pre">panel.template.theme.DefaultTheme</span></code></a></p>
+</dd></dl>
+</dd></dl>
+</div>
+<hr class="docutils"/>
+<div class="section" id="theme-module">
+<h2><code class="xref py py-mod docutils literal notranslate"><span class="pre">theme</span></code> Module<a class="headerlink" href="#theme-module" title="Permalink to this headline">¶</a></h2>
+<div class="graphviz"><img alt="Inheritance diagram of panel.template.fast.theme" class="inheritance graphviz" src="../_images/inheritance-c29f64a7a82ad1064fc98f51abadaae74805c54e.png" usemap="#inheritance6ae2df98d2"/></div>
+<map id="inheritance6ae2df98d2" name="inheritance6ae2df98d2">
+<area alt="" coords="862,27,1140,50" href="#panel.template.fast.theme.FastDarkTheme" id="node1" shape="rect" target="_top" title="panel.template.fast.theme.FastDarkTheme"/>
+<area alt="" coords="577,27,803,50" href="panel.template.theme.html#panel.template.theme.DarkTheme" id="node2" shape="rect" target="_top" title="The DefaultTheme uses the standard Panel color palette."/>
+<area alt="" coords="855,72,1147,95" href="#panel.template.fast.theme.FastDefaultTheme" id="node3" shape="rect" target="_top" title="panel.template.fast.theme.FastDefaultTheme"/>
+<area alt="" coords="569,72,811,95" href="panel.template.theme.html#panel.template.theme.DefaultTheme" id="node4" shape="rect" target="_top" title="The DefaultTheme uses the standard Panel color palette."/>
+<area alt="" coords="288,5,525,28" href="#panel.template.fast.theme.FastStyle" id="node5" shape="rect" target="_top" title="The FastStyle class provides the different colors and icons used"/>
+<area alt="" coords="308,50,506,73" href="panel.template.theme.html#panel.template.theme.Theme" id="node7" shape="rect" target="_top" title="A Theme customizes the look and feel of a Template by providing"/>
+</map><span class="target" id="module-panel.template.fast.theme"></span><p>Functionality for styling according to Fast.design</p>
+<dl class="py class">
+<dt id="panel.template.fast.theme.FastDarkTheme">
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">panel.template.fast.theme.</span></code><code class="sig-name descname"><span class="pre">FastDarkTheme</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fig</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">holomap</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">widgets</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fps</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_frames</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">size</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dpi</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">filename</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">info</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">css</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">widget_location</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/panel/template/fast/theme.html#FastDarkTheme"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#panel.template.fast.theme.FastDarkTheme" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="panel.template.theme.html#panel.template.theme.DarkTheme" title="panel.template.theme.DarkTheme"><code class="xref py py-class docutils literal notranslate"><span class="pre">panel.template.theme.DarkTheme</span></code></a></p>
+<p>Parameters inherited from:</p>
+<blockquote>
+<div><p><a class="reference internal" href="panel.template.theme.html#panel.template.theme.Theme" title="panel.template.theme.Theme"><code class="xref py py-class docutils literal notranslate"><span class="pre">panel.template.theme.Theme</span></code></a>: css</p>
+<p><a class="reference internal" href="panel.template.theme.html#panel.template.theme.DarkTheme" title="panel.template.theme.DarkTheme"><code class="xref py py-class docutils literal notranslate"><span class="pre">panel.template.theme.DarkTheme</span></code></a>: bokeh_theme</p>
+</div></blockquote>
+<p><code class="docutils literal notranslate"><span class="pre">base_css</span></code> = param.Filename(default=PosixPath(‘/home/runner/work/panel/panel/panel/template/fast/css/fast_root_dark.css’), search_paths=[])</p>
+<p><code class="docutils literal notranslate"><span class="pre">style</span></code> = param.ClassSelector(class_=&lt;class ‘panel.template.fast.theme.FastStyle’&gt;, default=FastStyle(accent_base_color=’#E1477E’, accent_fill_active=’#DC2567’, accent_fill_hover=’#E1477E’, accent_fill_rest=’#C01754’, accent_foreground_active=’#DF3874’, accent_foreground_cut=’#000000’, accent_foreground_hover=’#E55E8E’, accent_foreground_rest=’#E1477E’, background_color=’#181818’, collapsed_icon=’n&lt;svg style=”stroke: #E62F63” width=”18” height=”18” viewBox=”0 0 18 18” fill=”none” xmlns=”<a class="reference external" href="http://www.w3.org/2000/svg">http://www.w3.org/2000/svg</a>” slot=”collapsed-icon”&gt;n  &lt;path d=”M15.2222 1H2.77778C1.79594 1 1 1.79594 1 2.77778V15.2222C1 16.2041 1.79594 17 2.77778 17H15.2222C16.2041 17 17 16.2041 17 15.2222V2.77778C17 1.79594 16.2041 1 15.2222 1Z” stroke-linecap=”round” stroke-linejoin=”round”&gt;&lt;/path&gt;n  &lt;path d=”M9 5.44446V12.5556” stroke-linecap=”round” stroke-linejoin=”round”&gt;&lt;/path&gt;n  &lt;path d=”M5.44446 9H12.5556” stroke-linecap=”round” stroke-linejoin=”round”&gt;&lt;/path&gt;n&lt;/svg&gt;n’, color=’#ffffff’, expanded_icon=’n&lt;svg style=”stroke: #E62F63” width=”18” height=”18” viewBox=”0 0 18 18” fill=”none” xmlns=”<a class="reference external" href="http://www.w3.org/2000/svg">http://www.w3.org/2000/svg</a>” slot=”expanded-icon”&gt;n  &lt;path d=”M15.2222 1H2.77778C1.79594 1 1 1.79594 1 2.77778V15.2222C1 16.2041 1.79594 17 2.77778 17H15.2222C16.2041 17 17 16.2041 17 15.2222V2.77778C17 1.79594 16.2041 1 15.2222 1Z” stroke-linecap=”round” stroke-linejoin=”round”&gt;&lt;/path&gt;n  &lt;path d=”M5.44446 9H12.5556” stroke-linecap=”round” stroke-linejoin=”round”&gt;&lt;/path&gt;n&lt;/svg&gt;n’, font=’Open Sans, sans-serif’, font_url=’//fonts.googleapis.com/css?family=Open+Sans’, header_background=’#313131’, header_color=’#ffffff’, name=’FastStyle00096’, neutral_fill_card_rest=’#212121’, neutral_focus=’#717171’, neutral_foreground_rest=’#e5e5e5’, neutral_outline_active=’#424242’, neutral_outline_hover=’#808080’, neutral_outline_rest=’#5A5A5A’))</p>
+<dl class="py method">
+<dt id="panel.template.fast.theme.FastDarkTheme.bokeh_theme">
+<em class="property"><span class="pre">property</span> </em><code class="sig-name descname"><span class="pre">bokeh_theme</span></code><a class="headerlink" href="#panel.template.fast.theme.FastDarkTheme.bokeh_theme" title="Permalink to this definition">¶</a></dt>
+<dd><p>Provide new default values for Bokeh models.</p>
+<p>Bokeh Model properties all have some built-in default value. If a property
+has not been explicitly set (e.g. <code class="docutils literal notranslate"><span class="pre">m.foo</span> <span class="pre">=</span> <span class="pre">10</span></code>) then accessing the
+property with return the default value. It may be useful for users to be
+able to specify a different set of default values than the built-in
+default. The <code class="docutils literal notranslate"><span class="pre">Theme</span></code> class allows collections of custom default values
+to be easily applied to Bokeh documents.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">Theme</span></code> class can be constructed either from a YAML file or from a
+JSON dict (but not both). Examples of both formats are shown below.</p>
+<p>The plotting API’s defaults override some theme properties. Namely:
+<cite>fill_alpha</cite>, <cite>fill_color</cite>, <cite>line_alpha</cite>, <cite>line_color</cite>, <cite>text_alpha</cite> and
+<cite>text_color</cite>. Those properties should therefore be set explicitly when
+using the plotting API.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>filename</strong> (<em>str</em><em>, </em><em>optional</em>) – path to a YAML theme file</p></li>
+<li><p><strong>json</strong> (<em>str</em><em>, </em><em>optional</em>) – a JSON dictionary specifying theme values</p></li>
+</ul>
+</dd>
+<dt class="field-even">Raises</dt>
+<dd class="field-even"><p><strong>ValueError</strong> – If neither <code class="docutils literal notranslate"><span class="pre">filename</span></code> or <code class="docutils literal notranslate"><span class="pre">json</span></code> is supplied.</p>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<p>Themes are specified by providing a top-level key <code class="docutils literal notranslate"><span class="pre">attrs</span></code> which
+has blocks for Model types to be themed. Each block has keys and
+values that specify the new property defaults for that type.</p>
+<p>Take note of the fact that YAML interprets the value <cite>None</cite> as
+a string, which is not usually what you want. To give <cite>None</cite> as a
+value in YAML, use <cite>!!null</cite>. To give ‘None’ as a value in json,
+use <cite>null</cite>.</p>
+<blockquote>
+<div><p>Here is an example theme in YAML format that sets various visual
+properties for all figures, grids, and titles:</p>
+<blockquote>
+<div><div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">attrs</span><span class="p">:</span>
+    <span class="nt">Figure</span><span class="p">:</span>
+        <span class="nt">background_fill_color</span><span class="p">:</span> <span class="s">'#2F2F2F'</span>
+        <span class="nt">border_fill_color</span><span class="p">:</span> <span class="s">'#2F2F2F'</span>
+        <span class="nt">outline_line_color</span><span class="p">:</span> <span class="s">'#444444'</span>
+    <span class="nt">Axis</span><span class="p">:</span>
+        <span class="nt">axis_line_color</span><span class="p">:</span> <span class="kt">!!null</span>
+    <span class="nt">Grid</span><span class="p">:</span>
+        <span class="nt">grid_line_dash</span><span class="p">:</span> <span class="p p-Indicator">[</span><span class="nv">6</span><span class="p p-Indicator">,</span> <span class="nv">4</span><span class="p p-Indicator">]</span>
+        <span class="nt">grid_line_alpha</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">.3</span>
+    <span class="nt">Title</span><span class="p">:</span>
+        <span class="nt">text_color</span><span class="p">:</span> <span class="s">"white"</span>
+</pre></div>
+</div>
+<p>Here is the same theme, in JSON format:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+<span class="s1">'attrs'</span> <span class="p">:</span> <span class="p">{</span>
+    <span class="s1">'Figure'</span> <span class="p">:</span> <span class="p">{</span>
+        <span class="s1">'background_fill_color'</span><span class="p">:</span> <span class="s1">'#2F2F2F'</span><span class="p">,</span>
+        <span class="s1">'border_fill_color'</span><span class="p">:</span> <span class="s1">'#2F2F2F'</span><span class="p">,</span>
+        <span class="s1">'outline_line_color'</span><span class="p">:</span> <span class="s1">'#444444'</span><span class="p">,</span>
+    <span class="p">},</span>
+    <span class="s1">'Axis'</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s1">'axis_line_color'</span><span class="p">:</span> <span class="n">null</span><span class="p">,</span>
+    <span class="p">},</span>
+    <span class="s1">'Grid'</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s1">'grid_line_dash'</span><span class="p">:</span> <span class="p">[</span><span class="mi">6</span><span class="p">,</span> <span class="mi">4</span><span class="p">]</span><span class="s1">',</span>
+        <span class="s1">'grid_line_alpha'</span><span class="p">:</span> <span class="o">.</span><span class="mi">3</span><span class="p">,</span>
+    <span class="p">},</span>
+    <span class="s1">'Title'</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s1">'text_color'</span><span class="p">:</span> <span class="s1">'white'</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div></blockquote>
+</div></blockquote>
+</dd></dl>
+</dd></dl>
+<dl class="py class">
+<dt id="panel.template.fast.theme.FastDefaultTheme">
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">panel.template.fast.theme.</span></code><code class="sig-name descname"><span class="pre">FastDefaultTheme</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fig</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">holomap</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">widgets</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fps</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_frames</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">size</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dpi</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">filename</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">info</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">css</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">widget_location</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/panel/template/fast/theme.html#FastDefaultTheme"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#panel.template.fast.theme.FastDefaultTheme" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="panel.template.theme.html#panel.template.theme.DefaultTheme" title="panel.template.theme.DefaultTheme"><code class="xref py py-class docutils literal notranslate"><span class="pre">panel.template.theme.DefaultTheme</span></code></a></p>
+<p>Parameters inherited from:</p>
+<blockquote>
+<div><p><a class="reference internal" href="panel.template.theme.html#panel.template.theme.Theme" title="panel.template.theme.Theme"><code class="xref py py-class docutils literal notranslate"><span class="pre">panel.template.theme.Theme</span></code></a>: css, bokeh_theme</p>
+</div></blockquote>
+<p><code class="docutils literal notranslate"><span class="pre">base_css</span></code> = param.Filename(default=PosixPath(‘/home/runner/work/panel/panel/panel/template/fast/css/fast_root_default.css’), search_paths=[])</p>
+<p><code class="docutils literal notranslate"><span class="pre">style</span></code> = param.ClassSelector(class_=&lt;class ‘panel.template.fast.theme.FastStyle’&gt;, default=FastStyle(accent_base_color=’#A01346’, accent_fill_active=’#E45A8C’, accent_fill_hover=’#DF3874’, accent_fill_rest=’#A01346’, accent_foreground_active=’#BA1651’, accent_foreground_cut=’#000000’, accent_foreground_hover=’#7A0F35’, accent_foreground_rest=’#A01346’, background_color=’#ffffff’, collapsed_icon=’n&lt;svg style=”stroke: #E62F63” width=”18” height=”18” viewBox=”0 0 18 18” fill=”none” xmlns=”<a class="reference external" href="http://www.w3.org/2000/svg">http://www.w3.org/2000/svg</a>” slot=”collapsed-icon”&gt;n  &lt;path d=”M15.2222 1H2.77778C1.79594 1 1 1.79594 1 2.77778V15.2222C1 16.2041 1.79594 17 2.77778 17H15.2222C16.2041 17 17 16.2041 17 15.2222V2.77778C17 1.79594 16.2041 1 15.2222 1Z” stroke-linecap=”round” stroke-linejoin=”round”&gt;&lt;/path&gt;n  &lt;path d=”M9 5.44446V12.5556” stroke-linecap=”round” stroke-linejoin=”round”&gt;&lt;/path&gt;n  &lt;path d=”M5.44446 9H12.5556” stroke-linecap=”round” stroke-linejoin=”round”&gt;&lt;/path&gt;n&lt;/svg&gt;n’, color=’#00aa41’, expanded_icon=’n&lt;svg style=”stroke: #E62F63” width=”18” height=”18” viewBox=”0 0 18 18” fill=”none” xmlns=”<a class="reference external" href="http://www.w3.org/2000/svg">http://www.w3.org/2000/svg</a>” slot=”expanded-icon”&gt;n  &lt;path d=”M15.2222 1H2.77778C1.79594 1 1 1.79594 1 2.77778V15.2222C1 16.2041 1.79594 17 2.77778 17H15.2222C16.2041 17 17 16.2041 17 15.2222V2.77778C17 1.79594 16.2041 1 15.2222 1Z” stroke-linecap=”round” stroke-linejoin=”round”&gt;&lt;/path&gt;n  &lt;path d=”M5.44446 9H12.5556” stroke-linecap=”round” stroke-linejoin=”round”&gt;&lt;/path&gt;n&lt;/svg&gt;n’, font=’Open Sans, sans-serif’, font_url=’//fonts.googleapis.com/css?family=Open+Sans’, header_background=’#00aa41’, header_color=’#ffffff’, name=’FastStyle00095’, neutral_fill_card_rest=’#F7F7F7’, neutral_focus=’#888888’, neutral_foreground_rest=’#2B2B2B’, neutral_outline_active=’#D6D6D6’, neutral_outline_hover=’#979797’, neutral_outline_rest=’#BEBEBE’))</p>
+</dd></dl>
+<dl class="py class">
+<dt id="panel.template.fast.theme.FastStyle">
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">panel.template.fast.theme.</span></code><code class="sig-name descname"><span class="pre">FastStyle</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fig</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">holomap</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">widgets</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fps</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_frames</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">size</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dpi</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">filename</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">info</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">css</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">widget_location</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/panel/template/fast/theme.html#FastStyle"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#panel.template.fast.theme.FastStyle" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">param.parameterized.Parameterized</span></code></p>
+<p>The FastStyle class provides the different colors and icons used
+to style the Fast Templates.</p>
+<p><code class="docutils literal notranslate"><span class="pre">accent_fill_active</span></code> = param.Color(default=’#E45A8C’)</p>
+<p><code class="docutils literal notranslate"><span class="pre">accent_fill_hover</span></code> = param.Color(default=’#DF3874’)</p>
+<p><code class="docutils literal notranslate"><span class="pre">accent_fill_rest</span></code> = param.Color(default=’#A01346’)</p>
+<p><code class="docutils literal notranslate"><span class="pre">accent_foreground_active</span></code> = param.Color(default=’#BA1651’)</p>
+<p><code class="docutils literal notranslate"><span class="pre">accent_foreground_cut</span></code> = param.Color(default=’#000000’)</p>
+<p><code class="docutils literal notranslate"><span class="pre">accent_foreground_hover</span></code> = param.Color(default=’#7A0F35’)</p>
+<p><code class="docutils literal notranslate"><span class="pre">accent_foreground_rest</span></code> = param.Color(default=’#A01346’)</p>
+<p><code class="docutils literal notranslate"><span class="pre">neutral_outline_active</span></code> = param.Color(default=’#D6D6D6’)</p>
+<p><code class="docutils literal notranslate"><span class="pre">neutral_outline_hover</span></code> = param.Color(default=’#979797’)</p>
+<p><code class="docutils literal notranslate"><span class="pre">neutral_outline_rest</span></code> = param.Color(default=’#BEBEBE’)</p>
+<p><code class="docutils literal notranslate"><span class="pre">accent_base_color</span></code> = param.Color(default=’#A01346’)</p>
+<p><code class="docutils literal notranslate"><span class="pre">background_color</span></code> = param.Color(default=’#ffffff’)</p>
+<p><code class="docutils literal notranslate"><span class="pre">collapsed_icon</span></code> = param.String(default=’n&lt;svg style=”stroke: #E62F63” width=”18” height=”18” viewBox=”0 0 18 18” fill=”none” xmlns=”<a class="reference external" href="http://www.w3.org/2000/svg">http://www.w3.org/2000/svg</a>” slot=”collapsed-icon”&gt;n  &lt;path d=”M15.2222 1H2.77778C1.79594 1 1 1.79594 1 2.77778V15.2222C1 16.2041 1.79594 17 2.77778 17H15.2222C16.2041 17 17 16.2041 17 15.2222V2.77778C17 1.79594 16.2041 1 15.2222 1Z” stroke-linecap=”round” stroke-linejoin=”round”&gt;&lt;/path&gt;n  &lt;path d=”M9 5.44446V12.5556” stroke-linecap=”round” stroke-linejoin=”round”&gt;&lt;/path&gt;n  &lt;path d=”M5.44446 9H12.5556” stroke-linecap=”round” stroke-linejoin=”round”&gt;&lt;/path&gt;n&lt;/svg&gt;n’)</p>
+<p><code class="docutils literal notranslate"><span class="pre">expanded_icon</span></code> = param.String(default=’n&lt;svg style=”stroke: #E62F63” width=”18” height=”18” viewBox=”0 0 18 18” fill=”none” xmlns=”<a class="reference external" href="http://www.w3.org/2000/svg">http://www.w3.org/2000/svg</a>” slot=”expanded-icon”&gt;n  &lt;path d=”M15.2222 1H2.77778C1.79594 1 1 1.79594 1 2.77778V15.2222C1 16.2041 1.79594 17 2.77778 17H15.2222C16.2041 17 17 16.2041 17 15.2222V2.77778C17 1.79594 16.2041 1 15.2222 1Z” stroke-linecap=”round” stroke-linejoin=”round”&gt;&lt;/path&gt;n  &lt;path d=”M5.44446 9H12.5556” stroke-linecap=”round” stroke-linejoin=”round”&gt;&lt;/path&gt;n&lt;/svg&gt;n’)</p>
+<p><code class="docutils literal notranslate"><span class="pre">color</span></code> = param.Color(default=’#00aa41’)</p>
+<p><code class="docutils literal notranslate"><span class="pre">neutral_fill_card_rest</span></code> = param.Color(default=’#F7F7F7’)</p>
+<p><code class="docutils literal notranslate"><span class="pre">neutral_focus</span></code> = param.Color(default=’#888888’)</p>
+<p><code class="docutils literal notranslate"><span class="pre">neutral_foreground_rest</span></code> = param.Color(default=’#2B2B2B’)</p>
+<p><code class="docutils literal notranslate"><span class="pre">header_background</span></code> = param.Color(default=’#00aa41’)</p>
+<p><code class="docutils literal notranslate"><span class="pre">header_color</span></code> = param.Color(default=’#ffffff’)</p>
+<p><code class="docutils literal notranslate"><span class="pre">font</span></code> = param.String(default=’Open Sans, sans-serif’)</p>
+<p><code class="docutils literal notranslate"><span class="pre">font_url</span></code> = param.String(default=’//fonts.googleapis.com/css?family=Open+Sans’)</p>
+<dl class="py method">
+<dt id="panel.template.fast.theme.FastStyle.create_bokeh_theme">
+<code class="sig-name descname"><span class="pre">create_bokeh_theme</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/panel/template/fast/theme.html#FastStyle.create_bokeh_theme"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#panel.template.fast.theme.FastStyle.create_bokeh_theme" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a custom bokeh theme based on the style parameters</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>A Bokeh Theme</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>Dict</p>
+</dd>
+</dl>
+</dd></dl>
+</dd></dl>
+</div>
+<hr class="docutils"/>
+<div class="section" id="subpackages">
+<h2>Subpackages<a class="headerlink" href="#subpackages" title="Permalink to this headline">¶</a></h2>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="panel.template.fast.grid.html">panel.grid Package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="panel.template.fast.grid.html#grid-package"><code class="xref py py-mod docutils literal notranslate"><span class="pre">grid</span></code> Package</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="panel.template.fast.list.html">panel.list Package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="panel.template.fast.list.html#list-package"><code class="xref py py-mod docutils literal notranslate"><span class="pre">list</span></code> Package</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- END MAIN BODY OF DOCS ––––––––––––– -->
+<!-- Google Analytics -->
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async="" src="https://www.googletagmanager.com/gtag/js?id=UA-154795830-2"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-154795830-2', { 'anonymize_ip': true });
+</script>
+<!-- MathJax Config -->
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}
+});
+</script>
+<!-- End Document
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+</body>
+</html>

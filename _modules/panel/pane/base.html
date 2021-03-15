@@ -1,0 +1,565 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<!-- Basic Page Needs
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+<meta charset="utf-8"/>
+<title>panel.pane.base — Panel 0.11.1+g238199f-dirty documentation</title>
+<meta content="High-level dashboarding for python visualization libraries" name="description"/>
+<meta content="Panel contributors" name="author"/>
+<!-- Mobile Specific Metas
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<!-- FONT
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+<script src="https://ajax.googleapis.com/ajax/libs/webfont/1.6.16/webfont.js"></script>
+<script>
+    WebFont.load({
+      google: {
+        families: ['Source Sans Pro']
+      }
+    });
+  </script>
+<!-- CSS
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+<link href="../../../_static/css/main.css" rel="stylesheet"/>
+<link href="../../../_static/nbsite.css" rel="stylesheet"/>
+<link href="../../../_static/site.css" rel="stylesheet"/>
+<!-- Scripts
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script async="" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML" type="text/javascript">
+</script>
+<script src="../../../_static/js/main.js"></script>
+<!-- Favicon
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+<link href="../../../_static/favicon.ico" rel="icon" type="image/png"/>
+<!-- Canonical
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+<link href="https://panel.holoviz.org/_modules/panel/pane/base.html" rel="canonical">
+</link></head>
+<body class="">
+<header class="navigation">
+<div class="wrapper">
+<a class="logo" href="../../../index.html">
+<img alt="Logo" src="../../../_static/logo_horizontal.png"/>
+</a>
+<a class="navigation-menu-button" href="javascript:void(0)" id="js-mobile-menu">Menu</a>
+<nav>
+<ul class="navigation-menu show" id="js-navigation-menu">
+<li class="nav-link doc-head"><a href="//discourse.holoviz.org">Discourse</a></li>
+<li class="nav-link doc-head"><a href="//twitter.com/Panel_org">Twitter</a></li>
+<li class="nav-link doc-head"><a href="//github.com/pyviz/panel">Github</a></li>
+<li class="nav-link">
+<div style="display:inline-block;vertical-align: middle;">
+<div class="search-bar">
+<form action="../../../search.html" method="get" role="search">
+<input name="q" placeholder="Search" type="search"/>
+<button type="submit">
+<img alt="Search Icon" src="https://raw.githubusercontent.com/thoughtbot/refills/master/source/images/search-icon-black.png"/>
+</button>
+</form>
+</div>
+</div>
+</li>
+</ul>
+</nav>
+</div>
+</header>
+<div class="second-nav">
+<nav>
+<ul class="navigation-menu show">
+<li class="nav-link doc-head"><a href="../../../getting_started/index.html">Getting started</a></li>
+<li class="nav-link doc-head"><a href="../../../user_guide/index.html">User Guide</a></li>
+<li class="nav-link doc-head"><a href="../../../gallery/index.html">Gallery</a></li>
+<li class="nav-link doc-head"><a href="../../../reference/index.html">Reference Gallery</a></li>
+<li class="nav-link doc-head"><a href="../../../developer_guide/index.html">Developer Guide</a></li>
+<li class="nav-link doc-head"><a href="../../../releases.html">Releases</a></li>
+<li class="nav-link doc-head"><a href="../../../api/index.html">API</a></li>
+<li class="nav-link doc-head"><a href="../../../FAQ.html">FAQ</a></li>
+<li class="nav-link doc-head"><a href="../../../about.html">About</a></li>
+</ul>
+</nav>
+</div>
+<!-- MAIN BODY OF DOCS –––––––––––––––––– -->
+<div class="docs section">
+<div id="hacketyhackhack"> <!-- style="width:20%;margin-right: 100px;"> --> <!--style="display: none;"> style="display:none;"> -->
+<div class="toc" style="width:15%; margin-right:20px;">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../index.html">Home</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../getting_started/index.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../user_guide/index.html">User Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../gallery/index.html">Gallery</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../reference/index.html">Reference Gallery</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../developer_guide/index.html">Developer Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/index.html">API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../Comparisons.html">Comparisons</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../releases.html">Releases</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../Roadmap.html">Road Map</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../FAQ.html">FAQ</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://github.com/pyviz/panel">Github source</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../about.html">About</a></li>
+</ul>
+</div>
+</div>
+<div class="content"> <!-- style="max-width:80%;margin-left:auto;margin-right: auto;">-->
+<h1>Source code for panel.pane.base</h1><div class="highlight"><pre>
+<span></span><span class="sd">"""</span>
+<span class="sd">Defines the PaneBase class defining the API for panes which convert</span>
+<span class="sd">objects to a visual representation expressed as a bokeh model.</span>
+<span class="sd">"""</span>
+<span class="kn">from</span> <span class="nn">functools</span> <span class="kn">import</span> <span class="n">partial</span>
+
+<span class="kn">import</span> <span class="nn">param</span>
+
+<span class="kn">from</span> <span class="nn">bokeh.models.layouts</span> <span class="kn">import</span> <span class="n">GridBox</span> <span class="k">as</span> <span class="n">_BkGridBox</span>
+
+<span class="kn">from</span> <span class="nn">..io</span> <span class="kn">import</span> <span class="n">init_doc</span><span class="p">,</span> <span class="n">push</span><span class="p">,</span> <span class="n">state</span><span class="p">,</span> <span class="n">unlocked</span>
+<span class="kn">from</span> <span class="nn">..layout</span> <span class="kn">import</span> <span class="n">Panel</span><span class="p">,</span> <span class="n">Row</span>
+<span class="kn">from</span> <span class="nn">..links</span> <span class="kn">import</span> <span class="n">Link</span>
+<span class="kn">from</span> <span class="nn">..reactive</span> <span class="kn">import</span> <span class="n">Reactive</span>
+<span class="kn">from</span> <span class="nn">..viewable</span> <span class="kn">import</span> <span class="n">Layoutable</span><span class="p">,</span> <span class="n">Viewable</span>
+<span class="kn">from</span> <span class="nn">..util</span> <span class="kn">import</span> <span class="n">param_reprs</span>
+
+
+<div class="viewcode-block" id="Pane"><a class="viewcode-back" href="../../../api/panel.pane.html#panel.pane.ace.Pane">[docs]</a><span class="k">def</span> <span class="nf">Pane</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="sd">"""</span>
+<span class="sd">    Converts any object to a Pane if a matching Pane class exists.</span>
+<span class="sd">    """</span>
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="n">Viewable</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">obj</span>
+    <span class="k">return</span> <span class="n">PaneBase</span><span class="o">.</span><span class="n">get_pane_type</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)(</span><span class="n">obj</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="panel"><a class="viewcode-back" href="../../../api/panel.pane.html#panel.pane.ace.panel">[docs]</a><span class="k">def</span> <span class="nf">panel</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="sd">"""</span>
+<span class="sd">    Creates a panel from any supplied object by wrapping it in a pane</span>
+<span class="sd">    and returning a corresponding Panel.</span>
+
+<span class="sd">    Arguments</span>
+<span class="sd">    ---------</span>
+<span class="sd">    obj: object</span>
+<span class="sd">       Any object to be turned into a Panel</span>
+<span class="sd">    **kwargs: dict</span>
+<span class="sd">       Any keyword arguments to be passed to the applicable Pane</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    layout: Viewable</span>
+<span class="sd">       A Viewable representation of the input object</span>
+<span class="sd">    """</span>
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="n">Viewable</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">obj</span>
+    <span class="k">elif</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="s1">'__panel__'</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">panel</span><span class="p">(</span><span class="n">obj</span><span class="o">.</span><span class="n">__panel__</span><span class="p">())</span>
+    <span class="k">if</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'name'</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">'name'</span><span class="p">)</span>
+    <span class="n">pane</span> <span class="o">=</span> <span class="n">PaneBase</span><span class="o">.</span><span class="n">get_pane_type</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)(</span><span class="n">obj</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">pane</span><span class="o">.</span><span class="n">layout</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span> <span class="ow">and</span> <span class="n">pane</span><span class="o">.</span><span class="n">_unpack</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">pane</span><span class="o">.</span><span class="n">layout</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="k">return</span> <span class="n">pane</span><span class="o">.</span><span class="n">layout</span></div>
+
+
+<div class="viewcode-block" id="RerenderError"><a class="viewcode-back" href="../../../api/panel.pane.html#panel.pane.ace.RerenderError">[docs]</a><span class="k">class</span> <span class="nc">RerenderError</span><span class="p">(</span><span class="ne">RuntimeError</span><span class="p">):</span>
+    <span class="sd">"""</span>
+<span class="sd">    Error raised when a pane requests re-rendering during initial render.</span>
+<span class="sd">    """</span></div>
+
+
+<div class="viewcode-block" id="PaneBase"><a class="viewcode-back" href="../../../api/panel.pane.html#panel.pane.ace.PaneBase">[docs]</a><span class="k">class</span> <span class="nc">PaneBase</span><span class="p">(</span><span class="n">Reactive</span><span class="p">):</span>
+    <span class="sd">"""</span>
+<span class="sd">    PaneBase is the abstract baseclass for all atomic displayable units</span>
+<span class="sd">    in the panel library. Pane defines an extensible interface for</span>
+<span class="sd">    wrapping arbitrary objects and transforming them into Bokeh models.</span>
+
+<span class="sd">    Panes are reactive in the sense that when the object they are</span>
+<span class="sd">    wrapping is changed any dashboard containing the pane will update</span>
+<span class="sd">    in response.</span>
+
+<span class="sd">    To define a concrete Pane type subclass this class and implement</span>
+<span class="sd">    the applies classmethod and the _get_model private method.</span>
+<span class="sd">    """</span>
+
+    <span class="n">default_layout</span> <span class="o">=</span> <span class="n">param</span><span class="o">.</span><span class="n">ClassSelector</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="n">Row</span><span class="p">,</span> <span class="n">class_</span><span class="o">=</span><span class="p">(</span><span class="n">Panel</span><span class="p">),</span>
+                                         <span class="n">is_instance</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="s2">"""</span>
+<span class="s2">        Defines the layout the model(s) returned by the pane will</span>
+<span class="s2">        be placed in."""</span><span class="p">)</span>
+
+    <span class="nb">object</span> <span class="o">=</span> <span class="n">param</span><span class="o">.</span><span class="n">Parameter</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="s2">"""</span>
+<span class="s2">        The object being wrapped, which will be converted to a</span>
+<span class="s2">        Bokeh model."""</span><span class="p">)</span>
+
+    <span class="c1"># When multiple Panes apply to an object, the one with the highest</span>
+    <span class="c1"># numerical priority is selected. The default is an intermediate value.</span>
+    <span class="c1"># If set to None, applies method will be called to get a priority</span>
+    <span class="c1"># value for a specific object type.</span>
+    <span class="n">priority</span> <span class="o">=</span> <span class="mf">0.5</span>
+
+    <span class="c1"># Whether applies requires full set of keywords</span>
+    <span class="n">_applies_kw</span> <span class="o">=</span> <span class="kc">False</span>
+
+    <span class="c1"># Whether the Pane layout can be safely unpacked</span>
+    <span class="n">_unpack</span> <span class="o">=</span> <span class="kc">True</span>
+
+    <span class="c1"># Declares whether Pane supports updates to the Bokeh model</span>
+    <span class="n">_updates</span> <span class="o">=</span> <span class="kc">False</span>
+
+    <span class="c1"># List of parameters that trigger a rerender of the Bokeh model</span>
+    <span class="n">_rerender_params</span> <span class="o">=</span> <span class="p">[</span><span class="s1">'object'</span><span class="p">]</span>
+
+    <span class="n">__abstract</span> <span class="o">=</span> <span class="kc">True</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">object</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">params</span><span class="p">):</span>
+        <span class="n">applies</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">applies</span><span class="p">(</span><span class="nb">object</span><span class="p">,</span> <span class="o">**</span><span class="p">(</span><span class="n">params</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_applies_kw</span> <span class="k">else</span> <span class="p">{}))</span>
+        <span class="k">if</span> <span class="p">(</span><span class="nb">isinstance</span><span class="p">(</span><span class="n">applies</span><span class="p">,</span> <span class="nb">bool</span><span class="p">)</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">applies</span><span class="p">)</span> <span class="ow">and</span> <span class="nb">object</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_type_error</span><span class="p">(</span><span class="nb">object</span><span class="p">)</span>
+
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="nb">object</span><span class="o">=</span><span class="nb">object</span><span class="p">,</span> <span class="o">**</span><span class="n">params</span><span class="p">)</span>
+        <span class="n">kwargs</span> <span class="o">=</span> <span class="p">{</span><span class="n">k</span><span class="p">:</span> <span class="n">v</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">params</span><span class="o">.</span><span class="n">items</span><span class="p">()</span> <span class="k">if</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">Layoutable</span><span class="o">.</span><span class="n">param</span><span class="p">}</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">layout</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">default_layout</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="n">watcher</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">param</span><span class="o">.</span><span class="n">watch</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_update_pane</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_rerender_params</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_callbacks</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">watcher</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">_type_error</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">object</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">"</span><span class="si">%s</span><span class="s2"> pane does not support objects of type '</span><span class="si">%s</span><span class="s2">'."</span> <span class="o">%</span>
+                         <span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="vm">__name__</span><span class="p">,</span> <span class="nb">type</span><span class="p">(</span><span class="nb">object</span><span class="p">)</span><span class="o">.</span><span class="vm">__name__</span><span class="p">))</span>
+
+    <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">depth</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
+        <span class="bp">cls</span> <span class="o">=</span> <span class="nb">type</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="vm">__name__</span>
+        <span class="n">params</span> <span class="o">=</span> <span class="n">param_reprs</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="p">[</span><span class="s1">'object'</span><span class="p">])</span>
+        <span class="n">obj</span> <span class="o">=</span> <span class="s1">'None'</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">object</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="nb">type</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">object</span><span class="p">)</span><span class="o">.</span><span class="vm">__name__</span>
+        <span class="n">template</span> <span class="o">=</span> <span class="s1">'</span><span class="si">{cls}</span><span class="s1">(</span><span class="si">{obj}</span><span class="s1">, </span><span class="si">{params}</span><span class="s1">)'</span> <span class="k">if</span> <span class="n">params</span> <span class="k">else</span> <span class="s1">'</span><span class="si">{cls}</span><span class="s1">(</span><span class="si">{obj}</span><span class="s1">)'</span>
+        <span class="k">return</span> <span class="n">template</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">cls</span><span class="o">=</span><span class="bp">cls</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="s1">', '</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">params</span><span class="p">),</span> <span class="n">obj</span><span class="o">=</span><span class="n">obj</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="fm">__getitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">index</span><span class="p">):</span>
+        <span class="sd">"""</span>
+<span class="sd">        Allows pane objects to behave like the underlying layout</span>
+<span class="sd">        """</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">layout</span><span class="p">[</span><span class="n">index</span><span class="p">]</span>
+
+    <span class="c1">#----------------------------------------------------------------</span>
+    <span class="c1"># Callback API</span>
+    <span class="c1">#----------------------------------------------------------------</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">_linkable_params</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="p">[</span><span class="n">p</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_synced_params</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_rename</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">]</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">_synced_params</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">ignored_params</span> <span class="o">=</span> <span class="p">[</span><span class="s1">'name'</span><span class="p">,</span> <span class="s1">'default_layout'</span><span class="p">,</span> <span class="s1">'loading'</span><span class="p">]</span><span class="o">+</span><span class="bp">self</span><span class="o">.</span><span class="n">_rerender_params</span>
+        <span class="k">return</span> <span class="p">[</span><span class="n">p</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">param</span> <span class="k">if</span> <span class="n">p</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">ignored_params</span><span class="p">]</span>
+
+    <span class="k">def</span> <span class="nf">_update_object</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ref</span><span class="p">,</span> <span class="n">doc</span><span class="p">,</span> <span class="n">root</span><span class="p">,</span> <span class="n">parent</span><span class="p">,</span> <span class="n">comm</span><span class="p">):</span>
+        <span class="n">old_model</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_models</span><span class="p">[</span><span class="n">ref</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_updates</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_update</span><span class="p">(</span><span class="n">ref</span><span class="p">,</span> <span class="n">old_model</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">new_model</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_model</span><span class="p">(</span><span class="n">doc</span><span class="p">,</span> <span class="n">root</span><span class="p">,</span> <span class="n">parent</span><span class="p">,</span> <span class="n">comm</span><span class="p">)</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">parent</span><span class="p">,</span> <span class="n">_BkGridBox</span><span class="p">):</span>
+                    <span class="n">indexes</span> <span class="o">=</span> <span class="p">[</span><span class="n">i</span> <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">child</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">parent</span><span class="o">.</span><span class="n">children</span><span class="p">)</span>
+                               <span class="k">if</span> <span class="n">child</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="ow">is</span> <span class="n">old_model</span><span class="p">]</span>
+                    <span class="k">if</span> <span class="n">indexes</span><span class="p">:</span>
+                        <span class="n">index</span> <span class="o">=</span> <span class="n">indexes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+                    <span class="k">else</span><span class="p">:</span>
+                        <span class="k">raise</span> <span class="ne">ValueError</span>
+                    <span class="n">new_model</span> <span class="o">=</span> <span class="p">(</span><span class="n">new_model</span><span class="p">,)</span> <span class="o">+</span> <span class="n">parent</span><span class="o">.</span><span class="n">children</span><span class="p">[</span><span class="n">index</span><span class="p">][</span><span class="mi">1</span><span class="p">:]</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">index</span> <span class="o">=</span> <span class="n">parent</span><span class="o">.</span><span class="n">children</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="n">old_model</span><span class="p">)</span>
+            <span class="k">except</span> <span class="ne">ValueError</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s1">'</span><span class="si">%s</span><span class="s1"> pane model </span><span class="si">%s</span><span class="s1"> could not be replaced '</span>
+                             <span class="s1">'with new model </span><span class="si">%s</span><span class="s1">, ensure that the '</span>
+                             <span class="s1">'parent is not modified at the same '</span>
+                             <span class="s1">'time the panel is being updated.'</span> <span class="o">%</span>
+                             <span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="vm">__name__</span><span class="p">,</span> <span class="n">old_model</span><span class="p">,</span> <span class="n">new_model</span><span class="p">))</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">parent</span><span class="o">.</span><span class="n">children</span><span class="p">[</span><span class="n">index</span><span class="p">]</span> <span class="o">=</span> <span class="n">new_model</span>
+
+        <span class="kn">from</span> <span class="nn">..io</span> <span class="kn">import</span> <span class="n">state</span>
+        <span class="n">ref</span> <span class="o">=</span> <span class="n">root</span><span class="o">.</span><span class="n">ref</span><span class="p">[</span><span class="s1">'id'</span><span class="p">]</span>
+        <span class="k">if</span> <span class="n">ref</span> <span class="ow">in</span> <span class="n">state</span><span class="o">.</span><span class="n">_views</span><span class="p">:</span>
+            <span class="n">state</span><span class="o">.</span><span class="n">_views</span><span class="p">[</span><span class="n">ref</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">_preprocess</span><span class="p">(</span><span class="n">root</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">_update_pane</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">events</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">ref</span><span class="p">,</span> <span class="p">(</span><span class="n">_</span><span class="p">,</span> <span class="n">parent</span><span class="p">)</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_models</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="k">if</span> <span class="n">ref</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">state</span><span class="o">.</span><span class="n">_views</span> <span class="ow">or</span> <span class="n">ref</span> <span class="ow">in</span> <span class="n">state</span><span class="o">.</span><span class="n">_fake_roots</span><span class="p">:</span>
+                <span class="k">continue</span>
+            <span class="n">viewable</span><span class="p">,</span> <span class="n">root</span><span class="p">,</span> <span class="n">doc</span><span class="p">,</span> <span class="n">comm</span> <span class="o">=</span> <span class="n">state</span><span class="o">.</span><span class="n">_views</span><span class="p">[</span><span class="n">ref</span><span class="p">]</span>
+            <span class="k">if</span> <span class="n">comm</span> <span class="ow">or</span> <span class="n">state</span><span class="o">.</span><span class="n">_unblocked</span><span class="p">(</span><span class="n">doc</span><span class="p">):</span>
+                <span class="k">with</span> <span class="n">unlocked</span><span class="p">():</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">_update_object</span><span class="p">(</span><span class="n">ref</span><span class="p">,</span> <span class="n">doc</span><span class="p">,</span> <span class="n">root</span><span class="p">,</span> <span class="n">parent</span><span class="p">,</span> <span class="n">comm</span><span class="p">)</span>
+                <span class="k">if</span> <span class="n">comm</span> <span class="ow">and</span> <span class="s1">'embedded'</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">root</span><span class="o">.</span><span class="n">tags</span><span class="p">:</span>
+                    <span class="n">push</span><span class="p">(</span><span class="n">doc</span><span class="p">,</span> <span class="n">comm</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">cb</span> <span class="o">=</span> <span class="n">partial</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_update_object</span><span class="p">,</span> <span class="n">ref</span><span class="p">,</span> <span class="n">doc</span><span class="p">,</span> <span class="n">root</span><span class="p">,</span> <span class="n">parent</span><span class="p">,</span> <span class="n">comm</span><span class="p">)</span>
+                <span class="k">if</span> <span class="n">doc</span><span class="o">.</span><span class="n">session_context</span><span class="p">:</span>
+                    <span class="n">doc</span><span class="o">.</span><span class="n">add_next_tick_callback</span><span class="p">(</span><span class="n">cb</span><span class="p">)</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">cb</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="nf">_update</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ref</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">model</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="sd">"""</span>
+<span class="sd">        If _updates=True this method is used to update an existing</span>
+<span class="sd">        Bokeh model instead of replacing the model entirely. The</span>
+<span class="sd">        supplied model should be updated with the current state.</span>
+<span class="sd">        """</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span>
+
+    <span class="c1">#----------------------------------------------------------------</span>
+    <span class="c1"># Public API</span>
+    <span class="c1">#----------------------------------------------------------------</span>
+
+<div class="viewcode-block" id="PaneBase.applies"><a class="viewcode-back" href="../../../api/panel.pane.html#panel.pane.ace.PaneBase.applies">[docs]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">applies</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">obj</span><span class="p">):</span>
+        <span class="sd">"""</span>
+<span class="sd">        Given the object return a boolean indicating whether the Pane</span>
+<span class="sd">        can render the object. If the priority of the pane is set to</span>
+<span class="sd">        None, this method may also be used to define a priority</span>
+<span class="sd">        depending on the object being rendered.</span>
+<span class="sd">        """</span>
+        <span class="k">return</span> <span class="kc">None</span></div>
+
+<div class="viewcode-block" id="PaneBase.clone"><a class="viewcode-back" href="../../../api/panel.pane.html#panel.pane.ace.PaneBase.clone">[docs]</a>    <span class="k">def</span> <span class="nf">clone</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">object</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">params</span><span class="p">):</span>
+        <span class="sd">"""</span>
+<span class="sd">        Makes a copy of the Pane sharing the same parameters.</span>
+
+<span class="sd">        Arguments</span>
+<span class="sd">        ---------</span>
+<span class="sd">        params: Keyword arguments override the parameters on the clone.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        Cloned Pane object</span>
+<span class="sd">        """</span>
+        <span class="n">params</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">param</span><span class="o">.</span><span class="n">get_param_values</span><span class="p">(),</span> <span class="o">**</span><span class="n">params</span><span class="p">)</span>
+        <span class="n">old_object</span> <span class="o">=</span> <span class="n">params</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">'object'</span><span class="p">)</span>
+        <span class="k">if</span> <span class="nb">object</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="nb">object</span> <span class="o">=</span> <span class="n">old_object</span>
+        <span class="k">return</span> <span class="nb">type</span><span class="p">(</span><span class="bp">self</span><span class="p">)(</span><span class="nb">object</span><span class="p">,</span> <span class="o">**</span><span class="n">params</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="PaneBase.get_root"><a class="viewcode-back" href="../../../api/panel.pane.html#panel.pane.ace.PaneBase.get_root">[docs]</a>    <span class="k">def</span> <span class="nf">get_root</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">comm</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">preprocess</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+        <span class="sd">"""</span>
+<span class="sd">        Returns the root model and applies pre-processing hooks</span>
+
+<span class="sd">        Arguments</span>
+<span class="sd">        ---------</span>
+<span class="sd">        doc: bokeh.Document</span>
+<span class="sd">          Bokeh document the bokeh model will be attached to.</span>
+<span class="sd">        comm: pyviz_comms.Comm</span>
+<span class="sd">          Optional pyviz_comms when working in notebook</span>
+<span class="sd">        preprocess: boolean (default=True)</span>
+<span class="sd">          Whether to run preprocessing hooks</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        Returns the bokeh model corresponding to this panel object</span>
+<span class="sd">        """</span>
+        <span class="n">doc</span> <span class="o">=</span> <span class="n">init_doc</span><span class="p">(</span><span class="n">doc</span><span class="p">)</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_updates</span><span class="p">:</span>
+            <span class="n">root</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_model</span><span class="p">(</span><span class="n">doc</span><span class="p">,</span> <span class="n">comm</span><span class="o">=</span><span class="n">comm</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">root</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">layout</span><span class="o">.</span><span class="n">_get_model</span><span class="p">(</span><span class="n">doc</span><span class="p">,</span> <span class="n">comm</span><span class="o">=</span><span class="n">comm</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">preprocess</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_preprocess</span><span class="p">(</span><span class="n">root</span><span class="p">)</span>
+        <span class="n">ref</span> <span class="o">=</span> <span class="n">root</span><span class="o">.</span><span class="n">ref</span><span class="p">[</span><span class="s1">'id'</span><span class="p">]</span>
+        <span class="n">state</span><span class="o">.</span><span class="n">_views</span><span class="p">[</span><span class="n">ref</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">root</span><span class="p">,</span> <span class="n">doc</span><span class="p">,</span> <span class="n">comm</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">root</span></div>
+
+<div class="viewcode-block" id="PaneBase.get_pane_type"><a class="viewcode-back" href="../../../api/panel.pane.html#panel.pane.ace.PaneBase.get_pane_type">[docs]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">get_pane_type</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">obj</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="sd">"""</span>
+<span class="sd">        Returns the applicable Pane type given an object by resolving</span>
+<span class="sd">        the precedence of all types whose applies method declares that</span>
+<span class="sd">        the object is supported.</span>
+
+<span class="sd">        Arguments</span>
+<span class="sd">        ---------</span>
+<span class="sd">        obj (object): The object type to return a Pane for</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        The applicable Pane type with the highest precedence.</span>
+<span class="sd">        """</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="n">Viewable</span><span class="p">):</span>
+            <span class="k">return</span> <span class="nb">type</span><span class="p">(</span><span class="n">obj</span><span class="p">)</span>
+        <span class="n">descendents</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">param</span><span class="o">.</span><span class="n">concrete_descendents</span><span class="p">(</span><span class="n">PaneBase</span><span class="p">)</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
+            <span class="k">if</span> <span class="n">p</span><span class="o">.</span><span class="n">priority</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="n">applies</span> <span class="o">=</span> <span class="kc">True</span>
+                <span class="k">try</span><span class="p">:</span>
+                    <span class="n">priority</span> <span class="o">=</span> <span class="n">p</span><span class="o">.</span><span class="n">applies</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="o">**</span><span class="p">(</span><span class="n">kwargs</span> <span class="k">if</span> <span class="n">p</span><span class="o">.</span><span class="n">_applies_kw</span> <span class="k">else</span> <span class="p">{}))</span>
+                <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
+                    <span class="n">priority</span> <span class="o">=</span> <span class="kc">False</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">applies</span> <span class="o">=</span> <span class="kc">None</span>
+                <span class="n">priority</span> <span class="o">=</span> <span class="n">p</span><span class="o">.</span><span class="n">priority</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">priority</span><span class="p">,</span> <span class="nb">bool</span><span class="p">)</span> <span class="ow">and</span> <span class="n">priority</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">'If a Pane declares no priority '</span>
+                                 <span class="s1">'the applies method should return a '</span>
+                                 <span class="s1">'priority value specific to the '</span>
+                                 <span class="s1">'object type or False, but the </span><span class="si">%s</span><span class="s1"> pane '</span>
+                                 <span class="s1">'declares no priority.'</span> <span class="o">%</span> <span class="n">p</span><span class="o">.</span><span class="vm">__name__</span><span class="p">)</span>
+            <span class="k">elif</span> <span class="n">priority</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="n">priority</span> <span class="ow">is</span> <span class="kc">False</span><span class="p">:</span>
+                <span class="k">continue</span>
+            <span class="n">descendents</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">priority</span><span class="p">,</span> <span class="n">applies</span><span class="p">,</span> <span class="n">p</span><span class="p">))</span>
+        <span class="n">pane_types</span> <span class="o">=</span> <span class="nb">reversed</span><span class="p">(</span><span class="nb">sorted</span><span class="p">(</span><span class="n">descendents</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">]))</span>
+        <span class="k">for</span> <span class="n">_</span><span class="p">,</span> <span class="n">applies</span><span class="p">,</span> <span class="n">pane_type</span> <span class="ow">in</span> <span class="n">pane_types</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">applies</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="k">try</span><span class="p">:</span>
+                    <span class="n">applies</span> <span class="o">=</span> <span class="n">pane_type</span><span class="o">.</span><span class="n">applies</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="o">**</span><span class="p">(</span><span class="n">kwargs</span> <span class="k">if</span> <span class="n">pane_type</span><span class="o">.</span><span class="n">_applies_kw</span> <span class="k">else</span> <span class="p">{}))</span>
+                <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
+                    <span class="n">applies</span> <span class="o">=</span> <span class="kc">False</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">applies</span><span class="p">:</span>
+                <span class="k">continue</span>
+            <span class="k">return</span> <span class="n">pane_type</span>
+        <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s1">'</span><span class="si">%s</span><span class="s1"> type could not be rendered.'</span> <span class="o">%</span> <span class="nb">type</span><span class="p">(</span><span class="n">obj</span><span class="p">)</span><span class="o">.</span><span class="vm">__name__</span><span class="p">)</span></div></div>
+
+
+
+<div class="viewcode-block" id="ReplacementPane"><a class="viewcode-back" href="../../../api/panel.pane.html#panel.pane.ace.ReplacementPane">[docs]</a><span class="k">class</span> <span class="nc">ReplacementPane</span><span class="p">(</span><span class="n">PaneBase</span><span class="p">):</span>
+    <span class="sd">"""</span>
+<span class="sd">    A Pane type which allows for complete replacement of the underlying</span>
+<span class="sd">    bokeh model by creating an internal layout to replace the children</span>
+<span class="sd">    on.</span>
+<span class="sd">    """</span>
+
+    <span class="n">_updates</span> <span class="o">=</span> <span class="kc">True</span>
+
+    <span class="n">__abstract</span> <span class="o">=</span> <span class="kc">True</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">object</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">params</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_kwargs</span> <span class="o">=</span>  <span class="p">{</span><span class="n">p</span><span class="p">:</span> <span class="n">params</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="n">p</span><span class="p">)</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="nb">list</span><span class="p">(</span><span class="n">params</span><span class="p">)</span>
+                         <span class="k">if</span> <span class="n">p</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">param</span><span class="p">}</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="nb">object</span><span class="p">,</span> <span class="o">**</span><span class="n">params</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_pane</span> <span class="o">=</span> <span class="n">Pane</span><span class="p">(</span><span class="kc">None</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_internal</span> <span class="o">=</span> <span class="kc">True</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_inner_layout</span> <span class="o">=</span> <span class="n">Row</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_pane</span><span class="p">,</span> <span class="o">**</span><span class="p">{</span><span class="n">k</span><span class="p">:</span> <span class="n">v</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">params</span><span class="o">.</span><span class="n">items</span><span class="p">()</span> <span class="k">if</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">Row</span><span class="o">.</span><span class="n">param</span><span class="p">})</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">param</span><span class="o">.</span><span class="n">watch</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_update_inner_layout</span><span class="p">,</span> <span class="nb">list</span><span class="p">(</span><span class="n">Layoutable</span><span class="o">.</span><span class="n">param</span><span class="p">))</span>
+
+    <span class="k">def</span> <span class="nf">_update_inner_layout</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">events</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">event</span> <span class="ow">in</span> <span class="n">events</span><span class="p">:</span>
+            <span class="nb">setattr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_pane</span><span class="p">,</span> <span class="n">event</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="n">event</span><span class="o">.</span><span class="n">new</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">event</span><span class="o">.</span><span class="n">name</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">'sizing_mode'</span><span class="p">,</span> <span class="s1">'width_policy'</span><span class="p">,</span> <span class="s1">'height_policy'</span><span class="p">]:</span>
+                <span class="nb">setattr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_inner_layout</span><span class="p">,</span> <span class="n">event</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="n">event</span><span class="o">.</span><span class="n">new</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">_update_pane</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">events</span><span class="p">):</span>
+        <span class="sd">"""</span>
+<span class="sd">        Updating of the object should be handled manually.</span>
+<span class="sd">        """</span>
+
+    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">_update_from_object</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="nb">object</span><span class="p">,</span> <span class="n">old_object</span><span class="p">,</span> <span class="n">was_internal</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="n">pane_type</span> <span class="o">=</span> <span class="bp">cls</span><span class="o">.</span><span class="n">get_pane_type</span><span class="p">(</span><span class="nb">object</span><span class="p">)</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">links</span> <span class="o">=</span> <span class="n">Link</span><span class="o">.</span><span class="n">registry</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="nb">object</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">TypeError</span><span class="p">:</span>
+            <span class="n">links</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">custom_watchers</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="nb">object</span><span class="p">,</span> <span class="n">Reactive</span><span class="p">):</span>
+            <span class="n">watchers</span> <span class="o">=</span> <span class="p">[</span>
+                <span class="n">w</span> <span class="k">for</span> <span class="n">pwatchers</span> <span class="ow">in</span> <span class="nb">object</span><span class="o">.</span><span class="n">_param_watchers</span><span class="o">.</span><span class="n">values</span><span class="p">()</span>
+                <span class="k">for</span> <span class="n">awatchers</span> <span class="ow">in</span> <span class="n">pwatchers</span><span class="o">.</span><span class="n">values</span><span class="p">()</span> <span class="k">for</span> <span class="n">w</span> <span class="ow">in</span> <span class="n">awatchers</span>
+            <span class="p">]</span>
+            <span class="n">custom_watchers</span> <span class="o">=</span> <span class="p">[</span><span class="n">wfn</span> <span class="k">for</span> <span class="n">wfn</span> <span class="ow">in</span> <span class="n">watchers</span> <span class="k">if</span> <span class="n">wfn</span> <span class="ow">not</span> <span class="ow">in</span> <span class="nb">object</span><span class="o">.</span><span class="n">_callbacks</span><span class="p">]</span>
+
+        <span class="n">pane</span><span class="p">,</span> <span class="n">internal</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">was_internal</span>
+        <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">old_object</span><span class="p">)</span> <span class="ow">is</span> <span class="n">pane_type</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">links</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">custom_watchers</span> <span class="ow">and</span> <span class="n">was_internal</span><span class="p">:</span>
+            <span class="c1"># If the object has not external referrers we can update</span>
+            <span class="c1"># it inplace instead of replacing it</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="nb">object</span><span class="p">,</span> <span class="n">Reactive</span><span class="p">):</span>
+                <span class="n">pvals</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">old_object</span><span class="o">.</span><span class="n">param</span><span class="o">.</span><span class="n">get_param_values</span><span class="p">())</span>
+                <span class="n">new_params</span> <span class="o">=</span> <span class="p">{</span><span class="n">k</span><span class="p">:</span> <span class="n">v</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="nb">object</span><span class="o">.</span><span class="n">param</span><span class="o">.</span><span class="n">get_param_values</span><span class="p">()</span>
+                              <span class="k">if</span> <span class="n">k</span> <span class="o">!=</span> <span class="s1">'name'</span> <span class="ow">and</span> <span class="n">v</span> <span class="ow">is</span> <span class="ow">not</span> <span class="n">pvals</span><span class="p">[</span><span class="n">k</span><span class="p">]}</span>
+                <span class="n">old_object</span><span class="o">.</span><span class="n">param</span><span class="o">.</span><span class="n">set_param</span><span class="p">(</span><span class="o">**</span><span class="n">new_params</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">old_object</span><span class="o">.</span><span class="n">object</span> <span class="o">=</span> <span class="nb">object</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="c1"># Replace pane entirely</span>
+            <span class="n">pane</span> <span class="o">=</span> <span class="n">panel</span><span class="p">(</span><span class="nb">object</span><span class="p">,</span> <span class="o">**</span><span class="p">{</span><span class="n">k</span><span class="p">:</span> <span class="n">v</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">items</span><span class="p">()</span>
+                                    <span class="k">if</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">pane_type</span><span class="o">.</span><span class="n">param</span><span class="p">})</span>
+            <span class="k">if</span> <span class="n">pane</span> <span class="ow">is</span> <span class="nb">object</span><span class="p">:</span>
+                <span class="c1"># If all watchers on the object are internal watchers</span>
+                <span class="c1"># we can make a clone of the object and update this</span>
+                <span class="c1"># clone going forward, otherwise we have replace the</span>
+                <span class="c1"># model entirely which is more expensive.</span>
+                <span class="k">if</span> <span class="ow">not</span> <span class="p">(</span><span class="n">custom_watchers</span> <span class="ow">or</span> <span class="n">links</span><span class="p">):</span>
+                    <span class="n">pane</span> <span class="o">=</span> <span class="nb">object</span><span class="o">.</span><span class="n">clone</span><span class="p">()</span>
+                    <span class="n">internal</span> <span class="o">=</span> <span class="kc">True</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">internal</span> <span class="o">=</span> <span class="kc">False</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">internal</span> <span class="o">=</span> <span class="nb">object</span> <span class="ow">is</span> <span class="ow">not</span> <span class="n">old_object</span>
+        <span class="k">return</span> <span class="n">pane</span><span class="p">,</span> <span class="n">internal</span>
+
+    <span class="k">def</span> <span class="nf">_update_inner</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">new_object</span><span class="p">):</span>
+        <span class="n">kwargs</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">param</span><span class="o">.</span><span class="n">get_param_values</span><span class="p">(),</span> <span class="o">**</span><span class="bp">self</span><span class="o">.</span><span class="n">_kwargs</span><span class="p">)</span>
+        <span class="k">del</span> <span class="n">kwargs</span><span class="p">[</span><span class="s1">'object'</span><span class="p">]</span>
+        <span class="n">new_pane</span><span class="p">,</span> <span class="n">internal</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_update_from_object</span><span class="p">(</span>
+            <span class="n">new_object</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_pane</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_internal</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span>
+        <span class="p">)</span>
+        <span class="k">if</span> <span class="n">new_pane</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">return</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_pane</span> <span class="o">=</span> <span class="n">new_pane</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_inner_layout</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_pane</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_internal</span> <span class="o">=</span> <span class="n">internal</span>
+
+    <span class="k">def</span> <span class="nf">_get_model</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">doc</span><span class="p">,</span> <span class="n">root</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">parent</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">comm</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">root</span><span class="p">:</span>
+            <span class="n">ref</span> <span class="o">=</span> <span class="n">root</span><span class="o">.</span><span class="n">ref</span><span class="p">[</span><span class="s1">'id'</span><span class="p">]</span>
+            <span class="k">if</span> <span class="n">ref</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_models</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_cleanup</span><span class="p">(</span><span class="n">root</span><span class="p">)</span>
+        <span class="n">model</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_inner_layout</span><span class="o">.</span><span class="n">_get_model</span><span class="p">(</span><span class="n">doc</span><span class="p">,</span> <span class="n">root</span><span class="p">,</span> <span class="n">parent</span><span class="p">,</span> <span class="n">comm</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">root</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">ref</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">ref</span><span class="p">[</span><span class="s1">'id'</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_models</span><span class="p">[</span><span class="n">ref</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">parent</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">model</span>
+
+    <span class="k">def</span> <span class="nf">_cleanup</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">root</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_inner_layout</span><span class="o">.</span><span class="n">_cleanup</span><span class="p">(</span><span class="n">root</span><span class="p">)</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">_cleanup</span><span class="p">(</span><span class="n">root</span><span class="p">)</span>
+
+<div class="viewcode-block" id="ReplacementPane.select"><a class="viewcode-back" href="../../../api/panel.pane.html#panel.pane.ace.ReplacementPane.select">[docs]</a>    <span class="k">def</span> <span class="nf">select</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">selector</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="sd">"""</span>
+<span class="sd">        Iterates over the Viewable and any potential children in the</span>
+<span class="sd">        applying the Selector.</span>
+
+<span class="sd">        Arguments</span>
+<span class="sd">        ---------</span>
+<span class="sd">        selector: type or callable or None</span>
+<span class="sd">          The selector allows selecting a subset of Viewables by</span>
+<span class="sd">          declaring a type or callable function to filter by.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        viewables: list(Viewable)</span>
+<span class="sd">        """</span>
+        <span class="n">selected</span> <span class="o">=</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="n">selector</span><span class="p">)</span>
+        <span class="n">selected</span> <span class="o">+=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_inner_layout</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="n">selector</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">selected</span></div></div>
+</pre></div>
+</div>
+</div>
+<!-- END MAIN BODY OF DOCS ––––––––––––– -->
+<!-- Google Analytics -->
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async="" src="https://www.googletagmanager.com/gtag/js?id=UA-154795830-2"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-154795830-2', { 'anonymize_ip': true });
+</script>
+<!-- MathJax Config -->
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}
+});
+</script>
+<!-- End Document
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+</body>
+</html>

@@ -1,0 +1,1229 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<!-- Basic Page Needs
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+<meta charset="utf-8"/>
+<title>panel.widgets.tables — Panel 0.11.1+g238199f-dirty documentation</title>
+<meta content="High-level dashboarding for python visualization libraries" name="description"/>
+<meta content="Panel contributors" name="author"/>
+<!-- Mobile Specific Metas
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<!-- FONT
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+<script src="https://ajax.googleapis.com/ajax/libs/webfont/1.6.16/webfont.js"></script>
+<script>
+    WebFont.load({
+      google: {
+        families: ['Source Sans Pro']
+      }
+    });
+  </script>
+<!-- CSS
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+<link href="../../../_static/css/main.css" rel="stylesheet"/>
+<link href="../../../_static/nbsite.css" rel="stylesheet"/>
+<link href="../../../_static/site.css" rel="stylesheet"/>
+<!-- Scripts
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script async="" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML" type="text/javascript">
+</script>
+<script src="../../../_static/js/main.js"></script>
+<!-- Favicon
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+<link href="../../../_static/favicon.ico" rel="icon" type="image/png"/>
+<!-- Canonical
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+<link href="https://panel.holoviz.org/_modules/panel/widgets/tables.html" rel="canonical">
+</link></head>
+<body class="">
+<header class="navigation">
+<div class="wrapper">
+<a class="logo" href="../../../index.html">
+<img alt="Logo" src="../../../_static/logo_horizontal.png"/>
+</a>
+<a class="navigation-menu-button" href="javascript:void(0)" id="js-mobile-menu">Menu</a>
+<nav>
+<ul class="navigation-menu show" id="js-navigation-menu">
+<li class="nav-link doc-head"><a href="//discourse.holoviz.org">Discourse</a></li>
+<li class="nav-link doc-head"><a href="//twitter.com/Panel_org">Twitter</a></li>
+<li class="nav-link doc-head"><a href="//github.com/pyviz/panel">Github</a></li>
+<li class="nav-link">
+<div style="display:inline-block;vertical-align: middle;">
+<div class="search-bar">
+<form action="../../../search.html" method="get" role="search">
+<input name="q" placeholder="Search" type="search"/>
+<button type="submit">
+<img alt="Search Icon" src="https://raw.githubusercontent.com/thoughtbot/refills/master/source/images/search-icon-black.png"/>
+</button>
+</form>
+</div>
+</div>
+</li>
+</ul>
+</nav>
+</div>
+</header>
+<div class="second-nav">
+<nav>
+<ul class="navigation-menu show">
+<li class="nav-link doc-head"><a href="../../../getting_started/index.html">Getting started</a></li>
+<li class="nav-link doc-head"><a href="../../../user_guide/index.html">User Guide</a></li>
+<li class="nav-link doc-head"><a href="../../../gallery/index.html">Gallery</a></li>
+<li class="nav-link doc-head"><a href="../../../reference/index.html">Reference Gallery</a></li>
+<li class="nav-link doc-head"><a href="../../../developer_guide/index.html">Developer Guide</a></li>
+<li class="nav-link doc-head"><a href="../../../releases.html">Releases</a></li>
+<li class="nav-link doc-head"><a href="../../../api/index.html">API</a></li>
+<li class="nav-link doc-head"><a href="../../../FAQ.html">FAQ</a></li>
+<li class="nav-link doc-head"><a href="../../../about.html">About</a></li>
+</ul>
+</nav>
+</div>
+<!-- MAIN BODY OF DOCS –––––––––––––––––– -->
+<div class="docs section">
+<div id="hacketyhackhack"> <!-- style="width:20%;margin-right: 100px;"> --> <!--style="display: none;"> style="display:none;"> -->
+<div class="toc" style="width:15%; margin-right:20px;">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../index.html">Home</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../getting_started/index.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../user_guide/index.html">User Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../gallery/index.html">Gallery</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../reference/index.html">Reference Gallery</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../developer_guide/index.html">Developer Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/index.html">API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../Comparisons.html">Comparisons</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../releases.html">Releases</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../Roadmap.html">Road Map</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../FAQ.html">FAQ</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://github.com/pyviz/panel">Github source</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../about.html">About</a></li>
+</ul>
+</div>
+</div>
+<div class="content"> <!-- style="max-width:80%;margin-left:auto;margin-right: auto;">-->
+<h1>Source code for panel.widgets.tables</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">datetime</span> <span class="k">as</span> <span class="nn">dt</span>
+
+<span class="kn">from</span> <span class="nn">types</span> <span class="kn">import</span> <span class="n">FunctionType</span><span class="p">,</span> <span class="n">MethodType</span>
+
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">param</span>
+
+<span class="kn">from</span> <span class="nn">bokeh.models</span> <span class="kn">import</span> <span class="n">ColumnDataSource</span>
+<span class="kn">from</span> <span class="nn">bokeh.models.widgets.tables</span> <span class="kn">import</span> <span class="p">(</span>
+    <span class="n">DataTable</span><span class="p">,</span> <span class="n">DataCube</span><span class="p">,</span> <span class="n">TableColumn</span><span class="p">,</span> <span class="n">GroupingInfo</span><span class="p">,</span> <span class="n">RowAggregator</span><span class="p">,</span>
+    <span class="n">NumberEditor</span><span class="p">,</span> <span class="n">NumberFormatter</span><span class="p">,</span> <span class="n">DateFormatter</span><span class="p">,</span> <span class="n">CellEditor</span><span class="p">,</span>
+    <span class="n">DateEditor</span><span class="p">,</span> <span class="n">StringFormatter</span><span class="p">,</span> <span class="n">StringEditor</span><span class="p">,</span> <span class="n">IntEditor</span><span class="p">,</span>
+    <span class="n">AvgAggregator</span><span class="p">,</span> <span class="n">MaxAggregator</span><span class="p">,</span> <span class="n">MinAggregator</span><span class="p">,</span> <span class="n">SumAggregator</span><span class="p">,</span>
+    <span class="n">CheckboxEditor</span>
+<span class="p">)</span>
+
+<span class="kn">from</span> <span class="nn">..depends</span> <span class="kn">import</span> <span class="n">param_value_if_widget</span>
+<span class="kn">from</span> <span class="nn">..io.notebook</span> <span class="kn">import</span> <span class="n">push_on_root</span>
+<span class="kn">from</span> <span class="nn">..models.tabulator</span> <span class="kn">import</span> <span class="p">(</span>
+    <span class="n">DataTabulator</span> <span class="k">as</span> <span class="n">_BkTabulator</span><span class="p">,</span> <span class="n">TABULATOR_THEMES</span><span class="p">,</span> <span class="n">THEME_URL</span>
+<span class="p">)</span>
+<span class="kn">from</span> <span class="nn">..reactive</span> <span class="kn">import</span> <span class="n">ReactiveData</span>
+<span class="kn">from</span> <span class="nn">..viewable</span> <span class="kn">import</span> <span class="n">Layoutable</span>
+<span class="kn">from</span> <span class="nn">..util</span> <span class="kn">import</span> <span class="n">isdatetime</span><span class="p">,</span> <span class="n">updating</span>
+<span class="kn">from</span> <span class="nn">.base</span> <span class="kn">import</span> <span class="n">Widget</span>
+<span class="kn">from</span> <span class="nn">.button</span> <span class="kn">import</span> <span class="n">Button</span>
+<span class="kn">from</span> <span class="nn">.input</span> <span class="kn">import</span> <span class="n">TextInput</span>
+
+
+<div class="viewcode-block" id="BaseTable"><a class="viewcode-back" href="../../../api/panel.widgets.html#panel.widgets.tables.BaseTable">[docs]</a><span class="k">class</span> <span class="nc">BaseTable</span><span class="p">(</span><span class="n">ReactiveData</span><span class="p">,</span> <span class="n">Widget</span><span class="p">):</span>
+
+    <span class="n">editors</span> <span class="o">=</span> <span class="n">param</span><span class="o">.</span><span class="n">Dict</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="p">{},</span> <span class="n">doc</span><span class="o">=</span><span class="s2">"""</span>
+<span class="s2">        Bokeh CellEditor to use for a particular column</span>
+<span class="s2">        (overrides the default chosen based on the type)."""</span><span class="p">)</span>
+
+    <span class="n">formatters</span> <span class="o">=</span> <span class="n">param</span><span class="o">.</span><span class="n">Dict</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="p">{},</span> <span class="n">doc</span><span class="o">=</span><span class="s2">"""</span>
+<span class="s2">        Bokeh CellFormatter to use for a particular column</span>
+<span class="s2">        (overrides the default chosen based on the type)."""</span><span class="p">)</span>
+
+    <span class="n">row_height</span> <span class="o">=</span> <span class="n">param</span><span class="o">.</span><span class="n">Integer</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="mi">40</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="s2">"""</span>
+<span class="s2">        The height of each table row."""</span><span class="p">)</span>
+
+    <span class="n">selection</span> <span class="o">=</span> <span class="n">param</span><span class="o">.</span><span class="n">List</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="p">[],</span> <span class="n">doc</span><span class="o">=</span><span class="s2">"""</span>
+<span class="s2">        The currently selected rows of the table."""</span><span class="p">)</span>
+
+    <span class="n">show_index</span> <span class="o">=</span> <span class="n">param</span><span class="o">.</span><span class="n">Boolean</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="s2">"""</span>
+<span class="s2">        Whether to show the index column."""</span><span class="p">)</span>
+
+    <span class="n">titles</span> <span class="o">=</span> <span class="n">param</span><span class="o">.</span><span class="n">Dict</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="p">{},</span> <span class="n">doc</span><span class="o">=</span><span class="s2">"""</span>
+<span class="s2">        A mapping from column name to a title to override the name with."""</span><span class="p">)</span>
+
+    <span class="n">widths</span> <span class="o">=</span> <span class="n">param</span><span class="o">.</span><span class="n">ClassSelector</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="p">{},</span> <span class="n">class_</span><span class="o">=</span><span class="p">(</span><span class="nb">dict</span><span class="p">,</span> <span class="nb">int</span><span class="p">),</span> <span class="n">doc</span><span class="o">=</span><span class="s2">"""</span>
+<span class="s2">        A mapping from column name to column width or a fixed column</span>
+<span class="s2">        width."""</span><span class="p">)</span>
+
+    <span class="n">value</span> <span class="o">=</span> <span class="n">param</span><span class="o">.</span><span class="n">Parameter</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+
+    <span class="n">_data_params</span> <span class="o">=</span> <span class="p">[</span><span class="s1">'value'</span><span class="p">]</span>
+
+    <span class="n">_manual_params</span> <span class="o">=</span> <span class="p">[</span><span class="s1">'formatters'</span><span class="p">,</span> <span class="s1">'editors'</span><span class="p">,</span> <span class="s1">'widths'</span><span class="p">,</span> <span class="s1">'titles'</span><span class="p">,</span> <span class="s1">'value'</span><span class="p">,</span> <span class="s1">'show_index'</span><span class="p">]</span>
+
+    <span class="n">_rename</span> <span class="o">=</span> <span class="p">{</span><span class="s1">'disabled'</span><span class="p">:</span> <span class="s1">'editable'</span><span class="p">,</span> <span class="s1">'selection'</span><span class="p">:</span> <span class="kc">None</span><span class="p">}</span>
+
+    <span class="n">__abstract</span> <span class="o">=</span> <span class="kc">True</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">params</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_renamed_cols</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_filters</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">value</span><span class="o">=</span><span class="n">value</span><span class="p">,</span> <span class="o">**</span><span class="n">params</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">_validate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">):</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">value</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">return</span>
+        <span class="n">cols</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">value</span><span class="o">.</span><span class="n">columns</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">cols</span><span class="p">)</span> <span class="o">!=</span> <span class="nb">len</span><span class="p">(</span><span class="n">cols</span><span class="o">.</span><span class="n">drop_duplicates</span><span class="p">()):</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">'Cannot display a pandas.DataFrame with '</span>
+                             <span class="s1">'duplicate column names.'</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">_process_param_change</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">msg</span><span class="p">):</span>
+        <span class="n">msg</span> <span class="o">=</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">_process_param_change</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+        <span class="k">if</span> <span class="s1">'editable'</span> <span class="ow">in</span> <span class="n">msg</span><span class="p">:</span>
+            <span class="n">msg</span><span class="p">[</span><span class="s1">'editable'</span><span class="p">]</span> <span class="o">=</span> <span class="ow">not</span> <span class="n">msg</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">'editable'</span><span class="p">)</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">indexes</span><span class="p">)</span> <span class="o">&lt;=</span> <span class="mi">1</span>
+        <span class="k">return</span> <span class="n">msg</span>
+
+    <span class="k">def</span> <span class="nf">_get_columns</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">value</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">return</span> <span class="p">[]</span>
+
+        <span class="n">indexes</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">indexes</span>
+        <span class="n">col_names</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">value</span><span class="o">.</span><span class="n">columns</span><span class="p">)</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">indexes</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="n">col_names</span> <span class="o">=</span> <span class="n">indexes</span> <span class="o">+</span> <span class="n">col_names</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">col_names</span> <span class="o">=</span> <span class="n">indexes</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">:]</span> <span class="o">+</span> <span class="n">col_names</span>
+        <span class="n">df</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">value</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span> <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">indexes</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span> <span class="k">else</span> <span class="bp">self</span><span class="o">.</span><span class="n">value</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_column_definitions</span><span class="p">(</span><span class="n">col_names</span><span class="p">,</span> <span class="n">df</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">_get_column_definitions</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">col_names</span><span class="p">,</span> <span class="n">df</span><span class="p">):</span>
+        <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+        <span class="n">indexes</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">indexes</span>
+        <span class="n">columns</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">col_names</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">df</span><span class="o">.</span><span class="n">columns</span><span class="p">:</span>
+                <span class="n">data</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">col</span><span class="p">]</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">data</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">index</span>
+
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">):</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">"DataFrame contains duplicate column names."</span><span class="p">)</span>
+
+            <span class="n">col_kwargs</span> <span class="o">=</span> <span class="p">{}</span>
+            <span class="n">kind</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">dtype</span><span class="o">.</span><span class="n">kind</span>
+            <span class="k">if</span> <span class="n">kind</span> <span class="o">==</span> <span class="s1">'i'</span><span class="p">:</span>
+                <span class="n">formatter</span> <span class="o">=</span> <span class="n">NumberFormatter</span><span class="p">()</span>
+                <span class="n">editor</span> <span class="o">=</span> <span class="n">IntEditor</span><span class="p">()</span>
+            <span class="k">elif</span> <span class="n">kind</span> <span class="o">==</span> <span class="s1">'b'</span><span class="p">:</span>
+                <span class="n">formatter</span> <span class="o">=</span> <span class="n">StringFormatter</span><span class="p">()</span>
+                <span class="n">editor</span> <span class="o">=</span> <span class="n">CheckboxEditor</span><span class="p">()</span>
+            <span class="k">elif</span> <span class="n">kind</span> <span class="o">==</span> <span class="s1">'f'</span><span class="p">:</span>
+                <span class="n">formatter</span> <span class="o">=</span> <span class="n">NumberFormatter</span><span class="p">(</span><span class="nb">format</span><span class="o">=</span><span class="s1">'0,0.0[00000]'</span><span class="p">)</span>
+                <span class="n">editor</span> <span class="o">=</span> <span class="n">NumberEditor</span><span class="p">()</span>
+            <span class="k">elif</span> <span class="n">isdatetime</span><span class="p">(</span><span class="n">data</span><span class="p">)</span> <span class="ow">or</span> <span class="n">kind</span> <span class="o">==</span> <span class="s1">'M'</span><span class="p">:</span>
+                <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">)</span> <span class="ow">and</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">values</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">dt</span><span class="o">.</span><span class="n">date</span><span class="p">):</span>
+                    <span class="n">date_format</span> <span class="o">=</span> <span class="s1">'%Y-%m-</span><span class="si">%d</span><span class="s1">'</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">date_format</span> <span class="o">=</span> <span class="s1">'%Y-%m-</span><span class="si">%d</span><span class="s1"> %H:%M:%S'</span>
+                <span class="n">formatter</span> <span class="o">=</span> <span class="n">DateFormatter</span><span class="p">(</span><span class="nb">format</span><span class="o">=</span><span class="n">date_format</span><span class="p">)</span>
+                <span class="n">editor</span> <span class="o">=</span> <span class="n">DateEditor</span><span class="p">()</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">formatter</span> <span class="o">=</span> <span class="n">StringFormatter</span><span class="p">()</span>
+                <span class="n">editor</span> <span class="o">=</span> <span class="n">StringEditor</span><span class="p">()</span>
+
+            <span class="k">if</span> <span class="n">col</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">editors</span> <span class="ow">and</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">editors</span><span class="p">[</span><span class="n">col</span><span class="p">],</span> <span class="p">(</span><span class="nb">dict</span><span class="p">,</span> <span class="nb">str</span><span class="p">)):</span>
+                <span class="n">editor</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">editors</span><span class="p">[</span><span class="n">col</span><span class="p">]</span>
+
+            <span class="k">if</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">indexes</span> <span class="ow">or</span> <span class="n">editor</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="n">editor</span> <span class="o">=</span> <span class="n">CellEditor</span><span class="p">()</span>
+
+            <span class="k">if</span> <span class="n">col</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">formatters</span> <span class="ow">and</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">formatters</span><span class="p">[</span><span class="n">col</span><span class="p">],</span> <span class="p">(</span><span class="nb">dict</span><span class="p">,</span> <span class="nb">str</span><span class="p">)):</span>
+                <span class="n">formatter</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">formatters</span><span class="p">[</span><span class="n">col</span><span class="p">]</span>
+
+            <span class="k">if</span> <span class="nb">str</span><span class="p">(</span><span class="n">col</span><span class="p">)</span> <span class="o">!=</span> <span class="n">col</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_renamed_cols</span><span class="p">[</span><span class="nb">str</span><span class="p">(</span><span class="n">col</span><span class="p">)]</span> <span class="o">=</span> <span class="n">col</span>
+
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">widths</span><span class="p">,</span> <span class="nb">int</span><span class="p">):</span>
+                <span class="n">col_kwargs</span><span class="p">[</span><span class="s1">'width'</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">widths</span>
+            <span class="k">elif</span> <span class="nb">str</span><span class="p">(</span><span class="n">col</span><span class="p">)</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">widths</span><span class="p">:</span>
+                <span class="n">col_kwargs</span><span class="p">[</span><span class="s1">'width'</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">widths</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">col</span><span class="p">))</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">col_kwargs</span><span class="p">[</span><span class="s1">'width'</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
+
+            <span class="n">title</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">titles</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">col</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">col</span><span class="p">))</span>
+            <span class="k">if</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">indexes</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">indexes</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">hierarchical</span><span class="p">:</span>
+                <span class="n">title</span> <span class="o">=</span> <span class="s1">'Index: </span><span class="si">%s</span><span class="s1">'</span> <span class="o">%</span> <span class="s1">' | '</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">indexes</span><span class="p">)</span>
+            <span class="n">column</span> <span class="o">=</span> <span class="n">TableColumn</span><span class="p">(</span><span class="n">field</span><span class="o">=</span><span class="nb">str</span><span class="p">(</span><span class="n">col</span><span class="p">),</span> <span class="n">title</span><span class="o">=</span><span class="n">title</span><span class="p">,</span>
+                                 <span class="n">editor</span><span class="o">=</span><span class="n">editor</span><span class="p">,</span> <span class="n">formatter</span><span class="o">=</span><span class="n">formatter</span><span class="p">,</span>
+                                 <span class="o">**</span><span class="n">col_kwargs</span><span class="p">)</span>
+            <span class="n">columns</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">column</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">columns</span>
+
+    <span class="k">def</span> <span class="nf">_get_model</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">doc</span><span class="p">,</span> <span class="n">root</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">parent</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">comm</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="n">source</span> <span class="o">=</span> <span class="n">ColumnDataSource</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_data</span><span class="p">)</span>
+        <span class="n">source</span><span class="o">.</span><span class="n">selected</span><span class="o">.</span><span class="n">indices</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">selection</span>
+        <span class="n">model</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_widget_type</span><span class="p">(</span><span class="o">**</span><span class="bp">self</span><span class="o">.</span><span class="n">_get_properties</span><span class="p">(</span><span class="n">source</span><span class="p">))</span>
+        <span class="k">if</span> <span class="n">root</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">root</span> <span class="o">=</span> <span class="n">model</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_link_props</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">source</span><span class="p">,</span> <span class="p">[</span><span class="s1">'data'</span><span class="p">],</span> <span class="n">doc</span><span class="p">,</span> <span class="n">root</span><span class="p">,</span> <span class="n">comm</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_link_props</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">source</span><span class="o">.</span><span class="n">selected</span><span class="p">,</span> <span class="p">[</span><span class="s1">'indices'</span><span class="p">],</span> <span class="n">doc</span><span class="p">,</span> <span class="n">root</span><span class="p">,</span> <span class="n">comm</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_models</span><span class="p">[</span><span class="n">root</span><span class="o">.</span><span class="n">ref</span><span class="p">[</span><span class="s1">'id'</span><span class="p">]]</span> <span class="o">=</span> <span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">parent</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">model</span>
+
+    <span class="k">def</span> <span class="nf">_update_columns</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">,</span> <span class="n">model</span><span class="p">):</span>
+        <span class="n">model</span><span class="o">.</span><span class="n">columns</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_columns</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="nf">_manual_update</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">events</span><span class="p">,</span> <span class="n">model</span><span class="p">,</span> <span class="n">doc</span><span class="p">,</span> <span class="n">root</span><span class="p">,</span> <span class="n">parent</span><span class="p">,</span> <span class="n">comm</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">event</span> <span class="ow">in</span> <span class="n">events</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">event</span><span class="o">.</span><span class="n">type</span> <span class="o">==</span> <span class="s1">'triggered'</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">_updating</span><span class="p">:</span>
+                <span class="k">continue</span>
+            <span class="k">elif</span> <span class="n">event</span><span class="o">.</span><span class="n">name</span> <span class="ow">in</span> <span class="p">(</span><span class="s1">'value'</span><span class="p">,</span> <span class="s1">'show_index'</span><span class="p">):</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_update_columns</span><span class="p">(</span><span class="n">event</span><span class="p">,</span> <span class="n">model</span><span class="p">)</span>
+                <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">DataCube</span><span class="p">):</span>
+                    <span class="n">model</span><span class="o">.</span><span class="n">groupings</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_groupings</span><span class="p">()</span>
+            <span class="k">elif</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s1">'_update_'</span> <span class="o">+</span> <span class="n">event</span><span class="o">.</span><span class="n">name</span><span class="p">):</span>
+                <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s1">'_update_'</span> <span class="o">+</span> <span class="n">event</span><span class="o">.</span><span class="n">name</span><span class="p">)(</span><span class="n">model</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_update_columns</span><span class="p">(</span><span class="n">event</span><span class="p">,</span> <span class="n">model</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">_filter_dataframe</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">df</span><span class="p">,</span> <span class="p">):</span>
+        <span class="sd">"""</span>
+<span class="sd">        Filter the DataFrame.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        df : DataFrame</span>
+<span class="sd">           The DataFrame to filter</span>
+<span class="sd">        query : dict</span>
+<span class="sd">            A dictionary containing all the query parameters</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        DataFrame</span>
+<span class="sd">            The filtered DataFrame</span>
+<span class="sd">        """</span>
+        <span class="n">filters</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">col_name</span><span class="p">,</span> <span class="n">filt</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_filters</span><span class="p">:</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">filt</span><span class="p">,</span> <span class="p">(</span><span class="n">FunctionType</span><span class="p">,</span> <span class="n">MethodType</span><span class="p">)):</span>
+                <span class="n">df</span> <span class="o">=</span> <span class="n">filt</span><span class="p">(</span><span class="n">df</span><span class="p">)</span>
+                <span class="k">continue</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">filt</span><span class="p">,</span> <span class="n">param</span><span class="o">.</span><span class="n">Parameter</span><span class="p">):</span>
+                <span class="n">val</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">filt</span><span class="o">.</span><span class="n">owner</span><span class="p">,</span> <span class="n">filt</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">val</span> <span class="o">=</span> <span class="n">filt</span>
+            <span class="n">column</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">col_name</span><span class="p">]</span>
+            <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">isscalar</span><span class="p">(</span><span class="n">val</span><span class="p">):</span>
+                <span class="n">mask</span> <span class="o">=</span> <span class="n">column</span> <span class="o">==</span> <span class="n">val</span>
+            <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">val</span><span class="p">,</span> <span class="p">(</span><span class="nb">list</span><span class="p">,</span> <span class="nb">set</span><span class="p">)):</span>
+                <span class="k">if</span> <span class="ow">not</span> <span class="n">val</span><span class="p">:</span>
+                    <span class="k">continue</span>
+                <span class="n">mask</span> <span class="o">=</span> <span class="n">column</span><span class="o">.</span><span class="n">isin</span><span class="p">(</span><span class="n">val</span><span class="p">)</span>
+            <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">val</span><span class="p">,</span> <span class="nb">tuple</span><span class="p">):</span>
+                <span class="n">start</span><span class="p">,</span> <span class="n">end</span> <span class="o">=</span> <span class="n">val</span>
+                <span class="k">if</span> <span class="n">start</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">end</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                    <span class="k">continue</span>
+                <span class="k">elif</span> <span class="n">start</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                    <span class="n">mask</span> <span class="o">=</span> <span class="n">column</span><span class="o">&lt;=</span><span class="n">end</span>
+                <span class="k">elif</span> <span class="n">end</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                    <span class="n">mask</span> <span class="o">=</span> <span class="n">column</span><span class="o">&gt;=</span><span class="n">start</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">mask</span> <span class="o">=</span> <span class="p">(</span><span class="n">column</span><span class="o">&gt;=</span><span class="n">start</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">column</span><span class="o">&lt;=</span><span class="n">end</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">"'</span><span class="si">{</span><span class="n">col_name</span><span class="si">}</span><span class="s2"> filter value not "</span>
+                                 <span class="s2">"understood. Must be either a scalar, "</span>
+                                 <span class="s2">"tuple or list."</span><span class="p">)</span>
+            <span class="n">filters</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">mask</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">filters</span><span class="p">:</span>
+            <span class="n">mask</span> <span class="o">=</span> <span class="n">filters</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">filters</span><span class="p">:</span>
+                <span class="n">mask</span> <span class="o">&amp;=</span> <span class="n">f</span>
+            <span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">mask</span><span class="p">]</span>
+        <span class="k">return</span> <span class="n">df</span>
+
+<div class="viewcode-block" id="BaseTable.add_filter"><a class="viewcode-back" href="../../../api/panel.widgets.html#panel.widgets.tables.BaseTable.add_filter">[docs]</a>    <span class="k">def</span> <span class="nf">add_filter</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">filter</span><span class="p">,</span> <span class="n">column</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="sd">"""</span>
+<span class="sd">        Adds a filter to the table which can be a static value or</span>
+<span class="sd">        dynamic parameter based object which will automatically</span>
+<span class="sd">        update the table when changed..</span>
+
+<span class="sd">        When a static value, widget or parameter is supplied the</span>
+<span class="sd">        filtering will follow a few well defined behaviors:</span>
+
+<span class="sd">          * scalar: Filters by checking for equality</span>
+<span class="sd">          * tuple: A tuple will be interpreted as range.</span>
+<span class="sd">          * list: A list will be interpreted as a set of discrete</span>
+<span class="sd">                  scalars and the filter will check if the values</span>
+<span class="sd">                  in the column match any of the items in the list.</span>
+
+<span class="sd">        Arguments</span>
+<span class="sd">        ---------</span>
+<span class="sd">        filter: Widget, param.Parameter or FunctionType</span>
+<span class="sd">            The value by which to filter the DataFrame along the</span>
+<span class="sd">            declared column, or a function accepting the DataFrame to</span>
+<span class="sd">            be filtered and returning a filtered copy of the DataFrame.</span>
+<span class="sd">        column: str or None</span>
+<span class="sd">            Column to which the filter will be applied, if the filter</span>
+<span class="sd">            is a constant value, widget or parameter.</span>
+
+<span class="sd">        Raises</span>
+<span class="sd">        ------</span>
+<span class="sd">        ValueError: If the filter type is not supported or no column</span>
+<span class="sd">                    was declared.</span>
+<span class="sd">        """</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="nb">filter</span><span class="p">,</span> <span class="p">(</span><span class="nb">tuple</span><span class="p">,</span> <span class="nb">list</span><span class="p">,</span> <span class="nb">set</span><span class="p">))</span> <span class="ow">or</span> <span class="n">np</span><span class="o">.</span><span class="n">isscalar</span><span class="p">(</span><span class="nb">filter</span><span class="p">):</span>
+            <span class="n">deps</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="nb">filter</span><span class="p">,</span> <span class="p">(</span><span class="n">FunctionType</span><span class="p">,</span> <span class="n">MethodType</span><span class="p">)):</span>
+            <span class="n">deps</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">filter</span><span class="o">.</span><span class="n">_dinfo</span><span class="p">[</span><span class="s1">'kw'</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">())</span> <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="nb">filter</span><span class="p">,</span> <span class="s1">'_dinfo'</span><span class="p">)</span> <span class="k">else</span> <span class="p">[]</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="nb">filter</span> <span class="o">=</span> <span class="n">param_value_if_widget</span><span class="p">(</span><span class="nb">filter</span><span class="p">)</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="nb">filter</span><span class="p">,</span> <span class="n">param</span><span class="o">.</span><span class="n">Parameter</span><span class="p">):</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s1">'</span><span class="si">{</span><span class="nb">type</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="s1"> filter must be '</span>
+                                 <span class="s1">'a constant value, parameter, widget '</span>
+                                 <span class="s1">'or function.'</span><span class="p">)</span>
+            <span class="k">elif</span> <span class="n">column</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">'When filtering with a parameter or '</span>
+                                 <span class="s1">'widget, a column to filter on must be '</span>
+                                 <span class="s1">'declared.'</span><span class="p">)</span>
+            <span class="n">deps</span> <span class="o">=</span> <span class="p">[</span><span class="nb">filter</span><span class="p">]</span>
+        <span class="k">for</span> <span class="n">dep</span> <span class="ow">in</span> <span class="n">deps</span><span class="p">:</span>
+            <span class="n">dep</span><span class="o">.</span><span class="n">owner</span><span class="o">.</span><span class="n">param</span><span class="o">.</span><span class="n">watch</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_update_cds</span><span class="p">,</span> <span class="n">dep</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_filters</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">column</span><span class="p">,</span> <span class="nb">filter</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_update_cds</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="BaseTable.remove_filter"><a class="viewcode-back" href="../../../api/panel.widgets.html#panel.widgets.tables.BaseTable.remove_filter">[docs]</a>    <span class="k">def</span> <span class="nf">remove_filter</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">filter</span><span class="p">):</span>
+        <span class="sd">"""</span>
+<span class="sd">        Removes a filter which was previously added.</span>
+<span class="sd">        """</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_filters</span> <span class="o">=</span> <span class="p">[(</span><span class="n">column</span><span class="p">,</span> <span class="n">filt</span><span class="p">)</span> <span class="k">for</span> <span class="p">(</span><span class="n">column</span><span class="p">,</span> <span class="n">filt</span><span class="p">)</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_filters</span>
+                         <span class="k">if</span> <span class="n">filt</span> <span class="ow">is</span> <span class="ow">not</span> <span class="nb">filter</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_update_cds</span><span class="p">()</span></div>
+
+    <span class="k">def</span> <span class="nf">_get_data</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">df</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_filter_dataframe</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">value</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">df</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">return</span> <span class="p">[],</span> <span class="p">{}</span>
+        <span class="k">elif</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">indexes</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span>
+        <span class="n">data</span> <span class="o">=</span> <span class="n">ColumnDataSource</span><span class="o">.</span><span class="n">from_df</span><span class="p">(</span><span class="n">df</span><span class="p">)</span><span class="o">.</span><span class="n">items</span><span class="p">()</span>
+        <span class="k">return</span> <span class="n">df</span><span class="p">,</span> <span class="p">{</span><span class="n">k</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">k</span><span class="p">,</span> <span class="nb">str</span><span class="p">)</span> <span class="k">else</span> <span class="nb">str</span><span class="p">(</span><span class="n">k</span><span class="p">):</span> <span class="n">v</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">data</span><span class="p">}</span>
+
+    <span class="k">def</span> <span class="nf">_update_column</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">column</span><span class="p">,</span> <span class="n">array</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">value</span><span class="p">[</span><span class="n">column</span><span class="p">]</span> <span class="o">=</span> <span class="n">array</span>
+
+    <span class="c1">#----------------------------------------------------------------</span>
+    <span class="c1"># Public API</span>
+    <span class="c1">#----------------------------------------------------------------</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">indexes</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">value</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">show_index</span><span class="p">:</span>
+            <span class="k">return</span> <span class="p">[]</span>
+        <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">value</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="n">pd</span><span class="o">.</span><span class="n">MultiIndex</span><span class="p">):</span>
+            <span class="k">return</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">value</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">names</span><span class="p">)</span>
+        <span class="k">return</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">value</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">name</span> <span class="ow">or</span> <span class="s1">'index'</span><span class="p">]</span>
+
+<div class="viewcode-block" id="BaseTable.stream"><a class="viewcode-back" href="../../../api/panel.widgets.html#panel.widgets.tables.BaseTable.stream">[docs]</a>    <span class="k">def</span> <span class="nf">stream</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">stream_value</span><span class="p">,</span> <span class="n">rollover</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">reset_index</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+        <span class="sd">"""</span>
+<span class="sd">        Streams (appends) the `stream_value` provided to the existing</span>
+<span class="sd">        value in an efficient manner.</span>
+
+<span class="sd">        Arguments</span>
+<span class="sd">        ---------</span>
+<span class="sd">        stream_value (Union[pd.DataFrame, pd.Series, Dict])</span>
+<span class="sd">          The new value(s) to append to the existing value.</span>
+<span class="sd">        rollover: int</span>
+<span class="sd">           A maximum column size, above which data from the start of</span>
+<span class="sd">           the column begins to be discarded. If None, then columns</span>
+<span class="sd">           will continue to grow unbounded.</span>
+<span class="sd">        reset_index (bool, default=True):</span>
+<span class="sd">          If True and the stream_value is a DataFrame,</span>
+<span class="sd">          then its index is reset. Helps to keep the</span>
+<span class="sd">          index unique and named `index`</span>
+
+<span class="sd">        Raises</span>
+<span class="sd">        ------</span>
+<span class="sd">        ValueError: Raised if the stream_value is not a supported type.</span>
+
+<span class="sd">        Examples</span>
+<span class="sd">        --------</span>
+
+<span class="sd">        Stream a Series to a DataFrame</span>
+<span class="sd">        &gt;&gt;&gt; value = pd.DataFrame({"x": [1, 2], "y": ["a", "b"]})</span>
+<span class="sd">        &gt;&gt;&gt; tabulator = Tabulator(value=value)</span>
+<span class="sd">        &gt;&gt;&gt; stream_value = pd.Series({"x": 4, "y": "d"})</span>
+<span class="sd">        &gt;&gt;&gt; tabulator.stream(stream_value)</span>
+<span class="sd">        &gt;&gt;&gt; tabulator.value.to_dict("list")</span>
+<span class="sd">        {'x': [1, 2, 4], 'y': ['a', 'b', 'd']}</span>
+
+<span class="sd">        Stream a Dataframe to a Dataframe</span>
+<span class="sd">        &gt;&gt;&gt; value = pd.DataFrame({"x": [1, 2], "y": ["a", "b"]})</span>
+<span class="sd">        &gt;&gt;&gt; tabulator = Tabulator(value=value)</span>
+<span class="sd">        &gt;&gt;&gt; stream_value = pd.DataFrame({"x": [3, 4], "y": ["c", "d"]})</span>
+<span class="sd">        &gt;&gt;&gt; tabulator.stream(stream_value)</span>
+<span class="sd">        &gt;&gt;&gt; tabulator.value.to_dict("list")</span>
+<span class="sd">        {'x': [1, 2, 3, 4], 'y': ['a', 'b', 'c', 'd']}</span>
+
+<span class="sd">        Stream a Dictionary row to a DataFrame</span>
+<span class="sd">        &gt;&gt;&gt; value = pd.DataFrame({"x": [1, 2], "y": ["a", "b"]})</span>
+<span class="sd">        &gt;&gt;&gt; tabulator = Tabulator(value=value)</span>
+<span class="sd">        &gt;&gt;&gt; stream_value = {"x": 4, "y": "d"}</span>
+<span class="sd">        &gt;&gt;&gt; tabulator.stream(stream_value)</span>
+<span class="sd">        &gt;&gt;&gt; tabulator.value.to_dict("list")</span>
+<span class="sd">        {'x': [1, 2, 4], 'y': ['a', 'b', 'd']}</span>
+
+<span class="sd">        Stream a Dictionary of Columns to a Dataframe</span>
+<span class="sd">        &gt;&gt;&gt; value = pd.DataFrame({"x": [1, 2], "y": ["a", "b"]})</span>
+<span class="sd">        &gt;&gt;&gt; tabulator = Tabulator(value=value)</span>
+<span class="sd">        &gt;&gt;&gt; stream_value = {"x": [3, 4], "y": ["c", "d"]}</span>
+<span class="sd">        &gt;&gt;&gt; tabulator.stream(stream_value)</span>
+<span class="sd">        &gt;&gt;&gt; tabulator.value.to_dict("list")</span>
+<span class="sd">        {'x': [1, 2, 3, 4], 'y': ['a', 'b', 'c', 'd']}</span>
+<span class="sd">        """</span>
+        <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+        <span class="n">value_index_start</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">value</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">max</span><span class="p">()</span> <span class="o">+</span> <span class="mi">1</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">stream_value</span><span class="p">,</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">reset_index</span><span class="p">:</span>
+                <span class="n">stream_value</span> <span class="o">=</span> <span class="n">stream_value</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+                <span class="n">stream_value</span><span class="o">.</span><span class="n">index</span> <span class="o">+=</span> <span class="n">value_index_start</span>
+            <span class="n">combined</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="bp">self</span><span class="o">.</span><span class="n">value</span><span class="p">,</span> <span class="n">stream_value</span><span class="p">])</span>
+            <span class="k">if</span> <span class="n">rollover</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="n">combined</span> <span class="o">=</span> <span class="n">combined</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="o">-</span><span class="n">rollover</span><span class="p">:]</span>
+            <span class="k">with</span> <span class="n">param</span><span class="o">.</span><span class="n">discard_events</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="n">combined</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_updating</span> <span class="o">=</span> <span class="kc">True</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">param</span><span class="o">.</span><span class="n">trigger</span><span class="p">(</span><span class="s1">'value'</span><span class="p">)</span>
+            <span class="k">finally</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_updating</span> <span class="o">=</span> <span class="kc">False</span>
+            <span class="n">stream_value</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_filter_dataframe</span><span class="p">(</span><span class="n">stream_value</span><span class="p">)</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_updating</span> <span class="o">=</span> <span class="kc">True</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_stream</span><span class="p">(</span><span class="n">stream_value</span><span class="p">,</span> <span class="n">rollover</span><span class="p">)</span>
+            <span class="k">finally</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_updating</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">stream_value</span><span class="p">,</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">value</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">value_index_start</span><span class="p">]</span> <span class="o">=</span> <span class="n">stream_value</span>
+            <span class="k">if</span> <span class="n">rollover</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">value</span><span class="p">)</span> <span class="o">&gt;</span> <span class="n">rollover</span><span class="p">:</span>
+                <span class="k">with</span> <span class="n">param</span><span class="o">.</span><span class="n">discard_events</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">value</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="o">-</span><span class="n">rollover</span><span class="p">:]</span>
+            <span class="n">stream_value</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_filter_dataframe</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">value</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">:])</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_updating</span> <span class="o">=</span> <span class="kc">True</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_stream</span><span class="p">(</span><span class="n">stream_value</span><span class="p">,</span> <span class="n">rollover</span><span class="p">)</span>
+            <span class="k">finally</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_updating</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">stream_value</span><span class="p">,</span> <span class="nb">dict</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">stream_value</span><span class="p">:</span>
+                <span class="k">try</span><span class="p">:</span>
+                    <span class="n">stream_value</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">stream_value</span><span class="p">)</span>
+                <span class="k">except</span> <span class="ne">ValueError</span><span class="p">:</span>
+                    <span class="n">stream_value</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">stream_value</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">stream</span><span class="p">(</span><span class="n">stream_value</span><span class="p">,</span> <span class="n">rollover</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">"The stream value provided is not a DataFrame, Series or Dict!"</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="BaseTable.patch"><a class="viewcode-back" href="../../../api/panel.widgets.html#panel.widgets.tables.BaseTable.patch">[docs]</a>    <span class="k">def</span> <span class="nf">patch</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">patch_value</span><span class="p">):</span>
+        <span class="sd">"""</span>
+<span class="sd">        Efficiently patches (updates) the existing value with the `patch_value`.</span>
+
+<span class="sd">        Arguments</span>
+<span class="sd">        ---------</span>
+<span class="sd">        patch_value: (Union[pd.DataFrame, pd.Series, Dict])</span>
+<span class="sd">          The value(s) to patch the existing value with.</span>
+
+<span class="sd">        Raises</span>
+<span class="sd">        ------</span>
+<span class="sd">        ValueError: Raised if the patch_value is not a supported type.</span>
+
+<span class="sd">        Examples</span>
+<span class="sd">        --------</span>
+
+<span class="sd">        Patch a DataFrame with a Dictionary row.</span>
+<span class="sd">        &gt;&gt;&gt; value = pd.DataFrame({"x": [1, 2], "y": ["a", "b"]})</span>
+<span class="sd">        &gt;&gt;&gt; tabulator = Tabulator(value=value)</span>
+<span class="sd">        &gt;&gt;&gt; patch_value = {"x": [(0, 3)]}</span>
+<span class="sd">        &gt;&gt;&gt; tabulator.patch(patch_value)</span>
+<span class="sd">        &gt;&gt;&gt; tabulator.value.to_dict("list")</span>
+<span class="sd">        {'x': [3, 2], 'y': ['a', 'b']}</span>
+
+<span class="sd">        Patch a Dataframe with a Dictionary of Columns.</span>
+<span class="sd">        &gt;&gt;&gt; value = pd.DataFrame({"x": [1, 2], "y": ["a", "b"]})</span>
+<span class="sd">        &gt;&gt;&gt; tabulator = Tabulator(value=value)</span>
+<span class="sd">        &gt;&gt;&gt; patch_value = {"x": [(slice(2), (3,4))], "y": [(1,'d')]}</span>
+<span class="sd">        &gt;&gt;&gt; tabulator.patch(patch_value)</span>
+<span class="sd">        &gt;&gt;&gt; tabulator.value.to_dict("list")</span>
+<span class="sd">        {'x': [3, 4], 'y': ['a', 'd']}</span>
+
+<span class="sd">        Patch a DataFrame with a Series. Please note the index is used in the update.</span>
+<span class="sd">        &gt;&gt;&gt; value = pd.DataFrame({"x": [1, 2], "y": ["a", "b"]})</span>
+<span class="sd">        &gt;&gt;&gt; tabulator = Tabulator(value=value)</span>
+<span class="sd">        &gt;&gt;&gt; patch_value = pd.Series({"index": 1, "x": 4, "y": "d"})</span>
+<span class="sd">        &gt;&gt;&gt; tabulator.patch(patch_value)</span>
+<span class="sd">        &gt;&gt;&gt; tabulator.value.to_dict("list")</span>
+<span class="sd">        {'x': [1, 4], 'y': ['a', 'd']}</span>
+
+<span class="sd">        Patch a Dataframe with a Dataframe. Please note the index is used in the update.</span>
+<span class="sd">        &gt;&gt;&gt; value = pd.DataFrame({"x": [1, 2], "y": ["a", "b"]})</span>
+<span class="sd">        &gt;&gt;&gt; tabulator = Tabulator(value=value)</span>
+<span class="sd">        &gt;&gt;&gt; patch_value = pd.DataFrame({"x": [3, 4], "y": ["c", "d"]})</span>
+<span class="sd">        &gt;&gt;&gt; tabulator.patch(patch_value)</span>
+<span class="sd">        &gt;&gt;&gt; tabulator.value.to_dict("list")</span>
+<span class="sd">        {'x': [3, 4], 'y': ['c', 'd']}</span>
+<span class="sd">        """</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">value</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">patch_value</span><span class="p">,</span> <span class="nb">dict</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_patch</span><span class="p">(</span><span class="n">patch_value</span><span class="p">)</span>
+            <span class="k">return</span>
+
+        <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">value</span><span class="p">,</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                <span class="sa">f</span><span class="s2">"Patching an object of type </span><span class="si">{</span><span class="nb">type</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">value</span><span class="p">)</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="s2"> "</span>
+                <span class="s2">"is not supported. Please provide a dict."</span>
+            <span class="p">)</span>
+
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">patch_value</span><span class="p">,</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">):</span>
+            <span class="n">patch_value_dict</span> <span class="o">=</span> <span class="p">{}</span>
+            <span class="k">for</span> <span class="n">column</span> <span class="ow">in</span> <span class="n">patch_value</span><span class="o">.</span><span class="n">columns</span><span class="p">:</span>
+                <span class="n">patch_value_dict</span><span class="p">[</span><span class="n">column</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
+                <span class="k">for</span> <span class="n">index</span> <span class="ow">in</span> <span class="n">patch_value</span><span class="o">.</span><span class="n">index</span><span class="p">:</span>
+                    <span class="n">patch_value_dict</span><span class="p">[</span><span class="n">column</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">index</span><span class="p">,</span> <span class="n">patch_value</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">index</span><span class="p">,</span> <span class="n">column</span><span class="p">]))</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">patch_value_dict</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">patch_value</span><span class="p">,</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">):</span>
+            <span class="k">if</span> <span class="s2">"index"</span> <span class="ow">in</span> <span class="n">patch_value</span><span class="p">:</span>  <span class="c1"># Series orient is row</span>
+                <span class="n">patch_value_dict</span> <span class="o">=</span> <span class="p">{</span>
+                    <span class="n">k</span><span class="p">:</span> <span class="p">[(</span><span class="n">patch_value</span><span class="p">[</span><span class="s2">"index"</span><span class="p">],</span> <span class="n">v</span><span class="p">)]</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">patch_value</span><span class="o">.</span><span class="n">items</span><span class="p">()</span>
+                <span class="p">}</span>
+                <span class="n">patch_value_dict</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">"index"</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>  <span class="c1"># Series orient is column</span>
+                <span class="n">patch_value_dict</span> <span class="o">=</span> <span class="p">{</span>
+                    <span class="n">patch_value</span><span class="o">.</span><span class="n">name</span><span class="p">:</span> <span class="p">[(</span><span class="n">index</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span> <span class="k">for</span> <span class="n">index</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">patch_value</span><span class="o">.</span><span class="n">items</span><span class="p">()]</span>
+                <span class="p">}</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">patch_value_dict</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">patch_value</span><span class="p">,</span> <span class="nb">dict</span><span class="p">):</span>
+            <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">patch_value</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+                <span class="k">for</span> <span class="n">update</span> <span class="ow">in</span> <span class="n">v</span><span class="p">:</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">value</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">update</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="n">update</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_patch</span><span class="p">(</span><span class="n">patch_value</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                <span class="sa">f</span><span class="s2">"Patching with a patch_value of type </span><span class="si">{</span><span class="nb">type</span><span class="p">(</span><span class="n">patch_value</span><span class="p">)</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="s2"> "</span>
+                <span class="s2">"is not supported. Please provide a DataFrame, Series or Dict."</span>
+            <span class="p">)</span></div>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">selected_dataframe</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">"""</span>
+<span class="sd">        Returns a DataFrame of the currently selected rows.</span>
+<span class="sd">        """</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">selection</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">value</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">value</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">selection</span><span class="p">]</span></div>
+
+
+
+<div class="viewcode-block" id="DataFrame"><a class="viewcode-back" href="../../../api/panel.widgets.html#panel.widgets.tables.DataFrame">[docs]</a><span class="k">class</span> <span class="nc">DataFrame</span><span class="p">(</span><span class="n">BaseTable</span><span class="p">):</span>
+
+    <span class="n">aggregators</span> <span class="o">=</span> <span class="n">param</span><span class="o">.</span><span class="n">Dict</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="p">{},</span> <span class="n">doc</span><span class="o">=</span><span class="s2">"""</span>
+<span class="s2">        A dictionary mapping from index name to an aggregator to</span>
+<span class="s2">        be used for hierarchical multi-indexes (valid aggregators</span>
+<span class="s2">        include 'min', 'max', 'mean' and 'sum'). If separate</span>
+<span class="s2">        aggregators for different columns are required the dictionary</span>
+<span class="s2">        may be nested as `{index_name: {column_name: aggregator}}`"""</span><span class="p">)</span>
+
+    <span class="n">auto_edit</span> <span class="o">=</span> <span class="n">param</span><span class="o">.</span><span class="n">Boolean</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="s2">"""</span>
+<span class="s2">        Whether clicking on a table cell automatically starts edit mode."""</span><span class="p">)</span>
+
+    <span class="n">autosize_mode</span> <span class="o">=</span> <span class="n">param</span><span class="o">.</span><span class="n">ObjectSelector</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="s1">'force_fit'</span><span class="p">,</span> <span class="n">objects</span><span class="o">=</span><span class="p">[</span>
+        <span class="s2">"none"</span><span class="p">,</span> <span class="s2">"fit_columns"</span><span class="p">,</span> <span class="s2">"fit_viewport"</span><span class="p">,</span> <span class="s2">"force_fit"</span><span class="p">],</span> <span class="n">doc</span><span class="o">=</span><span class="s2">"""</span>
+
+<span class="s2">        Determines the column autosizing mode, as one of the following options:</span>
+
+<span class="s2">        ``"fit_columns"``</span>
+<span class="s2">          Compute column widths based on cell contents while ensuring the</span>
+<span class="s2">          table fits into the available viewport. This results in no</span>
+<span class="s2">          horizontal scrollbar showing up, but data can get unreadable</span>
+<span class="s2">          if there is not enough space available.</span>
+
+<span class="s2">        ``"fit_viewport"``</span>
+<span class="s2">          Adjust the viewport size after computing column widths based</span>
+<span class="s2">          on cell contents.</span>
+
+<span class="s2">        ``"force_fit"``</span>
+<span class="s2">          Fit columns into available space dividing the table width across</span>
+<span class="s2">          the columns equally (equivalent to `fit_columns=True`).</span>
+<span class="s2">          This results in no horizontal scrollbar showing up, but data</span>
+<span class="s2">          can get unreadable if there is not enough space available.</span>
+
+<span class="s2">        ``"none"``</span>
+<span class="s2">          Do not automatically compute column widths."""</span><span class="p">)</span>
+
+    <span class="n">hierarchical</span> <span class="o">=</span> <span class="n">param</span><span class="o">.</span><span class="n">Boolean</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">constant</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="s2">"""</span>
+<span class="s2">        Whether to generate a hierachical index."""</span><span class="p">)</span>
+
+    <span class="n">fit_columns</span> <span class="o">=</span> <span class="n">param</span><span class="o">.</span><span class="n">Boolean</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="s2">"""</span>
+<span class="s2">        Whether columns should expand to the available width. This</span>
+<span class="s2">        results in no horizontal scrollbar showing up, but data can</span>
+<span class="s2">        get unreadable if there is no enough space available."""</span><span class="p">)</span>
+
+    <span class="n">frozen_columns</span> <span class="o">=</span> <span class="n">param</span><span class="o">.</span><span class="n">Integer</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="s2">"""</span>
+<span class="s2">        Integer indicating the number of columns to freeze. If set, the</span>
+<span class="s2">        first N columns will be frozen, which prevents them from</span>
+<span class="s2">        scrolling out of frame."""</span><span class="p">)</span>
+
+    <span class="n">frozen_rows</span> <span class="o">=</span> <span class="n">param</span><span class="o">.</span><span class="n">Integer</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="s2">"""</span>
+<span class="s2">       Integer indicating the number of rows to freeze. If set, the</span>
+<span class="s2">       first N rows will be frozen, which prevents them from scrolling</span>
+<span class="s2">       out of frame; if set to a negative value the last N rows will be</span>
+<span class="s2">       frozen."""</span><span class="p">)</span>
+
+    <span class="n">reorderable</span> <span class="o">=</span> <span class="n">param</span><span class="o">.</span><span class="n">Boolean</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="s2">"""</span>
+<span class="s2">        Allows the reordering of a table's columns. To reorder a</span>
+<span class="s2">        column, click and drag a table's header to the desired</span>
+<span class="s2">        location in the table.  The columns on either side will remain</span>
+<span class="s2">        in their previous order."""</span><span class="p">)</span>
+
+    <span class="n">sortable</span> <span class="o">=</span> <span class="n">param</span><span class="o">.</span><span class="n">Boolean</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="s2">"""</span>
+<span class="s2">        Allows to sort table's contents. By default natural order is</span>
+<span class="s2">        preserved.  To sort a column, click on its header. Clicking</span>
+<span class="s2">        one more time changes sort direction. Use Ctrl + click to</span>
+<span class="s2">        return to natural order. Use Shift + click to sort multiple</span>
+<span class="s2">        columns simultaneously."""</span><span class="p">)</span>
+
+    <span class="n">_manual_params</span> <span class="o">=</span> <span class="n">BaseTable</span><span class="o">.</span><span class="n">_manual_params</span> <span class="o">+</span> <span class="p">[</span><span class="s1">'aggregators'</span><span class="p">]</span>
+
+    <span class="n">_aggregators</span> <span class="o">=</span> <span class="p">{</span><span class="s1">'sum'</span><span class="p">:</span> <span class="n">SumAggregator</span><span class="p">,</span> <span class="s1">'max'</span><span class="p">:</span> <span class="n">MaxAggregator</span><span class="p">,</span>
+                    <span class="s1">'min'</span><span class="p">:</span> <span class="n">MinAggregator</span><span class="p">,</span> <span class="s1">'mean'</span><span class="p">:</span> <span class="n">AvgAggregator</span><span class="p">}</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">_widget_type</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">DataCube</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">hierarchical</span> <span class="k">else</span> <span class="n">DataTable</span>
+
+    <span class="k">def</span> <span class="nf">_get_columns</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">value</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">return</span> <span class="p">[]</span>
+
+        <span class="n">indexes</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">indexes</span>
+        <span class="n">col_names</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">value</span><span class="o">.</span><span class="n">columns</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">hierarchical</span> <span class="ow">or</span> <span class="nb">len</span><span class="p">(</span><span class="n">indexes</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="n">col_names</span> <span class="o">=</span> <span class="n">indexes</span> <span class="o">+</span> <span class="n">col_names</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">col_names</span> <span class="o">=</span> <span class="n">indexes</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">:]</span> <span class="o">+</span> <span class="n">col_names</span>
+        <span class="n">df</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">value</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span> <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">indexes</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span> <span class="k">else</span> <span class="bp">self</span><span class="o">.</span><span class="n">value</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_column_definitions</span><span class="p">(</span><span class="n">col_names</span><span class="p">,</span> <span class="n">df</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">_get_groupings</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">value</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">return</span> <span class="p">[]</span>
+
+        <span class="n">groups</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">group</span><span class="p">,</span> <span class="n">agg_group</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">indexes</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">indexes</span><span class="p">[</span><span class="mi">1</span><span class="p">:]):</span>
+            <span class="k">if</span> <span class="nb">str</span><span class="p">(</span><span class="n">group</span><span class="p">)</span> <span class="o">!=</span> <span class="n">group</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_renamed_cols</span><span class="p">[</span><span class="nb">str</span><span class="p">(</span><span class="n">group</span><span class="p">)]</span> <span class="o">=</span> <span class="n">group</span>
+            <span class="n">aggs</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_aggregators</span><span class="p">(</span><span class="n">agg_group</span><span class="p">)</span>
+            <span class="n">groups</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">GroupingInfo</span><span class="p">(</span><span class="n">getter</span><span class="o">=</span><span class="nb">str</span><span class="p">(</span><span class="n">group</span><span class="p">),</span> <span class="n">aggregators</span><span class="o">=</span><span class="n">aggs</span><span class="p">))</span>
+        <span class="k">return</span> <span class="n">groups</span>
+
+    <span class="k">def</span> <span class="nf">_get_aggregators</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">group</span><span class="p">):</span>
+        <span class="n">numeric_cols</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">value</span><span class="o">.</span><span class="n">select_dtypes</span><span class="p">(</span><span class="n">include</span><span class="o">=</span><span class="s1">'number'</span><span class="p">)</span><span class="o">.</span><span class="n">columns</span><span class="p">)</span>
+        <span class="n">aggs</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">aggregators</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">group</span><span class="p">,</span> <span class="p">[])</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">aggs</span><span class="p">,</span> <span class="nb">list</span><span class="p">):</span>
+            <span class="n">aggs</span> <span class="o">=</span> <span class="p">[</span><span class="n">aggs</span><span class="p">]</span>
+        <span class="n">expanded_aggs</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">col_aggs</span> <span class="ow">in</span> <span class="n">aggs</span><span class="p">:</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">col_aggs</span><span class="p">,</span> <span class="nb">dict</span><span class="p">):</span>
+                <span class="n">col_aggs</span> <span class="o">=</span> <span class="p">{</span><span class="n">col</span><span class="p">:</span> <span class="n">col_aggs</span> <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">numeric_cols</span><span class="p">}</span>
+            <span class="k">for</span> <span class="n">col</span><span class="p">,</span> <span class="n">agg</span> <span class="ow">in</span> <span class="n">col_aggs</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+                <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">agg</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
+                    <span class="n">agg</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_aggregators</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">agg</span><span class="p">)</span>
+                <span class="k">if</span> <span class="nb">issubclass</span><span class="p">(</span><span class="n">agg</span><span class="p">,</span> <span class="n">RowAggregator</span><span class="p">):</span>
+                    <span class="n">expanded_aggs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">agg</span><span class="p">(</span><span class="n">field_</span><span class="o">=</span><span class="nb">str</span><span class="p">(</span><span class="n">col</span><span class="p">)))</span>
+        <span class="k">return</span> <span class="n">expanded_aggs</span>
+
+    <span class="k">def</span> <span class="nf">_get_properties</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">source</span><span class="p">):</span>
+        <span class="n">props</span> <span class="o">=</span> <span class="p">{</span><span class="n">p</span> <span class="p">:</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">p</span><span class="p">)</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="nb">list</span><span class="p">(</span><span class="n">Layoutable</span><span class="o">.</span><span class="n">param</span><span class="p">)</span>
+                 <span class="k">if</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">p</span><span class="p">)</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">}</span>
+        <span class="k">if</span> <span class="n">props</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'height'</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">data</span> <span class="o">=</span> <span class="n">source</span><span class="o">.</span><span class="n">data</span>
+            <span class="n">length</span> <span class="o">=</span> <span class="nb">max</span><span class="p">([</span><span class="nb">len</span><span class="p">(</span><span class="n">v</span><span class="p">)</span> <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">data</span><span class="o">.</span><span class="n">values</span><span class="p">()])</span> <span class="k">if</span> <span class="n">data</span> <span class="k">else</span> <span class="mi">0</span>
+            <span class="n">props</span><span class="p">[</span><span class="s1">'height'</span><span class="p">]</span> <span class="o">=</span> <span class="nb">min</span><span class="p">([</span><span class="n">length</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">row_height</span> <span class="o">+</span> <span class="mi">30</span><span class="p">,</span> <span class="mi">2000</span><span class="p">])</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">hierarchical</span><span class="p">:</span>
+            <span class="n">props</span><span class="p">[</span><span class="s1">'target'</span><span class="p">]</span> <span class="o">=</span> <span class="n">ColumnDataSource</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">row_indices</span><span class="o">=</span><span class="p">[],</span> <span class="n">labels</span><span class="o">=</span><span class="p">[]))</span>
+            <span class="n">props</span><span class="p">[</span><span class="s1">'grouping'</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_groupings</span><span class="p">()</span>
+        <span class="n">props</span><span class="p">[</span><span class="s1">'source'</span><span class="p">]</span> <span class="o">=</span> <span class="n">source</span>
+        <span class="n">props</span><span class="p">[</span><span class="s1">'columns'</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_columns</span><span class="p">()</span>
+        <span class="n">props</span><span class="p">[</span><span class="s1">'index_position'</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="n">props</span><span class="p">[</span><span class="s1">'fit_columns'</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">fit_columns</span>
+        <span class="k">if</span> <span class="s1">'autosize_mode'</span> <span class="ow">in</span> <span class="n">DataTable</span><span class="o">.</span><span class="n">properties</span><span class="p">():</span>
+            <span class="n">props</span><span class="p">[</span><span class="s1">'frozen_columns'</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">frozen_columns</span>
+            <span class="n">props</span><span class="p">[</span><span class="s1">'frozen_rows'</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">frozen_rows</span>
+            <span class="n">props</span><span class="p">[</span><span class="s1">'autosize_mode'</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">autosize_mode</span>
+            <span class="n">props</span><span class="p">[</span><span class="s1">'auto_edit'</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">auto_edit</span>
+        <span class="n">props</span><span class="p">[</span><span class="s1">'row_height'</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">row_height</span>
+        <span class="n">props</span><span class="p">[</span><span class="s1">'editable'</span><span class="p">]</span> <span class="o">=</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">disabled</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">indexes</span><span class="p">)</span> <span class="o">&lt;=</span> <span class="mi">1</span>
+        <span class="n">props</span><span class="p">[</span><span class="s1">'sortable'</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">sortable</span>
+        <span class="n">props</span><span class="p">[</span><span class="s1">'reorderable'</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">reorderable</span>
+        <span class="k">return</span> <span class="n">props</span>
+
+    <span class="k">def</span> <span class="nf">_update_aggregators</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">model</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">g</span> <span class="ow">in</span> <span class="n">model</span><span class="o">.</span><span class="n">grouping</span><span class="p">:</span>
+            <span class="n">group</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_renamed_cols</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">g</span><span class="o">.</span><span class="n">getter</span><span class="p">,</span> <span class="n">g</span><span class="o">.</span><span class="n">getter</span><span class="p">)</span>
+            <span class="n">index</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">indexes</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">indexes</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="n">group</span><span class="p">)</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span>
+            <span class="n">g</span><span class="o">.</span><span class="n">aggregators</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_aggregators</span><span class="p">(</span><span class="n">index</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Tabulator"><a class="viewcode-back" href="../../../api/panel.widgets.html#panel.widgets.tables.Tabulator">[docs]</a><span class="k">class</span> <span class="nc">Tabulator</span><span class="p">(</span><span class="n">BaseTable</span><span class="p">):</span>
+    <span class="sd">"""</span>
+<span class="sd">    The Tabulator Pane wraps the [Tabulator](http://tabulator.info/)</span>
+<span class="sd">    table to provide a full-featured interactive table.</span>
+<span class="sd">    """</span>
+
+    <span class="n">frozen_columns</span> <span class="o">=</span> <span class="n">param</span><span class="o">.</span><span class="n">List</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="p">[],</span> <span class="n">doc</span><span class="o">=</span><span class="s2">"""</span>
+<span class="s2">        List indicating the columns to freeze. The column(s) may be</span>
+<span class="s2">        selected by name or index."""</span><span class="p">)</span>
+
+    <span class="n">frozen_rows</span> <span class="o">=</span> <span class="n">param</span><span class="o">.</span><span class="n">List</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="p">[],</span> <span class="n">doc</span><span class="o">=</span><span class="s2">"""</span>
+<span class="s2">        List indicating the rows to freeze. If set, the</span>
+<span class="s2">        first N rows will be frozen, which prevents them from scrolling</span>
+<span class="s2">        out of frame; if set to a negative value the last N rows will be</span>
+<span class="s2">        frozen."""</span><span class="p">)</span>
+
+    <span class="n">groups</span> <span class="o">=</span> <span class="n">param</span><span class="o">.</span><span class="n">Dict</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="p">{},</span> <span class="n">doc</span><span class="o">=</span><span class="s2">"""</span>
+<span class="s2">        Dictionary mapping defining the groups."""</span><span class="p">)</span>
+
+    <span class="n">groupby</span> <span class="o">=</span> <span class="n">param</span><span class="o">.</span><span class="n">List</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="p">[],</span> <span class="n">doc</span><span class="o">=</span><span class="s2">"""</span>
+<span class="s2">        Groups rows in the table by one or more columns."""</span><span class="p">)</span>
+
+    <span class="n">hidden_columns</span> <span class="o">=</span> <span class="n">param</span><span class="o">.</span><span class="n">List</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="p">[],</span> <span class="n">doc</span><span class="o">=</span><span class="s2">"""</span>
+<span class="s2">        List of columns to hide."""</span><span class="p">)</span>
+
+    <span class="n">layout</span> <span class="o">=</span> <span class="n">param</span><span class="o">.</span><span class="n">ObjectSelector</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="s1">'fit_data_table'</span><span class="p">,</span> <span class="n">objects</span><span class="o">=</span><span class="p">[</span>
+        <span class="s1">'fit_data'</span><span class="p">,</span> <span class="s1">'fit_data_fill'</span><span class="p">,</span> <span class="s1">'fit_data_stretch'</span><span class="p">,</span> <span class="s1">'fit_data_table'</span><span class="p">,</span>
+        <span class="s1">'fit_columns'</span><span class="p">])</span>
+
+    <span class="n">pagination</span> <span class="o">=</span> <span class="n">param</span><span class="o">.</span><span class="n">ObjectSelector</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">allow_None</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                                      <span class="n">objects</span><span class="o">=</span><span class="p">[</span><span class="s1">'local'</span><span class="p">,</span> <span class="s1">'remote'</span><span class="p">])</span>
+
+    <span class="n">page</span> <span class="o">=</span> <span class="n">param</span><span class="o">.</span><span class="n">Integer</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="s2">"""</span>
+<span class="s2">        Currently selected page (indexed starting at 1)."""</span><span class="p">)</span>
+
+    <span class="n">page_size</span> <span class="o">=</span> <span class="n">param</span><span class="o">.</span><span class="n">Integer</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">bounds</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="kc">None</span><span class="p">),</span> <span class="n">doc</span><span class="o">=</span><span class="s2">"""</span>
+<span class="s2">        Number of rows to render per page."""</span><span class="p">)</span>
+
+    <span class="n">row_height</span> <span class="o">=</span> <span class="n">param</span><span class="o">.</span><span class="n">Integer</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="mi">30</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="s2">"""</span>
+<span class="s2">        The height of each table row."""</span><span class="p">)</span>
+
+    <span class="n">selectable</span> <span class="o">=</span> <span class="n">param</span><span class="o">.</span><span class="n">ObjectSelector</span><span class="p">(</span>
+        <span class="n">default</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">objects</span><span class="o">=</span><span class="p">[</span><span class="kc">True</span><span class="p">,</span> <span class="kc">False</span><span class="p">,</span> <span class="s1">'checkbox'</span><span class="p">],</span> <span class="n">doc</span><span class="o">=</span><span class="s2">"""</span>
+<span class="s2">        Whether a table's rows can be selected or not. Multiple</span>
+<span class="s2">        selection is allowed and can be achieved by either clicking</span>
+<span class="s2">        multiple checkboxes (if enabled) or using Shift + click on</span>
+<span class="s2">        rows."""</span><span class="p">)</span>
+
+    <span class="n">sorters</span> <span class="o">=</span> <span class="n">param</span><span class="o">.</span><span class="n">List</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="p">[],</span> <span class="n">doc</span><span class="o">=</span><span class="s2">"""</span>
+<span class="s2">        A list of sorters to apply during pagination."""</span><span class="p">)</span>
+
+    <span class="n">theme</span> <span class="o">=</span> <span class="n">param</span><span class="o">.</span><span class="n">ObjectSelector</span><span class="p">(</span>
+        <span class="n">default</span><span class="o">=</span><span class="s2">"simple"</span><span class="p">,</span> <span class="n">objects</span><span class="o">=</span><span class="n">TABULATOR_THEMES</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="s2">"""</span>
+<span class="s2">        Tabulator CSS theme to apply to table."""</span><span class="p">)</span>
+
+    <span class="n">_widget_type</span> <span class="o">=</span> <span class="n">_BkTabulator</span>
+
+    <span class="n">_data_params</span> <span class="o">=</span> <span class="p">[</span><span class="s1">'value'</span><span class="p">,</span> <span class="s1">'page'</span><span class="p">,</span> <span class="s1">'page_size'</span><span class="p">,</span> <span class="s1">'pagination'</span><span class="p">,</span> <span class="s1">'sorters'</span><span class="p">]</span>
+
+    <span class="n">_config_params</span> <span class="o">=</span> <span class="p">[</span><span class="s1">'frozen_columns'</span><span class="p">,</span> <span class="s1">'groups'</span><span class="p">,</span> <span class="s1">'selectable'</span><span class="p">]</span>
+
+    <span class="n">_manual_params</span> <span class="o">=</span> <span class="n">BaseTable</span><span class="o">.</span><span class="n">_manual_params</span> <span class="o">+</span> <span class="n">_config_params</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">params</span><span class="p">):</span>
+        <span class="n">configuration</span> <span class="o">=</span> <span class="n">params</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">'configuration'</span><span class="p">,</span> <span class="p">{})</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">style</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">value</span><span class="o">=</span><span class="n">value</span><span class="p">,</span> <span class="o">**</span><span class="n">params</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_configuration</span> <span class="o">=</span> <span class="n">configuration</span>
+
+    <span class="k">def</span> <span class="nf">_validate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">_validate</span><span class="p">(</span><span class="n">event</span><span class="p">)</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">value</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">todo</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">style</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="n">todo</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">style</span><span class="o">.</span><span class="n">_todo</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">style</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">value</span><span class="o">.</span><span class="n">style</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">style</span><span class="o">.</span><span class="n">_todo</span> <span class="o">=</span> <span class="n">todo</span>
+
+    <span class="k">def</span> <span class="nf">_process_param_change</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">msg</span><span class="p">):</span>
+        <span class="n">msg</span> <span class="o">=</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">_process_param_change</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+        <span class="k">if</span> <span class="s1">'frozen_rows'</span> <span class="ow">in</span> <span class="n">msg</span><span class="p">:</span>
+            <span class="n">length</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_length</span>
+            <span class="n">msg</span><span class="p">[</span><span class="s1">'frozen_rows'</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">length</span><span class="o">+</span><span class="n">r</span> <span class="k">if</span> <span class="n">r</span> <span class="o">&lt;</span> <span class="mi">0</span> <span class="k">else</span> <span class="n">r</span>
+                                  <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">msg</span><span class="p">[</span><span class="s1">'frozen_rows'</span><span class="p">]]</span>
+        <span class="k">if</span> <span class="s1">'theme'</span> <span class="ow">in</span> <span class="n">msg</span><span class="p">:</span>
+            <span class="k">if</span> <span class="s1">'bootstrap'</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">theme</span><span class="p">:</span>
+                <span class="n">msg</span><span class="p">[</span><span class="s1">'theme_url'</span><span class="p">]</span> <span class="o">=</span> <span class="n">THEME_URL</span> <span class="o">+</span> <span class="s1">'bootstrap/'</span>
+            <span class="k">elif</span> <span class="s1">'materialize'</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">theme</span><span class="p">:</span>
+                <span class="n">msg</span><span class="p">[</span><span class="s1">'theme_url'</span><span class="p">]</span> <span class="o">=</span> <span class="n">THEME_URL</span> <span class="o">+</span> <span class="s1">'materialize/'</span>
+            <span class="k">elif</span> <span class="s1">'semantic-ui'</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">theme</span><span class="p">:</span>
+                <span class="n">msg</span><span class="p">[</span><span class="s1">'theme_url'</span><span class="p">]</span> <span class="o">=</span> <span class="n">THEME_URL</span> <span class="o">+</span> <span class="s1">'semantic-ui/'</span>
+            <span class="k">elif</span> <span class="s1">'bulma'</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">theme</span><span class="p">:</span>
+                <span class="n">msg</span><span class="p">[</span><span class="s1">'theme_url'</span><span class="p">]</span> <span class="o">=</span> <span class="n">THEME_URL</span> <span class="o">+</span> <span class="s1">'bulma/'</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">msg</span><span class="p">[</span><span class="s1">'theme_url'</span><span class="p">]</span> <span class="o">=</span> <span class="n">THEME_URL</span>
+            <span class="n">theme</span> <span class="o">=</span> <span class="s1">'tabulator'</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">theme</span> <span class="o">==</span> <span class="s1">'default'</span> <span class="k">else</span> <span class="s1">'tabulator_'</span><span class="o">+</span><span class="bp">self</span><span class="o">.</span><span class="n">theme</span> 
+            <span class="n">_BkTabulator</span><span class="o">.</span><span class="n">__css__</span> <span class="o">=</span> <span class="p">[</span><span class="n">msg</span><span class="p">[</span><span class="s1">'theme_url'</span><span class="p">]</span> <span class="o">+</span> <span class="n">theme</span> <span class="o">+</span> <span class="s1">'.min.css'</span><span class="p">]</span>
+        <span class="k">return</span> <span class="n">msg</span>
+
+    <span class="k">def</span> <span class="nf">_update_columns</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">,</span> <span class="n">model</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">event</span><span class="o">.</span><span class="n">name</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_config_params</span><span class="p">:</span>
+            <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">_update_columns</span><span class="p">(</span><span class="n">event</span><span class="p">,</span> <span class="n">model</span><span class="p">)</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">event</span><span class="o">.</span><span class="n">name</span> <span class="ow">in</span> <span class="p">(</span><span class="s1">'editors'</span><span class="p">,</span> <span class="s1">'formatters'</span><span class="p">)</span> <span class="ow">and</span>
+                <span class="ow">not</span> <span class="nb">any</span><span class="p">(</span><span class="nb">isinstance</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="p">(</span><span class="nb">str</span><span class="p">,</span> <span class="nb">dict</span><span class="p">))</span> <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">event</span><span class="o">.</span><span class="n">new</span><span class="o">.</span><span class="n">values</span><span class="p">())):</span>
+                <span class="c1"># If no tabulator editor/formatter was changed we can skip</span>
+                <span class="c1"># update to config</span>
+                <span class="k">return</span>
+        <span class="n">model</span><span class="o">.</span><span class="n">configuration</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_configuration</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">columns</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">_sort_df</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">df</span><span class="p">):</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">sorters</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">df</span>
+        <span class="k">return</span> <span class="n">df</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span>
+            <span class="p">[</span><span class="n">s</span><span class="p">[</span><span class="s1">'field'</span><span class="p">]</span> <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">sorters</span><span class="p">],</span>
+            <span class="n">ascending</span><span class="o">=</span><span class="p">[</span><span class="n">s</span><span class="p">[</span><span class="s1">'dir'</span><span class="p">]</span> <span class="o">==</span> <span class="s1">'asc'</span> <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">sorters</span><span class="p">]</span>
+        <span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">_get_data</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">pagination</span> <span class="o">!=</span> <span class="s1">'remote'</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">value</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">return</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">_get_data</span><span class="p">()</span>
+        <span class="n">df</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_filter_dataframe</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">value</span><span class="p">)</span>
+        <span class="n">df</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_sort_df</span><span class="p">(</span><span class="n">df</span><span class="p">)</span>
+        <span class="n">nrows</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">page_size</span>
+        <span class="n">start</span> <span class="o">=</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">page</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">*</span><span class="n">nrows</span>
+        <span class="n">page_df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">start</span><span class="p">:</span> <span class="n">start</span><span class="o">+</span><span class="n">nrows</span><span class="p">]</span>
+        <span class="n">data</span> <span class="o">=</span> <span class="n">ColumnDataSource</span><span class="o">.</span><span class="n">from_df</span><span class="p">(</span><span class="n">page_df</span><span class="p">)</span><span class="o">.</span><span class="n">items</span><span class="p">()</span>
+        <span class="k">return</span> <span class="n">df</span><span class="p">,</span> <span class="p">{</span><span class="n">k</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">k</span><span class="p">,</span> <span class="nb">str</span><span class="p">)</span> <span class="k">else</span> <span class="nb">str</span><span class="p">(</span><span class="n">k</span><span class="p">):</span> <span class="n">v</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">data</span><span class="p">}</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">_length</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_processed</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">_get_style_data</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">value</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">return</span> <span class="p">{}</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">pagination</span> <span class="o">==</span> <span class="s1">'remote'</span><span class="p">:</span>
+            <span class="n">nrows</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">page_size</span>
+            <span class="n">start</span> <span class="o">=</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">page</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">*</span><span class="n">nrows</span>
+            <span class="n">df</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">value</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">start</span><span class="p">:</span> <span class="n">start</span><span class="o">+</span><span class="n">nrows</span><span class="p">]</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">df</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">value</span>
+
+        <span class="n">styler</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">style</span>
+        <span class="n">styler</span><span class="o">.</span><span class="n">_todo</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">style</span><span class="o">.</span><span class="n">_todo</span>
+        <span class="n">styler</span><span class="o">.</span><span class="n">_compute</span><span class="p">()</span>
+        <span class="n">offset</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">indexes</span><span class="p">)</span> <span class="o">+</span> <span class="nb">int</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">selectable</span> <span class="o">==</span> <span class="s1">'checkbox'</span><span class="p">)</span>
+
+        <span class="n">styles</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="k">for</span> <span class="p">(</span><span class="n">r</span><span class="p">,</span> <span class="n">c</span><span class="p">),</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">styler</span><span class="o">.</span><span class="n">ctx</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="k">if</span> <span class="n">r</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">styles</span><span class="p">:</span>
+                <span class="n">styles</span><span class="p">[</span><span class="nb">int</span><span class="p">(</span><span class="n">r</span><span class="p">)]</span> <span class="o">=</span> <span class="p">{}</span>
+            <span class="n">styles</span><span class="p">[</span><span class="nb">int</span><span class="p">(</span><span class="n">r</span><span class="p">)][</span><span class="n">offset</span><span class="o">+</span><span class="nb">int</span><span class="p">(</span><span class="n">c</span><span class="p">)]</span> <span class="o">=</span> <span class="n">s</span>
+        <span class="k">return</span> <span class="n">styles</span>
+
+    <span class="k">def</span> <span class="nf">_update_style</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">styles</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_style_data</span><span class="p">()</span>
+        <span class="k">for</span> <span class="n">ref</span><span class="p">,</span> <span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">_</span><span class="p">)</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_models</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="n">m</span><span class="o">.</span><span class="n">styles</span> <span class="o">=</span> <span class="n">styles</span>
+            <span class="n">push_on_root</span><span class="p">(</span><span class="n">ref</span><span class="p">)</span>
+
+    <span class="nd">@updating</span>
+    <span class="k">def</span> <span class="nf">_stream</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">stream</span><span class="p">,</span> <span class="n">rollover</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">follow</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">pagination</span> <span class="o">==</span> <span class="s1">'remote'</span><span class="p">:</span>
+            <span class="n">length</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_length</span>
+            <span class="n">nrows</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">page_size</span>
+            <span class="n">max_page</span> <span class="o">=</span> <span class="n">length</span><span class="o">//</span><span class="n">nrows</span> <span class="o">+</span> <span class="nb">bool</span><span class="p">(</span><span class="n">length</span><span class="o">%</span><span class="n">nrows</span><span class="p">)</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">page</span> <span class="o">!=</span> <span class="n">max_page</span><span class="p">:</span>
+                <span class="k">return</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">_stream</span><span class="p">(</span><span class="n">stream</span><span class="p">,</span> <span class="n">rollover</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_update_style</span><span class="p">()</span>
+
+<div class="viewcode-block" id="Tabulator.stream"><a class="viewcode-back" href="../../../api/panel.widgets.html#panel.widgets.tables.Tabulator.stream">[docs]</a>    <span class="k">def</span> <span class="nf">stream</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">stream_value</span><span class="p">,</span> <span class="n">rollover</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">reset_index</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">follow</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">ref</span><span class="p">,</span> <span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">_</span><span class="p">)</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_models</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="n">m</span><span class="o">.</span><span class="n">follow</span> <span class="o">=</span> <span class="n">follow</span>
+            <span class="n">push_on_root</span><span class="p">(</span><span class="n">ref</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">follow</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">pagination</span><span class="p">:</span>
+            <span class="n">length</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_length</span>
+            <span class="n">nrows</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">page_size</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">page</span> <span class="o">=</span> <span class="n">length</span><span class="o">//</span><span class="n">nrows</span> <span class="o">+</span> <span class="nb">bool</span><span class="p">(</span><span class="n">length</span><span class="o">%</span><span class="n">nrows</span><span class="p">)</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">stream</span><span class="p">(</span><span class="n">stream_value</span><span class="p">,</span> <span class="n">rollover</span><span class="p">,</span> <span class="n">reset_index</span><span class="p">)</span></div>
+
+    <span class="nd">@updating</span>
+    <span class="k">def</span> <span class="nf">_patch</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">patch</span><span class="p">):</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">pagination</span> <span class="o">==</span> <span class="s1">'remote'</span><span class="p">:</span>
+            <span class="n">nrows</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">page_size</span>
+            <span class="n">start</span> <span class="o">=</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">page</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">*</span><span class="n">nrows</span>
+            <span class="n">end</span> <span class="o">=</span> <span class="n">start</span><span class="o">+</span><span class="n">nrows</span>
+            <span class="n">filtered</span> <span class="o">=</span> <span class="p">{}</span>
+            <span class="k">for</span> <span class="n">c</span><span class="p">,</span> <span class="n">values</span> <span class="ow">in</span> <span class="n">patch</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+                <span class="n">values</span> <span class="o">=</span> <span class="p">[(</span><span class="n">ind</span><span class="p">,</span> <span class="n">val</span><span class="p">)</span> <span class="k">for</span> <span class="p">(</span><span class="n">ind</span><span class="p">,</span> <span class="n">val</span><span class="p">)</span> <span class="ow">in</span> <span class="n">values</span>
+                          <span class="k">if</span> <span class="n">ind</span> <span class="o">&gt;=</span> <span class="n">start</span> <span class="ow">and</span> <span class="n">ind</span> <span class="o">&lt;</span> <span class="n">end</span><span class="p">]</span>
+                <span class="k">if</span> <span class="n">values</span><span class="p">:</span>
+                    <span class="n">filtered</span><span class="p">[</span><span class="n">c</span><span class="p">]</span> <span class="o">=</span> <span class="n">values</span>
+            <span class="n">patch</span> <span class="o">=</span> <span class="n">filtered</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">patch</span><span class="p">:</span>
+            <span class="k">return</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">_patch</span><span class="p">(</span><span class="n">patch</span><span class="p">)</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">pagination</span> <span class="o">==</span> <span class="s1">'remote'</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_update_style</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="nf">_update_cds</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">events</span><span class="p">):</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_updating</span><span class="p">:</span>
+            <span class="k">return</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">_update_cds</span><span class="p">(</span><span class="o">*</span><span class="n">events</span><span class="p">)</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">pagination</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_update_max_page</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_update_selected</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_update_style</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="nf">_update_max_page</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">length</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_length</span>
+        <span class="n">nrows</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">page_size</span>
+        <span class="n">max_page</span> <span class="o">=</span> <span class="n">length</span><span class="o">//</span><span class="n">nrows</span> <span class="o">+</span> <span class="nb">bool</span><span class="p">(</span><span class="n">length</span><span class="o">%</span><span class="n">nrows</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">param</span><span class="o">.</span><span class="n">page</span><span class="o">.</span><span class="n">bounds</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">max_page</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">ref</span><span class="p">,</span> <span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">_</span><span class="p">)</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_models</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="n">m</span><span class="o">.</span><span class="n">max_page</span> <span class="o">=</span> <span class="n">max_page</span>
+            <span class="n">push_on_root</span><span class="p">(</span><span class="n">ref</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">_update_selected</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">events</span><span class="p">,</span> <span class="n">indices</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_updating</span><span class="p">:</span>
+            <span class="k">return</span>
+        <span class="n">kwargs</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">pagination</span> <span class="o">==</span> <span class="s1">'remote'</span><span class="p">:</span>
+            <span class="n">index</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">value</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">selection</span><span class="p">]</span><span class="o">.</span><span class="n">index</span>
+            <span class="n">indices</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">index</span><span class="o">.</span><span class="n">values</span><span class="p">:</span>
+                <span class="k">try</span><span class="p">:</span>
+                    <span class="n">indices</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_processed</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">get_loc</span><span class="p">(</span><span class="n">v</span><span class="p">))</span>
+                <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>
+                    <span class="k">continue</span>
+            <span class="n">nrows</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">page_size</span>
+            <span class="n">start</span> <span class="o">=</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">page</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">*</span><span class="n">nrows</span>
+            <span class="n">end</span> <span class="o">=</span> <span class="n">start</span><span class="o">+</span><span class="n">nrows</span>
+            <span class="n">kwargs</span><span class="p">[</span><span class="s1">'indices'</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">ind</span><span class="o">-</span><span class="n">start</span> <span class="k">for</span> <span class="n">ind</span> <span class="ow">in</span> <span class="n">indices</span>
+                                 <span class="k">if</span> <span class="n">ind</span><span class="o">&gt;=</span><span class="n">start</span> <span class="ow">and</span> <span class="n">ind</span><span class="o">&lt;</span><span class="n">end</span><span class="p">]</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">_update_selected</span><span class="p">(</span><span class="o">*</span><span class="n">events</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">_update_column</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">column</span><span class="p">,</span> <span class="n">array</span><span class="p">):</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">pagination</span> <span class="o">!=</span> <span class="s1">'remote'</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">value</span><span class="p">[</span><span class="n">column</span><span class="p">]</span> <span class="o">=</span> <span class="n">array</span>
+            <span class="k">return</span>
+        <span class="n">nrows</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">page_size</span>
+        <span class="n">start</span> <span class="o">=</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">page</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">*</span><span class="n">nrows</span>
+        <span class="n">end</span> <span class="o">=</span> <span class="n">start</span><span class="o">+</span><span class="n">nrows</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">sorters</span><span class="p">:</span>
+            <span class="n">index</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_processed</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">start</span><span class="p">:</span><span class="n">end</span><span class="p">]</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">values</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">value</span><span class="p">[</span><span class="n">column</span><span class="p">]</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">index</span><span class="p">]</span> <span class="o">=</span> <span class="n">array</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">value</span><span class="p">[</span><span class="n">column</span><span class="p">]</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">start</span><span class="p">:</span><span class="n">end</span><span class="p">]</span> <span class="o">=</span> <span class="n">array</span>
+
+    <span class="k">def</span> <span class="nf">_update_selection</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">indices</span><span class="p">):</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">pagination</span> <span class="o">!=</span> <span class="s1">'remote'</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">selection</span> <span class="o">=</span> <span class="n">indices</span>
+        <span class="n">nrows</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">page_size</span>
+        <span class="n">start</span> <span class="o">=</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">page</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">*</span><span class="n">nrows</span>
+        <span class="n">index</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_processed</span><span class="o">.</span><span class="n">iloc</span><span class="p">[[</span><span class="n">start</span><span class="o">+</span><span class="n">ind</span> <span class="k">for</span> <span class="n">ind</span> <span class="ow">in</span> <span class="n">indices</span><span class="p">]]</span><span class="o">.</span><span class="n">index</span>
+        <span class="n">indices</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">index</span><span class="o">.</span><span class="n">values</span><span class="p">:</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">indices</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">value</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">get_loc</span><span class="p">(</span><span class="n">v</span><span class="p">))</span>
+            <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>
+                <span class="k">continue</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">selection</span> <span class="o">=</span> <span class="n">indices</span>
+
+    <span class="k">def</span> <span class="nf">_get_properties</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">source</span><span class="p">):</span>
+        <span class="n">props</span> <span class="o">=</span> <span class="p">{</span><span class="n">p</span> <span class="p">:</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">p</span><span class="p">)</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="nb">list</span><span class="p">(</span><span class="n">Layoutable</span><span class="o">.</span><span class="n">param</span><span class="p">)</span>
+                 <span class="k">if</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">p</span><span class="p">)</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">}</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">pagination</span><span class="p">:</span>
+            <span class="n">length</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">page_size</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">length</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_length</span>
+        <span class="k">if</span> <span class="n">props</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'height'</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">props</span><span class="p">[</span><span class="s1">'height'</span><span class="p">]</span> <span class="o">=</span> <span class="n">length</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">row_height</span> <span class="o">+</span> <span class="mi">30</span>
+        <span class="n">props</span><span class="p">[</span><span class="s1">'source'</span><span class="p">]</span> <span class="o">=</span> <span class="n">source</span>
+        <span class="n">props</span><span class="p">[</span><span class="s1">'styles'</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_style_data</span><span class="p">()</span>
+        <span class="n">props</span><span class="p">[</span><span class="s1">'columns'</span><span class="p">]</span> <span class="o">=</span> <span class="n">columns</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_columns</span><span class="p">()</span>
+        <span class="n">props</span><span class="p">[</span><span class="s1">'configuration'</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_configuration</span><span class="p">(</span><span class="n">columns</span><span class="p">)</span>
+        <span class="n">props</span><span class="p">[</span><span class="s1">'page'</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">page</span>
+        <span class="n">props</span><span class="p">[</span><span class="s1">'pagination'</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">pagination</span>
+        <span class="n">props</span><span class="p">[</span><span class="s1">'page_size'</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">page_size</span>
+        <span class="n">props</span><span class="p">[</span><span class="s1">'layout'</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">layout</span>
+        <span class="n">props</span><span class="p">[</span><span class="s1">'groupby'</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">groupby</span>
+        <span class="n">props</span><span class="p">[</span><span class="s1">'hidden_columns'</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">hidden_columns</span>
+        <span class="n">props</span><span class="p">[</span><span class="s1">'editable'</span><span class="p">]</span> <span class="o">=</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">disabled</span>
+        <span class="n">process</span> <span class="o">=</span> <span class="p">{</span><span class="s1">'theme'</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">theme</span><span class="p">,</span> <span class="s1">'frozen_rows'</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">frozen_rows</span><span class="p">}</span>
+        <span class="n">props</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_process_param_change</span><span class="p">(</span><span class="n">process</span><span class="p">))</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">pagination</span><span class="p">:</span>
+            <span class="n">length</span> <span class="o">=</span> <span class="mi">0</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_processed</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_processed</span><span class="p">)</span>
+            <span class="n">props</span><span class="p">[</span><span class="s1">'max_page'</span><span class="p">]</span> <span class="o">=</span> <span class="n">length</span><span class="o">//</span><span class="bp">self</span><span class="o">.</span><span class="n">page_size</span> <span class="o">+</span> <span class="nb">bool</span><span class="p">(</span><span class="n">length</span><span class="o">%</span><span class="bp">self</span><span class="o">.</span><span class="n">page_size</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">props</span>
+
+    <span class="k">def</span> <span class="nf">_get_model</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">doc</span><span class="p">,</span> <span class="n">root</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">parent</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">comm</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="n">model</span> <span class="o">=</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">_get_model</span><span class="p">(</span><span class="n">doc</span><span class="p">,</span> <span class="n">root</span><span class="p">,</span> <span class="n">parent</span><span class="p">,</span> <span class="n">comm</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">root</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">root</span> <span class="o">=</span> <span class="n">model</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_link_props</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="p">[</span><span class="s1">'page'</span><span class="p">,</span> <span class="s1">'sorters'</span><span class="p">],</span> <span class="n">doc</span><span class="p">,</span> <span class="n">root</span><span class="p">,</span> <span class="n">comm</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">model</span>
+
+    <span class="k">def</span> <span class="nf">_config_columns</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">column_objs</span><span class="p">):</span>
+        <span class="n">column_objs</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">column_objs</span><span class="p">)</span>
+        <span class="n">groups</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="n">columns</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">selectable</span> <span class="o">==</span> <span class="s1">'checkbox'</span><span class="p">:</span>
+            <span class="n">columns</span><span class="o">.</span><span class="n">append</span><span class="p">({</span>
+                <span class="s2">"formatter"</span><span class="p">:</span> <span class="s2">"rowSelection"</span><span class="p">,</span>
+                <span class="s2">"titleFormatter"</span><span class="p">:</span> <span class="s2">"rowSelection"</span><span class="p">,</span>
+                <span class="s2">"hozAlign"</span><span class="p">:</span> <span class="s2">"center"</span><span class="p">,</span>
+                <span class="s2">"headerSort"</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>
+                <span class="s2">"frozen"</span><span class="p">:</span> <span class="kc">True</span>
+            <span class="p">})</span>
+
+        <span class="n">ordered</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">frozen_columns</span><span class="p">:</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">col</span><span class="p">,</span> <span class="nb">int</span><span class="p">):</span>
+                <span class="n">ordered</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">column_objs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="n">col</span><span class="p">))</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">cols</span> <span class="o">=</span> <span class="p">[</span><span class="n">c</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">column_objs</span> <span class="k">if</span> <span class="n">c</span><span class="o">.</span><span class="n">field</span> <span class="o">==</span> <span class="n">col</span><span class="p">]</span>
+                <span class="k">if</span> <span class="n">cols</span><span class="p">:</span>
+                    <span class="n">ordered</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">cols</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+                    <span class="n">column_objs</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">cols</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+        <span class="n">ordered</span> <span class="o">+=</span> <span class="n">column_objs</span>
+
+        <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">column</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">ordered</span><span class="p">):</span>
+            <span class="n">matching_groups</span> <span class="o">=</span> <span class="p">[</span>
+                <span class="n">group</span> <span class="k">for</span> <span class="n">group</span><span class="p">,</span> <span class="n">group_cols</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">groups</span><span class="o">.</span><span class="n">items</span><span class="p">()</span>
+                <span class="k">if</span> <span class="n">column</span><span class="o">.</span><span class="n">field</span> <span class="ow">in</span> <span class="n">group_cols</span>
+            <span class="p">]</span>
+            <span class="n">col_dict</span> <span class="o">=</span> <span class="p">{</span><span class="s1">'field'</span><span class="p">:</span> <span class="n">column</span><span class="o">.</span><span class="n">field</span><span class="p">}</span>
+            <span class="n">formatter</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">formatters</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">column</span><span class="o">.</span><span class="n">field</span><span class="p">)</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">formatter</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
+                <span class="n">col_dict</span><span class="p">[</span><span class="s1">'formatter'</span><span class="p">]</span> <span class="o">=</span> <span class="n">formatter</span>
+            <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">formatter</span><span class="p">,</span> <span class="nb">dict</span><span class="p">):</span>
+                <span class="n">formatter</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">formatter</span><span class="p">)</span>
+                <span class="n">col_dict</span><span class="p">[</span><span class="s1">'formatter'</span><span class="p">]</span> <span class="o">=</span> <span class="n">formatter</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">'type'</span><span class="p">)</span>
+                <span class="n">col_dict</span><span class="p">[</span><span class="s1">'formatterParams'</span><span class="p">]</span> <span class="o">=</span> <span class="n">formatter</span>
+            <span class="n">editor</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">editors</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">column</span><span class="o">.</span><span class="n">field</span><span class="p">)</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">editor</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
+                <span class="n">col_dict</span><span class="p">[</span><span class="s1">'editor'</span><span class="p">]</span> <span class="o">=</span> <span class="n">editor</span>
+            <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">editor</span><span class="p">,</span> <span class="nb">dict</span><span class="p">):</span>
+                <span class="n">editor</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">editor</span><span class="p">)</span>
+                <span class="n">col_dict</span><span class="p">[</span><span class="s1">'editor'</span><span class="p">]</span> <span class="o">=</span> <span class="n">editor</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">'type'</span><span class="p">)</span>
+                <span class="n">col_dict</span><span class="p">[</span><span class="s1">'editorParams'</span><span class="p">]</span> <span class="o">=</span> <span class="n">editor</span>
+            <span class="k">if</span> <span class="n">column</span><span class="o">.</span><span class="n">field</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">frozen_columns</span> <span class="ow">or</span> <span class="n">i</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">frozen_columns</span><span class="p">:</span>
+                <span class="n">col_dict</span><span class="p">[</span><span class="s1">'frozen'</span><span class="p">]</span> <span class="o">=</span> <span class="kc">True</span>
+            <span class="k">if</span> <span class="n">matching_groups</span><span class="p">:</span>
+                <span class="n">group</span> <span class="o">=</span> <span class="n">matching_groups</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+                <span class="k">if</span> <span class="n">group</span> <span class="ow">in</span> <span class="n">groups</span><span class="p">:</span>
+                    <span class="n">groups</span><span class="p">[</span><span class="n">group</span><span class="p">][</span><span class="s1">'columns'</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">col_dict</span><span class="p">)</span>
+                    <span class="k">continue</span>
+                <span class="n">group_dict</span> <span class="o">=</span> <span class="p">{</span>
+                    <span class="s1">'title'</span><span class="p">:</span> <span class="n">group</span><span class="p">,</span>
+                    <span class="s1">'columns'</span><span class="p">:</span> <span class="p">[</span><span class="n">col_dict</span><span class="p">]</span>
+                <span class="p">}</span>
+                <span class="n">groups</span><span class="p">[</span><span class="n">group</span><span class="p">]</span> <span class="o">=</span> <span class="n">group_dict</span>
+                <span class="n">columns</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">group_dict</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">columns</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">col_dict</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">columns</span>
+
+    <span class="k">def</span> <span class="nf">_get_configuration</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">columns</span><span class="p">):</span>
+        <span class="sd">"""</span>
+<span class="sd">        Returns the Tabulator configuration.</span>
+<span class="sd">        """</span>
+        <span class="n">configuration</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_configuration</span><span class="p">)</span>
+        <span class="k">if</span> <span class="s1">'selectable'</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">configuration</span><span class="p">:</span>
+            <span class="n">configuration</span><span class="p">[</span><span class="s1">'selectable'</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">selectable</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">groups</span> <span class="ow">and</span> <span class="s1">'columns'</span> <span class="ow">in</span> <span class="n">configuration</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">"Groups must be defined either explicitly "</span>
+                             <span class="s2">"or via the configuration, not both."</span><span class="p">)</span>
+        <span class="n">configuration</span><span class="p">[</span><span class="s1">'columns'</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_config_columns</span><span class="p">(</span><span class="n">columns</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">configuration</span>
+
+<div class="viewcode-block" id="Tabulator.download"><a class="viewcode-back" href="../../../api/panel.widgets.html#panel.widgets.tables.Tabulator.download">[docs]</a>    <span class="k">def</span> <span class="nf">download</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">filename</span><span class="o">=</span><span class="s1">'table.csv'</span><span class="p">):</span>
+        <span class="sd">"""</span>
+<span class="sd">        Triggers downloading of the table as a CSV or JSON.</span>
+
+<span class="sd">        Arguments</span>
+<span class="sd">        ---------</span>
+<span class="sd">        filename: str</span>
+<span class="sd">            The filename to save the table as.</span>
+<span class="sd">        """</span>
+        <span class="k">for</span> <span class="n">ref</span><span class="p">,</span> <span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">_</span><span class="p">)</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_models</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="n">m</span><span class="o">.</span><span class="n">filename</span> <span class="o">=</span> <span class="n">m</span><span class="o">.</span><span class="n">filename</span>
+            <span class="n">push_on_root</span><span class="p">(</span><span class="n">ref</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">ref</span><span class="p">,</span> <span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">_</span><span class="p">)</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_models</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="n">m</span><span class="o">.</span><span class="n">download</span> <span class="o">=</span> <span class="ow">not</span> <span class="n">m</span><span class="o">.</span><span class="n">download</span>
+            <span class="n">push_on_root</span><span class="p">(</span><span class="n">ref</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Tabulator.download_menu"><a class="viewcode-back" href="../../../api/panel.widgets.html#panel.widgets.tables.Tabulator.download_menu">[docs]</a>    <span class="k">def</span> <span class="nf">download_menu</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">text_kwargs</span><span class="o">=</span><span class="p">{},</span> <span class="n">button_kwargs</span><span class="o">=</span><span class="p">{}):</span>
+        <span class="sd">"""</span>
+<span class="sd">        Returns a menu containing a TextInput and Button widget to set</span>
+<span class="sd">        the filename and trigger a client-side download of the data.</span>
+
+<span class="sd">        Arguments</span>
+<span class="sd">        ---------</span>
+<span class="sd">        text_kwargs: dict</span>
+<span class="sd">            Keyword arguments passed to the TextInput constructor</span>
+<span class="sd">        button_kwargs: dict</span>
+<span class="sd">            Keyword arguments passed to the Button constructor</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        filename: TextInput</span>
+<span class="sd">            The TextInput widget setting a filename.</span>
+<span class="sd">        button: Button</span>
+<span class="sd">            The Button that triggers a download.</span>
+<span class="sd">        """</span>
+        <span class="n">button_kwargs</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">button_kwargs</span><span class="p">)</span>
+        <span class="k">if</span> <span class="s1">'name'</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">button_kwargs</span><span class="p">:</span>
+            <span class="n">button_kwargs</span><span class="p">[</span><span class="s1">'name'</span><span class="p">]</span> <span class="o">=</span> <span class="s1">'Download'</span>
+        <span class="n">button</span> <span class="o">=</span> <span class="n">Button</span><span class="p">(</span><span class="o">**</span><span class="n">button_kwargs</span><span class="p">)</span>
+        <span class="n">button</span><span class="o">.</span><span class="n">js_on_click</span><span class="p">({</span><span class="s1">'table'</span><span class="p">:</span> <span class="bp">self</span><span class="p">},</span> <span class="n">code</span><span class="o">=</span><span class="s2">"""</span>
+<span class="s2">        table.download = !table.download</span>
+<span class="s2">        """</span><span class="p">)</span>
+
+        <span class="n">text_kwargs</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">text_kwargs</span><span class="p">)</span>
+        <span class="k">if</span> <span class="s1">'name'</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">text_kwargs</span><span class="p">:</span>
+            <span class="n">text_kwargs</span><span class="p">[</span><span class="s1">'name'</span><span class="p">]</span> <span class="o">=</span> <span class="s1">'Filename'</span>
+        <span class="k">if</span> <span class="s1">'value'</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">text_kwargs</span><span class="p">:</span>
+            <span class="n">text_kwargs</span><span class="p">[</span><span class="s1">'value'</span><span class="p">]</span> <span class="o">=</span> <span class="s1">'table.csv'</span>
+        <span class="n">filename</span> <span class="o">=</span> <span class="n">TextInput</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s1">'Filename'</span><span class="p">,</span> <span class="n">value</span><span class="o">=</span><span class="s1">'table.csv'</span><span class="p">)</span>
+        <span class="n">filename</span><span class="o">.</span><span class="n">jscallback</span><span class="p">({</span><span class="s1">'table'</span><span class="p">:</span> <span class="bp">self</span><span class="p">},</span> <span class="n">value</span><span class="o">=</span><span class="s2">"""</span>
+<span class="s2">        table.filename = cb_obj.value</span>
+<span class="s2">        """</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">filename</span><span class="p">,</span> <span class="n">button</span></div></div>
+</pre></div>
+</div>
+</div>
+<!-- END MAIN BODY OF DOCS ––––––––––––– -->
+<!-- Google Analytics -->
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async="" src="https://www.googletagmanager.com/gtag/js?id=UA-154795830-2"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-154795830-2', { 'anonymize_ip': true });
+</script>
+<!-- MathJax Config -->
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}
+});
+</script>
+<!-- End Document
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+</body>
+</html>

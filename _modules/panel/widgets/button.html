@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<!-- Basic Page Needs
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+<meta charset="utf-8"/>
+<title>panel.widgets.button — Panel 0.11.1+g238199f-dirty documentation</title>
+<meta content="High-level dashboarding for python visualization libraries" name="description"/>
+<meta content="Panel contributors" name="author"/>
+<!-- Mobile Specific Metas
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<!-- FONT
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+<script src="https://ajax.googleapis.com/ajax/libs/webfont/1.6.16/webfont.js"></script>
+<script>
+    WebFont.load({
+      google: {
+        families: ['Source Sans Pro']
+      }
+    });
+  </script>
+<!-- CSS
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+<link href="../../../_static/css/main.css" rel="stylesheet"/>
+<link href="../../../_static/nbsite.css" rel="stylesheet"/>
+<link href="../../../_static/site.css" rel="stylesheet"/>
+<!-- Scripts
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script async="" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML" type="text/javascript">
+</script>
+<script src="../../../_static/js/main.js"></script>
+<!-- Favicon
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+<link href="../../../_static/favicon.ico" rel="icon" type="image/png"/>
+<!-- Canonical
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+<link href="https://panel.holoviz.org/_modules/panel/widgets/button.html" rel="canonical">
+</link></head>
+<body class="">
+<header class="navigation">
+<div class="wrapper">
+<a class="logo" href="../../../index.html">
+<img alt="Logo" src="../../../_static/logo_horizontal.png"/>
+</a>
+<a class="navigation-menu-button" href="javascript:void(0)" id="js-mobile-menu">Menu</a>
+<nav>
+<ul class="navigation-menu show" id="js-navigation-menu">
+<li class="nav-link doc-head"><a href="//discourse.holoviz.org">Discourse</a></li>
+<li class="nav-link doc-head"><a href="//twitter.com/Panel_org">Twitter</a></li>
+<li class="nav-link doc-head"><a href="//github.com/pyviz/panel">Github</a></li>
+<li class="nav-link">
+<div style="display:inline-block;vertical-align: middle;">
+<div class="search-bar">
+<form action="../../../search.html" method="get" role="search">
+<input name="q" placeholder="Search" type="search"/>
+<button type="submit">
+<img alt="Search Icon" src="https://raw.githubusercontent.com/thoughtbot/refills/master/source/images/search-icon-black.png"/>
+</button>
+</form>
+</div>
+</div>
+</li>
+</ul>
+</nav>
+</div>
+</header>
+<div class="second-nav">
+<nav>
+<ul class="navigation-menu show">
+<li class="nav-link doc-head"><a href="../../../getting_started/index.html">Getting started</a></li>
+<li class="nav-link doc-head"><a href="../../../user_guide/index.html">User Guide</a></li>
+<li class="nav-link doc-head"><a href="../../../gallery/index.html">Gallery</a></li>
+<li class="nav-link doc-head"><a href="../../../reference/index.html">Reference Gallery</a></li>
+<li class="nav-link doc-head"><a href="../../../developer_guide/index.html">Developer Guide</a></li>
+<li class="nav-link doc-head"><a href="../../../releases.html">Releases</a></li>
+<li class="nav-link doc-head"><a href="../../../api/index.html">API</a></li>
+<li class="nav-link doc-head"><a href="../../../FAQ.html">FAQ</a></li>
+<li class="nav-link doc-head"><a href="../../../about.html">About</a></li>
+</ul>
+</nav>
+</div>
+<!-- MAIN BODY OF DOCS –––––––––––––––––– -->
+<div class="docs section">
+<div id="hacketyhackhack"> <!-- style="width:20%;margin-right: 100px;"> --> <!--style="display: none;"> style="display:none;"> -->
+<div class="toc" style="width:15%; margin-right:20px;">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../index.html">Home</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../getting_started/index.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../user_guide/index.html">User Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../gallery/index.html">Gallery</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../reference/index.html">Reference Gallery</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../developer_guide/index.html">Developer Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/index.html">API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../Comparisons.html">Comparisons</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../releases.html">Releases</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../Roadmap.html">Road Map</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../FAQ.html">FAQ</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://github.com/pyviz/panel">Github source</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../about.html">About</a></li>
+</ul>
+</div>
+</div>
+<div class="content"> <!-- style="max-width:80%;margin-left:auto;margin-right: auto;">-->
+<h1>Source code for panel.widgets.button</h1><div class="highlight"><pre>
+<span></span><span class="sd">"""</span>
+<span class="sd">Defines Button and button-like widgets which allow triggering events</span>
+<span class="sd">or merely toggling between on-off states.</span>
+<span class="sd">"""</span>
+<span class="kn">from</span> <span class="nn">functools</span> <span class="kn">import</span> <span class="n">partial</span>
+
+<span class="kn">import</span> <span class="nn">param</span>
+
+<span class="kn">from</span> <span class="nn">bokeh.models</span> <span class="kn">import</span> <span class="p">(</span>
+    <span class="n">Button</span> <span class="k">as</span> <span class="n">_BkButton</span><span class="p">,</span> <span class="n">Toggle</span> <span class="k">as</span> <span class="n">_BkToggle</span><span class="p">,</span> <span class="n">Dropdown</span> <span class="k">as</span> <span class="n">_BkDropdown</span>
+<span class="p">)</span>
+
+<span class="kn">from</span> <span class="nn">bokeh.events</span> <span class="kn">import</span> <span class="p">(</span><span class="n">MenuItemClick</span><span class="p">,</span> <span class="n">ButtonClick</span><span class="p">)</span>
+
+<span class="kn">from</span> <span class="nn">.base</span> <span class="kn">import</span> <span class="n">Widget</span>
+
+
+<span class="n">BUTTON_TYPES</span> <span class="o">=</span> <span class="p">[</span><span class="s1">'default'</span><span class="p">,</span> <span class="s1">'primary'</span><span class="p">,</span> <span class="s1">'success'</span><span class="p">,</span> <span class="s1">'warning'</span><span class="p">,</span> <span class="s1">'danger'</span><span class="p">]</span>
+
+<span class="k">class</span> <span class="nc">_ButtonBase</span><span class="p">(</span><span class="n">Widget</span><span class="p">):</span>
+
+    <span class="n">button_type</span> <span class="o">=</span> <span class="n">param</span><span class="o">.</span><span class="n">ObjectSelector</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="s1">'default'</span><span class="p">,</span> <span class="n">objects</span><span class="o">=</span><span class="n">BUTTON_TYPES</span><span class="p">)</span>
+
+    <span class="n">_rename</span> <span class="o">=</span> <span class="p">{</span><span class="s1">'name'</span><span class="p">:</span> <span class="s1">'label'</span><span class="p">}</span>
+
+    <span class="n">__abstract</span> <span class="o">=</span> <span class="kc">True</span>
+
+
+<span class="k">class</span> <span class="nc">_ClickButton</span><span class="p">(</span><span class="n">_ButtonBase</span><span class="p">):</span>
+
+    <span class="n">__abstract</span> <span class="o">=</span> <span class="kc">True</span>
+
+    <span class="n">_event</span> <span class="o">=</span> <span class="s1">'button_click'</span>
+
+    <span class="k">def</span> <span class="nf">_get_model</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">doc</span><span class="p">,</span> <span class="n">root</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">parent</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">comm</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="n">model</span> <span class="o">=</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">_get_model</span><span class="p">(</span><span class="n">doc</span><span class="p">,</span> <span class="n">root</span><span class="p">,</span> <span class="n">parent</span><span class="p">,</span> <span class="n">comm</span><span class="p">)</span>
+        <span class="n">ref</span> <span class="o">=</span> <span class="p">(</span><span class="n">root</span> <span class="ow">or</span> <span class="n">model</span><span class="p">)</span><span class="o">.</span><span class="n">ref</span><span class="p">[</span><span class="s1">'id'</span><span class="p">]</span>
+        <span class="n">model</span><span class="o">.</span><span class="n">on_click</span><span class="p">(</span><span class="n">partial</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_server_click</span><span class="p">,</span> <span class="n">doc</span><span class="p">,</span> <span class="n">ref</span><span class="p">))</span>
+        <span class="k">return</span> <span class="n">model</span>
+
+    <span class="k">def</span> <span class="nf">js_on_click</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">args</span><span class="o">=</span><span class="p">{},</span> <span class="n">code</span><span class="o">=</span><span class="s2">""</span><span class="p">):</span>
+        <span class="sd">"""</span>
+<span class="sd">        Allows defining a JS callback to be triggered when the button</span>
+<span class="sd">        is clicked.</span>
+
+<span class="sd">        Arguments</span>
+<span class="sd">        ----------</span>
+<span class="sd">        args: dict</span>
+<span class="sd">          A mapping of objects to make available to the JS callback</span>
+<span class="sd">        code: str</span>
+<span class="sd">          The Javascript code to execute when the button is clicked.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        callback: Callback</span>
+<span class="sd">          The Callback which can be used to disable the callback.</span>
+<span class="sd">        """</span>
+        <span class="kn">from</span> <span class="nn">..links</span> <span class="kn">import</span> <span class="n">Callback</span>
+        <span class="k">return</span> <span class="n">Callback</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">code</span><span class="o">=</span><span class="p">{</span><span class="s1">'event:'</span><span class="o">+</span><span class="bp">self</span><span class="o">.</span><span class="n">_event</span><span class="p">:</span> <span class="n">code</span><span class="p">},</span> <span class="n">args</span><span class="o">=</span><span class="n">args</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">jscallback</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">args</span><span class="o">=</span><span class="p">{},</span> <span class="o">**</span><span class="n">callbacks</span><span class="p">):</span>
+        <span class="sd">"""</span>
+<span class="sd">        Allows defining a JS callback to be triggered when a property</span>
+<span class="sd">        changes on the source object. The keyword arguments define the</span>
+<span class="sd">        properties that trigger a callback and the JS code that gets</span>
+<span class="sd">        executed.</span>
+
+<span class="sd">        Arguments</span>
+<span class="sd">        ----------</span>
+<span class="sd">        args: dict</span>
+<span class="sd">          A mapping of objects to make available to the JS callback</span>
+<span class="sd">        **callbacks: dict</span>
+<span class="sd">          A mapping between properties on the source model and the code</span>
+<span class="sd">          to execute when that property changes</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        callback: Callback</span>
+<span class="sd">          The Callback which can be used to disable the callback.</span>
+<span class="sd">        """</span>
+        <span class="kn">from</span> <span class="nn">..links</span> <span class="kn">import</span> <span class="n">Callback</span>
+        <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="nb">list</span><span class="p">(</span><span class="n">callbacks</span><span class="o">.</span><span class="n">items</span><span class="p">()):</span>
+            <span class="k">if</span> <span class="n">k</span> <span class="o">==</span> <span class="s1">'clicks'</span><span class="p">:</span>
+                <span class="n">k</span> <span class="o">=</span> <span class="s1">'event:'</span><span class="o">+</span><span class="bp">self</span><span class="o">.</span><span class="n">_event</span>
+            <span class="n">callbacks</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_rename</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="n">v</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">Callback</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">code</span><span class="o">=</span><span class="n">callbacks</span><span class="p">,</span> <span class="n">args</span><span class="o">=</span><span class="n">args</span><span class="p">)</span>
+
+
+<div class="viewcode-block" id="Button"><a class="viewcode-back" href="../../../api/panel.widgets.html#panel.widgets.button.Button">[docs]</a><span class="k">class</span> <span class="nc">Button</span><span class="p">(</span><span class="n">_ClickButton</span><span class="p">):</span>
+
+    <span class="n">clicks</span> <span class="o">=</span> <span class="n">param</span><span class="o">.</span><span class="n">Integer</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+
+    <span class="n">value</span> <span class="o">=</span> <span class="n">param</span><span class="o">.</span><span class="n">Event</span><span class="p">()</span>
+
+    <span class="n">_rename</span> <span class="o">=</span> <span class="p">{</span><span class="s1">'clicks'</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span> <span class="s1">'name'</span><span class="p">:</span> <span class="s1">'label'</span><span class="p">,</span> <span class="s1">'value'</span><span class="p">:</span> <span class="kc">None</span><span class="p">}</span>
+
+    <span class="n">_widget_type</span> <span class="o">=</span> <span class="n">_BkButton</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">_linkable_params</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">_linkable_params</span> <span class="o">+</span> <span class="p">[</span><span class="s1">'value'</span><span class="p">]</span>
+
+<div class="viewcode-block" id="Button.jslink"><a class="viewcode-back" href="../../../api/panel.widgets.html#panel.widgets.button.Button.jslink">[docs]</a>    <span class="k">def</span> <span class="nf">jslink</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">target</span><span class="p">,</span> <span class="n">code</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">args</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">bidirectional</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="o">**</span><span class="n">links</span><span class="p">):</span>
+        <span class="n">links</span> <span class="o">=</span> <span class="p">{</span><span class="s1">'event:'</span><span class="o">+</span><span class="bp">self</span><span class="o">.</span><span class="n">_event</span> <span class="k">if</span> <span class="n">p</span> <span class="o">==</span> <span class="s1">'value'</span> <span class="k">else</span> <span class="n">p</span><span class="p">:</span> <span class="n">v</span> <span class="k">for</span> <span class="n">p</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">links</span><span class="o">.</span><span class="n">items</span><span class="p">()}</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">jslink</span><span class="p">(</span><span class="n">target</span><span class="p">,</span> <span class="n">code</span><span class="p">,</span> <span class="n">args</span><span class="p">,</span> <span class="n">bidirectional</span><span class="p">,</span> <span class="o">**</span><span class="n">links</span><span class="p">)</span></div>
+
+    <span class="n">jslink</span><span class="o">.</span><span class="vm">__doc__</span> <span class="o">=</span> <span class="n">Widget</span><span class="o">.</span><span class="n">jslink</span><span class="o">.</span><span class="vm">__doc__</span>
+
+    <span class="k">def</span> <span class="nf">_server_click</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">doc</span><span class="p">,</span> <span class="n">ref</span><span class="p">,</span> <span class="n">event</span><span class="p">):</span>
+        <span class="n">processing</span> <span class="o">=</span> <span class="nb">bool</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_events</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_events</span><span class="o">.</span><span class="n">update</span><span class="p">({</span><span class="s2">"clicks"</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">clicks</span><span class="o">+</span><span class="mi">1</span><span class="p">})</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">param</span><span class="o">.</span><span class="n">trigger</span><span class="p">(</span><span class="s1">'value'</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">processing</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">doc</span><span class="o">.</span><span class="n">session_context</span><span class="p">:</span>
+                <span class="n">doc</span><span class="o">.</span><span class="n">add_timeout_callback</span><span class="p">(</span><span class="n">partial</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_change_coroutine</span><span class="p">,</span> <span class="n">doc</span><span class="p">),</span> <span class="bp">self</span><span class="o">.</span><span class="n">_debounce</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_change_event</span><span class="p">(</span><span class="n">doc</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">_process_property_change</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">msg</span><span class="p">):</span>
+        <span class="n">msg</span> <span class="o">=</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">_process_property_change</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+        <span class="k">if</span> <span class="s1">'clicks'</span> <span class="ow">in</span> <span class="n">msg</span><span class="p">:</span>
+            <span class="n">msg</span><span class="p">[</span><span class="s1">'clicks'</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">clicks</span> <span class="o">+</span> <span class="mi">1</span>
+        <span class="k">return</span> <span class="n">msg</span>
+
+    <span class="k">def</span> <span class="nf">on_click</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">callback</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">param</span><span class="o">.</span><span class="n">watch</span><span class="p">(</span><span class="n">callback</span><span class="p">,</span> <span class="s1">'clicks'</span><span class="p">,</span> <span class="n">onlychanged</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Toggle"><a class="viewcode-back" href="../../../api/panel.widgets.html#panel.widgets.button.Toggle">[docs]</a><span class="k">class</span> <span class="nc">Toggle</span><span class="p">(</span><span class="n">_ButtonBase</span><span class="p">):</span>
+
+    <span class="n">value</span> <span class="o">=</span> <span class="n">param</span><span class="o">.</span><span class="n">Boolean</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="s2">"""</span>
+<span class="s2">        Whether the button is currently toggled."""</span><span class="p">)</span>
+
+    <span class="n">_rename</span> <span class="o">=</span> <span class="p">{</span><span class="s1">'value'</span><span class="p">:</span> <span class="s1">'active'</span><span class="p">,</span> <span class="s1">'name'</span><span class="p">:</span> <span class="s1">'label'</span><span class="p">}</span>
+
+    <span class="n">_supports_embed</span> <span class="o">=</span> <span class="kc">True</span>
+
+    <span class="n">_widget_type</span> <span class="o">=</span> <span class="n">_BkToggle</span>
+
+    <span class="k">def</span> <span class="nf">_get_embed_state</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">root</span><span class="p">,</span> <span class="n">values</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">max_opts</span><span class="o">=</span><span class="mi">3</span><span class="p">):</span>
+        <span class="k">return</span> <span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_models</span><span class="p">[</span><span class="n">root</span><span class="o">.</span><span class="n">ref</span><span class="p">[</span><span class="s1">'id'</span><span class="p">]][</span><span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="kc">False</span><span class="p">,</span> <span class="kc">True</span><span class="p">],</span>
+                <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="o">.</span><span class="n">active</span><span class="p">,</span> <span class="s1">'active'</span><span class="p">,</span> <span class="s1">'cb_obj.active'</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="MenuButton"><a class="viewcode-back" href="../../../api/panel.widgets.html#panel.widgets.button.MenuButton">[docs]</a><span class="k">class</span> <span class="nc">MenuButton</span><span class="p">(</span><span class="n">_ClickButton</span><span class="p">):</span>
+
+    <span class="n">clicked</span> <span class="o">=</span> <span class="n">param</span><span class="o">.</span><span class="n">String</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="s2">"""</span>
+<span class="s2">      Last menu item that was clicked."""</span><span class="p">)</span>
+
+    <span class="n">items</span> <span class="o">=</span> <span class="n">param</span><span class="o">.</span><span class="n">List</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="p">[],</span> <span class="n">doc</span><span class="o">=</span><span class="s2">"""</span>
+<span class="s2">      Menu items in the dropdown. Allows strings, tuples of the form</span>
+<span class="s2">      (title, value) or Nones to separate groups of items."""</span><span class="p">)</span>
+
+    <span class="n">split</span> <span class="o">=</span> <span class="n">param</span><span class="o">.</span><span class="n">Boolean</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="s2">"""</span>
+<span class="s2">      Whether to add separate dropdown area to button."""</span><span class="p">)</span>
+
+    <span class="n">_widget_type</span> <span class="o">=</span> <span class="n">_BkDropdown</span>
+
+    <span class="n">_rename</span> <span class="o">=</span> <span class="p">{</span><span class="s1">'name'</span><span class="p">:</span> <span class="s1">'label'</span><span class="p">,</span> <span class="s1">'items'</span><span class="p">:</span> <span class="s1">'menu'</span><span class="p">,</span> <span class="s1">'clicked'</span><span class="p">:</span> <span class="kc">None</span><span class="p">}</span>
+
+    <span class="n">_event</span> <span class="o">=</span> <span class="s1">'menu_item_click'</span>
+
+    <span class="k">def</span> <span class="nf">on_click</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">callback</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">param</span><span class="o">.</span><span class="n">watch</span><span class="p">(</span><span class="n">callback</span><span class="p">,</span> <span class="s1">'clicked'</span><span class="p">,</span> <span class="n">onlychanged</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">_server_click</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">doc</span><span class="p">,</span> <span class="n">ref</span><span class="p">,</span> <span class="n">event</span><span class="p">):</span>
+        <span class="n">processing</span> <span class="o">=</span> <span class="nb">bool</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_events</span><span class="p">)</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">event</span><span class="p">,</span> <span class="n">MenuItemClick</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_events</span><span class="o">.</span><span class="n">update</span><span class="p">({</span><span class="s2">"clicked"</span><span class="p">:</span> <span class="n">event</span><span class="o">.</span><span class="n">item</span><span class="p">})</span>
+        <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">event</span><span class="p">,</span> <span class="n">ButtonClick</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_events</span><span class="o">.</span><span class="n">update</span><span class="p">({</span><span class="s2">"clicked"</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">})</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">processing</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">doc</span><span class="o">.</span><span class="n">session_context</span><span class="p">:</span>
+                <span class="n">doc</span><span class="o">.</span><span class="n">add_timeout_callback</span><span class="p">(</span><span class="n">partial</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_change_coroutine</span><span class="p">,</span> <span class="n">doc</span><span class="p">),</span> <span class="bp">self</span><span class="o">.</span><span class="n">_debounce</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_change_event</span><span class="p">(</span><span class="n">doc</span><span class="p">)</span></div>
+</pre></div>
+</div>
+</div>
+<!-- END MAIN BODY OF DOCS ––––––––––––– -->
+<!-- Google Analytics -->
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async="" src="https://www.googletagmanager.com/gtag/js?id=UA-154795830-2"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-154795830-2', { 'anonymize_ip': true });
+</script>
+<!-- MathJax Config -->
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}
+});
+</script>
+<!-- End Document
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+</body>
+</html>

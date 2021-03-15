@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<!-- Basic Page Needs
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+<meta charset="utf-8"/>
+<title>panel.pane.vtk.synchronizable_deserializer — Panel 0.11.1+g238199f-dirty documentation</title>
+<meta content="High-level dashboarding for python visualization libraries" name="description"/>
+<meta content="Panel contributors" name="author"/>
+<!-- Mobile Specific Metas
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<!-- FONT
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+<script src="https://ajax.googleapis.com/ajax/libs/webfont/1.6.16/webfont.js"></script>
+<script>
+    WebFont.load({
+      google: {
+        families: ['Source Sans Pro']
+      }
+    });
+  </script>
+<!-- CSS
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+<link href="../../../../_static/css/main.css" rel="stylesheet"/>
+<link href="../../../../_static/nbsite.css" rel="stylesheet"/>
+<link href="../../../../_static/site.css" rel="stylesheet"/>
+<!-- Scripts
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script async="" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML" type="text/javascript">
+</script>
+<script src="../../../../_static/js/main.js"></script>
+<!-- Favicon
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+<link href="../../../../_static/favicon.ico" rel="icon" type="image/png"/>
+<!-- Canonical
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+<link href="https://panel.holoviz.org/_modules/panel/pane/vtk/synchronizable_deserializer.html" rel="canonical">
+</link></head>
+<body class="">
+<header class="navigation">
+<div class="wrapper">
+<a class="logo" href="../../../../index.html">
+<img alt="Logo" src="../../../../_static/logo_horizontal.png"/>
+</a>
+<a class="navigation-menu-button" href="javascript:void(0)" id="js-mobile-menu">Menu</a>
+<nav>
+<ul class="navigation-menu show" id="js-navigation-menu">
+<li class="nav-link doc-head"><a href="//discourse.holoviz.org">Discourse</a></li>
+<li class="nav-link doc-head"><a href="//twitter.com/Panel_org">Twitter</a></li>
+<li class="nav-link doc-head"><a href="//github.com/pyviz/panel">Github</a></li>
+<li class="nav-link">
+<div style="display:inline-block;vertical-align: middle;">
+<div class="search-bar">
+<form action="../../../../search.html" method="get" role="search">
+<input name="q" placeholder="Search" type="search"/>
+<button type="submit">
+<img alt="Search Icon" src="https://raw.githubusercontent.com/thoughtbot/refills/master/source/images/search-icon-black.png"/>
+</button>
+</form>
+</div>
+</div>
+</li>
+</ul>
+</nav>
+</div>
+</header>
+<div class="second-nav">
+<nav>
+<ul class="navigation-menu show">
+<li class="nav-link doc-head"><a href="../../../../getting_started/index.html">Getting started</a></li>
+<li class="nav-link doc-head"><a href="../../../../user_guide/index.html">User Guide</a></li>
+<li class="nav-link doc-head"><a href="../../../../gallery/index.html">Gallery</a></li>
+<li class="nav-link doc-head"><a href="../../../../reference/index.html">Reference Gallery</a></li>
+<li class="nav-link doc-head"><a href="../../../../developer_guide/index.html">Developer Guide</a></li>
+<li class="nav-link doc-head"><a href="../../../../releases.html">Releases</a></li>
+<li class="nav-link doc-head"><a href="../../../../api/index.html">API</a></li>
+<li class="nav-link doc-head"><a href="../../../../FAQ.html">FAQ</a></li>
+<li class="nav-link doc-head"><a href="../../../../about.html">About</a></li>
+</ul>
+</nav>
+</div>
+<!-- MAIN BODY OF DOCS –––––––––––––––––– -->
+<div class="docs section">
+<div id="hacketyhackhack"> <!-- style="width:20%;margin-right: 100px;"> --> <!--style="display: none;"> style="display:none;"> -->
+<div class="toc" style="width:15%; margin-right:20px;">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../index.html">Home</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../getting_started/index.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../user_guide/index.html">User Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../gallery/index.html">Gallery</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../reference/index.html">Reference Gallery</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../developer_guide/index.html">Developer Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../api/index.html">API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../Comparisons.html">Comparisons</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../releases.html">Releases</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../Roadmap.html">Road Map</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../FAQ.html">FAQ</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://github.com/pyviz/panel">Github source</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../about.html">About</a></li>
+</ul>
+</div>
+</div>
+<div class="content"> <!-- style="max-width:80%;margin-left:auto;margin-right: auto;">-->
+<h1>Source code for panel.pane.vtk.synchronizable_deserializer</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">json</span>
+<span class="kn">import</span> <span class="nn">zipfile</span>
+<span class="kn">import</span> <span class="nn">vtk</span>
+<span class="kn">import</span> <span class="nn">re</span>
+<span class="kn">import</span> <span class="nn">struct</span>
+
+<span class="kn">from</span> <span class="nn">.synchronizable_serializer</span> <span class="kn">import</span> <span class="n">arrayTypesMapping</span>
+
+
+<span class="n">METHODS_RENAME</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">"AddTexture"</span><span class="p">:</span> <span class="s2">"SetTexture"</span><span class="p">,</span>
+    <span class="s2">"SetUseGradientOpacity"</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="s2">"SetRGBTransferFunction"</span><span class="p">:</span> <span class="s2">"SetColor"</span><span class="p">,</span>
+<span class="p">}</span>
+<span class="n">WRAP_ID_RE</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="sa">r</span><span class="s2">"instance:\${([^}]+)}"</span><span class="p">)</span>
+<span class="n">ARRAY_TYPES</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s1">'Int8Array'</span><span class="p">:</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkCharArray</span><span class="p">,</span>
+    <span class="s1">'Uint8Array'</span><span class="p">:</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkUnsignedCharArray</span><span class="p">,</span>
+    <span class="s1">'Int16Array'</span><span class="p">:</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkShortArray</span><span class="p">,</span>
+    <span class="s1">'UInt16Array'</span><span class="p">:</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkUnsignedShortArray</span><span class="p">,</span>
+    <span class="s1">'Int32Array'</span><span class="p">:</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkIntArray</span><span class="p">,</span>
+    <span class="s1">'Uint32Array'</span><span class="p">:</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkUnsignedIntArray</span><span class="p">,</span>
+    <span class="s1">'Float32Array'</span><span class="p">:</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkFloatArray</span><span class="p">,</span>
+    <span class="s1">'Float64Array'</span><span class="p">:</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkDoubleArray</span><span class="p">,</span>
+<span class="p">}</span>
+
+<div class="viewcode-block" id="capitalize"><a class="viewcode-back" href="../../../../api/panel.pane.vtk.html#panel.pane.vtk.synchronizable_deserializer.capitalize">[docs]</a><span class="k">def</span> <span class="nf">capitalize</span><span class="p">(</span><span class="n">name</span><span class="p">):</span>
+    <span class="s2">"Upper the first letter letting the rest unchange"</span>
+    <span class="k">return</span> <span class="n">name</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span> <span class="o">+</span> <span class="n">name</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span></div>
+
+<span class="k">def</span> <span class="nf">fill_array</span><span class="p">(</span><span class="n">vtk_arr</span><span class="p">,</span> <span class="n">state</span><span class="p">,</span> <span class="n">zf</span><span class="p">):</span>
+    <span class="n">vtk_arr</span><span class="o">.</span><span class="n">SetNumberOfComponents</span><span class="p">(</span><span class="n">state</span><span class="p">[</span><span class="s1">'numberOfComponents'</span><span class="p">])</span>
+    <span class="n">vtk_arr</span><span class="o">.</span><span class="n">SetNumberOfTuples</span><span class="p">(</span><span class="n">state</span><span class="p">[</span><span class="s1">'size'</span><span class="p">]</span><span class="o">//</span><span class="n">state</span><span class="p">[</span><span class="s1">'numberOfComponents'</span><span class="p">])</span>
+    <span class="n">data</span> <span class="o">=</span> <span class="n">zf</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="s1">'data/</span><span class="si">%s</span><span class="s1">'</span> <span class="o">%</span> <span class="n">state</span><span class="p">[</span><span class="s1">'hash'</span><span class="p">])</span>
+    <span class="n">dataType</span> <span class="o">=</span> <span class="n">arrayTypesMapping</span><span class="p">[</span><span class="n">vtk_arr</span><span class="o">.</span><span class="n">GetDataType</span><span class="p">()]</span>
+    <span class="n">elementSize</span> <span class="o">=</span> <span class="n">struct</span><span class="o">.</span><span class="n">calcsize</span><span class="p">(</span><span class="n">dataType</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">vtk_arr</span><span class="o">.</span><span class="n">GetDataType</span><span class="p">()</span> <span class="o">==</span> <span class="mi">12</span><span class="p">:</span>
+        <span class="c1"># we need to cast the data to Uint64</span>
+        <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+        <span class="n">data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">frombuffer</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">uint32</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">uint64</span><span class="p">)</span><span class="o">.</span><span class="n">tobytes</span><span class="p">()</span>
+        <span class="n">elementSize</span> <span class="o">=</span> <span class="mi">8</span>
+    <span class="n">vtk_arr</span><span class="o">.</span><span class="n">SetVoidArray</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">)</span><span class="o">//</span><span class="n">elementSize</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+    <span class="n">vtk_arr</span><span class="o">.</span><span class="n">_reference</span> <span class="o">=</span> <span class="n">data</span>
+
+<span class="k">def</span> <span class="nf">color_fun_builder</span><span class="p">(</span><span class="n">state</span><span class="p">,</span> <span class="n">zf</span><span class="p">,</span> <span class="n">register</span><span class="p">):</span>
+    <span class="n">instance</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">vtk</span><span class="p">,</span> <span class="n">state</span><span class="p">[</span><span class="s1">'type'</span><span class="p">])()</span>
+    <span class="n">register</span><span class="o">.</span><span class="n">update</span><span class="p">({</span><span class="n">state</span><span class="p">[</span><span class="s1">'id'</span><span class="p">]:</span> <span class="n">instance</span><span class="p">})</span>
+    <span class="n">nodes</span> <span class="o">=</span> <span class="n">state</span><span class="p">[</span><span class="s1">'properties'</span><span class="p">]</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">'nodes'</span><span class="p">)</span>
+    <span class="n">set_properties</span><span class="p">(</span><span class="n">instance</span><span class="p">,</span> <span class="n">state</span><span class="p">[</span><span class="s1">'properties'</span><span class="p">])</span>
+    <span class="k">for</span> <span class="n">node</span> <span class="ow">in</span> <span class="n">nodes</span><span class="p">:</span>
+        <span class="n">instance</span><span class="o">.</span><span class="n">AddRGBPoint</span><span class="p">(</span><span class="o">*</span><span class="n">node</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">piecewise_fun_builder</span><span class="p">(</span><span class="n">state</span><span class="p">,</span> <span class="n">zf</span><span class="p">,</span> <span class="n">register</span><span class="p">):</span>
+    <span class="n">instance</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">vtk</span><span class="p">,</span> <span class="n">state</span><span class="p">[</span><span class="s1">'type'</span><span class="p">])()</span>
+    <span class="n">register</span><span class="o">.</span><span class="n">update</span><span class="p">({</span><span class="n">state</span><span class="p">[</span><span class="s1">'id'</span><span class="p">]:</span> <span class="n">instance</span><span class="p">})</span>
+    <span class="n">nodes</span> <span class="o">=</span> <span class="n">state</span><span class="p">[</span><span class="s1">'properties'</span><span class="p">]</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">'nodes'</span><span class="p">)</span>
+    <span class="n">set_properties</span><span class="p">(</span><span class="n">instance</span><span class="p">,</span> <span class="n">state</span><span class="p">[</span><span class="s1">'properties'</span><span class="p">])</span>
+    <span class="k">for</span> <span class="n">node</span> <span class="ow">in</span> <span class="n">nodes</span><span class="p">:</span>
+        <span class="n">instance</span><span class="o">.</span><span class="n">AddPoint</span><span class="p">(</span><span class="o">*</span><span class="n">node</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">poly_data_builder</span><span class="p">(</span><span class="n">state</span><span class="p">,</span> <span class="n">zf</span><span class="p">,</span> <span class="n">register</span><span class="p">):</span>
+    <span class="n">instance</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkPolyData</span><span class="p">()</span>
+    <span class="n">register</span><span class="o">.</span><span class="n">update</span><span class="p">({</span><span class="n">state</span><span class="p">[</span><span class="s1">'id'</span><span class="p">]:</span> <span class="n">instance</span><span class="p">})</span>
+    <span class="c1"># geometry</span>
+    <span class="k">if</span> <span class="s1">'points'</span> <span class="ow">in</span> <span class="n">state</span><span class="p">[</span><span class="s1">'properties'</span><span class="p">]:</span>
+        <span class="n">points</span> <span class="o">=</span> <span class="n">state</span><span class="p">[</span><span class="s1">'properties'</span><span class="p">][</span><span class="s1">'points'</span><span class="p">]</span>
+        <span class="n">vtkpoints</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkPoints</span><span class="p">()</span>
+        <span class="n">points_data_arr</span> <span class="o">=</span> <span class="n">ARRAY_TYPES</span><span class="p">[</span><span class="n">points</span><span class="p">[</span><span class="s1">'dataType'</span><span class="p">]]()</span>
+        <span class="n">fill_array</span><span class="p">(</span><span class="n">points_data_arr</span><span class="p">,</span> <span class="n">points</span><span class="p">,</span> <span class="n">zf</span><span class="p">)</span>
+        <span class="n">vtkpoints</span><span class="o">.</span><span class="n">SetData</span><span class="p">(</span><span class="n">points_data_arr</span><span class="p">)</span>
+        <span class="n">instance</span><span class="o">.</span><span class="n">SetPoints</span><span class="p">(</span><span class="n">vtkpoints</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">cell_type</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">'verts'</span><span class="p">,</span> <span class="s1">'lines'</span><span class="p">,</span> <span class="s1">'polys'</span><span class="p">,</span> <span class="s1">'strips'</span><span class="p">]:</span>
+        <span class="k">if</span> <span class="n">cell_type</span> <span class="ow">in</span> <span class="n">state</span><span class="p">[</span><span class="s1">'properties'</span><span class="p">]:</span>
+            <span class="n">cell_arr</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkCellArray</span><span class="p">()</span>
+            <span class="n">cell_data_arr</span> <span class="o">=</span> <span class="n">vtk</span><span class="o">.</span><span class="n">vtkIdTypeArray</span><span class="p">()</span>
+            <span class="n">fill_array</span><span class="p">(</span><span class="n">cell_data_arr</span><span class="p">,</span> <span class="n">state</span><span class="p">[</span><span class="s1">'properties'</span><span class="p">][</span><span class="n">cell_type</span><span class="p">],</span> <span class="n">zf</span><span class="p">)</span>
+            <span class="n">cell_arr</span><span class="o">.</span><span class="n">ImportLegacyFormat</span><span class="p">(</span><span class="n">cell_data_arr</span><span class="p">)</span>
+            <span class="nb">getattr</span><span class="p">(</span><span class="n">instance</span><span class="p">,</span> <span class="s1">'Set'</span> <span class="o">+</span> <span class="n">capitalize</span><span class="p">(</span><span class="n">cell_type</span><span class="p">))(</span><span class="n">cell_arr</span><span class="p">)</span>
+    
+    <span class="c1"># datasets</span>
+    <span class="n">fields</span> <span class="o">=</span> <span class="n">state</span><span class="p">[</span><span class="s1">'properties'</span><span class="p">][</span><span class="s1">'fields'</span><span class="p">]</span>
+    <span class="k">for</span> <span class="n">dataset</span> <span class="ow">in</span> <span class="n">fields</span><span class="p">:</span>
+        <span class="n">data_arr</span> <span class="o">=</span> <span class="n">ARRAY_TYPES</span><span class="p">[</span><span class="n">dataset</span><span class="p">[</span><span class="s1">'dataType'</span><span class="p">]]()</span>
+        <span class="n">fill_array</span><span class="p">(</span><span class="n">data_arr</span><span class="p">,</span> <span class="n">dataset</span><span class="p">,</span> <span class="n">zf</span><span class="p">)</span>
+        <span class="n">location</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">instance</span><span class="p">,</span> <span class="s1">'Get'</span> <span class="o">+</span> <span class="n">capitalize</span><span class="p">(</span><span class="n">dataset</span><span class="p">[</span><span class="s1">'location'</span><span class="p">]))()</span>
+        <span class="nb">getattr</span><span class="p">(</span><span class="n">location</span><span class="p">,</span> <span class="n">capitalize</span><span class="p">(</span><span class="n">dataset</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"registration"</span><span class="p">,</span> <span class="s2">"addArray"</span><span class="p">)))(</span><span class="n">data_arr</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">volume_mapper_builder</span><span class="p">(</span><span class="n">state</span><span class="p">,</span> <span class="n">zf</span><span class="p">,</span> <span class="n">register</span><span class="p">):</span>
+    <span class="n">instance</span> <span class="o">=</span> <span class="n">generic_builder</span><span class="p">(</span><span class="n">state</span><span class="p">,</span> <span class="n">zf</span><span class="p">,</span> <span class="n">register</span><span class="p">)</span>
+    <span class="n">instance</span><span class="o">.</span><span class="n">SetScalarMode</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span> <span class="c1">#need to force the scalar mode to be on points</span>
+
+<span class="k">def</span> <span class="nf">generic_builder</span><span class="p">(</span><span class="n">state</span><span class="p">,</span> <span class="n">zf</span><span class="p">,</span> <span class="n">register</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">register</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">register</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="n">instance</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">vtk</span><span class="p">,</span> <span class="n">state</span><span class="p">[</span><span class="s1">'type'</span><span class="p">])()</span>
+    <span class="n">register</span><span class="o">.</span><span class="n">update</span><span class="p">({</span><span class="n">state</span><span class="p">[</span><span class="s1">'id'</span><span class="p">]:</span> <span class="n">instance</span><span class="p">})</span>
+    <span class="n">set_properties</span><span class="p">(</span><span class="n">instance</span><span class="p">,</span> <span class="n">state</span><span class="p">[</span><span class="s1">'properties'</span><span class="p">])</span>
+    <span class="n">dependencies</span> <span class="o">=</span> <span class="n">state</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'dependencies'</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">dependencies</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">dep</span> <span class="ow">in</span> <span class="n">dependencies</span><span class="p">:</span>
+            <span class="n">builder</span> <span class="o">=</span> <span class="n">TYPE_HANDLERS</span><span class="p">[</span><span class="n">dep</span><span class="p">[</span><span class="s1">'type'</span><span class="p">]]</span>
+            <span class="k">if</span> <span class="n">builder</span><span class="p">:</span>
+                <span class="n">builder</span><span class="p">(</span><span class="n">dep</span><span class="p">,</span> <span class="n">zf</span><span class="p">,</span> <span class="n">register</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">'No builder for </span><span class="si">{</span><span class="n">dep</span><span class="p">[</span><span class="s2">"type"</span><span class="p">]</span><span class="si">}</span><span class="s1">'</span><span class="p">)</span>
+    <span class="n">calls</span> <span class="o">=</span> <span class="n">state</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'calls'</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">calls</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">call</span> <span class="ow">in</span> <span class="n">calls</span><span class="p">:</span>
+            <span class="n">args</span><span class="o">=</span><span class="p">[]</span>
+            <span class="n">skip</span><span class="o">=</span><span class="kc">False</span>
+            <span class="k">for</span> <span class="n">arg</span> <span class="ow">in</span> <span class="n">call</span><span class="p">[</span><span class="mi">1</span><span class="p">]:</span>
+                <span class="k">try</span><span class="p">:</span>
+                    <span class="n">extract_instance</span> <span class="o">=</span> <span class="n">WRAP_ID_RE</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="n">arg</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+                    <span class="n">args</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">register</span><span class="p">[</span><span class="n">extract_instance</span><span class="p">])</span>
+                <span class="k">except</span> <span class="p">(</span><span class="ne">IndexError</span><span class="p">,</span> <span class="ne">TypeError</span><span class="p">):</span>
+                    <span class="n">args</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">arg</span><span class="p">)</span>
+                <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>
+                    <span class="n">skip</span> <span class="o">=</span> <span class="kc">True</span>
+            <span class="k">if</span> <span class="n">skip</span><span class="p">:</span> <span class="k">continue</span>
+            <span class="k">if</span> <span class="n">capitalize</span><span class="p">(</span><span class="n">call</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">METHODS_RENAME</span><span class="p">:</span>
+                <span class="n">method</span> <span class="o">=</span> <span class="n">capitalize</span><span class="p">(</span><span class="n">call</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">method</span> <span class="o">=</span> <span class="n">METHODS_RENAME</span><span class="p">[</span><span class="n">capitalize</span><span class="p">(</span><span class="n">call</span><span class="p">[</span><span class="mi">0</span><span class="p">])]</span>
+            <span class="k">if</span> <span class="n">method</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span> <span class="k">continue</span>
+            <span class="k">if</span> <span class="n">method</span> <span class="o">==</span> <span class="s2">"SetInputData"</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">args</span><span class="p">)</span><span class="o">==</span><span class="mi">2</span><span class="p">:</span>
+                <span class="nb">getattr</span><span class="p">(</span><span class="n">instance</span><span class="p">,</span> <span class="n">method</span> <span class="o">+</span> <span class="s2">"Object"</span><span class="p">)(</span><span class="o">*</span><span class="n">args</span><span class="p">[::</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="nb">getattr</span><span class="p">(</span><span class="n">instance</span><span class="p">,</span> <span class="n">method</span><span class="p">)(</span><span class="o">*</span><span class="n">args</span><span class="p">)</span>
+    <span class="n">arrays</span> <span class="o">=</span> <span class="n">state</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'arrays'</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">arrays</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">array_meta</span> <span class="ow">in</span> <span class="n">arrays</span><span class="p">:</span>
+            <span class="n">vtk_array</span> <span class="o">=</span> <span class="n">ARRAY_TYPES</span><span class="p">[</span><span class="n">array_meta</span><span class="p">[</span><span class="s1">'dataType'</span><span class="p">]]()</span>
+            <span class="n">fill_array</span><span class="p">(</span><span class="n">vtk_array</span><span class="p">,</span> <span class="n">array_meta</span><span class="p">,</span> <span class="n">zf</span><span class="p">)</span>
+            <span class="n">location</span> <span class="o">=</span> <span class="p">(</span><span class="n">instance</span> 
+                <span class="k">if</span> <span class="s1">'location'</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">array_meta</span>
+                <span class="k">else</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">instance</span><span class="p">,</span> <span class="s1">'Get'</span><span class="o">+</span><span class="n">capitalize</span><span class="p">(</span><span class="n">array_meta</span><span class="p">[</span><span class="s1">'location'</span><span class="p">]))())</span>
+            <span class="nb">getattr</span><span class="p">(</span><span class="n">location</span><span class="p">,</span> <span class="n">capitalize</span><span class="p">(</span><span class="n">array_meta</span><span class="p">[</span><span class="s1">'registration'</span><span class="p">]))(</span><span class="n">vtk_array</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">instance</span>
+
+<span class="k">def</span> <span class="nf">set_properties</span><span class="p">(</span><span class="n">instance</span><span class="p">,</span> <span class="n">properties</span><span class="p">):</span>
+    <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">properties</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+        <span class="n">fn</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">instance</span><span class="p">,</span> <span class="s1">'Set'</span><span class="o">+</span><span class="n">capitalize</span><span class="p">(</span><span class="n">k</span><span class="p">),</span> <span class="kc">None</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">fn</span><span class="p">:</span>
+            <span class="n">fn</span><span class="p">(</span><span class="n">v</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">import_synch_file</span><span class="p">(</span><span class="n">filename</span><span class="p">):</span>
+    <span class="k">with</span> <span class="n">zipfile</span><span class="o">.</span><span class="n">ZipFile</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="s1">'r'</span><span class="p">)</span> <span class="k">as</span> <span class="n">zf</span><span class="p">:</span>
+        <span class="n">scene</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">zf</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="s1">'index.json'</span><span class="p">)</span><span class="o">.</span><span class="n">decode</span><span class="p">())</span>
+        <span class="n">scene</span><span class="p">[</span><span class="s1">'properties'</span><span class="p">][</span><span class="s1">'numberOfLayers'</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>
+        <span class="n">renwin</span> <span class="o">=</span> <span class="n">generic_builder</span><span class="p">(</span><span class="n">scene</span><span class="p">,</span> <span class="n">zf</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">renwin</span>
+
+
+<span class="k">def</span> <span class="nf">make_type_handlers</span><span class="p">():</span>
+    <span class="n">aliases</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s1">'vtkMapper'</span><span class="p">:</span> <span class="p">[</span><span class="s1">'vtkOpenGLPolyDataMapper'</span><span class="p">,</span> <span class="s1">'vtkCompositePolyDataMapper2'</span><span class="p">,</span> <span class="s1">'vtkDataSetMapper'</span><span class="p">],</span>
+        <span class="s1">'vtkProperty'</span><span class="p">:</span> <span class="p">[</span><span class="s1">'vtkOpenGLProperty'</span><span class="p">],</span>
+        <span class="s1">'vtkRenderer'</span><span class="p">:</span> <span class="p">[</span><span class="s1">'vtkOpenGLRenderer'</span><span class="p">],</span>
+        <span class="s1">'vtkCamera'</span><span class="p">:</span> <span class="p">[</span><span class="s1">'vtkOpenGLCamera'</span><span class="p">],</span>
+        <span class="s1">'vtkColorTransferFunction'</span><span class="p">:</span> <span class="p">[</span><span class="s1">'vtkPVDiscretizableColorTransferFunction'</span><span class="p">],</span>
+        <span class="s1">'vtkActor'</span><span class="p">:</span> <span class="p">[</span><span class="s1">'vtkOpenGLActor'</span><span class="p">,</span> <span class="s1">'vtkPVLODActor'</span><span class="p">],</span>
+        <span class="s1">'vtkLight'</span><span class="p">:</span> <span class="p">[</span><span class="s1">'vtkOpenGLLight'</span><span class="p">,</span> <span class="s1">'vtkPVLight'</span><span class="p">],</span>
+        <span class="s1">'vtkTexture'</span><span class="p">:</span> <span class="p">[</span><span class="s1">'vtkOpenGLTexture'</span><span class="p">],</span>
+        <span class="s1">'vtkVolumeMapper'</span><span class="p">:</span> <span class="p">[</span><span class="s1">'vtkFixedPointVolumeRayCastMapper'</span><span class="p">,</span> <span class="s1">'vtkSmartVolumeMapper'</span><span class="p">],</span>
+        <span class="s2">"vtkGlyph3DMapper"</span><span class="p">:</span> <span class="p">[</span><span class="s2">"vtkOpenGLGlyph3DMapper"</span><span class="p">],</span>
+    <span class="p">}</span>
+
+    <span class="n">type_handlers</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s1">'vtkRenderer'</span><span class="p">:</span> <span class="n">generic_builder</span><span class="p">,</span>
+        <span class="s1">'vtkLookupTable'</span><span class="p">:</span> <span class="n">generic_builder</span><span class="p">,</span>
+        <span class="s1">'vtkLight'</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="s1">'vtkCamera'</span><span class="p">:</span> <span class="n">generic_builder</span><span class="p">,</span>
+        <span class="s1">'vtkPolyData'</span><span class="p">:</span> <span class="n">poly_data_builder</span><span class="p">,</span>
+        <span class="s1">'vtkImageData'</span><span class="p">:</span> <span class="n">generic_builder</span><span class="p">,</span>
+        <span class="s1">'vtkMapper'</span><span class="p">:</span> <span class="n">generic_builder</span><span class="p">,</span>
+        <span class="s1">'vtkGlyph3DMapper'</span><span class="p">:</span> <span class="n">generic_builder</span><span class="p">,</span>
+        <span class="s1">'vtkProperty'</span><span class="p">:</span> <span class="n">generic_builder</span><span class="p">,</span>
+        <span class="s1">'vtkActor'</span><span class="p">:</span> <span class="n">generic_builder</span><span class="p">,</span>
+        <span class="s1">'vtkFollower'</span><span class="p">:</span> <span class="n">generic_builder</span><span class="p">,</span>
+        <span class="s1">'vtkColorTransferFunction'</span><span class="p">:</span> <span class="n">color_fun_builder</span><span class="p">,</span>
+        <span class="s1">'vtkPiecewiseFunction'</span><span class="p">:</span> <span class="n">piecewise_fun_builder</span><span class="p">,</span>
+        <span class="s1">'vtkTexture'</span><span class="p">:</span> <span class="n">generic_builder</span><span class="p">,</span>
+        <span class="s1">'vtkVolumeMapper'</span><span class="p">:</span> <span class="n">volume_mapper_builder</span><span class="p">,</span>
+        <span class="s1">'vtkVolume'</span><span class="p">:</span> <span class="n">generic_builder</span><span class="p">,</span>
+        <span class="s1">'vtkVolumeProperty'</span><span class="p">:</span> <span class="n">generic_builder</span>
+    <span class="p">}</span>
+
+    <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">alias_list</span> <span class="ow">in</span> <span class="n">aliases</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+        <span class="k">for</span> <span class="n">alias</span> <span class="ow">in</span> <span class="n">alias_list</span><span class="p">:</span>
+            <span class="n">type_handlers</span><span class="o">.</span><span class="n">update</span><span class="p">({</span>
+                <span class="n">alias</span><span class="p">:</span> <span class="n">type_handlers</span><span class="p">[</span><span class="n">k</span><span class="p">]</span>
+            <span class="p">})</span>
+
+    <span class="k">return</span> <span class="n">type_handlers</span>
+
+<span class="n">TYPE_HANDLERS</span> <span class="o">=</span> <span class="n">make_type_handlers</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<!-- END MAIN BODY OF DOCS ––––––––––––– -->
+<!-- Google Analytics -->
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async="" src="https://www.googletagmanager.com/gtag/js?id=UA-154795830-2"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-154795830-2', { 'anonymize_ip': true });
+</script>
+<!-- MathJax Config -->
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}
+});
+</script>
+<!-- End Document
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+</body>
+</html>

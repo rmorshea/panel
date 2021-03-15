@@ -1,0 +1,9 @@
+<map id="inheritance757fd602b8" name="inheritance757fd602b8">
+<area shape="rect" id="node1" title="Base class for all class types that have Bokeh properties." alt="" coords="64,4,245,24"/>
+<area shape="rect" id="node2" title="Base class for all objects stored in Bokeh &#160;|Document| instances." alt="" coords="343,43,462,63"/>
+<area shape="rect" id="node6" title="The base class for layoutable components." alt="" coords="500,43,694,63"/>
+<area shape="rect" id="node3" title="A mixin class to provide an interface for registering and" alt="" coords="4,43,305,63"/>
+<area shape="rect" id="node4" title="A mixin class to provide an interface for registering and" alt="" coords="11,82,298,102"/>
+<area shape="rect" id="node5" title="A component which size is determined by its HTML content." alt="" coords="731,43,914,63"/>
+<area shape="rect" id="node7" href="#panel.models.ipywidget.IPyWidget" target="_top" title="panel.models.ipywidget.IPyWidget" alt="" coords="952,43,1148,63"/>
+</map>

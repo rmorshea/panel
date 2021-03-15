@@ -1,0 +1,1060 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<!-- Basic Page Needs
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+<meta charset="utf-8"/>
+<title>panel.reactive — Panel 0.11.1+g238199f-dirty documentation</title>
+<meta content="High-level dashboarding for python visualization libraries" name="description"/>
+<meta content="Panel contributors" name="author"/>
+<!-- Mobile Specific Metas
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<!-- FONT
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+<script src="https://ajax.googleapis.com/ajax/libs/webfont/1.6.16/webfont.js"></script>
+<script>
+    WebFont.load({
+      google: {
+        families: ['Source Sans Pro']
+      }
+    });
+  </script>
+<!-- CSS
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+<link href="../../_static/css/main.css" rel="stylesheet"/>
+<link href="../../_static/nbsite.css" rel="stylesheet"/>
+<link href="../../_static/site.css" rel="stylesheet"/>
+<!-- Scripts
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script async="" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML" type="text/javascript">
+</script>
+<script src="../../_static/js/main.js"></script>
+<!-- Favicon
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+<link href="../../_static/favicon.ico" rel="icon" type="image/png"/>
+<!-- Canonical
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+<link href="https://panel.holoviz.org/_modules/panel/reactive.html" rel="canonical">
+</link></head>
+<body class="">
+<header class="navigation">
+<div class="wrapper">
+<a class="logo" href="../../index.html">
+<img alt="Logo" src="../../_static/logo_horizontal.png"/>
+</a>
+<a class="navigation-menu-button" href="javascript:void(0)" id="js-mobile-menu">Menu</a>
+<nav>
+<ul class="navigation-menu show" id="js-navigation-menu">
+<li class="nav-link doc-head"><a href="//discourse.holoviz.org">Discourse</a></li>
+<li class="nav-link doc-head"><a href="//twitter.com/Panel_org">Twitter</a></li>
+<li class="nav-link doc-head"><a href="//github.com/pyviz/panel">Github</a></li>
+<li class="nav-link">
+<div style="display:inline-block;vertical-align: middle;">
+<div class="search-bar">
+<form action="../../search.html" method="get" role="search">
+<input name="q" placeholder="Search" type="search"/>
+<button type="submit">
+<img alt="Search Icon" src="https://raw.githubusercontent.com/thoughtbot/refills/master/source/images/search-icon-black.png"/>
+</button>
+</form>
+</div>
+</div>
+</li>
+</ul>
+</nav>
+</div>
+</header>
+<div class="second-nav">
+<nav>
+<ul class="navigation-menu show">
+<li class="nav-link doc-head"><a href="../../getting_started/index.html">Getting started</a></li>
+<li class="nav-link doc-head"><a href="../../user_guide/index.html">User Guide</a></li>
+<li class="nav-link doc-head"><a href="../../gallery/index.html">Gallery</a></li>
+<li class="nav-link doc-head"><a href="../../reference/index.html">Reference Gallery</a></li>
+<li class="nav-link doc-head"><a href="../../developer_guide/index.html">Developer Guide</a></li>
+<li class="nav-link doc-head"><a href="../../releases.html">Releases</a></li>
+<li class="nav-link doc-head"><a href="../../api/index.html">API</a></li>
+<li class="nav-link doc-head"><a href="../../FAQ.html">FAQ</a></li>
+<li class="nav-link doc-head"><a href="../../about.html">About</a></li>
+</ul>
+</nav>
+</div>
+<!-- MAIN BODY OF DOCS –––––––––––––––––– -->
+<div class="docs section">
+<div id="hacketyhackhack"> <!-- style="width:20%;margin-right: 100px;"> --> <!--style="display: none;"> style="display:none;"> -->
+<div class="toc" style="width:15%; margin-right:20px;">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../index.html">Home</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../getting_started/index.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../user_guide/index.html">User Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../gallery/index.html">Gallery</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../reference/index.html">Reference Gallery</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../developer_guide/index.html">Developer Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../api/index.html">API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Comparisons.html">Comparisons</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../releases.html">Releases</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Roadmap.html">Road Map</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../FAQ.html">FAQ</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://github.com/pyviz/panel">Github source</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../about.html">About</a></li>
+</ul>
+</div>
+</div>
+<div class="content"> <!-- style="max-width:80%;margin-left:auto;margin-right: auto;">-->
+<h1>Source code for panel.reactive</h1><div class="highlight"><pre>
+<span></span><span class="sd">"""</span>
+<span class="sd">Declares Syncable and Reactive classes which provides baseclasses</span>
+<span class="sd">for Panel components which sync their state with one or more bokeh</span>
+<span class="sd">models rendered on the frontend.</span>
+<span class="sd">"""</span>
+
+<span class="kn">import</span> <span class="nn">difflib</span>
+<span class="kn">import</span> <span class="nn">sys</span>
+<span class="kn">import</span> <span class="nn">threading</span>
+
+<span class="kn">from</span> <span class="nn">collections</span> <span class="kn">import</span> <span class="n">namedtuple</span>
+<span class="kn">from</span> <span class="nn">functools</span> <span class="kn">import</span> <span class="n">partial</span>
+
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">param</span>
+
+<span class="kn">from</span> <span class="nn">bokeh.models</span> <span class="kn">import</span> <span class="n">LayoutDOM</span>
+<span class="kn">from</span> <span class="nn">tornado</span> <span class="kn">import</span> <span class="n">gen</span>
+
+<span class="kn">from</span> <span class="nn">.config</span> <span class="kn">import</span> <span class="n">config</span>
+<span class="kn">from</span> <span class="nn">.io.callbacks</span> <span class="kn">import</span> <span class="n">PeriodicCallback</span>
+<span class="kn">from</span> <span class="nn">.io.model</span> <span class="kn">import</span> <span class="n">hold</span>
+<span class="kn">from</span> <span class="nn">.io.notebook</span> <span class="kn">import</span> <span class="n">push</span><span class="p">,</span> <span class="n">push_on_root</span>
+<span class="kn">from</span> <span class="nn">.io.server</span> <span class="kn">import</span> <span class="n">unlocked</span>
+<span class="kn">from</span> <span class="nn">.io.state</span> <span class="kn">import</span> <span class="n">state</span>
+<span class="kn">from</span> <span class="nn">.util</span> <span class="kn">import</span> <span class="n">edit_readonly</span><span class="p">,</span> <span class="n">updating</span>
+<span class="kn">from</span> <span class="nn">.viewable</span> <span class="kn">import</span> <span class="n">Renderable</span><span class="p">,</span> <span class="n">Viewable</span>
+
+<span class="n">LinkWatcher</span> <span class="o">=</span> <span class="n">namedtuple</span><span class="p">(</span><span class="s2">"Watcher"</span><span class="p">,</span><span class="s2">"inst cls fn mode onlychanged parameter_names what queued target links transformed bidirectional_watcher"</span><span class="p">)</span>
+
+
+<div class="viewcode-block" id="Syncable"><a class="viewcode-back" href="../../api/panel.reactive.html#panel.reactive.Syncable">[docs]</a><span class="k">class</span> <span class="nc">Syncable</span><span class="p">(</span><span class="n">Renderable</span><span class="p">):</span>
+    <span class="sd">"""</span>
+<span class="sd">    Syncable is an extension of the Renderable object which can not</span>
+<span class="sd">    only render to a bokeh model but also sync the parameters on the</span>
+<span class="sd">    object with the properties on the model.</span>
+
+<span class="sd">    In order to bi-directionally link parameters with bokeh model</span>
+<span class="sd">    instances the _link_params and _link_props methods define</span>
+<span class="sd">    callbacks triggered when either the parameter or bokeh property</span>
+<span class="sd">    values change. Since there may not be a 1-to-1 mapping between</span>
+<span class="sd">    parameter and the model property the _process_property_change and</span>
+<span class="sd">    _process_param_change may be overridden to apply any necessary</span>
+<span class="sd">    transformations.</span>
+<span class="sd">    """</span>
+
+    <span class="c1"># Timeout if a notebook comm message is swallowed</span>
+    <span class="n">_timeout</span> <span class="o">=</span> <span class="mi">20000</span>
+
+    <span class="c1"># Timeout before the first event is processed</span>
+    <span class="n">_debounce</span> <span class="o">=</span> <span class="mi">50</span>
+
+    <span class="c1"># Any parameters that require manual updates handling for the models</span>
+    <span class="c1"># e.g. parameters which affect some sub-model</span>
+    <span class="n">_manual_params</span> <span class="o">=</span> <span class="p">[]</span>
+
+    <span class="c1"># Mapping from parameter name to bokeh model property name</span>
+    <span class="n">_rename</span> <span class="o">=</span> <span class="p">{}</span>
+
+    <span class="c1"># Allows defining a mapping from model property name to a JS code</span>
+    <span class="c1"># snippet that transforms the object before serialization</span>
+    <span class="n">_js_transforms</span> <span class="o">=</span> <span class="p">{}</span>
+
+    <span class="c1"># Transforms from input value to bokeh property value</span>
+    <span class="n">_source_transforms</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="n">_target_transforms</span> <span class="o">=</span> <span class="p">{}</span>
+
+    <span class="n">__abstract</span> <span class="o">=</span> <span class="kc">True</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">params</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="o">**</span><span class="n">params</span><span class="p">)</span>
+
+        <span class="c1"># Useful when updating model properties which trigger potentially</span>
+        <span class="c1"># recursive events</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_updating</span> <span class="o">=</span> <span class="kc">False</span>
+
+        <span class="c1"># A dictionary of current property change events</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_events</span> <span class="o">=</span> <span class="p">{}</span>
+
+        <span class="c1"># Any watchers associated with links between two objects</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_links</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_link_params</span><span class="p">()</span>
+
+        <span class="c1"># A dictionary of bokeh property changes being processed</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_changing</span> <span class="o">=</span> <span class="p">{}</span>
+
+        <span class="c1"># Sets up watchers to process manual updates to models</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_manual_params</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">param</span><span class="o">.</span><span class="n">watch</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_update_manual</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_manual_params</span><span class="p">)</span>
+
+    <span class="c1">#----------------------------------------------------------------</span>
+    <span class="c1"># Model API</span>
+    <span class="c1">#----------------------------------------------------------------</span>
+
+    <span class="k">def</span> <span class="nf">_process_property_change</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">msg</span><span class="p">):</span>
+        <span class="sd">"""</span>
+<span class="sd">        Transform bokeh model property changes into parameter updates.</span>
+<span class="sd">        Should be overridden to provide appropriate mapping between</span>
+<span class="sd">        parameter value and bokeh model change. By default uses the</span>
+<span class="sd">        _rename class level attribute to map between parameter and</span>
+<span class="sd">        property names.</span>
+<span class="sd">        """</span>
+        <span class="n">inverted</span> <span class="o">=</span> <span class="p">{</span><span class="n">v</span><span class="p">:</span> <span class="n">k</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_rename</span><span class="o">.</span><span class="n">items</span><span class="p">()}</span>
+        <span class="k">return</span> <span class="p">{</span><span class="n">inverted</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">k</span><span class="p">,</span> <span class="n">k</span><span class="p">):</span> <span class="n">v</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">msg</span><span class="o">.</span><span class="n">items</span><span class="p">()}</span>
+
+    <span class="k">def</span> <span class="nf">_process_param_change</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">msg</span><span class="p">):</span>
+        <span class="sd">"""</span>
+<span class="sd">        Transform parameter changes into bokeh model property updates.</span>
+<span class="sd">        Should be overridden to provide appropriate mapping between</span>
+<span class="sd">        parameter value and bokeh model change. By default uses the</span>
+<span class="sd">        _rename class level attribute to map between parameter and</span>
+<span class="sd">        property names.</span>
+<span class="sd">        """</span>
+        <span class="n">properties</span> <span class="o">=</span> <span class="p">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_rename</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">k</span><span class="p">,</span> <span class="n">k</span><span class="p">):</span> <span class="n">v</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">msg</span><span class="o">.</span><span class="n">items</span><span class="p">()</span>
+                      <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_rename</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">k</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">}</span>
+        <span class="k">if</span> <span class="s1">'width'</span> <span class="ow">in</span> <span class="n">properties</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">sizing_mode</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">properties</span><span class="p">[</span><span class="s1">'min_width'</span><span class="p">]</span> <span class="o">=</span> <span class="n">properties</span><span class="p">[</span><span class="s1">'width'</span><span class="p">]</span>
+        <span class="k">if</span> <span class="s1">'height'</span> <span class="ow">in</span> <span class="n">properties</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">sizing_mode</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">properties</span><span class="p">[</span><span class="s1">'min_height'</span><span class="p">]</span> <span class="o">=</span> <span class="n">properties</span><span class="p">[</span><span class="s1">'height'</span><span class="p">]</span>
+        <span class="k">return</span> <span class="n">properties</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">_linkable_params</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">"""</span>
+<span class="sd">        Parameters that can be linked in JavaScript via source</span>
+<span class="sd">        transforms.</span>
+<span class="sd">        """</span>
+        <span class="k">return</span> <span class="p">[</span><span class="n">p</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_synced_params</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_rename</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
+                <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">_source_transforms</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">]</span> <span class="o">+</span> <span class="p">[</span><span class="s1">'loading'</span><span class="p">]</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">_synced_params</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">"""</span>
+<span class="sd">        Parameters which are synced with properties using transforms</span>
+<span class="sd">        applied in the _process_param_change method.</span>
+<span class="sd">        """</span>
+        <span class="n">ignored</span> <span class="o">=</span> <span class="p">[</span><span class="s1">'default_layout'</span><span class="p">,</span> <span class="s1">'loading'</span><span class="p">]</span>
+        <span class="k">return</span> <span class="p">[</span><span class="n">p</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">param</span> <span class="k">if</span> <span class="n">p</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_manual_params</span><span class="o">+</span><span class="n">ignored</span><span class="p">]</span>
+
+    <span class="k">def</span> <span class="nf">_init_params</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="p">{</span><span class="n">k</span><span class="p">:</span> <span class="n">v</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">param</span><span class="o">.</span><span class="n">get_param_values</span><span class="p">()</span>
+                <span class="k">if</span> <span class="n">k</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_synced_params</span> <span class="ow">and</span> <span class="n">v</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">}</span>
+
+    <span class="k">def</span> <span class="nf">_link_params</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">params</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_synced_params</span>
+        <span class="k">if</span> <span class="n">params</span><span class="p">:</span>
+            <span class="n">watcher</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">param</span><span class="o">.</span><span class="n">watch</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_param_change</span><span class="p">,</span> <span class="n">params</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_callbacks</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">watcher</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">_link_props</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">model</span><span class="p">,</span> <span class="n">properties</span><span class="p">,</span> <span class="n">doc</span><span class="p">,</span> <span class="n">root</span><span class="p">,</span> <span class="n">comm</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="n">ref</span> <span class="o">=</span> <span class="n">root</span><span class="o">.</span><span class="n">ref</span><span class="p">[</span><span class="s1">'id'</span><span class="p">]</span>
+        <span class="k">if</span> <span class="n">config</span><span class="o">.</span><span class="n">embed</span><span class="p">:</span>
+            <span class="k">return</span>
+
+        <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">properties</span><span class="p">:</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="nb">tuple</span><span class="p">):</span>
+                <span class="n">_</span><span class="p">,</span> <span class="n">p</span> <span class="o">=</span> <span class="n">p</span>
+            <span class="k">if</span> <span class="n">comm</span><span class="p">:</span>
+                <span class="n">model</span><span class="o">.</span><span class="n">on_change</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">partial</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_comm_change</span><span class="p">,</span> <span class="n">doc</span><span class="p">,</span> <span class="n">ref</span><span class="p">,</span> <span class="n">comm</span><span class="p">))</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">model</span><span class="o">.</span><span class="n">on_change</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">partial</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_server_change</span><span class="p">,</span> <span class="n">doc</span><span class="p">,</span> <span class="n">ref</span><span class="p">))</span>
+
+    <span class="k">def</span> <span class="nf">_manual_update</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">events</span><span class="p">,</span> <span class="n">model</span><span class="p">,</span> <span class="n">doc</span><span class="p">,</span> <span class="n">root</span><span class="p">,</span> <span class="n">parent</span><span class="p">,</span> <span class="n">comm</span><span class="p">):</span>
+        <span class="sd">"""</span>
+<span class="sd">        Method for handling any manual update events, i.e. events triggered</span>
+<span class="sd">        by changes in the manual params.</span>
+<span class="sd">        """</span>
+
+    <span class="k">def</span> <span class="nf">_update_manual</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">events</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">ref</span><span class="p">,</span> <span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">parent</span><span class="p">)</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_models</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="k">if</span> <span class="n">ref</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">state</span><span class="o">.</span><span class="n">_views</span> <span class="ow">or</span> <span class="n">ref</span> <span class="ow">in</span> <span class="n">state</span><span class="o">.</span><span class="n">_fake_roots</span><span class="p">:</span>
+                <span class="k">continue</span>
+            <span class="n">viewable</span><span class="p">,</span> <span class="n">root</span><span class="p">,</span> <span class="n">doc</span><span class="p">,</span> <span class="n">comm</span> <span class="o">=</span> <span class="n">state</span><span class="o">.</span><span class="n">_views</span><span class="p">[</span><span class="n">ref</span><span class="p">]</span>
+            <span class="k">if</span> <span class="n">comm</span> <span class="ow">or</span> <span class="n">state</span><span class="o">.</span><span class="n">_unblocked</span><span class="p">(</span><span class="n">doc</span><span class="p">):</span>
+                <span class="k">with</span> <span class="n">unlocked</span><span class="p">():</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">_manual_update</span><span class="p">(</span><span class="n">events</span><span class="p">,</span> <span class="n">model</span><span class="p">,</span> <span class="n">doc</span><span class="p">,</span> <span class="n">root</span><span class="p">,</span> <span class="n">parent</span><span class="p">,</span> <span class="n">comm</span><span class="p">)</span>
+                <span class="k">if</span> <span class="n">comm</span> <span class="ow">and</span> <span class="s1">'embedded'</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">root</span><span class="o">.</span><span class="n">tags</span><span class="p">:</span>
+                    <span class="n">push</span><span class="p">(</span><span class="n">doc</span><span class="p">,</span> <span class="n">comm</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">cb</span> <span class="o">=</span> <span class="n">partial</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_manual_update</span><span class="p">,</span> <span class="n">events</span><span class="p">,</span> <span class="n">model</span><span class="p">,</span> <span class="n">doc</span><span class="p">,</span> <span class="n">root</span><span class="p">,</span> <span class="n">parent</span><span class="p">,</span> <span class="n">comm</span><span class="p">)</span>
+                <span class="k">if</span> <span class="n">doc</span><span class="o">.</span><span class="n">session_context</span><span class="p">:</span>
+                    <span class="n">doc</span><span class="o">.</span><span class="n">add_next_tick_callback</span><span class="p">(</span><span class="n">cb</span><span class="p">)</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">cb</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="nf">_update_model</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">events</span><span class="p">,</span> <span class="n">msg</span><span class="p">,</span> <span class="n">root</span><span class="p">,</span> <span class="n">model</span><span class="p">,</span> <span class="n">doc</span><span class="p">,</span> <span class="n">comm</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_changing</span><span class="p">[</span><span class="n">root</span><span class="o">.</span><span class="n">ref</span><span class="p">[</span><span class="s1">'id'</span><span class="p">]]</span> <span class="o">=</span> <span class="p">[</span>
+            <span class="n">attr</span> <span class="k">for</span> <span class="n">attr</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">msg</span><span class="o">.</span><span class="n">items</span><span class="p">()</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">model</span><span class="o">.</span><span class="n">lookup</span><span class="p">(</span><span class="n">attr</span><span class="p">)</span><span class="o">.</span><span class="n">property</span><span class="o">.</span><span class="n">matches</span><span class="p">(</span><span class="nb">getattr</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">attr</span><span class="p">),</span> <span class="n">value</span><span class="p">)</span>
+        <span class="p">]</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">model</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="o">**</span><span class="n">msg</span><span class="p">)</span>
+        <span class="k">finally</span><span class="p">:</span>
+            <span class="k">del</span> <span class="bp">self</span><span class="o">.</span><span class="n">_changing</span><span class="p">[</span><span class="n">root</span><span class="o">.</span><span class="n">ref</span><span class="p">[</span><span class="s1">'id'</span><span class="p">]]</span>
+
+    <span class="k">def</span> <span class="nf">_cleanup</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">root</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">_cleanup</span><span class="p">(</span><span class="n">root</span><span class="p">)</span>
+        <span class="n">ref</span> <span class="o">=</span> <span class="n">root</span><span class="o">.</span><span class="n">ref</span><span class="p">[</span><span class="s1">'id'</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_models</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="n">ref</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+        <span class="n">comm</span><span class="p">,</span> <span class="n">client_comm</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_comms</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="n">ref</span><span class="p">,</span> <span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">))</span>
+        <span class="k">if</span> <span class="n">comm</span><span class="p">:</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">comm</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+            <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
+                <span class="k">pass</span>
+        <span class="k">if</span> <span class="n">client_comm</span><span class="p">:</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">client_comm</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+            <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
+                <span class="k">pass</span>
+
+    <span class="k">def</span> <span class="nf">_param_change</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">events</span><span class="p">):</span>
+        <span class="n">msgs</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">event</span> <span class="ow">in</span> <span class="n">events</span><span class="p">:</span>
+            <span class="n">msg</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_process_param_change</span><span class="p">({</span><span class="n">event</span><span class="o">.</span><span class="n">name</span><span class="p">:</span> <span class="n">event</span><span class="o">.</span><span class="n">new</span><span class="p">})</span>
+            <span class="k">if</span> <span class="n">msg</span><span class="p">:</span>
+                <span class="n">msgs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+
+        <span class="n">events</span> <span class="o">=</span> <span class="p">{</span><span class="n">event</span><span class="o">.</span><span class="n">name</span><span class="p">:</span> <span class="n">event</span> <span class="k">for</span> <span class="n">event</span> <span class="ow">in</span> <span class="n">events</span><span class="p">}</span>
+        <span class="n">msg</span> <span class="o">=</span> <span class="p">{</span><span class="n">k</span><span class="p">:</span> <span class="n">v</span> <span class="k">for</span> <span class="n">msg</span> <span class="ow">in</span> <span class="n">msgs</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">msg</span><span class="o">.</span><span class="n">items</span><span class="p">()}</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">msg</span><span class="p">:</span>
+            <span class="k">return</span>
+
+        <span class="k">for</span> <span class="n">ref</span><span class="p">,</span> <span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">parent</span><span class="p">)</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_models</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="k">if</span> <span class="n">ref</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">state</span><span class="o">.</span><span class="n">_views</span> <span class="ow">or</span> <span class="n">ref</span> <span class="ow">in</span> <span class="n">state</span><span class="o">.</span><span class="n">_fake_roots</span><span class="p">:</span>
+                <span class="k">continue</span>
+            <span class="n">viewable</span><span class="p">,</span> <span class="n">root</span><span class="p">,</span> <span class="n">doc</span><span class="p">,</span> <span class="n">comm</span> <span class="o">=</span> <span class="n">state</span><span class="o">.</span><span class="n">_views</span><span class="p">[</span><span class="n">ref</span><span class="p">]</span>
+            <span class="k">if</span> <span class="n">comm</span> <span class="ow">or</span> <span class="ow">not</span> <span class="n">doc</span><span class="o">.</span><span class="n">session_context</span> <span class="ow">or</span> <span class="n">state</span><span class="o">.</span><span class="n">_unblocked</span><span class="p">(</span><span class="n">doc</span><span class="p">):</span>
+                <span class="k">with</span> <span class="n">unlocked</span><span class="p">():</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">_update_model</span><span class="p">(</span><span class="n">events</span><span class="p">,</span> <span class="n">msg</span><span class="p">,</span> <span class="n">root</span><span class="p">,</span> <span class="n">model</span><span class="p">,</span> <span class="n">doc</span><span class="p">,</span> <span class="n">comm</span><span class="p">)</span>
+                <span class="k">if</span> <span class="n">comm</span> <span class="ow">and</span> <span class="s1">'embedded'</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">root</span><span class="o">.</span><span class="n">tags</span><span class="p">:</span>
+                    <span class="n">push</span><span class="p">(</span><span class="n">doc</span><span class="p">,</span> <span class="n">comm</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">cb</span> <span class="o">=</span> <span class="n">partial</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_update_model</span><span class="p">,</span> <span class="n">events</span><span class="p">,</span> <span class="n">msg</span><span class="p">,</span> <span class="n">root</span><span class="p">,</span> <span class="n">model</span><span class="p">,</span> <span class="n">doc</span><span class="p">,</span> <span class="n">comm</span><span class="p">)</span>
+                <span class="n">doc</span><span class="o">.</span><span class="n">add_next_tick_callback</span><span class="p">(</span><span class="n">cb</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">_process_events</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">events</span><span class="p">):</span>
+        <span class="k">with</span> <span class="n">edit_readonly</span><span class="p">(</span><span class="n">state</span><span class="p">):</span>
+            <span class="n">state</span><span class="o">.</span><span class="n">busy</span> <span class="o">=</span> <span class="kc">True</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">with</span> <span class="n">edit_readonly</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">param</span><span class="o">.</span><span class="n">set_param</span><span class="p">(</span><span class="o">**</span><span class="bp">self</span><span class="o">.</span><span class="n">_process_property_change</span><span class="p">(</span><span class="n">events</span><span class="p">))</span>
+        <span class="k">finally</span><span class="p">:</span>
+            <span class="k">with</span> <span class="n">edit_readonly</span><span class="p">(</span><span class="n">state</span><span class="p">):</span>
+                <span class="n">state</span><span class="o">.</span><span class="n">busy</span> <span class="o">=</span> <span class="kc">False</span>
+
+    <span class="nd">@gen</span><span class="o">.</span><span class="n">coroutine</span>
+    <span class="k">def</span> <span class="nf">_change_coroutine</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_change_event</span><span class="p">(</span><span class="n">doc</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">_change_event</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">state</span><span class="o">.</span><span class="n">curdoc</span> <span class="o">=</span> <span class="n">doc</span>
+            <span class="n">thread</span> <span class="o">=</span> <span class="n">threading</span><span class="o">.</span><span class="n">current_thread</span><span class="p">()</span>
+            <span class="n">thread_id</span> <span class="o">=</span> <span class="n">thread</span><span class="o">.</span><span class="n">ident</span> <span class="k">if</span> <span class="n">thread</span> <span class="k">else</span> <span class="kc">None</span>
+            <span class="n">state</span><span class="o">.</span><span class="n">_thread_id</span> <span class="o">=</span> <span class="n">thread_id</span>
+            <span class="n">events</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_events</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_events</span> <span class="o">=</span> <span class="p">{}</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_process_events</span><span class="p">(</span><span class="n">events</span><span class="p">)</span>
+        <span class="k">finally</span><span class="p">:</span>
+            <span class="n">state</span><span class="o">.</span><span class="n">curdoc</span> <span class="o">=</span> <span class="kc">None</span>
+            <span class="n">state</span><span class="o">.</span><span class="n">_thread_id</span> <span class="o">=</span> <span class="kc">None</span>
+
+    <span class="k">def</span> <span class="nf">_comm_change</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">doc</span><span class="p">,</span> <span class="n">ref</span><span class="p">,</span> <span class="n">comm</span><span class="p">,</span> <span class="n">attr</span><span class="p">,</span> <span class="n">old</span><span class="p">,</span> <span class="n">new</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">attr</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_changing</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">ref</span><span class="p">,</span> <span class="p">[]):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_changing</span><span class="p">[</span><span class="n">ref</span><span class="p">]</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">attr</span><span class="p">)</span>
+            <span class="k">return</span>
+
+        <span class="k">with</span> <span class="n">hold</span><span class="p">(</span><span class="n">doc</span><span class="p">,</span> <span class="n">comm</span><span class="o">=</span><span class="n">comm</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_process_events</span><span class="p">({</span><span class="n">attr</span><span class="p">:</span> <span class="n">new</span><span class="p">})</span>
+
+    <span class="k">def</span> <span class="nf">_server_change</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">doc</span><span class="p">,</span> <span class="n">ref</span><span class="p">,</span> <span class="n">attr</span><span class="p">,</span> <span class="n">old</span><span class="p">,</span> <span class="n">new</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">attr</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_changing</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">ref</span><span class="p">,</span> <span class="p">[]):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_changing</span><span class="p">[</span><span class="n">ref</span><span class="p">]</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">attr</span><span class="p">)</span>
+            <span class="k">return</span>
+
+        <span class="n">state</span><span class="o">.</span><span class="n">_locks</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
+        <span class="n">processing</span> <span class="o">=</span> <span class="nb">bool</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_events</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_events</span><span class="o">.</span><span class="n">update</span><span class="p">({</span><span class="n">attr</span><span class="p">:</span> <span class="n">new</span><span class="p">})</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">processing</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">doc</span><span class="o">.</span><span class="n">session_context</span><span class="p">:</span>
+                <span class="n">doc</span><span class="o">.</span><span class="n">add_timeout_callback</span><span class="p">(</span><span class="n">partial</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_change_coroutine</span><span class="p">,</span> <span class="n">doc</span><span class="p">),</span> <span class="bp">self</span><span class="o">.</span><span class="n">_debounce</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_change_event</span><span class="p">(</span><span class="n">doc</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Reactive"><a class="viewcode-back" href="../../api/panel.reactive.html#panel.reactive.Reactive">[docs]</a><span class="k">class</span> <span class="nc">Reactive</span><span class="p">(</span><span class="n">Syncable</span><span class="p">,</span> <span class="n">Viewable</span><span class="p">):</span>
+    <span class="sd">"""</span>
+<span class="sd">    Reactive is a Viewable object that also supports syncing between</span>
+<span class="sd">    the objects parameters and the underlying bokeh model either via</span>
+<span class="sd">    the defined pyviz_comms.Comm type or using bokeh server.</span>
+
+<span class="sd">    In addition it defines various methods which make it easy to link</span>
+<span class="sd">    the parameters to other objects.</span>
+<span class="sd">    """</span>
+
+    <span class="c1">#----------------------------------------------------------------</span>
+    <span class="c1"># Public API</span>
+    <span class="c1">#----------------------------------------------------------------</span>
+
+<div class="viewcode-block" id="Reactive.add_periodic_callback"><a class="viewcode-back" href="../../api/panel.reactive.html#panel.reactive.Reactive.add_periodic_callback">[docs]</a>    <span class="k">def</span> <span class="nf">add_periodic_callback</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">callback</span><span class="p">,</span> <span class="n">period</span><span class="o">=</span><span class="mi">500</span><span class="p">,</span> <span class="n">count</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                              <span class="n">timeout</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">start</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+        <span class="sd">"""</span>
+<span class="sd">        Schedules a periodic callback to be run at an interval set by</span>
+<span class="sd">        the period. Returns a PeriodicCallback object with the option</span>
+<span class="sd">        to stop and start the callback.</span>
+
+<span class="sd">        Arguments</span>
+<span class="sd">        ---------</span>
+<span class="sd">        callback: callable</span>
+<span class="sd">          Callable function to be executed at periodic interval.</span>
+<span class="sd">        period: int</span>
+<span class="sd">          Interval in milliseconds at which callback will be executed.</span>
+<span class="sd">        count: int</span>
+<span class="sd">          Maximum number of times callback will be invoked.</span>
+<span class="sd">        timeout: int</span>
+<span class="sd">          Timeout in seconds when the callback should be stopped.</span>
+<span class="sd">        start: boolean (default=True)</span>
+<span class="sd">          Whether to start callback immediately.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        Return a PeriodicCallback object with start and stop methods.</span>
+<span class="sd">        """</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">param</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span>
+            <span class="s2">"Calling add_periodic_callback on a Panel component is "</span>
+            <span class="s2">"deprecated and will be removed in the next minor release. "</span>
+            <span class="s2">"Use the pn.state.add_periodic_callback API instead."</span>
+        <span class="p">)</span>
+        <span class="n">cb</span> <span class="o">=</span> <span class="n">PeriodicCallback</span><span class="p">(</span><span class="n">callback</span><span class="o">=</span><span class="n">callback</span><span class="p">,</span> <span class="n">period</span><span class="o">=</span><span class="n">period</span><span class="p">,</span>
+                              <span class="n">count</span><span class="o">=</span><span class="n">count</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="n">timeout</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">start</span><span class="p">:</span>
+            <span class="n">cb</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
+        <span class="k">return</span> <span class="n">cb</span></div>
+
+<div class="viewcode-block" id="Reactive.link"><a class="viewcode-back" href="../../api/panel.reactive.html#panel.reactive.Reactive.link">[docs]</a>    <span class="k">def</span> <span class="nf">link</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">target</span><span class="p">,</span> <span class="n">callbacks</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">bidirectional</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>  <span class="o">**</span><span class="n">links</span><span class="p">):</span>
+        <span class="sd">"""</span>
+<span class="sd">        Links the parameters on this object to attributes on another</span>
+<span class="sd">        object in Python. Supports two modes, either specify a mapping</span>
+<span class="sd">        between the source and target object parameters as keywords or</span>
+<span class="sd">        provide a dictionary of callbacks which maps from the source</span>
+<span class="sd">        parameter to a callback which is triggered when the parameter</span>
+<span class="sd">        changes.</span>
+
+<span class="sd">        Arguments</span>
+<span class="sd">        ---------</span>
+<span class="sd">        target: object</span>
+<span class="sd">          The target object of the link.</span>
+<span class="sd">        callbacks: dict</span>
+<span class="sd">          Maps from a parameter in the source object to a callback.</span>
+<span class="sd">        bidirectional: boolean</span>
+<span class="sd">          Whether to link source and target bi-directionally</span>
+<span class="sd">        **links: dict</span>
+<span class="sd">          Maps between parameters on this object to the parameters</span>
+<span class="sd">          on the supplied object.</span>
+<span class="sd">        """</span>
+        <span class="k">if</span> <span class="n">links</span> <span class="ow">and</span> <span class="n">callbacks</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">'Either supply a set of parameters to '</span>
+                             <span class="s1">'link as keywords or a set of callbacks, '</span>
+                             <span class="s1">'not both.'</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="ow">not</span> <span class="n">links</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">callbacks</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">'Declare parameters to link or a set of '</span>
+                             <span class="s1">'callbacks, neither was defined.'</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">callbacks</span> <span class="ow">and</span> <span class="n">bidirectional</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">'Bidirectional linking not supported for '</span>
+                             <span class="s1">'explicit callbacks. You must define '</span>
+                             <span class="s1">'separate callbacks for each direction.'</span><span class="p">)</span>
+
+        <span class="n">_updating</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">def</span> <span class="nf">link</span><span class="p">(</span><span class="o">*</span><span class="n">events</span><span class="p">):</span>
+            <span class="k">for</span> <span class="n">event</span> <span class="ow">in</span> <span class="n">events</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">event</span><span class="o">.</span><span class="n">name</span> <span class="ow">in</span> <span class="n">_updating</span><span class="p">:</span> <span class="k">continue</span>
+                <span class="n">_updating</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">event</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
+                <span class="k">try</span><span class="p">:</span>
+                    <span class="k">if</span> <span class="n">callbacks</span><span class="p">:</span>
+                        <span class="n">callbacks</span><span class="p">[</span><span class="n">event</span><span class="o">.</span><span class="n">name</span><span class="p">](</span><span class="n">target</span><span class="p">,</span> <span class="n">event</span><span class="p">)</span>
+                    <span class="k">else</span><span class="p">:</span>
+                        <span class="nb">setattr</span><span class="p">(</span><span class="n">target</span><span class="p">,</span> <span class="n">links</span><span class="p">[</span><span class="n">event</span><span class="o">.</span><span class="n">name</span><span class="p">],</span> <span class="n">event</span><span class="o">.</span><span class="n">new</span><span class="p">)</span>
+                <span class="k">finally</span><span class="p">:</span>
+                    <span class="n">_updating</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="n">_updating</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="n">event</span><span class="o">.</span><span class="n">name</span><span class="p">))</span>
+        <span class="n">params</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">callbacks</span><span class="p">)</span> <span class="k">if</span> <span class="n">callbacks</span> <span class="k">else</span> <span class="nb">list</span><span class="p">(</span><span class="n">links</span><span class="p">)</span>
+        <span class="n">cb</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">param</span><span class="o">.</span><span class="n">watch</span><span class="p">(</span><span class="n">link</span><span class="p">,</span> <span class="n">params</span><span class="p">)</span>
+
+        <span class="n">bidirectional_watcher</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="k">if</span> <span class="n">bidirectional</span><span class="p">:</span>
+            <span class="n">_reverse_updating</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="n">reverse_links</span> <span class="o">=</span> <span class="p">{</span><span class="n">v</span><span class="p">:</span> <span class="n">k</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">links</span><span class="o">.</span><span class="n">items</span><span class="p">()}</span>
+            <span class="k">def</span> <span class="nf">reverse_link</span><span class="p">(</span><span class="o">*</span><span class="n">events</span><span class="p">):</span>
+                <span class="k">for</span> <span class="n">event</span> <span class="ow">in</span> <span class="n">events</span><span class="p">:</span>
+                    <span class="k">if</span> <span class="n">event</span><span class="o">.</span><span class="n">name</span> <span class="ow">in</span> <span class="n">_reverse_updating</span><span class="p">:</span> <span class="k">continue</span>
+                    <span class="n">_reverse_updating</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">event</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
+                    <span class="k">try</span><span class="p">:</span>
+                        <span class="nb">setattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">reverse_links</span><span class="p">[</span><span class="n">event</span><span class="o">.</span><span class="n">name</span><span class="p">],</span> <span class="n">event</span><span class="o">.</span><span class="n">new</span><span class="p">)</span>
+                    <span class="k">finally</span><span class="p">:</span>
+                        <span class="n">_reverse_updating</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">event</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
+            <span class="n">bidirectional_watcher</span> <span class="o">=</span> <span class="n">target</span><span class="o">.</span><span class="n">param</span><span class="o">.</span><span class="n">watch</span><span class="p">(</span><span class="n">reverse_link</span><span class="p">,</span> <span class="nb">list</span><span class="p">(</span><span class="n">reverse_links</span><span class="p">))</span>
+
+        <span class="n">link</span> <span class="o">=</span> <span class="n">LinkWatcher</span><span class="p">(</span><span class="o">*</span><span class="nb">tuple</span><span class="p">(</span><span class="n">cb</span><span class="p">)</span><span class="o">+</span><span class="p">(</span><span class="n">target</span><span class="p">,</span> <span class="n">links</span><span class="p">,</span> <span class="n">callbacks</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">,</span> <span class="n">bidirectional_watcher</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_links</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">link</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">cb</span></div>
+
+<div class="viewcode-block" id="Reactive.controls"><a class="viewcode-back" href="../../api/panel.reactive.html#panel.reactive.Reactive.controls">[docs]</a>    <span class="k">def</span> <span class="nf">controls</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">parameters</span><span class="o">=</span><span class="p">[],</span> <span class="n">jslink</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+        <span class="sd">"""</span>
+<span class="sd">        Creates a set of widgets which allow manipulating the parameters</span>
+<span class="sd">        on this instance. By default all parameters which support</span>
+<span class="sd">        linking are exposed, but an explicit list of parameters can</span>
+<span class="sd">        be provided.</span>
+
+<span class="sd">        Arguments</span>
+<span class="sd">        ---------</span>
+<span class="sd">        parameters: list(str)</span>
+<span class="sd">           An explicit list of parameters to return controls for.</span>
+<span class="sd">        jslink: bool</span>
+<span class="sd">           Whether to use jslinks instead of Python based links.</span>
+<span class="sd">           This does not allow using all types of parameters.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        A layout of the controls</span>
+<span class="sd">        """</span>
+        <span class="kn">from</span> <span class="nn">.param</span> <span class="kn">import</span> <span class="n">Param</span>
+        <span class="kn">from</span> <span class="nn">.layout</span> <span class="kn">import</span> <span class="n">Tabs</span><span class="p">,</span> <span class="n">WidgetBox</span>
+        <span class="kn">from</span> <span class="nn">.widgets</span> <span class="kn">import</span> <span class="n">LiteralInput</span>
+
+        <span class="k">if</span> <span class="n">parameters</span><span class="p">:</span>
+            <span class="n">linkable</span> <span class="o">=</span> <span class="n">parameters</span>
+        <span class="k">elif</span> <span class="n">jslink</span><span class="p">:</span>
+            <span class="n">linkable</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_linkable_params</span> <span class="o">+</span> <span class="p">[</span><span class="s1">'loading'</span><span class="p">]</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">linkable</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">param</span><span class="p">)</span>
+
+        <span class="n">params</span> <span class="o">=</span> <span class="p">[</span><span class="n">p</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">linkable</span> <span class="k">if</span> <span class="n">p</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">Viewable</span><span class="o">.</span><span class="n">param</span><span class="p">]</span>
+        <span class="n">controls</span> <span class="o">=</span> <span class="n">Param</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">param</span><span class="p">,</span> <span class="n">parameters</span><span class="o">=</span><span class="n">params</span><span class="p">,</span> <span class="n">default_layout</span><span class="o">=</span><span class="n">WidgetBox</span><span class="p">,</span>
+                         <span class="n">name</span><span class="o">=</span><span class="s1">'Controls'</span><span class="p">)</span>
+        <span class="n">layout_params</span> <span class="o">=</span> <span class="p">[</span><span class="n">p</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">linkable</span> <span class="k">if</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">Viewable</span><span class="o">.</span><span class="n">param</span><span class="p">]</span>
+        <span class="k">if</span> <span class="s1">'name'</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">layout_params</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">_rename</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'name'</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">parameters</span><span class="p">:</span>
+            <span class="n">layout_params</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="s1">'name'</span><span class="p">)</span>
+        <span class="n">style</span> <span class="o">=</span> <span class="n">Param</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">param</span><span class="p">,</span> <span class="n">parameters</span><span class="o">=</span><span class="n">layout_params</span><span class="p">,</span> <span class="n">default_layout</span><span class="o">=</span><span class="n">WidgetBox</span><span class="p">,</span>
+                      <span class="n">name</span><span class="o">=</span><span class="s1">'Layout'</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">jslink</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">params</span><span class="p">:</span>
+                <span class="n">widget</span> <span class="o">=</span> <span class="n">controls</span><span class="o">.</span><span class="n">_widgets</span><span class="p">[</span><span class="n">p</span><span class="p">]</span>
+                <span class="n">widget</span><span class="o">.</span><span class="n">jslink</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="o">=</span><span class="n">p</span><span class="p">,</span> <span class="n">bidirectional</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+                <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">widget</span><span class="p">,</span> <span class="n">LiteralInput</span><span class="p">):</span>
+                    <span class="n">widget</span><span class="o">.</span><span class="n">serializer</span> <span class="o">=</span> <span class="s1">'json'</span>
+            <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">layout_params</span><span class="p">:</span>
+                <span class="n">widget</span> <span class="o">=</span> <span class="n">style</span><span class="o">.</span><span class="n">_widgets</span><span class="p">[</span><span class="n">p</span><span class="p">]</span>
+                <span class="n">widget</span><span class="o">.</span><span class="n">jslink</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="o">=</span><span class="n">p</span><span class="p">,</span> <span class="n">bidirectional</span><span class="o">=</span><span class="n">p</span> <span class="o">!=</span> <span class="s1">'loading'</span><span class="p">)</span>
+                <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">widget</span><span class="p">,</span> <span class="n">LiteralInput</span><span class="p">):</span>
+                    <span class="n">widget</span><span class="o">.</span><span class="n">serializer</span> <span class="o">=</span> <span class="s1">'json'</span>
+
+        <span class="k">if</span> <span class="n">params</span> <span class="ow">and</span> <span class="n">layout_params</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">Tabs</span><span class="p">(</span><span class="n">controls</span><span class="o">.</span><span class="n">layout</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">style</span><span class="o">.</span><span class="n">layout</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+        <span class="k">elif</span> <span class="n">params</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">controls</span><span class="o">.</span><span class="n">layout</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="k">return</span> <span class="n">style</span><span class="o">.</span><span class="n">layout</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span></div>
+
+<div class="viewcode-block" id="Reactive.jscallback"><a class="viewcode-back" href="../../api/panel.reactive.html#panel.reactive.Reactive.jscallback">[docs]</a>    <span class="k">def</span> <span class="nf">jscallback</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">args</span><span class="o">=</span><span class="p">{},</span> <span class="o">**</span><span class="n">callbacks</span><span class="p">):</span>
+        <span class="sd">"""</span>
+<span class="sd">        Allows defining a JS callback to be triggered when a property</span>
+<span class="sd">        changes on the source object. The keyword arguments define the</span>
+<span class="sd">        properties that trigger a callback and the JS code that gets</span>
+<span class="sd">        executed.</span>
+
+<span class="sd">        Arguments</span>
+<span class="sd">        ----------</span>
+<span class="sd">        args: dict</span>
+<span class="sd">          A mapping of objects to make available to the JS callback</span>
+<span class="sd">        **callbacks: dict</span>
+<span class="sd">          A mapping between properties on the source model and the code</span>
+<span class="sd">          to execute when that property changes</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        callback: Callback</span>
+<span class="sd">          The Callback which can be used to disable the callback.</span>
+<span class="sd">        """</span>
+
+        <span class="kn">from</span> <span class="nn">.links</span> <span class="kn">import</span> <span class="n">Callback</span>
+        <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="nb">list</span><span class="p">(</span><span class="n">callbacks</span><span class="o">.</span><span class="n">items</span><span class="p">()):</span>
+            <span class="n">callbacks</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_rename</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="n">v</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">Callback</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">code</span><span class="o">=</span><span class="n">callbacks</span><span class="p">,</span> <span class="n">args</span><span class="o">=</span><span class="n">args</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Reactive.jslink"><a class="viewcode-back" href="../../api/panel.reactive.html#panel.reactive.Reactive.jslink">[docs]</a>    <span class="k">def</span> <span class="nf">jslink</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">target</span><span class="p">,</span> <span class="n">code</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">args</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">bidirectional</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="o">**</span><span class="n">links</span><span class="p">):</span>
+        <span class="sd">"""</span>
+<span class="sd">        Links properties on the source object to those on the target</span>
+<span class="sd">        object in JS code. Supports two modes, either specify a</span>
+<span class="sd">        mapping between the source and target model properties as</span>
+<span class="sd">        keywords or provide a dictionary of JS code snippets which</span>
+<span class="sd">        maps from the source parameter to a JS code snippet which is</span>
+<span class="sd">        executed when the property changes.</span>
+
+<span class="sd">        Arguments</span>
+<span class="sd">        ----------</span>
+<span class="sd">        target: HoloViews object or bokeh Model or panel Viewable</span>
+<span class="sd">          The target to link the value to.</span>
+<span class="sd">        code: dict</span>
+<span class="sd">          Custom code which will be executed when the widget value</span>
+<span class="sd">          changes.</span>
+<span class="sd">        bidirectional: boolean</span>
+<span class="sd">          Whether to link source and target bi-directionally</span>
+<span class="sd">        **links: dict</span>
+<span class="sd">          A mapping between properties on the source model and the</span>
+<span class="sd">          target model property to link it to.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        link: GenericLink</span>
+<span class="sd">          The GenericLink which can be used unlink the widget and</span>
+<span class="sd">          the target model.</span>
+<span class="sd">        """</span>
+        <span class="k">if</span> <span class="n">links</span> <span class="ow">and</span> <span class="n">code</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">'Either supply a set of properties to '</span>
+                             <span class="s1">'link as keywords or a set of JS code '</span>
+                             <span class="s1">'callbacks, not both.'</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="ow">not</span> <span class="n">links</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">code</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">'Declare parameters to link or a set of '</span>
+                             <span class="s1">'callbacks, neither was defined.'</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">args</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">args</span> <span class="o">=</span> <span class="p">{}</span>
+
+        <span class="n">mapping</span> <span class="o">=</span> <span class="n">code</span> <span class="ow">or</span> <span class="n">links</span>
+        <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">mapping</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">k</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s1">'event:'</span><span class="p">):</span>
+                <span class="k">continue</span>
+            <span class="k">elif</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s1">'object'</span><span class="p">)</span> <span class="ow">and</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">object</span><span class="p">,</span> <span class="n">LayoutDOM</span><span class="p">):</span>
+                <span class="n">current</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">object</span>
+                <span class="k">for</span> <span class="n">attr</span> <span class="ow">in</span> <span class="n">k</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">'.'</span><span class="p">):</span>
+                    <span class="k">if</span> <span class="ow">not</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">current</span><span class="p">,</span> <span class="n">attr</span><span class="p">):</span>
+                        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Could not resolve </span><span class="si">{</span><span class="n">k</span><span class="si">}</span><span class="s2"> on "</span>
+                                         <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">object</span><span class="si">}</span><span class="s2"> model. Ensure "</span>
+                                         <span class="s2">"you jslink an attribute that "</span>
+                                         <span class="s2">"exists on the bokeh model."</span><span class="p">)</span>
+                    <span class="n">current</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">current</span><span class="p">,</span> <span class="n">attr</span><span class="p">)</span>
+            <span class="k">elif</span> <span class="p">(</span><span class="n">k</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">param</span> <span class="ow">and</span> <span class="n">k</span> <span class="ow">not</span> <span class="ow">in</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_rename</span><span class="o">.</span><span class="n">values</span><span class="p">())):</span>
+                <span class="n">matches</span> <span class="o">=</span> <span class="n">difflib</span><span class="o">.</span><span class="n">get_close_matches</span><span class="p">(</span><span class="n">k</span><span class="p">,</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">param</span><span class="p">))</span>
+                <span class="k">if</span> <span class="n">matches</span><span class="p">:</span>
+                    <span class="n">matches</span> <span class="o">=</span> <span class="s1">' Similar parameters include: </span><span class="si">%r</span><span class="s1">'</span> <span class="o">%</span> <span class="n">matches</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">matches</span> <span class="o">=</span> <span class="s1">''</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">"Could not jslink </span><span class="si">%r</span><span class="s2"> parameter (or property) "</span>
+                                 <span class="s2">"on </span><span class="si">%s</span><span class="s2"> object because it was not found.</span><span class="si">%s</span><span class="s2">"</span>
+                                 <span class="o">%</span> <span class="p">(</span><span class="n">k</span><span class="p">,</span> <span class="nb">type</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="vm">__name__</span><span class="p">,</span> <span class="n">matches</span><span class="p">))</span>
+            <span class="k">elif</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_source_transforms</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">k</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span>
+                  <span class="bp">self</span><span class="o">.</span><span class="n">_rename</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">k</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">):</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">"Cannot jslink </span><span class="si">%r</span><span class="s2"> parameter on </span><span class="si">%s</span><span class="s2"> object, "</span>
+                                 <span class="s2">"the parameter requires a live Python kernel "</span>
+                                 <span class="s2">"to have an effect."</span> <span class="o">%</span> <span class="p">(</span><span class="n">k</span><span class="p">,</span> <span class="nb">type</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="vm">__name__</span><span class="p">))</span>
+
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">target</span><span class="p">,</span> <span class="n">Syncable</span><span class="p">)</span> <span class="ow">and</span> <span class="n">code</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">mapping</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+                <span class="k">if</span> <span class="n">k</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s1">'event:'</span><span class="p">):</span>
+                    <span class="k">continue</span>
+                <span class="k">elif</span> <span class="n">p</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">target</span><span class="o">.</span><span class="n">param</span> <span class="ow">and</span> <span class="n">p</span> <span class="ow">not</span> <span class="ow">in</span> <span class="nb">list</span><span class="p">(</span><span class="n">target</span><span class="o">.</span><span class="n">_rename</span><span class="o">.</span><span class="n">values</span><span class="p">()):</span>
+                    <span class="n">matches</span> <span class="o">=</span> <span class="n">difflib</span><span class="o">.</span><span class="n">get_close_matches</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="nb">list</span><span class="p">(</span><span class="n">target</span><span class="o">.</span><span class="n">param</span><span class="p">))</span>
+                    <span class="k">if</span> <span class="n">matches</span><span class="p">:</span>
+                        <span class="n">matches</span> <span class="o">=</span> <span class="s1">' Similar parameters include: </span><span class="si">%r</span><span class="s1">'</span> <span class="o">%</span> <span class="n">matches</span>
+                    <span class="k">else</span><span class="p">:</span>
+                        <span class="n">matches</span> <span class="o">=</span> <span class="s1">''</span>
+                    <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">"Could not jslink </span><span class="si">%r</span><span class="s2"> parameter (or property) "</span>
+                                     <span class="s2">"on </span><span class="si">%s</span><span class="s2"> object because it was not found.</span><span class="si">%s</span><span class="s2">"</span>
+                                    <span class="o">%</span> <span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="nb">type</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="vm">__name__</span><span class="p">,</span> <span class="n">matches</span><span class="p">))</span>
+                <span class="k">elif</span> <span class="p">(</span><span class="n">target</span><span class="o">.</span><span class="n">_source_transforms</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span>
+                      <span class="n">target</span><span class="o">.</span><span class="n">_rename</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">):</span>
+                    <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">"Cannot jslink </span><span class="si">%r</span><span class="s2"> parameter on </span><span class="si">%s</span><span class="s2"> object "</span>
+                                     <span class="s2">"to </span><span class="si">%r</span><span class="s2"> parameter on </span><span class="si">%s</span><span class="s2"> object. It requires "</span>
+                                     <span class="s2">"a live Python kernel to have an effect."</span>
+                                     <span class="o">%</span> <span class="p">(</span><span class="n">k</span><span class="p">,</span> <span class="nb">type</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="vm">__name__</span><span class="p">,</span> <span class="n">p</span><span class="p">,</span> <span class="nb">type</span><span class="p">(</span><span class="n">target</span><span class="p">)</span><span class="o">.</span><span class="vm">__name__</span><span class="p">))</span>
+
+        <span class="kn">from</span> <span class="nn">.links</span> <span class="kn">import</span> <span class="n">Link</span>
+        <span class="k">return</span> <span class="n">Link</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">target</span><span class="p">,</span> <span class="n">properties</span><span class="o">=</span><span class="n">links</span><span class="p">,</span> <span class="n">code</span><span class="o">=</span><span class="n">code</span><span class="p">,</span> <span class="n">args</span><span class="o">=</span><span class="n">args</span><span class="p">,</span>
+                    <span class="n">bidirectional</span><span class="o">=</span><span class="n">bidirectional</span><span class="p">)</span></div></div>
+
+
+
+<div class="viewcode-block" id="SyncableData"><a class="viewcode-back" href="../../api/panel.reactive.html#panel.reactive.SyncableData">[docs]</a><span class="k">class</span> <span class="nc">SyncableData</span><span class="p">(</span><span class="n">Reactive</span><span class="p">):</span>
+    <span class="sd">"""</span>
+<span class="sd">    A baseclass for components which sync one or more data parameters</span>
+<span class="sd">    with the frontend via a ColumnDataSource.</span>
+<span class="sd">    """</span>
+
+    <span class="n">selection</span> <span class="o">=</span> <span class="n">param</span><span class="o">.</span><span class="n">List</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="p">[],</span> <span class="n">doc</span><span class="o">=</span><span class="s2">"""</span>
+<span class="s2">        The currently selected rows in the data."""</span><span class="p">)</span>
+
+    <span class="c1"># Parameters which when changed require an update of the data </span>
+    <span class="n">_data_params</span> <span class="o">=</span> <span class="p">[]</span>
+
+    <span class="n">_rename</span> <span class="o">=</span> <span class="p">{</span><span class="s1">'selection'</span><span class="p">:</span> <span class="kc">None</span><span class="p">}</span>
+
+    <span class="n">__abstract</span> <span class="o">=</span> <span class="kc">True</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">params</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="o">**</span><span class="n">params</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_data</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_processed</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">param</span><span class="o">.</span><span class="n">watch</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_validate</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_data_params</span><span class="p">)</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_data_params</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">param</span><span class="o">.</span><span class="n">watch</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_update_cds</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_data_params</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">param</span><span class="o">.</span><span class="n">watch</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_update_selected</span><span class="p">,</span> <span class="s1">'selection'</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_validate</span><span class="p">(</span><span class="kc">None</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_update_cds</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="nf">_validate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">):</span>
+        <span class="sd">"""</span>
+<span class="sd">        Allows implementing validation for the data parameters.</span>
+<span class="sd">        """</span>
+
+    <span class="k">def</span> <span class="nf">_get_data</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">"""</span>
+<span class="sd">        Implemented by subclasses converting data parameter(s) into</span>
+<span class="sd">        a ColumnDataSource compatible data dictionary.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        processed: object</span>
+<span class="sd">          Raw data after pre-processing (e.g. after filtering)</span>
+<span class="sd">        data: dict</span>
+<span class="sd">          Dictionary of columns used to instantiate and update the</span>
+<span class="sd">          ColumnDataSource</span>
+<span class="sd">        """</span>
+
+    <span class="k">def</span> <span class="nf">_update_column</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">column</span><span class="p">,</span> <span class="n">array</span><span class="p">):</span>
+        <span class="sd">"""</span>
+<span class="sd">        Implemented by subclasses converting changes in columns to</span>
+<span class="sd">        changes in the data parameter.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        column: str</span>
+<span class="sd">          The name of the column to update.</span>
+<span class="sd">        array: numpy.ndarray</span>
+<span class="sd">          The array data to update the column with.</span>
+<span class="sd">        """</span>
+        <span class="n">data</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_data_params</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+        <span class="n">data</span><span class="p">[</span><span class="n">column</span><span class="p">]</span> <span class="o">=</span> <span class="n">array</span>
+
+    <span class="k">def</span> <span class="nf">_update_data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">param</span><span class="o">.</span><span class="n">set_param</span><span class="p">(</span><span class="o">**</span><span class="p">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_data_params</span><span class="p">[</span><span class="mi">0</span><span class="p">]:</span> <span class="n">data</span><span class="p">})</span>
+
+    <span class="k">def</span> <span class="nf">_manual_update</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">events</span><span class="p">,</span> <span class="n">model</span><span class="p">,</span> <span class="n">doc</span><span class="p">,</span> <span class="n">root</span><span class="p">,</span> <span class="n">parent</span><span class="p">,</span> <span class="n">comm</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">event</span> <span class="ow">in</span> <span class="n">events</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">event</span><span class="o">.</span><span class="n">type</span> <span class="o">==</span> <span class="s1">'triggered'</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">_updating</span><span class="p">:</span>
+                <span class="k">continue</span>
+            <span class="k">elif</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s1">'_update_'</span> <span class="o">+</span> <span class="n">event</span><span class="o">.</span><span class="n">name</span><span class="p">):</span>
+                <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s1">'_update_'</span> <span class="o">+</span> <span class="n">event</span><span class="o">.</span><span class="n">name</span><span class="p">)(</span><span class="n">model</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">_update_cds</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">events</span><span class="p">):</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_updating</span><span class="p">:</span>
+            <span class="k">return</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_processed</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_data</span><span class="p">()</span>
+        <span class="k">for</span> <span class="n">ref</span><span class="p">,</span> <span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">_</span><span class="p">)</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_models</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="n">m</span><span class="o">.</span><span class="n">source</span><span class="o">.</span><span class="n">data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_data</span>
+            <span class="n">push_on_root</span><span class="p">(</span><span class="n">ref</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">_update_selected</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">events</span><span class="p">,</span> <span class="n">indices</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_updating</span><span class="p">:</span>
+            <span class="k">return</span>
+        <span class="n">indices</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">selection</span> <span class="k">if</span> <span class="n">indices</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">indices</span>
+        <span class="k">for</span> <span class="n">ref</span><span class="p">,</span> <span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">_</span><span class="p">)</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_models</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="n">m</span><span class="o">.</span><span class="n">source</span><span class="o">.</span><span class="n">selected</span><span class="o">.</span><span class="n">indices</span> <span class="o">=</span> <span class="n">indices</span>
+            <span class="n">push_on_root</span><span class="p">(</span><span class="n">ref</span><span class="p">)</span>
+
+    <span class="nd">@updating</span>
+    <span class="k">def</span> <span class="nf">_stream</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">stream</span><span class="p">,</span> <span class="n">rollover</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">ref</span><span class="p">,</span> <span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">_</span><span class="p">)</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_models</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="n">m</span><span class="o">.</span><span class="n">source</span><span class="o">.</span><span class="n">stream</span><span class="p">(</span><span class="n">stream</span><span class="p">,</span> <span class="n">rollover</span><span class="p">)</span>
+            <span class="n">push_on_root</span><span class="p">(</span><span class="n">ref</span><span class="p">)</span>
+
+    <span class="nd">@updating</span>
+    <span class="k">def</span> <span class="nf">_patch</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">patch</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">ref</span><span class="p">,</span> <span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">_</span><span class="p">)</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_models</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="n">m</span><span class="o">.</span><span class="n">source</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">patch</span><span class="p">)</span>
+            <span class="n">push_on_root</span><span class="p">(</span><span class="n">ref</span><span class="p">)</span>
+
+<div class="viewcode-block" id="SyncableData.stream"><a class="viewcode-back" href="../../api/panel.reactive.html#panel.reactive.SyncableData.stream">[docs]</a>    <span class="k">def</span> <span class="nf">stream</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">stream_value</span><span class="p">,</span> <span class="n">rollover</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">reset_index</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+        <span class="sd">"""</span>
+<span class="sd">        Streams (appends) the `stream_value` provided to the existing</span>
+<span class="sd">        value in an efficient manner.</span>
+
+<span class="sd">        Arguments</span>
+<span class="sd">        ---------</span>
+<span class="sd">        stream_value: (Union[pd.DataFrame, pd.Series, Dict])</span>
+<span class="sd">          The new value(s) to append to the existing value.</span>
+<span class="sd">        rollover: int</span>
+<span class="sd">           A maximum column size, above which data from the start of</span>
+<span class="sd">           the column begins to be discarded. If None, then columns</span>
+<span class="sd">           will continue to grow unbounded.</span>
+<span class="sd">        reset_index (bool, default=True):</span>
+<span class="sd">          If True and the stream_value is a DataFrame, then its index</span>
+<span class="sd">          is reset. Helps to keep the index unique and named `index`.</span>
+
+<span class="sd">        Raises</span>
+<span class="sd">        ------</span>
+<span class="sd">        ValueError: Raised if the stream_value is not a supported type.</span>
+
+<span class="sd">        Examples</span>
+<span class="sd">        --------</span>
+
+<span class="sd">        Stream a Series to a DataFrame</span>
+<span class="sd">        &gt;&gt;&gt; value = pd.DataFrame({"x": [1, 2], "y": ["a", "b"]})</span>
+<span class="sd">        &gt;&gt;&gt; obj = DataComponent(value)</span>
+<span class="sd">        &gt;&gt;&gt; stream_value = pd.Series({"x": 4, "y": "d"})</span>
+<span class="sd">        &gt;&gt;&gt; obj.stream(stream_value)</span>
+<span class="sd">        &gt;&gt;&gt; obj.value.to_dict("list")</span>
+<span class="sd">        {'x': [1, 2, 4], 'y': ['a', 'b', 'd']}</span>
+
+<span class="sd">        Stream a Dataframe to a Dataframe</span>
+<span class="sd">        &gt;&gt;&gt; value = pd.DataFrame({"x": [1, 2], "y": ["a", "b"]})</span>
+<span class="sd">        &gt;&gt;&gt; obj = DataComponent(value)</span>
+<span class="sd">        &gt;&gt;&gt; stream_value = pd.DataFrame({"x": [3, 4], "y": ["c", "d"]})</span>
+<span class="sd">        &gt;&gt;&gt; obj.stream(stream_value)</span>
+<span class="sd">        &gt;&gt;&gt; obj.value.to_dict("list")</span>
+<span class="sd">        {'x': [1, 2, 3, 4], 'y': ['a', 'b', 'c', 'd']}</span>
+
+<span class="sd">        Stream a Dictionary row to a DataFrame</span>
+<span class="sd">        &gt;&gt;&gt; value = pd.DataFrame({"x": [1, 2], "y": ["a", "b"]})</span>
+<span class="sd">        &gt;&gt;&gt; tabulator = DataComponent(value)</span>
+<span class="sd">        &gt;&gt;&gt; stream_value = {"x": 4, "y": "d"}</span>
+<span class="sd">        &gt;&gt;&gt; obj.stream(stream_value)</span>
+<span class="sd">        &gt;&gt;&gt; obj.value.to_dict("list")</span>
+<span class="sd">        {'x': [1, 2, 4], 'y': ['a', 'b', 'd']}</span>
+
+<span class="sd">        Stream a Dictionary of Columns to a Dataframe</span>
+<span class="sd">        &gt;&gt;&gt; value = pd.DataFrame({"x": [1, 2], "y": ["a", "b"]})</span>
+<span class="sd">        &gt;&gt;&gt; obj = DataComponent(value)</span>
+<span class="sd">        &gt;&gt;&gt; stream_value = {"x": [3, 4], "y": ["c", "d"]}</span>
+<span class="sd">        &gt;&gt;&gt; obj.stream(stream_value)</span>
+<span class="sd">        &gt;&gt;&gt; obj.value.to_dict("list")</span>
+<span class="sd">        {'x': [1, 2, 3, 4], 'y': ['a', 'b', 'c', 'd']}</span>
+<span class="sd">        """</span>
+        <span class="k">if</span> <span class="s1">'pandas'</span> <span class="ow">in</span> <span class="n">sys</span><span class="o">.</span><span class="n">modules</span><span class="p">:</span>
+            <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">pd</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="k">if</span> <span class="n">pd</span> <span class="ow">and</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">stream_value</span><span class="p">,</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">):</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_processed</span><span class="p">,</span> <span class="nb">dict</span><span class="p">):</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">stream</span><span class="p">(</span><span class="n">stream_value</span><span class="o">.</span><span class="n">to_dict</span><span class="p">(),</span> <span class="n">rollover</span><span class="p">)</span>
+                <span class="k">return</span>
+            <span class="k">if</span> <span class="n">reset_index</span><span class="p">:</span>
+                <span class="n">value_index_start</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_processed</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">max</span><span class="p">()</span> <span class="o">+</span> <span class="mi">1</span>
+                <span class="n">stream_value</span> <span class="o">=</span> <span class="n">stream_value</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+                <span class="n">stream_value</span><span class="o">.</span><span class="n">index</span> <span class="o">+=</span> <span class="n">value_index_start</span>
+            <span class="n">combined</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="bp">self</span><span class="o">.</span><span class="n">_processed</span><span class="p">,</span> <span class="n">stream_value</span><span class="p">])</span>
+            <span class="k">if</span> <span class="n">rollover</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="n">combined</span> <span class="o">=</span> <span class="n">combined</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="o">-</span><span class="n">rollover</span><span class="p">:]</span>
+            <span class="k">with</span> <span class="n">param</span><span class="o">.</span><span class="n">discard_events</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_update_data</span><span class="p">(</span><span class="n">combined</span><span class="p">)</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_updating</span> <span class="o">=</span> <span class="kc">True</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">param</span><span class="o">.</span><span class="n">trigger</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_data_params</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+            <span class="k">finally</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_updating</span> <span class="o">=</span> <span class="kc">False</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_updating</span> <span class="o">=</span> <span class="kc">True</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_stream</span><span class="p">(</span><span class="n">stream_value</span><span class="p">,</span> <span class="n">rollover</span><span class="p">)</span>
+            <span class="k">finally</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_updating</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="k">elif</span> <span class="n">pd</span> <span class="ow">and</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">stream_value</span><span class="p">,</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">):</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_processed</span><span class="p">,</span> <span class="nb">dict</span><span class="p">):</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">stream</span><span class="p">({</span><span class="n">k</span><span class="p">:</span> <span class="p">[</span><span class="n">v</span><span class="p">]</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">stream_value</span><span class="o">.</span><span class="n">to_dict</span><span class="p">()</span><span class="o">.</span><span class="n">items</span><span class="p">()},</span> <span class="n">rollover</span><span class="p">)</span>
+                <span class="k">return</span>
+            <span class="n">value_index_start</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_processed</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">max</span><span class="p">()</span> <span class="o">+</span> <span class="mi">1</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_processed</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">value_index_start</span><span class="p">]</span> <span class="o">=</span> <span class="n">stream_value</span>
+            <span class="k">with</span> <span class="n">param</span><span class="o">.</span><span class="n">discard_events</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_update_data</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_processed</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_updating</span> <span class="o">=</span> <span class="kc">True</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_stream</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_processed</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">:],</span> <span class="n">rollover</span><span class="p">)</span>
+            <span class="k">finally</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_updating</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">stream_value</span><span class="p">,</span> <span class="nb">dict</span><span class="p">):</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_processed</span><span class="p">,</span> <span class="nb">dict</span><span class="p">):</span>
+                <span class="k">if</span> <span class="ow">not</span> <span class="nb">all</span><span class="p">(</span><span class="n">col</span> <span class="ow">in</span> <span class="n">stream_value</span> <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_data</span><span class="p">):</span>
+                    <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">"Stream update must append to all columns."</span><span class="p">)</span>
+                <span class="k">for</span> <span class="n">col</span><span class="p">,</span> <span class="n">array</span> <span class="ow">in</span> <span class="n">stream_value</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+                    <span class="n">combined</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">([</span><span class="bp">self</span><span class="o">.</span><span class="n">_data</span><span class="p">[</span><span class="n">col</span><span class="p">],</span> <span class="n">array</span><span class="p">])</span>
+                    <span class="k">if</span> <span class="n">rollover</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                        <span class="n">combined</span> <span class="o">=</span> <span class="n">combined</span><span class="p">[</span><span class="o">-</span><span class="n">rollover</span><span class="p">:]</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">_update_column</span><span class="p">(</span><span class="n">col</span><span class="p">,</span> <span class="n">combined</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_updating</span> <span class="o">=</span> <span class="kc">True</span>
+                <span class="k">try</span><span class="p">:</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">_stream</span><span class="p">(</span><span class="n">stream_value</span><span class="p">,</span> <span class="n">rollover</span><span class="p">)</span>
+                <span class="k">finally</span><span class="p">:</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">_updating</span> <span class="o">=</span> <span class="kc">False</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">try</span><span class="p">:</span>
+                    <span class="n">stream_value</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">stream_value</span><span class="p">)</span>
+                <span class="k">except</span> <span class="ne">ValueError</span><span class="p">:</span>
+                    <span class="n">stream_value</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">stream_value</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">stream</span><span class="p">(</span><span class="n">stream_value</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">"The stream value provided is not a DataFrame, Series or Dict!"</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="SyncableData.patch"><a class="viewcode-back" href="../../api/panel.reactive.html#panel.reactive.SyncableData.patch">[docs]</a>    <span class="k">def</span> <span class="nf">patch</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">patch_value</span><span class="p">):</span>
+        <span class="sd">"""</span>
+<span class="sd">        Efficiently patches (updates) the existing value with the `patch_value`.</span>
+
+<span class="sd">        Arguments</span>
+<span class="sd">        ---------</span>
+<span class="sd">        patch_value: (Union[pd.DataFrame, pd.Series, Dict])</span>
+<span class="sd">          The value(s) to patch the existing value with.</span>
+
+<span class="sd">        Raises</span>
+<span class="sd">        ------</span>
+<span class="sd">        ValueError: Raised if the patch_value is not a supported type.</span>
+
+<span class="sd">        Examples</span>
+<span class="sd">        --------</span>
+
+<span class="sd">        Patch a DataFrame with a Dictionary row.</span>
+<span class="sd">        &gt;&gt;&gt; value = pd.DataFrame({"x": [1, 2], "y": ["a", "b"]})</span>
+<span class="sd">        &gt;&gt;&gt; obj = DataComponent(value)</span>
+<span class="sd">        &gt;&gt;&gt; patch_value = {"x": [(0, 3)]}</span>
+<span class="sd">        &gt;&gt;&gt; obj.patch(patch_value)</span>
+<span class="sd">        &gt;&gt;&gt; obj.value.to_dict("list")</span>
+<span class="sd">        {'x': [3, 2], 'y': ['a', 'b']}</span>
+
+<span class="sd">        Patch a Dataframe with a Dictionary of Columns.</span>
+<span class="sd">        &gt;&gt;&gt; value = pd.DataFrame({"x": [1, 2], "y": ["a", "b"]})</span>
+<span class="sd">        &gt;&gt;&gt; obj = DataComponent(value)</span>
+<span class="sd">        &gt;&gt;&gt; patch_value = {"x": [(slice(2), (3,4))], "y": [(1,'d')]}</span>
+<span class="sd">        &gt;&gt;&gt; obj.patch(patch_value)</span>
+<span class="sd">        &gt;&gt;&gt; obj.value.to_dict("list")</span>
+<span class="sd">        {'x': [3, 4], 'y': ['a', 'd']}</span>
+
+<span class="sd">        Patch a DataFrame with a Series. Please note the index is used in the update.</span>
+<span class="sd">        &gt;&gt;&gt; value = pd.DataFrame({"x": [1, 2], "y": ["a", "b"]})</span>
+<span class="sd">        &gt;&gt;&gt; obj = DataComponent(value)</span>
+<span class="sd">        &gt;&gt;&gt; patch_value = pd.Series({"index": 1, "x": 4, "y": "d"})</span>
+<span class="sd">        &gt;&gt;&gt; obj.patch(patch_value)</span>
+<span class="sd">        &gt;&gt;&gt; obj.value.to_dict("list")</span>
+<span class="sd">        {'x': [1, 4], 'y': ['a', 'd']}</span>
+
+<span class="sd">        Patch a Dataframe with a Dataframe. Please note the index is used in the update.</span>
+<span class="sd">        &gt;&gt;&gt; value = pd.DataFrame({"x": [1, 2], "y": ["a", "b"]})</span>
+<span class="sd">        &gt;&gt;&gt; obj = DataComponent(value)</span>
+<span class="sd">        &gt;&gt;&gt; patch_value = pd.DataFrame({"x": [3, 4], "y": ["c", "d"]})</span>
+<span class="sd">        &gt;&gt;&gt; obj.patch(patch_value)</span>
+<span class="sd">        &gt;&gt;&gt; obj.value.to_dict("list")</span>
+<span class="sd">        {'x': [3, 4], 'y': ['c', 'd']}</span>
+<span class="sd">        """</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_processed</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">patch_value</span><span class="p">,</span> <span class="nb">dict</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_patch</span><span class="p">(</span><span class="n">patch_value</span><span class="p">)</span>
+            <span class="k">return</span>
+
+        <span class="k">if</span> <span class="s1">'pandas'</span> <span class="ow">in</span> <span class="n">sys</span><span class="o">.</span><span class="n">modules</span><span class="p">:</span>
+            <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">pd</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="n">data</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_data_params</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+        <span class="k">if</span> <span class="n">pd</span> <span class="ow">and</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">patch_value</span><span class="p">,</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">):</span>
+            <span class="n">patch_value_dict</span> <span class="o">=</span> <span class="p">{}</span>
+            <span class="k">for</span> <span class="n">column</span> <span class="ow">in</span> <span class="n">patch_value</span><span class="o">.</span><span class="n">columns</span><span class="p">:</span>
+                <span class="n">patch_value_dict</span><span class="p">[</span><span class="n">column</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
+                <span class="k">for</span> <span class="n">index</span> <span class="ow">in</span> <span class="n">patch_value</span><span class="o">.</span><span class="n">index</span><span class="p">:</span>
+                    <span class="n">patch_value_dict</span><span class="p">[</span><span class="n">column</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">index</span><span class="p">,</span> <span class="n">patch_value</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">index</span><span class="p">,</span> <span class="n">column</span><span class="p">]))</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">patch_value_dict</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">pd</span> <span class="ow">and</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">patch_value</span><span class="p">,</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">):</span>
+            <span class="k">if</span> <span class="s2">"index"</span> <span class="ow">in</span> <span class="n">patch_value</span><span class="p">:</span>  <span class="c1"># Series orient is row</span>
+                <span class="n">patch_value_dict</span> <span class="o">=</span> <span class="p">{</span>
+                    <span class="n">k</span><span class="p">:</span> <span class="p">[(</span><span class="n">patch_value</span><span class="p">[</span><span class="s2">"index"</span><span class="p">],</span> <span class="n">v</span><span class="p">)]</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">patch_value</span><span class="o">.</span><span class="n">items</span><span class="p">()</span>
+                <span class="p">}</span>
+                <span class="n">patch_value_dict</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">"index"</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>  <span class="c1"># Series orient is column</span>
+                <span class="n">patch_value_dict</span> <span class="o">=</span> <span class="p">{</span>
+                    <span class="n">patch_value</span><span class="o">.</span><span class="n">name</span><span class="p">:</span> <span class="p">[(</span><span class="n">index</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span> <span class="k">for</span> <span class="n">index</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">patch_value</span><span class="o">.</span><span class="n">items</span><span class="p">()]</span>
+                <span class="p">}</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="n">patch_value_dict</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">patch_value</span><span class="p">,</span> <span class="nb">dict</span><span class="p">):</span>
+            <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">patch_value</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+                <span class="k">for</span> <span class="n">index</span><span class="p">,</span> <span class="n">patch</span>  <span class="ow">in</span> <span class="n">v</span><span class="p">:</span>
+                    <span class="k">if</span> <span class="n">pd</span> <span class="ow">and</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_processed</span><span class="p">,</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">):</span>
+                        <span class="n">data</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">index</span><span class="p">,</span> <span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="n">patch</span>
+                    <span class="k">else</span><span class="p">:</span>
+                        <span class="n">data</span><span class="p">[</span><span class="n">k</span><span class="p">][</span><span class="n">index</span><span class="p">]</span> <span class="o">=</span> <span class="n">patch</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_updating</span> <span class="o">=</span> <span class="kc">True</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_patch</span><span class="p">(</span><span class="n">patch_value</span><span class="p">)</span>
+            <span class="k">finally</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_updating</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                <span class="sa">f</span><span class="s2">"Patching with a patch_value of type </span><span class="si">{</span><span class="nb">type</span><span class="p">(</span><span class="n">patch_value</span><span class="p">)</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="s2"> "</span>
+                <span class="s2">"is not supported. Please provide a DataFrame, Series or Dict."</span>
+            <span class="p">)</span></div></div>
+
+
+<div class="viewcode-block" id="ReactiveData"><a class="viewcode-back" href="../../api/panel.reactive.html#panel.reactive.ReactiveData">[docs]</a><span class="k">class</span> <span class="nc">ReactiveData</span><span class="p">(</span><span class="n">SyncableData</span><span class="p">):</span>
+    <span class="sd">"""</span>
+<span class="sd">    An extension of SyncableData which bi-directionally syncs a data</span>
+<span class="sd">    parameter between frontend and backend using a ColumnDataSource.</span>
+<span class="sd">    """</span>
+
+    <span class="k">def</span> <span class="nf">_update_selection</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">indices</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">selection</span> <span class="o">=</span> <span class="n">indices</span>
+
+    <span class="k">def</span> <span class="nf">_process_events</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">events</span><span class="p">):</span>
+        <span class="k">if</span> <span class="s1">'data'</span> <span class="ow">in</span> <span class="n">events</span><span class="p">:</span>
+            <span class="n">data</span> <span class="o">=</span> <span class="n">events</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">'data'</span><span class="p">)</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_updating</span><span class="p">:</span>
+                <span class="n">data</span> <span class="o">=</span> <span class="p">{}</span>
+            <span class="n">_</span><span class="p">,</span> <span class="n">old_data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_data</span><span class="p">()</span>
+            <span class="n">updated</span> <span class="o">=</span> <span class="kc">False</span>
+            <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">data</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+                <span class="k">if</span> <span class="n">k</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">indexes</span><span class="p">:</span>
+                    <span class="k">continue</span>
+                <span class="n">k</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_renamed_cols</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">k</span><span class="p">,</span> <span class="n">k</span><span class="p">)</span>
+                <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="nb">dict</span><span class="p">):</span>
+                    <span class="n">v</span> <span class="o">=</span> <span class="p">[</span><span class="n">v</span> <span class="k">for</span> <span class="n">_</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">v</span><span class="o">.</span><span class="n">items</span><span class="p">(),</span> <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">it</span><span class="p">:</span> <span class="nb">int</span><span class="p">(</span><span class="n">it</span><span class="p">[</span><span class="mi">0</span><span class="p">]))]</span>
+                <span class="k">try</span><span class="p">:</span>
+                    <span class="n">isequal</span> <span class="o">=</span> <span class="p">(</span><span class="n">old_data</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">==</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">v</span><span class="p">))</span><span class="o">.</span><span class="n">all</span><span class="p">()</span>
+                <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
+                    <span class="n">isequal</span> <span class="o">=</span> <span class="kc">False</span>
+                <span class="k">if</span> <span class="ow">not</span> <span class="n">isequal</span><span class="p">:</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">_update_column</span><span class="p">(</span><span class="n">k</span><span class="p">,</span> <span class="n">v</span><span class="p">)</span>
+                    <span class="n">updated</span> <span class="o">=</span> <span class="kc">True</span>
+            <span class="k">if</span> <span class="n">updated</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_updating</span> <span class="o">=</span> <span class="kc">True</span>
+                <span class="k">try</span><span class="p">:</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">param</span><span class="o">.</span><span class="n">trigger</span><span class="p">(</span><span class="s1">'value'</span><span class="p">)</span>
+                <span class="k">finally</span><span class="p">:</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">_updating</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="k">if</span> <span class="s1">'indices'</span> <span class="ow">in</span> <span class="n">events</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_updating</span> <span class="o">=</span> <span class="kc">True</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_update_selection</span><span class="p">(</span><span class="n">events</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">'indices'</span><span class="p">))</span>
+            <span class="k">finally</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_updating</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">ReactiveData</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">_process_events</span><span class="p">(</span><span class="n">events</span><span class="p">)</span></div>
+</pre></div>
+</div>
+</div>
+<!-- END MAIN BODY OF DOCS ––––––––––––– -->
+<!-- Google Analytics -->
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async="" src="https://www.googletagmanager.com/gtag/js?id=UA-154795830-2"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-154795830-2', { 'anonymize_ip': true });
+</script>
+<!-- MathJax Config -->
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}
+});
+</script>
+<!-- End Document
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+</body>
+</html>

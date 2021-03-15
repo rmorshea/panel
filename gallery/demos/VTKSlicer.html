@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<!-- Basic Page Needs
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+<meta charset="utf-8"/>
+<title>Vtkslicer — Panel 0.11.1+g238199f-dirty documentation</title>
+<meta content="High-level dashboarding for python visualization libraries" name="description"/>
+<meta content="Panel contributors" name="author"/>
+<!-- Mobile Specific Metas
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<!-- FONT
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+<script src="https://ajax.googleapis.com/ajax/libs/webfont/1.6.16/webfont.js"></script>
+<script>
+    WebFont.load({
+      google: {
+        families: ['Source Sans Pro']
+      }
+    });
+  </script>
+<!-- CSS
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+<link href="../../_static/css/main.css" rel="stylesheet"/>
+<link href="../../_static/nbsite.css" rel="stylesheet"/>
+<link href="../../_static/site.css" rel="stylesheet"/>
+<!-- Scripts
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script async="" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML" type="text/javascript">
+</script>
+<script src="../../_static/js/main.js"></script>
+<!-- Favicon
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+<link href="../../_static/favicon.ico" rel="icon" type="image/png"/>
+<!-- Canonical
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+<link href="https://panel.holoviz.org/gallery/demos/VTKSlicer.html" rel="canonical">
+</link></head>
+<body class="">
+<header class="navigation">
+<div class="wrapper">
+<a class="logo" href="../../index.html">
+<img alt="Logo" src="../../_static/logo_horizontal.png"/>
+</a>
+<a class="navigation-menu-button" href="javascript:void(0)" id="js-mobile-menu">Menu</a>
+<nav>
+<ul class="navigation-menu show" id="js-navigation-menu">
+<li class="nav-link doc-head"><a href="//discourse.holoviz.org">Discourse</a></li>
+<li class="nav-link doc-head"><a href="//twitter.com/Panel_org">Twitter</a></li>
+<li class="nav-link doc-head"><a href="//github.com/pyviz/panel">Github</a></li>
+<li class="nav-link">
+<div style="display:inline-block;vertical-align: middle;">
+<div class="search-bar">
+<form action="../../search.html" method="get" role="search">
+<input name="q" placeholder="Search" type="search"/>
+<button type="submit">
+<img alt="Search Icon" src="https://raw.githubusercontent.com/thoughtbot/refills/master/source/images/search-icon-black.png"/>
+</button>
+</form>
+</div>
+</div>
+</li>
+</ul>
+</nav>
+</div>
+</header>
+<div class="second-nav">
+<nav>
+<ul class="navigation-menu show">
+<li class="nav-link doc-head"><a href="../../getting_started/index.html">Getting started</a></li>
+<li class="nav-link doc-head"><a href="../../user_guide/index.html">User Guide</a></li>
+<li class="nav-link doc-head"><a href="../index.html">Gallery</a></li>
+<li class="nav-link doc-head"><a href="../../reference/index.html">Reference Gallery</a></li>
+<li class="nav-link doc-head"><a href="../../developer_guide/index.html">Developer Guide</a></li>
+<li class="nav-link doc-head"><a href="../../releases.html">Releases</a></li>
+<li class="nav-link doc-head"><a href="../../api/index.html">API</a></li>
+<li class="nav-link doc-head"><a href="../../FAQ.html">FAQ</a></li>
+<li class="nav-link doc-head"><a href="../../about.html">About</a></li>
+</ul>
+</nav>
+</div>
+<!-- MAIN BODY OF DOCS –––––––––––––––––– -->
+<div class="docs section">
+<div id="hacketyhackhack"> <!-- style="width:20%;margin-right: 100px;"> --> <!--style="display: none;"> style="display:none;"> -->
+<div class="toc" style="width:15%; margin-right:20px;">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../index.html">Home</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../getting_started/index.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../user_guide/index.html">User Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../index.html">Gallery</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../reference/index.html">Reference Gallery</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../developer_guide/index.html">Developer Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../api/index.html">API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Comparisons.html">Comparisons</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../releases.html">Releases</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Roadmap.html">Road Map</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../FAQ.html">FAQ</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://github.com/pyviz/panel">Github source</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../about.html">About</a></li>
+</ul>
+</div>
+</div>
+<div class="content"> <!-- style="max-width:80%;margin-left:auto;margin-right: auto;">-->
+<div class="section" id="vtkslicer">
+<span id="demos-gallery-vtkslicer"></span><h1>Vtkslicer<a class="headerlink" href="#vtkslicer" title="Permalink to this headline">¶</a></h1>
+<p><a class="reference external" href="https://raw.githubusercontent.com/pyviz/panel/master/examples/gallery/demos/VTKSlicer.ipynb">Download this notebook from GitHub (right-click to download).</a></p>
+<hr class="docutils"/>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">functools</span> <span class="kn">import</span> <span class="n">partial</span>
+
+<span class="kn">import</span> <span class="nn">holoviews</span> <span class="k">as</span> <span class="nn">hv</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">panel</span> <span class="k">as</span> <span class="nn">pn</span>
+<span class="kn">import</span> <span class="nn">param</span>
+<span class="kn">import</span> <span class="nn">pyvista</span> <span class="k">as</span> <span class="nn">pv</span>
+
+<span class="kn">from</span> <span class="nn">holoviews.operation.datashader</span> <span class="kn">import</span> <span class="n">rasterize</span>
+<span class="kn">from</span> <span class="nn">bokeh.util.serialization</span> <span class="kn">import</span> <span class="n">make_globally_unique_id</span>
+<span class="kn">from</span> <span class="nn">pyvista</span> <span class="kn">import</span> <span class="n">examples</span>
+<span class="kn">from</span> <span class="nn">scipy.ndimage</span> <span class="kn">import</span> <span class="n">zoom</span>
+
+<span class="n">css</span> <span class="o">=</span> <span class="s1">'''</span>
+<span class="s1">.custom-wbox &gt; div.bk {</span>
+<span class="s1">    padding-right: 10px;</span>
+<span class="s1">}</span>
+<span class="s1">.scrollable {</span>
+<span class="s1">    overflow: auto !important;</span>
+<span class="s1">}</span>
+<span class="s1">'''</span>
+<span class="n">js_files</span> <span class="o">=</span> <span class="p">{</span><span class="s1">'jquery'</span><span class="p">:</span> <span class="s1">'https://code.jquery.com/jquery-1.11.1.min.js'</span><span class="p">,</span>
+            <span class="s1">'goldenlayout'</span><span class="p">:</span> <span class="s1">'https://golden-layout.com/files/latest/js/goldenlayout.min.js'</span><span class="p">}</span>
+<span class="n">css_files</span> <span class="o">=</span> <span class="p">[</span><span class="s1">'https://golden-layout.com/files/latest/css/goldenlayout-base.css'</span><span class="p">,</span>
+             <span class="s1">'https://golden-layout.com/files/latest/css/goldenlayout-dark-theme.css'</span><span class="p">]</span>
+
+<span class="n">pn</span><span class="o">.</span><span class="n">extension</span><span class="p">(</span><span class="s1">'vtk'</span><span class="p">,</span> <span class="n">js_files</span><span class="o">=</span><span class="n">js_files</span><span class="p">,</span> <span class="n">raw_css</span><span class="o">=</span><span class="p">[</span><span class="n">css</span><span class="p">],</span> <span class="n">css_files</span><span class="o">=</span><span class="n">css_files</span><span class="p">)</span>
+
+<span class="n">hv</span><span class="o">.</span><span class="n">renderer</span><span class="p">(</span><span class="s1">'bokeh'</span><span class="p">)</span><span class="o">.</span><span class="n">theme</span> <span class="o">=</span> <span class="s1">'dark_minimal'</span>
+<span class="n">hv</span><span class="o">.</span><span class="n">opts</span><span class="o">.</span><span class="n">defaults</span><span class="p">(</span><span class="n">hv</span><span class="o">.</span><span class="n">opts</span><span class="o">.</span><span class="n">Image</span><span class="p">(</span><span class="n">responsive</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">tools</span><span class="o">=</span><span class="p">[</span><span class="s1">'hover'</span><span class="p">]))</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Declare-callbacks">Declare callbacks<a class="anchor-link" href="#Declare-callbacks">¶</a></h2>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span><span class="k">class</span> <span class="nc">ImageSmoother</span><span class="p">(</span><span class="n">param</span><span class="o">.</span><span class="n">Parameterized</span><span class="p">):</span>
+    
+    <span class="n">smooth_fun</span> <span class="o">=</span> <span class="n">param</span><span class="o">.</span><span class="n">Parameter</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+    <span class="n">smooth_level</span> <span class="o">=</span> <span class="n">param</span><span class="o">.</span><span class="n">Integer</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">bounds</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">10</span><span class="p">))</span>
+    <span class="n">order</span> <span class="o">=</span> <span class="n">param</span><span class="o">.</span><span class="n">Selector</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">objects</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">])</span>
+    
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">params</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">ImageSmoother</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="o">**</span><span class="n">params</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_update_fun</span><span class="p">()</span>
+
+    <span class="nd">@param</span><span class="o">.</span><span class="n">depends</span><span class="p">(</span><span class="s1">'order'</span><span class="p">,</span> <span class="s1">'smooth_level'</span><span class="p">,</span> <span class="n">watch</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">_update_fun</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">smooth_fun</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">zoom</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">zoom</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">smooth_level</span><span class="p">,</span> <span class="n">order</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">order</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">update_camera_projection</span><span class="p">(</span><span class="o">*</span><span class="n">evts</span><span class="p">):</span>
+    <span class="n">volume</span><span class="o">.</span><span class="n">camera</span><span class="p">[</span><span class="s1">'parallelProjection'</span><span class="p">]</span> <span class="o">=</span> <span class="n">evts</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">new</span>
+    <span class="n">volume</span><span class="o">.</span><span class="n">param</span><span class="o">.</span><span class="n">trigger</span><span class="p">(</span><span class="s1">'camera'</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">hook_reset_range</span><span class="p">(</span><span class="n">plot</span><span class="p">,</span> <span class="n">elem</span><span class="p">,</span> <span class="n">lbrt</span><span class="p">):</span>
+    <span class="n">bkplot</span> <span class="o">=</span> <span class="n">plot</span><span class="o">.</span><span class="n">handles</span><span class="p">[</span><span class="s1">'plot'</span><span class="p">]</span>
+    <span class="n">x_range</span> <span class="o">=</span> <span class="n">lbrt</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">lbrt</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
+    <span class="n">y_range</span> <span class="o">=</span> <span class="n">lbrt</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">lbrt</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span>
+    <span class="n">old_x_range_reset</span> <span class="o">=</span> <span class="n">bkplot</span><span class="o">.</span><span class="n">x_range</span><span class="o">.</span><span class="n">reset_start</span><span class="p">,</span> <span class="n">bkplot</span><span class="o">.</span><span class="n">x_range</span><span class="o">.</span><span class="n">reset_end</span>
+    <span class="n">old_y_range_reset</span> <span class="o">=</span> <span class="n">bkplot</span><span class="o">.</span><span class="n">y_range</span><span class="o">.</span><span class="n">reset_start</span><span class="p">,</span> <span class="n">bkplot</span><span class="o">.</span><span class="n">y_range</span><span class="o">.</span><span class="n">reset_end</span>  
+    <span class="k">if</span> <span class="n">x_range</span> <span class="o">!=</span> <span class="n">old_x_range_reset</span> <span class="ow">or</span> <span class="n">y_range</span> <span class="o">!=</span> <span class="n">old_y_range_reset</span><span class="p">:</span>
+        <span class="n">bkplot</span><span class="o">.</span><span class="n">x_range</span><span class="o">.</span><span class="n">reset_start</span><span class="p">,</span> <span class="n">bkplot</span><span class="o">.</span><span class="n">x_range</span><span class="o">.</span><span class="n">reset_end</span> <span class="o">=</span> <span class="n">x_range</span>
+        <span class="n">bkplot</span><span class="o">.</span><span class="n">x_range</span><span class="o">.</span><span class="n">start</span><span class="p">,</span> <span class="n">bkplot</span><span class="o">.</span><span class="n">x_range</span><span class="o">.</span><span class="n">end</span> <span class="o">=</span> <span class="n">x_range</span>
+        <span class="n">bkplot</span><span class="o">.</span><span class="n">y_range</span><span class="o">.</span><span class="n">reset_start</span><span class="p">,</span> <span class="n">bkplot</span><span class="o">.</span><span class="n">y_range</span><span class="o">.</span><span class="n">reset_end</span> <span class="o">=</span> <span class="n">y_range</span>
+        <span class="n">bkplot</span><span class="o">.</span><span class="n">y_range</span><span class="o">.</span><span class="n">start</span><span class="p">,</span> <span class="n">bkplot</span><span class="o">.</span><span class="n">y_range</span><span class="o">.</span><span class="n">end</span> <span class="o">=</span> <span class="n">y_range</span>
+    
+<span class="k">def</span> <span class="nf">image_slice</span><span class="p">(</span><span class="n">dims</span><span class="p">,</span> <span class="n">array</span><span class="p">,</span> <span class="n">lbrt</span><span class="p">,</span> <span class="n">mapper</span><span class="p">,</span> <span class="n">smooth_fun</span><span class="p">):</span>
+    <span class="n">array</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">array</span><span class="p">)</span>
+    <span class="n">low</span> <span class="o">=</span> <span class="n">mapper</span><span class="p">[</span><span class="s1">'low'</span><span class="p">]</span> <span class="k">if</span> <span class="n">mapper</span> <span class="k">else</span> <span class="n">array</span><span class="o">.</span><span class="n">min</span><span class="p">()</span>
+    <span class="n">high</span> <span class="o">=</span> <span class="n">mapper</span><span class="p">[</span><span class="s1">'high'</span><span class="p">]</span> <span class="k">if</span> <span class="n">mapper</span> <span class="k">else</span> <span class="n">array</span><span class="o">.</span><span class="n">max</span><span class="p">()</span>
+    <span class="n">cmap</span> <span class="o">=</span> <span class="n">mapper</span><span class="p">[</span><span class="s1">'palette'</span><span class="p">]</span> <span class="k">if</span> <span class="n">mapper</span> <span class="k">else</span> <span class="s1">'fire'</span>
+    <span class="n">img</span> <span class="o">=</span> <span class="n">hv</span><span class="o">.</span><span class="n">Image</span><span class="p">(</span><span class="n">smooth_fun</span><span class="p">(</span><span class="n">array</span><span class="p">),</span> <span class="n">bounds</span><span class="o">=</span><span class="n">lbrt</span><span class="p">,</span> <span class="n">kdims</span><span class="o">=</span><span class="n">dims</span><span class="p">,</span> <span class="n">vdims</span><span class="o">=</span><span class="s1">'Intensity'</span><span class="p">)</span>
+    <span class="n">reset_fun</span> <span class="o">=</span> <span class="n">partial</span><span class="p">(</span><span class="n">hook_reset_range</span><span class="p">,</span> <span class="n">lbrt</span><span class="o">=</span><span class="n">lbrt</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">img</span><span class="o">.</span><span class="n">opts</span><span class="p">(</span><span class="n">clim</span><span class="o">=</span><span class="p">(</span><span class="n">low</span><span class="p">,</span> <span class="n">high</span><span class="p">),</span> <span class="n">cmap</span><span class="o">=</span><span class="n">cmap</span><span class="p">,</span> <span class="n">hooks</span><span class="o">=</span><span class="p">[</span><span class="n">reset_fun</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Declare-Panel">Declare Panel<a class="anchor-link" href="#Declare-Panel">¶</a></h2>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span><span class="c1"># Download datasets</span>
+<span class="n">head</span> <span class="o">=</span> <span class="n">examples</span><span class="o">.</span><span class="n">download_head</span><span class="p">()</span>
+<span class="n">brain</span> <span class="o">=</span> <span class="n">examples</span><span class="o">.</span><span class="n">download_brain</span><span class="p">()</span>
+
+<span class="n">dataset_selection</span> <span class="o">=</span> <span class="n">pn</span><span class="o">.</span><span class="n">widgets</span><span class="o">.</span><span class="n">Select</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s1">'Dataset'</span><span class="p">,</span> <span class="n">value</span><span class="o">=</span><span class="n">head</span><span class="p">,</span> <span class="n">options</span><span class="o">=</span><span class="p">{</span><span class="s1">'Head'</span><span class="p">:</span> <span class="n">head</span><span class="p">,</span> <span class="s1">'Brain'</span><span class="p">:</span> <span class="n">brain</span><span class="p">})</span>
+
+<span class="n">volume</span> <span class="o">=</span> <span class="n">pn</span><span class="o">.</span><span class="n">pane</span><span class="o">.</span><span class="n">VTKVolume</span><span class="p">(</span>
+    <span class="n">dataset_selection</span><span class="o">.</span><span class="n">value</span><span class="p">,</span> <span class="n">sizing_mode</span><span class="o">=</span><span class="s1">'stretch_both'</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">400</span><span class="p">,</span> 
+    <span class="n">display_slices</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">orientation_widget</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">render_background</span><span class="o">=</span><span class="s2">"#222222"</span><span class="p">,</span>
+    <span class="n">colormap</span><span class="o">=</span><span class="s1">'blue2cyan'</span>
+<span class="p">)</span>
+
+<span class="n">dataset_selection</span><span class="o">.</span><span class="n">link</span><span class="p">(</span><span class="n">target</span><span class="o">=</span><span class="n">volume</span><span class="p">,</span> <span class="n">value</span><span class="o">=</span><span class="s1">'object'</span><span class="p">)</span>
+
+<span class="n">volume_controls</span> <span class="o">=</span> <span class="n">volume</span><span class="o">.</span><span class="n">controls</span><span class="p">(</span><span class="n">jslink</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">parameters</span><span class="o">=</span><span class="p">[</span>
+    <span class="s1">'render_background'</span><span class="p">,</span> <span class="s1">'display_volume'</span><span class="p">,</span> <span class="s1">'display_slices'</span><span class="p">,</span>
+    <span class="s1">'slice_i'</span><span class="p">,</span> <span class="s1">'slice_j'</span><span class="p">,</span> <span class="s1">'slice_k'</span><span class="p">,</span> <span class="s1">'rescale'</span>
+<span class="p">])</span>
+
+<span class="n">toggle_parallel_proj</span> <span class="o">=</span> <span class="n">pn</span><span class="o">.</span><span class="n">widgets</span><span class="o">.</span><span class="n">Toggle</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s1">'Parallel Projection'</span><span class="p">,</span> <span class="n">value</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+
+<span class="n">toggle_parallel_proj</span><span class="o">.</span><span class="n">param</span><span class="o">.</span><span class="n">watch</span><span class="p">(</span><span class="n">update_camera_projection</span><span class="p">,</span> <span class="p">[</span><span class="s1">'value'</span><span class="p">],</span> <span class="n">onlychanged</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="n">smoother</span> <span class="o">=</span> <span class="n">ImageSmoother</span><span class="p">()</span>
+
+<span class="nd">@pn</span><span class="o">.</span><span class="n">depends</span><span class="p">(</span><span class="n">si</span><span class="o">=</span><span class="n">volume</span><span class="o">.</span><span class="n">param</span><span class="o">.</span><span class="n">slice_i</span><span class="p">,</span> <span class="n">mapper</span><span class="o">=</span><span class="n">volume</span><span class="o">.</span><span class="n">param</span><span class="o">.</span><span class="n">mapper</span><span class="p">,</span>
+            <span class="n">smooth_fun</span><span class="o">=</span><span class="n">smoother</span><span class="o">.</span><span class="n">param</span><span class="o">.</span><span class="n">smooth_fun</span><span class="p">,</span> <span class="n">vol</span><span class="o">=</span><span class="n">volume</span><span class="o">.</span><span class="n">param</span><span class="o">.</span><span class="n">object</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">image_slice_i</span><span class="p">(</span><span class="n">si</span><span class="p">,</span> <span class="n">mapper</span><span class="p">,</span> <span class="n">smooth_fun</span><span class="p">,</span> <span class="n">vol</span><span class="p">):</span>
+    <span class="n">arr</span> <span class="o">=</span> <span class="n">vol</span><span class="o">.</span><span class="n">active_scalars</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">vol</span><span class="o">.</span><span class="n">dimensions</span><span class="p">,</span> <span class="n">order</span><span class="o">=</span><span class="s1">'F'</span><span class="p">)</span>
+    <span class="n">lbrt</span> <span class="o">=</span> <span class="n">vol</span><span class="o">.</span><span class="n">bounds</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="n">vol</span><span class="o">.</span><span class="n">bounds</span><span class="p">[</span><span class="mi">4</span><span class="p">],</span> <span class="n">vol</span><span class="o">.</span><span class="n">bounds</span><span class="p">[</span><span class="mi">3</span><span class="p">],</span> <span class="n">vol</span><span class="o">.</span><span class="n">bounds</span><span class="p">[</span><span class="mi">5</span><span class="p">]</span>
+    <span class="k">return</span> <span class="n">image_slice</span><span class="p">([</span><span class="s1">'y'</span><span class="p">,</span><span class="s1">'z'</span><span class="p">],</span> <span class="n">arr</span><span class="p">[</span><span class="n">si</span><span class="p">,:,::</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">T</span><span class="p">,</span> <span class="n">lbrt</span><span class="p">,</span> <span class="n">mapper</span><span class="p">,</span> <span class="n">smooth_fun</span><span class="p">)</span>
+
+<span class="nd">@pn</span><span class="o">.</span><span class="n">depends</span><span class="p">(</span><span class="n">sj</span><span class="o">=</span><span class="n">volume</span><span class="o">.</span><span class="n">param</span><span class="o">.</span><span class="n">slice_j</span><span class="p">,</span> <span class="n">mapper</span><span class="o">=</span><span class="n">volume</span><span class="o">.</span><span class="n">param</span><span class="o">.</span><span class="n">mapper</span><span class="p">,</span>
+            <span class="n">smooth_fun</span><span class="o">=</span><span class="n">smoother</span><span class="o">.</span><span class="n">param</span><span class="o">.</span><span class="n">smooth_fun</span><span class="p">,</span> <span class="n">vol</span><span class="o">=</span><span class="n">volume</span><span class="o">.</span><span class="n">param</span><span class="o">.</span><span class="n">object</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">image_slice_j</span><span class="p">(</span><span class="n">sj</span><span class="p">,</span> <span class="n">mapper</span><span class="p">,</span> <span class="n">smooth_fun</span><span class="p">,</span> <span class="n">vol</span><span class="p">):</span>
+    <span class="n">arr</span> <span class="o">=</span> <span class="n">vol</span><span class="o">.</span><span class="n">active_scalars</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">vol</span><span class="o">.</span><span class="n">dimensions</span><span class="p">,</span> <span class="n">order</span><span class="o">=</span><span class="s1">'F'</span><span class="p">)</span>
+    <span class="n">lbrt</span> <span class="o">=</span> <span class="n">vol</span><span class="o">.</span><span class="n">bounds</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">vol</span><span class="o">.</span><span class="n">bounds</span><span class="p">[</span><span class="mi">4</span><span class="p">],</span> <span class="n">vol</span><span class="o">.</span><span class="n">bounds</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">vol</span><span class="o">.</span><span class="n">bounds</span><span class="p">[</span><span class="mi">5</span><span class="p">]</span>
+    <span class="k">return</span> <span class="n">image_slice</span><span class="p">([</span><span class="s1">'x'</span><span class="p">,</span><span class="s1">'z'</span><span class="p">],</span> <span class="n">arr</span><span class="p">[:,</span><span class="n">sj</span><span class="p">,::</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">T</span><span class="p">,</span> <span class="n">lbrt</span><span class="p">,</span> <span class="n">mapper</span><span class="p">,</span> <span class="n">smooth_fun</span><span class="p">)</span>
+
+<span class="nd">@pn</span><span class="o">.</span><span class="n">depends</span><span class="p">(</span><span class="n">sk</span><span class="o">=</span><span class="n">volume</span><span class="o">.</span><span class="n">param</span><span class="o">.</span><span class="n">slice_k</span><span class="p">,</span> <span class="n">mapper</span><span class="o">=</span><span class="n">volume</span><span class="o">.</span><span class="n">param</span><span class="o">.</span><span class="n">mapper</span><span class="p">,</span>
+            <span class="n">smooth_fun</span><span class="o">=</span><span class="n">smoother</span><span class="o">.</span><span class="n">param</span><span class="o">.</span><span class="n">smooth_fun</span><span class="p">,</span> <span class="n">vol</span><span class="o">=</span><span class="n">volume</span><span class="o">.</span><span class="n">param</span><span class="o">.</span><span class="n">object</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">image_slice_k</span><span class="p">(</span><span class="n">sk</span><span class="p">,</span> <span class="n">mapper</span><span class="p">,</span> <span class="n">smooth_fun</span><span class="p">,</span> <span class="n">vol</span><span class="p">):</span>
+    <span class="n">arr</span> <span class="o">=</span> <span class="n">vol</span><span class="o">.</span><span class="n">active_scalars</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">vol</span><span class="o">.</span><span class="n">dimensions</span><span class="p">,</span> <span class="n">order</span><span class="o">=</span><span class="s1">'F'</span><span class="p">)</span>
+    <span class="n">lbrt</span> <span class="o">=</span> <span class="n">vol</span><span class="o">.</span><span class="n">bounds</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">vol</span><span class="o">.</span><span class="n">bounds</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="n">vol</span><span class="o">.</span><span class="n">bounds</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">vol</span><span class="o">.</span><span class="n">bounds</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span>
+    <span class="k">return</span> <span class="n">image_slice</span><span class="p">([</span><span class="s1">'x'</span><span class="p">,</span> <span class="s1">'y'</span><span class="p">],</span> <span class="n">arr</span><span class="p">[:,::</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="n">sk</span><span class="p">]</span><span class="o">.</span><span class="n">T</span><span class="p">,</span> <span class="n">lbrt</span><span class="p">,</span> <span class="n">mapper</span><span class="p">,</span> <span class="n">smooth_fun</span><span class="p">)</span>
+
+<span class="n">dmap_i</span> <span class="o">=</span> <span class="n">rasterize</span><span class="p">(</span><span class="n">hv</span><span class="o">.</span><span class="n">DynamicMap</span><span class="p">(</span><span class="n">image_slice_i</span><span class="p">))</span>
+<span class="n">dmap_j</span> <span class="o">=</span> <span class="n">rasterize</span><span class="p">(</span><span class="n">hv</span><span class="o">.</span><span class="n">DynamicMap</span><span class="p">(</span><span class="n">image_slice_j</span><span class="p">))</span>
+<span class="n">dmap_k</span> <span class="o">=</span> <span class="n">rasterize</span><span class="p">(</span><span class="n">hv</span><span class="o">.</span><span class="n">DynamicMap</span><span class="p">(</span><span class="n">image_slice_k</span><span class="p">))</span>
+
+<span class="n">controller</span> <span class="o">=</span> <span class="n">pn</span><span class="o">.</span><span class="n">WidgetBox</span><span class="p">(</span>
+    <span class="n">pn</span><span class="o">.</span><span class="n">Column</span><span class="p">(</span><span class="n">dataset_selection</span><span class="p">,</span> <span class="n">toggle_parallel_proj</span><span class="p">,</span> <span class="o">*</span><span class="n">volume_controls</span><span class="p">[</span><span class="mi">1</span><span class="p">:],</span> <span class="n">sizing_mode</span><span class="o">=</span><span class="s1">'fixed'</span><span class="p">),</span>
+    <span class="n">pn</span><span class="o">.</span><span class="n">Param</span><span class="p">(</span><span class="n">smoother</span><span class="p">,</span> <span class="n">parameters</span><span class="o">=</span><span class="p">[</span><span class="s1">'smooth_level'</span><span class="p">,</span> <span class="s1">'order'</span><span class="p">]),</span>
+    <span class="n">pn</span><span class="o">.</span><span class="n">layout</span><span class="o">.</span><span class="n">VSpacer</span><span class="p">(),</span>
+    <span class="n">css_classes</span><span class="o">=</span><span class="p">[</span><span class="s1">'panel-widget-box'</span><span class="p">,</span> <span class="s1">'custom-wbox'</span><span class="p">],</span> <span class="n">sizing_mode</span><span class="o">=</span><span class="s1">'stretch_height'</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Set-up-template">Set up template<a class="anchor-link" href="#Set-up-template">¶</a></h2>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span><span class="n">template</span> <span class="o">=</span> <span class="s2">"""</span>
+<span class="s2">{</span><span class="si">%%</span><span class="s2"> extends base </span><span class="si">%%</span><span class="s2">}</span>
+<span class="s2">&lt;!-- goes in body --&gt;</span>
+<span class="s2">{</span><span class="si">%%</span><span class="s2"> block contents </span><span class="si">%%</span><span class="s2">}</span>
+<span class="s2">{</span><span class="si">%%</span><span class="s2"> set context = '</span><span class="si">%s</span><span class="s2">' </span><span class="si">%%</span><span class="s2">}</span>
+<span class="s2">{</span><span class="si">%%</span><span class="s2"> if context == 'notebook' </span><span class="si">%%</span><span class="s2">}</span>
+<span class="s2">    {</span><span class="si">%%</span><span class="s2"> set slicer_id = get_id() </span><span class="si">%%</span><span class="s2">}</span>
+<span class="s2">    &lt;div id='{{slicer_id}}'&gt;&lt;/div&gt;</span>
+<span class="s2">{</span><span class="si">%%</span><span class="s2"> endif </span><span class="si">%%</span><span class="s2">}</span>
+
+<span class="s2">&lt;script&gt;</span>
+<span class="s2">var config = {</span>
+<span class="s2">    settings: {</span>
+<span class="s2">        hasHeaders: true,</span>
+<span class="s2">        constrainDragToContainer: true,</span>
+<span class="s2">        reorderEnabled: true,</span>
+<span class="s2">        selectionEnabled: false,</span>
+<span class="s2">        popoutWholeStack: false,</span>
+<span class="s2">        blockedPopoutsThrowError: true,</span>
+<span class="s2">        closePopoutsOnUnload: true,</span>
+<span class="s2">        showPopoutIcon: false,</span>
+<span class="s2">        showMaximiseIcon: true,</span>
+<span class="s2">        showCloseIcon: false</span>
+<span class="s2">    },</span>
+<span class="s2">    content: [{</span>
+<span class="s2">        type: 'row',</span>
+<span class="s2">        content:[</span>
+<span class="s2">            {</span>
+<span class="s2">                type: 'component',</span>
+<span class="s2">                componentName: 'view',</span>
+<span class="s2">                componentState: { model: '{{ embed(roots.controller) }}',</span>
+<span class="s2">                                  title: 'Controls',</span>
+<span class="s2">                                  width: 350,</span>
+<span class="s2">                                  css_classes:['scrollable']},</span>
+<span class="s2">                isClosable: false,</span>
+<span class="s2">            },</span>
+<span class="s2">            {</span>
+<span class="s2">                type: 'column',</span>
+<span class="s2">                content: [</span>
+<span class="s2">                    {</span>
+<span class="s2">                        type: 'row',</span>
+<span class="s2">                        content:[</span>
+<span class="s2">                            {</span>
+<span class="s2">                                type: 'component',</span>
+<span class="s2">                                componentName: 'view',</span>
+<span class="s2">                                componentState: { model: '{{ embed(roots.scene3d) }}', title: '3D View'},</span>
+<span class="s2">                                isClosable: false,</span>
+<span class="s2">                            },</span>
+<span class="s2">                            {</span>
+<span class="s2">                                type: 'component',</span>
+<span class="s2">                                componentName: 'view',</span>
+<span class="s2">                                componentState: { model: '{{ embed(roots.slice_i) }}', title: 'Slice I'},</span>
+<span class="s2">                                isClosable: false,</span>
+<span class="s2">                            }</span>
+<span class="s2">                        ]</span>
+<span class="s2">                    },</span>
+<span class="s2">                    {</span>
+<span class="s2">                        type: 'row',</span>
+<span class="s2">                        content:[</span>
+<span class="s2">                            {</span>
+<span class="s2">                                type: 'component',</span>
+<span class="s2">                                componentName: 'view',</span>
+<span class="s2">                                componentState: { model: '{{ embed(roots.slice_j) }}', title: 'Slice J'},</span>
+<span class="s2">                                isClosable: false,</span>
+<span class="s2">                            },</span>
+<span class="s2">                            {</span>
+<span class="s2">                                type: 'component',</span>
+<span class="s2">                                componentName: 'view',</span>
+<span class="s2">                                componentState: { model: '{{ embed(roots.slice_k) }}', title: 'Slice K'},</span>
+<span class="s2">                                isClosable: false,</span>
+<span class="s2">                            }</span>
+<span class="s2">                        ]</span>
+<span class="s2">                    }</span>
+<span class="s2">                ]</span>
+<span class="s2">            }</span>
+<span class="s2">        ]</span>
+<span class="s2">    }]</span>
+<span class="s2">};</span>
+
+<span class="s2">{</span><span class="si">%%</span><span class="s2"> if context == 'notebook' </span><span class="si">%%</span><span class="s2">}</span>
+<span class="s2">    var myLayout = new GoldenLayout( config, '#' + '{{slicer_id}}' );</span>
+<span class="s2">    $('#' + '{{slicer_id}}').css({width: '100</span><span class="si">%%</span><span class="s2">', height: '800px', margin: '0px'})</span>
+<span class="s2">{</span><span class="si">%%</span><span class="s2"> else </span><span class="si">%%</span><span class="s2">}</span>
+<span class="s2">    var myLayout = new GoldenLayout( config );</span>
+<span class="s2">{</span><span class="si">%%</span><span class="s2"> endif </span><span class="si">%%</span><span class="s2">}</span>
+
+<span class="s2">myLayout.registerComponent('view', function( container, componentState ){</span>
+<span class="s2">    const {width, css_classes} = componentState</span>
+<span class="s2">    if(width)</span>
+<span class="s2">      container.on('open', () =&gt; container.setSize(width, container.height))</span>
+<span class="s2">    if (css_classes)</span>
+<span class="s2">      css_classes.map((item) =&gt; container.getElement().addClass(item))</span>
+<span class="s2">    container.setTitle(componentState.title)</span>
+<span class="s2">    container.getElement().html(componentState.model);</span>
+<span class="s2">    container.on('resize', () =&gt; window.dispatchEvent(new Event('resize')))</span>
+<span class="s2">});</span>
+
+<span class="s2">myLayout.init();</span>
+<span class="s2">&lt;/script&gt;</span>
+<span class="s2">{</span><span class="si">%%</span><span class="s2"> endblock </span><span class="si">%%</span><span class="s2">}</span>
+<span class="s2">"""</span>
+
+
+<span class="n">tmpl</span> <span class="o">=</span> <span class="n">pn</span><span class="o">.</span><span class="n">Template</span><span class="p">(</span><span class="n">template</span><span class="o">=</span><span class="p">(</span><span class="n">template</span> <span class="o">%</span> <span class="s1">'server'</span><span class="p">),</span> <span class="n">nb_template</span><span class="o">=</span><span class="p">(</span><span class="n">template</span> <span class="o">%</span> <span class="s1">'notebook'</span><span class="p">))</span>
+<span class="n">tmpl</span><span class="o">.</span><span class="n">nb_template</span><span class="o">.</span><span class="n">globals</span><span class="p">[</span><span class="s1">'get_id'</span><span class="p">]</span> <span class="o">=</span> <span class="n">make_globally_unique_id</span>
+
+<span class="n">tmpl</span><span class="o">.</span><span class="n">add_panel</span><span class="p">(</span><span class="s1">'controller'</span><span class="p">,</span> <span class="n">controller</span><span class="p">)</span>
+<span class="n">tmpl</span><span class="o">.</span><span class="n">add_panel</span><span class="p">(</span><span class="s1">'scene3d'</span><span class="p">,</span> <span class="n">volume</span><span class="p">)</span>
+<span class="n">tmpl</span><span class="o">.</span><span class="n">add_panel</span><span class="p">(</span><span class="s1">'slice_i'</span><span class="p">,</span> <span class="n">pn</span><span class="o">.</span><span class="n">panel</span><span class="p">(</span><span class="n">dmap_i</span><span class="p">,</span> <span class="n">sizing_mode</span><span class="o">=</span><span class="s1">'stretch_both'</span><span class="p">))</span>
+<span class="n">tmpl</span><span class="o">.</span><span class="n">add_panel</span><span class="p">(</span><span class="s1">'slice_j'</span><span class="p">,</span> <span class="n">pn</span><span class="o">.</span><span class="n">panel</span><span class="p">(</span><span class="n">dmap_j</span><span class="p">,</span> <span class="n">sizing_mode</span><span class="o">=</span><span class="s1">'stretch_both'</span><span class="p">))</span>
+<span class="n">tmpl</span><span class="o">.</span><span class="n">add_panel</span><span class="p">(</span><span class="s1">'slice_k'</span><span class="p">,</span> <span class="n">pn</span><span class="o">.</span><span class="n">panel</span><span class="p">(</span><span class="n">dmap_k</span><span class="p">,</span> <span class="n">sizing_mode</span><span class="o">=</span><span class="s1">'stretch_both'</span><span class="p">))</span>
+
+<span class="n">tmpl</span><span class="o">.</span><span class="n">servable</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s1">'VTKSlicer'</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div id="scroller-right">
+This web page was generated from a Jupyter notebook and not all
+interactivity will work on this website. <a href="https://raw.githubusercontent.com/holoviz/panel/master/examples/gallery/demos/VTKSlicer.ipynb">Right click to download and run locally</a> for full
+Python-backed interactivity.
+</div><style>
+  .iframe-container {
+    overflow: hidden;
+    padding-top: 56.25%;
+    position: relative;
+    background: url(https://assets.holoviews.org/static/spinner.gif) center center no-repeat;
+  }
+
+  .iframe-container iframe {
+    border: 0;
+    height: 100%;
+    left: 0;
+    position: absolute;
+    top: 0;
+    width: 100%;
+  }
+</style>
+<div class="iframe-container">
+<iframe frameborder="0" onload="this.parentNode.style.background = 'none'" src="https://panel-gallery.pyviz.demo.anaconda.com/VTKSlicer" width="100%"></iframe>
+</div><hr class="docutils"/>
+<p><a class="reference external" href="https://raw.githubusercontent.com/pyviz/panel/master/examples/gallery/demos/VTKSlicer.ipynb">Download this notebook from GitHub (right-click to download).</a></p>
+</div>
+</div>
+</div>
+<!-- END MAIN BODY OF DOCS ––––––––––––– -->
+<!-- Google Analytics -->
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async="" src="https://www.googletagmanager.com/gtag/js?id=UA-154795830-2"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-154795830-2', { 'anonymize_ip': true });
+</script>
+<!-- MathJax Config -->
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}
+});
+</script>
+<!-- End Document
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+</body>
+</html>

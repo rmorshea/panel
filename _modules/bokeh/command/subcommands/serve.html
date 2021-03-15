@@ -1,0 +1,1069 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<!-- Basic Page Needs
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+<meta charset="utf-8"/>
+<title>bokeh.command.subcommands.serve — Panel 0.11.1+g238199f-dirty documentation</title>
+<meta content="High-level dashboarding for python visualization libraries" name="description"/>
+<meta content="Panel contributors" name="author"/>
+<!-- Mobile Specific Metas
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<!-- FONT
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+<script src="https://ajax.googleapis.com/ajax/libs/webfont/1.6.16/webfont.js"></script>
+<script>
+    WebFont.load({
+      google: {
+        families: ['Source Sans Pro']
+      }
+    });
+  </script>
+<!-- CSS
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+<link href="../../../../_static/css/main.css" rel="stylesheet"/>
+<link href="../../../../_static/nbsite.css" rel="stylesheet"/>
+<link href="../../../../_static/site.css" rel="stylesheet"/>
+<!-- Scripts
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script async="" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML" type="text/javascript">
+</script>
+<script src="../../../../_static/js/main.js"></script>
+<!-- Favicon
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+<link href="../../../../_static/favicon.ico" rel="icon" type="image/png"/>
+<!-- Canonical
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+<link href="https://panel.holoviz.org/_modules/bokeh/command/subcommands/serve.html" rel="canonical">
+</link></head>
+<body class="">
+<header class="navigation">
+<div class="wrapper">
+<a class="logo" href="../../../../index.html">
+<img alt="Logo" src="../../../../_static/logo_horizontal.png"/>
+</a>
+<a class="navigation-menu-button" href="javascript:void(0)" id="js-mobile-menu">Menu</a>
+<nav>
+<ul class="navigation-menu show" id="js-navigation-menu">
+<li class="nav-link doc-head"><a href="//discourse.holoviz.org">Discourse</a></li>
+<li class="nav-link doc-head"><a href="//twitter.com/Panel_org">Twitter</a></li>
+<li class="nav-link doc-head"><a href="//github.com/pyviz/panel">Github</a></li>
+<li class="nav-link">
+<div style="display:inline-block;vertical-align: middle;">
+<div class="search-bar">
+<form action="../../../../search.html" method="get" role="search">
+<input name="q" placeholder="Search" type="search"/>
+<button type="submit">
+<img alt="Search Icon" src="https://raw.githubusercontent.com/thoughtbot/refills/master/source/images/search-icon-black.png"/>
+</button>
+</form>
+</div>
+</div>
+</li>
+</ul>
+</nav>
+</div>
+</header>
+<div class="second-nav">
+<nav>
+<ul class="navigation-menu show">
+<li class="nav-link doc-head"><a href="../../../../getting_started/index.html">Getting started</a></li>
+<li class="nav-link doc-head"><a href="../../../../user_guide/index.html">User Guide</a></li>
+<li class="nav-link doc-head"><a href="../../../../gallery/index.html">Gallery</a></li>
+<li class="nav-link doc-head"><a href="../../../../reference/index.html">Reference Gallery</a></li>
+<li class="nav-link doc-head"><a href="../../../../developer_guide/index.html">Developer Guide</a></li>
+<li class="nav-link doc-head"><a href="../../../../releases.html">Releases</a></li>
+<li class="nav-link doc-head"><a href="../../../../api/index.html">API</a></li>
+<li class="nav-link doc-head"><a href="../../../../FAQ.html">FAQ</a></li>
+<li class="nav-link doc-head"><a href="../../../../about.html">About</a></li>
+</ul>
+</nav>
+</div>
+<!-- MAIN BODY OF DOCS –––––––––––––––––– -->
+<div class="docs section">
+<div id="hacketyhackhack"> <!-- style="width:20%;margin-right: 100px;"> --> <!--style="display: none;"> style="display:none;"> -->
+<div class="toc" style="width:15%; margin-right:20px;">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../index.html">Home</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../getting_started/index.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../user_guide/index.html">User Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../gallery/index.html">Gallery</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../reference/index.html">Reference Gallery</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../developer_guide/index.html">Developer Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../api/index.html">API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../Comparisons.html">Comparisons</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../releases.html">Releases</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../Roadmap.html">Road Map</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../FAQ.html">FAQ</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://github.com/pyviz/panel">Github source</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../about.html">About</a></li>
+</ul>
+</div>
+</div>
+<div class="content"> <!-- style="max-width:80%;margin-left:auto;margin-right: auto;">-->
+<h1>Source code for bokeh.command.subcommands.serve</h1><div class="highlight"><pre>
+<span></span><span class="c1">#-----------------------------------------------------------------------------</span>
+<span class="c1"># Copyright (c) 2012 - 2021, Anaconda, Inc., and Bokeh Contributors.</span>
+<span class="c1"># All rights reserved.</span>
+<span class="c1">#</span>
+<span class="c1"># The full license is in the file LICENSE.txt, distributed with this software.</span>
+<span class="c1">#-----------------------------------------------------------------------------</span>
+<span class="sd">'''</span>
+
+<span class="sd">To run a Bokeh application on a Bokeh server from a single Python script,</span>
+<span class="sd">pass the script name to ``bokeh serve`` on the command line:</span>
+
+<span class="sd">.. code-block:: sh</span>
+
+<span class="sd">    bokeh serve app_script.py</span>
+
+<span class="sd">By default, the Bokeh application will be served by the Bokeh server on a</span>
+<span class="sd">default port ({DEFAULT_PORT}) at localhost, under the path ``/app_script``,</span>
+<span class="sd">i.e.,</span>
+
+<span class="sd">.. code-block:: none</span>
+
+<span class="sd">    http://localhost:{DEFAULT_PORT}/app_script</span>
+
+<span class="sd">It is also possible to run the same commmand with jupyter notebooks:</span>
+
+<span class="sd">.. code-block:: sh</span>
+
+<span class="sd">    bokeh serve app_notebook.ipynb</span>
+
+<span class="sd">This will generate the same results as described with a python script</span>
+<span class="sd">and the application will be served on a default port ({DEFAULT_PORT})</span>
+<span class="sd">at localhost, under the path ``/app_notebook``</span>
+
+<span class="sd">Applications can also be created from directories. The directory should</span>
+<span class="sd">contain a ``main.py`` (and any other helper modules that are required) as</span>
+<span class="sd">well as any additional assets (e.g., theme files). Pass the directory name</span>
+<span class="sd">to ``bokeh serve`` to run the application:</span>
+
+<span class="sd">.. code-block:: sh</span>
+
+<span class="sd">    bokeh serve app_dir</span>
+
+<span class="sd">It is possible to run multiple applications at once:</span>
+
+<span class="sd">.. code-block:: sh</span>
+
+<span class="sd">    bokeh serve app_script.py app_dir</span>
+
+<span class="sd">If you would like to automatically open a browser to display the HTML</span>
+<span class="sd">page(s), you can pass the ``--show`` option on the command line:</span>
+
+<span class="sd">.. code-block:: sh</span>
+
+<span class="sd">    bokeh serve app_script.py app_dir --show</span>
+
+<span class="sd">This will open two pages, for ``/app_script`` and ``/app_dir``,</span>
+<span class="sd">respectively.</span>
+
+<span class="sd">If you would like to pass command line arguments to Bokeh applications,</span>
+<span class="sd">you can pass the ``--args`` option as the LAST option on the command</span>
+<span class="sd">line:</span>
+
+<span class="sd">.. code-block:: sh</span>
+
+<span class="sd">    bokeh serve app_script.py myapp.py --args foo bar --baz</span>
+
+<span class="sd">Everything that follows ``--args`` will be included in ``sys.argv`` when</span>
+<span class="sd">the application runs. In this case, when ``myapp.py`` executes, the</span>
+<span class="sd">contents of ``sys.argv`` will be ``['myapp.py', 'foo', 'bar', '--baz']``,</span>
+<span class="sd">consistent with standard Python expectations for ``sys.argv``.</span>
+
+<span class="sd">Note that if multiple scripts or directories are provided, they</span>
+<span class="sd">all receive the same set of command line arguments (if any) given by</span>
+<span class="sd">``--args``.</span>
+
+<span class="sd">If you have only one application, the server root will redirect to it.</span>
+<span class="sd">Otherwise, You can see an index of all running applications at the server root:</span>
+
+<span class="sd">.. code-block:: none</span>
+
+<span class="sd">    http://localhost:5006/</span>
+
+<span class="sd">This index can be disabled with the ``--disable-index`` option, and the redirect</span>
+<span class="sd">behavior can be disabled with the ``--disable-index-redirect`` option.</span>
+
+<span class="sd">Another way to run multiple applications is using glob notation to indicate</span>
+<span class="sd">that all the files matching a particular pattern should be served.</span>
+
+<span class="sd">.. code-block:: sh</span>
+
+<span class="sd">    bokeh serve *.py</span>
+
+<span class="sd">Command line shells will normally expand the ``*.py`` automatically. However,</span>
+<span class="sd">if you are starting a Bokeh server programmatically, then filename arguments</span>
+<span class="sd">with globs may not be expanded by the shell. In situations like this, the</span>
+<span class="sd">``--glob`` flag may be used to make the Bokeh server explicitly perform globbing:</span>
+
+<span class="sd">.. code-block:: python</span>
+
+<span class="sd">    subprocess.call(["bokeh", "serve", "--glob", "*.py"])</span>
+
+<span class="sd">Application Configuration</span>
+<span class="sd">~~~~~~~~~~~~~~~~~~~~~~~~~</span>
+
+<span class="sd">Bokeh server can fork the underlying tornado server into multiprocess.  This is</span>
+<span class="sd">useful when trying to handle multiple connections especially in the context of</span>
+<span class="sd">apps which require high computational loads.  Default behavior is one process.</span>
+<span class="sd">using 0 will auto-detect the number of cores and spin up corresponding number of</span>
+<span class="sd">processes</span>
+
+<span class="sd">.. code-block:: sh</span>
+
+<span class="sd">    bokeh serve app_script.py --num-procs 2</span>
+
+<span class="sd">Note that due to limitations inherent in Tornado, Windows does not support</span>
+<span class="sd">``--num-procs`` values greater than one! In this case consider running multiple</span>
+<span class="sd">Bokeh server instances behind a load balancer.</span>
+
+<span class="sd">The Bokeh server can also add an optional prefix to all URL paths.</span>
+<span class="sd">This can often be useful in conjunction with "reverse proxy" setups.</span>
+
+<span class="sd">.. code-block:: sh</span>
+
+<span class="sd">    bokeh serve app_script.py --prefix foobar</span>
+
+<span class="sd">Then the application will be served under the following URL:</span>
+
+<span class="sd">.. code-block:: none</span>
+
+<span class="sd">    http://localhost:{DEFAULT_PORT}/foobar/app_script</span>
+
+<span class="sd">If needed, Bokeh server can send keep-alive pings at a fixed interval.</span>
+<span class="sd">To configure this feature, set the ``--keep-alive`` option:</span>
+
+<span class="sd">.. code-block:: sh</span>
+
+<span class="sd">    bokeh serve app_script.py --keep-alive 10000</span>
+
+<span class="sd">The value is specified in milliseconds. The default keep-alive interval</span>
+<span class="sd">is 37 seconds. Give a value of 0 to disable keep-alive pings.</span>
+
+<span class="sd">Network Configuration</span>
+<span class="sd">~~~~~~~~~~~~~~~~~~~~~</span>
+
+<span class="sd">To control the port that the Bokeh server listens on, use the ``--port``</span>
+<span class="sd">argument:</span>
+
+<span class="sd">.. code-block:: sh</span>
+
+<span class="sd">    bokeh serve app_script.py --port 8080</span>
+
+<span class="sd">To listen on an arbitrary port, pass ``0`` as the port number.  The actual</span>
+<span class="sd">port number will be logged at startup.</span>
+
+<span class="sd">Similarly, a specific network address can be specified with the</span>
+<span class="sd">``--address`` argument. For example:</span>
+
+<span class="sd">.. code-block:: sh</span>
+
+<span class="sd">    bokeh serve app_script.py --address 0.0.0.0</span>
+
+<span class="sd">will have the Bokeh server listen all available network addresses.</span>
+
+<span class="sd">By default, cross site connections to the Bokeh server websocket are not</span>
+<span class="sd">allowed. You can enable websocket connections originating from additional</span>
+<span class="sd">hosts by specifying them with the ``BOKEH_ALLOW_WS_ORIGIN`` environment variable</span>
+<span class="sd">or the ``--allow-websocket-origin`` option:</span>
+
+<span class="sd">.. code-block:: sh</span>
+
+<span class="sd">    bokeh serve app_script.py --allow-websocket-origin foo.com:8081</span>
+
+<span class="sd">It is possible to specify multiple allowed websocket origins by adding</span>
+<span class="sd">the ``--allow-websocket-origin`` option multiple times and to provide a</span>
+<span class="sd">comma separated list of hosts to ``BOKEH_ALLOW_WS_ORIGIN``</span>
+
+<span class="sd">To have the Bokeh server override the remote IP and URI scheme/protocol for</span>
+<span class="sd">all requests with ``X-Real-Ip``, ``X-Forwarded-For``, ``X-Scheme``,</span>
+<span class="sd">``X-Forwarded-Proto``  headers (if they are provided), set the</span>
+<span class="sd">``--use-xheaders`` option:</span>
+
+<span class="sd">.. code-block:: sh</span>
+
+<span class="sd">    bokeh serve app_script.py --use-xheaders</span>
+
+<span class="sd">This is typically needed when running a Bokeh server behind a reverse proxy</span>
+<span class="sd">that is SSL-terminated.</span>
+
+<span class="sd">.. warning::</span>
+<span class="sd">    It is not advised to set this option on a Bokeh server directly facing</span>
+<span class="sd">    the Internet.</span>
+
+<span class="sd">A Bokeh server can also terminate SSL connections directly by specifying the</span>
+<span class="sd">path to a single file in PEM format containing the certificate as well as any</span>
+<span class="sd">number of CA certificates needed to establish the certificate's authenticity:</span>
+
+<span class="sd">.. code-block:: sh</span>
+
+<span class="sd">    bokeh serve --ssl-certfile /path/to/cert.pem</span>
+
+<span class="sd">Alternatively, the path may also be supplied by setting the environment</span>
+<span class="sd">variable ``BOKEH_SSL_CERTFILE``.</span>
+
+<span class="sd">If the private key is stored separately, its location may be supplied by</span>
+<span class="sd">setting the ``--ssl-keyfile`` command line argument, or by setting the</span>
+<span class="sd">``BOKEH_SSL_KEYFILE`` environment variable. If a password is required for the</span>
+<span class="sd">private key, it should be supplied by setting the ``BOKEH_SSL_PASSWORD``</span>
+<span class="sd">environment variable.</span>
+
+<span class="sd">Session ID Options</span>
+<span class="sd">~~~~~~~~~~~~~~~~~~</span>
+
+<span class="sd">Typically, each browser tab connected to a Bokeh server will have its own</span>
+<span class="sd">session ID. When the server generates an ID, it will make it cryptographically</span>
+<span class="sd">unguessable. This keeps users from accessing one another's sessions.</span>
+
+<span class="sd">To control who can use a Bokeh application, the server can sign session IDs</span>
+<span class="sd">with a secret key and reject "made up" session names. There are three modes,</span>
+<span class="sd">controlled by the ``--session-ids`` argument:</span>
+
+<span class="sd">.. code-block:: sh</span>
+
+<span class="sd">    bokeh serve app_script.py --session-ids signed</span>
+
+<span class="sd">The available modes are: {SESSION_ID_MODES}</span>
+
+<span class="sd">In ``unsigned`` mode, the server will accept any session ID provided to it in</span>
+<span class="sd">the URL. For example, ``http://localhost/app_script?bokeh-session-id=foo`` will</span>
+<span class="sd">create a session ``foo``. In ``unsigned`` mode, if the session ID isn't</span>
+<span class="sd">provided with ``?bokeh-session-id=`` in the URL, the server will still generate</span>
+<span class="sd">a cryptographically-unguessable ID. However, the server allows clients to</span>
+<span class="sd">create guessable or deliberately-shared sessions if they want to.</span>
+
+<span class="sd">``unsigned`` mode is most useful when the server is running locally for</span>
+<span class="sd">development, for example you can have multiple processes access a fixed session</span>
+<span class="sd">name such as ``default``. ``unsigned`` mode is also convenient because there's</span>
+<span class="sd">no need to generate or configure a secret key.</span>
+
+<span class="sd">In ``signed`` mode, the session ID must be in a special format and signed with</span>
+<span class="sd">a secret key. Attempts to use the application with an invalid session ID will</span>
+<span class="sd">fail, but if no ``?bokeh-session-id=`` parameter is provided, the server will</span>
+<span class="sd">generate a fresh, signed session ID. The result of ``signed`` mode is that only</span>
+<span class="sd">secure session IDs are allowed but anyone can connect to the server.</span>
+
+<span class="sd">In ``external-signed`` mode, the session ID must be signed but the server</span>
+<span class="sd">itself won't generate a session ID; the ``?bokeh-session-id=`` parameter will</span>
+<span class="sd">be required. To use this mode, an external process (such as another web app)</span>
+<span class="sd">would use the function ``bokeh.util.token.generate_session_id()`` to</span>
+<span class="sd">create valid session IDs. The external process and the Bokeh server must share</span>
+<span class="sd">the same ``BOKEH_SECRET_KEY`` environment variable.</span>
+
+<span class="sd">``external-signed`` mode is useful if you want another process to authenticate</span>
+<span class="sd">access to the Bokeh server. If someone is permitted to use a Bokeh application,</span>
+<span class="sd">you would generate a session ID for them, then redirect them to the Bokeh</span>
+<span class="sd">server with that valid session ID. If you don't generate a session ID for</span>
+<span class="sd">someone, then they can't load the app from the Bokeh server.</span>
+
+<span class="sd">In both ``signed`` and ``external-signed`` mode, the secret key must be kept</span>
+<span class="sd">secret; anyone with the key can generate a valid session ID.</span>
+
+<span class="sd">The secret key should be set in a ``BOKEH_SECRET_KEY`` environment variable and</span>
+<span class="sd">should be a cryptographically random string with at least 256 bits (32 bytes)</span>
+<span class="sd">of entropy. The ``bokeh secret`` command can generate new secret keys.</span>
+
+<span class="sd">Authentication Options</span>
+<span class="sd">~~~~~~~~~~~~~~~~~~~~~~</span>
+
+<span class="sd">The Bokeh server can be configured to only allow connections in case there is</span>
+<span class="sd">a properly authenticated user. This is accomplished by providing the path to</span>
+<span class="sd">a module that implements the necessary functions on the command line:</span>
+
+<span class="sd">.. code-block:: sh</span>
+
+<span class="sd">    bokeh serve --auth-module=/path/to/auth.py</span>
+
+<span class="sd">or by setting the ``BOKEH_AUTH_MODULE`` environment variable.</span>
+
+<span class="sd">The module must contain *one* of the following two functions that will return</span>
+<span class="sd">the current user (or None):</span>
+
+<span class="sd">.. code-block:: python</span>
+
+<span class="sd">    def get_user(request_handler):</span>
+<span class="sd">        pass</span>
+
+<span class="sd">    async def get_user_async(request_handler):</span>
+<span class="sd">        pass</span>
+
+<span class="sd">The function is passed the Tornado ``RequestHandler`` and can inspect cookies</span>
+<span class="sd">or request headers to determine the authenticated user. If there is no valid</span>
+<span class="sd">authenticated user, these functions should return None.</span>
+
+<span class="sd">Additionally, the module must specify where to redirect unauthenticated users.</span>
+<span class="sd">It must contain either:</span>
+
+<span class="sd">* a module attribute ``login_url`` and (optionally) a ``LoginHandler`` class</span>
+<span class="sd">* a function definition for ``get_login_url``</span>
+
+<span class="sd">.. code-block:: python</span>
+
+<span class="sd">    login_url = "..."</span>
+
+<span class="sd">    class LoginHandler(RequestHandler):</span>
+<span class="sd">        pass</span>
+
+<span class="sd">    def get_login_url(request_handler):</span>
+<span class="sd">        pass</span>
+
+<span class="sd">When a relative ``login_url`` is given, an optional ``LoginHandler`` class may</span>
+<span class="sd">also be provided, and it will be installed as a route on the Bokeh server</span>
+<span class="sd">automatically.</span>
+
+<span class="sd">The ``get_login_url`` function is useful in cases where the login URL must</span>
+<span class="sd">vary based on the request, or cookies, etc. It is not possible to specify a</span>
+<span class="sd">``LoginHandler`` when ``get_url_function`` is defined.</span>
+
+<span class="sd">Analogous to the login options, optional ``logout_url`` and ``LogoutHandler``</span>
+<span class="sd">values may be define an endpoint for logging users out.</span>
+
+<span class="sd">If no auth module is provided, then a default user will be assumed, and no</span>
+<span class="sd">authentication will be required to access Bokeh server endpoints.</span>
+
+<span class="sd">.. warning::</span>
+<span class="sd">    The contents of the auth module will be executed!</span>
+
+<span class="sd">Bokeh can also enable the use of Tornado's XFRF cookie protection. To turn this</span>
+<span class="sd">feature on, use the ``--enable-xsrf-cookies`` option, or set the environment</span>
+<span class="sd">variable ``BOKEH_XSRF_COOKIES=yes``. If this setting is enabled, any PUT, POST,</span>
+<span class="sd">or DELETE operations on custom or login handlers must be instrumented properly</span>
+<span class="sd">in order to function. Typically, this means adding the ``xsrf_form_html()``</span>
+<span class="sd">module to HTML form submissions templates. For full details, see:</span>
+
+<span class="sd">    https://www.tornadoweb.org/en/stable/guide/security.html#cross-site-request-forgery-protection</span>
+
+<span class="sd">Session Expiration Options</span>
+<span class="sd">~~~~~~~~~~~~~~~~~~~~~~~~~~</span>
+
+<span class="sd">To configure how often to check for unused sessions. set the</span>
+<span class="sd">``--check-unused-sessions`` option:</span>
+
+<span class="sd">.. code-block:: sh</span>
+
+<span class="sd">    bokeh serve app_script.py --check-unused-sessions 10000</span>
+
+<span class="sd">The value is specified in milliseconds. The default interval for checking for</span>
+<span class="sd">unused sessions is 17 seconds. Only positive integer values are accepted.</span>
+
+<span class="sd">To configure how often unused sessions last. set the</span>
+<span class="sd">``--unused-session-lifetime`` option:</span>
+
+<span class="sd">.. code-block:: sh</span>
+
+<span class="sd">    bokeh serve app_script.py --unused-session-lifetime 60000</span>
+
+<span class="sd">The value is specified in milliseconds. The default lifetime interval for</span>
+<span class="sd">unused sessions is 15 seconds. Only positive integer values are accepted.</span>
+
+<span class="sd">Diagnostic Options</span>
+<span class="sd">~~~~~~~~~~~~~~~~~~</span>
+
+<span class="sd">The logging level can be controlled by the ``--log-level`` argument:</span>
+
+<span class="sd">.. code-block:: sh</span>
+
+<span class="sd">    bokeh serve app_script.py --log-level debug</span>
+
+<span class="sd">The available log levels are: {LOGLEVELS}</span>
+
+<span class="sd">The log format can be controlled by the ``--log-format`` argument:</span>
+
+<span class="sd">.. code-block:: sh</span>
+
+<span class="sd">    bokeh serve app_script.py --log-format "%(levelname)s: %(message)s"</span>
+
+<span class="sd">The default log format is ``"{DEFAULT_LOG_FORMAT}"``</span>
+
+<span class="sd">To control how often statistic logs are written, set the</span>
+<span class="sd">``--stats-log-frequency`` option:</span>
+
+<span class="sd">.. code-block:: sh</span>
+
+<span class="sd">    bokeh serve app_script.py --stats-log-frequency 30000</span>
+
+<span class="sd">The value is specified in milliseconds. The default interval for</span>
+<span class="sd">logging stats is 15 seconds. Only positive integer values are accepted.</span>
+
+<span class="sd">Bokeh can also optionally log process memory usage. This feature requires</span>
+<span class="sd">the optional ``psutil`` package to be installed. To enable memory logging</span>
+<span class="sd">set the ``--mem-log-frequency`` option:</span>
+
+<span class="sd">. code-block:: sh</span>
+
+<span class="sd">    bokeh serve app_script.py --mem-log-frequency 30000</span>
+
+<span class="sd">The value is specified in milliseconds. The default interval for</span>
+<span class="sd">logging stats is 0 (disabled). Only positive integer values are accepted.</span>
+
+<span class="sd">'''</span>
+
+<span class="c1">#-----------------------------------------------------------------------------</span>
+<span class="c1"># Boilerplate</span>
+<span class="c1">#-----------------------------------------------------------------------------</span>
+<span class="kn">import</span> <span class="nn">logging</span> <span class="c1"># isort:skip</span>
+<span class="n">log</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
+
+<span class="c1">#-----------------------------------------------------------------------------</span>
+<span class="c1"># Imports</span>
+<span class="c1">#-----------------------------------------------------------------------------</span>
+
+<span class="c1"># Standard library imports</span>
+<span class="kn">import</span> <span class="nn">argparse</span>
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">from</span> <span class="nn">fnmatch</span> <span class="kn">import</span> <span class="n">fnmatch</span>
+<span class="kn">from</span> <span class="nn">glob</span> <span class="kn">import</span> <span class="n">glob</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">List</span>
+
+<span class="c1"># External imports</span>
+<span class="kn">from</span> <span class="nn">tornado.autoreload</span> <span class="kn">import</span> <span class="n">watch</span>
+
+<span class="c1"># Bokeh imports</span>
+<span class="kn">from</span> <span class="nn">bokeh.application</span> <span class="kn">import</span> <span class="n">Application</span>
+<span class="kn">from</span> <span class="nn">bokeh.resources</span> <span class="kn">import</span> <span class="n">DEFAULT_SERVER_PORT</span>
+<span class="kn">from</span> <span class="nn">bokeh.server.auth_provider</span> <span class="kn">import</span> <span class="n">AuthModule</span><span class="p">,</span> <span class="n">NullAuth</span>
+<span class="kn">from</span> <span class="nn">bokeh.server.tornado</span> <span class="kn">import</span> <span class="p">(</span>
+    <span class="n">DEFAULT_SESSION_TOKEN_EXPIRATION</span><span class="p">,</span>
+    <span class="n">DEFAULT_WEBSOCKET_MAX_MESSAGE_SIZE_BYTES</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="kn">from</span> <span class="nn">bokeh.settings</span> <span class="kn">import</span> <span class="n">settings</span>
+<span class="kn">from</span> <span class="nn">bokeh.util.logconfig</span> <span class="kn">import</span> <span class="n">basicConfig</span>
+<span class="kn">from</span> <span class="nn">bokeh.util.string</span> <span class="kn">import</span> <span class="n">format_docstring</span><span class="p">,</span> <span class="n">nice_join</span>
+
+<span class="c1"># Bokeh imports</span>
+<span class="kn">from</span> <span class="nn">..subcommand</span> <span class="kn">import</span> <span class="n">Subcommand</span>
+<span class="kn">from</span> <span class="nn">..util</span> <span class="kn">import</span> <span class="n">build_single_handler_applications</span><span class="p">,</span> <span class="n">die</span><span class="p">,</span> <span class="n">report_server_init_errors</span>
+
+<span class="c1">#-----------------------------------------------------------------------------</span>
+<span class="c1"># Globals and constants</span>
+<span class="c1">#-----------------------------------------------------------------------------</span>
+
+<span class="n">LOGLEVELS</span> <span class="o">=</span> <span class="p">(</span><span class="s1">'trace'</span><span class="p">,</span> <span class="s1">'debug'</span><span class="p">,</span> <span class="s1">'info'</span><span class="p">,</span> <span class="s1">'warning'</span><span class="p">,</span> <span class="s1">'error'</span><span class="p">,</span> <span class="s1">'critical'</span><span class="p">)</span>
+<span class="n">SESSION_ID_MODES</span> <span class="o">=</span> <span class="p">(</span><span class="s1">'unsigned'</span><span class="p">,</span> <span class="s1">'signed'</span><span class="p">,</span> <span class="s1">'external-signed'</span><span class="p">)</span>
+<span class="n">DEFAULT_LOG_FORMAT</span> <span class="o">=</span> <span class="s2">"</span><span class="si">%(asctime)s</span><span class="s2"> </span><span class="si">%(message)s</span><span class="s2">"</span>
+
+<span class="n">base_serve_args</span> <span class="o">=</span> <span class="p">(</span>
+    <span class="p">(</span><span class="s1">'--port'</span><span class="p">,</span> <span class="nb">dict</span><span class="p">(</span>
+        <span class="n">metavar</span> <span class="o">=</span> <span class="s1">'PORT'</span><span class="p">,</span>
+        <span class="nb">type</span>    <span class="o">=</span> <span class="nb">int</span><span class="p">,</span>
+        <span class="n">help</span>    <span class="o">=</span> <span class="s2">"Port to listen on"</span><span class="p">,</span>
+        <span class="n">default</span> <span class="o">=</span> <span class="n">DEFAULT_SERVER_PORT</span>
+    <span class="p">)),</span>
+
+    <span class="p">(</span><span class="s1">'--address'</span><span class="p">,</span> <span class="nb">dict</span><span class="p">(</span>
+        <span class="n">metavar</span> <span class="o">=</span> <span class="s1">'ADDRESS'</span><span class="p">,</span>
+        <span class="nb">type</span>    <span class="o">=</span> <span class="nb">str</span><span class="p">,</span>
+        <span class="n">help</span>    <span class="o">=</span> <span class="s2">"Address to listen on"</span><span class="p">,</span>
+        <span class="n">default</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="p">)),</span>
+
+    <span class="p">(</span><span class="s1">'--log-level'</span><span class="p">,</span> <span class="nb">dict</span><span class="p">(</span>
+        <span class="n">metavar</span> <span class="o">=</span> <span class="s1">'LOG-LEVEL'</span><span class="p">,</span>
+        <span class="n">action</span>  <span class="o">=</span> <span class="s1">'store'</span><span class="p">,</span>
+        <span class="n">default</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">choices</span> <span class="o">=</span> <span class="n">LOGLEVELS</span> <span class="o">+</span> <span class="p">(</span><span class="s2">"None"</span><span class="p">,</span> <span class="p">),</span>
+        <span class="n">help</span>    <span class="o">=</span> <span class="s2">"One of: </span><span class="si">%s</span><span class="s2">"</span> <span class="o">%</span> <span class="n">nice_join</span><span class="p">(</span><span class="n">LOGLEVELS</span><span class="p">),</span>
+    <span class="p">)),</span>
+
+    <span class="p">(</span><span class="s1">'--log-format'</span><span class="p">,</span> <span class="nb">dict</span><span class="p">(</span>
+        <span class="n">metavar</span> <span class="o">=</span><span class="s1">'LOG-FORMAT'</span><span class="p">,</span>
+        <span class="n">action</span>  <span class="o">=</span> <span class="s1">'store'</span><span class="p">,</span>
+        <span class="n">default</span> <span class="o">=</span> <span class="n">DEFAULT_LOG_FORMAT</span><span class="p">,</span>
+        <span class="n">help</span>    <span class="o">=</span> <span class="s2">"A standard Python logging format string (default: </span><span class="si">%r</span><span class="s2">)"</span> <span class="o">%</span> <span class="n">DEFAULT_LOG_FORMAT</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">"%"</span><span class="p">,</span> <span class="s2">"</span><span class="si">%%</span><span class="s2">"</span><span class="p">),</span>
+    <span class="p">)),</span>
+
+    <span class="p">(</span><span class="s1">'--log-file'</span><span class="p">,</span> <span class="nb">dict</span><span class="p">(</span>
+        <span class="n">metavar</span> <span class="o">=</span><span class="s1">'LOG-FILE'</span><span class="p">,</span>
+        <span class="n">action</span>  <span class="o">=</span> <span class="s1">'store'</span><span class="p">,</span>
+        <span class="n">default</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">help</span>    <span class="o">=</span> <span class="s2">"A filename to write logs to, or None to write to the standard stream (default: None)"</span><span class="p">,</span>
+    <span class="p">)),</span>
+
+    <span class="p">(</span><span class="s1">'--use-config'</span><span class="p">,</span> <span class="nb">dict</span><span class="p">(</span>
+        <span class="n">metavar</span> <span class="o">=</span> <span class="s1">'CONFIG'</span><span class="p">,</span>
+        <span class="nb">type</span>    <span class="o">=</span> <span class="nb">str</span><span class="p">,</span>
+        <span class="n">help</span>    <span class="o">=</span> <span class="s2">"Use a YAML config file for settings"</span><span class="p">,</span>
+        <span class="n">default</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="p">)),</span>
+
+<span class="p">)</span>
+
+<span class="n">__all__</span> <span class="o">=</span> <span class="p">(</span>
+    <span class="s1">'Serve'</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="c1">#-----------------------------------------------------------------------------</span>
+<span class="c1"># General API</span>
+<span class="c1">#-----------------------------------------------------------------------------</span>
+
+<span class="k">class</span> <span class="nc">Serve</span><span class="p">(</span><span class="n">Subcommand</span><span class="p">):</span>
+    <span class="sd">''' Subcommand to launch the Bokeh server.</span>
+
+<span class="sd">    '''</span>
+
+    <span class="c1">#: name for this subcommand</span>
+    <span class="n">name</span> <span class="o">=</span> <span class="s2">"serve"</span>
+
+    <span class="n">help</span> <span class="o">=</span> <span class="s2">"Run a Bokeh server hosting one or more applications"</span>
+
+    <span class="n">args</span> <span class="o">=</span> <span class="n">base_serve_args</span> <span class="o">+</span> <span class="p">(</span>
+        <span class="p">(</span><span class="s1">'files'</span><span class="p">,</span> <span class="nb">dict</span><span class="p">(</span>
+            <span class="n">metavar</span> <span class="o">=</span> <span class="s1">'DIRECTORY-OR-SCRIPT'</span><span class="p">,</span>
+            <span class="n">nargs</span>   <span class="o">=</span> <span class="s1">'*'</span><span class="p">,</span>
+            <span class="n">help</span>    <span class="o">=</span> <span class="s2">"The app directories or scripts to serve (serve empty document if not specified)"</span><span class="p">,</span>
+            <span class="n">default</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="p">)),</span>
+
+        <span class="p">(</span><span class="s1">'--args'</span><span class="p">,</span> <span class="nb">dict</span><span class="p">(</span>
+            <span class="n">metavar</span> <span class="o">=</span> <span class="s1">'COMMAND-LINE-ARGS'</span><span class="p">,</span>
+            <span class="n">nargs</span>   <span class="o">=</span> <span class="n">argparse</span><span class="o">.</span><span class="n">REMAINDER</span><span class="p">,</span>
+            <span class="n">help</span>    <span class="o">=</span> <span class="s2">"Command line arguments remaining to passed on to the application handler. "</span>
+                      <span class="s2">"NOTE: if this argument precedes DIRECTORY-OR-SCRIPT then some other argument, e.g. "</span>
+                      <span class="s2">"--show, must be placed before the directory or script. "</span><span class="p">,</span>
+        <span class="p">)),</span>
+
+        <span class="p">(</span><span class="s1">'--dev'</span><span class="p">,</span> <span class="nb">dict</span><span class="p">(</span>
+            <span class="n">metavar</span> <span class="o">=</span><span class="s1">'FILES-TO-WATCH'</span><span class="p">,</span>
+            <span class="n">action</span>  <span class="o">=</span><span class="s1">'store'</span><span class="p">,</span>
+            <span class="n">default</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+            <span class="nb">type</span>    <span class="o">=</span> <span class="nb">str</span><span class="p">,</span>
+            <span class="n">nargs</span>   <span class="o">=</span> <span class="s1">'*'</span><span class="p">,</span>
+            <span class="n">help</span>    <span class="o">=</span> <span class="s2">"Enable live reloading during app development. "</span>
+                      <span class="s2">"By default it watches all *.py *.html *.css *.yaml files "</span>
+                      <span class="s2">"in the app directory tree. Additional files can be passed "</span>
+                      <span class="s2">"as arguments. "</span>
+                      <span class="s2">"NOTE: if this argument precedes DIRECTORY-OR-SCRIPT then some other argument, e.g "</span>
+                      <span class="s2">"--show, must be placed before the directory or script. "</span>
+                      <span class="s2">"NOTE: This setting only works with a single app. "</span>
+                      <span class="s2">"It also restricts the number of processes to 1. "</span>
+                      <span class="s2">"NOTE FOR WINDOWS USERS : this option must be invoked using "</span>
+                      <span class="s2">"'python -m bokeh'. If not Tornado will fail to restart the "</span>
+                      <span class="s2">"server"</span><span class="p">,</span>
+        <span class="p">)),</span>
+
+        <span class="p">(</span><span class="s1">'--show'</span><span class="p">,</span> <span class="nb">dict</span><span class="p">(</span>
+            <span class="n">action</span> <span class="o">=</span> <span class="s1">'store_true'</span><span class="p">,</span>
+            <span class="n">help</span>   <span class="o">=</span> <span class="s2">"Open server app(s) in a browser"</span><span class="p">,</span>
+        <span class="p">)),</span>
+
+        <span class="p">(</span><span class="s1">'--allow-websocket-origin'</span><span class="p">,</span> <span class="nb">dict</span><span class="p">(</span>
+            <span class="n">metavar</span> <span class="o">=</span> <span class="s1">'HOST[:PORT]'</span><span class="p">,</span>
+            <span class="n">action</span>  <span class="o">=</span> <span class="s1">'append'</span><span class="p">,</span>
+            <span class="nb">type</span>    <span class="o">=</span> <span class="nb">str</span><span class="p">,</span>
+            <span class="n">help</span>    <span class="o">=</span> <span class="s2">"Public hostnames which may connect to the Bokeh websocket"</span><span class="p">,</span>
+        <span class="p">)),</span>
+
+        <span class="p">(</span><span class="s1">'--prefix'</span><span class="p">,</span> <span class="nb">dict</span><span class="p">(</span>
+            <span class="n">metavar</span> <span class="o">=</span> <span class="s1">'PREFIX'</span><span class="p">,</span>
+            <span class="nb">type</span>    <span class="o">=</span> <span class="nb">str</span><span class="p">,</span>
+            <span class="n">help</span>    <span class="o">=</span> <span class="s2">"URL prefix for Bokeh server URLs"</span><span class="p">,</span>
+            <span class="n">default</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="p">)),</span>
+
+        <span class="p">(</span><span class="s1">'--keep-alive'</span><span class="p">,</span> <span class="nb">dict</span><span class="p">(</span>
+            <span class="n">metavar</span> <span class="o">=</span> <span class="s1">'MILLISECONDS'</span><span class="p">,</span>
+            <span class="nb">type</span>    <span class="o">=</span> <span class="nb">int</span><span class="p">,</span>
+            <span class="n">help</span>    <span class="o">=</span> <span class="s2">"How often to send a keep-alive ping to clients, 0 to disable."</span><span class="p">,</span>
+            <span class="n">default</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="p">)),</span>
+
+        <span class="p">(</span><span class="s1">'--check-unused-sessions'</span><span class="p">,</span> <span class="nb">dict</span><span class="p">(</span>
+            <span class="n">metavar</span> <span class="o">=</span> <span class="s1">'MILLISECONDS'</span><span class="p">,</span>
+            <span class="nb">type</span>    <span class="o">=</span> <span class="nb">int</span><span class="p">,</span>
+            <span class="n">help</span>    <span class="o">=</span> <span class="s2">"How often to check for unused sessions"</span><span class="p">,</span>
+            <span class="n">default</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="p">)),</span>
+
+        <span class="p">(</span><span class="s1">'--unused-session-lifetime'</span><span class="p">,</span> <span class="nb">dict</span><span class="p">(</span>
+            <span class="n">metavar</span> <span class="o">=</span> <span class="s1">'MILLISECONDS'</span><span class="p">,</span>
+            <span class="nb">type</span>    <span class="o">=</span> <span class="nb">int</span><span class="p">,</span>
+            <span class="n">help</span>    <span class="o">=</span> <span class="s2">"How long unused sessions last"</span><span class="p">,</span>
+            <span class="n">default</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="p">)),</span>
+
+        <span class="p">(</span><span class="s1">'--stats-log-frequency'</span><span class="p">,</span> <span class="nb">dict</span><span class="p">(</span>
+            <span class="n">metavar</span> <span class="o">=</span> <span class="s1">'MILLISECONDS'</span><span class="p">,</span>
+            <span class="nb">type</span>    <span class="o">=</span> <span class="nb">int</span><span class="p">,</span>
+            <span class="n">help</span>    <span class="o">=</span> <span class="s2">"How often to log stats"</span><span class="p">,</span>
+            <span class="n">default</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="p">)),</span>
+
+        <span class="p">(</span><span class="s1">'--mem-log-frequency'</span><span class="p">,</span> <span class="nb">dict</span><span class="p">(</span>
+            <span class="n">metavar</span> <span class="o">=</span> <span class="s1">'MILLISECONDS'</span><span class="p">,</span>
+            <span class="nb">type</span>    <span class="o">=</span> <span class="nb">int</span><span class="p">,</span>
+            <span class="n">help</span>    <span class="o">=</span> <span class="s2">"How often to log memory usage information"</span><span class="p">,</span>
+            <span class="n">default</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="p">)),</span>
+
+        <span class="p">(</span><span class="s1">'--use-xheaders'</span><span class="p">,</span> <span class="nb">dict</span><span class="p">(</span>
+            <span class="n">action</span> <span class="o">=</span> <span class="s1">'store_true'</span><span class="p">,</span>
+            <span class="n">help</span>   <span class="o">=</span> <span class="s2">"Prefer X-headers for IP/protocol information"</span><span class="p">,</span>
+        <span class="p">)),</span>
+
+        <span class="p">(</span><span class="s1">'--ssl-certfile'</span><span class="p">,</span> <span class="nb">dict</span><span class="p">(</span>
+            <span class="n">metavar</span> <span class="o">=</span> <span class="s1">'CERTFILE'</span><span class="p">,</span>
+            <span class="n">action</span>  <span class="o">=</span> <span class="s1">'store'</span><span class="p">,</span>
+            <span class="n">default</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+            <span class="n">help</span>    <span class="o">=</span> <span class="s1">'Absolute path to a certificate file for SSL termination'</span><span class="p">,</span>
+        <span class="p">)),</span>
+
+        <span class="p">(</span><span class="s1">'--ssl-keyfile'</span><span class="p">,</span> <span class="nb">dict</span><span class="p">(</span>
+            <span class="n">metavar</span> <span class="o">=</span> <span class="s1">'KEYFILE'</span><span class="p">,</span>
+            <span class="n">action</span>  <span class="o">=</span> <span class="s1">'store'</span><span class="p">,</span>
+            <span class="n">default</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+            <span class="n">help</span>    <span class="o">=</span> <span class="s1">'Absolute path to a private key file for SSL termination'</span><span class="p">,</span>
+        <span class="p">)),</span>
+
+        <span class="p">(</span><span class="s1">'--session-ids'</span><span class="p">,</span> <span class="nb">dict</span><span class="p">(</span>
+            <span class="n">metavar</span> <span class="o">=</span> <span class="s1">'MODE'</span><span class="p">,</span>
+            <span class="n">action</span>  <span class="o">=</span> <span class="s1">'store'</span><span class="p">,</span>
+            <span class="n">default</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+            <span class="n">choices</span> <span class="o">=</span> <span class="n">SESSION_ID_MODES</span><span class="p">,</span>
+            <span class="n">help</span>    <span class="o">=</span> <span class="s2">"One of: </span><span class="si">%s</span><span class="s2">"</span> <span class="o">%</span> <span class="n">nice_join</span><span class="p">(</span><span class="n">SESSION_ID_MODES</span><span class="p">),</span>
+        <span class="p">)),</span>
+
+        <span class="p">(</span><span class="s1">'--auth-module'</span><span class="p">,</span> <span class="nb">dict</span><span class="p">(</span>
+            <span class="n">metavar</span> <span class="o">=</span> <span class="s1">'AUTH_MODULE'</span><span class="p">,</span>
+            <span class="n">action</span>  <span class="o">=</span> <span class="s1">'store'</span><span class="p">,</span>
+            <span class="n">default</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+            <span class="n">help</span>    <span class="o">=</span> <span class="s1">'Absolute path to a Python module that implements auth hooks'</span><span class="p">,</span>
+        <span class="p">)),</span>
+
+        <span class="p">(</span><span class="s1">'--enable-xsrf-cookies'</span><span class="p">,</span> <span class="nb">dict</span><span class="p">(</span>
+            <span class="n">action</span>  <span class="o">=</span> <span class="s1">'store_true'</span><span class="p">,</span>
+            <span class="n">default</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+            <span class="n">help</span>    <span class="o">=</span> <span class="s1">'Whether to enable Tornado support for XSRF cookies. All '</span>
+                      <span class="s1">'PUT, POST, or DELETE handlers must be properly instrumented '</span>
+                      <span class="s1">'when this setting is enabled.'</span>
+        <span class="p">)),</span>
+
+        <span class="p">(</span><span class="s1">'--exclude-headers'</span><span class="p">,</span> <span class="nb">dict</span><span class="p">(</span>
+            <span class="n">action</span>  <span class="o">=</span> <span class="s1">'store'</span><span class="p">,</span>
+            <span class="n">default</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+            <span class="n">nargs</span><span class="o">=</span><span class="s1">'+'</span><span class="p">,</span>
+            <span class="n">help</span>    <span class="o">=</span> <span class="s1">'A list of request headers to exclude from the session '</span>
+                      <span class="s1">'context (by default all headers are included).'</span>
+        <span class="p">)),</span>
+
+        <span class="p">(</span><span class="s1">'--exclude-cookies'</span><span class="p">,</span> <span class="nb">dict</span><span class="p">(</span>
+            <span class="n">action</span>  <span class="o">=</span> <span class="s1">'store'</span><span class="p">,</span>
+            <span class="n">default</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+            <span class="n">nargs</span><span class="o">=</span><span class="s1">'+'</span><span class="p">,</span>
+            <span class="n">help</span>    <span class="o">=</span> <span class="s1">'A list of request cookies to exclude from the session '</span>
+                      <span class="s1">'context (by default all cookies are included).'</span>
+        <span class="p">)),</span>
+
+        <span class="p">(</span><span class="s1">'--include-headers'</span><span class="p">,</span> <span class="nb">dict</span><span class="p">(</span>
+            <span class="n">action</span>  <span class="o">=</span> <span class="s1">'store'</span><span class="p">,</span>
+            <span class="n">default</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+            <span class="n">nargs</span><span class="o">=</span><span class="s1">'+'</span><span class="p">,</span>
+            <span class="n">help</span>    <span class="o">=</span> <span class="s1">'A list of request headers to make available in the session '</span>
+                      <span class="s1">'context (by default all headers are included).'</span>
+        <span class="p">)),</span>
+
+        <span class="p">(</span><span class="s1">'--include-cookies'</span><span class="p">,</span> <span class="nb">dict</span><span class="p">(</span>
+            <span class="n">action</span>  <span class="o">=</span> <span class="s1">'store'</span><span class="p">,</span>
+            <span class="n">default</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+            <span class="n">nargs</span><span class="o">=</span><span class="s1">'+'</span><span class="p">,</span>
+            <span class="n">help</span>    <span class="o">=</span> <span class="s1">'A list of request cookies to make available in the session '</span>
+                      <span class="s1">'context (by default all cookies are included).'</span>
+        <span class="p">)),</span>
+
+        <span class="p">(</span><span class="s1">'--cookie-secret'</span><span class="p">,</span> <span class="nb">dict</span><span class="p">(</span>
+            <span class="n">metavar</span> <span class="o">=</span> <span class="s1">'COOKIE_SECRET'</span><span class="p">,</span>
+            <span class="n">action</span>  <span class="o">=</span> <span class="s1">'store'</span><span class="p">,</span>
+            <span class="n">default</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+            <span class="n">help</span>    <span class="o">=</span> <span class="s1">'Configure to enable getting/setting secure cookies'</span><span class="p">,</span>
+        <span class="p">)),</span>
+
+        <span class="p">(</span><span class="s1">'--index'</span><span class="p">,</span> <span class="nb">dict</span><span class="p">(</span>
+            <span class="n">metavar</span> <span class="o">=</span> <span class="s1">'INDEX'</span><span class="p">,</span>
+            <span class="n">action</span>  <span class="o">=</span> <span class="s1">'store'</span><span class="p">,</span>
+            <span class="n">default</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+            <span class="n">help</span>    <span class="o">=</span> <span class="s1">'Path to a template to use for the site index'</span><span class="p">,</span>
+        <span class="p">)),</span>
+
+        <span class="p">(</span><span class="s1">'--disable-index'</span><span class="p">,</span> <span class="nb">dict</span><span class="p">(</span>
+            <span class="n">action</span> <span class="o">=</span> <span class="s1">'store_true'</span><span class="p">,</span>
+            <span class="n">help</span>   <span class="o">=</span> <span class="s1">'Do not use the default index on the root path'</span><span class="p">,</span>
+        <span class="p">)),</span>
+
+        <span class="p">(</span><span class="s1">'--disable-index-redirect'</span><span class="p">,</span> <span class="nb">dict</span><span class="p">(</span>
+            <span class="n">action</span> <span class="o">=</span> <span class="s1">'store_true'</span><span class="p">,</span>
+            <span class="n">help</span>   <span class="o">=</span> <span class="s1">'Do not redirect to running app from root path'</span><span class="p">,</span>
+        <span class="p">)),</span>
+
+        <span class="p">(</span><span class="s1">'--num-procs'</span><span class="p">,</span> <span class="nb">dict</span><span class="p">(</span>
+            <span class="n">metavar</span> <span class="o">=</span> <span class="s1">'N'</span><span class="p">,</span>
+            <span class="n">action</span>  <span class="o">=</span> <span class="s1">'store'</span><span class="p">,</span>
+            <span class="n">help</span>    <span class="o">=</span> <span class="s2">"Number of worker processes for an app. Using "</span>
+                      <span class="s2">"0 will autodetect number of cores (defaults to 1)"</span><span class="p">,</span>
+            <span class="n">default</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span>
+            <span class="nb">type</span>    <span class="o">=</span> <span class="nb">int</span><span class="p">,</span>
+        <span class="p">)),</span>
+
+        <span class="p">(</span><span class="s1">'--session-token-expiration'</span><span class="p">,</span> <span class="nb">dict</span><span class="p">(</span>
+            <span class="n">metavar</span> <span class="o">=</span> <span class="s1">'N'</span><span class="p">,</span>
+            <span class="n">action</span>  <span class="o">=</span> <span class="s1">'store'</span><span class="p">,</span>
+            <span class="n">help</span>    <span class="o">=</span> <span class="s2">"Duration in seconds that a new session token "</span>
+                      <span class="s2">"is valid for session creation. After the expiry "</span>
+                      <span class="s2">"time has elapsed, the token will not be able "</span>
+                      <span class="s2">"create a new session (defaults to  seconds)."</span><span class="p">,</span>
+            <span class="n">default</span> <span class="o">=</span> <span class="n">DEFAULT_SESSION_TOKEN_EXPIRATION</span><span class="p">,</span>
+            <span class="nb">type</span>    <span class="o">=</span> <span class="nb">int</span><span class="p">,</span>
+        <span class="p">)),</span>
+
+        <span class="p">(</span><span class="s1">'--websocket-max-message-size'</span><span class="p">,</span> <span class="nb">dict</span><span class="p">(</span>
+            <span class="n">metavar</span> <span class="o">=</span> <span class="s1">'BYTES'</span><span class="p">,</span>
+            <span class="n">action</span>  <span class="o">=</span> <span class="s1">'store'</span><span class="p">,</span>
+            <span class="n">help</span>    <span class="o">=</span> <span class="s2">"Set the Tornado websocket_max_message_size value "</span>
+                      <span class="s2">"(default: 20MB)"</span><span class="p">,</span>
+            <span class="n">default</span> <span class="o">=</span> <span class="n">DEFAULT_WEBSOCKET_MAX_MESSAGE_SIZE_BYTES</span><span class="p">,</span>
+            <span class="nb">type</span>    <span class="o">=</span> <span class="nb">int</span><span class="p">,</span>
+        <span class="p">)),</span>
+
+        <span class="p">(</span><span class="s1">'--websocket-compression-level'</span><span class="p">,</span> <span class="nb">dict</span><span class="p">(</span>
+            <span class="n">metavar</span> <span class="o">=</span> <span class="s1">'LEVEL'</span><span class="p">,</span>
+            <span class="n">action</span>  <span class="o">=</span> <span class="s1">'store'</span><span class="p">,</span>
+            <span class="n">help</span>    <span class="o">=</span> <span class="s2">"Set the Tornado WebSocket compression_level"</span><span class="p">,</span>
+            <span class="n">default</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+            <span class="nb">type</span>    <span class="o">=</span> <span class="nb">int</span><span class="p">,</span>
+        <span class="p">)),</span>
+
+        <span class="p">(</span><span class="s1">'--websocket-compression-mem-level'</span><span class="p">,</span> <span class="nb">dict</span><span class="p">(</span>
+            <span class="n">metavar</span> <span class="o">=</span> <span class="s1">'LEVEL'</span><span class="p">,</span>
+            <span class="n">action</span>  <span class="o">=</span> <span class="s1">'store'</span><span class="p">,</span>
+            <span class="n">help</span>    <span class="o">=</span> <span class="s2">"Set the Tornado WebSocket compression mem_level"</span><span class="p">,</span>
+            <span class="n">default</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+            <span class="nb">type</span>    <span class="o">=</span> <span class="nb">int</span><span class="p">,</span>
+        <span class="p">)),</span>
+
+        <span class="p">(</span><span class="s1">'--glob'</span><span class="p">,</span> <span class="nb">dict</span><span class="p">(</span>
+            <span class="n">action</span><span class="o">=</span><span class="s1">'store_true'</span><span class="p">,</span>
+            <span class="n">help</span><span class="o">=</span><span class="s1">'Process all filename arguments as globs'</span><span class="p">,</span>
+        <span class="p">)),</span>
+    <span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">customize_kwargs</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">args</span><span class="p">:</span> <span class="n">argparse</span><span class="o">.</span><span class="n">Namespace</span><span class="p">,</span> <span class="n">server_kwargs</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
+        <span class="sd">'''Allows subclasses to customize ``server_kwargs``.</span>
+
+<span class="sd">        Should modify and return a copy of the ``server_kwargs`` dictionary.</span>
+<span class="sd">        '''</span>
+        <span class="k">return</span> <span class="nb">dict</span><span class="p">(</span><span class="n">server_kwargs</span><span class="p">)</span>
+
+<div class="viewcode-block" id="Serve.invoke"><a class="viewcode-back" href="../../../../api/panel.command.html#panel.command.serve.Serve.invoke">[docs]</a>    <span class="k">def</span> <span class="nf">invoke</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">args</span><span class="p">:</span> <span class="n">argparse</span><span class="o">.</span><span class="n">Namespace</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="sd">'''</span>
+
+<span class="sd">        '''</span>
+        <span class="n">basicConfig</span><span class="p">(</span><span class="nb">format</span><span class="o">=</span><span class="n">args</span><span class="o">.</span><span class="n">log_format</span><span class="p">,</span> <span class="n">filename</span><span class="o">=</span><span class="n">args</span><span class="o">.</span><span class="n">log_file</span><span class="p">)</span>
+
+        <span class="c1"># This is a bit of a fudge. We want the default log level for non-server</span>
+        <span class="c1"># cases to be None, i.e. we don't set a log level. But for the server we</span>
+        <span class="c1"># do want to set the log level to INFO if nothing else overrides that.</span>
+        <span class="n">log_level</span> <span class="o">=</span> <span class="n">settings</span><span class="o">.</span><span class="n">py_log_level</span><span class="p">(</span><span class="n">args</span><span class="o">.</span><span class="n">log_level</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">log_level</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">log_level</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">INFO</span>
+        <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="s1">'bokeh'</span><span class="p">)</span><span class="o">.</span><span class="n">setLevel</span><span class="p">(</span><span class="n">log_level</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">args</span><span class="o">.</span><span class="n">use_config</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Using override config file: </span><span class="si">{</span><span class="n">args</span><span class="o">.</span><span class="n">use_config</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+            <span class="n">settings</span><span class="o">.</span><span class="n">load_config</span><span class="p">(</span><span class="n">args</span><span class="o">.</span><span class="n">use_config</span><span class="p">)</span>
+
+        <span class="c1"># protect this import inside a function so that "bokeh info" can work</span>
+        <span class="c1"># even if Tornado is not installed</span>
+        <span class="kn">from</span> <span class="nn">bokeh.server.server</span> <span class="kn">import</span> <span class="n">Server</span>
+
+        <span class="n">files</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">args</span><span class="o">.</span><span class="n">files</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">args</span><span class="o">.</span><span class="n">glob</span><span class="p">:</span>
+                <span class="n">files</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">glob</span><span class="p">(</span><span class="n">f</span><span class="p">))</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">files</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
+
+        <span class="n">argvs</span> <span class="o">=</span> <span class="p">{</span> <span class="n">f</span> <span class="p">:</span> <span class="n">args</span><span class="o">.</span><span class="n">args</span> <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">files</span><span class="p">}</span>
+        <span class="n">applications</span> <span class="o">=</span> <span class="n">build_single_handler_applications</span><span class="p">(</span><span class="n">files</span><span class="p">,</span> <span class="n">argvs</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">applications</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="c1"># create an empty application by default</span>
+            <span class="n">applications</span><span class="p">[</span><span class="s1">'/'</span><span class="p">]</span> <span class="o">=</span> <span class="n">Application</span><span class="p">()</span>
+
+        <span class="c1"># rename args to be compatible with Server</span>
+        <span class="k">if</span> <span class="n">args</span><span class="o">.</span><span class="n">keep_alive</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">args</span><span class="o">.</span><span class="n">keep_alive_milliseconds</span> <span class="o">=</span> <span class="n">args</span><span class="o">.</span><span class="n">keep_alive</span>
+
+        <span class="k">if</span> <span class="n">args</span><span class="o">.</span><span class="n">check_unused_sessions</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">args</span><span class="o">.</span><span class="n">check_unused_sessions_milliseconds</span> <span class="o">=</span> <span class="n">args</span><span class="o">.</span><span class="n">check_unused_sessions</span>
+
+        <span class="k">if</span> <span class="n">args</span><span class="o">.</span><span class="n">unused_session_lifetime</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">args</span><span class="o">.</span><span class="n">unused_session_lifetime_milliseconds</span> <span class="o">=</span> <span class="n">args</span><span class="o">.</span><span class="n">unused_session_lifetime</span>
+
+        <span class="k">if</span> <span class="n">args</span><span class="o">.</span><span class="n">stats_log_frequency</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">args</span><span class="o">.</span><span class="n">stats_log_frequency_milliseconds</span> <span class="o">=</span> <span class="n">args</span><span class="o">.</span><span class="n">stats_log_frequency</span>
+
+        <span class="k">if</span> <span class="n">args</span><span class="o">.</span><span class="n">mem_log_frequency</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">args</span><span class="o">.</span><span class="n">mem_log_frequency_milliseconds</span> <span class="o">=</span> <span class="n">args</span><span class="o">.</span><span class="n">mem_log_frequency</span>
+
+        <span class="n">server_kwargs</span> <span class="o">=</span> <span class="p">{</span> <span class="n">key</span><span class="p">:</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">args</span><span class="p">,</span> <span class="n">key</span><span class="p">)</span> <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">'port'</span><span class="p">,</span>
+                                                              <span class="s1">'address'</span><span class="p">,</span>
+                                                              <span class="s1">'allow_websocket_origin'</span><span class="p">,</span>
+                                                              <span class="s1">'num_procs'</span><span class="p">,</span>
+                                                              <span class="s1">'prefix'</span><span class="p">,</span>
+                                                              <span class="s1">'index'</span><span class="p">,</span>
+                                                              <span class="s1">'keep_alive_milliseconds'</span><span class="p">,</span>
+                                                              <span class="s1">'check_unused_sessions_milliseconds'</span><span class="p">,</span>
+                                                              <span class="s1">'unused_session_lifetime_milliseconds'</span><span class="p">,</span>
+                                                              <span class="s1">'stats_log_frequency_milliseconds'</span><span class="p">,</span>
+                                                              <span class="s1">'mem_log_frequency_milliseconds'</span><span class="p">,</span>
+                                                              <span class="s1">'use_xheaders'</span><span class="p">,</span>
+                                                              <span class="s1">'websocket_max_message_size'</span><span class="p">,</span>
+                                                              <span class="s1">'websocket_compression_level'</span><span class="p">,</span>
+                                                              <span class="s1">'websocket_compression_mem_level'</span><span class="p">,</span>
+                                                              <span class="s1">'include_cookies'</span><span class="p">,</span>
+                                                              <span class="s1">'include_headers'</span><span class="p">,</span>
+                                                              <span class="s1">'exclude_cookies'</span><span class="p">,</span>
+                                                              <span class="s1">'exclude_headers'</span><span class="p">,</span>
+                                                              <span class="s1">'session_token_expiration'</span><span class="p">,</span>
+                                                            <span class="p">]</span>
+                          <span class="k">if</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">args</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="p">}</span>
+
+        <span class="n">server_kwargs</span><span class="p">[</span><span class="s1">'sign_sessions'</span><span class="p">]</span> <span class="o">=</span> <span class="n">settings</span><span class="o">.</span><span class="n">sign_sessions</span><span class="p">()</span>
+        <span class="n">server_kwargs</span><span class="p">[</span><span class="s1">'secret_key'</span><span class="p">]</span> <span class="o">=</span> <span class="n">settings</span><span class="o">.</span><span class="n">secret_key_bytes</span><span class="p">()</span>
+        <span class="n">server_kwargs</span><span class="p">[</span><span class="s1">'ssl_certfile'</span><span class="p">]</span> <span class="o">=</span> <span class="n">settings</span><span class="o">.</span><span class="n">ssl_certfile</span><span class="p">(</span><span class="nb">getattr</span><span class="p">(</span><span class="n">args</span><span class="p">,</span> <span class="s1">'ssl_certfile'</span><span class="p">,</span> <span class="kc">None</span><span class="p">))</span>
+        <span class="n">server_kwargs</span><span class="p">[</span><span class="s1">'ssl_keyfile'</span><span class="p">]</span> <span class="o">=</span> <span class="n">settings</span><span class="o">.</span><span class="n">ssl_keyfile</span><span class="p">(</span><span class="nb">getattr</span><span class="p">(</span><span class="n">args</span><span class="p">,</span> <span class="s1">'ssl_keyfile'</span><span class="p">,</span> <span class="kc">None</span><span class="p">))</span>
+        <span class="n">server_kwargs</span><span class="p">[</span><span class="s1">'ssl_password'</span><span class="p">]</span> <span class="o">=</span> <span class="n">settings</span><span class="o">.</span><span class="n">ssl_password</span><span class="p">()</span>
+        <span class="n">server_kwargs</span><span class="p">[</span><span class="s1">'generate_session_ids'</span><span class="p">]</span> <span class="o">=</span> <span class="kc">True</span>
+        <span class="k">if</span> <span class="n">args</span><span class="o">.</span><span class="n">session_ids</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="c1"># no --session-ids means use the env vars</span>
+            <span class="k">pass</span>
+        <span class="k">elif</span> <span class="n">args</span><span class="o">.</span><span class="n">session_ids</span> <span class="o">==</span> <span class="s1">'unsigned'</span><span class="p">:</span>
+            <span class="n">server_kwargs</span><span class="p">[</span><span class="s1">'sign_sessions'</span><span class="p">]</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="k">elif</span> <span class="n">args</span><span class="o">.</span><span class="n">session_ids</span> <span class="o">==</span> <span class="s1">'signed'</span><span class="p">:</span>
+            <span class="n">server_kwargs</span><span class="p">[</span><span class="s1">'sign_sessions'</span><span class="p">]</span> <span class="o">=</span> <span class="kc">True</span>
+        <span class="k">elif</span> <span class="n">args</span><span class="o">.</span><span class="n">session_ids</span> <span class="o">==</span> <span class="s1">'external-signed'</span><span class="p">:</span>
+            <span class="n">server_kwargs</span><span class="p">[</span><span class="s1">'sign_sessions'</span><span class="p">]</span> <span class="o">=</span> <span class="kc">True</span>
+            <span class="n">server_kwargs</span><span class="p">[</span><span class="s1">'generate_session_ids'</span><span class="p">]</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="s2">"argparse should have filtered out --session-ids mode "</span> <span class="o">+</span>
+                               <span class="n">args</span><span class="o">.</span><span class="n">session_ids</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">server_kwargs</span><span class="p">[</span><span class="s1">'sign_sessions'</span><span class="p">]</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">server_kwargs</span><span class="p">[</span><span class="s1">'secret_key'</span><span class="p">]:</span>
+            <span class="n">die</span><span class="p">(</span><span class="s2">"To sign sessions, the BOKEH_SECRET_KEY environment variable must be set; "</span> <span class="o">+</span>
+                <span class="s2">"the `bokeh secret` command can be used to generate a new key."</span><span class="p">)</span>
+
+        <span class="n">auth_module_path</span> <span class="o">=</span> <span class="n">settings</span><span class="o">.</span><span class="n">auth_module</span><span class="p">(</span><span class="nb">getattr</span><span class="p">(</span><span class="n">args</span><span class="p">,</span> <span class="s1">'auth_module'</span><span class="p">,</span> <span class="kc">None</span><span class="p">))</span>
+        <span class="k">if</span> <span class="n">auth_module_path</span><span class="p">:</span>
+            <span class="n">server_kwargs</span><span class="p">[</span><span class="s1">'auth_provider'</span><span class="p">]</span> <span class="o">=</span> <span class="n">AuthModule</span><span class="p">(</span><span class="n">auth_module_path</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">server_kwargs</span><span class="p">[</span><span class="s1">'auth_provider'</span><span class="p">]</span> <span class="o">=</span> <span class="n">NullAuth</span><span class="p">()</span>
+
+        <span class="n">server_kwargs</span><span class="p">[</span><span class="s1">'xsrf_cookies'</span><span class="p">]</span> <span class="o">=</span> <span class="n">settings</span><span class="o">.</span><span class="n">xsrf_cookies</span><span class="p">(</span><span class="nb">getattr</span><span class="p">(</span><span class="n">args</span><span class="p">,</span> <span class="s1">'enable_xsrf_cookies'</span><span class="p">,</span> <span class="kc">False</span><span class="p">))</span>
+        <span class="n">server_kwargs</span><span class="p">[</span><span class="s1">'cookie_secret'</span><span class="p">]</span> <span class="o">=</span> <span class="n">settings</span><span class="o">.</span><span class="n">cookie_secret</span><span class="p">(</span><span class="nb">getattr</span><span class="p">(</span><span class="n">args</span><span class="p">,</span> <span class="s1">'cookie_secret'</span><span class="p">,</span> <span class="kc">None</span><span class="p">))</span>
+        <span class="n">server_kwargs</span><span class="p">[</span><span class="s1">'use_index'</span><span class="p">]</span> <span class="o">=</span> <span class="ow">not</span> <span class="n">args</span><span class="o">.</span><span class="n">disable_index</span>
+        <span class="n">server_kwargs</span><span class="p">[</span><span class="s1">'redirect_root'</span><span class="p">]</span> <span class="o">=</span> <span class="ow">not</span> <span class="n">args</span><span class="o">.</span><span class="n">disable_index_redirect</span>
+        <span class="n">server_kwargs</span><span class="p">[</span><span class="s1">'autoreload'</span><span class="p">]</span> <span class="o">=</span> <span class="n">args</span><span class="o">.</span><span class="n">dev</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
+
+        <span class="k">def</span> <span class="nf">find_autoreload_targets</span><span class="p">(</span><span class="n">app_path</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="n">app_path</span><span class="p">)</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isdir</span><span class="p">(</span><span class="n">path</span><span class="p">):</span>
+                <span class="k">return</span>
+
+            <span class="k">for</span> <span class="n">path</span><span class="p">,</span> <span class="n">subdirs</span><span class="p">,</span> <span class="n">files</span> <span class="ow">in</span> <span class="n">os</span><span class="o">.</span><span class="n">walk</span><span class="p">(</span><span class="n">path</span><span class="p">):</span>
+                <span class="k">for</span> <span class="n">name</span> <span class="ow">in</span> <span class="n">files</span><span class="p">:</span>
+                    <span class="k">if</span> <span class="p">(</span><span class="n">fnmatch</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="s1">'*.html'</span><span class="p">)</span> <span class="ow">or</span>
+                        <span class="n">fnmatch</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="s1">'*.css'</span><span class="p">)</span> <span class="ow">or</span>
+                        <span class="n">fnmatch</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="s1">'*.yaml'</span><span class="p">)):</span>
+                        <span class="n">log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">"Watching: "</span> <span class="o">+</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">name</span><span class="p">))</span>
+                        <span class="n">watch</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">name</span><span class="p">))</span>
+
+        <span class="k">def</span> <span class="nf">add_optional_autoreload_files</span><span class="p">(</span><span class="n">file_list</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">filen</span> <span class="ow">in</span> <span class="n">file_list</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isdir</span><span class="p">(</span><span class="n">filen</span><span class="p">):</span>
+                    <span class="n">log</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s2">"Cannot watch directory "</span> <span class="o">+</span> <span class="n">filen</span><span class="p">)</span>
+                    <span class="k">continue</span>
+                <span class="n">log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">"Watching: "</span> <span class="o">+</span> <span class="n">filen</span><span class="p">)</span>
+                <span class="n">watch</span><span class="p">(</span><span class="n">filen</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">server_kwargs</span><span class="p">[</span><span class="s1">'autoreload'</span><span class="p">]:</span>
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">applications</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span> <span class="o">!=</span> <span class="mi">1</span><span class="p">:</span>
+                <span class="n">die</span><span class="p">(</span><span class="s2">"--dev can only support a single app."</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">server_kwargs</span><span class="p">[</span><span class="s1">'num_procs'</span><span class="p">]</span> <span class="o">!=</span> <span class="mi">1</span><span class="p">:</span>
+                <span class="n">log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">"Running in --dev mode. --num-procs is limited to 1."</span><span class="p">)</span>
+                <span class="n">server_kwargs</span><span class="p">[</span><span class="s1">'num_procs'</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>
+
+            <span class="n">find_autoreload_targets</span><span class="p">(</span><span class="n">args</span><span class="o">.</span><span class="n">files</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+            <span class="n">add_optional_autoreload_files</span><span class="p">(</span><span class="n">args</span><span class="o">.</span><span class="n">dev</span><span class="p">)</span>
+
+        <span class="n">server_kwargs</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">customize_kwargs</span><span class="p">(</span><span class="n">args</span><span class="p">,</span> <span class="n">server_kwargs</span><span class="p">)</span>
+
+        <span class="k">with</span> <span class="n">report_server_init_errors</span><span class="p">(</span><span class="o">**</span><span class="n">server_kwargs</span><span class="p">):</span>
+            <span class="n">server</span> <span class="o">=</span> <span class="n">Server</span><span class="p">(</span><span class="n">applications</span><span class="p">,</span> <span class="o">**</span><span class="n">server_kwargs</span><span class="p">)</span>
+
+            <span class="k">if</span> <span class="n">args</span><span class="o">.</span><span class="n">show</span><span class="p">:</span>
+
+                <span class="c1"># we have to defer opening in browser until we start up the server</span>
+                <span class="k">def</span> <span class="nf">show_callback</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+                    <span class="k">for</span> <span class="n">route</span> <span class="ow">in</span> <span class="n">applications</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+                        <span class="n">server</span><span class="o">.</span><span class="n">show</span><span class="p">(</span><span class="n">route</span><span class="p">)</span>
+
+                <span class="n">server</span><span class="o">.</span><span class="n">io_loop</span><span class="o">.</span><span class="n">add_callback</span><span class="p">(</span><span class="n">show_callback</span><span class="p">)</span>
+
+            <span class="n">address_string</span> <span class="o">=</span> <span class="s1">'localhost'</span>
+            <span class="k">if</span> <span class="n">server</span><span class="o">.</span><span class="n">address</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">server</span><span class="o">.</span><span class="n">address</span> <span class="o">!=</span> <span class="s1">''</span><span class="p">:</span>
+                <span class="n">address_string</span> <span class="o">=</span> <span class="n">server</span><span class="o">.</span><span class="n">address</span>
+
+            <span class="k">for</span> <span class="n">route</span> <span class="ow">in</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">applications</span><span class="o">.</span><span class="n">keys</span><span class="p">()):</span>
+                <span class="n">url</span> <span class="o">=</span> <span class="s2">"http://</span><span class="si">%s</span><span class="s2">:</span><span class="si">%d%s%s</span><span class="s2">"</span> <span class="o">%</span> <span class="p">(</span><span class="n">address_string</span><span class="p">,</span> <span class="n">server</span><span class="o">.</span><span class="n">port</span><span class="p">,</span> <span class="n">server</span><span class="o">.</span><span class="n">prefix</span><span class="p">,</span> <span class="n">route</span><span class="p">)</span>
+                <span class="n">log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">"Bokeh app running at: </span><span class="si">%s</span><span class="s2">"</span> <span class="o">%</span> <span class="n">url</span><span class="p">)</span>
+
+            <span class="n">log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">"Starting Bokeh server with process id: </span><span class="si">%d</span><span class="s2">"</span> <span class="o">%</span> <span class="n">os</span><span class="o">.</span><span class="n">getpid</span><span class="p">())</span>
+            <span class="n">server</span><span class="o">.</span><span class="n">run_until_shutdown</span><span class="p">()</span></div>
+
+<span class="c1">#-----------------------------------------------------------------------------</span>
+<span class="c1"># Dev API</span>
+<span class="c1">#-----------------------------------------------------------------------------</span>
+
+<span class="c1">#-----------------------------------------------------------------------------</span>
+<span class="c1"># Private API</span>
+<span class="c1">#-----------------------------------------------------------------------------</span>
+
+<span class="c1">#-----------------------------------------------------------------------------</span>
+<span class="c1"># Code</span>
+<span class="c1">#-----------------------------------------------------------------------------</span>
+
+<span class="c1"># XXX fails mypy typechecking with "error: Incompatible types in assignment (expression has type "Optional[str]", variable has type "str")"</span>
+<span class="vm">__doc__</span> <span class="o">=</span> <span class="n">format_docstring</span><span class="p">(</span><span class="vm">__doc__</span><span class="p">,</span> <span class="c1"># type: ignore</span>
+    <span class="n">DEFAULT_PORT</span><span class="o">=</span><span class="n">DEFAULT_SERVER_PORT</span><span class="p">,</span>
+    <span class="n">LOGLEVELS</span><span class="o">=</span><span class="n">nice_join</span><span class="p">(</span><span class="n">LOGLEVELS</span><span class="p">),</span>
+    <span class="n">SESSION_ID_MODES</span><span class="o">=</span><span class="n">nice_join</span><span class="p">(</span><span class="n">SESSION_ID_MODES</span><span class="p">),</span>
+    <span class="n">DEFAULT_LOG_FORMAT</span><span class="o">=</span><span class="n">DEFAULT_LOG_FORMAT</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<!-- END MAIN BODY OF DOCS ––––––––––––– -->
+<!-- Google Analytics -->
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async="" src="https://www.googletagmanager.com/gtag/js?id=UA-154795830-2"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-154795830-2', { 'anonymize_ip': true });
+</script>
+<!-- MathJax Config -->
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}
+});
+</script>
+<!-- End Document
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+</body>
+</html>

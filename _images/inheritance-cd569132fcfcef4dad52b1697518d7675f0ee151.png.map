@@ -1,0 +1,7 @@
+<map id="inheritance99498f5ad7" name="inheritance99498f5ad7">
+<area shape="rect" id="node1" href="#panel.io.rest.BaseHandler" target="_top" title="panel.io.rest.BaseHandler" alt="" coords="264,55,455,80"/>
+<area shape="rect" id="node5" href="#panel.io.rest.ParamHandler" target="_top" title="panel.io.rest.ParamHandler" alt="" coords="503,55,701,80"/>
+<area shape="rect" id="node2" title="Base class for HTTP request handlers." alt="" coords="5,55,216,80"/>
+<area shape="rect" id="node3" href="#panel.io.rest.HTTPError" target="_top" title="Custom HTTPError type" alt="" coords="273,5,445,31"/>
+<area shape="rect" id="node4" title="An exception that will turn into an HTTP error response." alt="" coords="25,5,197,31"/>
+</map>

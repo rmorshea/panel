@@ -1,0 +1,687 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<!-- Basic Page Needs
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+<meta charset="utf-8"/>
+<title>panel.links — Panel 0.11.1+g238199f-dirty documentation</title>
+<meta content="High-level dashboarding for python visualization libraries" name="description"/>
+<meta content="Panel contributors" name="author"/>
+<!-- Mobile Specific Metas
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<!-- FONT
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+<script src="https://ajax.googleapis.com/ajax/libs/webfont/1.6.16/webfont.js"></script>
+<script>
+    WebFont.load({
+      google: {
+        families: ['Source Sans Pro']
+      }
+    });
+  </script>
+<!-- CSS
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+<link href="../../_static/css/main.css" rel="stylesheet"/>
+<link href="../../_static/nbsite.css" rel="stylesheet"/>
+<link href="../../_static/site.css" rel="stylesheet"/>
+<!-- Scripts
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script async="" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML" type="text/javascript">
+</script>
+<script src="../../_static/js/main.js"></script>
+<!-- Favicon
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+<link href="../../_static/favicon.ico" rel="icon" type="image/png"/>
+<!-- Canonical
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+<link href="https://panel.holoviz.org/_modules/panel/links.html" rel="canonical">
+</link></head>
+<body class="">
+<header class="navigation">
+<div class="wrapper">
+<a class="logo" href="../../index.html">
+<img alt="Logo" src="../../_static/logo_horizontal.png"/>
+</a>
+<a class="navigation-menu-button" href="javascript:void(0)" id="js-mobile-menu">Menu</a>
+<nav>
+<ul class="navigation-menu show" id="js-navigation-menu">
+<li class="nav-link doc-head"><a href="//discourse.holoviz.org">Discourse</a></li>
+<li class="nav-link doc-head"><a href="//twitter.com/Panel_org">Twitter</a></li>
+<li class="nav-link doc-head"><a href="//github.com/pyviz/panel">Github</a></li>
+<li class="nav-link">
+<div style="display:inline-block;vertical-align: middle;">
+<div class="search-bar">
+<form action="../../search.html" method="get" role="search">
+<input name="q" placeholder="Search" type="search"/>
+<button type="submit">
+<img alt="Search Icon" src="https://raw.githubusercontent.com/thoughtbot/refills/master/source/images/search-icon-black.png"/>
+</button>
+</form>
+</div>
+</div>
+</li>
+</ul>
+</nav>
+</div>
+</header>
+<div class="second-nav">
+<nav>
+<ul class="navigation-menu show">
+<li class="nav-link doc-head"><a href="../../getting_started/index.html">Getting started</a></li>
+<li class="nav-link doc-head"><a href="../../user_guide/index.html">User Guide</a></li>
+<li class="nav-link doc-head"><a href="../../gallery/index.html">Gallery</a></li>
+<li class="nav-link doc-head"><a href="../../reference/index.html">Reference Gallery</a></li>
+<li class="nav-link doc-head"><a href="../../developer_guide/index.html">Developer Guide</a></li>
+<li class="nav-link doc-head"><a href="../../releases.html">Releases</a></li>
+<li class="nav-link doc-head"><a href="../../api/index.html">API</a></li>
+<li class="nav-link doc-head"><a href="../../FAQ.html">FAQ</a></li>
+<li class="nav-link doc-head"><a href="../../about.html">About</a></li>
+</ul>
+</nav>
+</div>
+<!-- MAIN BODY OF DOCS –––––––––––––––––– -->
+<div class="docs section">
+<div id="hacketyhackhack"> <!-- style="width:20%;margin-right: 100px;"> --> <!--style="display: none;"> style="display:none;"> -->
+<div class="toc" style="width:15%; margin-right:20px;">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../index.html">Home</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../getting_started/index.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../user_guide/index.html">User Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../gallery/index.html">Gallery</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../reference/index.html">Reference Gallery</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../developer_guide/index.html">Developer Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../api/index.html">API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Comparisons.html">Comparisons</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../releases.html">Releases</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Roadmap.html">Road Map</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../FAQ.html">FAQ</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://github.com/pyviz/panel">Github source</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../about.html">About</a></li>
+</ul>
+</div>
+</div>
+<div class="content"> <!-- style="max-width:80%;margin-left:auto;margin-right: auto;">-->
+<h1>Source code for panel.links</h1><div class="highlight"><pre>
+<span></span><span class="sd">"""</span>
+<span class="sd">Defines Links which allow declaring links between bokeh properties.</span>
+<span class="sd">"""</span>
+<span class="kn">import</span> <span class="nn">param</span>
+<span class="kn">import</span> <span class="nn">weakref</span>
+<span class="kn">import</span> <span class="nn">sys</span>
+
+<span class="kn">from</span> <span class="nn">.config</span> <span class="kn">import</span> <span class="n">config</span>
+<span class="kn">from</span> <span class="nn">.reactive</span> <span class="kn">import</span> <span class="n">Reactive</span>
+<span class="kn">from</span> <span class="nn">.viewable</span> <span class="kn">import</span> <span class="n">Viewable</span>
+
+<span class="kn">from</span> <span class="nn">bokeh.models</span> <span class="kn">import</span> <span class="p">(</span><span class="n">CustomJS</span><span class="p">,</span> <span class="n">Model</span> <span class="k">as</span> <span class="n">BkModel</span><span class="p">)</span>
+
+
+<div class="viewcode-block" id="Callback"><a class="viewcode-back" href="../../api/panel.links.html#panel.links.Callback">[docs]</a><span class="k">class</span> <span class="nc">Callback</span><span class="p">(</span><span class="n">param</span><span class="o">.</span><span class="n">Parameterized</span><span class="p">):</span>
+    <span class="sd">"""</span>
+<span class="sd">    A Callback defines some callback to be triggered when a property</span>
+<span class="sd">    changes on the source object. A Callback can execute arbitrary</span>
+<span class="sd">    Javascript code and will make all objects referenced in the args</span>
+<span class="sd">    available in the JS namespace.</span>
+<span class="sd">    """</span>
+
+    <span class="n">args</span> <span class="o">=</span> <span class="n">param</span><span class="o">.</span><span class="n">Dict</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="p">{},</span> <span class="n">allow_None</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="s2">"""</span>
+<span class="s2">        A mapping of names to Python objects. These objects are made</span>
+<span class="s2">        available to the callback's code snippet as the values of</span>
+<span class="s2">        named parameters to the callback."""</span><span class="p">)</span>
+
+    <span class="n">code</span> <span class="o">=</span> <span class="n">param</span><span class="o">.</span><span class="n">Dict</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="s2">"""</span>
+<span class="s2">        A dictionary mapping from a source specication to a JS code</span>
+<span class="s2">        snippet to be executed if the source property changes."""</span><span class="p">)</span>
+
+    <span class="c1"># Mapping from a source id to a Link instance</span>
+    <span class="n">registry</span> <span class="o">=</span> <span class="n">weakref</span><span class="o">.</span><span class="n">WeakKeyDictionary</span><span class="p">()</span>
+
+    <span class="c1"># Mapping to define callbacks by backend and Link type.</span>
+    <span class="c1"># e.g. Callback._callbacks[Link] = Callback</span>
+    <span class="n">_callbacks</span> <span class="o">=</span> <span class="p">{}</span>
+
+    <span class="c1"># Whether the link requires a target</span>
+    <span class="n">_requires_target</span> <span class="o">=</span> <span class="kc">False</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">source</span><span class="p">,</span> <span class="n">target</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">params</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">source</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">'</span><span class="si">%s</span><span class="s1"> must define a source'</span> <span class="o">%</span> <span class="nb">type</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="vm">__name__</span><span class="p">)</span>
+        <span class="c1"># Source is stored as a weakref to allow it to be garbage collected</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_source</span> <span class="o">=</span> <span class="kc">None</span> <span class="k">if</span> <span class="n">source</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">weakref</span><span class="o">.</span><span class="n">ref</span><span class="p">(</span><span class="n">source</span><span class="p">)</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="o">**</span><span class="n">params</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">init</span><span class="p">()</span>
+
+<div class="viewcode-block" id="Callback.init"><a class="viewcode-back" href="../../api/panel.links.html#panel.links.Callback.init">[docs]</a>    <span class="k">def</span> <span class="nf">init</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">"""</span>
+<span class="sd">        Registers the Callback</span>
+<span class="sd">        """</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">source</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">registry</span><span class="p">:</span>
+            <span class="n">links</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">registry</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">source</span><span class="p">]</span>
+            <span class="n">params</span> <span class="o">=</span> <span class="p">{</span>
+                <span class="n">k</span><span class="p">:</span> <span class="n">v</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">param</span><span class="o">.</span><span class="n">get_param_values</span><span class="p">()</span> <span class="k">if</span> <span class="n">k</span> <span class="o">!=</span> <span class="s1">'name'</span><span class="p">}</span>
+            <span class="k">for</span> <span class="n">link</span> <span class="ow">in</span> <span class="n">links</span><span class="p">:</span>
+                <span class="n">link_params</span> <span class="o">=</span> <span class="p">{</span>
+                    <span class="n">k</span><span class="p">:</span> <span class="n">v</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">link</span><span class="o">.</span><span class="n">param</span><span class="o">.</span><span class="n">get_param_values</span><span class="p">()</span> <span class="k">if</span> <span class="n">k</span> <span class="o">!=</span> <span class="s1">'name'</span><span class="p">}</span>
+                <span class="k">if</span> <span class="ow">not</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">link</span><span class="p">,</span> <span class="s1">'target'</span><span class="p">):</span>
+                    <span class="k">pass</span>
+                <span class="k">elif</span> <span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">link</span><span class="p">)</span> <span class="ow">is</span> <span class="nb">type</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="ow">and</span> <span class="n">link</span><span class="o">.</span><span class="n">source</span> <span class="ow">is</span> <span class="bp">self</span><span class="o">.</span><span class="n">source</span>
+                    <span class="ow">and</span> <span class="n">link</span><span class="o">.</span><span class="n">target</span> <span class="ow">is</span> <span class="bp">self</span><span class="o">.</span><span class="n">target</span> <span class="ow">and</span> <span class="n">params</span> <span class="o">==</span> <span class="n">link_params</span><span class="p">):</span>
+                    <span class="k">return</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">registry</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">source</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">registry</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">source</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="bp">self</span><span class="p">]</span></div>
+
+<div class="viewcode-block" id="Callback.register_callback"><a class="viewcode-back" href="../../api/panel.links.html#panel.links.Callback.register_callback">[docs]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">register_callback</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">callback</span><span class="p">):</span>
+        <span class="sd">"""</span>
+<span class="sd">        Register a LinkCallback providing the implementation for</span>
+<span class="sd">        the Link for a particular backend.</span>
+<span class="sd">        """</span>
+        <span class="bp">cls</span><span class="o">.</span><span class="n">_callbacks</span><span class="p">[</span><span class="bp">cls</span><span class="p">]</span> <span class="o">=</span> <span class="n">callback</span></div>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">source</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_source</span><span class="p">()</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_source</span> <span class="k">else</span> <span class="kc">None</span>
+
+    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">_process_callbacks</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">root_view</span><span class="p">,</span> <span class="n">root_model</span><span class="p">):</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">root_model</span><span class="p">:</span>
+            <span class="k">return</span>
+
+        <span class="n">linkable</span> <span class="o">=</span> <span class="n">root_view</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="n">Viewable</span><span class="p">)</span>
+        <span class="n">linkable</span> <span class="o">+=</span> <span class="n">root_model</span><span class="o">.</span><span class="n">select</span><span class="p">({</span><span class="s1">'type'</span> <span class="p">:</span> <span class="n">BkModel</span><span class="p">})</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">linkable</span><span class="p">:</span>
+            <span class="k">return</span>
+
+        <span class="n">found</span> <span class="o">=</span> <span class="p">[(</span><span class="n">link</span><span class="p">,</span> <span class="n">src</span><span class="p">,</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">link</span><span class="p">,</span> <span class="s1">'target'</span><span class="p">,</span> <span class="kc">None</span><span class="p">))</span> <span class="k">for</span> <span class="n">src</span> <span class="ow">in</span> <span class="n">linkable</span>
+                 <span class="k">for</span> <span class="n">link</span> <span class="ow">in</span> <span class="bp">cls</span><span class="o">.</span><span class="n">registry</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">src</span><span class="p">,</span> <span class="p">[])</span>
+                 <span class="k">if</span> <span class="ow">not</span> <span class="n">link</span><span class="o">.</span><span class="n">_requires_target</span> <span class="ow">or</span> <span class="n">link</span><span class="o">.</span><span class="n">target</span> <span class="ow">in</span> <span class="n">linkable</span><span class="p">]</span>
+
+        <span class="n">arg_overrides</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="k">if</span> <span class="s1">'holoviews'</span> <span class="ow">in</span> <span class="n">sys</span><span class="o">.</span><span class="n">modules</span><span class="p">:</span>
+            <span class="kn">from</span> <span class="nn">.pane.holoviews</span> <span class="kn">import</span> <span class="n">HoloViews</span><span class="p">,</span> <span class="n">generate_panel_bokeh_map</span>
+
+            <span class="n">hv_views</span> <span class="o">=</span> <span class="n">root_view</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="n">HoloViews</span><span class="p">)</span>
+            <span class="n">map_hve_bk</span> <span class="o">=</span> <span class="n">generate_panel_bokeh_map</span><span class="p">(</span><span class="n">root_model</span><span class="p">,</span> <span class="n">hv_views</span><span class="p">)</span>
+            <span class="k">for</span> <span class="n">src</span> <span class="ow">in</span> <span class="n">linkable</span><span class="p">:</span>
+                <span class="k">for</span> <span class="n">link</span> <span class="ow">in</span> <span class="bp">cls</span><span class="o">.</span><span class="n">registry</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">src</span><span class="p">,</span> <span class="p">[]):</span>
+                    <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">link</span><span class="p">,</span> <span class="s1">'target'</span><span class="p">):</span>
+                        <span class="k">for</span> <span class="n">tgt</span> <span class="ow">in</span> <span class="n">map_hve_bk</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">link</span><span class="o">.</span><span class="n">target</span><span class="p">,</span> <span class="p">[]):</span>
+                            <span class="n">found</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">link</span><span class="p">,</span> <span class="n">src</span><span class="p">,</span> <span class="n">tgt</span><span class="p">))</span>
+                    <span class="n">arg_overrides</span><span class="p">[</span><span class="nb">id</span><span class="p">(</span><span class="n">link</span><span class="p">)]</span> <span class="o">=</span> <span class="p">{}</span>
+                    <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">link</span><span class="o">.</span><span class="n">args</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+                        <span class="c1"># Not all args are hashable</span>
+                        <span class="k">try</span><span class="p">:</span>
+                            <span class="n">hv_objs</span> <span class="o">=</span> <span class="n">map_hve_bk</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="p">[])</span>
+                        <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
+                            <span class="k">continue</span>
+                        <span class="k">for</span> <span class="n">tgt</span> <span class="ow">in</span> <span class="n">hv_objs</span><span class="p">:</span>
+                            <span class="n">arg_overrides</span><span class="p">[</span><span class="nb">id</span><span class="p">(</span><span class="n">link</span><span class="p">)][</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="n">tgt</span>
+
+        <span class="n">ref</span> <span class="o">=</span> <span class="n">root_model</span><span class="o">.</span><span class="n">ref</span><span class="p">[</span><span class="s1">'id'</span><span class="p">]</span>
+        <span class="n">callbacks</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">link</span><span class="p">,</span> <span class="n">src</span><span class="p">,</span> <span class="n">tgt</span> <span class="ow">in</span> <span class="n">found</span><span class="p">:</span>
+            <span class="n">cb</span> <span class="o">=</span> <span class="bp">cls</span><span class="o">.</span><span class="n">_callbacks</span><span class="p">[</span><span class="nb">type</span><span class="p">(</span><span class="n">link</span><span class="p">)]</span>
+            <span class="k">if</span> <span class="p">((</span><span class="n">src</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="n">ref</span> <span class="ow">not</span> <span class="ow">in</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">src</span><span class="p">,</span> <span class="s1">'_models'</span><span class="p">,</span> <span class="p">[</span><span class="n">ref</span><span class="p">]))</span> <span class="ow">or</span>
+                <span class="p">(</span><span class="nb">getattr</span><span class="p">(</span><span class="n">link</span><span class="p">,</span> <span class="s1">'_requires_target'</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span> <span class="ow">and</span> <span class="n">tgt</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">)</span> <span class="ow">or</span>
+                <span class="p">(</span><span class="n">tgt</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">ref</span> <span class="ow">not</span> <span class="ow">in</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">tgt</span><span class="p">,</span> <span class="s1">'_models'</span><span class="p">,</span> <span class="p">[</span><span class="n">ref</span><span class="p">]))):</span>
+                <span class="k">continue</span>
+            <span class="n">overrides</span> <span class="o">=</span> <span class="n">arg_overrides</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="nb">id</span><span class="p">(</span><span class="n">link</span><span class="p">),</span> <span class="p">{})</span>
+            <span class="n">callbacks</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">cb</span><span class="p">(</span><span class="n">root_model</span><span class="p">,</span> <span class="n">link</span><span class="p">,</span> <span class="n">src</span><span class="p">,</span> <span class="n">tgt</span><span class="p">,</span>
+                                <span class="n">arg_overrides</span><span class="o">=</span><span class="n">overrides</span><span class="p">))</span>
+        <span class="k">return</span> <span class="n">callbacks</span></div>
+
+
+<div class="viewcode-block" id="Link"><a class="viewcode-back" href="../../api/panel.links.html#panel.links.Link">[docs]</a><span class="k">class</span> <span class="nc">Link</span><span class="p">(</span><span class="n">Callback</span><span class="p">):</span>
+    <span class="sd">"""</span>
+<span class="sd">    A Link defines some connection between a source and target model.</span>
+<span class="sd">    It allows defining callbacks in response to some change or event</span>
+<span class="sd">    on the source object. Instead a Link directly causes some action</span>
+<span class="sd">    to occur on the target, for JS based backends this usually means</span>
+<span class="sd">    that a corresponding JS callback will effect some change on the</span>
+<span class="sd">    target in response to a change on the source.</span>
+
+<span class="sd">    A Link must define a source object which is what triggers events,</span>
+<span class="sd">    but must not define a target. It is also possible to define bi-</span>
+<span class="sd">    directional links between the source and target object.</span>
+<span class="sd">    """</span>
+
+    <span class="n">bidirectional</span> <span class="o">=</span> <span class="n">param</span><span class="o">.</span><span class="n">Boolean</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="s2">"""</span>
+<span class="s2">        Whether to link source and target in both directions."""</span><span class="p">)</span>
+
+    <span class="n">properties</span> <span class="o">=</span> <span class="n">param</span><span class="o">.</span><span class="n">Dict</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="p">{},</span> <span class="n">doc</span><span class="o">=</span><span class="s2">"""</span>
+<span class="s2">        A dictionary mapping between source specification to target</span>
+<span class="s2">        specification."""</span><span class="p">)</span>
+
+    <span class="c1"># Whether the link requires a target</span>
+    <span class="n">_requires_target</span> <span class="o">=</span> <span class="kc">True</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">source</span><span class="p">,</span> <span class="n">target</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">params</span><span class="p">):</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_requires_target</span> <span class="ow">and</span> <span class="n">target</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">'</span><span class="si">%s</span><span class="s1"> must define a target.'</span> <span class="o">%</span> <span class="nb">type</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="vm">__name__</span><span class="p">)</span>
+        <span class="c1"># Source is stored as a weakref to allow it to be garbage collected</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_target</span> <span class="o">=</span> <span class="kc">None</span> <span class="k">if</span> <span class="n">target</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">weakref</span><span class="o">.</span><span class="n">ref</span><span class="p">(</span><span class="n">target</span><span class="p">)</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">source</span><span class="p">,</span> <span class="o">**</span><span class="n">params</span><span class="p">)</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">target</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_target</span><span class="p">()</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_target</span> <span class="k">else</span> <span class="kc">None</span>
+
+<div class="viewcode-block" id="Link.link"><a class="viewcode-back" href="../../api/panel.links.html#panel.links.Link.link">[docs]</a>    <span class="k">def</span> <span class="nf">link</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">"""</span>
+<span class="sd">        Registers the Link</span>
+<span class="sd">        """</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">init</span><span class="p">()</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">source</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">registry</span><span class="p">:</span>
+            <span class="n">links</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">registry</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">source</span><span class="p">]</span>
+            <span class="n">params</span> <span class="o">=</span> <span class="p">{</span>
+                <span class="n">k</span><span class="p">:</span> <span class="n">v</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">param</span><span class="o">.</span><span class="n">get_param_values</span><span class="p">()</span> <span class="k">if</span> <span class="n">k</span> <span class="o">!=</span> <span class="s1">'name'</span><span class="p">}</span>
+            <span class="k">for</span> <span class="n">link</span> <span class="ow">in</span> <span class="n">links</span><span class="p">:</span>
+                <span class="n">link_params</span> <span class="o">=</span> <span class="p">{</span>
+                    <span class="n">k</span><span class="p">:</span> <span class="n">v</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">link</span><span class="o">.</span><span class="n">param</span><span class="o">.</span><span class="n">get_param_values</span><span class="p">()</span> <span class="k">if</span> <span class="n">k</span> <span class="o">!=</span> <span class="s1">'name'</span><span class="p">}</span>
+                <span class="k">if</span> <span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">link</span><span class="p">)</span> <span class="ow">is</span> <span class="nb">type</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="ow">and</span> <span class="n">link</span><span class="o">.</span><span class="n">source</span> <span class="ow">is</span> <span class="bp">self</span><span class="o">.</span><span class="n">source</span>
+                    <span class="ow">and</span> <span class="n">link</span><span class="o">.</span><span class="n">target</span> <span class="ow">is</span> <span class="bp">self</span><span class="o">.</span><span class="n">target</span> <span class="ow">and</span> <span class="n">params</span> <span class="o">==</span> <span class="n">link_params</span><span class="p">):</span>
+                    <span class="k">return</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">registry</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">source</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">registry</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">source</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="bp">self</span><span class="p">]</span></div>
+
+<div class="viewcode-block" id="Link.unlink"><a class="viewcode-back" href="../../api/panel.links.html#panel.links.Link.unlink">[docs]</a>    <span class="k">def</span> <span class="nf">unlink</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">"""</span>
+<span class="sd">        Unregisters the Link</span>
+<span class="sd">        """</span>
+        <span class="n">links</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">registry</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">source</span><span class="p">)</span>
+        <span class="k">if</span> <span class="bp">self</span> <span class="ow">in</span> <span class="n">links</span><span class="p">:</span>
+            <span class="n">links</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="n">links</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="bp">self</span><span class="p">))</span></div></div>
+
+
+
+<span class="k">class</span> <span class="nc">CallbackGenerator</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">root_model</span><span class="p">,</span> <span class="n">link</span><span class="p">,</span> <span class="n">source</span><span class="p">,</span> <span class="n">target</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">arg_overrides</span><span class="o">=</span><span class="p">{}):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">root_model</span> <span class="o">=</span> <span class="n">root_model</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">link</span> <span class="o">=</span> <span class="n">link</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">source</span> <span class="o">=</span> <span class="n">source</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">target</span> <span class="o">=</span> <span class="n">target</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">arg_overrides</span> <span class="o">=</span> <span class="n">arg_overrides</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">validate</span><span class="p">()</span>
+        <span class="n">specs</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_specs</span><span class="p">(</span><span class="n">link</span><span class="p">,</span> <span class="n">source</span><span class="p">,</span> <span class="n">target</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">src_spec</span><span class="p">,</span> <span class="n">tgt_spec</span><span class="p">,</span> <span class="n">code</span> <span class="ow">in</span> <span class="n">specs</span><span class="p">:</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_init_callback</span><span class="p">(</span><span class="n">root_model</span><span class="p">,</span> <span class="n">link</span><span class="p">,</span> <span class="n">source</span><span class="p">,</span> <span class="n">src_spec</span><span class="p">,</span> <span class="n">target</span><span class="p">,</span> <span class="n">tgt_spec</span><span class="p">,</span> <span class="n">code</span><span class="p">)</span>
+            <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
+                <span class="k">pass</span>
+                
+    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">_resolve_model</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">root_model</span><span class="p">,</span> <span class="n">obj</span><span class="p">,</span> <span class="n">model_spec</span><span class="p">):</span>
+        <span class="sd">"""</span>
+<span class="sd">        Resolves a model given the supplied object and a model_spec.</span>
+
+<span class="sd">        Arguments</span>
+<span class="sd">        ----------</span>
+<span class="sd">        root_model: bokeh.model.Model</span>
+<span class="sd">          The root bokeh model often used to index models</span>
+<span class="sd">        obj: holoviews.plotting.ElementPlot or bokeh.model.Model or panel.Viewable</span>
+<span class="sd">          The object to look the model up on</span>
+<span class="sd">        model_spec: string</span>
+<span class="sd">          A string defining how to look up the model, can be a single</span>
+<span class="sd">          string defining the handle in a HoloViews plot or a path</span>
+<span class="sd">          split by periods (.) to indicate a multi-level lookup.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        model: bokeh.model.Model</span>
+<span class="sd">          The resolved bokeh model</span>
+<span class="sd">        """</span>
+        <span class="kn">from</span> <span class="nn">.pane.holoviews</span> <span class="kn">import</span> <span class="n">is_bokeh_element_plot</span>
+
+        <span class="n">model</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="k">if</span> <span class="s1">'holoviews'</span> <span class="ow">in</span> <span class="n">sys</span><span class="o">.</span><span class="n">modules</span> <span class="ow">and</span> <span class="n">is_bokeh_element_plot</span><span class="p">(</span><span class="n">obj</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">model_spec</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="k">return</span> <span class="n">obj</span><span class="o">.</span><span class="n">state</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">model_specs</span> <span class="o">=</span> <span class="n">model_spec</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">'.'</span><span class="p">)</span>
+                <span class="n">handle_spec</span> <span class="o">=</span> <span class="n">model_specs</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+                <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">model_specs</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+                    <span class="n">model_spec</span> <span class="o">=</span> <span class="s1">'.'</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">model_specs</span><span class="p">[</span><span class="mi">1</span><span class="p">:])</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">model_spec</span> <span class="o">=</span> <span class="kc">None</span>
+                <span class="n">model</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="n">handles</span><span class="p">[</span><span class="n">handle_spec</span><span class="p">]</span>
+        <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="n">Viewable</span><span class="p">):</span>
+            <span class="n">model</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="n">_models</span><span class="p">[</span><span class="n">root_model</span><span class="o">.</span><span class="n">ref</span><span class="p">[</span><span class="s1">'id'</span><span class="p">]]</span>
+        <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="n">BkModel</span><span class="p">):</span>
+            <span class="n">model</span> <span class="o">=</span> <span class="n">obj</span>
+        <span class="k">if</span> <span class="n">model_spec</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">spec</span> <span class="ow">in</span> <span class="n">model_spec</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">'.'</span><span class="p">):</span>
+                <span class="n">model</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">spec</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">model</span>
+
+    <span class="k">def</span> <span class="nf">_init_callback</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">root_model</span><span class="p">,</span> <span class="n">link</span><span class="p">,</span> <span class="n">source</span><span class="p">,</span> <span class="n">src_spec</span><span class="p">,</span> <span class="n">target</span><span class="p">,</span> <span class="n">tgt_spec</span><span class="p">,</span> <span class="n">code</span><span class="p">):</span>
+        <span class="n">references</span> <span class="o">=</span> <span class="p">{</span><span class="n">k</span><span class="p">:</span> <span class="n">v</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">link</span><span class="o">.</span><span class="n">param</span><span class="o">.</span><span class="n">get_param_values</span><span class="p">()</span>
+                      <span class="k">if</span> <span class="n">k</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">(</span><span class="s1">'source'</span><span class="p">,</span> <span class="s1">'target'</span><span class="p">,</span> <span class="s1">'name'</span><span class="p">,</span> <span class="s1">'code'</span><span class="p">,</span> <span class="s1">'args'</span><span class="p">)}</span>
+
+        <span class="n">src_model</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_resolve_model</span><span class="p">(</span><span class="n">root_model</span><span class="p">,</span> <span class="n">source</span><span class="p">,</span> <span class="n">src_spec</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+        <span class="n">ref</span> <span class="o">=</span> <span class="n">root_model</span><span class="o">.</span><span class="n">ref</span><span class="p">[</span><span class="s1">'id'</span><span class="p">]</span>
+        <span class="n">link_id</span> <span class="o">=</span> <span class="nb">id</span><span class="p">(</span><span class="n">link</span><span class="p">)</span>
+        <span class="k">if</span> <span class="p">(</span><span class="nb">any</span><span class="p">(</span><span class="n">link_id</span> <span class="ow">in</span> <span class="n">cb</span><span class="o">.</span><span class="n">tags</span> <span class="k">for</span> <span class="n">cbs</span> <span class="ow">in</span> <span class="n">src_model</span><span class="o">.</span><span class="n">js_property_callbacks</span><span class="o">.</span><span class="n">values</span><span class="p">()</span> <span class="k">for</span> <span class="n">cb</span> <span class="ow">in</span> <span class="n">cbs</span><span class="p">)</span> <span class="ow">or</span>
+            <span class="nb">any</span><span class="p">(</span><span class="n">link_id</span> <span class="ow">in</span> <span class="n">cb</span><span class="o">.</span><span class="n">tags</span> <span class="k">for</span> <span class="n">cbs</span> <span class="ow">in</span> <span class="n">src_model</span><span class="o">.</span><span class="n">js_event_callbacks</span><span class="o">.</span><span class="n">values</span><span class="p">()</span> <span class="k">for</span> <span class="n">cb</span> <span class="ow">in</span> <span class="n">cbs</span><span class="p">)):</span>
+            <span class="c1"># Skip registering callback if already registered</span>
+            <span class="k">return</span>
+        <span class="n">references</span><span class="p">[</span><span class="s1">'source'</span><span class="p">]</span> <span class="o">=</span> <span class="n">src_model</span>
+
+        <span class="n">tgt_model</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="k">if</span> <span class="n">link</span><span class="o">.</span><span class="n">_requires_target</span><span class="p">:</span>
+            <span class="n">tgt_model</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_resolve_model</span><span class="p">(</span><span class="n">root_model</span><span class="p">,</span> <span class="n">target</span><span class="p">,</span> <span class="n">tgt_spec</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+            <span class="k">if</span> <span class="n">tgt_model</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="n">references</span><span class="p">[</span><span class="s1">'target'</span><span class="p">]</span> <span class="o">=</span> <span class="n">tgt_model</span>
+
+        <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="nb">dict</span><span class="p">(</span><span class="n">link</span><span class="o">.</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="bp">self</span><span class="o">.</span><span class="n">arg_overrides</span><span class="p">)</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="n">arg_model</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_resolve_model</span><span class="p">(</span><span class="n">root_model</span><span class="p">,</span> <span class="n">v</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">arg_model</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="n">references</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="n">arg_model</span>
+            <span class="k">elif</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="n">param</span><span class="o">.</span><span class="n">Parameterized</span><span class="p">):</span>
+                <span class="n">references</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="n">v</span>
+
+        <span class="k">if</span> <span class="s1">'holoviews'</span> <span class="ow">in</span> <span class="n">sys</span><span class="o">.</span><span class="n">modules</span><span class="p">:</span>
+            <span class="kn">from</span> <span class="nn">.pane.holoviews</span> <span class="kn">import</span> <span class="n">HoloViews</span><span class="p">,</span> <span class="n">is_bokeh_element_plot</span>
+
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">source</span><span class="p">,</span> <span class="n">HoloViews</span><span class="p">):</span>
+                <span class="n">src</span> <span class="o">=</span> <span class="n">source</span><span class="o">.</span><span class="n">_plots</span><span class="p">[</span><span class="n">ref</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">src</span> <span class="o">=</span> <span class="n">source</span>
+
+            <span class="n">prefix</span> <span class="o">=</span> <span class="s1">'source_'</span> <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">link</span><span class="p">,</span> <span class="s1">'target'</span><span class="p">)</span> <span class="k">else</span> <span class="s1">''</span>
+            <span class="k">if</span> <span class="n">is_bokeh_element_plot</span><span class="p">(</span><span class="n">src</span><span class="p">):</span>
+                <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">src</span><span class="o">.</span><span class="n">handles</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+                    <span class="n">k</span> <span class="o">=</span> <span class="n">prefix</span> <span class="o">+</span> <span class="n">k</span>
+                    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="n">BkModel</span><span class="p">)</span> <span class="ow">and</span> <span class="n">k</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">references</span><span class="p">:</span>
+                        <span class="n">references</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="n">v</span>
+
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">target</span><span class="p">,</span> <span class="n">HoloViews</span><span class="p">):</span>
+                <span class="n">tgt</span> <span class="o">=</span> <span class="n">target</span><span class="o">.</span><span class="n">_plots</span><span class="p">[</span><span class="n">ref</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">tgt</span> <span class="o">=</span> <span class="n">target</span>
+
+            <span class="k">if</span> <span class="n">is_bokeh_element_plot</span><span class="p">(</span><span class="n">tgt</span><span class="p">):</span>
+                <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">tgt</span><span class="o">.</span><span class="n">handles</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+                    <span class="n">k</span> <span class="o">=</span> <span class="s1">'target_'</span> <span class="o">+</span> <span class="n">k</span>
+                    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="n">BkModel</span><span class="p">)</span> <span class="ow">and</span> <span class="n">k</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">references</span><span class="p">:</span>
+                        <span class="n">references</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="n">v</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_initialize_models</span><span class="p">(</span><span class="n">link</span><span class="p">,</span> <span class="n">source</span><span class="p">,</span> <span class="n">src_model</span><span class="p">,</span> <span class="n">src_spec</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">target</span><span class="p">,</span> <span class="n">tgt_model</span><span class="p">,</span> <span class="n">tgt_spec</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_process_references</span><span class="p">(</span><span class="n">references</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">code</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">code</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_code</span><span class="p">(</span><span class="n">link</span><span class="p">,</span> <span class="n">source</span><span class="p">,</span> <span class="n">src_spec</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">target</span><span class="p">,</span> <span class="n">tgt_spec</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">code</span> <span class="o">=</span> <span class="s2">"try {{ </span><span class="si">{code}</span><span class="s2"> }} catch(err) {{ console.log(err) }}"</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">code</span><span class="o">=</span><span class="n">code</span><span class="p">)</span>
+
+        <span class="n">src_cb</span> <span class="o">=</span> <span class="n">CustomJS</span><span class="p">(</span><span class="n">args</span><span class="o">=</span><span class="n">references</span><span class="p">,</span> <span class="n">code</span><span class="o">=</span><span class="n">code</span><span class="p">,</span> <span class="n">tags</span><span class="o">=</span><span class="p">[</span><span class="n">link_id</span><span class="p">])</span>
+        <span class="n">changes</span><span class="p">,</span> <span class="n">events</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_triggers</span><span class="p">(</span><span class="n">link</span><span class="p">,</span> <span class="n">src_spec</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">ch</span> <span class="ow">in</span> <span class="n">changes</span><span class="p">:</span>
+            <span class="n">src_model</span><span class="o">.</span><span class="n">js_on_change</span><span class="p">(</span><span class="n">ch</span><span class="p">,</span> <span class="n">src_cb</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">ev</span> <span class="ow">in</span> <span class="n">events</span><span class="p">:</span>
+            <span class="n">src_model</span><span class="o">.</span><span class="n">js_on_event</span><span class="p">(</span><span class="n">ev</span><span class="p">,</span> <span class="n">src_cb</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">link</span><span class="p">,</span> <span class="s1">'bidirectional'</span><span class="p">,</span> <span class="kc">False</span><span class="p">):</span>
+            <span class="n">code</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_code</span><span class="p">(</span><span class="n">link</span><span class="p">,</span> <span class="n">target</span><span class="p">,</span> <span class="n">tgt_spec</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">source</span><span class="p">,</span> <span class="n">src_spec</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+            <span class="n">reverse_references</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">references</span><span class="p">)</span>
+            <span class="n">reverse_references</span><span class="p">[</span><span class="s1">'source'</span><span class="p">]</span> <span class="o">=</span> <span class="n">tgt_model</span>
+            <span class="n">reverse_references</span><span class="p">[</span><span class="s1">'target'</span><span class="p">]</span> <span class="o">=</span> <span class="n">src_model</span>
+            <span class="n">tgt_cb</span> <span class="o">=</span> <span class="n">CustomJS</span><span class="p">(</span><span class="n">args</span><span class="o">=</span><span class="n">reverse_references</span><span class="p">,</span> <span class="n">code</span><span class="o">=</span><span class="n">code</span><span class="p">,</span> <span class="n">tags</span><span class="o">=</span><span class="p">[</span><span class="n">link_id</span><span class="p">])</span>
+            <span class="n">changes</span><span class="p">,</span> <span class="n">events</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_triggers</span><span class="p">(</span><span class="n">link</span><span class="p">,</span> <span class="n">tgt_spec</span><span class="p">)</span>
+            <span class="k">for</span> <span class="n">ch</span> <span class="ow">in</span> <span class="n">changes</span><span class="p">:</span>
+                <span class="n">tgt_model</span><span class="o">.</span><span class="n">js_on_change</span><span class="p">(</span><span class="n">ch</span><span class="p">,</span> <span class="n">tgt_cb</span><span class="p">)</span>
+            <span class="k">for</span> <span class="n">ev</span> <span class="ow">in</span> <span class="n">events</span><span class="p">:</span>
+                <span class="n">tgt_model</span><span class="o">.</span><span class="n">js_on_event</span><span class="p">(</span><span class="n">ev</span><span class="p">,</span> <span class="n">tgt_cb</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">_process_references</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">references</span><span class="p">):</span>
+        <span class="sd">"""</span>
+<span class="sd">        Method to process references in place.</span>
+<span class="sd">        """</span>
+
+    <span class="k">def</span> <span class="nf">_get_specs</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">link</span><span class="p">):</span>
+        <span class="sd">"""</span>
+<span class="sd">        Return a list of spec tuples that define source and target</span>
+<span class="sd">        models.</span>
+<span class="sd">        """</span>
+        <span class="k">return</span> <span class="p">[]</span>
+
+    <span class="k">def</span> <span class="nf">_get_code</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">link</span><span class="p">,</span> <span class="n">source</span><span class="p">,</span> <span class="n">target</span><span class="p">):</span>
+        <span class="sd">"""</span>
+<span class="sd">        Returns the code to be executed.</span>
+<span class="sd">        """</span>
+        <span class="k">return</span> <span class="s1">''</span>
+
+    <span class="k">def</span> <span class="nf">_get_triggers</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">link</span><span class="p">,</span> <span class="n">src_spec</span><span class="p">):</span>
+        <span class="sd">"""</span>
+<span class="sd">        Returns the changes and events that trigger the callback.</span>
+<span class="sd">        """</span>
+        <span class="k">return</span> <span class="p">[],</span> <span class="p">[]</span>
+
+    <span class="k">def</span> <span class="nf">_initialize_models</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">link</span><span class="p">,</span> <span class="n">source</span><span class="p">,</span> <span class="n">src_model</span><span class="p">,</span> <span class="n">src_spec</span><span class="p">,</span> <span class="n">target</span><span class="p">,</span> <span class="n">tgt_model</span><span class="p">,</span> <span class="n">tgt_spec</span><span class="p">):</span>
+        <span class="sd">"""</span>
+<span class="sd">        Applies any necessary initialization to the source and target</span>
+<span class="sd">        models.</span>
+<span class="sd">        """</span>
+        <span class="k">pass</span>
+
+    <span class="k">def</span> <span class="nf">validate</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">pass</span>
+
+
+
+<span class="k">class</span> <span class="nc">JSCallbackGenerator</span><span class="p">(</span><span class="n">CallbackGenerator</span><span class="p">):</span>
+
+    <span class="k">def</span> <span class="nf">_get_triggers</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">link</span><span class="p">,</span> <span class="n">src_spec</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">src_spec</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s1">'event:'</span><span class="p">):</span>
+            <span class="k">return</span> <span class="p">[],</span> <span class="p">[</span><span class="n">src_spec</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">':'</span><span class="p">)[</span><span class="mi">1</span><span class="p">]]</span>
+        <span class="k">return</span> <span class="p">[</span><span class="n">src_spec</span><span class="p">[</span><span class="mi">1</span><span class="p">]],</span> <span class="p">[]</span>
+
+    <span class="k">def</span> <span class="nf">_get_specs</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">link</span><span class="p">,</span> <span class="n">source</span><span class="p">,</span> <span class="n">target</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">src_spec</span><span class="p">,</span> <span class="n">code</span> <span class="ow">in</span> <span class="n">link</span><span class="o">.</span><span class="n">code</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="n">src_specs</span> <span class="o">=</span> <span class="n">src_spec</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">'.'</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">src_spec</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s1">'event:'</span><span class="p">):</span>
+                <span class="n">src_spec</span> <span class="o">=</span> <span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="n">src_spec</span><span class="p">)</span>
+            <span class="k">elif</span> <span class="nb">len</span><span class="p">(</span><span class="n">src_specs</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+                <span class="n">src_spec</span> <span class="o">=</span> <span class="p">(</span><span class="s1">'.'</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">src_specs</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">]),</span> <span class="n">src_specs</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">src_prop</span> <span class="o">=</span> <span class="n">src_specs</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+                <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">source</span><span class="p">,</span> <span class="n">Reactive</span><span class="p">):</span>
+                    <span class="n">src_prop</span> <span class="o">=</span> <span class="n">source</span><span class="o">.</span><span class="n">_rename</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">src_prop</span><span class="p">,</span> <span class="n">src_prop</span><span class="p">)</span>
+                <span class="n">src_spec</span> <span class="o">=</span> <span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="n">src_prop</span><span class="p">)</span>
+        <span class="k">return</span> <span class="p">[(</span><span class="n">src_spec</span><span class="p">,</span> <span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">),</span> <span class="n">code</span><span class="p">)]</span>
+
+
+
+<span class="k">class</span> <span class="nc">JSLinkCallbackGenerator</span><span class="p">(</span><span class="n">JSCallbackGenerator</span><span class="p">):</span>
+
+    <span class="n">_link_template</span> <span class="o">=</span> <span class="s2">"""</span>
+<span class="s2">    var value = source['</span><span class="si">{src_attr}</span><span class="s2">'];</span>
+<span class="s2">    value = </span><span class="si">{src_transform}</span><span class="s2">;</span>
+<span class="s2">    value = </span><span class="si">{tgt_transform}</span><span class="s2">;</span>
+<span class="s2">    try {{</span>
+<span class="s2">      var property = target.properties['</span><span class="si">{tgt_attr}</span><span class="s2">'];</span>
+<span class="s2">      if (property !== undefined) {{ property.validate(value); }}</span>
+<span class="s2">    }} catch(err) {{</span>
+<span class="s2">      console.log('WARNING: Could not set </span><span class="si">{tgt_attr}</span><span class="s2"> on target, raised error: ' + err);</span>
+<span class="s2">      return;</span>
+<span class="s2">    }}</span>
+<span class="s2">    try {{</span>
+<span class="s2">      target['</span><span class="si">{tgt_attr}</span><span class="s2">'] = value;</span>
+<span class="s2">    }} catch(err) {{</span>
+<span class="s2">      console.log(err)</span>
+<span class="s2">    }}</span>
+<span class="s2">    """</span>
+
+    <span class="n">_event_link_template</span> <span class="o">=</span> <span class="s2">"""</span>
+<span class="s2">    var value = true</span>
+<span class="s2">    try {{</span>
+<span class="s2">      var property = target.properties['</span><span class="si">{tgt_attr}</span><span class="s2">'];</span>
+<span class="s2">      if (property !== undefined) {{ property.validate(value); }}</span>
+<span class="s2">    }} catch(err) {{</span>
+<span class="s2">      console.log('WARNING: Could not set </span><span class="si">{tgt_attr}</span><span class="s2"> on target, raised error: ' + err);</span>
+<span class="s2">      return;</span>
+<span class="s2">    }}</span>
+<span class="s2">    try {{</span>
+<span class="s2">      target['</span><span class="si">{tgt_attr}</span><span class="s2">'] = value;</span>
+<span class="s2">    }} catch(err) {{</span>
+<span class="s2">      console.log(err)</span>
+<span class="s2">    }}</span>
+<span class="s2">    """</span>
+
+    <span class="n">_loading_link_template</span> <span class="o">=</span> <span class="s2">"""</span>
+<span class="s2">    if ('</span><span class="si">{src_attr}</span><span class="s2">'.startsWith('event:')) {{</span>
+<span class="s2">      var value = true</span>
+<span class="s2">    }} else {{</span>
+<span class="s2">      var value = source['</span><span class="si">{src_attr}</span><span class="s2">'];</span>
+<span class="s2">      value = </span><span class="si">{src_transform}</span><span class="s2">;</span>
+<span class="s2">    }}</span>
+<span class="s2">    if (typeof value !== 'boolean' || source.labels !== ['Loading']) {{</span>
+<span class="s2">      value = true</span>
+<span class="s2">    }}</span>
+<span class="s2">    var css_classes = target.css_classes.slice()</span>
+<span class="s2">    var loading_css = ['pn-loading', '</span><span class="si">{loading_spinner}</span><span class="s2">']</span>
+<span class="s2">    if (value) {{</span>
+<span class="s2">      for (var css of loading_css) {{</span>
+<span class="s2">        if (!(css in css_classes)) {{</span>
+<span class="s2">          css_classes.push(css)</span>
+<span class="s2">        }}</span>
+<span class="s2">      }}</span>
+<span class="s2">    }} else {{</span>
+<span class="s2">     for (var css of loading_css) {{</span>
+<span class="s2">        var index = css_classes.indexOf(css)</span>
+<span class="s2">        if (index &gt; -1) {{</span>
+<span class="s2">          css_classes.splice(index, 1)</span>
+<span class="s2">        }}</span>
+<span class="s2">      }}</span>
+<span class="s2">    }}</span>
+<span class="s2">    target['css_classes'] = css_classes</span>
+<span class="s2">    """</span>
+
+    <span class="k">def</span> <span class="nf">_get_specs</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">link</span><span class="p">,</span> <span class="n">source</span><span class="p">,</span> <span class="n">target</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">link</span><span class="o">.</span><span class="n">code</span><span class="p">:</span>
+            <span class="k">return</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">_get_specs</span><span class="p">(</span><span class="n">link</span><span class="p">,</span> <span class="n">source</span><span class="p">,</span> <span class="n">target</span><span class="p">)</span>
+
+        <span class="n">specs</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">src_spec</span><span class="p">,</span> <span class="n">tgt_spec</span> <span class="ow">in</span> <span class="n">link</span><span class="o">.</span><span class="n">properties</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="n">src_specs</span> <span class="o">=</span> <span class="n">src_spec</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">'.'</span><span class="p">)</span>
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">src_specs</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+                <span class="n">src_spec</span> <span class="o">=</span> <span class="p">(</span><span class="s1">'.'</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">src_specs</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">]),</span> <span class="n">src_specs</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">src_prop</span> <span class="o">=</span> <span class="n">src_specs</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+                <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">source</span><span class="p">,</span> <span class="n">Reactive</span><span class="p">):</span>
+                    <span class="n">src_prop</span> <span class="o">=</span> <span class="n">source</span><span class="o">.</span><span class="n">_rename</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">src_prop</span><span class="p">,</span> <span class="n">src_prop</span><span class="p">)</span>
+                <span class="n">src_spec</span> <span class="o">=</span> <span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="n">src_prop</span><span class="p">)</span>
+            <span class="n">tgt_specs</span> <span class="o">=</span> <span class="n">tgt_spec</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">'.'</span><span class="p">)</span>
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">tgt_specs</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+                <span class="n">tgt_spec</span> <span class="o">=</span> <span class="p">(</span><span class="s1">'.'</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">tgt_specs</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">]),</span> <span class="n">tgt_specs</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">tgt_prop</span> <span class="o">=</span> <span class="n">tgt_specs</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+                <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">target</span><span class="p">,</span> <span class="n">Reactive</span><span class="p">):</span>
+                    <span class="n">tgt_prop</span> <span class="o">=</span> <span class="n">target</span><span class="o">.</span><span class="n">_rename</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">tgt_prop</span><span class="p">,</span> <span class="n">tgt_prop</span><span class="p">)</span>
+                <span class="n">tgt_spec</span> <span class="o">=</span> <span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="n">tgt_prop</span><span class="p">)</span>
+            <span class="n">specs</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">src_spec</span><span class="p">,</span> <span class="n">tgt_spec</span><span class="p">,</span> <span class="kc">None</span><span class="p">))</span>
+        <span class="k">return</span> <span class="n">specs</span>
+
+    <span class="k">def</span> <span class="nf">_initialize_models</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">link</span><span class="p">,</span> <span class="n">source</span><span class="p">,</span> <span class="n">src_model</span><span class="p">,</span> <span class="n">src_spec</span><span class="p">,</span> <span class="n">target</span><span class="p">,</span> <span class="n">tgt_model</span><span class="p">,</span> <span class="n">tgt_spec</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">tgt_model</span> <span class="ow">and</span> <span class="n">src_spec</span> <span class="ow">and</span> <span class="n">tgt_spec</span><span class="p">:</span>
+            <span class="n">src_reverse</span> <span class="o">=</span> <span class="p">{</span><span class="n">v</span><span class="p">:</span> <span class="n">k</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">source</span><span class="p">,</span> <span class="s1">'_rename'</span><span class="p">,</span> <span class="p">{})</span><span class="o">.</span><span class="n">items</span><span class="p">()}</span>
+            <span class="n">src_param</span> <span class="o">=</span> <span class="n">src_reverse</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">src_spec</span><span class="p">,</span> <span class="n">src_spec</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">src_spec</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s1">'event:'</span><span class="p">):</span>
+                <span class="k">return</span>
+            <span class="k">if</span> <span class="p">(</span><span class="nb">hasattr</span><span class="p">(</span><span class="n">source</span><span class="p">,</span> <span class="s1">'_process_property_change'</span><span class="p">)</span> <span class="ow">and</span>
+                <span class="n">src_param</span> <span class="ow">in</span> <span class="n">source</span><span class="o">.</span><span class="n">param</span> <span class="ow">and</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">target</span><span class="p">,</span> <span class="s1">'_process_param_change'</span><span class="p">)):</span>
+                <span class="n">tgt_reverse</span> <span class="o">=</span> <span class="p">{</span><span class="n">v</span><span class="p">:</span> <span class="n">k</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">target</span><span class="o">.</span><span class="n">_rename</span><span class="o">.</span><span class="n">items</span><span class="p">()}</span>
+                <span class="n">tgt_param</span> <span class="o">=</span> <span class="n">tgt_reverse</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">tgt_spec</span><span class="p">,</span> <span class="n">tgt_spec</span><span class="p">)</span>
+                <span class="n">value</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">source</span><span class="p">,</span> <span class="n">src_param</span><span class="p">)</span>
+                <span class="k">try</span><span class="p">:</span>
+                    <span class="n">msg</span> <span class="o">=</span> <span class="n">target</span><span class="o">.</span><span class="n">_process_param_change</span><span class="p">({</span><span class="n">tgt_param</span><span class="p">:</span> <span class="n">value</span><span class="p">})</span>
+                <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
+                    <span class="n">msg</span> <span class="o">=</span> <span class="p">{}</span>
+                <span class="k">if</span> <span class="n">tgt_spec</span> <span class="ow">in</span> <span class="n">msg</span><span class="p">:</span>
+                    <span class="n">value</span> <span class="o">=</span> <span class="n">msg</span><span class="p">[</span><span class="n">tgt_spec</span><span class="p">]</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">value</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">src_model</span><span class="p">,</span> <span class="n">src_spec</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">value</span> <span class="ow">and</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">tgt_model</span><span class="p">,</span> <span class="n">tgt_spec</span><span class="p">):</span>
+                <span class="nb">setattr</span><span class="p">(</span><span class="n">tgt_model</span><span class="p">,</span> <span class="n">tgt_spec</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">tgt_model</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">link</span><span class="o">.</span><span class="n">code</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">'Model could not be resolved on target '</span>
+                             <span class="s1">'</span><span class="si">%s</span><span class="s1"> and no custom code was specified.'</span> <span class="o">%</span>
+                             <span class="nb">type</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">target</span><span class="p">)</span><span class="o">.</span><span class="vm">__name__</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">_process_references</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">references</span><span class="p">):</span>
+        <span class="sd">"""</span>
+<span class="sd">        Strips target_ prefix from references.</span>
+<span class="sd">        """</span>
+        <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">list</span><span class="p">(</span><span class="n">references</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">k</span> <span class="o">==</span> <span class="s1">'target'</span> <span class="ow">or</span> <span class="ow">not</span> <span class="n">k</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s1">'target_'</span><span class="p">)</span> <span class="ow">or</span> <span class="n">k</span><span class="p">[</span><span class="mi">7</span><span class="p">:]</span> <span class="ow">in</span> <span class="n">references</span><span class="p">:</span>
+                <span class="k">continue</span>
+            <span class="n">references</span><span class="p">[</span><span class="n">k</span><span class="p">[</span><span class="mi">7</span><span class="p">:]]</span> <span class="o">=</span> <span class="n">references</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="n">k</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">_get_code</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">link</span><span class="p">,</span> <span class="n">source</span><span class="p">,</span> <span class="n">src_spec</span><span class="p">,</span> <span class="n">target</span><span class="p">,</span> <span class="n">tgt_spec</span><span class="p">):</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">source</span><span class="p">,</span> <span class="n">Reactive</span><span class="p">):</span>
+            <span class="n">src_reverse</span> <span class="o">=</span> <span class="p">{</span><span class="n">v</span><span class="p">:</span> <span class="n">k</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">source</span><span class="o">.</span><span class="n">_rename</span><span class="o">.</span><span class="n">items</span><span class="p">()}</span>
+            <span class="n">src_param</span> <span class="o">=</span> <span class="n">src_reverse</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">src_spec</span><span class="p">,</span> <span class="n">src_spec</span><span class="p">)</span>
+            <span class="n">src_transform</span> <span class="o">=</span> <span class="n">source</span><span class="o">.</span><span class="n">_source_transforms</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">src_param</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">src_transform</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="n">src_transform</span> <span class="o">=</span> <span class="s1">'value'</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">src_transform</span> <span class="o">=</span> <span class="s1">'value'</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">target</span><span class="p">,</span> <span class="n">Reactive</span><span class="p">):</span>
+            <span class="n">tgt_reverse</span> <span class="o">=</span> <span class="p">{</span><span class="n">v</span><span class="p">:</span> <span class="n">k</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">target</span><span class="o">.</span><span class="n">_rename</span><span class="o">.</span><span class="n">items</span><span class="p">()}</span>
+            <span class="n">tgt_param</span> <span class="o">=</span> <span class="n">tgt_reverse</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">tgt_spec</span><span class="p">,</span> <span class="n">tgt_spec</span><span class="p">)</span>
+            <span class="n">tgt_transform</span> <span class="o">=</span> <span class="n">target</span><span class="o">.</span><span class="n">_target_transforms</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">tgt_param</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">tgt_transform</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="n">tgt_transform</span> <span class="o">=</span> <span class="s1">'value'</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">tgt_transform</span> <span class="o">=</span> <span class="s1">'value'</span>
+        <span class="k">if</span> <span class="n">tgt_spec</span> <span class="o">==</span> <span class="s1">'loading'</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_loading_link_template</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+                <span class="n">src_attr</span><span class="o">=</span><span class="n">src_spec</span><span class="p">,</span> <span class="n">src_transform</span><span class="o">=</span><span class="n">src_transform</span><span class="p">,</span>
+                <span class="n">loading_spinner</span><span class="o">=</span><span class="n">config</span><span class="o">.</span><span class="n">loading_spinner</span>
+            <span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">src_spec</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s1">'event:'</span><span class="p">):</span>
+                <span class="n">template</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_event_link_template</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">template</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_link_template</span>
+            <span class="k">return</span> <span class="n">template</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+                <span class="n">src_attr</span><span class="o">=</span><span class="n">src_spec</span><span class="p">,</span>
+                <span class="n">tgt_attr</span><span class="o">=</span><span class="n">tgt_spec</span><span class="p">,</span>
+                <span class="n">src_transform</span><span class="o">=</span><span class="n">src_transform</span><span class="p">,</span>
+                <span class="n">tgt_transform</span><span class="o">=</span><span class="n">tgt_transform</span>
+            <span class="p">)</span>
+
+<span class="n">Callback</span><span class="o">.</span><span class="n">register_callback</span><span class="p">(</span><span class="n">callback</span><span class="o">=</span><span class="n">JSCallbackGenerator</span><span class="p">)</span>
+<span class="n">Link</span><span class="o">.</span><span class="n">register_callback</span><span class="p">(</span><span class="n">callback</span><span class="o">=</span><span class="n">JSLinkCallbackGenerator</span><span class="p">)</span>
+
+<span class="n">Viewable</span><span class="o">.</span><span class="n">_preprocessing_hooks</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">Callback</span><span class="o">.</span><span class="n">_process_callbacks</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<!-- END MAIN BODY OF DOCS ––––––––––––– -->
+<!-- Google Analytics -->
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async="" src="https://www.googletagmanager.com/gtag/js?id=UA-154795830-2"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-154795830-2', { 'anonymize_ip': true });
+</script>
+<!-- MathJax Config -->
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}
+});
+</script>
+<!-- End Document
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+</body>
+</html>

@@ -1,0 +1,9 @@
+<map id="inheritanceff0e72d8c6" name="inheritanceff0e72d8c6">
+<area shape="rect" id="node1" href="panel.template.html#panel.template.base.BaseTemplate" target="_top" title="panel.template.base.BaseTemplate" alt="" coords="225,22,405,40"/>
+<area shape="rect" id="node4" href="panel.template.html#panel.template.base.BasicTemplate" target="_top" title="BasicTemplate provides a baseclass for templates with a basic" alt="" coords="439,22,621,40"/>
+<area shape="rect" id="node2" title="params(name=String)" alt="" coords="4,4,191,22"/>
+<area shape="rect" id="node3" href="panel.viewable.html#panel.viewable.ServableMixin" target="_top" title="Mixin to define methods shared by objects which can served." alt="" coords="20,39,175,57"/>
+<area shape="rect" id="node5" href="#panel.template.fast.base.FastBaseTemplate" target="_top" title="panel.template.fast.base.FastBaseTemplate" alt="" coords="656,4,875,22"/>
+<area shape="rect" id="node7" href="panel.template.react.html#panel.template.react.ReactTemplate" target="_top" title="ReactTemplate is built on top of React Grid Layout web components." alt="" coords="673,39,858,57"/>
+<area shape="rect" id="node6" href="#panel.template.fast.base.FastGridBaseTemplate" target="_top" title="Combines the FastTemplate and the React template." alt="" coords="909,22,1148,40"/>
+</map>

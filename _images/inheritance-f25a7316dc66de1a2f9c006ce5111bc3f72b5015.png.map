@@ -1,0 +1,10 @@
+<map id="inheritanceeaedeaac95" name="inheritanceeaedeaac95">
+<area shape="rect" id="node1" title="Base class for all class types that have Bokeh properties." alt="" coords="52,3,202,20"/>
+<area shape="rect" id="node2" title="Base class for all objects stored in Bokeh &#160;|Document| instances." alt="" coords="282,36,380,52"/>
+<area shape="rect" id="node5" title="The base class for layoutable components." alt="" coords="411,36,571,52"/>
+<area shape="rect" id="node3" title="A mixin class to provide an interface for registering and" alt="" coords="3,36,251,52"/>
+<area shape="rect" id="node4" title="A mixin class to provide an interface for registering and" alt="" coords="9,68,245,84"/>
+<area shape="rect" id="node7" title="A base class for all interactive widget types." alt="" coords="602,36,776,52"/>
+<area shape="rect" id="node6" title="Base class for Bokeh models that represent HTML markup elements." alt="" coords="807,36,991,52"/>
+<area shape="rect" id="node8" href="#panel.models.katex.KaTeX" target="_top" title="A bokeh model that renders text using KaTeX." alt="" coords="1022,36,1149,52"/>
+</map>

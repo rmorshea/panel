@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<!-- Basic Page Needs
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+<meta charset="utf-8"/>
+<title>panel.io.model — Panel 0.11.1+g238199f-dirty documentation</title>
+<meta content="High-level dashboarding for python visualization libraries" name="description"/>
+<meta content="Panel contributors" name="author"/>
+<!-- Mobile Specific Metas
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<!-- FONT
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+<script src="https://ajax.googleapis.com/ajax/libs/webfont/1.6.16/webfont.js"></script>
+<script>
+    WebFont.load({
+      google: {
+        families: ['Source Sans Pro']
+      }
+    });
+  </script>
+<!-- CSS
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+<link href="../../../_static/css/main.css" rel="stylesheet"/>
+<link href="../../../_static/nbsite.css" rel="stylesheet"/>
+<link href="../../../_static/site.css" rel="stylesheet"/>
+<!-- Scripts
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script async="" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML" type="text/javascript">
+</script>
+<script src="../../../_static/js/main.js"></script>
+<!-- Favicon
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+<link href="../../../_static/favicon.ico" rel="icon" type="image/png"/>
+<!-- Canonical
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+<link href="https://panel.holoviz.org/_modules/panel/io/model.html" rel="canonical">
+</link></head>
+<body class="">
+<header class="navigation">
+<div class="wrapper">
+<a class="logo" href="../../../index.html">
+<img alt="Logo" src="../../../_static/logo_horizontal.png"/>
+</a>
+<a class="navigation-menu-button" href="javascript:void(0)" id="js-mobile-menu">Menu</a>
+<nav>
+<ul class="navigation-menu show" id="js-navigation-menu">
+<li class="nav-link doc-head"><a href="//discourse.holoviz.org">Discourse</a></li>
+<li class="nav-link doc-head"><a href="//twitter.com/Panel_org">Twitter</a></li>
+<li class="nav-link doc-head"><a href="//github.com/pyviz/panel">Github</a></li>
+<li class="nav-link">
+<div style="display:inline-block;vertical-align: middle;">
+<div class="search-bar">
+<form action="../../../search.html" method="get" role="search">
+<input name="q" placeholder="Search" type="search"/>
+<button type="submit">
+<img alt="Search Icon" src="https://raw.githubusercontent.com/thoughtbot/refills/master/source/images/search-icon-black.png"/>
+</button>
+</form>
+</div>
+</div>
+</li>
+</ul>
+</nav>
+</div>
+</header>
+<div class="second-nav">
+<nav>
+<ul class="navigation-menu show">
+<li class="nav-link doc-head"><a href="../../../getting_started/index.html">Getting started</a></li>
+<li class="nav-link doc-head"><a href="../../../user_guide/index.html">User Guide</a></li>
+<li class="nav-link doc-head"><a href="../../../gallery/index.html">Gallery</a></li>
+<li class="nav-link doc-head"><a href="../../../reference/index.html">Reference Gallery</a></li>
+<li class="nav-link doc-head"><a href="../../../developer_guide/index.html">Developer Guide</a></li>
+<li class="nav-link doc-head"><a href="../../../releases.html">Releases</a></li>
+<li class="nav-link doc-head"><a href="../../../api/index.html">API</a></li>
+<li class="nav-link doc-head"><a href="../../../FAQ.html">FAQ</a></li>
+<li class="nav-link doc-head"><a href="../../../about.html">About</a></li>
+</ul>
+</nav>
+</div>
+<!-- MAIN BODY OF DOCS –––––––––––––––––– -->
+<div class="docs section">
+<div id="hacketyhackhack"> <!-- style="width:20%;margin-right: 100px;"> --> <!--style="display: none;"> style="display:none;"> -->
+<div class="toc" style="width:15%; margin-right:20px;">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../index.html">Home</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../getting_started/index.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../user_guide/index.html">User Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../gallery/index.html">Gallery</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../reference/index.html">Reference Gallery</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../developer_guide/index.html">Developer Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/index.html">API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../Comparisons.html">Comparisons</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../releases.html">Releases</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../Roadmap.html">Road Map</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../FAQ.html">FAQ</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://github.com/pyviz/panel">Github source</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../about.html">About</a></li>
+</ul>
+</div>
+</div>
+<div class="content"> <!-- style="max-width:80%;margin-left:auto;margin-right: auto;">-->
+<h1>Source code for panel.io.model</h1><div class="highlight"><pre>
+<span></span><span class="sd">"""</span>
+<span class="sd">Utilities for manipulating bokeh models.</span>
+<span class="sd">"""</span>
+<span class="kn">import</span> <span class="nn">textwrap</span>
+<span class="kn">from</span> <span class="nn">contextlib</span> <span class="kn">import</span> <span class="n">contextmanager</span>
+
+<span class="kn">from</span> <span class="nn">bokeh.document</span> <span class="kn">import</span> <span class="n">Document</span>
+<span class="kn">from</span> <span class="nn">bokeh.document.events</span> <span class="kn">import</span> <span class="n">ColumnDataChangedEvent</span>
+<span class="kn">from</span> <span class="nn">bokeh.models</span> <span class="kn">import</span> <span class="n">Box</span><span class="p">,</span> <span class="n">ColumnDataSource</span><span class="p">,</span> <span class="n">Model</span>
+<span class="kn">from</span> <span class="nn">bokeh.protocol</span> <span class="kn">import</span> <span class="n">Protocol</span>
+
+<span class="kn">from</span> <span class="nn">.state</span> <span class="kn">import</span> <span class="n">state</span>
+
+<span class="c1">#---------------------------------------------------------------------</span>
+<span class="c1"># Public API</span>
+<span class="c1">#---------------------------------------------------------------------</span>
+
+<div class="viewcode-block" id="diff"><a class="viewcode-back" href="../../../api/panel.io.html#panel.io.model.diff">[docs]</a><span class="k">def</span> <span class="nf">diff</span><span class="p">(</span><span class="n">doc</span><span class="p">,</span> <span class="n">binary</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">events</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="sd">"""</span>
+<span class="sd">    Returns a json diff required to update an existing plot with</span>
+<span class="sd">    the latest plot data.</span>
+<span class="sd">    """</span>
+    <span class="n">events</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">doc</span><span class="o">.</span><span class="n">_held_events</span><span class="p">)</span> <span class="k">if</span> <span class="n">events</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">events</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">events</span> <span class="ow">or</span> <span class="n">state</span><span class="o">.</span><span class="n">_hold</span><span class="p">:</span>
+        <span class="k">return</span> <span class="kc">None</span>
+
+    <span class="c1"># Patch ColumnDataChangedEvents which reference non-existing columns</span>
+    <span class="k">for</span> <span class="n">e</span> <span class="ow">in</span> <span class="n">events</span><span class="p">:</span>
+        <span class="k">if</span> <span class="p">(</span><span class="nb">hasattr</span><span class="p">(</span><span class="n">e</span><span class="p">,</span> <span class="s1">'hint'</span><span class="p">)</span> <span class="ow">and</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">e</span><span class="o">.</span><span class="n">hint</span><span class="p">,</span> <span class="n">ColumnDataChangedEvent</span><span class="p">)</span>
+            <span class="ow">and</span> <span class="n">e</span><span class="o">.</span><span class="n">hint</span><span class="o">.</span><span class="n">cols</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">):</span>
+            <span class="n">e</span><span class="o">.</span><span class="n">hint</span><span class="o">.</span><span class="n">cols</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">msg</span> <span class="o">=</span> <span class="n">Protocol</span><span class="p">()</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="s2">"PATCH-DOC"</span><span class="p">,</span> <span class="n">events</span><span class="p">,</span> <span class="n">use_buffers</span><span class="o">=</span><span class="n">binary</span><span class="p">)</span>
+    <span class="n">doc</span><span class="o">.</span><span class="n">_held_events</span> <span class="o">=</span> <span class="p">[</span><span class="n">e</span> <span class="k">for</span> <span class="n">e</span> <span class="ow">in</span> <span class="n">doc</span><span class="o">.</span><span class="n">_held_events</span> <span class="k">if</span> <span class="n">e</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">events</span><span class="p">]</span>
+    <span class="k">return</span> <span class="n">msg</span></div>
+
+
+<div class="viewcode-block" id="remove_root"><a class="viewcode-back" href="../../../api/panel.io.html#panel.io.model.remove_root">[docs]</a><span class="k">def</span> <span class="nf">remove_root</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="n">replace</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="sd">"""</span>
+<span class="sd">    Removes the document from any previously displayed bokeh object</span>
+<span class="sd">    """</span>
+    <span class="k">for</span> <span class="n">model</span> <span class="ow">in</span> <span class="n">obj</span><span class="o">.</span><span class="n">select</span><span class="p">({</span><span class="s1">'type'</span><span class="p">:</span> <span class="n">Model</span><span class="p">}):</span>
+        <span class="n">prev_doc</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">document</span>
+        <span class="n">model</span><span class="o">.</span><span class="n">_document</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="k">if</span> <span class="n">prev_doc</span><span class="p">:</span>
+            <span class="n">prev_doc</span><span class="o">.</span><span class="n">remove_root</span><span class="p">(</span><span class="n">model</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">replace</span><span class="p">:</span>
+            <span class="n">model</span><span class="o">.</span><span class="n">_document</span> <span class="o">=</span> <span class="n">replace</span></div>
+
+
+<div class="viewcode-block" id="add_to_doc"><a class="viewcode-back" href="../../../api/panel.io.html#panel.io.model.add_to_doc">[docs]</a><span class="k">def</span> <span class="nf">add_to_doc</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="n">doc</span><span class="p">,</span> <span class="n">hold</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+    <span class="sd">"""</span>
+<span class="sd">    Adds a model to the supplied Document removing it from any existing Documents.</span>
+<span class="sd">    """</span>
+    <span class="c1"># Add new root</span>
+    <span class="n">remove_root</span><span class="p">(</span><span class="n">obj</span><span class="p">)</span>
+    <span class="n">doc</span><span class="o">.</span><span class="n">add_root</span><span class="p">(</span><span class="n">obj</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">doc</span><span class="o">.</span><span class="n">_hold</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">hold</span><span class="p">:</span>
+        <span class="n">doc</span><span class="o">.</span><span class="n">hold</span><span class="p">()</span></div>
+
+<span class="nd">@contextmanager</span>
+<span class="k">def</span> <span class="nf">hold</span><span class="p">(</span><span class="n">doc</span><span class="p">,</span> <span class="n">policy</span><span class="o">=</span><span class="s1">'combine'</span><span class="p">,</span> <span class="n">comm</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="n">held</span> <span class="o">=</span> <span class="n">doc</span><span class="o">.</span><span class="n">_hold</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">policy</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">doc</span><span class="o">.</span><span class="n">unhold</span><span class="p">()</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">doc</span><span class="o">.</span><span class="n">hold</span><span class="p">(</span><span class="n">policy</span><span class="p">)</span>
+        <span class="k">yield</span>
+    <span class="k">finally</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">held</span><span class="p">:</span>
+            <span class="n">doc</span><span class="o">.</span><span class="n">_hold</span> <span class="o">=</span> <span class="n">held</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">comm</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="kn">from</span> <span class="nn">.notebook</span> <span class="kn">import</span> <span class="n">push</span>
+                <span class="n">push</span><span class="p">(</span><span class="n">doc</span><span class="p">,</span> <span class="n">comm</span><span class="p">)</span>
+            <span class="n">doc</span><span class="o">.</span><span class="n">unhold</span><span class="p">()</span>
+
+
+<div class="viewcode-block" id="patch_cds_msg"><a class="viewcode-back" href="../../../api/panel.io.html#panel.io.model.patch_cds_msg">[docs]</a><span class="k">def</span> <span class="nf">patch_cds_msg</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">msg</span><span class="p">):</span>
+    <span class="sd">"""</span>
+<span class="sd">    Required for handling messages containing JSON serialized typed</span>
+<span class="sd">    array from the frontend.</span>
+<span class="sd">    """</span>
+    <span class="k">for</span> <span class="n">event</span> <span class="ow">in</span> <span class="n">msg</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'content'</span><span class="p">,</span> <span class="p">{})</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'events'</span><span class="p">,</span> <span class="p">[]):</span>
+        <span class="k">if</span> <span class="n">event</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'kind'</span><span class="p">)</span> <span class="o">!=</span> <span class="s1">'ModelChanged'</span> <span class="ow">or</span> <span class="n">event</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'attr'</span><span class="p">)</span> <span class="o">!=</span> <span class="s1">'data'</span><span class="p">:</span>
+            <span class="k">continue</span>
+        <span class="n">cds</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">select_one</span><span class="p">({</span><span class="s1">'id'</span><span class="p">:</span> <span class="n">event</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'model'</span><span class="p">)</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'id'</span><span class="p">)})</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">cds</span><span class="p">,</span> <span class="n">ColumnDataSource</span><span class="p">):</span>
+            <span class="k">continue</span>
+        <span class="k">for</span> <span class="n">col</span><span class="p">,</span> <span class="n">values</span> <span class="ow">in</span> <span class="n">event</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'new'</span><span class="p">,</span> <span class="p">{})</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">values</span><span class="p">,</span> <span class="nb">dict</span><span class="p">):</span>
+                <span class="n">event</span><span class="p">[</span><span class="s1">'new'</span><span class="p">][</span><span class="n">col</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">v</span> <span class="k">for</span> <span class="n">_</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">values</span><span class="o">.</span><span class="n">items</span><span class="p">())]</span></div>
+
+
+<span class="n">_DEFAULT_IGNORED_REPR</span> <span class="o">=</span> <span class="nb">frozenset</span><span class="p">([</span><span class="s1">'children'</span><span class="p">,</span> <span class="s1">'text'</span><span class="p">,</span> <span class="s1">'name'</span><span class="p">,</span> <span class="s1">'toolbar'</span><span class="p">,</span> <span class="s1">'renderers'</span><span class="p">,</span> <span class="s1">'below'</span><span class="p">,</span> <span class="s1">'center'</span><span class="p">,</span> <span class="s1">'left'</span><span class="p">,</span> <span class="s1">'right'</span><span class="p">])</span>
+
+<div class="viewcode-block" id="bokeh_repr"><a class="viewcode-back" href="../../../api/panel.io.html#panel.io.model.bokeh_repr">[docs]</a><span class="k">def</span> <span class="nf">bokeh_repr</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="n">depth</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">ignored</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="sd">"""</span>
+<span class="sd">    Returns a string repr for a bokeh model, useful for recreating</span>
+<span class="sd">    panel objects using pure bokeh.</span>
+<span class="sd">    """</span>
+    <span class="k">if</span> <span class="n">ignored</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">ignored</span> <span class="o">=</span> <span class="n">_DEFAULT_IGNORED_REPR</span>
+
+    <span class="kn">from</span> <span class="nn">..viewable</span> <span class="kn">import</span> <span class="n">Viewable</span>
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="n">Viewable</span><span class="p">):</span>
+        <span class="n">obj</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="n">get_root</span><span class="p">(</span><span class="n">Document</span><span class="p">())</span>
+
+    <span class="n">r</span> <span class="o">=</span> <span class="s2">""</span>
+    <span class="bp">cls</span> <span class="o">=</span> <span class="nb">type</span><span class="p">(</span><span class="n">obj</span><span class="p">)</span><span class="o">.</span><span class="vm">__name__</span>
+    <span class="n">properties</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">obj</span><span class="o">.</span><span class="n">properties_with_values</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span><span class="o">.</span><span class="n">items</span><span class="p">())</span>
+    <span class="n">props</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">properties</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">ignored</span><span class="p">:</span>
+            <span class="k">continue</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="n">Model</span><span class="p">):</span>
+            <span class="n">v</span> <span class="o">=</span> <span class="s1">'</span><span class="si">%s</span><span class="s1">()'</span> <span class="o">%</span> <span class="nb">type</span><span class="p">(</span><span class="n">v</span><span class="p">)</span><span class="o">.</span><span class="vm">__name__</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">v</span> <span class="o">=</span> <span class="nb">repr</span><span class="p">(</span><span class="n">v</span><span class="p">)</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">v</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">30</span><span class="p">:</span>
+            <span class="n">v</span> <span class="o">=</span> <span class="n">v</span><span class="p">[:</span><span class="mi">30</span><span class="p">]</span> <span class="o">+</span> <span class="s1">'...'</span>
+        <span class="n">props</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">'</span><span class="si">%s</span><span class="s1">=</span><span class="si">%s</span><span class="s1">'</span> <span class="o">%</span> <span class="p">(</span><span class="n">k</span><span class="p">,</span> <span class="n">v</span><span class="p">))</span>
+    <span class="n">props</span> <span class="o">=</span> <span class="s1">', '</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">props</span><span class="p">)</span>
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="n">Box</span><span class="p">):</span>
+        <span class="n">r</span> <span class="o">+=</span> <span class="s1">'</span><span class="si">{cls}</span><span class="s1">(children=[</span><span class="se">\n</span><span class="s1">'</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">cls</span><span class="o">=</span><span class="bp">cls</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">obj</span> <span class="ow">in</span> <span class="n">obj</span><span class="o">.</span><span class="n">children</span><span class="p">:</span>
+            <span class="n">r</span> <span class="o">+=</span> <span class="n">textwrap</span><span class="o">.</span><span class="n">indent</span><span class="p">(</span><span class="n">bokeh_repr</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="n">depth</span><span class="o">=</span><span class="n">depth</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span> <span class="o">+</span> <span class="s1">',</span><span class="se">\n</span><span class="s1">'</span><span class="p">,</span> <span class="s1">'  '</span><span class="p">)</span>
+        <span class="n">r</span> <span class="o">+=</span> <span class="s1">'], </span><span class="si">%s</span><span class="s1">)'</span> <span class="o">%</span> <span class="n">props</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">r</span> <span class="o">+=</span> <span class="s1">'</span><span class="si">{cls}</span><span class="s1">(</span><span class="si">{props}</span><span class="s1">)'</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">cls</span><span class="o">=</span><span class="bp">cls</span><span class="p">,</span>  <span class="n">props</span><span class="o">=</span><span class="n">props</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">r</span></div>
+</pre></div>
+</div>
+</div>
+<!-- END MAIN BODY OF DOCS ––––––––––––– -->
+<!-- Google Analytics -->
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async="" src="https://www.googletagmanager.com/gtag/js?id=UA-154795830-2"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-154795830-2', { 'anonymize_ip': true });
+</script>
+<!-- MathJax Config -->
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}
+});
+</script>
+<!-- End Document
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+</body>
+</html>

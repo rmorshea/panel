@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<!-- Basic Page Needs
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+<meta charset="utf-8"/>
+<title>panel.widgets.misc — Panel 0.11.1+g238199f-dirty documentation</title>
+<meta content="High-level dashboarding for python visualization libraries" name="description"/>
+<meta content="Panel contributors" name="author"/>
+<!-- Mobile Specific Metas
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<!-- FONT
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+<script src="https://ajax.googleapis.com/ajax/libs/webfont/1.6.16/webfont.js"></script>
+<script>
+    WebFont.load({
+      google: {
+        families: ['Source Sans Pro']
+      }
+    });
+  </script>
+<!-- CSS
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+<link href="../../../_static/css/main.css" rel="stylesheet"/>
+<link href="../../../_static/nbsite.css" rel="stylesheet"/>
+<link href="../../../_static/site.css" rel="stylesheet"/>
+<!-- Scripts
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script async="" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML" type="text/javascript">
+</script>
+<script src="../../../_static/js/main.js"></script>
+<!-- Favicon
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+<link href="../../../_static/favicon.ico" rel="icon" type="image/png"/>
+<!-- Canonical
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+<link href="https://panel.holoviz.org/_modules/panel/widgets/misc.html" rel="canonical">
+</link></head>
+<body class="">
+<header class="navigation">
+<div class="wrapper">
+<a class="logo" href="../../../index.html">
+<img alt="Logo" src="../../../_static/logo_horizontal.png"/>
+</a>
+<a class="navigation-menu-button" href="javascript:void(0)" id="js-mobile-menu">Menu</a>
+<nav>
+<ul class="navigation-menu show" id="js-navigation-menu">
+<li class="nav-link doc-head"><a href="//discourse.holoviz.org">Discourse</a></li>
+<li class="nav-link doc-head"><a href="//twitter.com/Panel_org">Twitter</a></li>
+<li class="nav-link doc-head"><a href="//github.com/pyviz/panel">Github</a></li>
+<li class="nav-link">
+<div style="display:inline-block;vertical-align: middle;">
+<div class="search-bar">
+<form action="../../../search.html" method="get" role="search">
+<input name="q" placeholder="Search" type="search"/>
+<button type="submit">
+<img alt="Search Icon" src="https://raw.githubusercontent.com/thoughtbot/refills/master/source/images/search-icon-black.png"/>
+</button>
+</form>
+</div>
+</div>
+</li>
+</ul>
+</nav>
+</div>
+</header>
+<div class="second-nav">
+<nav>
+<ul class="navigation-menu show">
+<li class="nav-link doc-head"><a href="../../../getting_started/index.html">Getting started</a></li>
+<li class="nav-link doc-head"><a href="../../../user_guide/index.html">User Guide</a></li>
+<li class="nav-link doc-head"><a href="../../../gallery/index.html">Gallery</a></li>
+<li class="nav-link doc-head"><a href="../../../reference/index.html">Reference Gallery</a></li>
+<li class="nav-link doc-head"><a href="../../../developer_guide/index.html">Developer Guide</a></li>
+<li class="nav-link doc-head"><a href="../../../releases.html">Releases</a></li>
+<li class="nav-link doc-head"><a href="../../../api/index.html">API</a></li>
+<li class="nav-link doc-head"><a href="../../../FAQ.html">FAQ</a></li>
+<li class="nav-link doc-head"><a href="../../../about.html">About</a></li>
+</ul>
+</nav>
+</div>
+<!-- MAIN BODY OF DOCS –––––––––––––––––– -->
+<div class="docs section">
+<div id="hacketyhackhack"> <!-- style="width:20%;margin-right: 100px;"> --> <!--style="display: none;"> style="display:none;"> -->
+<div class="toc" style="width:15%; margin-right:20px;">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../index.html">Home</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../getting_started/index.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../user_guide/index.html">User Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../gallery/index.html">Gallery</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../reference/index.html">Reference Gallery</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../developer_guide/index.html">Developer Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/index.html">API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../Comparisons.html">Comparisons</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../releases.html">Releases</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../Roadmap.html">Road Map</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../FAQ.html">FAQ</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://github.com/pyviz/panel">Github source</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../about.html">About</a></li>
+</ul>
+</div>
+</div>
+<div class="content"> <!-- style="max-width:80%;margin-left:auto;margin-right: auto;">-->
+<h1>Source code for panel.widgets.misc</h1><div class="highlight"><pre>
+<span></span><span class="sd">"""</span>
+<span class="sd">Miscellaneous widgets which do not fit into the other main categories.</span>
+<span class="sd">"""</span>
+<span class="kn">import</span> <span class="nn">os</span>
+
+<span class="kn">from</span> <span class="nn">io</span> <span class="kn">import</span> <span class="n">BytesIO</span>
+<span class="kn">from</span> <span class="nn">base64</span> <span class="kn">import</span> <span class="n">b64encode</span>
+<span class="kn">from</span> <span class="nn">six</span> <span class="kn">import</span> <span class="n">string_types</span>
+
+<span class="kn">import</span> <span class="nn">param</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+<span class="kn">from</span> <span class="nn">..io.notebook</span> <span class="kn">import</span> <span class="n">push</span>
+<span class="kn">from</span> <span class="nn">..io.state</span> <span class="kn">import</span> <span class="n">state</span>
+<span class="kn">from</span> <span class="nn">..models</span> <span class="kn">import</span> <span class="p">(</span>
+    <span class="n">Audio</span> <span class="k">as</span> <span class="n">_BkAudio</span><span class="p">,</span> <span class="n">VideoStream</span> <span class="k">as</span> <span class="n">_BkVideoStream</span><span class="p">,</span> <span class="n">FileDownload</span> <span class="k">as</span> <span class="n">_BkFileDownload</span>
+<span class="p">)</span>
+<span class="kn">from</span> <span class="nn">.base</span> <span class="kn">import</span> <span class="n">Widget</span>
+<span class="kn">from</span> <span class="nn">.indicators</span> <span class="kn">import</span> <span class="n">Progress</span> <span class="c1"># noqa</span>
+
+
+<span class="k">class</span> <span class="nc">_MediaBase</span><span class="p">(</span><span class="n">Widget</span><span class="p">):</span>
+
+    <span class="n">loop</span> <span class="o">=</span> <span class="n">param</span><span class="o">.</span><span class="n">Boolean</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="s2">"""</span>
+<span class="s2">        Whether the meida should loop"""</span><span class="p">)</span>
+
+    <span class="n">time</span> <span class="o">=</span> <span class="n">param</span><span class="o">.</span><span class="n">Number</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="s2">"""</span>
+<span class="s2">        The current timestamp"""</span><span class="p">)</span>
+
+    <span class="n">throttle</span> <span class="o">=</span> <span class="n">param</span><span class="o">.</span><span class="n">Integer</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="mi">250</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="s2">"""</span>
+<span class="s2">        How frequently to sample the current playback time in</span>
+<span class="s2">        milliseconds"""</span><span class="p">)</span>
+
+    <span class="n">paused</span> <span class="o">=</span> <span class="n">param</span><span class="o">.</span><span class="n">Boolean</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="s2">"""</span>
+<span class="s2">        Whether the media is currently paused"""</span><span class="p">)</span>
+
+    <span class="n">value</span> <span class="o">=</span> <span class="n">param</span><span class="o">.</span><span class="n">String</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="s1">''</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="s2">"""</span>
+<span class="s2">        The media file either local or remote."""</span><span class="p">)</span>
+
+    <span class="n">volume</span> <span class="o">=</span> <span class="n">param</span><span class="o">.</span><span class="n">Number</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">bounds</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">100</span><span class="p">),</span> <span class="n">doc</span><span class="o">=</span><span class="s2">"""</span>
+<span class="s2">        The volume of the media player."""</span><span class="p">)</span>
+
+    <span class="n">_rename</span> <span class="o">=</span> <span class="p">{</span><span class="s1">'name'</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span> <span class="s1">'sample_rate'</span><span class="p">:</span> <span class="kc">None</span><span class="p">}</span>
+
+    <span class="n">_default_mime</span> <span class="o">=</span> <span class="kc">None</span>
+
+    <span class="n">_media_type</span> <span class="o">=</span> <span class="kc">None</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">params</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">param</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s1">'</span><span class="si">%s</span><span class="s1"> widget is deprecated, use the equivalent '</span>
+                           <span class="s1">'Pane type instead.'</span> <span class="o">%</span> <span class="nb">type</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="vm">__name__</span><span class="p">)</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="o">**</span><span class="n">params</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">_from_numpy</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">):</span>
+        <span class="kn">from</span> <span class="nn">scipy.io</span> <span class="kn">import</span> <span class="n">wavfile</span>
+        <span class="n">buffer</span> <span class="o">=</span> <span class="n">BytesIO</span><span class="p">()</span>
+        <span class="n">wavfile</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">buffer</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">sample_rate</span><span class="p">,</span> <span class="n">data</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">buffer</span>
+
+    <span class="k">def</span> <span class="nf">_process_param_change</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">msg</span><span class="p">):</span>
+        <span class="n">msg</span> <span class="o">=</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">_process_param_change</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="s1">'value'</span> <span class="ow">in</span> <span class="n">msg</span><span class="p">:</span>
+            <span class="n">value</span> <span class="o">=</span>  <span class="n">msg</span><span class="p">[</span><span class="s1">'value'</span><span class="p">]</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">):</span>
+                <span class="n">fmt</span> <span class="o">=</span> <span class="s1">'wav'</span>
+                <span class="n">buffer</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_from_numpy</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
+                <span class="n">data</span> <span class="o">=</span> <span class="n">b64encode</span><span class="p">(</span><span class="n">buffer</span><span class="o">.</span><span class="n">getvalue</span><span class="p">())</span>
+            <span class="k">elif</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isfile</span><span class="p">(</span><span class="n">value</span><span class="p">):</span>
+                <span class="n">fmt</span> <span class="o">=</span> <span class="n">value</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">'.'</span><span class="p">)[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+                <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="s1">'rb'</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+                    <span class="n">data</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+                <span class="n">data</span> <span class="o">=</span> <span class="n">b64encode</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+            <span class="k">elif</span> <span class="n">value</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s1">'http'</span><span class="p">):</span>
+                <span class="k">return</span> <span class="n">msg</span>
+            <span class="k">elif</span> <span class="ow">not</span> <span class="n">value</span><span class="p">:</span>
+                <span class="n">data</span><span class="p">,</span> <span class="n">fmt</span> <span class="o">=</span> <span class="sa">b</span><span class="s1">''</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_default_mime</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">'Value should be either path to a sound file or numpy array'</span><span class="p">)</span>
+            <span class="n">template</span> <span class="o">=</span> <span class="s1">'data:audio/</span><span class="si">{mime}</span><span class="s1">;base64,</span><span class="si">{data}</span><span class="s1">'</span>
+            <span class="n">msg</span><span class="p">[</span><span class="s1">'value'</span><span class="p">]</span> <span class="o">=</span> <span class="n">template</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">data</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s1">'utf-8'</span><span class="p">),</span>
+                                           <span class="n">mime</span><span class="o">=</span><span class="n">fmt</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">msg</span>
+
+
+<div class="viewcode-block" id="Audio"><a class="viewcode-back" href="../../../api/panel.widgets.html#panel.widgets.misc.Audio">[docs]</a><span class="k">class</span> <span class="nc">Audio</span><span class="p">(</span><span class="n">_MediaBase</span><span class="p">):</span>
+
+    <span class="n">sample_rate</span> <span class="o">=</span> <span class="n">param</span><span class="o">.</span><span class="n">Integer</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="mi">44100</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="s2">"""</span>
+<span class="s2">        The sample_rate of the audio when given a NumPy array."""</span><span class="p">)</span>
+
+    <span class="n">value</span> <span class="o">=</span> <span class="n">param</span><span class="o">.</span><span class="n">ClassSelector</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="s1">''</span><span class="p">,</span> <span class="n">class_</span><span class="o">=</span><span class="p">(</span><span class="n">string_types</span> <span class="o">+</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,)),</span> <span class="n">doc</span><span class="o">=</span><span class="s2">"""</span>
+<span class="s2">        The audio file either local or remote."""</span><span class="p">)</span>
+
+    <span class="n">_media_type</span> <span class="o">=</span> <span class="s1">'audio'</span>
+
+    <span class="n">_default_mime</span> <span class="o">=</span> <span class="s1">'wav'</span>
+
+    <span class="n">_widget_type</span> <span class="o">=</span> <span class="n">_BkAudio</span></div>
+
+
+<div class="viewcode-block" id="VideoStream"><a class="viewcode-back" href="../../../api/panel.widgets.html#panel.widgets.misc.VideoStream">[docs]</a><span class="k">class</span> <span class="nc">VideoStream</span><span class="p">(</span><span class="n">Widget</span><span class="p">):</span>
+
+    <span class="nb">format</span> <span class="o">=</span> <span class="n">param</span><span class="o">.</span><span class="n">ObjectSelector</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="s1">'png'</span><span class="p">,</span> <span class="n">objects</span><span class="o">=</span><span class="p">[</span><span class="s1">'png'</span><span class="p">,</span> <span class="s1">'jpeg'</span><span class="p">],</span>
+                                  <span class="n">doc</span><span class="o">=</span><span class="s2">"""</span>
+<span class="s2">        The file format as which the video is returned."""</span><span class="p">)</span>
+
+    <span class="n">paused</span> <span class="o">=</span> <span class="n">param</span><span class="o">.</span><span class="n">Boolean</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="s2">"""</span>
+<span class="s2">        Whether the video is currently paused"""</span><span class="p">)</span>
+
+    <span class="n">timeout</span> <span class="o">=</span> <span class="n">param</span><span class="o">.</span><span class="n">Number</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="s2">"""</span>
+<span class="s2">        Interval between snapshots in millisecons"""</span><span class="p">)</span>
+
+    <span class="n">value</span> <span class="o">=</span> <span class="n">param</span><span class="o">.</span><span class="n">String</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="s1">''</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="s2">"""</span>
+<span class="s2">        A base64 representation of the video stream snapshot."""</span><span class="p">)</span>
+
+    <span class="n">_widget_type</span> <span class="o">=</span> <span class="n">_BkVideoStream</span>
+
+    <span class="n">_rename</span> <span class="o">=</span> <span class="p">{</span><span class="s1">'name'</span><span class="p">:</span> <span class="kc">None</span><span class="p">}</span>
+
+<div class="viewcode-block" id="VideoStream.snapshot"><a class="viewcode-back" href="../../../api/panel.widgets.html#panel.widgets.misc.VideoStream.snapshot">[docs]</a>    <span class="k">def</span> <span class="nf">snapshot</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">"""</span>
+<span class="sd">        Triggers a snapshot of the current VideoStream state to sync</span>
+<span class="sd">        the widget value.</span>
+<span class="sd">        """</span>
+        <span class="k">for</span> <span class="n">ref</span><span class="p">,</span> <span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">_</span><span class="p">)</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_models</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="n">m</span><span class="o">.</span><span class="n">snapshot</span> <span class="o">=</span> <span class="ow">not</span> <span class="n">m</span><span class="o">.</span><span class="n">snapshot</span>
+            <span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">root</span><span class="p">,</span> <span class="n">doc</span><span class="p">,</span> <span class="n">comm</span><span class="p">)</span> <span class="o">=</span> <span class="n">state</span><span class="o">.</span><span class="n">_views</span><span class="p">[</span><span class="n">ref</span><span class="p">]</span>
+            <span class="k">if</span> <span class="n">comm</span> <span class="ow">and</span> <span class="s1">'embedded'</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">root</span><span class="o">.</span><span class="n">tags</span><span class="p">:</span>
+                <span class="n">push</span><span class="p">(</span><span class="n">doc</span><span class="p">,</span> <span class="n">comm</span><span class="p">)</span></div></div>
+
+
+<div class="viewcode-block" id="FileDownload"><a class="viewcode-back" href="../../../api/panel.widgets.html#panel.widgets.misc.FileDownload">[docs]</a><span class="k">class</span> <span class="nc">FileDownload</span><span class="p">(</span><span class="n">Widget</span><span class="p">):</span>
+
+    <span class="n">auto</span> <span class="o">=</span> <span class="n">param</span><span class="o">.</span><span class="n">Boolean</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="s2">"""</span>
+<span class="s2">        Whether to download on the initial click or allow for</span>
+<span class="s2">        right-click save as."""</span><span class="p">)</span>
+
+    <span class="n">button_type</span> <span class="o">=</span> <span class="n">param</span><span class="o">.</span><span class="n">ObjectSelector</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="s1">'default'</span><span class="p">,</span> <span class="n">objects</span><span class="o">=</span><span class="p">[</span>
+        <span class="s1">'default'</span><span class="p">,</span> <span class="s1">'primary'</span><span class="p">,</span> <span class="s1">'success'</span><span class="p">,</span> <span class="s1">'warning'</span><span class="p">,</span> <span class="s1">'danger'</span><span class="p">])</span>
+
+    <span class="n">callback</span> <span class="o">=</span> <span class="n">param</span><span class="o">.</span><span class="n">Callable</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="s2">"""</span>
+<span class="s2">        A callable that returns the file path or file-like object."""</span><span class="p">)</span>
+
+    <span class="n">data</span> <span class="o">=</span> <span class="n">param</span><span class="o">.</span><span class="n">String</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="s2">"""</span>
+<span class="s2">        The data being transferred."""</span><span class="p">)</span>
+
+    <span class="n">embed</span> <span class="o">=</span> <span class="n">param</span><span class="o">.</span><span class="n">Boolean</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="s2">"""</span>
+<span class="s2">        Whether to embed the file on initialization."""</span><span class="p">)</span>
+
+    <span class="n">file</span> <span class="o">=</span> <span class="n">param</span><span class="o">.</span><span class="n">Parameter</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="s2">"""</span>
+<span class="s2">        The file, file-like object or file contents to transfer.  If</span>
+<span class="s2">        the file is not pointing to a file on disk a filename must</span>
+<span class="s2">        also be provided."""</span><span class="p">)</span>
+
+    <span class="n">filename</span> <span class="o">=</span> <span class="n">param</span><span class="o">.</span><span class="n">String</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="s2">"""</span>
+<span class="s2">        A filename which will also be the default name when downloading</span>
+<span class="s2">        the file."""</span><span class="p">)</span>
+
+    <span class="n">label</span> <span class="o">=</span> <span class="n">param</span><span class="o">.</span><span class="n">String</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="s2">"Download file"</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="s2">"""</span>
+<span class="s2">        The label of the download button"""</span><span class="p">)</span>
+
+    <span class="n">_clicks</span> <span class="o">=</span> <span class="n">param</span><span class="o">.</span><span class="n">Integer</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+
+    <span class="n">_transfers</span> <span class="o">=</span> <span class="n">param</span><span class="o">.</span><span class="n">Integer</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+
+    <span class="n">_mime_types</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s1">'application'</span><span class="p">:</span> <span class="p">{</span>
+            <span class="s1">'pdf'</span><span class="p">:</span> <span class="s1">'pdf'</span><span class="p">,</span> <span class="s1">'zip'</span><span class="p">:</span> <span class="s1">'zip'</span>
+        <span class="p">},</span>
+        <span class="s1">'audio'</span><span class="p">:</span> <span class="p">{</span>
+            <span class="s1">'mp3'</span><span class="p">:</span> <span class="s1">'mp3'</span><span class="p">,</span> <span class="s1">'ogg'</span><span class="p">:</span> <span class="s1">'ogg'</span><span class="p">,</span> <span class="s1">'wav'</span><span class="p">:</span> <span class="s1">'wav'</span><span class="p">,</span> <span class="s1">'webm'</span><span class="p">:</span> <span class="s1">'webm'</span>
+        <span class="p">},</span>
+        <span class="s1">'image'</span><span class="p">:</span> <span class="p">{</span>
+            <span class="s1">'apng'</span><span class="p">:</span> <span class="s1">'apng'</span><span class="p">,</span> <span class="s1">'bmp'</span><span class="p">:</span> <span class="s1">'bmp'</span><span class="p">,</span> <span class="s1">'gif'</span><span class="p">:</span> <span class="s1">'gif'</span><span class="p">,</span> <span class="s1">'ico'</span><span class="p">:</span> <span class="s1">'x-icon'</span><span class="p">,</span>
+            <span class="s1">'cur'</span><span class="p">:</span> <span class="s1">'x-icon'</span><span class="p">,</span> <span class="s1">'jpg'</span><span class="p">:</span> <span class="s1">'jpeg'</span><span class="p">,</span> <span class="s1">'jpeg'</span><span class="p">:</span> <span class="s1">'jpeg'</span><span class="p">,</span>  <span class="s1">'png'</span><span class="p">:</span> <span class="s1">'png'</span><span class="p">,</span>
+            <span class="s1">'svg'</span><span class="p">:</span> <span class="s1">'svg+xml'</span><span class="p">,</span> <span class="s1">'tif'</span><span class="p">:</span> <span class="s1">'tiff'</span><span class="p">,</span> <span class="s1">'tiff'</span><span class="p">:</span> <span class="s1">'tiff'</span><span class="p">,</span> <span class="s1">'webp'</span><span class="p">:</span> <span class="s1">'webp'</span>
+        <span class="p">},</span>
+        <span class="s1">'text'</span><span class="p">:</span> <span class="p">{</span>
+            <span class="s1">'css'</span><span class="p">:</span> <span class="s1">'css'</span><span class="p">,</span> <span class="s1">'csv'</span><span class="p">:</span> <span class="s1">'plain;charset=UTF-8'</span><span class="p">,</span> <span class="s1">'js'</span><span class="p">:</span> <span class="s1">'javascript'</span><span class="p">,</span>
+            <span class="s1">'html'</span><span class="p">:</span> <span class="s1">'html'</span><span class="p">,</span> <span class="s1">'txt'</span><span class="p">:</span> <span class="s1">'plain;charset=UTF-8'</span>
+        <span class="p">},</span>
+        <span class="s1">'video'</span><span class="p">:</span> <span class="p">{</span>
+            <span class="s1">'mp4'</span><span class="p">:</span> <span class="s1">'mp4'</span><span class="p">,</span> <span class="s1">'ogg'</span><span class="p">:</span> <span class="s1">'ogg'</span><span class="p">,</span> <span class="s1">'webm'</span><span class="p">:</span> <span class="s1">'webm'</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+
+    <span class="n">_widget_type</span> <span class="o">=</span> <span class="n">_BkFileDownload</span>
+
+    <span class="n">_rename</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s1">'callback'</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span> <span class="s1">'embed'</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span> <span class="s1">'file'</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="s1">'_clicks'</span><span class="p">:</span> <span class="s1">'clicks'</span><span class="p">,</span> <span class="s1">'name'</span><span class="p">:</span> <span class="s1">'title'</span>
+    <span class="p">}</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">file</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">params</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_default_label</span> <span class="o">=</span> <span class="s1">'label'</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">params</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_synced</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">file</span><span class="o">=</span><span class="n">file</span><span class="p">,</span> <span class="o">**</span><span class="n">params</span><span class="p">)</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">embed</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_transfer</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_update_label</span><span class="p">()</span>
+
+    <span class="nd">@param</span><span class="o">.</span><span class="n">depends</span><span class="p">(</span><span class="s1">'label'</span><span class="p">,</span> <span class="n">watch</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">_update_default</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_default_label</span> <span class="o">=</span> <span class="kc">False</span>
+
+    <span class="nd">@param</span><span class="o">.</span><span class="n">depends</span><span class="p">(</span><span class="s1">'file'</span><span class="p">,</span> <span class="n">watch</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">_update_filename</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">file</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">filename</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">basename</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">file</span><span class="p">)</span>
+
+    <span class="nd">@param</span><span class="o">.</span><span class="n">depends</span><span class="p">(</span><span class="s1">'auto'</span><span class="p">,</span> <span class="s1">'file'</span><span class="p">,</span> <span class="s1">'filename'</span><span class="p">,</span> <span class="n">watch</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">_update_label</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">label</span> <span class="o">=</span> <span class="s1">'Download'</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_synced</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">auto</span> <span class="k">else</span> <span class="s1">'Transfer'</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_default_label</span><span class="p">:</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">file</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">callback</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="n">label</span> <span class="o">=</span> <span class="s1">'No file set'</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">try</span><span class="p">:</span>
+                    <span class="n">filename</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">filename</span> <span class="ow">or</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">basename</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">file</span><span class="p">)</span>
+                <span class="k">except</span> <span class="ne">TypeError</span><span class="p">:</span>
+                    <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">'Must provide filename if file-like '</span>
+                                     <span class="s1">'object is provided.'</span><span class="p">)</span>
+                <span class="n">label</span> <span class="o">=</span> <span class="s1">'</span><span class="si">%s</span><span class="s1"> </span><span class="si">%s</span><span class="s1">'</span> <span class="o">%</span> <span class="p">(</span><span class="n">label</span><span class="p">,</span> <span class="n">filename</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">label</span> <span class="o">=</span> <span class="n">label</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_default_label</span> <span class="o">=</span> <span class="kc">True</span>
+
+    <span class="nd">@param</span><span class="o">.</span><span class="n">depends</span><span class="p">(</span><span class="s1">'embed'</span><span class="p">,</span> <span class="s1">'file'</span><span class="p">,</span> <span class="s1">'callback'</span><span class="p">,</span> <span class="n">watch</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">_update_embed</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">embed</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_transfer</span><span class="p">()</span>
+
+    <span class="nd">@param</span><span class="o">.</span><span class="n">depends</span><span class="p">(</span><span class="s1">'_clicks'</span><span class="p">,</span> <span class="n">watch</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">_transfer</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">file</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">callback</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">embed</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">'Must provide a file or a callback '</span>
+                                 <span class="s1">'if it is to be embedded.'</span><span class="p">)</span>
+            <span class="k">return</span>
+
+        <span class="kn">from</span> <span class="nn">..param</span> <span class="kn">import</span> <span class="n">ParamFunction</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">callback</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">fileobj</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">file</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">fileobj</span> <span class="o">=</span> <span class="n">ParamFunction</span><span class="o">.</span><span class="n">eval</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">callback</span><span class="p">)</span>
+        <span class="n">filename</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">filename</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">fileobj</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isfile</span><span class="p">(</span><span class="n">fileobj</span><span class="p">):</span>
+                <span class="k">raise</span> <span class="ne">FileNotFoundError</span><span class="p">(</span><span class="s1">'File "</span><span class="si">%s</span><span class="s1">" not found.'</span> <span class="o">%</span> <span class="n">fileobj</span><span class="p">)</span>
+            <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">fileobj</span><span class="p">,</span> <span class="s1">'rb'</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+                <span class="n">b64</span> <span class="o">=</span> <span class="n">b64encode</span><span class="p">(</span><span class="n">f</span><span class="o">.</span><span class="n">read</span><span class="p">())</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s2">"utf-8"</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">filename</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="n">filename</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">basename</span><span class="p">(</span><span class="n">fileobj</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">fileobj</span><span class="p">,</span> <span class="s1">'read'</span><span class="p">):</span>
+            <span class="n">bdata</span> <span class="o">=</span> <span class="n">fileobj</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">bdata</span><span class="p">,</span> <span class="nb">bytes</span><span class="p">):</span>
+                <span class="n">bdata</span> <span class="o">=</span> <span class="n">bdata</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s2">"utf-8"</span><span class="p">)</span>
+            <span class="n">b64</span> <span class="o">=</span> <span class="n">b64encode</span><span class="p">(</span><span class="n">bdata</span><span class="p">)</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s2">"utf-8"</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">filename</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">'Must provide filename if file-like '</span>
+                                 <span class="s1">'object is provided.'</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">'Cannot transfer unknown object of type </span><span class="si">%s</span><span class="s1">'</span> <span class="o">%</span>
+                             <span class="nb">type</span><span class="p">(</span><span class="n">fileobj</span><span class="p">)</span><span class="o">.</span><span class="vm">__name__</span><span class="p">)</span>
+
+        <span class="n">ext</span> <span class="o">=</span> <span class="n">filename</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">'.'</span><span class="p">)[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+        <span class="k">for</span> <span class="n">mtype</span><span class="p">,</span> <span class="n">subtypes</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_mime_types</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="n">stype</span> <span class="o">=</span> <span class="kc">None</span>
+            <span class="k">if</span> <span class="n">ext</span> <span class="ow">in</span> <span class="n">subtypes</span><span class="p">:</span>
+                <span class="n">stype</span> <span class="o">=</span> <span class="n">subtypes</span><span class="p">[</span><span class="n">ext</span><span class="p">]</span>
+                <span class="k">break</span>
+        <span class="k">if</span> <span class="n">stype</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">mime</span> <span class="o">=</span> <span class="s1">'application/octet-stream'</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">mime</span> <span class="o">=</span> <span class="s1">'</span><span class="si">{type}</span><span class="s1">/</span><span class="si">{subtype}</span><span class="s1">'</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">type</span><span class="o">=</span><span class="n">mtype</span><span class="p">,</span> <span class="n">subtype</span><span class="o">=</span><span class="n">stype</span><span class="p">)</span>
+
+        <span class="n">data</span> <span class="o">=</span> <span class="s2">"data:</span><span class="si">{mime}</span><span class="s2">;base64,</span><span class="si">{b64}</span><span class="s2">"</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">mime</span><span class="o">=</span><span class="n">mime</span><span class="p">,</span> <span class="n">b64</span><span class="o">=</span><span class="n">b64</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_synced</span> <span class="o">=</span> <span class="kc">True</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">param</span><span class="o">.</span><span class="n">set_param</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">data</span><span class="p">,</span> <span class="n">filename</span><span class="o">=</span><span class="n">filename</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_update_label</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_transfers</span> <span class="o">+=</span> <span class="mi">1</span></div>
+</pre></div>
+</div>
+</div>
+<!-- END MAIN BODY OF DOCS ––––––––––––– -->
+<!-- Google Analytics -->
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async="" src="https://www.googletagmanager.com/gtag/js?id=UA-154795830-2"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-154795830-2', { 'anonymize_ip': true });
+</script>
+<!-- MathJax Config -->
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}
+});
+</script>
+<!-- End Document
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+</body>
+</html>

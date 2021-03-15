@@ -1,0 +1,554 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<!-- Basic Page Needs
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+<meta charset="utf-8"/>
+<title>interact Module — Panel 0.11.1+g238199f-dirty documentation</title>
+<meta content="High-level dashboarding for python visualization libraries" name="description"/>
+<meta content="Panel contributors" name="author"/>
+<!-- Mobile Specific Metas
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<!-- FONT
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+<script src="https://ajax.googleapis.com/ajax/libs/webfont/1.6.16/webfont.js"></script>
+<script>
+    WebFont.load({
+      google: {
+        families: ['Source Sans Pro']
+      }
+    });
+  </script>
+<!-- CSS
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+<link href="../_static/css/main.css" rel="stylesheet"/>
+<link href="../_static/nbsite.css" rel="stylesheet"/>
+<link href="../_static/site.css" rel="stylesheet"/>
+<!-- Scripts
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script async="" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML" type="text/javascript">
+</script>
+<script src="../_static/js/main.js"></script>
+<!-- Favicon
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+<link href="../_static/favicon.ico" rel="icon" type="image/png"/>
+<!-- Canonical
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+<link href="https://panel.holoviz.org/api/panel.interact.html" rel="canonical">
+</link></head>
+<body class="">
+<header class="navigation">
+<div class="wrapper">
+<a class="logo" href="../index.html">
+<img alt="Logo" src="../_static/logo_horizontal.png"/>
+</a>
+<a class="navigation-menu-button" href="javascript:void(0)" id="js-mobile-menu">Menu</a>
+<nav>
+<ul class="navigation-menu show" id="js-navigation-menu">
+<li class="nav-link doc-head"><a href="//discourse.holoviz.org">Discourse</a></li>
+<li class="nav-link doc-head"><a href="//twitter.com/Panel_org">Twitter</a></li>
+<li class="nav-link doc-head"><a href="//github.com/pyviz/panel">Github</a></li>
+<li class="nav-link">
+<div style="display:inline-block;vertical-align: middle;">
+<div class="search-bar">
+<form action="../search.html" method="get" role="search">
+<input name="q" placeholder="Search" type="search"/>
+<button type="submit">
+<img alt="Search Icon" src="https://raw.githubusercontent.com/thoughtbot/refills/master/source/images/search-icon-black.png"/>
+</button>
+</form>
+</div>
+</div>
+</li>
+</ul>
+</nav>
+</div>
+</header>
+<div class="second-nav">
+<nav>
+<ul class="navigation-menu show">
+<li class="nav-link doc-head"><a href="../getting_started/index.html">Getting started</a></li>
+<li class="nav-link doc-head"><a href="../user_guide/index.html">User Guide</a></li>
+<li class="nav-link doc-head"><a href="../gallery/index.html">Gallery</a></li>
+<li class="nav-link doc-head"><a href="../reference/index.html">Reference Gallery</a></li>
+<li class="nav-link doc-head"><a href="../developer_guide/index.html">Developer Guide</a></li>
+<li class="nav-link doc-head"><a href="../releases.html">Releases</a></li>
+<li class="nav-link doc-head"><a href="index.html">API</a></li>
+<li class="nav-link doc-head"><a href="../FAQ.html">FAQ</a></li>
+<li class="nav-link doc-head"><a href="../about.html">About</a></li>
+</ul>
+</nav>
+</div>
+<!-- MAIN BODY OF DOCS –––––––––––––––––– -->
+<div class="docs section">
+<div id="hacketyhackhack"> <!-- style="width:20%;margin-right: 100px;"> --> <!--style="display: none;"> style="display:none;"> -->
+<div class="toc" style="width:15%; margin-right:20px;">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../index.html">Home</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting_started/index.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../user_guide/index.html">User Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../gallery/index.html">Gallery</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/index.html">Reference Gallery</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../developer_guide/index.html">Developer Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="index.html">API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Comparisons.html">Comparisons</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../releases.html">Releases</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Roadmap.html">Road Map</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../FAQ.html">FAQ</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://github.com/pyviz/panel">Github source</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../about.html">About</a></li>
+</ul>
+</div>
+</div>
+<div class="content"> <!-- style="max-width:80%;margin-left:auto;margin-right: auto;">-->
+<div class="section" id="interact-module">
+<h1>interact Module<a class="headerlink" href="#interact-module" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="id1">
+<h2><code class="xref py py-mod docutils literal notranslate"><span class="pre">interact</span></code> Module<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
+<span class="target" id="module-panel.interact"></span><p>Interact with functions using widgets.</p>
+<p>The interact Pane implemented in this module mirrors
+ipywidgets.interact in its API and implementation. Large parts of the
+code were copied directly from ipywidgets:</p>
+<p>Copyright (c) Jupyter Development Team and PyViz Development Team.
+Distributed under the terms of the Modified BSD License.</p>
+<dl class="py class">
+<dt id="panel.interact.fixed">
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">panel.interact.</span></code><code class="sig-name descname"><span class="pre">fixed</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/panel/interact.html#fixed"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#panel.interact.fixed" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">param.parameterized.Parameterized</span></code></p>
+<p>A pseudo-widget whose value is fixed and never synced to the client.</p>
+<dl class="simple">
+<dt><code class="docutils literal notranslate"><span class="pre">value</span></code> = param.Parameter()</dt><dd><p>Any Python object</p>
+</dd>
+</dl>
+<p><code class="docutils literal notranslate"><span class="pre">description</span></code> = param.String(default=’’)</p>
+<dl class="py method">
+<dt id="panel.interact.fixed.get_interact_value">
+<code class="sig-name descname"><span class="pre">get_interact_value</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/panel/interact.html#fixed.get_interact_value"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#panel.interact.fixed.get_interact_value" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the value for this widget which should be passed to
+interactive functions. Custom widgets can change this method
+to process the raw value <code class="docutils literal notranslate"><span class="pre">self.value</span></code>.</p>
+</dd></dl>
+</dd></dl>
+<dl class="py class">
+<dt id="panel.interact.interactive">
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">panel.interact.</span></code><code class="sig-name descname"><span class="pre">interactive</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">object</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">params</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">{}</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/panel/interact.html#interactive"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#panel.interact.interactive" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="panel.pane.html#panel.pane.base.PaneBase" title="panel.pane.base.PaneBase"><code class="xref py py-class docutils literal notranslate"><span class="pre">panel.pane.base.PaneBase</span></code></a></p>
+<p>Parameters inherited from:</p>
+<blockquote>
+<div><p><a class="reference internal" href="panel.viewable.html#panel.viewable.Layoutable" title="panel.viewable.Layoutable"><code class="xref py py-class docutils literal notranslate"><span class="pre">panel.viewable.Layoutable</span></code></a>: align, aspect_ratio, background, css_classes, width, height, min_width, min_height, max_width, max_height, margin, width_policy, height_policy, sizing_mode</p>
+<p><a class="reference internal" href="panel.viewable.html#panel.viewable.Viewable" title="panel.viewable.Viewable"><code class="xref py py-class docutils literal notranslate"><span class="pre">panel.viewable.Viewable</span></code></a>: loading</p>
+<p><a class="reference internal" href="panel.pane.html#panel.pane.base.PaneBase" title="panel.pane.base.PaneBase"><code class="xref py py-class docutils literal notranslate"><span class="pre">panel.pane.base.PaneBase</span></code></a>: object</p>
+</div></blockquote>
+<dl class="simple">
+<dt><code class="docutils literal notranslate"><span class="pre">default_layout</span></code> = param.ClassSelector(class_=&lt;class ‘panel.layout.base.Panel’&gt;, default=&lt;class ‘panel.layout.base.Column’&gt;)</dt><dd><p>Defines the layout the model(s) returned by the pane will
+        be placed in.</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">manual_update</span></code> = param.Boolean(bounds=(0, 1), default=False)</dt><dd><p>Whether to update manually by clicking on button.</p>
+</dd>
+</dl>
+<p><code class="docutils literal notranslate"><span class="pre">manual_name</span></code> = param.String(default=’Run Interact’)</p>
+<dl class="py method">
+<dt id="panel.interact.interactive.add_periodic_callback">
+<code class="sig-name descname"><span class="pre">add_periodic_callback</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">callback</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">period</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">500</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">count</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">timeout</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#panel.interact.interactive.add_periodic_callback" title="Permalink to this definition">¶</a></dt>
+<dd><p>Schedules a periodic callback to be run at an interval set by
+the period. Returns a PeriodicCallback object with the option
+to stop and start the callback.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>callback</strong> (<em>callable</em>) – Callable function to be executed at periodic interval.</p></li>
+<li><p><strong>period</strong> (<em>int</em>) – Interval in milliseconds at which callback will be executed.</p></li>
+<li><p><strong>count</strong> (<em>int</em>) – Maximum number of times callback will be invoked.</p></li>
+<li><p><strong>timeout</strong> (<em>int</em>) – Timeout in seconds when the callback should be stopped.</p></li>
+<li><p><strong>start</strong> (<em>boolean</em><em> (</em><em>default=True</em><em>)</em>) – Whether to start callback immediately.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p></p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>Return a PeriodicCallback object with start and stop methods.</p>
+</dd>
+</dl>
+</dd></dl>
+<dl class="py method">
+<dt id="panel.interact.interactive.app">
+<code class="sig-name descname"><span class="pre">app</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">notebook_url</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'localhost:8888'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">port</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#panel.interact.interactive.app" title="Permalink to this definition">¶</a></dt>
+<dd><p>Displays a bokeh server app inline in the notebook.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>notebook_url</strong> (<em>str</em>) – URL to the notebook server</p></li>
+<li><p><strong>port</strong> (<em>int</em><em> (</em><em>optional</em><em>, </em><em>default=0</em><em>)</em>) – Allows specifying a specific port</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+<dl class="py method">
+<dt id="panel.interact.interactive.applies">
+<em class="property"><span class="pre">classmethod</span> </em><code class="sig-name descname"><span class="pre">applies</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">object</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/panel/interact.html#interactive.applies"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#panel.interact.interactive.applies" title="Permalink to this definition">¶</a></dt>
+<dd><p>Given the object return a boolean indicating whether the Pane
+can render the object. If the priority of the pane is set to
+None, this method may also be used to define a priority
+depending on the object being rendered.</p>
+</dd></dl>
+<dl class="py method">
+<dt id="panel.interact.interactive.clone">
+<code class="sig-name descname"><span class="pre">clone</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">object</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">params</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#panel.interact.interactive.clone" title="Permalink to this definition">¶</a></dt>
+<dd><p>Makes a copy of the Pane sharing the same parameters.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>params</strong> (<em>Keyword arguments override the parameters on the clone.</em>) – </p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p></p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>Cloned Pane object</p>
+</dd>
+</dl>
+</dd></dl>
+<dl class="py method">
+<dt id="panel.interact.interactive.controls">
+<code class="sig-name descname"><span class="pre">controls</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">parameters</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">[]</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">jslink</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#panel.interact.interactive.controls" title="Permalink to this definition">¶</a></dt>
+<dd><p>Creates a set of widgets which allow manipulating the parameters
+on this instance. By default all parameters which support
+linking are exposed, but an explicit list of parameters can
+be provided.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>parameters</strong> (<em>list</em><em>(</em><em>str</em><em>)</em>) – An explicit list of parameters to return controls for.</p></li>
+<li><p><strong>jslink</strong> (<em>bool</em>) – Whether to use jslinks instead of Python based links.
+This does not allow using all types of parameters.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p></p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>A layout of the controls</p>
+</dd>
+</dl>
+</dd></dl>
+<dl class="py attribute">
+<dt id="panel.interact.interactive.default_layout">
+<code class="sig-name descname"><span class="pre">default_layout</span></code><a class="headerlink" href="#panel.interact.interactive.default_layout" title="Permalink to this definition">¶</a></dt>
+<dd><p>alias of <a class="reference internal" href="panel.layout.html#panel.layout.base.Column" title="panel.layout.base.Column"><code class="xref py py-class docutils literal notranslate"><span class="pre">panel.layout.base.Column</span></code></a></p>
+</dd></dl>
+<dl class="py method">
+<dt id="panel.interact.interactive.embed">
+<code class="sig-name descname"><span class="pre">embed</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">max_states</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1000</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_opts</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">3</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">json</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">json_prefix</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">save_path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'./'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">load_path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">progress</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">states</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">{}</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#panel.interact.interactive.embed" title="Permalink to this definition">¶</a></dt>
+<dd><p>Renders a static version of a panel in a notebook by evaluating
+the set of states defined by the widgets in the model. Note
+this will only work well for simple apps with a relatively
+small state space.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>max_states</strong> (<em>int</em>) – The maximum number of states to embed</p></li>
+<li><p><strong>max_opts</strong> (<em>int</em>) – The maximum number of states for a single widget</p></li>
+<li><p><strong>json</strong> (<em>boolean</em><em> (</em><em>default=True</em><em>)</em>) – Whether to export the data to json files</p></li>
+<li><p><strong>json_prefix</strong> (<em>str</em><em> (</em><em>default=''</em><em>)</em>) – Prefix for JSON filename</p></li>
+<li><p><strong>save_path</strong> (<em>str</em><em> (</em><em>default='./'</em><em>)</em>) – The path to save json files to</p></li>
+<li><p><strong>load_path</strong> (<em>str</em><em> (</em><em>default=None</em><em>)</em>) – The path or URL the json files will be loaded from.</p></li>
+<li><p><strong>progress</strong> (<em>boolean</em><em> (</em><em>default=False</em><em>)</em>) – Whether to report progress</p></li>
+<li><p><strong>states</strong> (<em>dict</em><em> (</em><em>default={}</em><em>)</em>) – A dictionary specifying the widget values to embed for each widget</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+<dl class="py method">
+<dt id="panel.interact.interactive.find_abbreviations">
+<code class="sig-name descname"><span class="pre">find_abbreviations</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/panel/interact.html#interactive.find_abbreviations"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#panel.interact.interactive.find_abbreviations" title="Permalink to this definition">¶</a></dt>
+<dd><p>Find the abbreviations for the given function and kwargs.
+Return (name, abbrev, default) tuples.</p>
+</dd></dl>
+<dl class="py method">
+<dt id="panel.interact.interactive.get_pane_type">
+<em class="property"><span class="pre">classmethod</span> </em><code class="sig-name descname"><span class="pre">get_pane_type</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">obj</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#panel.interact.interactive.get_pane_type" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the applicable Pane type given an object by resolving
+the precedence of all types whose applies method declares that
+the object is supported.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>(</strong><strong>object</strong><strong>)</strong> (<em>obj</em>) – </p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p></p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>The applicable Pane type with the highest precedence.</p>
+</dd>
+</dl>
+</dd></dl>
+<dl class="py method">
+<dt id="panel.interact.interactive.get_root">
+<code class="sig-name descname"><span class="pre">get_root</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">doc</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">comm</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">preprocess</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#panel.interact.interactive.get_root" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the root model and applies pre-processing hooks</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>doc</strong> (<em>bokeh.Document</em>) – Bokeh document the bokeh model will be attached to.</p></li>
+<li><p><strong>comm</strong> (<em>pyviz_comms.Comm</em>) – Optional pyviz_comms when working in notebook</p></li>
+<li><p><strong>preprocess</strong> (<em>boolean</em><em> (</em><em>default=True</em><em>)</em>) – Whether to run preprocessing hooks</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p></p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>Returns the bokeh model corresponding to this panel object</p>
+</dd>
+</dl>
+</dd></dl>
+<dl class="py method">
+<dt id="panel.interact.interactive.jscallback">
+<code class="sig-name descname"><span class="pre">jscallback</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">args</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">{}</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">callbacks</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#panel.interact.interactive.jscallback" title="Permalink to this definition">¶</a></dt>
+<dd><p>Allows defining a JS callback to be triggered when a property
+changes on the source object. The keyword arguments define the
+properties that trigger a callback and the JS code that gets
+executed.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>args</strong> (<em>dict</em>) – A mapping of objects to make available to the JS callback</p></li>
+<li><p><strong>**callbacks</strong> (<em>dict</em>) – A mapping between properties on the source model and the code
+to execute when that property changes</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>callback</strong> – The Callback which can be used to disable the callback.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference internal" href="panel.links.html#panel.links.Callback" title="panel.links.Callback">Callback</a></p>
+</dd>
+</dl>
+</dd></dl>
+<dl class="py method">
+<dt id="panel.interact.interactive.jslink">
+<code class="sig-name descname"><span class="pre">jslink</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">target</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">code</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">args</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bidirectional</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">links</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#panel.interact.interactive.jslink" title="Permalink to this definition">¶</a></dt>
+<dd><p>Links properties on the source object to those on the target
+object in JS code. Supports two modes, either specify a
+mapping between the source and target model properties as
+keywords or provide a dictionary of JS code snippets which
+maps from the source parameter to a JS code snippet which is
+executed when the property changes.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>target</strong> (<em>HoloViews object</em><em> or </em><em>bokeh Model</em><em> or </em><em>panel Viewable</em>) – The target to link the value to.</p></li>
+<li><p><strong>code</strong> (<em>dict</em>) – Custom code which will be executed when the widget value
+changes.</p></li>
+<li><p><strong>bidirectional</strong> (<em>boolean</em>) – Whether to link source and target bi-directionally</p></li>
+<li><p><strong>**links</strong> (<em>dict</em>) – A mapping between properties on the source model and the
+target model property to link it to.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>link</strong> – The GenericLink which can be used unlink the widget and
+the target model.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>GenericLink</p>
+</dd>
+</dl>
+</dd></dl>
+<dl class="py method">
+<dt id="panel.interact.interactive.link">
+<code class="sig-name descname"><span class="pre">link</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">target</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">callbacks</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bidirectional</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">links</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#panel.interact.interactive.link" title="Permalink to this definition">¶</a></dt>
+<dd><p>Links the parameters on this object to attributes on another
+object in Python. Supports two modes, either specify a mapping
+between the source and target object parameters as keywords or
+provide a dictionary of callbacks which maps from the source
+parameter to a callback which is triggered when the parameter
+changes.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>target</strong> (<em>object</em>) – The target object of the link.</p></li>
+<li><p><strong>callbacks</strong> (<em>dict</em>) – Maps from a parameter in the source object to a callback.</p></li>
+<li><p><strong>bidirectional</strong> (<em>boolean</em>) – Whether to link source and target bi-directionally</p></li>
+<li><p><strong>**links</strong> (<em>dict</em>) – Maps between parameters on this object to the parameters
+on the supplied object.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+<dl class="py method">
+<dt id="panel.interact.interactive.pprint">
+<code class="sig-name descname"><span class="pre">pprint</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#panel.interact.interactive.pprint" title="Permalink to this definition">¶</a></dt>
+<dd><p>Prints a compositional repr of the class.</p>
+</dd></dl>
+<dl class="py method">
+<dt id="panel.interact.interactive.save">
+<code class="sig-name descname"><span class="pre">save</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filename</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">title</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">resources</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">template</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">template_variables</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">embed</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_states</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1000</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_opts</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">3</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">embed_json</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">json_prefix</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">save_path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'./'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">load_path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">progress</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">embed_states</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">{}</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#panel.interact.interactive.save" title="Permalink to this definition">¶</a></dt>
+<dd><p>Saves Panel objects to file.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>filename</strong> (<em>string</em><em> or </em><em>file-like object</em>) – Filename to save the plot to</p></li>
+<li><p><strong>title</strong> (<em>string</em>) – Optional title for the plot</p></li>
+<li><p><strong>resources</strong> (<em>bokeh resources</em>) – One of the valid bokeh.resources (e.g. CDN or INLINE)</p></li>
+<li><p><strong>template</strong> – passed to underlying io.save</p></li>
+<li><p><strong>template_variables</strong> – passed to underlying io.save</p></li>
+<li><p><strong>embed</strong> (<em>bool</em>) – Whether the state space should be embedded in the saved file.</p></li>
+<li><p><strong>max_states</strong> (<em>int</em>) – The maximum number of states to embed</p></li>
+<li><p><strong>max_opts</strong> (<em>int</em>) – The maximum number of states for a single widget</p></li>
+<li><p><strong>embed_json</strong> (<em>boolean</em><em> (</em><em>default=True</em><em>)</em>) – Whether to export the data to json files</p></li>
+<li><p><strong>json_prefix</strong> (<em>str</em><em> (</em><em>default=''</em><em>)</em>) – Prefix for the auto-generated json directory</p></li>
+<li><p><strong>save_path</strong> (<em>str</em><em> (</em><em>default='./'</em><em>)</em>) – The path to save json files to</p></li>
+<li><p><strong>load_path</strong> (<em>str</em><em> (</em><em>default=None</em><em>)</em>) – The path or URL the json files will be loaded from.</p></li>
+<li><p><strong>progress</strong> (<em>boolean</em><em> (</em><em>default=True</em><em>)</em>) – Whether to report progress</p></li>
+<li><p><strong>embed_states</strong> (<em>dict</em><em> (</em><em>default={}</em><em>)</em>) – A dictionary specifying the widget values to embed for each widget</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+<dl class="py method">
+<dt id="panel.interact.interactive.select">
+<code class="sig-name descname"><span class="pre">select</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">selector</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#panel.interact.interactive.select" title="Permalink to this definition">¶</a></dt>
+<dd><p>Iterates over the Viewable and any potential children in the
+applying the Selector.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>selector</strong> (<em>type</em><em> or </em><em>callable</em><em> or </em><em>None</em>) – The selector allows selecting a subset of Viewables by
+declaring a type or callable function to filter by.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>viewables</strong></p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>list(<a class="reference internal" href="panel.viewable.html#panel.viewable.Viewable" title="panel.viewable.Viewable">Viewable</a>)</p>
+</dd>
+</dl>
+</dd></dl>
+<dl class="py method">
+<dt id="panel.interact.interactive.servable">
+<code class="sig-name descname"><span class="pre">servable</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">title</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">location</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#panel.interact.interactive.servable" title="Permalink to this definition">¶</a></dt>
+<dd><p>Serves the object if in a <cite>panel serve</cite> context and returns
+the Panel object to allow it to display itself in a notebook
+context.
+:param title: A string title to give the Document (if served as an app)
+:type title: str
+:param location: Whether to create a Location component to observe and</p>
+<blockquote>
+<div><p>set the URL location.</p>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p></p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>The Panel object itself</p>
+</dd>
+</dl>
+</dd></dl>
+<dl class="py method">
+<dt id="panel.interact.interactive.server_doc">
+<code class="sig-name descname"><span class="pre">server_doc</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">doc</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">title</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">location</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#panel.interact.interactive.server_doc" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a serveable bokeh Document with the panel attached</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>doc</strong> (<em>bokeh.Document</em><em> (</em><em>optional</em><em>)</em>) – The bokeh Document to attach the panel to as a root,
+defaults to bokeh.io.curdoc()</p></li>
+<li><p><strong>title</strong> (<em>str</em>) – A string title to give the Document</p></li>
+<li><p><strong>location</strong> (<em>boolean</em><em> or </em><a class="reference internal" href="panel.io.html#panel.io.location.Location" title="panel.io.location.Location"><em>panel.io.location.Location</em></a>) – Whether to create a Location component to observe and
+set the URL location.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>doc</strong> – The bokeh document the panel was attached to</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>bokeh.Document</p>
+</dd>
+</dl>
+</dd></dl>
+<dl class="py method">
+<dt id="panel.interact.interactive.show">
+<code class="sig-name descname"><span class="pre">show</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">title</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">port</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">address</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">websocket_origin</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">threaded</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">open</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">location</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#panel.interact.interactive.show" title="Permalink to this definition">¶</a></dt>
+<dd><p>Starts a Bokeh server and displays the Viewable in a new tab.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>title</strong> (<em>str</em>) – A string title to give the Document (if served as an app)</p></li>
+<li><p><strong>port</strong> (<em>int</em><em> (</em><em>optional</em><em>, </em><em>default=0</em><em>)</em>) – Allows specifying a specific port</p></li>
+<li><p><strong>address</strong> (<em>str</em>) – The address the server should listen on for HTTP requests.</p></li>
+<li><p><strong>websocket_origin</strong> (<em>str</em><em> or </em><em>list</em><em>(</em><em>str</em><em>) </em><em>(</em><em>optional</em><em>)</em>) – A list of hosts that can connect to the websocket.
+This is typically required when embedding a server app in
+an external web site.
+If None, “localhost” is used.</p></li>
+<li><p><strong>threaded</strong> (<em>boolean</em><em> (</em><em>optional</em><em>, </em><em>default=False</em><em>)</em>) – Whether to launch the Server on a separate thread, allowing
+interactive use.</p></li>
+<li><p><strong>verbose</strong> (<em>boolean</em><em> (</em><em>optional</em><em>, </em><em>default=True</em><em>)</em>) – Whether to print the address and port</p></li>
+<li><p><strong>open</strong> (<em>boolean</em><em> (</em><em>optional</em><em>, </em><em>default=True</em><em>)</em>) – Whether to open the server in a new browser tab</p></li>
+<li><p><strong>location</strong> (<em>boolean</em><em> or </em><a class="reference internal" href="panel.io.html#panel.io.location.Location" title="panel.io.location.Location"><em>panel.io.location.Location</em></a>) – Whether to create a Location component to observe and
+set the URL location.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>server</strong> – Returns the Bokeh server instance or the thread the server
+was launched on (if threaded=True)</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>bokeh.server.Server or threading.Thread</p>
+</dd>
+</dl>
+</dd></dl>
+<dl class="py method">
+<dt id="panel.interact.interactive.widget_from_abbrev">
+<em class="property"><span class="pre">classmethod</span> </em><code class="sig-name descname"><span class="pre">widget_from_abbrev</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">abbrev</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">default</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/panel/interact.html#interactive.widget_from_abbrev"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#panel.interact.interactive.widget_from_abbrev" title="Permalink to this definition">¶</a></dt>
+<dd><p>Build a ValueWidget instance given an abbreviation or Widget.</p>
+</dd></dl>
+<dl class="py method">
+<dt id="panel.interact.interactive.widget_from_iterable">
+<em class="property"><span class="pre">static</span> </em><code class="sig-name descname"><span class="pre">widget_from_iterable</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">o</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/panel/interact.html#interactive.widget_from_iterable"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#panel.interact.interactive.widget_from_iterable" title="Permalink to this definition">¶</a></dt>
+<dd><p>Make widgets from an iterable. This should not be done for
+a string or tuple.</p>
+</dd></dl>
+<dl class="py method">
+<dt id="panel.interact.interactive.widget_from_single_value">
+<em class="property"><span class="pre">static</span> </em><code class="sig-name descname"><span class="pre">widget_from_single_value</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">o</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/panel/interact.html#interactive.widget_from_single_value"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#panel.interact.interactive.widget_from_single_value" title="Permalink to this definition">¶</a></dt>
+<dd><p>Make widgets from single values, which can be used as parameter defaults.</p>
+</dd></dl>
+<dl class="py method">
+<dt id="panel.interact.interactive.widget_from_tuple">
+<em class="property"><span class="pre">static</span> </em><code class="sig-name descname"><span class="pre">widget_from_tuple</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">o</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">default</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/panel/interact.html#interactive.widget_from_tuple"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#panel.interact.interactive.widget_from_tuple" title="Permalink to this definition">¶</a></dt>
+<dd><p>Make widgets from a tuple abbreviation.</p>
+</dd></dl>
+<dl class="py method">
+<dt id="panel.interact.interactive.widgets_from_abbreviations">
+<code class="sig-name descname"><span class="pre">widgets_from_abbreviations</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">seq</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/panel/interact.html#interactive.widgets_from_abbreviations"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#panel.interact.interactive.widgets_from_abbreviations" title="Permalink to this definition">¶</a></dt>
+<dd><p>Given a sequence of (name, abbrev, default) tuples, return a sequence of Widgets.</p>
+</dd></dl>
+</dd></dl>
+</div>
+</div>
+</div>
+</div>
+<!-- END MAIN BODY OF DOCS ––––––––––––– -->
+<!-- Google Analytics -->
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async="" src="https://www.googletagmanager.com/gtag/js?id=UA-154795830-2"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-154795830-2', { 'anonymize_ip': true });
+</script>
+<!-- MathJax Config -->
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}
+});
+</script>
+<!-- End Document
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+</body>
+</html>

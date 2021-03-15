@@ -1,0 +1,580 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<!-- Basic Page Needs
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+<meta charset="utf-8"/>
+<title>panel.widgets.speech_to_text — Panel 0.11.1+g238199f-dirty documentation</title>
+<meta content="High-level dashboarding for python visualization libraries" name="description"/>
+<meta content="Panel contributors" name="author"/>
+<!-- Mobile Specific Metas
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<!-- FONT
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+<script src="https://ajax.googleapis.com/ajax/libs/webfont/1.6.16/webfont.js"></script>
+<script>
+    WebFont.load({
+      google: {
+        families: ['Source Sans Pro']
+      }
+    });
+  </script>
+<!-- CSS
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+<link href="../../../_static/css/main.css" rel="stylesheet"/>
+<link href="../../../_static/nbsite.css" rel="stylesheet"/>
+<link href="../../../_static/site.css" rel="stylesheet"/>
+<!-- Scripts
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script async="" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML" type="text/javascript">
+</script>
+<script src="../../../_static/js/main.js"></script>
+<!-- Favicon
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+<link href="../../../_static/favicon.ico" rel="icon" type="image/png"/>
+<!-- Canonical
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+<link href="https://panel.holoviz.org/_modules/panel/widgets/speech_to_text.html" rel="canonical">
+</link></head>
+<body class="">
+<header class="navigation">
+<div class="wrapper">
+<a class="logo" href="../../../index.html">
+<img alt="Logo" src="../../../_static/logo_horizontal.png"/>
+</a>
+<a class="navigation-menu-button" href="javascript:void(0)" id="js-mobile-menu">Menu</a>
+<nav>
+<ul class="navigation-menu show" id="js-navigation-menu">
+<li class="nav-link doc-head"><a href="//discourse.holoviz.org">Discourse</a></li>
+<li class="nav-link doc-head"><a href="//twitter.com/Panel_org">Twitter</a></li>
+<li class="nav-link doc-head"><a href="//github.com/pyviz/panel">Github</a></li>
+<li class="nav-link">
+<div style="display:inline-block;vertical-align: middle;">
+<div class="search-bar">
+<form action="../../../search.html" method="get" role="search">
+<input name="q" placeholder="Search" type="search"/>
+<button type="submit">
+<img alt="Search Icon" src="https://raw.githubusercontent.com/thoughtbot/refills/master/source/images/search-icon-black.png"/>
+</button>
+</form>
+</div>
+</div>
+</li>
+</ul>
+</nav>
+</div>
+</header>
+<div class="second-nav">
+<nav>
+<ul class="navigation-menu show">
+<li class="nav-link doc-head"><a href="../../../getting_started/index.html">Getting started</a></li>
+<li class="nav-link doc-head"><a href="../../../user_guide/index.html">User Guide</a></li>
+<li class="nav-link doc-head"><a href="../../../gallery/index.html">Gallery</a></li>
+<li class="nav-link doc-head"><a href="../../../reference/index.html">Reference Gallery</a></li>
+<li class="nav-link doc-head"><a href="../../../developer_guide/index.html">Developer Guide</a></li>
+<li class="nav-link doc-head"><a href="../../../releases.html">Releases</a></li>
+<li class="nav-link doc-head"><a href="../../../api/index.html">API</a></li>
+<li class="nav-link doc-head"><a href="../../../FAQ.html">FAQ</a></li>
+<li class="nav-link doc-head"><a href="../../../about.html">About</a></li>
+</ul>
+</nav>
+</div>
+<!-- MAIN BODY OF DOCS –––––––––––––––––– -->
+<div class="docs section">
+<div id="hacketyhackhack"> <!-- style="width:20%;margin-right: 100px;"> --> <!--style="display: none;"> style="display:none;"> -->
+<div class="toc" style="width:15%; margin-right:20px;">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../index.html">Home</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../getting_started/index.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../user_guide/index.html">User Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../gallery/index.html">Gallery</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../reference/index.html">Reference Gallery</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../developer_guide/index.html">Developer Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/index.html">API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../Comparisons.html">Comparisons</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../releases.html">Releases</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../Roadmap.html">Road Map</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../FAQ.html">FAQ</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://github.com/pyviz/panel">Github source</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../about.html">About</a></li>
+</ul>
+</div>
+</div>
+<div class="content"> <!-- style="max-width:80%;margin-left:auto;margin-right: auto;">-->
+<h1>Source code for panel.widgets.speech_to_text</h1><div class="highlight"><pre>
+<span></span><span class="sd">"""</span>
+<span class="sd">The SpeechToText widget controls the speech recognition service of the</span>
+<span class="sd">browser.</span>
+
+<span class="sd">It wraps the HTML5 SpeechRecognition API.  See</span>
+<span class="sd">https://developer.mozilla.org/en-US/docs/Web/API/SpeechRecognition</span>
+
+<span class="sd">This functionality is **experimental** and only supported by Chrome</span>
+<span class="sd">and a few other browsers.  Checkout</span>
+<span class="sd">https://caniuse.com/speech-recognition for a up to date list of</span>
+<span class="sd">browsers supporting the SpeechRecognition Api. Or alternatively</span>
+<span class="sd">https://developer.mozilla.org/en-US/docs/Web/API/SpeechRecognition#Browser_compatibility</span>
+
+<span class="sd">On some browsers, like Chrome, using Speech Recognition on a web page</span>
+<span class="sd">involves a server-based recognition engine. Your audio is sent to a</span>
+<span class="sd">web service for recognition processing, so it won't work</span>
+<span class="sd">offline. Whether this is secure and confidential enough for your use</span>
+<span class="sd">case is up to you to evaluate.</span>
+<span class="sd">"""</span>
+
+<span class="kn">import</span> <span class="nn">param</span>
+
+<span class="kn">from</span> <span class="nn">..models.speech_to_text</span> <span class="kn">import</span> <span class="n">SpeechToText</span> <span class="k">as</span> <span class="n">_BkSpeechToText</span>
+<span class="kn">from</span> <span class="nn">.base</span> <span class="kn">import</span> <span class="n">Widget</span>
+<span class="kn">from</span> <span class="nn">.button</span> <span class="kn">import</span> <span class="n">BUTTON_TYPES</span>
+
+<span class="n">BUTTON_TYPES</span> <span class="o">=</span> <span class="n">BUTTON_TYPES</span><span class="o">+</span><span class="p">[</span><span class="s1">'light'</span><span class="p">,</span> <span class="s1">'dark'</span><span class="p">]</span>
+
+
+<div class="viewcode-block" id="Language"><a class="viewcode-back" href="../../../api/panel.widgets.html#panel.widgets.speech_to_text.Language">[docs]</a><span class="k">class</span> <span class="nc">Language</span><span class="p">(</span><span class="n">param</span><span class="o">.</span><span class="n">Parameterized</span><span class="p">):</span>
+
+    <span class="n">country</span> <span class="o">=</span> <span class="n">param</span><span class="o">.</span><span class="n">String</span><span class="p">(</span><span class="n">doc</span><span class="o">=</span><span class="s2">"A country like 'United States'"</span><span class="p">)</span>
+
+    <span class="n">name</span> <span class="o">=</span> <span class="n">param</span><span class="o">.</span><span class="n">String</span><span class="p">(</span><span class="n">doc</span><span class="o">=</span><span class="s2">"""</span>
+<span class="s2">        The bcp 47 code uniquely identifying the language. For example</span>
+<span class="s2">        'en-US'."""</span><span class="p">)</span>
+
+    <span class="n">family</span> <span class="o">=</span> <span class="n">param</span><span class="o">.</span><span class="n">String</span><span class="p">(</span><span class="n">doc</span><span class="o">=</span><span class="s2">"""</span>
+<span class="s2">        The overall language family. For example 'English'."""</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">family</span><span class="si">}</span><span class="s2"> - </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">country</span><span class="si">}</span><span class="s2"> (</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">)"</span></div>
+
+<span class="c1"># Source: https://stackoverflow.com/questions/14257598/what-are-language-codes-in-chromes-implementation-of-the-html5-speech-recogniti</span>
+<span class="c1"># See also https://cloud.google.com/speech-to-text/docs/languages</span>
+<span class="n">LANGUAGES</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="n">Language</span><span class="p">(</span><span class="n">country</span><span class="o">=</span><span class="s1">'South Africa'</span><span class="p">,</span> <span class="n">family</span><span class="o">=</span><span class="s1">'Afrikaans'</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">'af-ZA'</span><span class="p">),</span>
+    <span class="n">Language</span><span class="p">(</span><span class="n">country</span><span class="o">=</span><span class="s1">'Algeria'</span><span class="p">,</span> <span class="n">family</span><span class="o">=</span><span class="s1">'Arabic'</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">'ar-DZ'</span><span class="p">),</span>
+    <span class="n">Language</span><span class="p">(</span><span class="n">country</span><span class="o">=</span><span class="s1">'Bahrain'</span><span class="p">,</span> <span class="n">family</span><span class="o">=</span><span class="s1">'Arabic'</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">'ar-BH'</span><span class="p">),</span>
+    <span class="n">Language</span><span class="p">(</span><span class="n">country</span><span class="o">=</span><span class="s1">'Egypt'</span><span class="p">,</span> <span class="n">family</span><span class="o">=</span><span class="s1">'Arabic'</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">'ar-EG'</span><span class="p">),</span>
+    <span class="n">Language</span><span class="p">(</span><span class="n">country</span><span class="o">=</span><span class="s1">'Israel'</span><span class="p">,</span> <span class="n">family</span><span class="o">=</span><span class="s1">'Arabic'</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">'ar-IL'</span><span class="p">),</span>
+    <span class="n">Language</span><span class="p">(</span><span class="n">country</span><span class="o">=</span><span class="s1">'Iraq'</span><span class="p">,</span> <span class="n">family</span><span class="o">=</span><span class="s1">'Arabic'</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">'ar-IQ'</span><span class="p">),</span>
+    <span class="n">Language</span><span class="p">(</span><span class="n">country</span><span class="o">=</span><span class="s1">'Jordan'</span><span class="p">,</span> <span class="n">family</span><span class="o">=</span><span class="s1">'Arabic'</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">'ar-JO'</span><span class="p">),</span>
+    <span class="n">Language</span><span class="p">(</span><span class="n">country</span><span class="o">=</span><span class="s1">'Kuwait'</span><span class="p">,</span> <span class="n">family</span><span class="o">=</span><span class="s1">'Arabic'</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">'ar-KW'</span><span class="p">),</span>
+    <span class="n">Language</span><span class="p">(</span><span class="n">country</span><span class="o">=</span><span class="s1">'Lebanon'</span><span class="p">,</span> <span class="n">family</span><span class="o">=</span><span class="s1">'Arabic'</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">'ar-LB'</span><span class="p">),</span>
+    <span class="n">Language</span><span class="p">(</span><span class="n">country</span><span class="o">=</span><span class="s1">'Morocco'</span><span class="p">,</span> <span class="n">family</span><span class="o">=</span><span class="s1">'Arabic'</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">'ar-MA'</span><span class="p">),</span>
+    <span class="n">Language</span><span class="p">(</span><span class="n">country</span><span class="o">=</span><span class="s1">'Oman'</span><span class="p">,</span> <span class="n">family</span><span class="o">=</span><span class="s1">'Arabic'</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">'ar-OM'</span><span class="p">),</span>
+    <span class="n">Language</span><span class="p">(</span><span class="n">country</span><span class="o">=</span><span class="s1">'Palestinian Territory'</span><span class="p">,</span> <span class="n">family</span><span class="o">=</span><span class="s1">'Arabic'</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">'ar-PS'</span><span class="p">),</span>
+    <span class="n">Language</span><span class="p">(</span><span class="n">country</span><span class="o">=</span><span class="s1">'Qatar'</span><span class="p">,</span> <span class="n">family</span><span class="o">=</span><span class="s1">'Arabic'</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">'ar-QA'</span><span class="p">),</span>
+    <span class="n">Language</span><span class="p">(</span><span class="n">country</span><span class="o">=</span><span class="s1">'Saudi Arabia'</span><span class="p">,</span> <span class="n">family</span><span class="o">=</span><span class="s1">'Arabic'</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">'ar-SA'</span><span class="p">),</span>
+    <span class="n">Language</span><span class="p">(</span><span class="n">country</span><span class="o">=</span><span class="s1">'Tunisia'</span><span class="p">,</span> <span class="n">family</span><span class="o">=</span><span class="s1">'Arabic'</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">'ar-TN'</span><span class="p">),</span>
+    <span class="n">Language</span><span class="p">(</span><span class="n">country</span><span class="o">=</span><span class="s1">'UAE'</span><span class="p">,</span> <span class="n">family</span><span class="o">=</span><span class="s1">'Arabic'</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">'ar-AE'</span><span class="p">),</span>
+    <span class="n">Language</span><span class="p">(</span><span class="n">country</span><span class="o">=</span><span class="s1">'Spain'</span><span class="p">,</span> <span class="n">family</span><span class="o">=</span><span class="s1">'Basque'</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">'eu-ES'</span><span class="p">),</span>
+    <span class="n">Language</span><span class="p">(</span><span class="n">country</span><span class="o">=</span><span class="s1">'Bulgaria'</span><span class="p">,</span> <span class="n">family</span><span class="o">=</span><span class="s1">'Bulgarian'</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">'bg-BG'</span><span class="p">),</span>
+    <span class="n">Language</span><span class="p">(</span><span class="n">country</span><span class="o">=</span><span class="s1">'Spain'</span><span class="p">,</span> <span class="n">family</span><span class="o">=</span><span class="s1">'Catalan'</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">'ca-ES'</span><span class="p">),</span>
+    <span class="n">Language</span><span class="p">(</span><span class="n">country</span><span class="o">=</span><span class="s1">'China (Simp.)'</span><span class="p">,</span> <span class="n">family</span><span class="o">=</span><span class="s1">'Chinese Mandarin'</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">'cmn-Hans-CN'</span><span class="p">),</span>
+    <span class="n">Language</span><span class="p">(</span><span class="n">country</span><span class="o">=</span><span class="s1">'Hong Kong SAR (Trad.)'</span><span class="p">,</span> <span class="n">family</span><span class="o">=</span><span class="s1">'Chinese Mandarin'</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">'cmn-Hans-HK'</span><span class="p">),</span>
+    <span class="n">Language</span><span class="p">(</span><span class="n">country</span><span class="o">=</span><span class="s1">'Taiwan (Trad.)'</span><span class="p">,</span> <span class="n">family</span><span class="o">=</span><span class="s1">'Chinese Mandarin'</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">'cmn-Hant-TW'</span><span class="p">),</span>
+    <span class="n">Language</span><span class="p">(</span><span class="n">country</span><span class="o">=</span><span class="s1">'Hong Kong'</span><span class="p">,</span> <span class="n">family</span><span class="o">=</span><span class="s1">'Chinese Cantonese'</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">'yue-Hant-HK'</span><span class="p">),</span>
+    <span class="n">Language</span><span class="p">(</span><span class="n">country</span><span class="o">=</span><span class="s1">'Croatia'</span><span class="p">,</span> <span class="n">family</span><span class="o">=</span><span class="s1">'Croatian'</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">'hr_HR'</span><span class="p">),</span>
+    <span class="n">Language</span><span class="p">(</span><span class="n">country</span><span class="o">=</span><span class="s1">'Czech Republic'</span><span class="p">,</span> <span class="n">family</span><span class="o">=</span><span class="s1">'Czech'</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">'cs-CZ'</span><span class="p">),</span>
+    <span class="n">Language</span><span class="p">(</span><span class="n">country</span><span class="o">=</span><span class="s1">'Denmark'</span><span class="p">,</span> <span class="n">family</span><span class="o">=</span><span class="s1">'Danish'</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">'da-DK'</span><span class="p">),</span>
+    <span class="n">Language</span><span class="p">(</span><span class="n">country</span><span class="o">=</span><span class="s1">'Australia'</span><span class="p">,</span> <span class="n">family</span><span class="o">=</span><span class="s1">'English'</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">'en-AU'</span><span class="p">),</span>
+    <span class="n">Language</span><span class="p">(</span><span class="n">country</span><span class="o">=</span><span class="s1">'Canada'</span><span class="p">,</span> <span class="n">family</span><span class="o">=</span><span class="s1">'English'</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">'en-CA'</span><span class="p">),</span>
+    <span class="n">Language</span><span class="p">(</span><span class="n">country</span><span class="o">=</span><span class="s1">'India'</span><span class="p">,</span> <span class="n">family</span><span class="o">=</span><span class="s1">'English'</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">'en-IN'</span><span class="p">),</span>
+    <span class="n">Language</span><span class="p">(</span><span class="n">country</span><span class="o">=</span><span class="s1">'Ireland'</span><span class="p">,</span> <span class="n">family</span><span class="o">=</span><span class="s1">'English'</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">'en-IE'</span><span class="p">),</span>
+    <span class="n">Language</span><span class="p">(</span><span class="n">country</span><span class="o">=</span><span class="s1">'New Zealand'</span><span class="p">,</span> <span class="n">family</span><span class="o">=</span><span class="s1">'English'</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">'en-NZ'</span><span class="p">),</span>
+    <span class="n">Language</span><span class="p">(</span><span class="n">country</span><span class="o">=</span><span class="s1">'Philippines'</span><span class="p">,</span> <span class="n">family</span><span class="o">=</span><span class="s1">'English'</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">'en-PH'</span><span class="p">),</span>
+    <span class="n">Language</span><span class="p">(</span><span class="n">country</span><span class="o">=</span><span class="s1">'South Africa'</span><span class="p">,</span> <span class="n">family</span><span class="o">=</span><span class="s1">'English'</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">'en-ZA'</span><span class="p">),</span>
+    <span class="n">Language</span><span class="p">(</span><span class="n">country</span><span class="o">=</span><span class="s1">'United Kingdom'</span><span class="p">,</span> <span class="n">family</span><span class="o">=</span><span class="s1">'English'</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">'en-GB'</span><span class="p">),</span>
+    <span class="n">Language</span><span class="p">(</span><span class="n">country</span><span class="o">=</span><span class="s1">'United States'</span><span class="p">,</span> <span class="n">family</span><span class="o">=</span><span class="s1">'English'</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">'en-US'</span><span class="p">),</span>
+    <span class="n">Language</span><span class="p">(</span><span class="n">country</span><span class="o">=</span><span class="s1">'Iran'</span><span class="p">,</span> <span class="n">family</span><span class="o">=</span><span class="s1">'Farsi'</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">'fa-IR'</span><span class="p">),</span>
+    <span class="n">Language</span><span class="p">(</span><span class="n">country</span><span class="o">=</span><span class="s1">'France'</span><span class="p">,</span> <span class="n">family</span><span class="o">=</span><span class="s1">'French'</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">'fr-FR'</span><span class="p">),</span>
+    <span class="n">Language</span><span class="p">(</span><span class="n">country</span><span class="o">=</span><span class="s1">'Philippines'</span><span class="p">,</span> <span class="n">family</span><span class="o">=</span><span class="s1">'Filipino'</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">'fil-PH'</span><span class="p">),</span>
+    <span class="n">Language</span><span class="p">(</span><span class="n">country</span><span class="o">=</span><span class="s1">'Spain'</span><span class="p">,</span> <span class="n">family</span><span class="o">=</span><span class="s1">'Galician'</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">'gl-ES'</span><span class="p">),</span>
+    <span class="n">Language</span><span class="p">(</span><span class="n">country</span><span class="o">=</span><span class="s1">'Germany'</span><span class="p">,</span> <span class="n">family</span><span class="o">=</span><span class="s1">'German'</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">'de-DE'</span><span class="p">),</span>
+    <span class="n">Language</span><span class="p">(</span><span class="n">country</span><span class="o">=</span><span class="s1">'Greece'</span><span class="p">,</span> <span class="n">family</span><span class="o">=</span><span class="s1">'Greek'</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">'el-GR'</span><span class="p">),</span>
+    <span class="n">Language</span><span class="p">(</span><span class="n">country</span><span class="o">=</span><span class="s1">'Finland'</span><span class="p">,</span> <span class="n">family</span><span class="o">=</span><span class="s1">'Finnish'</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">'fi-FI'</span><span class="p">),</span>
+    <span class="n">Language</span><span class="p">(</span><span class="n">country</span><span class="o">=</span><span class="s1">'Israel'</span><span class="p">,</span> <span class="n">family</span><span class="o">=</span><span class="s1">'Hebrew'</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">'he-IL'</span><span class="p">),</span>
+    <span class="n">Language</span><span class="p">(</span><span class="n">country</span><span class="o">=</span><span class="s1">'India'</span><span class="p">,</span> <span class="n">family</span><span class="o">=</span><span class="s1">'Hindi'</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">'hi-IN'</span><span class="p">),</span>
+    <span class="n">Language</span><span class="p">(</span><span class="n">country</span><span class="o">=</span><span class="s1">'Hungary'</span><span class="p">,</span> <span class="n">family</span><span class="o">=</span><span class="s1">'Hungarian'</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">'hu-HU'</span><span class="p">),</span>
+    <span class="n">Language</span><span class="p">(</span><span class="n">country</span><span class="o">=</span><span class="s1">'Indonesia'</span><span class="p">,</span> <span class="n">family</span><span class="o">=</span><span class="s1">'Indonesian'</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">'id-ID'</span><span class="p">),</span>
+    <span class="n">Language</span><span class="p">(</span><span class="n">country</span><span class="o">=</span><span class="s1">'Iceland'</span><span class="p">,</span> <span class="n">family</span><span class="o">=</span><span class="s1">'Icelandic'</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">'is-IS'</span><span class="p">),</span>
+    <span class="n">Language</span><span class="p">(</span><span class="n">country</span><span class="o">=</span><span class="s1">'Italy'</span><span class="p">,</span> <span class="n">family</span><span class="o">=</span><span class="s1">'Italian'</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">'it-IT'</span><span class="p">),</span>
+    <span class="n">Language</span><span class="p">(</span><span class="n">country</span><span class="o">=</span><span class="s1">'Switzerland'</span><span class="p">,</span> <span class="n">family</span><span class="o">=</span><span class="s1">'Italian'</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">'it-CH'</span><span class="p">),</span>
+    <span class="n">Language</span><span class="p">(</span><span class="n">country</span><span class="o">=</span><span class="s1">'Japan'</span><span class="p">,</span> <span class="n">family</span><span class="o">=</span><span class="s1">'Japanese'</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">'ja-JP'</span><span class="p">),</span>
+    <span class="n">Language</span><span class="p">(</span><span class="n">country</span><span class="o">=</span><span class="s1">'Korea'</span><span class="p">,</span> <span class="n">family</span><span class="o">=</span><span class="s1">'Korean'</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">'ko-KR'</span><span class="p">),</span>
+    <span class="n">Language</span><span class="p">(</span><span class="n">country</span><span class="o">=</span><span class="s1">'Lithuania'</span><span class="p">,</span> <span class="n">family</span><span class="o">=</span><span class="s1">'Lithuanian'</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">'lt-LT'</span><span class="p">),</span>
+    <span class="n">Language</span><span class="p">(</span><span class="n">country</span><span class="o">=</span><span class="s1">'Malaysia'</span><span class="p">,</span> <span class="n">family</span><span class="o">=</span><span class="s1">'Malaysian'</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">'ms-MY'</span><span class="p">),</span>
+    <span class="n">Language</span><span class="p">(</span><span class="n">country</span><span class="o">=</span><span class="s1">'Netherlands'</span><span class="p">,</span> <span class="n">family</span><span class="o">=</span><span class="s1">'Dutch'</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">'nl-NL'</span><span class="p">),</span>
+    <span class="n">Language</span><span class="p">(</span><span class="n">country</span><span class="o">=</span><span class="s1">'Norway'</span><span class="p">,</span> <span class="n">family</span><span class="o">=</span><span class="s1">'Norwegian'</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">'nb-NO'</span><span class="p">),</span>
+    <span class="n">Language</span><span class="p">(</span><span class="n">country</span><span class="o">=</span><span class="s1">'Poland'</span><span class="p">,</span> <span class="n">family</span><span class="o">=</span><span class="s1">'Polish'</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">'pl-PL'</span><span class="p">),</span>
+    <span class="n">Language</span><span class="p">(</span><span class="n">country</span><span class="o">=</span><span class="s1">'Brazil'</span><span class="p">,</span> <span class="n">family</span><span class="o">=</span><span class="s1">'Portuguese'</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">'pt-BR'</span><span class="p">),</span>
+    <span class="n">Language</span><span class="p">(</span><span class="n">country</span><span class="o">=</span><span class="s1">'Portugal'</span><span class="p">,</span> <span class="n">family</span><span class="o">=</span><span class="s1">'Portuguese'</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">'pt-PT'</span><span class="p">),</span>
+    <span class="n">Language</span><span class="p">(</span><span class="n">country</span><span class="o">=</span><span class="s1">'Romania'</span><span class="p">,</span> <span class="n">family</span><span class="o">=</span><span class="s1">'Romanian'</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">'ro-RO'</span><span class="p">),</span>
+    <span class="n">Language</span><span class="p">(</span><span class="n">country</span><span class="o">=</span><span class="s1">'Russia'</span><span class="p">,</span> <span class="n">family</span><span class="o">=</span><span class="s1">'Russian'</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">'ru-RU'</span><span class="p">),</span>
+    <span class="n">Language</span><span class="p">(</span><span class="n">country</span><span class="o">=</span><span class="s1">'Serbia'</span><span class="p">,</span> <span class="n">family</span><span class="o">=</span><span class="s1">'Serbian'</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">'sr-RS'</span><span class="p">),</span>
+    <span class="n">Language</span><span class="p">(</span><span class="n">country</span><span class="o">=</span><span class="s1">'Slovakia'</span><span class="p">,</span> <span class="n">family</span><span class="o">=</span><span class="s1">'Slovak'</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">'sk-SK'</span><span class="p">),</span>
+    <span class="n">Language</span><span class="p">(</span><span class="n">country</span><span class="o">=</span><span class="s1">'Slovenia'</span><span class="p">,</span> <span class="n">family</span><span class="o">=</span><span class="s1">'Slovenian'</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">'sl-SI'</span><span class="p">),</span>
+    <span class="n">Language</span><span class="p">(</span><span class="n">country</span><span class="o">=</span><span class="s1">'Argentina'</span><span class="p">,</span> <span class="n">family</span><span class="o">=</span><span class="s1">'Spanish'</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">'es-AR'</span><span class="p">),</span>
+    <span class="n">Language</span><span class="p">(</span><span class="n">country</span><span class="o">=</span><span class="s1">'Bolivia'</span><span class="p">,</span> <span class="n">family</span><span class="o">=</span><span class="s1">'Spanish'</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">'es-BO'</span><span class="p">),</span>
+    <span class="n">Language</span><span class="p">(</span><span class="n">country</span><span class="o">=</span><span class="s1">'Chile'</span><span class="p">,</span> <span class="n">family</span><span class="o">=</span><span class="s1">'Spanish'</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">'es-CL'</span><span class="p">),</span>
+    <span class="n">Language</span><span class="p">(</span><span class="n">country</span><span class="o">=</span><span class="s1">'Colombia'</span><span class="p">,</span> <span class="n">family</span><span class="o">=</span><span class="s1">'Spanish'</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">'es-CO'</span><span class="p">),</span>
+    <span class="n">Language</span><span class="p">(</span><span class="n">country</span><span class="o">=</span><span class="s1">'Costa Rica'</span><span class="p">,</span> <span class="n">family</span><span class="o">=</span><span class="s1">'Spanish'</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">'es-CR'</span><span class="p">),</span>
+    <span class="n">Language</span><span class="p">(</span><span class="n">country</span><span class="o">=</span><span class="s1">'Dominican Republic'</span><span class="p">,</span> <span class="n">family</span><span class="o">=</span><span class="s1">'Spanish'</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">'es-DO'</span><span class="p">),</span>
+    <span class="n">Language</span><span class="p">(</span><span class="n">country</span><span class="o">=</span><span class="s1">'Ecuador'</span><span class="p">,</span> <span class="n">family</span><span class="o">=</span><span class="s1">'Spanish'</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">'es-EC'</span><span class="p">),</span>
+    <span class="n">Language</span><span class="p">(</span><span class="n">country</span><span class="o">=</span><span class="s1">'El Salvador'</span><span class="p">,</span> <span class="n">family</span><span class="o">=</span><span class="s1">'Spanish'</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">'es-SV'</span><span class="p">),</span>
+    <span class="n">Language</span><span class="p">(</span><span class="n">country</span><span class="o">=</span><span class="s1">'Guatemala'</span><span class="p">,</span> <span class="n">family</span><span class="o">=</span><span class="s1">'Spanish'</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">'es-GT'</span><span class="p">),</span>
+    <span class="n">Language</span><span class="p">(</span><span class="n">country</span><span class="o">=</span><span class="s1">'Honduras'</span><span class="p">,</span> <span class="n">family</span><span class="o">=</span><span class="s1">'Spanish'</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">'es-HN'</span><span class="p">),</span>
+    <span class="n">Language</span><span class="p">(</span><span class="n">country</span><span class="o">=</span><span class="s1">'México'</span><span class="p">,</span> <span class="n">family</span><span class="o">=</span><span class="s1">'Spanish'</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">'es-MX'</span><span class="p">),</span>
+    <span class="n">Language</span><span class="p">(</span><span class="n">country</span><span class="o">=</span><span class="s1">'Nicaragua'</span><span class="p">,</span> <span class="n">family</span><span class="o">=</span><span class="s1">'Spanish'</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">'es-NI'</span><span class="p">),</span>
+    <span class="n">Language</span><span class="p">(</span><span class="n">country</span><span class="o">=</span><span class="s1">'Panamá'</span><span class="p">,</span> <span class="n">family</span><span class="o">=</span><span class="s1">'Spanish'</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">'es-PA'</span><span class="p">),</span>
+    <span class="n">Language</span><span class="p">(</span><span class="n">country</span><span class="o">=</span><span class="s1">'Paraguay'</span><span class="p">,</span> <span class="n">family</span><span class="o">=</span><span class="s1">'Spanish'</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">'es-PY'</span><span class="p">),</span>
+    <span class="n">Language</span><span class="p">(</span><span class="n">country</span><span class="o">=</span><span class="s1">'Perú'</span><span class="p">,</span> <span class="n">family</span><span class="o">=</span><span class="s1">'Spanish'</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">'es-PE'</span><span class="p">),</span>
+    <span class="n">Language</span><span class="p">(</span><span class="n">country</span><span class="o">=</span><span class="s1">'Puerto Rico'</span><span class="p">,</span> <span class="n">family</span><span class="o">=</span><span class="s1">'Spanish'</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">'es-PR'</span><span class="p">),</span>
+    <span class="n">Language</span><span class="p">(</span><span class="n">country</span><span class="o">=</span><span class="s1">'Spain'</span><span class="p">,</span> <span class="n">family</span><span class="o">=</span><span class="s1">'Spanish'</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">'es-ES'</span><span class="p">),</span>
+    <span class="n">Language</span><span class="p">(</span><span class="n">country</span><span class="o">=</span><span class="s1">'Uruguay'</span><span class="p">,</span> <span class="n">family</span><span class="o">=</span><span class="s1">'Spanish'</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">'es-UY'</span><span class="p">),</span>
+    <span class="n">Language</span><span class="p">(</span><span class="n">country</span><span class="o">=</span><span class="s1">'United States'</span><span class="p">,</span> <span class="n">family</span><span class="o">=</span><span class="s1">'Spanish'</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">'es-US'</span><span class="p">),</span>
+    <span class="n">Language</span><span class="p">(</span><span class="n">country</span><span class="o">=</span><span class="s1">'Venezuela'</span><span class="p">,</span> <span class="n">family</span><span class="o">=</span><span class="s1">'Spanish'</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">'es-VE'</span><span class="p">),</span>
+    <span class="n">Language</span><span class="p">(</span><span class="n">country</span><span class="o">=</span><span class="s1">'Sweden'</span><span class="p">,</span> <span class="n">family</span><span class="o">=</span><span class="s1">'Swedish'</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">'sv-SE'</span><span class="p">),</span>
+    <span class="n">Language</span><span class="p">(</span><span class="n">country</span><span class="o">=</span><span class="s1">'Thailand'</span><span class="p">,</span> <span class="n">family</span><span class="o">=</span><span class="s1">'Thai'</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">'th-TH'</span><span class="p">),</span>
+    <span class="n">Language</span><span class="p">(</span><span class="n">country</span><span class="o">=</span><span class="s1">'Turkey'</span><span class="p">,</span> <span class="n">family</span><span class="o">=</span><span class="s1">'Turkish'</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">'tr-TR'</span><span class="p">),</span>
+    <span class="n">Language</span><span class="p">(</span><span class="n">country</span><span class="o">=</span><span class="s1">'Ukraine'</span><span class="p">,</span> <span class="n">family</span><span class="o">=</span><span class="s1">'Ukrainian'</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">'uk-UA'</span><span class="p">),</span>
+    <span class="n">Language</span><span class="p">(</span><span class="n">country</span><span class="o">=</span><span class="s1">'Viet Nam'</span><span class="p">,</span> <span class="n">family</span><span class="o">=</span><span class="s1">'Vietnamese'</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">'vi-VN'</span><span class="p">),</span>
+    <span class="n">Language</span><span class="p">(</span><span class="n">country</span><span class="o">=</span><span class="s1">'South Africa'</span><span class="p">,</span> <span class="n">family</span><span class="o">=</span><span class="s1">'Zulu'</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">'zu-ZA'</span><span class="p">),</span>
+<span class="p">]</span>
+<span class="n">LANGUAGES</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
+<span class="n">LANGUAGE_CODES</span> <span class="o">=</span> <span class="p">[</span><span class="n">lang</span><span class="o">.</span><span class="n">name</span> <span class="k">for</span> <span class="n">lang</span> <span class="ow">in</span> <span class="n">LANGUAGES</span><span class="p">]</span>
+
+
+<div class="viewcode-block" id="Grammar"><a class="viewcode-back" href="../../../api/panel.widgets.html#panel.widgets.speech_to_text.Grammar">[docs]</a><span class="k">class</span> <span class="nc">Grammar</span><span class="p">(</span><span class="n">param</span><span class="o">.</span><span class="n">Parameterized</span><span class="p">):</span>
+    <span class="sd">"""A set of words or patterns of words that we want the speech recognition service to recognize</span>
+
+<span class="sd">    For example</span>
+
+<span class="sd">    grammar = Grammar(</span>
+<span class="sd">        src='#JSGF V1.0; grammar colors; public &lt;color&gt; = aqua | azure | beige;',</span>
+<span class="sd">        weight=0.7</span>
+<span class="sd">    )</span>
+
+<span class="sd">    Wraps the HTML SpeechGrammar API.</span>
+<span class="sd">    See https://developer.mozilla.org/en-US/docs/Web/API/SpeechGrammar</span>
+<span class="sd">    """</span>
+
+    <span class="n">src</span> <span class="o">=</span> <span class="n">param</span><span class="o">.</span><span class="n">String</span><span class="p">(</span><span class="n">doc</span><span class="o">=</span><span class="s2">"""</span>
+<span class="s2">        A set of words or patterns of words that we want the</span>
+<span class="s2">        recognition service to recognize. Defined using JSpeech</span>
+<span class="s2">        Grammar Format. See https://www.w3.org/TR/jsgf/."""</span><span class="p">)</span>
+
+    <span class="n">uri</span> <span class="o">=</span> <span class="n">param</span><span class="o">.</span><span class="n">String</span><span class="p">(</span><span class="n">doc</span><span class="o">=</span><span class="s2">"""</span>
+<span class="s2">        An uri pointing to the definition. If src is available it will</span>
+<span class="s2">        be used. Otherwise uri. The uri will be loaded on the client</span>
+<span class="s2">        side only."""</span><span class="p">)</span>
+
+    <span class="n">weight</span> <span class="o">=</span> <span class="n">param</span><span class="o">.</span><span class="n">Number</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">bounds</span><span class="o">=</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">),</span> <span class="n">step</span><span class="o">=</span><span class="mf">0.01</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="s2">"""</span>
+<span class="s2">       The weight of the grammar. A number in the range 0–1. Default is 1."""</span><span class="p">)</span>
+
+<div class="viewcode-block" id="Grammar.serialize"><a class="viewcode-back" href="../../../api/panel.widgets.html#panel.widgets.speech_to_text.Grammar.serialize">[docs]</a>    <span class="k">def</span> <span class="nf">serialize</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">"""Returns the grammar as dict"""</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">src</span><span class="p">:</span>
+            <span class="k">return</span> <span class="p">{</span><span class="s2">"src"</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">src</span><span class="p">,</span> <span class="s2">"weight"</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">weight</span><span class="p">}</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">uri</span><span class="p">:</span>
+            <span class="k">return</span> <span class="p">{</span><span class="s2">"uri"</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">uri</span><span class="p">,</span> <span class="s2">"weight"</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">weight</span><span class="p">}</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">"One of src or uri must be set"</span><span class="p">)</span></div></div>
+
+
+<div class="viewcode-block" id="GrammarList"><a class="viewcode-back" href="../../../api/panel.widgets.html#panel.widgets.speech_to_text.GrammarList">[docs]</a><span class="k">class</span> <span class="nc">GrammarList</span><span class="p">(</span><span class="nb">list</span><span class="p">):</span>
+    <span class="sd">"""A list of Grammar objects containing words or patterns of words that we want the</span>
+<span class="sd">    recognition service to recognize.</span>
+
+<span class="sd">    Example:</span>
+
+<span class="sd">    grammar = '#JSGF V1.0; grammar colors; public &lt;color&gt; = aqua | azure | beige | bisque ;'</span>
+<span class="sd">    grammar_list = GrammarList()</span>
+<span class="sd">    grammar_list.add_from_string(grammar, 1)</span>
+
+<span class="sd">    Wraps the HTML 5 SpeechGrammarList API</span>
+
+<span class="sd">    See https://developer.mozilla.org/en-US/docs/Web/API/SpeechGrammarList</span>
+<span class="sd">    """</span>
+
+<div class="viewcode-block" id="GrammarList.add_from_string"><a class="viewcode-back" href="../../../api/panel.widgets.html#panel.widgets.speech_to_text.GrammarList.add_from_string">[docs]</a>    <span class="k">def</span> <span class="nf">add_from_string</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">src</span><span class="p">,</span> <span class="n">weight</span><span class="o">=</span><span class="mf">1.0</span><span class="p">):</span>
+        <span class="sd">"""</span>
+<span class="sd">        Takes a src and weight and adds it to the GrammarList as a new</span>
+<span class="sd">        Grammar object. The new Grammar object is returned.</span>
+<span class="sd">        """</span>
+        <span class="n">grammar</span> <span class="o">=</span> <span class="n">Grammar</span><span class="p">(</span><span class="n">src</span><span class="o">=</span><span class="n">src</span><span class="p">,</span> <span class="n">weight</span><span class="o">=</span><span class="n">weight</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">grammar</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">grammar</span></div>
+
+<div class="viewcode-block" id="GrammarList.add_from_uri"><a class="viewcode-back" href="../../../api/panel.widgets.html#panel.widgets.speech_to_text.GrammarList.add_from_uri">[docs]</a>    <span class="k">def</span> <span class="nf">add_from_uri</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">uri</span><span class="p">,</span> <span class="n">weight</span><span class="o">=</span><span class="mf">1.0</span><span class="p">):</span>
+        <span class="sd">"""</span>
+<span class="sd">        Takes a grammar present at a specific uri, and adds it to the</span>
+<span class="sd">        GrammarList as a new Grammar object. The new Grammar object is</span>
+<span class="sd">        returned.</span>
+<span class="sd">        """</span>
+        <span class="n">grammar</span> <span class="o">=</span> <span class="n">Grammar</span><span class="p">(</span><span class="n">uri</span><span class="o">=</span><span class="n">uri</span><span class="p">,</span> <span class="n">weight</span><span class="o">=</span><span class="n">weight</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">grammar</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">grammar</span></div>
+
+<div class="viewcode-block" id="GrammarList.serialize"><a class="viewcode-back" href="../../../api/panel.widgets.html#panel.widgets.speech_to_text.GrammarList.serialize">[docs]</a>    <span class="k">def</span> <span class="nf">serialize</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">"""Returns a list of serialized grammars"""</span>
+        <span class="k">return</span> <span class="p">[</span><span class="n">grammar</span><span class="o">.</span><span class="n">serialize</span><span class="p">()</span> <span class="k">for</span> <span class="n">grammar</span> <span class="ow">in</span> <span class="bp">self</span><span class="p">]</span></div></div>
+
+
+<div class="viewcode-block" id="RecognitionAlternative"><a class="viewcode-back" href="../../../api/panel.widgets.html#panel.widgets.speech_to_text.RecognitionAlternative">[docs]</a><span class="k">class</span> <span class="nc">RecognitionAlternative</span><span class="p">(</span><span class="n">param</span><span class="o">.</span><span class="n">Parameterized</span><span class="p">):</span>
+    <span class="sd">"""The RecognitionAlternative represents a word or</span>
+<span class="sd">    sentence that has been recognised by the speech recognition service.</span>
+
+<span class="sd">    Wraps the HTML5 SpeechRecognitionAlternative API</span>
+
+<span class="sd">    See https://developer.mozilla.org/en-US/docs/Web/API/SpeechRecognitionAlternative</span>
+<span class="sd">    """</span>
+
+    <span class="n">confidence</span> <span class="o">=</span> <span class="n">param</span><span class="o">.</span><span class="n">Number</span><span class="p">(</span><span class="n">bounds</span><span class="o">=</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">),</span> <span class="n">constant</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="s2">"""</span>
+<span class="s2">        A numeric estimate between 0 and 1 of how confident the speech recognition</span>
+<span class="s2">        system is that the recognition is correct."""</span><span class="p">)</span>
+
+    <span class="n">transcript</span> <span class="o">=</span> <span class="n">param</span><span class="o">.</span><span class="n">String</span><span class="p">(</span><span class="n">constant</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="s2">"""</span>
+<span class="s2">        The transcript of the recognised word or sentence."""</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="RecognitionResult"><a class="viewcode-back" href="../../../api/panel.widgets.html#panel.widgets.speech_to_text.RecognitionResult">[docs]</a><span class="k">class</span> <span class="nc">RecognitionResult</span><span class="p">(</span><span class="n">param</span><span class="o">.</span><span class="n">Parameterized</span><span class="p">):</span>
+    <span class="sd">"""The Result represents a single recognition match, which may contain</span>
+<span class="sd">    multiple RecognitionAlternative objects.</span>
+
+<span class="sd">    Wraps the HTML5 SpeechRecognitionResult API.</span>
+
+<span class="sd">    See https://developer.mozilla.org/en-US/docs/Web/API/SpeechRecognitionResult</span>
+<span class="sd">    """</span>
+
+    <span class="n">alternatives</span> <span class="o">=</span> <span class="n">param</span><span class="o">.</span><span class="n">List</span><span class="p">(</span><span class="n">class_</span><span class="o">=</span><span class="n">RecognitionAlternative</span><span class="p">,</span> <span class="n">constant</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="s2">"""</span>
+<span class="s2">        The list of the n-best alternatives"""</span><span class="p">)</span>
+
+    <span class="n">is_final</span> <span class="o">=</span> <span class="n">param</span><span class="o">.</span><span class="n">Boolean</span><span class="p">(</span><span class="n">constant</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="s2">"""</span>
+<span class="s2">        A Boolean that states whether this result is final (True) or</span>
+<span class="s2">        not (False) — if so, then this is the final time this result</span>
+<span class="s2">        will be returned; if not, then this result is an interim</span>
+<span class="s2">        result, and may be updated later on."""</span><span class="p">)</span>
+
+<div class="viewcode-block" id="RecognitionResult.create_from_dict"><a class="viewcode-back" href="../../../api/panel.widgets.html#panel.widgets.speech_to_text.RecognitionResult.create_from_dict">[docs]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">create_from_dict</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">result</span><span class="p">):</span>
+        <span class="sd">"""</span>
+<span class="sd">        Deserializes a serialized RecognitionResult</span>
+<span class="sd">        """</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="n">result</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+        <span class="n">alternatives</span> <span class="o">=</span> <span class="n">result</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"alternatives"</span><span class="p">,</span> <span class="p">[])</span>
+        <span class="n">_alternatives</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">alternative</span> <span class="ow">in</span> <span class="n">alternatives</span><span class="p">:</span>
+            <span class="n">_alternatives</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">RecognitionAlternative</span><span class="p">(</span><span class="o">**</span><span class="n">alternative</span><span class="p">))</span>
+        <span class="n">result</span><span class="p">[</span><span class="s2">"alternatives"</span><span class="p">]</span> <span class="o">=</span> <span class="n">_alternatives</span>
+        <span class="k">return</span> <span class="bp">cls</span><span class="p">(</span><span class="o">**</span><span class="n">result</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="RecognitionResult.create_from_list"><a class="viewcode-back" href="../../../api/panel.widgets.html#panel.widgets.speech_to_text.RecognitionResult.create_from_list">[docs]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">create_from_list</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">results</span><span class="p">):</span>
+        <span class="sd">"""</span>
+<span class="sd">        Deserializes a list of serialized RecognitionResults.</span>
+<span class="sd">        """</span>
+        <span class="k">return</span> <span class="p">[</span><span class="bp">cls</span><span class="o">.</span><span class="n">create_from_dict</span><span class="p">(</span><span class="n">result</span><span class="p">)</span> <span class="k">for</span> <span class="n">result</span> <span class="ow">in</span> <span class="n">results</span><span class="p">]</span></div></div>
+
+
+<div class="viewcode-block" id="SpeechToText"><a class="viewcode-back" href="../../../api/panel.widgets.html#panel.widgets.speech_to_text.SpeechToText">[docs]</a><span class="k">class</span> <span class="nc">SpeechToText</span><span class="p">(</span><span class="n">Widget</span><span class="p">):</span>
+    <span class="sd">"""</span>
+<span class="sd">    The SpeechToText widget controls the speech recognition service of</span>
+<span class="sd">    the browser.</span>
+
+<span class="sd">    It wraps the HTML5 SpeechRecognition API.  See</span>
+<span class="sd">    https://developer.mozilla.org/en-US/docs/Web/API/SpeechRecognition</span>
+
+<span class="sd">    This functionality is **experimental** and only supported by</span>
+<span class="sd">    Chrome and a few other browsers.  Checkout</span>
+<span class="sd">    https://caniuse.com/speech-recognition for a up to date list of</span>
+<span class="sd">    browsers supporting the SpeechRecognition Api. Or alternatively</span>
+<span class="sd">    https://developer.mozilla.org/en-US/docs/Web/API/SpeechRecognition#Browser_compatibility</span>
+
+<span class="sd">    On some browsers, like Chrome, using Speech Recognition on a web</span>
+<span class="sd">    page involves a server-based recognition engine. Your audio is</span>
+<span class="sd">    sent to a web service for recognition processing, so it won't work</span>
+<span class="sd">    offline. Whether this is secure and confidential enough for your</span>
+<span class="sd">    use case is up to you to evaluate.</span>
+<span class="sd">    """</span>
+
+    <span class="n">abort</span> <span class="o">=</span> <span class="n">param</span><span class="o">.</span><span class="n">Event</span><span class="p">(</span><span class="n">doc</span><span class="o">=</span><span class="s2">"""</span>
+<span class="s2">        Stops the speech recognition service from listening to</span>
+<span class="s2">        incoming audio, and doesn't attempt to return a</span>
+<span class="s2">        RecognitionResult."""</span><span class="p">)</span>
+
+    <span class="n">start</span> <span class="o">=</span> <span class="n">param</span><span class="o">.</span><span class="n">Event</span><span class="p">(</span><span class="n">doc</span><span class="o">=</span><span class="s2">"""</span>
+<span class="s2">        Starts the speech recognition service listening to incoming</span>
+<span class="s2">        audio with intent to recognize grammars associated with the</span>
+<span class="s2">        current SpeechRecognition."""</span><span class="p">)</span>
+
+    <span class="n">stop</span> <span class="o">=</span> <span class="n">param</span><span class="o">.</span><span class="n">Event</span><span class="p">(</span><span class="n">doc</span><span class="o">=</span><span class="s2">"""</span>
+<span class="s2">        Stops the speech recognition service from listening to</span>
+<span class="s2">        incoming audio, and attempts to return a RecognitionResult</span>
+<span class="s2">        using the audio captured so far."""</span><span class="p">)</span>
+
+    <span class="n">lang</span> <span class="o">=</span> <span class="n">param</span><span class="o">.</span><span class="n">ObjectSelector</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="s2">""</span><span class="p">,</span> <span class="n">objects</span><span class="o">=</span><span class="p">[</span><span class="s2">""</span><span class="p">]</span> <span class="o">+</span> <span class="n">LANGUAGE_CODES</span><span class="p">,</span>
+                                <span class="n">allow_None</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">"Language"</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="s2">"""</span>
+<span class="s2">        The language of the current SpeechRecognition in BCP 47</span>
+<span class="s2">        format. For example 'en-US'. If not specified, this defaults</span>
+<span class="s2">        to the HTML lang attribute value, or the user agent's language</span>
+<span class="s2">        setting if that isn't set either.  """</span><span class="p">)</span>
+
+    <span class="n">continuous</span> <span class="o">=</span> <span class="n">param</span><span class="o">.</span><span class="n">Boolean</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="s2">"""</span>
+<span class="s2">        Controls whether continuous results are returned for each</span>
+<span class="s2">        recognition, or only a single result. Defaults to False"""</span><span class="p">)</span>
+
+    <span class="n">interim_results</span> <span class="o">=</span> <span class="n">param</span><span class="o">.</span><span class="n">Boolean</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="s2">"""</span>
+<span class="s2">        Controls whether interim results should be returned (True) or</span>
+<span class="s2">        not (False.) Interim results are results that are not yet</span>
+<span class="s2">        final (e.g. the RecognitionResult.is_final property is</span>
+<span class="s2">        False)."""</span><span class="p">)</span>
+
+    <span class="n">max_alternatives</span> <span class="o">=</span> <span class="n">param</span><span class="o">.</span><span class="n">Integer</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">bounds</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">5</span><span class="p">),</span> <span class="n">doc</span><span class="o">=</span><span class="s2">"""</span>
+<span class="s2">        Sets the maximum number of RecognitionAlternatives provided</span>
+<span class="s2">        per result.  A number between 1 and 5. The default value is</span>
+<span class="s2">        1."""</span><span class="p">)</span>
+
+    <span class="n">service_uri</span> <span class="o">=</span> <span class="n">param</span><span class="o">.</span><span class="n">String</span><span class="p">(</span><span class="n">doc</span><span class="o">=</span><span class="s2">"""</span>
+<span class="s2">        Specifies the location of the speech recognition service used</span>
+<span class="s2">        by the current SpeechRecognition to handle the actual</span>
+<span class="s2">        recognition. The default is the user agent's default speech</span>
+<span class="s2">        service."""</span><span class="p">)</span>
+
+    <span class="n">grammars</span> <span class="o">=</span> <span class="n">param</span><span class="o">.</span><span class="n">ClassSelector</span><span class="p">(</span><span class="n">class_</span><span class="o">=</span><span class="n">GrammarList</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="s2">"""</span>
+<span class="s2">        A GrammarList object that represents the grammars that will be</span>
+<span class="s2">        understood by the current SpeechRecognition service"""</span><span class="p">)</span>
+
+    <span class="n">button_hide</span> <span class="o">=</span> <span class="n">param</span><span class="o">.</span><span class="n">Boolean</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">"Hide the Button"</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="s2">"""</span>
+<span class="s2">        If True no button is shown. If False a toggle Start/ Stop button is shown."""</span><span class="p">)</span>
+
+    <span class="n">button_type</span> <span class="o">=</span> <span class="n">param</span><span class="o">.</span><span class="n">ObjectSelector</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="s2">"light"</span><span class="p">,</span> <span class="n">objects</span><span class="o">=</span><span class="n">BUTTON_TYPES</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="s2">"""</span>
+<span class="s2">        The button styling."""</span><span class="p">)</span>
+
+    <span class="n">button_not_started</span> <span class="o">=</span> <span class="n">param</span><span class="o">.</span><span class="n">String</span><span class="p">(</span><span class="n">label</span><span class="o">=</span><span class="s2">"Button Text when not started"</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="s2">"""</span>
+<span class="s2">        The text to show on the button when the SpeechRecognition</span>
+<span class="s2">        service is NOT started.  If '' a *muted microphone* icon is</span>
+<span class="s2">        shown."""</span><span class="p">)</span>
+
+    <span class="n">button_started</span> <span class="o">=</span> <span class="n">param</span><span class="o">.</span><span class="n">String</span><span class="p">(</span><span class="n">label</span><span class="o">=</span><span class="s2">"Button Text when started"</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="s2">"""</span>
+<span class="s2">        The text to show on the button when the SpeechRecognition</span>
+<span class="s2">        service is started. If '' a *muted microphone* icon is</span>
+<span class="s2">        shown."""</span><span class="p">)</span>
+
+    <span class="n">started</span> <span class="o">=</span> <span class="n">param</span><span class="o">.</span><span class="n">Boolean</span><span class="p">(</span><span class="n">constant</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="s2">"""</span>
+<span class="s2">        Returns True if the Speech Recognition Service is started and</span>
+<span class="s2">        False otherwise."""</span><span class="p">)</span>
+
+    <span class="n">audio_started</span> <span class="o">=</span> <span class="n">param</span><span class="o">.</span><span class="n">Boolean</span><span class="p">(</span><span class="n">constant</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="s2">"""</span>
+<span class="s2">        Returns True if the Audio is started and False otherwise."""</span><span class="p">)</span>
+
+    <span class="n">sound_started</span> <span class="o">=</span> <span class="n">param</span><span class="o">.</span><span class="n">Boolean</span><span class="p">(</span><span class="n">constant</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="s2">"""</span>
+<span class="s2">        Returns True if the Sound is started and False otherwise."""</span><span class="p">)</span>
+
+    <span class="n">speech_started</span> <span class="o">=</span> <span class="n">param</span><span class="o">.</span><span class="n">Boolean</span><span class="p">(</span><span class="n">constant</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="s2">"""</span>
+<span class="s2">        Returns True if the the User has started speaking and False otherwise."""</span><span class="p">)</span>
+
+    <span class="n">results</span> <span class="o">=</span> <span class="n">param</span><span class="o">.</span><span class="n">List</span><span class="p">(</span><span class="n">constant</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="s2">"""</span>
+<span class="s2">        The `results` as a list of Dictionaries."""</span><span class="p">)</span>
+
+    <span class="n">value</span> <span class="o">=</span> <span class="n">param</span><span class="o">.</span><span class="n">String</span><span class="p">(</span><span class="n">constant</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">"Last Result"</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="s2">"""</span>
+<span class="s2">        The transcipt of the highest confidence RecognitionAlternative</span>
+<span class="s2">        of the last RecognitionResult. Please note we strip the</span>
+<span class="s2">        transcript for leading spaces."""</span><span class="p">)</span>
+
+    <span class="n">_grammars</span> <span class="o">=</span> <span class="n">param</span><span class="o">.</span><span class="n">List</span><span class="p">(</span><span class="n">constant</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="s2">"""</span>
+<span class="s2">        List used to transfer the serialized grammars from server to</span>
+<span class="s2">        browser."""</span><span class="p">)</span>
+
+    <span class="n">_widget_type</span> <span class="o">=</span> <span class="n">_BkSpeechToText</span>
+
+    <span class="n">_rename</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s2">"value"</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="s2">"grammars"</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="s2">"_grammars"</span><span class="p">:</span> <span class="s2">"grammars"</span><span class="p">,</span>
+    <span class="p">}</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">params</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="o">**</span><span class="n">params</span><span class="p">)</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">grammars</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_update_grammars</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">depth</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="c1"># Custom repr needed to avoid infinite recursion because this Parameterized class has</span>
+        <span class="c1"># multiple actions</span>
+        <span class="k">return</span> <span class="sa">f</span><span class="s2">"SpeechToText(name='</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">')"</span>
+
+    <span class="nd">@param</span><span class="o">.</span><span class="n">depends</span><span class="p">(</span><span class="s2">"grammars"</span><span class="p">,</span> <span class="n">watch</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">_update_grammars</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">with</span> <span class="n">param</span><span class="o">.</span><span class="n">edit_constant</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">grammars</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_grammars</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">grammars</span><span class="o">.</span><span class="n">serialize</span><span class="p">()</span>  <span class="c1"># pylint: disable=no-member</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_grammars</span> <span class="o">=</span> <span class="p">[]</span>
+
+    <span class="nd">@param</span><span class="o">.</span><span class="n">depends</span><span class="p">(</span><span class="s2">"results"</span><span class="p">,</span> <span class="n">watch</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">_update_results</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="c1"># pylint: disable=unsubscriptable-object</span>
+        <span class="k">with</span> <span class="n">param</span><span class="o">.</span><span class="n">edit_constant</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">results</span> <span class="ow">and</span> <span class="s2">"alternatives"</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">results</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">results</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">][</span><span class="s2">"alternatives"</span><span class="p">][</span><span class="mi">0</span><span class="p">][</span><span class="s2">"transcript"</span><span class="p">])</span><span class="o">.</span><span class="n">lstrip</span><span class="p">()</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="s2">""</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">results_deserialized</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">"""</span>
+<span class="sd">        Returns the results as a List of RecognitionResults</span>
+<span class="sd">        """</span>
+        <span class="k">return</span> <span class="n">RecognitionResult</span><span class="o">.</span><span class="n">create_from_list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">results</span><span class="p">)</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">results_as_html</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+        <span class="sd">"""</span>
+<span class="sd">        Returns the `results` formatted as html</span>
+
+<span class="sd">        Convenience method for ease of use</span>
+<span class="sd">        """</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">results</span><span class="p">:</span>
+            <span class="k">return</span> <span class="s2">"No results"</span>
+        <span class="n">html</span> <span class="o">=</span> <span class="s2">"&lt;div class='pn-speech-recognition-result'&gt;"</span>
+        <span class="n">total</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">results</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span>
+        <span class="k">for</span> <span class="n">index</span><span class="p">,</span> <span class="n">result</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="nb">reversed</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">results_deserialized</span><span class="p">)):</span>
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">results</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+                <span class="n">html</span> <span class="o">+=</span> <span class="sa">f</span><span class="s2">"&lt;h3&gt;Result </span><span class="si">{</span><span class="n">total</span><span class="o">-</span><span class="n">index</span><span class="si">}</span><span class="s2">&lt;/h3&gt;"</span>
+            <span class="n">html</span> <span class="o">+=</span> <span class="sa">f</span><span class="s2">"&lt;span&gt;Is Final: </span><span class="si">{</span><span class="n">result</span><span class="o">.</span><span class="n">is_final</span><span class="si">}</span><span class="s2">&lt;/span&gt;&lt;br/&gt;"</span>
+            <span class="k">for</span> <span class="n">index2</span><span class="p">,</span> <span class="n">alternative</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">alternatives</span><span class="p">):</span>
+                <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">alternatives</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+                    <span class="n">html</span> <span class="o">+=</span> <span class="sa">f</span><span class="s2">"&lt;h4&gt;Alternative </span><span class="si">{</span><span class="n">index2</span><span class="si">}</span><span class="s2">&lt;/h4&gt;"</span>
+                <span class="n">html</span> <span class="o">+=</span> <span class="sa">f</span><span class="s2">"""</span>
+<span class="s2">                &lt;span&gt;Confidence: </span><span class="si">{</span><span class="n">alternative</span><span class="o">.</span><span class="n">confidence</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">&lt;/span&gt;</span>
+<span class="s2">                &lt;/br&gt;</span>
+<span class="s2">                &lt;p&gt;</span>
+<span class="s2">                  &lt;strong&gt;</span><span class="si">{</span><span class="n">alternative</span><span class="o">.</span><span class="n">transcript</span><span class="si">}</span><span class="s2">&lt;/strong&gt;</span>
+<span class="s2">                &lt;/p&gt;</span>
+<span class="s2">                """</span>
+        <span class="n">html</span> <span class="o">+=</span> <span class="s2">"&lt;/div&gt;"</span>
+        <span class="k">return</span> <span class="n">html</span></div>
+</pre></div>
+</div>
+</div>
+<!-- END MAIN BODY OF DOCS ––––––––––––– -->
+<!-- Google Analytics -->
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async="" src="https://www.googletagmanager.com/gtag/js?id=UA-154795830-2"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-154795830-2', { 'anonymize_ip': true });
+</script>
+<!-- MathJax Config -->
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}
+});
+</script>
+<!-- End Document
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+</body>
+</html>

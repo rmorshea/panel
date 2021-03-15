@@ -1,0 +1,1349 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<!-- Basic Page Needs
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+<meta charset="utf-8"/>
+<title>reactive Module — Panel 0.11.1+g238199f-dirty documentation</title>
+<meta content="High-level dashboarding for python visualization libraries" name="description"/>
+<meta content="Panel contributors" name="author"/>
+<!-- Mobile Specific Metas
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<!-- FONT
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+<script src="https://ajax.googleapis.com/ajax/libs/webfont/1.6.16/webfont.js"></script>
+<script>
+    WebFont.load({
+      google: {
+        families: ['Source Sans Pro']
+      }
+    });
+  </script>
+<!-- CSS
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+<link href="../_static/css/main.css" rel="stylesheet"/>
+<link href="../_static/nbsite.css" rel="stylesheet"/>
+<link href="../_static/site.css" rel="stylesheet"/>
+<!-- Scripts
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script async="" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML" type="text/javascript">
+</script>
+<script src="../_static/js/main.js"></script>
+<!-- Favicon
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+<link href="../_static/favicon.ico" rel="icon" type="image/png"/>
+<!-- Canonical
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+<link href="https://panel.holoviz.org/api/panel.reactive.html" rel="canonical">
+</link></head>
+<body class="">
+<header class="navigation">
+<div class="wrapper">
+<a class="logo" href="../index.html">
+<img alt="Logo" src="../_static/logo_horizontal.png"/>
+</a>
+<a class="navigation-menu-button" href="javascript:void(0)" id="js-mobile-menu">Menu</a>
+<nav>
+<ul class="navigation-menu show" id="js-navigation-menu">
+<li class="nav-link doc-head"><a href="//discourse.holoviz.org">Discourse</a></li>
+<li class="nav-link doc-head"><a href="//twitter.com/Panel_org">Twitter</a></li>
+<li class="nav-link doc-head"><a href="//github.com/pyviz/panel">Github</a></li>
+<li class="nav-link">
+<div style="display:inline-block;vertical-align: middle;">
+<div class="search-bar">
+<form action="../search.html" method="get" role="search">
+<input name="q" placeholder="Search" type="search"/>
+<button type="submit">
+<img alt="Search Icon" src="https://raw.githubusercontent.com/thoughtbot/refills/master/source/images/search-icon-black.png"/>
+</button>
+</form>
+</div>
+</div>
+</li>
+</ul>
+</nav>
+</div>
+</header>
+<div class="second-nav">
+<nav>
+<ul class="navigation-menu show">
+<li class="nav-link doc-head"><a href="../getting_started/index.html">Getting started</a></li>
+<li class="nav-link doc-head"><a href="../user_guide/index.html">User Guide</a></li>
+<li class="nav-link doc-head"><a href="../gallery/index.html">Gallery</a></li>
+<li class="nav-link doc-head"><a href="../reference/index.html">Reference Gallery</a></li>
+<li class="nav-link doc-head"><a href="../developer_guide/index.html">Developer Guide</a></li>
+<li class="nav-link doc-head"><a href="../releases.html">Releases</a></li>
+<li class="nav-link doc-head"><a href="index.html">API</a></li>
+<li class="nav-link doc-head"><a href="../FAQ.html">FAQ</a></li>
+<li class="nav-link doc-head"><a href="../about.html">About</a></li>
+</ul>
+</nav>
+</div>
+<!-- MAIN BODY OF DOCS –––––––––––––––––– -->
+<div class="docs section">
+<div id="hacketyhackhack"> <!-- style="width:20%;margin-right: 100px;"> --> <!--style="display: none;"> style="display:none;"> -->
+<div class="toc" style="width:15%; margin-right:20px;">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../index.html">Home</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting_started/index.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../user_guide/index.html">User Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../gallery/index.html">Gallery</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/index.html">Reference Gallery</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../developer_guide/index.html">Developer Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="index.html">API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Comparisons.html">Comparisons</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../releases.html">Releases</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Roadmap.html">Road Map</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../FAQ.html">FAQ</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://github.com/pyviz/panel">Github source</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../about.html">About</a></li>
+</ul>
+</div>
+</div>
+<div class="content"> <!-- style="max-width:80%;margin-left:auto;margin-right: auto;">-->
+<div class="section" id="reactive-module">
+<h1>reactive Module<a class="headerlink" href="#reactive-module" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="id1">
+<h2><code class="xref py py-mod docutils literal notranslate"><span class="pre">reactive</span></code> Module<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
+<span class="target" id="module-panel.reactive"></span><p>Declares Syncable and Reactive classes which provides baseclasses
+for Panel components which sync their state with one or more bokeh
+models rendered on the frontend.</p>
+<dl class="py attribute">
+<dt id="panel.reactive.LinkWatcher">
+<code class="sig-prename descclassname"><span class="pre">panel.reactive.</span></code><code class="sig-name descname"><span class="pre">LinkWatcher</span></code><a class="headerlink" href="#panel.reactive.LinkWatcher" title="Permalink to this definition">¶</a></dt>
+<dd><p>alias of <code class="xref py py-class docutils literal notranslate"><span class="pre">panel.reactive.Watcher</span></code></p>
+</dd></dl>
+<dl class="py class">
+<dt id="panel.reactive.Reactive">
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">panel.reactive.</span></code><code class="sig-name descname"><span class="pre">Reactive</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">params</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/panel/reactive.html#Reactive"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#panel.reactive.Reactive" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#panel.reactive.Syncable" title="panel.reactive.Syncable"><code class="xref py py-class docutils literal notranslate"><span class="pre">panel.reactive.Syncable</span></code></a>, <a class="reference internal" href="panel.viewable.html#panel.viewable.Viewable" title="panel.viewable.Viewable"><code class="xref py py-class docutils literal notranslate"><span class="pre">panel.viewable.Viewable</span></code></a></p>
+<p>Reactive is a Viewable object that also supports syncing between
+the objects parameters and the underlying bokeh model either via
+the defined pyviz_comms.Comm type or using bokeh server.</p>
+<p>In addition it defines various methods which make it easy to link
+the parameters to other objects.</p>
+<p>Parameters inherited from:</p>
+<blockquote>
+<div><p><a class="reference internal" href="panel.viewable.html#panel.viewable.Layoutable" title="panel.viewable.Layoutable"><code class="xref py py-class docutils literal notranslate"><span class="pre">panel.viewable.Layoutable</span></code></a>: align, aspect_ratio, background, css_classes, width, height, min_width, min_height, max_width, max_height, margin, width_policy, height_policy, sizing_mode</p>
+<p><a class="reference internal" href="panel.viewable.html#panel.viewable.Viewable" title="panel.viewable.Viewable"><code class="xref py py-class docutils literal notranslate"><span class="pre">panel.viewable.Viewable</span></code></a>: loading</p>
+</div></blockquote>
+<dl class="py method">
+<dt id="panel.reactive.Reactive.add_periodic_callback">
+<code class="sig-name descname"><span class="pre">add_periodic_callback</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">callback</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">period</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">500</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">count</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">timeout</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/panel/reactive.html#Reactive.add_periodic_callback"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#panel.reactive.Reactive.add_periodic_callback" title="Permalink to this definition">¶</a></dt>
+<dd><p>Schedules a periodic callback to be run at an interval set by
+the period. Returns a PeriodicCallback object with the option
+to stop and start the callback.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>callback</strong> (<em>callable</em>) – Callable function to be executed at periodic interval.</p></li>
+<li><p><strong>period</strong> (<em>int</em>) – Interval in milliseconds at which callback will be executed.</p></li>
+<li><p><strong>count</strong> (<em>int</em>) – Maximum number of times callback will be invoked.</p></li>
+<li><p><strong>timeout</strong> (<em>int</em>) – Timeout in seconds when the callback should be stopped.</p></li>
+<li><p><strong>start</strong> (<em>boolean</em><em> (</em><em>default=True</em><em>)</em>) – Whether to start callback immediately.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p></p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>Return a PeriodicCallback object with start and stop methods.</p>
+</dd>
+</dl>
+</dd></dl>
+<dl class="py method">
+<dt id="panel.reactive.Reactive.app">
+<code class="sig-name descname"><span class="pre">app</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">notebook_url</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'localhost:8888'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">port</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#panel.reactive.Reactive.app" title="Permalink to this definition">¶</a></dt>
+<dd><p>Displays a bokeh server app inline in the notebook.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>notebook_url</strong> (<em>str</em>) – URL to the notebook server</p></li>
+<li><p><strong>port</strong> (<em>int</em><em> (</em><em>optional</em><em>, </em><em>default=0</em><em>)</em>) – Allows specifying a specific port</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+<dl class="py method">
+<dt id="panel.reactive.Reactive.clone">
+<code class="sig-name descname"><span class="pre">clone</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">params</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#panel.reactive.Reactive.clone" title="Permalink to this definition">¶</a></dt>
+<dd><p>Makes a copy of the object sharing the same parameters.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>params</strong> (<em>Keyword arguments override the parameters on the clone.</em>) – </p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p></p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>Cloned Viewable object</p>
+</dd>
+</dl>
+</dd></dl>
+<dl class="py method">
+<dt id="panel.reactive.Reactive.controls">
+<code class="sig-name descname"><span class="pre">controls</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">parameters</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">[]</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">jslink</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/panel/reactive.html#Reactive.controls"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#panel.reactive.Reactive.controls" title="Permalink to this definition">¶</a></dt>
+<dd><p>Creates a set of widgets which allow manipulating the parameters
+on this instance. By default all parameters which support
+linking are exposed, but an explicit list of parameters can
+be provided.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>parameters</strong> (<em>list</em><em>(</em><em>str</em><em>)</em>) – An explicit list of parameters to return controls for.</p></li>
+<li><p><strong>jslink</strong> (<em>bool</em>) – Whether to use jslinks instead of Python based links.
+This does not allow using all types of parameters.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p></p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>A layout of the controls</p>
+</dd>
+</dl>
+</dd></dl>
+<dl class="py method">
+<dt id="panel.reactive.Reactive.embed">
+<code class="sig-name descname"><span class="pre">embed</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">max_states</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1000</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_opts</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">3</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">json</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">json_prefix</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">save_path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'./'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">load_path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">progress</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">states</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">{}</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#panel.reactive.Reactive.embed" title="Permalink to this definition">¶</a></dt>
+<dd><p>Renders a static version of a panel in a notebook by evaluating
+the set of states defined by the widgets in the model. Note
+this will only work well for simple apps with a relatively
+small state space.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>max_states</strong> (<em>int</em>) – The maximum number of states to embed</p></li>
+<li><p><strong>max_opts</strong> (<em>int</em>) – The maximum number of states for a single widget</p></li>
+<li><p><strong>json</strong> (<em>boolean</em><em> (</em><em>default=True</em><em>)</em>) – Whether to export the data to json files</p></li>
+<li><p><strong>json_prefix</strong> (<em>str</em><em> (</em><em>default=''</em><em>)</em>) – Prefix for JSON filename</p></li>
+<li><p><strong>save_path</strong> (<em>str</em><em> (</em><em>default='./'</em><em>)</em>) – The path to save json files to</p></li>
+<li><p><strong>load_path</strong> (<em>str</em><em> (</em><em>default=None</em><em>)</em>) – The path or URL the json files will be loaded from.</p></li>
+<li><p><strong>progress</strong> (<em>boolean</em><em> (</em><em>default=False</em><em>)</em>) – Whether to report progress</p></li>
+<li><p><strong>states</strong> (<em>dict</em><em> (</em><em>default={}</em><em>)</em>) – A dictionary specifying the widget values to embed for each widget</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+<dl class="py method">
+<dt id="panel.reactive.Reactive.get_root">
+<code class="sig-name descname"><span class="pre">get_root</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">doc</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">comm</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">preprocess</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#panel.reactive.Reactive.get_root" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the root model and applies pre-processing hooks</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>doc</strong> (<em>bokeh.Document</em>) – Bokeh document the bokeh model will be attached to.</p></li>
+<li><p><strong>comm</strong> (<em>pyviz_comms.Comm</em>) – Optional pyviz_comms when working in notebook</p></li>
+<li><p><strong>preprocess</strong> (<em>boolean</em><em> (</em><em>default=True</em><em>)</em>) – Whether to run preprocessing hooks</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p></p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>Returns the bokeh model corresponding to this panel object</p>
+</dd>
+</dl>
+</dd></dl>
+<dl class="py method">
+<dt id="panel.reactive.Reactive.jscallback">
+<code class="sig-name descname"><span class="pre">jscallback</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">args</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">{}</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">callbacks</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/panel/reactive.html#Reactive.jscallback"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#panel.reactive.Reactive.jscallback" title="Permalink to this definition">¶</a></dt>
+<dd><p>Allows defining a JS callback to be triggered when a property
+changes on the source object. The keyword arguments define the
+properties that trigger a callback and the JS code that gets
+executed.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>args</strong> (<em>dict</em>) – A mapping of objects to make available to the JS callback</p></li>
+<li><p><strong>**callbacks</strong> (<em>dict</em>) – A mapping between properties on the source model and the code
+to execute when that property changes</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>callback</strong> – The Callback which can be used to disable the callback.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference internal" href="panel.links.html#panel.links.Callback" title="panel.links.Callback">Callback</a></p>
+</dd>
+</dl>
+</dd></dl>
+<dl class="py method">
+<dt id="panel.reactive.Reactive.jslink">
+<code class="sig-name descname"><span class="pre">jslink</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">target</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">code</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">args</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bidirectional</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">links</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/panel/reactive.html#Reactive.jslink"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#panel.reactive.Reactive.jslink" title="Permalink to this definition">¶</a></dt>
+<dd><p>Links properties on the source object to those on the target
+object in JS code. Supports two modes, either specify a
+mapping between the source and target model properties as
+keywords or provide a dictionary of JS code snippets which
+maps from the source parameter to a JS code snippet which is
+executed when the property changes.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>target</strong> (<em>HoloViews object</em><em> or </em><em>bokeh Model</em><em> or </em><em>panel Viewable</em>) – The target to link the value to.</p></li>
+<li><p><strong>code</strong> (<em>dict</em>) – Custom code which will be executed when the widget value
+changes.</p></li>
+<li><p><strong>bidirectional</strong> (<em>boolean</em>) – Whether to link source and target bi-directionally</p></li>
+<li><p><strong>**links</strong> (<em>dict</em>) – A mapping between properties on the source model and the
+target model property to link it to.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>link</strong> – The GenericLink which can be used unlink the widget and
+the target model.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>GenericLink</p>
+</dd>
+</dl>
+</dd></dl>
+<dl class="py method">
+<dt id="panel.reactive.Reactive.link">
+<code class="sig-name descname"><span class="pre">link</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">target</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">callbacks</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bidirectional</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">links</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/panel/reactive.html#Reactive.link"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#panel.reactive.Reactive.link" title="Permalink to this definition">¶</a></dt>
+<dd><p>Links the parameters on this object to attributes on another
+object in Python. Supports two modes, either specify a mapping
+between the source and target object parameters as keywords or
+provide a dictionary of callbacks which maps from the source
+parameter to a callback which is triggered when the parameter
+changes.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>target</strong> (<em>object</em>) – The target object of the link.</p></li>
+<li><p><strong>callbacks</strong> (<em>dict</em>) – Maps from a parameter in the source object to a callback.</p></li>
+<li><p><strong>bidirectional</strong> (<em>boolean</em>) – Whether to link source and target bi-directionally</p></li>
+<li><p><strong>**links</strong> (<em>dict</em>) – Maps between parameters on this object to the parameters
+on the supplied object.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+<dl class="py method">
+<dt id="panel.reactive.Reactive.pprint">
+<code class="sig-name descname"><span class="pre">pprint</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#panel.reactive.Reactive.pprint" title="Permalink to this definition">¶</a></dt>
+<dd><p>Prints a compositional repr of the class.</p>
+</dd></dl>
+<dl class="py method">
+<dt id="panel.reactive.Reactive.save">
+<code class="sig-name descname"><span class="pre">save</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filename</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">title</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">resources</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">template</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">template_variables</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">embed</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_states</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1000</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_opts</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">3</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">embed_json</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">json_prefix</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">save_path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'./'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">load_path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">progress</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">embed_states</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">{}</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#panel.reactive.Reactive.save" title="Permalink to this definition">¶</a></dt>
+<dd><p>Saves Panel objects to file.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>filename</strong> (<em>string</em><em> or </em><em>file-like object</em>) – Filename to save the plot to</p></li>
+<li><p><strong>title</strong> (<em>string</em>) – Optional title for the plot</p></li>
+<li><p><strong>resources</strong> (<em>bokeh resources</em>) – One of the valid bokeh.resources (e.g. CDN or INLINE)</p></li>
+<li><p><strong>template</strong> – passed to underlying io.save</p></li>
+<li><p><strong>template_variables</strong> – passed to underlying io.save</p></li>
+<li><p><strong>embed</strong> (<em>bool</em>) – Whether the state space should be embedded in the saved file.</p></li>
+<li><p><strong>max_states</strong> (<em>int</em>) – The maximum number of states to embed</p></li>
+<li><p><strong>max_opts</strong> (<em>int</em>) – The maximum number of states for a single widget</p></li>
+<li><p><strong>embed_json</strong> (<em>boolean</em><em> (</em><em>default=True</em><em>)</em>) – Whether to export the data to json files</p></li>
+<li><p><strong>json_prefix</strong> (<em>str</em><em> (</em><em>default=''</em><em>)</em>) – Prefix for the auto-generated json directory</p></li>
+<li><p><strong>save_path</strong> (<em>str</em><em> (</em><em>default='./'</em><em>)</em>) – The path to save json files to</p></li>
+<li><p><strong>load_path</strong> (<em>str</em><em> (</em><em>default=None</em><em>)</em>) – The path or URL the json files will be loaded from.</p></li>
+<li><p><strong>progress</strong> (<em>boolean</em><em> (</em><em>default=True</em><em>)</em>) – Whether to report progress</p></li>
+<li><p><strong>embed_states</strong> (<em>dict</em><em> (</em><em>default={}</em><em>)</em>) – A dictionary specifying the widget values to embed for each widget</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+<dl class="py method">
+<dt id="panel.reactive.Reactive.select">
+<code class="sig-name descname"><span class="pre">select</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">selector</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#panel.reactive.Reactive.select" title="Permalink to this definition">¶</a></dt>
+<dd><p>Iterates over the Viewable and any potential children in the
+applying the Selector.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>selector</strong> (<em>type</em><em> or </em><em>callable</em><em> or </em><em>None</em>) – The selector allows selecting a subset of Viewables by
+declaring a type or callable function to filter by.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>viewables</strong></p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>list(<a class="reference internal" href="panel.viewable.html#panel.viewable.Viewable" title="panel.viewable.Viewable">Viewable</a>)</p>
+</dd>
+</dl>
+</dd></dl>
+<dl class="py method">
+<dt id="panel.reactive.Reactive.servable">
+<code class="sig-name descname"><span class="pre">servable</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">title</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">location</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#panel.reactive.Reactive.servable" title="Permalink to this definition">¶</a></dt>
+<dd><p>Serves the object if in a <cite>panel serve</cite> context and returns
+the Panel object to allow it to display itself in a notebook
+context.
+:param title: A string title to give the Document (if served as an app)
+:type title: str
+:param location: Whether to create a Location component to observe and</p>
+<blockquote>
+<div><p>set the URL location.</p>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p></p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>The Panel object itself</p>
+</dd>
+</dl>
+</dd></dl>
+<dl class="py method">
+<dt id="panel.reactive.Reactive.server_doc">
+<code class="sig-name descname"><span class="pre">server_doc</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">doc</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">title</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">location</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#panel.reactive.Reactive.server_doc" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a serveable bokeh Document with the panel attached</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>doc</strong> (<em>bokeh.Document</em><em> (</em><em>optional</em><em>)</em>) – The bokeh Document to attach the panel to as a root,
+defaults to bokeh.io.curdoc()</p></li>
+<li><p><strong>title</strong> (<em>str</em>) – A string title to give the Document</p></li>
+<li><p><strong>location</strong> (<em>boolean</em><em> or </em><a class="reference internal" href="panel.io.html#panel.io.location.Location" title="panel.io.location.Location"><em>panel.io.location.Location</em></a>) – Whether to create a Location component to observe and
+set the URL location.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>doc</strong> – The bokeh document the panel was attached to</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>bokeh.Document</p>
+</dd>
+</dl>
+</dd></dl>
+<dl class="py method">
+<dt id="panel.reactive.Reactive.show">
+<code class="sig-name descname"><span class="pre">show</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">title</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">port</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">address</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">websocket_origin</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">threaded</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">open</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">location</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#panel.reactive.Reactive.show" title="Permalink to this definition">¶</a></dt>
+<dd><p>Starts a Bokeh server and displays the Viewable in a new tab.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>title</strong> (<em>str</em>) – A string title to give the Document (if served as an app)</p></li>
+<li><p><strong>port</strong> (<em>int</em><em> (</em><em>optional</em><em>, </em><em>default=0</em><em>)</em>) – Allows specifying a specific port</p></li>
+<li><p><strong>address</strong> (<em>str</em>) – The address the server should listen on for HTTP requests.</p></li>
+<li><p><strong>websocket_origin</strong> (<em>str</em><em> or </em><em>list</em><em>(</em><em>str</em><em>) </em><em>(</em><em>optional</em><em>)</em>) – A list of hosts that can connect to the websocket.
+This is typically required when embedding a server app in
+an external web site.
+If None, “localhost” is used.</p></li>
+<li><p><strong>threaded</strong> (<em>boolean</em><em> (</em><em>optional</em><em>, </em><em>default=False</em><em>)</em>) – Whether to launch the Server on a separate thread, allowing
+interactive use.</p></li>
+<li><p><strong>verbose</strong> (<em>boolean</em><em> (</em><em>optional</em><em>, </em><em>default=True</em><em>)</em>) – Whether to print the address and port</p></li>
+<li><p><strong>open</strong> (<em>boolean</em><em> (</em><em>optional</em><em>, </em><em>default=True</em><em>)</em>) – Whether to open the server in a new browser tab</p></li>
+<li><p><strong>location</strong> (<em>boolean</em><em> or </em><a class="reference internal" href="panel.io.html#panel.io.location.Location" title="panel.io.location.Location"><em>panel.io.location.Location</em></a>) – Whether to create a Location component to observe and
+set the URL location.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>server</strong> – Returns the Bokeh server instance or the thread the server
+was launched on (if threaded=True)</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>bokeh.server.Server or threading.Thread</p>
+</dd>
+</dl>
+</dd></dl>
+</dd></dl>
+<dl class="py class">
+<dt id="panel.reactive.ReactiveData">
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">panel.reactive.</span></code><code class="sig-name descname"><span class="pre">ReactiveData</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">params</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/panel/reactive.html#ReactiveData"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#panel.reactive.ReactiveData" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#panel.reactive.SyncableData" title="panel.reactive.SyncableData"><code class="xref py py-class docutils literal notranslate"><span class="pre">panel.reactive.SyncableData</span></code></a></p>
+<p>An extension of SyncableData which bi-directionally syncs a data
+parameter between frontend and backend using a ColumnDataSource.</p>
+<p>Parameters inherited from:</p>
+<blockquote>
+<div><p><a class="reference internal" href="panel.viewable.html#panel.viewable.Layoutable" title="panel.viewable.Layoutable"><code class="xref py py-class docutils literal notranslate"><span class="pre">panel.viewable.Layoutable</span></code></a>: align, aspect_ratio, background, css_classes, width, height, min_width, min_height, max_width, max_height, margin, width_policy, height_policy, sizing_mode</p>
+<p><a class="reference internal" href="panel.viewable.html#panel.viewable.Viewable" title="panel.viewable.Viewable"><code class="xref py py-class docutils literal notranslate"><span class="pre">panel.viewable.Viewable</span></code></a>: loading</p>
+<p><a class="reference internal" href="#panel.reactive.SyncableData" title="panel.reactive.SyncableData"><code class="xref py py-class docutils literal notranslate"><span class="pre">panel.reactive.SyncableData</span></code></a>: selection</p>
+</div></blockquote>
+<dl class="py method">
+<dt id="panel.reactive.ReactiveData.add_periodic_callback">
+<code class="sig-name descname"><span class="pre">add_periodic_callback</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">callback</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">period</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">500</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">count</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">timeout</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#panel.reactive.ReactiveData.add_periodic_callback" title="Permalink to this definition">¶</a></dt>
+<dd><p>Schedules a periodic callback to be run at an interval set by
+the period. Returns a PeriodicCallback object with the option
+to stop and start the callback.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>callback</strong> (<em>callable</em>) – Callable function to be executed at periodic interval.</p></li>
+<li><p><strong>period</strong> (<em>int</em>) – Interval in milliseconds at which callback will be executed.</p></li>
+<li><p><strong>count</strong> (<em>int</em>) – Maximum number of times callback will be invoked.</p></li>
+<li><p><strong>timeout</strong> (<em>int</em>) – Timeout in seconds when the callback should be stopped.</p></li>
+<li><p><strong>start</strong> (<em>boolean</em><em> (</em><em>default=True</em><em>)</em>) – Whether to start callback immediately.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p></p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>Return a PeriodicCallback object with start and stop methods.</p>
+</dd>
+</dl>
+</dd></dl>
+<dl class="py method">
+<dt id="panel.reactive.ReactiveData.app">
+<code class="sig-name descname"><span class="pre">app</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">notebook_url</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'localhost:8888'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">port</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#panel.reactive.ReactiveData.app" title="Permalink to this definition">¶</a></dt>
+<dd><p>Displays a bokeh server app inline in the notebook.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>notebook_url</strong> (<em>str</em>) – URL to the notebook server</p></li>
+<li><p><strong>port</strong> (<em>int</em><em> (</em><em>optional</em><em>, </em><em>default=0</em><em>)</em>) – Allows specifying a specific port</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+<dl class="py method">
+<dt id="panel.reactive.ReactiveData.clone">
+<code class="sig-name descname"><span class="pre">clone</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">params</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#panel.reactive.ReactiveData.clone" title="Permalink to this definition">¶</a></dt>
+<dd><p>Makes a copy of the object sharing the same parameters.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>params</strong> (<em>Keyword arguments override the parameters on the clone.</em>) – </p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p></p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>Cloned Viewable object</p>
+</dd>
+</dl>
+</dd></dl>
+<dl class="py method">
+<dt id="panel.reactive.ReactiveData.controls">
+<code class="sig-name descname"><span class="pre">controls</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">parameters</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">[]</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">jslink</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#panel.reactive.ReactiveData.controls" title="Permalink to this definition">¶</a></dt>
+<dd><p>Creates a set of widgets which allow manipulating the parameters
+on this instance. By default all parameters which support
+linking are exposed, but an explicit list of parameters can
+be provided.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>parameters</strong> (<em>list</em><em>(</em><em>str</em><em>)</em>) – An explicit list of parameters to return controls for.</p></li>
+<li><p><strong>jslink</strong> (<em>bool</em>) – Whether to use jslinks instead of Python based links.
+This does not allow using all types of parameters.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p></p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>A layout of the controls</p>
+</dd>
+</dl>
+</dd></dl>
+<dl class="py method">
+<dt id="panel.reactive.ReactiveData.embed">
+<code class="sig-name descname"><span class="pre">embed</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">max_states</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1000</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_opts</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">3</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">json</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">json_prefix</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">save_path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'./'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">load_path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">progress</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">states</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">{}</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#panel.reactive.ReactiveData.embed" title="Permalink to this definition">¶</a></dt>
+<dd><p>Renders a static version of a panel in a notebook by evaluating
+the set of states defined by the widgets in the model. Note
+this will only work well for simple apps with a relatively
+small state space.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>max_states</strong> (<em>int</em>) – The maximum number of states to embed</p></li>
+<li><p><strong>max_opts</strong> (<em>int</em>) – The maximum number of states for a single widget</p></li>
+<li><p><strong>json</strong> (<em>boolean</em><em> (</em><em>default=True</em><em>)</em>) – Whether to export the data to json files</p></li>
+<li><p><strong>json_prefix</strong> (<em>str</em><em> (</em><em>default=''</em><em>)</em>) – Prefix for JSON filename</p></li>
+<li><p><strong>save_path</strong> (<em>str</em><em> (</em><em>default='./'</em><em>)</em>) – The path to save json files to</p></li>
+<li><p><strong>load_path</strong> (<em>str</em><em> (</em><em>default=None</em><em>)</em>) – The path or URL the json files will be loaded from.</p></li>
+<li><p><strong>progress</strong> (<em>boolean</em><em> (</em><em>default=False</em><em>)</em>) – Whether to report progress</p></li>
+<li><p><strong>states</strong> (<em>dict</em><em> (</em><em>default={}</em><em>)</em>) – A dictionary specifying the widget values to embed for each widget</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+<dl class="py method">
+<dt id="panel.reactive.ReactiveData.get_root">
+<code class="sig-name descname"><span class="pre">get_root</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">doc</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">comm</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">preprocess</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#panel.reactive.ReactiveData.get_root" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the root model and applies pre-processing hooks</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>doc</strong> (<em>bokeh.Document</em>) – Bokeh document the bokeh model will be attached to.</p></li>
+<li><p><strong>comm</strong> (<em>pyviz_comms.Comm</em>) – Optional pyviz_comms when working in notebook</p></li>
+<li><p><strong>preprocess</strong> (<em>boolean</em><em> (</em><em>default=True</em><em>)</em>) – Whether to run preprocessing hooks</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p></p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>Returns the bokeh model corresponding to this panel object</p>
+</dd>
+</dl>
+</dd></dl>
+<dl class="py method">
+<dt id="panel.reactive.ReactiveData.jscallback">
+<code class="sig-name descname"><span class="pre">jscallback</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">args</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">{}</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">callbacks</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#panel.reactive.ReactiveData.jscallback" title="Permalink to this definition">¶</a></dt>
+<dd><p>Allows defining a JS callback to be triggered when a property
+changes on the source object. The keyword arguments define the
+properties that trigger a callback and the JS code that gets
+executed.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>args</strong> (<em>dict</em>) – A mapping of objects to make available to the JS callback</p></li>
+<li><p><strong>**callbacks</strong> (<em>dict</em>) – A mapping between properties on the source model and the code
+to execute when that property changes</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>callback</strong> – The Callback which can be used to disable the callback.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference internal" href="panel.links.html#panel.links.Callback" title="panel.links.Callback">Callback</a></p>
+</dd>
+</dl>
+</dd></dl>
+<dl class="py method">
+<dt id="panel.reactive.ReactiveData.jslink">
+<code class="sig-name descname"><span class="pre">jslink</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">target</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">code</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">args</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bidirectional</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">links</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#panel.reactive.ReactiveData.jslink" title="Permalink to this definition">¶</a></dt>
+<dd><p>Links properties on the source object to those on the target
+object in JS code. Supports two modes, either specify a
+mapping between the source and target model properties as
+keywords or provide a dictionary of JS code snippets which
+maps from the source parameter to a JS code snippet which is
+executed when the property changes.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>target</strong> (<em>HoloViews object</em><em> or </em><em>bokeh Model</em><em> or </em><em>panel Viewable</em>) – The target to link the value to.</p></li>
+<li><p><strong>code</strong> (<em>dict</em>) – Custom code which will be executed when the widget value
+changes.</p></li>
+<li><p><strong>bidirectional</strong> (<em>boolean</em>) – Whether to link source and target bi-directionally</p></li>
+<li><p><strong>**links</strong> (<em>dict</em>) – A mapping between properties on the source model and the
+target model property to link it to.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>link</strong> – The GenericLink which can be used unlink the widget and
+the target model.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>GenericLink</p>
+</dd>
+</dl>
+</dd></dl>
+<dl class="py method">
+<dt id="panel.reactive.ReactiveData.link">
+<code class="sig-name descname"><span class="pre">link</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">target</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">callbacks</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bidirectional</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">links</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#panel.reactive.ReactiveData.link" title="Permalink to this definition">¶</a></dt>
+<dd><p>Links the parameters on this object to attributes on another
+object in Python. Supports two modes, either specify a mapping
+between the source and target object parameters as keywords or
+provide a dictionary of callbacks which maps from the source
+parameter to a callback which is triggered when the parameter
+changes.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>target</strong> (<em>object</em>) – The target object of the link.</p></li>
+<li><p><strong>callbacks</strong> (<em>dict</em>) – Maps from a parameter in the source object to a callback.</p></li>
+<li><p><strong>bidirectional</strong> (<em>boolean</em>) – Whether to link source and target bi-directionally</p></li>
+<li><p><strong>**links</strong> (<em>dict</em>) – Maps between parameters on this object to the parameters
+on the supplied object.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+<dl class="py method">
+<dt id="panel.reactive.ReactiveData.patch">
+<code class="sig-name descname"><span class="pre">patch</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">patch_value</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#panel.reactive.ReactiveData.patch" title="Permalink to this definition">¶</a></dt>
+<dd><p>Efficiently patches (updates) the existing value with the <cite>patch_value</cite>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>patch_value</strong> (<em>(</em><em>Union</em><em>[</em><em>pd.DataFrame</em><em>, </em><em>pd.Series</em><em>, </em><em>Dict</em><em>]</em><em>)</em>) – The value(s) to patch the existing value with.</p>
+</dd>
+<dt class="field-even">Raises</dt>
+<dd class="field-even"><p><strong>ValueError</strong> – Raised if the patch_value is not a supported type.:</p>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<p>Patch a DataFrame with a Dictionary row.
+&gt;&gt;&gt; value = pd.DataFrame({“x”: [1, 2], “y”: [“a”, “b”]})
+&gt;&gt;&gt; obj = DataComponent(value)
+&gt;&gt;&gt; patch_value = {“x”: [(0, 3)]}
+&gt;&gt;&gt; obj.patch(patch_value)
+&gt;&gt;&gt; obj.value.to_dict(“list”)
+{‘x’: [3, 2], ‘y’: [‘a’, ‘b’]}</p>
+<p>Patch a Dataframe with a Dictionary of Columns.
+&gt;&gt;&gt; value = pd.DataFrame({“x”: [1, 2], “y”: [“a”, “b”]})
+&gt;&gt;&gt; obj = DataComponent(value)
+&gt;&gt;&gt; patch_value = {“x”: [(slice(2), (3,4))], “y”: [(1,’d’)]}
+&gt;&gt;&gt; obj.patch(patch_value)
+&gt;&gt;&gt; obj.value.to_dict(“list”)
+{‘x’: [3, 4], ‘y’: [‘a’, ‘d’]}</p>
+<p>Patch a DataFrame with a Series. Please note the index is used in the update.
+&gt;&gt;&gt; value = pd.DataFrame({“x”: [1, 2], “y”: [“a”, “b”]})
+&gt;&gt;&gt; obj = DataComponent(value)
+&gt;&gt;&gt; patch_value = pd.Series({“index”: 1, “x”: 4, “y”: “d”})
+&gt;&gt;&gt; obj.patch(patch_value)
+&gt;&gt;&gt; obj.value.to_dict(“list”)
+{‘x’: [1, 4], ‘y’: [‘a’, ‘d’]}</p>
+<p>Patch a Dataframe with a Dataframe. Please note the index is used in the update.
+&gt;&gt;&gt; value = pd.DataFrame({“x”: [1, 2], “y”: [“a”, “b”]})
+&gt;&gt;&gt; obj = DataComponent(value)
+&gt;&gt;&gt; patch_value = pd.DataFrame({“x”: [3, 4], “y”: [“c”, “d”]})
+&gt;&gt;&gt; obj.patch(patch_value)
+&gt;&gt;&gt; obj.value.to_dict(“list”)
+{‘x’: [3, 4], ‘y’: [‘c’, ‘d’]}</p>
+</dd></dl>
+<dl class="py method">
+<dt id="panel.reactive.ReactiveData.pprint">
+<code class="sig-name descname"><span class="pre">pprint</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#panel.reactive.ReactiveData.pprint" title="Permalink to this definition">¶</a></dt>
+<dd><p>Prints a compositional repr of the class.</p>
+</dd></dl>
+<dl class="py method">
+<dt id="panel.reactive.ReactiveData.save">
+<code class="sig-name descname"><span class="pre">save</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filename</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">title</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">resources</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">template</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">template_variables</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">embed</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_states</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1000</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_opts</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">3</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">embed_json</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">json_prefix</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">save_path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'./'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">load_path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">progress</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">embed_states</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">{}</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#panel.reactive.ReactiveData.save" title="Permalink to this definition">¶</a></dt>
+<dd><p>Saves Panel objects to file.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>filename</strong> (<em>string</em><em> or </em><em>file-like object</em>) – Filename to save the plot to</p></li>
+<li><p><strong>title</strong> (<em>string</em>) – Optional title for the plot</p></li>
+<li><p><strong>resources</strong> (<em>bokeh resources</em>) – One of the valid bokeh.resources (e.g. CDN or INLINE)</p></li>
+<li><p><strong>template</strong> – passed to underlying io.save</p></li>
+<li><p><strong>template_variables</strong> – passed to underlying io.save</p></li>
+<li><p><strong>embed</strong> (<em>bool</em>) – Whether the state space should be embedded in the saved file.</p></li>
+<li><p><strong>max_states</strong> (<em>int</em>) – The maximum number of states to embed</p></li>
+<li><p><strong>max_opts</strong> (<em>int</em>) – The maximum number of states for a single widget</p></li>
+<li><p><strong>embed_json</strong> (<em>boolean</em><em> (</em><em>default=True</em><em>)</em>) – Whether to export the data to json files</p></li>
+<li><p><strong>json_prefix</strong> (<em>str</em><em> (</em><em>default=''</em><em>)</em>) – Prefix for the auto-generated json directory</p></li>
+<li><p><strong>save_path</strong> (<em>str</em><em> (</em><em>default='./'</em><em>)</em>) – The path to save json files to</p></li>
+<li><p><strong>load_path</strong> (<em>str</em><em> (</em><em>default=None</em><em>)</em>) – The path or URL the json files will be loaded from.</p></li>
+<li><p><strong>progress</strong> (<em>boolean</em><em> (</em><em>default=True</em><em>)</em>) – Whether to report progress</p></li>
+<li><p><strong>embed_states</strong> (<em>dict</em><em> (</em><em>default={}</em><em>)</em>) – A dictionary specifying the widget values to embed for each widget</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+<dl class="py method">
+<dt id="panel.reactive.ReactiveData.select">
+<code class="sig-name descname"><span class="pre">select</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">selector</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#panel.reactive.ReactiveData.select" title="Permalink to this definition">¶</a></dt>
+<dd><p>Iterates over the Viewable and any potential children in the
+applying the Selector.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>selector</strong> (<em>type</em><em> or </em><em>callable</em><em> or </em><em>None</em>) – The selector allows selecting a subset of Viewables by
+declaring a type or callable function to filter by.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>viewables</strong></p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>list(<a class="reference internal" href="panel.viewable.html#panel.viewable.Viewable" title="panel.viewable.Viewable">Viewable</a>)</p>
+</dd>
+</dl>
+</dd></dl>
+<dl class="py method">
+<dt id="panel.reactive.ReactiveData.servable">
+<code class="sig-name descname"><span class="pre">servable</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">title</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">location</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#panel.reactive.ReactiveData.servable" title="Permalink to this definition">¶</a></dt>
+<dd><p>Serves the object if in a <cite>panel serve</cite> context and returns
+the Panel object to allow it to display itself in a notebook
+context.
+:param title: A string title to give the Document (if served as an app)
+:type title: str
+:param location: Whether to create a Location component to observe and</p>
+<blockquote>
+<div><p>set the URL location.</p>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p></p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>The Panel object itself</p>
+</dd>
+</dl>
+</dd></dl>
+<dl class="py method">
+<dt id="panel.reactive.ReactiveData.server_doc">
+<code class="sig-name descname"><span class="pre">server_doc</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">doc</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">title</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">location</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#panel.reactive.ReactiveData.server_doc" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a serveable bokeh Document with the panel attached</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>doc</strong> (<em>bokeh.Document</em><em> (</em><em>optional</em><em>)</em>) – The bokeh Document to attach the panel to as a root,
+defaults to bokeh.io.curdoc()</p></li>
+<li><p><strong>title</strong> (<em>str</em>) – A string title to give the Document</p></li>
+<li><p><strong>location</strong> (<em>boolean</em><em> or </em><a class="reference internal" href="panel.io.html#panel.io.location.Location" title="panel.io.location.Location"><em>panel.io.location.Location</em></a>) – Whether to create a Location component to observe and
+set the URL location.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>doc</strong> – The bokeh document the panel was attached to</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>bokeh.Document</p>
+</dd>
+</dl>
+</dd></dl>
+<dl class="py method">
+<dt id="panel.reactive.ReactiveData.show">
+<code class="sig-name descname"><span class="pre">show</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">title</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">port</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">address</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">websocket_origin</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">threaded</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">open</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">location</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#panel.reactive.ReactiveData.show" title="Permalink to this definition">¶</a></dt>
+<dd><p>Starts a Bokeh server and displays the Viewable in a new tab.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>title</strong> (<em>str</em>) – A string title to give the Document (if served as an app)</p></li>
+<li><p><strong>port</strong> (<em>int</em><em> (</em><em>optional</em><em>, </em><em>default=0</em><em>)</em>) – Allows specifying a specific port</p></li>
+<li><p><strong>address</strong> (<em>str</em>) – The address the server should listen on for HTTP requests.</p></li>
+<li><p><strong>websocket_origin</strong> (<em>str</em><em> or </em><em>list</em><em>(</em><em>str</em><em>) </em><em>(</em><em>optional</em><em>)</em>) – A list of hosts that can connect to the websocket.
+This is typically required when embedding a server app in
+an external web site.
+If None, “localhost” is used.</p></li>
+<li><p><strong>threaded</strong> (<em>boolean</em><em> (</em><em>optional</em><em>, </em><em>default=False</em><em>)</em>) – Whether to launch the Server on a separate thread, allowing
+interactive use.</p></li>
+<li><p><strong>verbose</strong> (<em>boolean</em><em> (</em><em>optional</em><em>, </em><em>default=True</em><em>)</em>) – Whether to print the address and port</p></li>
+<li><p><strong>open</strong> (<em>boolean</em><em> (</em><em>optional</em><em>, </em><em>default=True</em><em>)</em>) – Whether to open the server in a new browser tab</p></li>
+<li><p><strong>location</strong> (<em>boolean</em><em> or </em><a class="reference internal" href="panel.io.html#panel.io.location.Location" title="panel.io.location.Location"><em>panel.io.location.Location</em></a>) – Whether to create a Location component to observe and
+set the URL location.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>server</strong> – Returns the Bokeh server instance or the thread the server
+was launched on (if threaded=True)</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>bokeh.server.Server or threading.Thread</p>
+</dd>
+</dl>
+</dd></dl>
+<dl class="py method">
+<dt id="panel.reactive.ReactiveData.stream">
+<code class="sig-name descname"><span class="pre">stream</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">stream_value</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rollover</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">reset_index</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#panel.reactive.ReactiveData.stream" title="Permalink to this definition">¶</a></dt>
+<dd><p>Streams (appends) the <cite>stream_value</cite> provided to the existing
+value in an efficient manner.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>stream_value</strong> (<em>(</em><em>Union</em><em>[</em><em>pd.DataFrame</em><em>, </em><em>pd.Series</em><em>, </em><em>Dict</em><em>]</em><em>)</em>) – The new value(s) to append to the existing value.</p></li>
+<li><p><strong>rollover</strong> (<em>int</em>) – A maximum column size, above which data from the start of
+the column begins to be discarded. If None, then columns
+will continue to grow unbounded.</p></li>
+<li><p><strong>(</strong><strong>bool</strong> (<em>reset_index</em>) – If True and the stream_value is a DataFrame, then its index
+is reset. Helps to keep the index unique and named <cite>index</cite>.</p></li>
+<li><p><strong>default=True</strong><strong>)</strong> – If True and the stream_value is a DataFrame, then its index
+is reset. Helps to keep the index unique and named <cite>index</cite>.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Raises</dt>
+<dd class="field-even"><p><strong>ValueError</strong> – Raised if the stream_value is not a supported type.:</p>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<p>Stream a Series to a DataFrame
+&gt;&gt;&gt; value = pd.DataFrame({“x”: [1, 2], “y”: [“a”, “b”]})
+&gt;&gt;&gt; obj = DataComponent(value)
+&gt;&gt;&gt; stream_value = pd.Series({“x”: 4, “y”: “d”})
+&gt;&gt;&gt; obj.stream(stream_value)
+&gt;&gt;&gt; obj.value.to_dict(“list”)
+{‘x’: [1, 2, 4], ‘y’: [‘a’, ‘b’, ‘d’]}</p>
+<p>Stream a Dataframe to a Dataframe
+&gt;&gt;&gt; value = pd.DataFrame({“x”: [1, 2], “y”: [“a”, “b”]})
+&gt;&gt;&gt; obj = DataComponent(value)
+&gt;&gt;&gt; stream_value = pd.DataFrame({“x”: [3, 4], “y”: [“c”, “d”]})
+&gt;&gt;&gt; obj.stream(stream_value)
+&gt;&gt;&gt; obj.value.to_dict(“list”)
+{‘x’: [1, 2, 3, 4], ‘y’: [‘a’, ‘b’, ‘c’, ‘d’]}</p>
+<p>Stream a Dictionary row to a DataFrame
+&gt;&gt;&gt; value = pd.DataFrame({“x”: [1, 2], “y”: [“a”, “b”]})
+&gt;&gt;&gt; tabulator = DataComponent(value)
+&gt;&gt;&gt; stream_value = {“x”: 4, “y”: “d”}
+&gt;&gt;&gt; obj.stream(stream_value)
+&gt;&gt;&gt; obj.value.to_dict(“list”)
+{‘x’: [1, 2, 4], ‘y’: [‘a’, ‘b’, ‘d’]}</p>
+<p>Stream a Dictionary of Columns to a Dataframe
+&gt;&gt;&gt; value = pd.DataFrame({“x”: [1, 2], “y”: [“a”, “b”]})
+&gt;&gt;&gt; obj = DataComponent(value)
+&gt;&gt;&gt; stream_value = {“x”: [3, 4], “y”: [“c”, “d”]}
+&gt;&gt;&gt; obj.stream(stream_value)
+&gt;&gt;&gt; obj.value.to_dict(“list”)
+{‘x’: [1, 2, 3, 4], ‘y’: [‘a’, ‘b’, ‘c’, ‘d’]}</p>
+</dd></dl>
+</dd></dl>
+<dl class="py class">
+<dt id="panel.reactive.Syncable">
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">panel.reactive.</span></code><code class="sig-name descname"><span class="pre">Syncable</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">params</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/panel/reactive.html#Syncable"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#panel.reactive.Syncable" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="panel.viewable.html#panel.viewable.Renderable" title="panel.viewable.Renderable"><code class="xref py py-class docutils literal notranslate"><span class="pre">panel.viewable.Renderable</span></code></a></p>
+<p>Syncable is an extension of the Renderable object which can not
+only render to a bokeh model but also sync the parameters on the
+object with the properties on the model.</p>
+<p>In order to bi-directionally link parameters with bokeh model
+instances the _link_params and _link_props methods define
+callbacks triggered when either the parameter or bokeh property
+values change. Since there may not be a 1-to-1 mapping between
+parameter and the model property the _process_property_change and
+_process_param_change may be overridden to apply any necessary
+transformations.</p>
+<dl class="py method">
+<dt id="panel.reactive.Syncable.get_root">
+<code class="sig-name descname"><span class="pre">get_root</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">doc</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">comm</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">preprocess</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#panel.reactive.Syncable.get_root" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the root model and applies pre-processing hooks</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>doc</strong> (<em>bokeh.Document</em>) – Bokeh document the bokeh model will be attached to.</p></li>
+<li><p><strong>comm</strong> (<em>pyviz_comms.Comm</em>) – Optional pyviz_comms when working in notebook</p></li>
+<li><p><strong>preprocess</strong> (<em>boolean</em><em> (</em><em>default=True</em><em>)</em>) – Whether to run preprocessing hooks</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p></p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>Returns the bokeh model corresponding to this panel object</p>
+</dd>
+</dl>
+</dd></dl>
+</dd></dl>
+<dl class="py class">
+<dt id="panel.reactive.SyncableData">
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">panel.reactive.</span></code><code class="sig-name descname"><span class="pre">SyncableData</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">params</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/panel/reactive.html#SyncableData"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#panel.reactive.SyncableData" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#panel.reactive.Reactive" title="panel.reactive.Reactive"><code class="xref py py-class docutils literal notranslate"><span class="pre">panel.reactive.Reactive</span></code></a></p>
+<p>A baseclass for components which sync one or more data parameters
+with the frontend via a ColumnDataSource.</p>
+<p>Parameters inherited from:</p>
+<blockquote>
+<div><p><a class="reference internal" href="panel.viewable.html#panel.viewable.Layoutable" title="panel.viewable.Layoutable"><code class="xref py py-class docutils literal notranslate"><span class="pre">panel.viewable.Layoutable</span></code></a>: align, aspect_ratio, background, css_classes, width, height, min_width, min_height, max_width, max_height, margin, width_policy, height_policy, sizing_mode</p>
+<p><a class="reference internal" href="panel.viewable.html#panel.viewable.Viewable" title="panel.viewable.Viewable"><code class="xref py py-class docutils literal notranslate"><span class="pre">panel.viewable.Viewable</span></code></a>: loading</p>
+</div></blockquote>
+<dl class="simple">
+<dt><code class="docutils literal notranslate"><span class="pre">selection</span></code> = param.List(bounds=(0, None), default=[])</dt><dd><p>The currently selected rows in the data.</p>
+</dd>
+</dl>
+<dl class="py method">
+<dt id="panel.reactive.SyncableData.add_periodic_callback">
+<code class="sig-name descname"><span class="pre">add_periodic_callback</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">callback</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">period</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">500</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">count</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">timeout</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#panel.reactive.SyncableData.add_periodic_callback" title="Permalink to this definition">¶</a></dt>
+<dd><p>Schedules a periodic callback to be run at an interval set by
+the period. Returns a PeriodicCallback object with the option
+to stop and start the callback.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>callback</strong> (<em>callable</em>) – Callable function to be executed at periodic interval.</p></li>
+<li><p><strong>period</strong> (<em>int</em>) – Interval in milliseconds at which callback will be executed.</p></li>
+<li><p><strong>count</strong> (<em>int</em>) – Maximum number of times callback will be invoked.</p></li>
+<li><p><strong>timeout</strong> (<em>int</em>) – Timeout in seconds when the callback should be stopped.</p></li>
+<li><p><strong>start</strong> (<em>boolean</em><em> (</em><em>default=True</em><em>)</em>) – Whether to start callback immediately.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p></p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>Return a PeriodicCallback object with start and stop methods.</p>
+</dd>
+</dl>
+</dd></dl>
+<dl class="py method">
+<dt id="panel.reactive.SyncableData.app">
+<code class="sig-name descname"><span class="pre">app</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">notebook_url</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'localhost:8888'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">port</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#panel.reactive.SyncableData.app" title="Permalink to this definition">¶</a></dt>
+<dd><p>Displays a bokeh server app inline in the notebook.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>notebook_url</strong> (<em>str</em>) – URL to the notebook server</p></li>
+<li><p><strong>port</strong> (<em>int</em><em> (</em><em>optional</em><em>, </em><em>default=0</em><em>)</em>) – Allows specifying a specific port</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+<dl class="py method">
+<dt id="panel.reactive.SyncableData.clone">
+<code class="sig-name descname"><span class="pre">clone</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">params</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#panel.reactive.SyncableData.clone" title="Permalink to this definition">¶</a></dt>
+<dd><p>Makes a copy of the object sharing the same parameters.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>params</strong> (<em>Keyword arguments override the parameters on the clone.</em>) – </p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p></p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>Cloned Viewable object</p>
+</dd>
+</dl>
+</dd></dl>
+<dl class="py method">
+<dt id="panel.reactive.SyncableData.controls">
+<code class="sig-name descname"><span class="pre">controls</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">parameters</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">[]</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">jslink</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#panel.reactive.SyncableData.controls" title="Permalink to this definition">¶</a></dt>
+<dd><p>Creates a set of widgets which allow manipulating the parameters
+on this instance. By default all parameters which support
+linking are exposed, but an explicit list of parameters can
+be provided.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>parameters</strong> (<em>list</em><em>(</em><em>str</em><em>)</em>) – An explicit list of parameters to return controls for.</p></li>
+<li><p><strong>jslink</strong> (<em>bool</em>) – Whether to use jslinks instead of Python based links.
+This does not allow using all types of parameters.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p></p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>A layout of the controls</p>
+</dd>
+</dl>
+</dd></dl>
+<dl class="py method">
+<dt id="panel.reactive.SyncableData.embed">
+<code class="sig-name descname"><span class="pre">embed</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">max_states</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1000</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_opts</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">3</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">json</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">json_prefix</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">save_path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'./'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">load_path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">progress</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">states</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">{}</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#panel.reactive.SyncableData.embed" title="Permalink to this definition">¶</a></dt>
+<dd><p>Renders a static version of a panel in a notebook by evaluating
+the set of states defined by the widgets in the model. Note
+this will only work well for simple apps with a relatively
+small state space.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>max_states</strong> (<em>int</em>) – The maximum number of states to embed</p></li>
+<li><p><strong>max_opts</strong> (<em>int</em>) – The maximum number of states for a single widget</p></li>
+<li><p><strong>json</strong> (<em>boolean</em><em> (</em><em>default=True</em><em>)</em>) – Whether to export the data to json files</p></li>
+<li><p><strong>json_prefix</strong> (<em>str</em><em> (</em><em>default=''</em><em>)</em>) – Prefix for JSON filename</p></li>
+<li><p><strong>save_path</strong> (<em>str</em><em> (</em><em>default='./'</em><em>)</em>) – The path to save json files to</p></li>
+<li><p><strong>load_path</strong> (<em>str</em><em> (</em><em>default=None</em><em>)</em>) – The path or URL the json files will be loaded from.</p></li>
+<li><p><strong>progress</strong> (<em>boolean</em><em> (</em><em>default=False</em><em>)</em>) – Whether to report progress</p></li>
+<li><p><strong>states</strong> (<em>dict</em><em> (</em><em>default={}</em><em>)</em>) – A dictionary specifying the widget values to embed for each widget</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+<dl class="py method">
+<dt id="panel.reactive.SyncableData.get_root">
+<code class="sig-name descname"><span class="pre">get_root</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">doc</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">comm</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">preprocess</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#panel.reactive.SyncableData.get_root" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the root model and applies pre-processing hooks</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>doc</strong> (<em>bokeh.Document</em>) – Bokeh document the bokeh model will be attached to.</p></li>
+<li><p><strong>comm</strong> (<em>pyviz_comms.Comm</em>) – Optional pyviz_comms when working in notebook</p></li>
+<li><p><strong>preprocess</strong> (<em>boolean</em><em> (</em><em>default=True</em><em>)</em>) – Whether to run preprocessing hooks</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p></p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>Returns the bokeh model corresponding to this panel object</p>
+</dd>
+</dl>
+</dd></dl>
+<dl class="py method">
+<dt id="panel.reactive.SyncableData.jscallback">
+<code class="sig-name descname"><span class="pre">jscallback</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">args</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">{}</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">callbacks</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#panel.reactive.SyncableData.jscallback" title="Permalink to this definition">¶</a></dt>
+<dd><p>Allows defining a JS callback to be triggered when a property
+changes on the source object. The keyword arguments define the
+properties that trigger a callback and the JS code that gets
+executed.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>args</strong> (<em>dict</em>) – A mapping of objects to make available to the JS callback</p></li>
+<li><p><strong>**callbacks</strong> (<em>dict</em>) – A mapping between properties on the source model and the code
+to execute when that property changes</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>callback</strong> – The Callback which can be used to disable the callback.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference internal" href="panel.links.html#panel.links.Callback" title="panel.links.Callback">Callback</a></p>
+</dd>
+</dl>
+</dd></dl>
+<dl class="py method">
+<dt id="panel.reactive.SyncableData.jslink">
+<code class="sig-name descname"><span class="pre">jslink</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">target</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">code</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">args</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bidirectional</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">links</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#panel.reactive.SyncableData.jslink" title="Permalink to this definition">¶</a></dt>
+<dd><p>Links properties on the source object to those on the target
+object in JS code. Supports two modes, either specify a
+mapping between the source and target model properties as
+keywords or provide a dictionary of JS code snippets which
+maps from the source parameter to a JS code snippet which is
+executed when the property changes.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>target</strong> (<em>HoloViews object</em><em> or </em><em>bokeh Model</em><em> or </em><em>panel Viewable</em>) – The target to link the value to.</p></li>
+<li><p><strong>code</strong> (<em>dict</em>) – Custom code which will be executed when the widget value
+changes.</p></li>
+<li><p><strong>bidirectional</strong> (<em>boolean</em>) – Whether to link source and target bi-directionally</p></li>
+<li><p><strong>**links</strong> (<em>dict</em>) – A mapping between properties on the source model and the
+target model property to link it to.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>link</strong> – The GenericLink which can be used unlink the widget and
+the target model.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>GenericLink</p>
+</dd>
+</dl>
+</dd></dl>
+<dl class="py method">
+<dt id="panel.reactive.SyncableData.link">
+<code class="sig-name descname"><span class="pre">link</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">target</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">callbacks</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bidirectional</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">links</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#panel.reactive.SyncableData.link" title="Permalink to this definition">¶</a></dt>
+<dd><p>Links the parameters on this object to attributes on another
+object in Python. Supports two modes, either specify a mapping
+between the source and target object parameters as keywords or
+provide a dictionary of callbacks which maps from the source
+parameter to a callback which is triggered when the parameter
+changes.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>target</strong> (<em>object</em>) – The target object of the link.</p></li>
+<li><p><strong>callbacks</strong> (<em>dict</em>) – Maps from a parameter in the source object to a callback.</p></li>
+<li><p><strong>bidirectional</strong> (<em>boolean</em>) – Whether to link source and target bi-directionally</p></li>
+<li><p><strong>**links</strong> (<em>dict</em>) – Maps between parameters on this object to the parameters
+on the supplied object.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+<dl class="py method">
+<dt id="panel.reactive.SyncableData.patch">
+<code class="sig-name descname"><span class="pre">patch</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">patch_value</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/panel/reactive.html#SyncableData.patch"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#panel.reactive.SyncableData.patch" title="Permalink to this definition">¶</a></dt>
+<dd><p>Efficiently patches (updates) the existing value with the <cite>patch_value</cite>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>patch_value</strong> (<em>(</em><em>Union</em><em>[</em><em>pd.DataFrame</em><em>, </em><em>pd.Series</em><em>, </em><em>Dict</em><em>]</em><em>)</em>) – The value(s) to patch the existing value with.</p>
+</dd>
+<dt class="field-even">Raises</dt>
+<dd class="field-even"><p><strong>ValueError</strong> – Raised if the patch_value is not a supported type.:</p>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<p>Patch a DataFrame with a Dictionary row.
+&gt;&gt;&gt; value = pd.DataFrame({“x”: [1, 2], “y”: [“a”, “b”]})
+&gt;&gt;&gt; obj = DataComponent(value)
+&gt;&gt;&gt; patch_value = {“x”: [(0, 3)]}
+&gt;&gt;&gt; obj.patch(patch_value)
+&gt;&gt;&gt; obj.value.to_dict(“list”)
+{‘x’: [3, 2], ‘y’: [‘a’, ‘b’]}</p>
+<p>Patch a Dataframe with a Dictionary of Columns.
+&gt;&gt;&gt; value = pd.DataFrame({“x”: [1, 2], “y”: [“a”, “b”]})
+&gt;&gt;&gt; obj = DataComponent(value)
+&gt;&gt;&gt; patch_value = {“x”: [(slice(2), (3,4))], “y”: [(1,’d’)]}
+&gt;&gt;&gt; obj.patch(patch_value)
+&gt;&gt;&gt; obj.value.to_dict(“list”)
+{‘x’: [3, 4], ‘y’: [‘a’, ‘d’]}</p>
+<p>Patch a DataFrame with a Series. Please note the index is used in the update.
+&gt;&gt;&gt; value = pd.DataFrame({“x”: [1, 2], “y”: [“a”, “b”]})
+&gt;&gt;&gt; obj = DataComponent(value)
+&gt;&gt;&gt; patch_value = pd.Series({“index”: 1, “x”: 4, “y”: “d”})
+&gt;&gt;&gt; obj.patch(patch_value)
+&gt;&gt;&gt; obj.value.to_dict(“list”)
+{‘x’: [1, 4], ‘y’: [‘a’, ‘d’]}</p>
+<p>Patch a Dataframe with a Dataframe. Please note the index is used in the update.
+&gt;&gt;&gt; value = pd.DataFrame({“x”: [1, 2], “y”: [“a”, “b”]})
+&gt;&gt;&gt; obj = DataComponent(value)
+&gt;&gt;&gt; patch_value = pd.DataFrame({“x”: [3, 4], “y”: [“c”, “d”]})
+&gt;&gt;&gt; obj.patch(patch_value)
+&gt;&gt;&gt; obj.value.to_dict(“list”)
+{‘x’: [3, 4], ‘y’: [‘c’, ‘d’]}</p>
+</dd></dl>
+<dl class="py method">
+<dt id="panel.reactive.SyncableData.pprint">
+<code class="sig-name descname"><span class="pre">pprint</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#panel.reactive.SyncableData.pprint" title="Permalink to this definition">¶</a></dt>
+<dd><p>Prints a compositional repr of the class.</p>
+</dd></dl>
+<dl class="py method">
+<dt id="panel.reactive.SyncableData.save">
+<code class="sig-name descname"><span class="pre">save</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filename</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">title</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">resources</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">template</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">template_variables</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">embed</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_states</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1000</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_opts</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">3</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">embed_json</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">json_prefix</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">save_path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'./'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">load_path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">progress</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">embed_states</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">{}</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#panel.reactive.SyncableData.save" title="Permalink to this definition">¶</a></dt>
+<dd><p>Saves Panel objects to file.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>filename</strong> (<em>string</em><em> or </em><em>file-like object</em>) – Filename to save the plot to</p></li>
+<li><p><strong>title</strong> (<em>string</em>) – Optional title for the plot</p></li>
+<li><p><strong>resources</strong> (<em>bokeh resources</em>) – One of the valid bokeh.resources (e.g. CDN or INLINE)</p></li>
+<li><p><strong>template</strong> – passed to underlying io.save</p></li>
+<li><p><strong>template_variables</strong> – passed to underlying io.save</p></li>
+<li><p><strong>embed</strong> (<em>bool</em>) – Whether the state space should be embedded in the saved file.</p></li>
+<li><p><strong>max_states</strong> (<em>int</em>) – The maximum number of states to embed</p></li>
+<li><p><strong>max_opts</strong> (<em>int</em>) – The maximum number of states for a single widget</p></li>
+<li><p><strong>embed_json</strong> (<em>boolean</em><em> (</em><em>default=True</em><em>)</em>) – Whether to export the data to json files</p></li>
+<li><p><strong>json_prefix</strong> (<em>str</em><em> (</em><em>default=''</em><em>)</em>) – Prefix for the auto-generated json directory</p></li>
+<li><p><strong>save_path</strong> (<em>str</em><em> (</em><em>default='./'</em><em>)</em>) – The path to save json files to</p></li>
+<li><p><strong>load_path</strong> (<em>str</em><em> (</em><em>default=None</em><em>)</em>) – The path or URL the json files will be loaded from.</p></li>
+<li><p><strong>progress</strong> (<em>boolean</em><em> (</em><em>default=True</em><em>)</em>) – Whether to report progress</p></li>
+<li><p><strong>embed_states</strong> (<em>dict</em><em> (</em><em>default={}</em><em>)</em>) – A dictionary specifying the widget values to embed for each widget</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+<dl class="py method">
+<dt id="panel.reactive.SyncableData.select">
+<code class="sig-name descname"><span class="pre">select</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">selector</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#panel.reactive.SyncableData.select" title="Permalink to this definition">¶</a></dt>
+<dd><p>Iterates over the Viewable and any potential children in the
+applying the Selector.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>selector</strong> (<em>type</em><em> or </em><em>callable</em><em> or </em><em>None</em>) – The selector allows selecting a subset of Viewables by
+declaring a type or callable function to filter by.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>viewables</strong></p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>list(<a class="reference internal" href="panel.viewable.html#panel.viewable.Viewable" title="panel.viewable.Viewable">Viewable</a>)</p>
+</dd>
+</dl>
+</dd></dl>
+<dl class="py method">
+<dt id="panel.reactive.SyncableData.servable">
+<code class="sig-name descname"><span class="pre">servable</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">title</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">location</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#panel.reactive.SyncableData.servable" title="Permalink to this definition">¶</a></dt>
+<dd><p>Serves the object if in a <cite>panel serve</cite> context and returns
+the Panel object to allow it to display itself in a notebook
+context.
+:param title: A string title to give the Document (if served as an app)
+:type title: str
+:param location: Whether to create a Location component to observe and</p>
+<blockquote>
+<div><p>set the URL location.</p>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p></p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>The Panel object itself</p>
+</dd>
+</dl>
+</dd></dl>
+<dl class="py method">
+<dt id="panel.reactive.SyncableData.server_doc">
+<code class="sig-name descname"><span class="pre">server_doc</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">doc</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">title</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">location</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#panel.reactive.SyncableData.server_doc" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a serveable bokeh Document with the panel attached</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>doc</strong> (<em>bokeh.Document</em><em> (</em><em>optional</em><em>)</em>) – The bokeh Document to attach the panel to as a root,
+defaults to bokeh.io.curdoc()</p></li>
+<li><p><strong>title</strong> (<em>str</em>) – A string title to give the Document</p></li>
+<li><p><strong>location</strong> (<em>boolean</em><em> or </em><a class="reference internal" href="panel.io.html#panel.io.location.Location" title="panel.io.location.Location"><em>panel.io.location.Location</em></a>) – Whether to create a Location component to observe and
+set the URL location.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>doc</strong> – The bokeh document the panel was attached to</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>bokeh.Document</p>
+</dd>
+</dl>
+</dd></dl>
+<dl class="py method">
+<dt id="panel.reactive.SyncableData.show">
+<code class="sig-name descname"><span class="pre">show</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">title</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">port</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">address</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">websocket_origin</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">threaded</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">open</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">location</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#panel.reactive.SyncableData.show" title="Permalink to this definition">¶</a></dt>
+<dd><p>Starts a Bokeh server and displays the Viewable in a new tab.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>title</strong> (<em>str</em>) – A string title to give the Document (if served as an app)</p></li>
+<li><p><strong>port</strong> (<em>int</em><em> (</em><em>optional</em><em>, </em><em>default=0</em><em>)</em>) – Allows specifying a specific port</p></li>
+<li><p><strong>address</strong> (<em>str</em>) – The address the server should listen on for HTTP requests.</p></li>
+<li><p><strong>websocket_origin</strong> (<em>str</em><em> or </em><em>list</em><em>(</em><em>str</em><em>) </em><em>(</em><em>optional</em><em>)</em>) – A list of hosts that can connect to the websocket.
+This is typically required when embedding a server app in
+an external web site.
+If None, “localhost” is used.</p></li>
+<li><p><strong>threaded</strong> (<em>boolean</em><em> (</em><em>optional</em><em>, </em><em>default=False</em><em>)</em>) – Whether to launch the Server on a separate thread, allowing
+interactive use.</p></li>
+<li><p><strong>verbose</strong> (<em>boolean</em><em> (</em><em>optional</em><em>, </em><em>default=True</em><em>)</em>) – Whether to print the address and port</p></li>
+<li><p><strong>open</strong> (<em>boolean</em><em> (</em><em>optional</em><em>, </em><em>default=True</em><em>)</em>) – Whether to open the server in a new browser tab</p></li>
+<li><p><strong>location</strong> (<em>boolean</em><em> or </em><a class="reference internal" href="panel.io.html#panel.io.location.Location" title="panel.io.location.Location"><em>panel.io.location.Location</em></a>) – Whether to create a Location component to observe and
+set the URL location.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>server</strong> – Returns the Bokeh server instance or the thread the server
+was launched on (if threaded=True)</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>bokeh.server.Server or threading.Thread</p>
+</dd>
+</dl>
+</dd></dl>
+<dl class="py method">
+<dt id="panel.reactive.SyncableData.stream">
+<code class="sig-name descname"><span class="pre">stream</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">stream_value</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rollover</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">reset_index</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/panel/reactive.html#SyncableData.stream"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#panel.reactive.SyncableData.stream" title="Permalink to this definition">¶</a></dt>
+<dd><p>Streams (appends) the <cite>stream_value</cite> provided to the existing
+value in an efficient manner.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>stream_value</strong> (<em>(</em><em>Union</em><em>[</em><em>pd.DataFrame</em><em>, </em><em>pd.Series</em><em>, </em><em>Dict</em><em>]</em><em>)</em>) – The new value(s) to append to the existing value.</p></li>
+<li><p><strong>rollover</strong> (<em>int</em>) – A maximum column size, above which data from the start of
+the column begins to be discarded. If None, then columns
+will continue to grow unbounded.</p></li>
+<li><p><strong>(</strong><strong>bool</strong> (<em>reset_index</em>) – If True and the stream_value is a DataFrame, then its index
+is reset. Helps to keep the index unique and named <cite>index</cite>.</p></li>
+<li><p><strong>default=True</strong><strong>)</strong> – If True and the stream_value is a DataFrame, then its index
+is reset. Helps to keep the index unique and named <cite>index</cite>.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Raises</dt>
+<dd class="field-even"><p><strong>ValueError</strong> – Raised if the stream_value is not a supported type.:</p>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<p>Stream a Series to a DataFrame
+&gt;&gt;&gt; value = pd.DataFrame({“x”: [1, 2], “y”: [“a”, “b”]})
+&gt;&gt;&gt; obj = DataComponent(value)
+&gt;&gt;&gt; stream_value = pd.Series({“x”: 4, “y”: “d”})
+&gt;&gt;&gt; obj.stream(stream_value)
+&gt;&gt;&gt; obj.value.to_dict(“list”)
+{‘x’: [1, 2, 4], ‘y’: [‘a’, ‘b’, ‘d’]}</p>
+<p>Stream a Dataframe to a Dataframe
+&gt;&gt;&gt; value = pd.DataFrame({“x”: [1, 2], “y”: [“a”, “b”]})
+&gt;&gt;&gt; obj = DataComponent(value)
+&gt;&gt;&gt; stream_value = pd.DataFrame({“x”: [3, 4], “y”: [“c”, “d”]})
+&gt;&gt;&gt; obj.stream(stream_value)
+&gt;&gt;&gt; obj.value.to_dict(“list”)
+{‘x’: [1, 2, 3, 4], ‘y’: [‘a’, ‘b’, ‘c’, ‘d’]}</p>
+<p>Stream a Dictionary row to a DataFrame
+&gt;&gt;&gt; value = pd.DataFrame({“x”: [1, 2], “y”: [“a”, “b”]})
+&gt;&gt;&gt; tabulator = DataComponent(value)
+&gt;&gt;&gt; stream_value = {“x”: 4, “y”: “d”}
+&gt;&gt;&gt; obj.stream(stream_value)
+&gt;&gt;&gt; obj.value.to_dict(“list”)
+{‘x’: [1, 2, 4], ‘y’: [‘a’, ‘b’, ‘d’]}</p>
+<p>Stream a Dictionary of Columns to a Dataframe
+&gt;&gt;&gt; value = pd.DataFrame({“x”: [1, 2], “y”: [“a”, “b”]})
+&gt;&gt;&gt; obj = DataComponent(value)
+&gt;&gt;&gt; stream_value = {“x”: [3, 4], “y”: [“c”, “d”]}
+&gt;&gt;&gt; obj.stream(stream_value)
+&gt;&gt;&gt; obj.value.to_dict(“list”)
+{‘x’: [1, 2, 3, 4], ‘y’: [‘a’, ‘b’, ‘c’, ‘d’]}</p>
+</dd></dl>
+</dd></dl>
+</div>
+</div>
+</div>
+</div>
+<!-- END MAIN BODY OF DOCS ––––––––––––– -->
+<!-- Google Analytics -->
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async="" src="https://www.googletagmanager.com/gtag/js?id=UA-154795830-2"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-154795830-2', { 'anonymize_ip': true });
+</script>
+<!-- MathJax Config -->
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}
+});
+</script>
+<!-- End Document
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+</body>
+</html>

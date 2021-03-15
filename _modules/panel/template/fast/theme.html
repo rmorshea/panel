@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<!-- Basic Page Needs
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+<meta charset="utf-8"/>
+<title>panel.template.fast.theme — Panel 0.11.1+g238199f-dirty documentation</title>
+<meta content="High-level dashboarding for python visualization libraries" name="description"/>
+<meta content="Panel contributors" name="author"/>
+<!-- Mobile Specific Metas
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<!-- FONT
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+<script src="https://ajax.googleapis.com/ajax/libs/webfont/1.6.16/webfont.js"></script>
+<script>
+    WebFont.load({
+      google: {
+        families: ['Source Sans Pro']
+      }
+    });
+  </script>
+<!-- CSS
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+<link href="../../../../_static/css/main.css" rel="stylesheet"/>
+<link href="../../../../_static/nbsite.css" rel="stylesheet"/>
+<link href="../../../../_static/site.css" rel="stylesheet"/>
+<!-- Scripts
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script async="" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML" type="text/javascript">
+</script>
+<script src="../../../../_static/js/main.js"></script>
+<!-- Favicon
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+<link href="../../../../_static/favicon.ico" rel="icon" type="image/png"/>
+<!-- Canonical
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+<link href="https://panel.holoviz.org/_modules/panel/template/fast/theme.html" rel="canonical">
+</link></head>
+<body class="">
+<header class="navigation">
+<div class="wrapper">
+<a class="logo" href="../../../../index.html">
+<img alt="Logo" src="../../../../_static/logo_horizontal.png"/>
+</a>
+<a class="navigation-menu-button" href="javascript:void(0)" id="js-mobile-menu">Menu</a>
+<nav>
+<ul class="navigation-menu show" id="js-navigation-menu">
+<li class="nav-link doc-head"><a href="//discourse.holoviz.org">Discourse</a></li>
+<li class="nav-link doc-head"><a href="//twitter.com/Panel_org">Twitter</a></li>
+<li class="nav-link doc-head"><a href="//github.com/pyviz/panel">Github</a></li>
+<li class="nav-link">
+<div style="display:inline-block;vertical-align: middle;">
+<div class="search-bar">
+<form action="../../../../search.html" method="get" role="search">
+<input name="q" placeholder="Search" type="search"/>
+<button type="submit">
+<img alt="Search Icon" src="https://raw.githubusercontent.com/thoughtbot/refills/master/source/images/search-icon-black.png"/>
+</button>
+</form>
+</div>
+</div>
+</li>
+</ul>
+</nav>
+</div>
+</header>
+<div class="second-nav">
+<nav>
+<ul class="navigation-menu show">
+<li class="nav-link doc-head"><a href="../../../../getting_started/index.html">Getting started</a></li>
+<li class="nav-link doc-head"><a href="../../../../user_guide/index.html">User Guide</a></li>
+<li class="nav-link doc-head"><a href="../../../../gallery/index.html">Gallery</a></li>
+<li class="nav-link doc-head"><a href="../../../../reference/index.html">Reference Gallery</a></li>
+<li class="nav-link doc-head"><a href="../../../../developer_guide/index.html">Developer Guide</a></li>
+<li class="nav-link doc-head"><a href="../../../../releases.html">Releases</a></li>
+<li class="nav-link doc-head"><a href="../../../../api/index.html">API</a></li>
+<li class="nav-link doc-head"><a href="../../../../FAQ.html">FAQ</a></li>
+<li class="nav-link doc-head"><a href="../../../../about.html">About</a></li>
+</ul>
+</nav>
+</div>
+<!-- MAIN BODY OF DOCS –––––––––––––––––– -->
+<div class="docs section">
+<div id="hacketyhackhack"> <!-- style="width:20%;margin-right: 100px;"> --> <!--style="display: none;"> style="display:none;"> -->
+<div class="toc" style="width:15%; margin-right:20px;">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../index.html">Home</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../getting_started/index.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../user_guide/index.html">User Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../gallery/index.html">Gallery</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../reference/index.html">Reference Gallery</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../developer_guide/index.html">Developer Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../api/index.html">API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../Comparisons.html">Comparisons</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../releases.html">Releases</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../Roadmap.html">Road Map</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../FAQ.html">FAQ</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://github.com/pyviz/panel">Github source</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../about.html">About</a></li>
+</ul>
+</div>
+</div>
+<div class="content"> <!-- style="max-width:80%;margin-left:auto;margin-right: auto;">-->
+<h1>Source code for panel.template.fast.theme</h1><div class="highlight"><pre>
+<span></span><span class="sd">"""</span>
+<span class="sd">Functionality for styling according to Fast.design</span>
+<span class="sd">"""</span>
+<span class="kn">import</span> <span class="nn">pathlib</span>
+<span class="kn">import</span> <span class="nn">param</span>
+
+<span class="kn">from</span> <span class="nn">bokeh.themes</span> <span class="kn">import</span> <span class="n">Theme</span> <span class="k">as</span> <span class="n">_BkTheme</span>
+
+<span class="kn">from</span> <span class="nn">..theme</span> <span class="kn">import</span> <span class="n">DarkTheme</span><span class="p">,</span> <span class="n">DefaultTheme</span>
+
+<span class="n">_ROOT</span> <span class="o">=</span> <span class="n">pathlib</span><span class="o">.</span><span class="n">Path</span><span class="p">(</span><span class="vm">__file__</span><span class="p">)</span><span class="o">.</span><span class="n">parent</span> <span class="o">/</span> <span class="s2">"css"</span>
+
+<span class="n">COLLAPSED_SVG_ICON</span> <span class="o">=</span> <span class="s2">"""</span>
+<span class="s2">&lt;svg style="stroke: #E62F63" width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg" slot="collapsed-icon"&gt;</span>
+<span class="s2">  &lt;path d="M15.2222 1H2.77778C1.79594 1 1 1.79594 1 2.77778V15.2222C1 16.2041 1.79594 17 2.77778 17H15.2222C16.2041 17 17 16.2041 17 15.2222V2.77778C17 1.79594 16.2041 1 15.2222 1Z" stroke-linecap="round" stroke-linejoin="round"&gt;&lt;/path&gt;</span>
+<span class="s2">  &lt;path d="M9 5.44446V12.5556" stroke-linecap="round" stroke-linejoin="round"&gt;&lt;/path&gt;</span>
+<span class="s2">  &lt;path d="M5.44446 9H12.5556" stroke-linecap="round" stroke-linejoin="round"&gt;&lt;/path&gt;</span>
+<span class="s2">&lt;/svg&gt;</span>
+<span class="s2">"""</span> <span class="c1"># noqa</span>
+
+<span class="n">EXPANDED_SVG_ICON</span> <span class="o">=</span> <span class="s2">"""</span>
+<span class="s2">&lt;svg style="stroke: #E62F63" width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg" slot="expanded-icon"&gt;</span>
+<span class="s2">  &lt;path d="M15.2222 1H2.77778C1.79594 1 1 1.79594 1 2.77778V15.2222C1 16.2041 1.79594 17 2.77778 17H15.2222C16.2041 17 17 16.2041 17 15.2222V2.77778C17 1.79594 16.2041 1 15.2222 1Z" stroke-linecap="round" stroke-linejoin="round"&gt;&lt;/path&gt;</span>
+<span class="s2">  &lt;path d="M5.44446 9H12.5556" stroke-linecap="round" stroke-linejoin="round"&gt;&lt;/path&gt;</span>
+<span class="s2">&lt;/svg&gt;</span>
+<span class="s2">"""</span> <span class="c1"># noqa</span>
+
+<span class="n">FONT_URL</span> <span class="o">=</span> <span class="s2">"//fonts.googleapis.com/css?family=Open+Sans"</span>
+
+<div class="viewcode-block" id="FastStyle"><a class="viewcode-back" href="../../../../api/panel.template.fast.html#panel.template.fast.theme.FastStyle">[docs]</a><span class="k">class</span> <span class="nc">FastStyle</span><span class="p">(</span><span class="n">param</span><span class="o">.</span><span class="n">Parameterized</span><span class="p">):</span>
+    <span class="sd">"""</span>
+<span class="sd">    The FastStyle class provides the different colors and icons used</span>
+<span class="sd">    to style the Fast Templates.</span>
+<span class="sd">    """</span>
+
+    <span class="n">accent_fill_active</span> <span class="o">=</span> <span class="n">param</span><span class="o">.</span><span class="n">Color</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="s2">"#E45A8C"</span><span class="p">)</span>
+    <span class="n">accent_fill_hover</span> <span class="o">=</span> <span class="n">param</span><span class="o">.</span><span class="n">Color</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="s2">"#DF3874"</span><span class="p">)</span>
+    <span class="n">accent_fill_rest</span> <span class="o">=</span> <span class="n">param</span><span class="o">.</span><span class="n">Color</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="s2">"#A01346"</span><span class="p">)</span>
+    <span class="n">accent_foreground_active</span> <span class="o">=</span> <span class="n">param</span><span class="o">.</span><span class="n">Color</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="s2">"#BA1651"</span><span class="p">)</span>
+    <span class="n">accent_foreground_cut</span> <span class="o">=</span> <span class="n">param</span><span class="o">.</span><span class="n">Color</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="s2">"#000000"</span><span class="p">)</span>
+    <span class="n">accent_foreground_hover</span> <span class="o">=</span> <span class="n">param</span><span class="o">.</span><span class="n">Color</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="s2">"#7A0F35"</span><span class="p">)</span>
+    <span class="n">accent_foreground_rest</span> <span class="o">=</span> <span class="n">param</span><span class="o">.</span><span class="n">Color</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="s2">"#A01346"</span><span class="p">)</span>
+
+    <span class="n">neutral_outline_active</span> <span class="o">=</span> <span class="n">param</span><span class="o">.</span><span class="n">Color</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="s2">"#D6D6D6"</span><span class="p">)</span>
+    <span class="n">neutral_outline_hover</span> <span class="o">=</span> <span class="n">param</span><span class="o">.</span><span class="n">Color</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="s2">"#979797"</span><span class="p">)</span>
+    <span class="n">neutral_outline_rest</span> <span class="o">=</span> <span class="n">param</span><span class="o">.</span><span class="n">Color</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="s2">"#BEBEBE"</span><span class="p">)</span>
+
+    <span class="n">accent_base_color</span> <span class="o">=</span> <span class="n">param</span><span class="o">.</span><span class="n">Color</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="s2">"#A01346"</span><span class="p">)</span>
+    <span class="n">background_color</span> <span class="o">=</span> <span class="n">param</span><span class="o">.</span><span class="n">Color</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="s2">"#ffffff"</span><span class="p">)</span>
+    <span class="n">collapsed_icon</span> <span class="o">=</span> <span class="n">param</span><span class="o">.</span><span class="n">String</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="n">COLLAPSED_SVG_ICON</span><span class="p">)</span>
+    <span class="n">expanded_icon</span> <span class="o">=</span> <span class="n">param</span><span class="o">.</span><span class="n">String</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="n">EXPANDED_SVG_ICON</span><span class="p">)</span>
+    <span class="n">color</span> <span class="o">=</span> <span class="n">param</span><span class="o">.</span><span class="n">Color</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="s2">"#00aa41"</span><span class="p">)</span>
+    <span class="n">neutral_fill_card_rest</span> <span class="o">=</span> <span class="n">param</span><span class="o">.</span><span class="n">Color</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="s2">"#F7F7F7"</span><span class="p">)</span>
+    <span class="n">neutral_focus</span> <span class="o">=</span> <span class="n">param</span><span class="o">.</span><span class="n">Color</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="s2">"#888888"</span><span class="p">)</span>
+    <span class="n">neutral_foreground_rest</span> <span class="o">=</span> <span class="n">param</span><span class="o">.</span><span class="n">Color</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="s2">"#2B2B2B"</span><span class="p">)</span>
+
+    <span class="n">header_background</span> <span class="o">=</span> <span class="n">param</span><span class="o">.</span><span class="n">Color</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="s2">"#00aa41"</span><span class="p">)</span>
+    <span class="n">header_color</span> <span class="o">=</span> <span class="n">param</span><span class="o">.</span><span class="n">Color</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="s2">"#ffffff"</span><span class="p">)</span>
+    <span class="n">font</span> <span class="o">=</span> <span class="n">param</span><span class="o">.</span><span class="n">String</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="s2">"Open Sans, sans-serif"</span><span class="p">)</span>
+    <span class="n">font_url</span> <span class="o">=</span> <span class="n">param</span><span class="o">.</span><span class="n">String</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="n">FONT_URL</span><span class="p">)</span>
+
+<div class="viewcode-block" id="FastStyle.create_bokeh_theme"><a class="viewcode-back" href="../../../../api/panel.template.fast.html#panel.template.fast.theme.FastStyle.create_bokeh_theme">[docs]</a>    <span class="k">def</span> <span class="nf">create_bokeh_theme</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">"""Returns a custom bokeh theme based on the style parameters</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            Dict: A Bokeh Theme</span>
+<span class="sd">        """</span>
+
+        <span class="k">return</span> <span class="p">{</span>
+            <span class="s2">"attrs"</span><span class="p">:</span> <span class="p">{</span>
+                <span class="s2">"Figure"</span><span class="p">:</span> <span class="p">{</span>
+                    <span class="s2">"background_fill_color"</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">background_color</span><span class="p">,</span>
+                    <span class="s2">"border_fill_color"</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">neutral_fill_card_rest</span><span class="p">,</span>
+                    <span class="s2">"border_fill_alpha"</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+                    <span class="s2">"outline_line_color"</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">neutral_focus</span><span class="p">,</span>
+                    <span class="s2">"outline_line_alpha"</span><span class="p">:</span> <span class="mf">0.5</span><span class="p">,</span>
+                    <span class="s2">"outline_line_width"</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+                <span class="p">},</span>
+                <span class="s2">"Grid"</span><span class="p">:</span> <span class="p">{</span><span class="s2">"grid_line_color"</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">neutral_focus</span><span class="p">,</span> <span class="s2">"grid_line_alpha"</span><span class="p">:</span> <span class="mf">0.25</span><span class="p">},</span>
+                <span class="s2">"Axis"</span><span class="p">:</span> <span class="p">{</span>
+                    <span class="s2">"major_tick_line_alpha"</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+                    <span class="s2">"major_tick_line_color"</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">neutral_foreground_rest</span><span class="p">,</span>
+                    <span class="s2">"minor_tick_line_alpha"</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+                    <span class="s2">"minor_tick_line_color"</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">neutral_foreground_rest</span><span class="p">,</span>
+                    <span class="s2">"axis_line_alpha"</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+                    <span class="s2">"axis_line_color"</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">neutral_foreground_rest</span><span class="p">,</span>
+                    <span class="s2">"major_label_text_color"</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">neutral_foreground_rest</span><span class="p">,</span>
+                    <span class="s2">"major_label_text_font"</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">font</span><span class="p">,</span>
+                    <span class="s2">"major_label_text_font_size"</span><span class="p">:</span> <span class="s2">"1.025em"</span><span class="p">,</span>
+                    <span class="s2">"axis_label_standoff"</span><span class="p">:</span> <span class="mi">10</span><span class="p">,</span>
+                    <span class="s2">"axis_label_text_color"</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">neutral_foreground_rest</span><span class="p">,</span>
+                    <span class="s2">"axis_label_text_font"</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">font</span><span class="p">,</span>
+                    <span class="s2">"axis_label_text_font_size"</span><span class="p">:</span> <span class="s2">"1.25em"</span><span class="p">,</span>
+                    <span class="s2">"axis_label_text_font_style"</span><span class="p">:</span> <span class="s2">"normal"</span><span class="p">,</span>
+                <span class="p">},</span>
+                <span class="s2">"Legend"</span><span class="p">:</span> <span class="p">{</span>
+                    <span class="s2">"spacing"</span><span class="p">:</span> <span class="mi">8</span><span class="p">,</span>
+                    <span class="s2">"glyph_width"</span><span class="p">:</span> <span class="mi">15</span><span class="p">,</span>
+                    <span class="s2">"label_standoff"</span><span class="p">:</span> <span class="mi">8</span><span class="p">,</span>
+                    <span class="s2">"label_text_color"</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">neutral_foreground_rest</span><span class="p">,</span>
+                    <span class="s2">"label_text_font"</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">font</span><span class="p">,</span>
+                    <span class="s2">"label_text_font_size"</span><span class="p">:</span> <span class="s2">"1.025em"</span><span class="p">,</span>
+                    <span class="s2">"border_line_alpha"</span><span class="p">:</span> <span class="mf">0.5</span><span class="p">,</span>
+                    <span class="s2">"border_line_color"</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">neutral_focus</span><span class="p">,</span>
+                    <span class="s2">"background_fill_alpha"</span><span class="p">:</span> <span class="mf">0.25</span><span class="p">,</span>
+                    <span class="s2">"background_fill_color"</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">neutral_fill_card_rest</span><span class="p">,</span>
+                <span class="p">},</span>
+                <span class="s2">"ColorBar"</span><span class="p">:</span> <span class="p">{</span>
+                    <span class="s2">"title_text_color"</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">neutral_foreground_rest</span><span class="p">,</span>
+                    <span class="s2">"title_text_font"</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">font</span><span class="p">,</span>
+                    <span class="s2">"title_text_font_size"</span><span class="p">:</span> <span class="s2">"1.025em"</span><span class="p">,</span>
+                    <span class="s2">"title_text_font_style"</span><span class="p">:</span> <span class="s2">"normal"</span><span class="p">,</span>
+                    <span class="s2">"major_label_text_color"</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">neutral_foreground_rest</span><span class="p">,</span>
+                    <span class="s2">"major_label_text_font"</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">font</span><span class="p">,</span>
+                    <span class="s2">"major_label_text_font_size"</span><span class="p">:</span> <span class="s2">"1.025em"</span><span class="p">,</span>
+                    <span class="c1"># "background_fill_color": FAST_DARK_75,</span>
+                    <span class="s2">"major_tick_line_alpha"</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+                    <span class="s2">"bar_line_alpha"</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+                <span class="p">},</span>
+                <span class="s2">"Title"</span><span class="p">:</span> <span class="p">{</span>
+                    <span class="s2">"text_color"</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">neutral_foreground_rest</span><span class="p">,</span>
+                    <span class="s2">"text_font"</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">font</span><span class="p">,</span>
+                    <span class="s2">"text_font_size"</span><span class="p">:</span> <span class="s2">"1.15em"</span><span class="p">,</span>
+                <span class="p">},</span>
+            <span class="p">}</span>
+        <span class="p">}</span></div></div>
+
+
+<span class="n">DEFAULT_STYLE</span> <span class="o">=</span> <span class="n">FastStyle</span><span class="p">()</span>
+<span class="n">DARK_STYLE</span> <span class="o">=</span> <span class="n">FastStyle</span><span class="p">(</span>
+    <span class="n">header_background</span><span class="o">=</span><span class="s2">"#313131"</span><span class="p">,</span>
+    <span class="n">header_color</span><span class="o">=</span><span class="s2">"#ffffff"</span><span class="p">,</span>
+    <span class="n">accent_fill_active</span><span class="o">=</span><span class="s2">"#DC2567"</span><span class="p">,</span>
+    <span class="n">accent_fill_hover</span><span class="o">=</span><span class="s2">"#E1477E"</span><span class="p">,</span>
+    <span class="n">accent_fill_rest</span><span class="o">=</span><span class="s2">"#C01754"</span><span class="p">,</span>
+    <span class="n">accent_foreground_active</span><span class="o">=</span><span class="s2">"#DF3874"</span><span class="p">,</span>
+    <span class="n">accent_foreground_cut</span><span class="o">=</span><span class="s2">"#000000"</span><span class="p">,</span>
+    <span class="n">accent_foreground_hover</span><span class="o">=</span><span class="s2">"#E55E8E"</span><span class="p">,</span>
+    <span class="n">accent_foreground_rest</span><span class="o">=</span><span class="s2">"#E1477E"</span><span class="p">,</span>
+    <span class="n">neutral_outline_active</span><span class="o">=</span><span class="s2">"#424242"</span><span class="p">,</span>
+    <span class="n">neutral_outline_hover</span><span class="o">=</span><span class="s2">"#808080"</span><span class="p">,</span>
+    <span class="n">neutral_outline_rest</span><span class="o">=</span><span class="s2">"#5A5A5A"</span><span class="p">,</span>
+    <span class="n">accent_base_color</span><span class="o">=</span><span class="s2">"#E1477E"</span><span class="p">,</span>
+    <span class="n">background_color</span><span class="o">=</span><span class="s2">"#181818"</span><span class="p">,</span>
+    <span class="n">color</span><span class="o">=</span><span class="s2">"#ffffff"</span><span class="p">,</span>
+    <span class="n">neutral_fill_card_rest</span><span class="o">=</span><span class="s2">"#212121"</span><span class="p">,</span>
+    <span class="n">neutral_focus</span><span class="o">=</span><span class="s2">"#717171"</span><span class="p">,</span>
+    <span class="n">neutral_foreground_rest</span><span class="o">=</span><span class="s2">"#e5e5e5"</span><span class="p">,</span>
+<span class="p">)</span>
+
+<div class="viewcode-block" id="FastDefaultTheme"><a class="viewcode-back" href="../../../../api/panel.template.fast.html#panel.template.fast.theme.FastDefaultTheme">[docs]</a><span class="k">class</span> <span class="nc">FastDefaultTheme</span><span class="p">(</span><span class="n">DefaultTheme</span><span class="p">):</span>
+
+    <span class="n">base_css</span> <span class="o">=</span> <span class="n">param</span><span class="o">.</span><span class="n">Filename</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="n">_ROOT</span> <span class="o">/</span> <span class="s1">'fast_root_default.css'</span><span class="p">)</span>
+
+    <span class="n">style</span> <span class="o">=</span> <span class="n">param</span><span class="o">.</span><span class="n">ClassSelector</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="n">DEFAULT_STYLE</span><span class="p">,</span> <span class="n">class_</span><span class="o">=</span><span class="n">FastStyle</span><span class="p">)</span>
+
+    <span class="n">__abstract</span> <span class="o">=</span> <span class="kc">True</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">bokeh_theme</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">_BkTheme</span><span class="p">(</span><span class="n">json</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">style</span><span class="o">.</span><span class="n">create_bokeh_theme</span><span class="p">())</span></div>
+
+
+<div class="viewcode-block" id="FastDarkTheme"><a class="viewcode-back" href="../../../../api/panel.template.fast.html#panel.template.fast.theme.FastDarkTheme">[docs]</a><span class="k">class</span> <span class="nc">FastDarkTheme</span><span class="p">(</span><span class="n">DarkTheme</span><span class="p">):</span>
+
+    <span class="n">base_css</span> <span class="o">=</span> <span class="n">param</span><span class="o">.</span><span class="n">Filename</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="n">_ROOT</span> <span class="o">/</span> <span class="s1">'fast_root_dark.css'</span><span class="p">)</span>
+
+    <span class="n">style</span> <span class="o">=</span> <span class="n">param</span><span class="o">.</span><span class="n">ClassSelector</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="n">DARK_STYLE</span><span class="p">,</span> <span class="n">class_</span><span class="o">=</span><span class="n">FastStyle</span><span class="p">)</span>
+
+    <span class="n">__abstract</span> <span class="o">=</span> <span class="kc">True</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">bokeh_theme</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">_BkTheme</span><span class="p">(</span><span class="n">json</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">style</span><span class="o">.</span><span class="n">create_bokeh_theme</span><span class="p">())</span></div>
+</pre></div>
+</div>
+</div>
+<!-- END MAIN BODY OF DOCS ––––––––––––– -->
+<!-- Google Analytics -->
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async="" src="https://www.googletagmanager.com/gtag/js?id=UA-154795830-2"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-154795830-2', { 'anonymize_ip': true });
+</script>
+<!-- MathJax Config -->
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}
+});
+</script>
+<!-- End Document
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+</body>
+</html>

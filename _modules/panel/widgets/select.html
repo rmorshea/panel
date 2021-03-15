@@ -1,0 +1,721 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<!-- Basic Page Needs
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+<meta charset="utf-8"/>
+<title>panel.widgets.select — Panel 0.11.1+g238199f-dirty documentation</title>
+<meta content="High-level dashboarding for python visualization libraries" name="description"/>
+<meta content="Panel contributors" name="author"/>
+<!-- Mobile Specific Metas
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<!-- FONT
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+<script src="https://ajax.googleapis.com/ajax/libs/webfont/1.6.16/webfont.js"></script>
+<script>
+    WebFont.load({
+      google: {
+        families: ['Source Sans Pro']
+      }
+    });
+  </script>
+<!-- CSS
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+<link href="../../../_static/css/main.css" rel="stylesheet"/>
+<link href="../../../_static/nbsite.css" rel="stylesheet"/>
+<link href="../../../_static/site.css" rel="stylesheet"/>
+<!-- Scripts
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script async="" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML" type="text/javascript">
+</script>
+<script src="../../../_static/js/main.js"></script>
+<!-- Favicon
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+<link href="../../../_static/favicon.ico" rel="icon" type="image/png"/>
+<!-- Canonical
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+<link href="https://panel.holoviz.org/_modules/panel/widgets/select.html" rel="canonical">
+</link></head>
+<body class="">
+<header class="navigation">
+<div class="wrapper">
+<a class="logo" href="../../../index.html">
+<img alt="Logo" src="../../../_static/logo_horizontal.png"/>
+</a>
+<a class="navigation-menu-button" href="javascript:void(0)" id="js-mobile-menu">Menu</a>
+<nav>
+<ul class="navigation-menu show" id="js-navigation-menu">
+<li class="nav-link doc-head"><a href="//discourse.holoviz.org">Discourse</a></li>
+<li class="nav-link doc-head"><a href="//twitter.com/Panel_org">Twitter</a></li>
+<li class="nav-link doc-head"><a href="//github.com/pyviz/panel">Github</a></li>
+<li class="nav-link">
+<div style="display:inline-block;vertical-align: middle;">
+<div class="search-bar">
+<form action="../../../search.html" method="get" role="search">
+<input name="q" placeholder="Search" type="search"/>
+<button type="submit">
+<img alt="Search Icon" src="https://raw.githubusercontent.com/thoughtbot/refills/master/source/images/search-icon-black.png"/>
+</button>
+</form>
+</div>
+</div>
+</li>
+</ul>
+</nav>
+</div>
+</header>
+<div class="second-nav">
+<nav>
+<ul class="navigation-menu show">
+<li class="nav-link doc-head"><a href="../../../getting_started/index.html">Getting started</a></li>
+<li class="nav-link doc-head"><a href="../../../user_guide/index.html">User Guide</a></li>
+<li class="nav-link doc-head"><a href="../../../gallery/index.html">Gallery</a></li>
+<li class="nav-link doc-head"><a href="../../../reference/index.html">Reference Gallery</a></li>
+<li class="nav-link doc-head"><a href="../../../developer_guide/index.html">Developer Guide</a></li>
+<li class="nav-link doc-head"><a href="../../../releases.html">Releases</a></li>
+<li class="nav-link doc-head"><a href="../../../api/index.html">API</a></li>
+<li class="nav-link doc-head"><a href="../../../FAQ.html">FAQ</a></li>
+<li class="nav-link doc-head"><a href="../../../about.html">About</a></li>
+</ul>
+</nav>
+</div>
+<!-- MAIN BODY OF DOCS –––––––––––––––––– -->
+<div class="docs section">
+<div id="hacketyhackhack"> <!-- style="width:20%;margin-right: 100px;"> --> <!--style="display: none;"> style="display:none;"> -->
+<div class="toc" style="width:15%; margin-right:20px;">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../index.html">Home</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../getting_started/index.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../user_guide/index.html">User Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../gallery/index.html">Gallery</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../reference/index.html">Reference Gallery</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../developer_guide/index.html">Developer Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/index.html">API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../Comparisons.html">Comparisons</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../releases.html">Releases</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../Roadmap.html">Road Map</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../FAQ.html">FAQ</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://github.com/pyviz/panel">Github source</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../about.html">About</a></li>
+</ul>
+</div>
+</div>
+<div class="content"> <!-- style="max-width:80%;margin-left:auto;margin-right: auto;">-->
+<h1>Source code for panel.widgets.select</h1><div class="highlight"><pre>
+<span></span><span class="sd">"""</span>
+<span class="sd">Defines various Select widgets which allow choosing one or more items</span>
+<span class="sd">from a list of options.</span>
+<span class="sd">"""</span>
+<span class="kn">import</span> <span class="nn">re</span>
+
+<span class="kn">from</span> <span class="nn">collections</span> <span class="kn">import</span> <span class="n">OrderedDict</span>
+
+<span class="kn">import</span> <span class="nn">param</span>
+
+<span class="kn">from</span> <span class="nn">bokeh.models.widgets</span> <span class="kn">import</span> <span class="p">(</span>
+    <span class="n">AutocompleteInput</span> <span class="k">as</span> <span class="n">_BkAutocompleteInput</span><span class="p">,</span> <span class="n">CheckboxGroup</span> <span class="k">as</span> <span class="n">_BkCheckboxGroup</span><span class="p">,</span>
+    <span class="n">CheckboxButtonGroup</span> <span class="k">as</span> <span class="n">_BkCheckboxButtonGroup</span><span class="p">,</span> <span class="n">MultiSelect</span> <span class="k">as</span> <span class="n">_BkMultiSelect</span><span class="p">,</span>
+    <span class="n">RadioButtonGroup</span> <span class="k">as</span> <span class="n">_BkRadioButtonGroup</span><span class="p">,</span> <span class="n">RadioGroup</span> <span class="k">as</span> <span class="n">_BkRadioBoxGroup</span><span class="p">,</span>
+    <span class="n">Select</span> <span class="k">as</span> <span class="n">_BkSelect</span><span class="p">,</span> <span class="n">MultiChoice</span> <span class="k">as</span> <span class="n">_BkMultiChoice</span>
+<span class="p">)</span>
+
+<span class="kn">from</span> <span class="nn">..layout</span> <span class="kn">import</span> <span class="n">Column</span><span class="p">,</span> <span class="n">VSpacer</span>
+<span class="kn">from</span> <span class="nn">..models</span> <span class="kn">import</span> <span class="n">SingleSelect</span> <span class="k">as</span> <span class="n">_BkSingleSelect</span>
+<span class="kn">from</span> <span class="nn">..util</span> <span class="kn">import</span> <span class="n">as_unicode</span><span class="p">,</span> <span class="n">isIn</span><span class="p">,</span> <span class="n">indexOf</span><span class="p">,</span> <span class="n">bokeh_version</span>
+<span class="kn">from</span> <span class="nn">.base</span> <span class="kn">import</span> <span class="n">Widget</span><span class="p">,</span> <span class="n">CompositeWidget</span>
+<span class="kn">from</span> <span class="nn">.button</span> <span class="kn">import</span> <span class="n">_ButtonBase</span><span class="p">,</span> <span class="n">Button</span>
+<span class="kn">from</span> <span class="nn">.input</span> <span class="kn">import</span> <span class="n">TextInput</span><span class="p">,</span> <span class="n">TextAreaInput</span>
+
+
+<div class="viewcode-block" id="SelectBase"><a class="viewcode-back" href="../../../api/panel.widgets.html#panel.widgets.select.SelectBase">[docs]</a><span class="k">class</span> <span class="nc">SelectBase</span><span class="p">(</span><span class="n">Widget</span><span class="p">):</span>
+
+    <span class="n">options</span> <span class="o">=</span> <span class="n">param</span><span class="o">.</span><span class="n">ClassSelector</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="p">[],</span> <span class="n">class_</span><span class="o">=</span><span class="p">(</span><span class="nb">dict</span><span class="p">,</span> <span class="nb">list</span><span class="p">))</span>
+
+    <span class="n">__abstract</span> <span class="o">=</span> <span class="kc">True</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">labels</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="p">[</span><span class="n">as_unicode</span><span class="p">(</span><span class="n">o</span><span class="p">)</span> <span class="k">for</span> <span class="n">o</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">options</span><span class="p">]</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">values</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">options</span><span class="p">,</span> <span class="nb">dict</span><span class="p">):</span>
+            <span class="k">return</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">options</span><span class="o">.</span><span class="n">values</span><span class="p">())</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">options</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">_items</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">OrderedDict</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">labels</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">values</span><span class="p">))</span></div>
+
+
+
+<div class="viewcode-block" id="SingleSelectBase"><a class="viewcode-back" href="../../../api/panel.widgets.html#panel.widgets.select.SingleSelectBase">[docs]</a><span class="k">class</span> <span class="nc">SingleSelectBase</span><span class="p">(</span><span class="n">SelectBase</span><span class="p">):</span>
+
+    <span class="n">value</span> <span class="o">=</span> <span class="n">param</span><span class="o">.</span><span class="n">Parameter</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+
+    <span class="n">_supports_embed</span> <span class="o">=</span> <span class="kc">True</span>
+
+    <span class="n">__abstract</span> <span class="o">=</span> <span class="kc">True</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">params</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="o">**</span><span class="n">params</span><span class="p">)</span>
+        <span class="n">values</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">values</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">value</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">and</span> <span class="kc">None</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">values</span> <span class="ow">and</span> <span class="n">values</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="n">values</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+
+    <span class="k">def</span> <span class="nf">_process_param_change</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">msg</span><span class="p">):</span>
+        <span class="n">msg</span> <span class="o">=</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">_process_param_change</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+        <span class="n">labels</span><span class="p">,</span> <span class="n">values</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">labels</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">values</span>
+        <span class="n">unique</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">unicode_values</span><span class="p">))</span> <span class="o">==</span> <span class="nb">len</span><span class="p">(</span><span class="n">labels</span><span class="p">)</span>
+        <span class="k">if</span> <span class="s1">'value'</span> <span class="ow">in</span> <span class="n">msg</span><span class="p">:</span>
+            <span class="n">val</span> <span class="o">=</span> <span class="n">msg</span><span class="p">[</span><span class="s1">'value'</span><span class="p">]</span>
+            <span class="k">if</span> <span class="n">isIn</span><span class="p">(</span><span class="n">val</span><span class="p">,</span> <span class="n">values</span><span class="p">):</span>
+                <span class="n">unicode_values</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">unicode_values</span> <span class="k">if</span> <span class="n">unique</span> <span class="k">else</span> <span class="n">labels</span>
+                <span class="n">msg</span><span class="p">[</span><span class="s1">'value'</span><span class="p">]</span> <span class="o">=</span> <span class="n">unicode_values</span><span class="p">[</span><span class="n">indexOf</span><span class="p">(</span><span class="n">val</span><span class="p">,</span> <span class="n">values</span><span class="p">)]</span>
+            <span class="k">elif</span> <span class="n">values</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">values</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="kc">None</span>
+                <span class="n">msg</span><span class="p">[</span><span class="s1">'value'</span><span class="p">]</span> <span class="o">=</span> <span class="s1">''</span>
+
+        <span class="k">if</span> <span class="s1">'options'</span> <span class="ow">in</span> <span class="n">msg</span><span class="p">:</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">options</span><span class="p">,</span> <span class="nb">dict</span><span class="p">):</span>
+                <span class="k">if</span> <span class="n">unique</span><span class="p">:</span>
+                    <span class="n">options</span> <span class="o">=</span> <span class="p">[(</span><span class="n">v</span><span class="p">,</span> <span class="n">l</span><span class="p">)</span> <span class="k">for</span> <span class="n">l</span><span class="p">,</span><span class="n">v</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">labels</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">unicode_values</span><span class="p">)]</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">options</span> <span class="o">=</span> <span class="n">labels</span>
+                <span class="n">msg</span><span class="p">[</span><span class="s1">'options'</span><span class="p">]</span> <span class="o">=</span> <span class="n">options</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">msg</span><span class="p">[</span><span class="s1">'options'</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">unicode_values</span>
+            <span class="n">val</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">value</span>
+            <span class="k">if</span> <span class="n">values</span><span class="p">:</span>
+                <span class="k">if</span> <span class="ow">not</span> <span class="n">isIn</span><span class="p">(</span><span class="n">val</span><span class="p">,</span> <span class="n">values</span><span class="p">):</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="n">values</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="k">return</span> <span class="n">msg</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">unicode_values</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="p">[</span><span class="n">as_unicode</span><span class="p">(</span><span class="n">v</span><span class="p">)</span> <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">values</span><span class="p">]</span>
+
+    <span class="k">def</span> <span class="nf">_process_property_change</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">msg</span><span class="p">):</span>
+        <span class="n">msg</span> <span class="o">=</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">_process_property_change</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+        <span class="k">if</span> <span class="s1">'value'</span> <span class="ow">in</span> <span class="n">msg</span><span class="p">:</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">values</span><span class="p">:</span>
+                <span class="k">pass</span>
+            <span class="k">elif</span> <span class="n">msg</span><span class="p">[</span><span class="s1">'value'</span><span class="p">]</span> <span class="o">==</span> <span class="s1">''</span><span class="p">:</span>
+                <span class="n">msg</span><span class="p">[</span><span class="s1">'value'</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">values</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">values</span> <span class="k">else</span> <span class="kc">None</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">isIn</span><span class="p">(</span><span class="n">msg</span><span class="p">[</span><span class="s1">'value'</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">unicode_values</span><span class="p">):</span>
+                    <span class="n">idx</span> <span class="o">=</span> <span class="n">indexOf</span><span class="p">(</span><span class="n">msg</span><span class="p">[</span><span class="s1">'value'</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">unicode_values</span><span class="p">)</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">idx</span> <span class="o">=</span> <span class="n">indexOf</span><span class="p">(</span><span class="n">msg</span><span class="p">[</span><span class="s1">'value'</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">labels</span><span class="p">)</span>
+                <span class="n">msg</span><span class="p">[</span><span class="s1">'value'</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_items</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">labels</span><span class="p">[</span><span class="n">idx</span><span class="p">]]</span>
+        <span class="n">msg</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">'options'</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">msg</span>
+
+    <span class="k">def</span> <span class="nf">_get_embed_state</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">root</span><span class="p">,</span> <span class="n">values</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">max_opts</span><span class="o">=</span><span class="mi">3</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">values</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">values</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">values</span>
+        <span class="k">elif</span> <span class="nb">any</span><span class="p">(</span><span class="n">v</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">values</span> <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">values</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">"Supplied embed states were not found "</span>
+                             <span class="s2">"in the </span><span class="si">%s</span><span class="s2"> widgets values list."</span> <span class="o">%</span>
+                             <span class="nb">type</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="vm">__name__</span><span class="p">)</span>
+        <span class="k">return</span> <span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_models</span><span class="p">[</span><span class="n">root</span><span class="o">.</span><span class="n">ref</span><span class="p">[</span><span class="s1">'id'</span><span class="p">]][</span><span class="mi">0</span><span class="p">],</span> <span class="n">values</span><span class="p">,</span>
+                <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="o">.</span><span class="n">value</span><span class="p">,</span> <span class="s1">'value'</span><span class="p">,</span> <span class="s1">'cb_obj.value'</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Select"><a class="viewcode-back" href="../../../api/panel.widgets.html#panel.widgets.select.Select">[docs]</a><span class="k">class</span> <span class="nc">Select</span><span class="p">(</span><span class="n">SingleSelectBase</span><span class="p">):</span>
+
+    <span class="n">size</span> <span class="o">=</span> <span class="n">param</span><span class="o">.</span><span class="n">Integer</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">bounds</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="kc">None</span><span class="p">),</span> <span class="n">doc</span><span class="o">=</span><span class="s2">"""</span>
+<span class="s2">        Declares how many options are displayed at the same time.</span>
+<span class="s2">        If set to 1 displays options as dropdown otherwise displays</span>
+<span class="s2">        scrollable area."""</span><span class="p">)</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">_widget_type</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">_BkSelect</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">size</span> <span class="o">==</span> <span class="mi">1</span> <span class="k">else</span> <span class="n">_BkSingleSelect</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">params</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="o">**</span><span class="n">params</span><span class="p">)</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">size</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">param</span><span class="o">.</span><span class="n">size</span><span class="o">.</span><span class="n">constant</span> <span class="o">=</span> <span class="kc">True</span>
+
+    <span class="k">def</span> <span class="nf">_process_param_change</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">msg</span><span class="p">):</span>
+        <span class="n">msg</span> <span class="o">=</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">_process_param_change</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">msg</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'size'</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="n">msg</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">'size'</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">msg</span></div>
+
+
+<span class="k">class</span> <span class="nc">_MultiSelectBase</span><span class="p">(</span><span class="n">SingleSelectBase</span><span class="p">):</span>
+
+    <span class="n">value</span> <span class="o">=</span> <span class="n">param</span><span class="o">.</span><span class="n">List</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="p">[])</span>
+
+    <span class="n">_supports_embed</span> <span class="o">=</span> <span class="kc">False</span>
+
+    <span class="k">def</span> <span class="nf">_process_param_change</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">msg</span><span class="p">):</span>
+        <span class="n">msg</span> <span class="o">=</span> <span class="nb">super</span><span class="p">(</span><span class="n">SingleSelectBase</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">_process_param_change</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+        <span class="n">labels</span><span class="p">,</span> <span class="n">values</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">labels</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">values</span>
+        <span class="k">if</span> <span class="s1">'value'</span> <span class="ow">in</span> <span class="n">msg</span><span class="p">:</span>
+            <span class="n">msg</span><span class="p">[</span><span class="s1">'value'</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">labels</span><span class="p">[</span><span class="n">indexOf</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="n">values</span><span class="p">)]</span> <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">msg</span><span class="p">[</span><span class="s1">'value'</span><span class="p">]</span>
+                            <span class="k">if</span> <span class="n">isIn</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="n">values</span><span class="p">)]</span>
+
+        <span class="k">if</span> <span class="s1">'options'</span> <span class="ow">in</span> <span class="n">msg</span><span class="p">:</span>
+            <span class="n">msg</span><span class="p">[</span><span class="s1">'options'</span><span class="p">]</span> <span class="o">=</span> <span class="n">labels</span>
+            <span class="k">if</span> <span class="nb">any</span><span class="p">(</span><span class="ow">not</span> <span class="n">isIn</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="n">values</span><span class="p">)</span> <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">value</span><span class="p">):</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="p">[</span><span class="n">v</span> <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">value</span> <span class="k">if</span> <span class="n">isIn</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="n">values</span><span class="p">)]</span>
+        <span class="k">return</span> <span class="n">msg</span>
+
+    <span class="k">def</span> <span class="nf">_process_property_change</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">msg</span><span class="p">):</span>
+        <span class="n">msg</span> <span class="o">=</span> <span class="nb">super</span><span class="p">(</span><span class="n">SingleSelectBase</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">_process_property_change</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+        <span class="k">if</span> <span class="s1">'value'</span> <span class="ow">in</span> <span class="n">msg</span><span class="p">:</span>
+            <span class="n">labels</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">labels</span>
+            <span class="n">msg</span><span class="p">[</span><span class="s1">'value'</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">_items</span><span class="p">[</span><span class="n">v</span><span class="p">]</span> <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">msg</span><span class="p">[</span><span class="s1">'value'</span><span class="p">]</span>
+                            <span class="k">if</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">labels</span><span class="p">]</span>
+        <span class="n">msg</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">'options'</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">msg</span>
+
+
+<div class="viewcode-block" id="MultiSelect"><a class="viewcode-back" href="../../../api/panel.widgets.html#panel.widgets.select.MultiSelect">[docs]</a><span class="k">class</span> <span class="nc">MultiSelect</span><span class="p">(</span><span class="n">_MultiSelectBase</span><span class="p">):</span>
+
+    <span class="n">size</span> <span class="o">=</span> <span class="n">param</span><span class="o">.</span><span class="n">Integer</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="s2">"""</span>
+<span class="s2">        The number of items displayed at once (i.e. determines the</span>
+<span class="s2">        widget height)."""</span><span class="p">)</span>
+
+    <span class="n">_widget_type</span> <span class="o">=</span> <span class="n">_BkMultiSelect</span></div>
+
+
+<div class="viewcode-block" id="MultiChoice"><a class="viewcode-back" href="../../../api/panel.widgets.html#panel.widgets.select.MultiChoice">[docs]</a><span class="k">class</span> <span class="nc">MultiChoice</span><span class="p">(</span><span class="n">_MultiSelectBase</span><span class="p">):</span>
+
+    <span class="n">delete_button</span> <span class="o">=</span> <span class="n">param</span><span class="o">.</span><span class="n">Boolean</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="s2">"""</span>
+<span class="s2">        Whether to display a button to delete a selected option."""</span><span class="p">)</span>
+
+    <span class="n">max_items</span> <span class="o">=</span> <span class="n">param</span><span class="o">.</span><span class="n">Integer</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">bounds</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="kc">None</span><span class="p">),</span> <span class="n">doc</span><span class="o">=</span><span class="s2">"""</span>
+<span class="s2">        Maximum number of options that can be selected."""</span><span class="p">)</span>
+
+    <span class="n">option_limit</span> <span class="o">=</span> <span class="n">param</span><span class="o">.</span><span class="n">Integer</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">bounds</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="kc">None</span><span class="p">),</span> <span class="n">doc</span><span class="o">=</span><span class="s2">"""</span>
+<span class="s2">        Maximum number of options to display at once."""</span><span class="p">)</span>
+
+    <span class="n">placeholder</span> <span class="o">=</span> <span class="n">param</span><span class="o">.</span><span class="n">String</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="s1">''</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="s2">"""</span>
+<span class="s2">        String displayed when no selection has been made."""</span><span class="p">)</span>
+
+    <span class="n">solid</span> <span class="o">=</span> <span class="n">param</span><span class="o">.</span><span class="n">Boolean</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="s2">"""</span>
+<span class="s2">        Whether to display widget with solid or light style."""</span><span class="p">)</span>
+
+    <span class="n">_widget_type</span> <span class="o">=</span> <span class="n">_BkMultiChoice</span></div>
+
+
+<span class="n">_AutocompleteInput_rename</span> <span class="o">=</span> <span class="p">{</span><span class="s1">'name'</span><span class="p">:</span> <span class="s1">'title'</span><span class="p">,</span> <span class="s1">'options'</span><span class="p">:</span> <span class="s1">'completions'</span><span class="p">}</span>
+<span class="k">if</span> <span class="n">bokeh_version</span> <span class="o">&lt;</span> <span class="s1">'2.3.0'</span><span class="p">:</span>
+    <span class="c1"># disable restrict keyword</span>
+    <span class="n">_AutocompleteInput_rename</span><span class="p">[</span><span class="s1">'restrict'</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+
+<div class="viewcode-block" id="AutocompleteInput"><a class="viewcode-back" href="../../../api/panel.widgets.html#panel.widgets.select.AutocompleteInput">[docs]</a><span class="k">class</span> <span class="nc">AutocompleteInput</span><span class="p">(</span><span class="n">Widget</span><span class="p">):</span>
+
+    <span class="n">case_sensitive</span> <span class="o">=</span> <span class="n">param</span><span class="o">.</span><span class="n">Boolean</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="s2">"""</span>
+<span class="s2">        Enable or disable case sensitivity."""</span><span class="p">)</span>
+
+    <span class="n">min_characters</span> <span class="o">=</span> <span class="n">param</span><span class="o">.</span><span class="n">Integer</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="s2">"""</span>
+<span class="s2">        The number of characters a user must type before</span>
+<span class="s2">        completions are presented."""</span><span class="p">)</span>
+
+    <span class="n">options</span> <span class="o">=</span> <span class="n">param</span><span class="o">.</span><span class="n">List</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="p">[],</span> <span class="n">doc</span><span class="o">=</span><span class="s2">"""</span>
+<span class="s2">        A list of completion strings. This will be used to guide the</span>
+<span class="s2">        user upon typing the beginning of a desired value."""</span><span class="p">)</span>
+
+    <span class="n">placeholder</span> <span class="o">=</span> <span class="n">param</span><span class="o">.</span><span class="n">String</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="s1">''</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="s2">"""</span>
+<span class="s2">        Placeholder for empty input field."""</span><span class="p">)</span>
+
+    <span class="n">restrict</span> <span class="o">=</span> <span class="n">param</span><span class="o">.</span><span class="n">Boolean</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="s2">"""</span>
+<span class="s2">        Set to False in order to allow users to enter text that is not</span>
+<span class="s2">        present in the list of completion strings."""</span><span class="p">)</span>
+
+    <span class="n">value</span> <span class="o">=</span> <span class="n">param</span><span class="o">.</span><span class="n">String</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="s1">''</span><span class="p">,</span> <span class="n">allow_None</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="s2">"""</span>
+<span class="s2">      Initial or entered text value updated when &lt;enter&gt; key is pressed."""</span><span class="p">)</span>
+
+    <span class="n">value_input</span> <span class="o">=</span> <span class="n">param</span><span class="o">.</span><span class="n">String</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="s1">''</span><span class="p">,</span> <span class="n">allow_None</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="s2">"""</span>
+<span class="s2">      Initial or entered text value updated on every key press."""</span><span class="p">)</span>
+
+    <span class="n">_widget_type</span> <span class="o">=</span> <span class="n">_BkAutocompleteInput</span>
+
+    <span class="n">_rename</span> <span class="o">=</span> <span class="n">_AutocompleteInput_rename</span></div>
+
+
+<span class="k">class</span> <span class="nc">_RadioGroupBase</span><span class="p">(</span><span class="n">SingleSelectBase</span><span class="p">):</span>
+
+    <span class="n">_supports_embed</span> <span class="o">=</span> <span class="kc">False</span>
+
+    <span class="n">_rename</span> <span class="o">=</span> <span class="p">{</span><span class="s1">'name'</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span> <span class="s1">'options'</span><span class="p">:</span> <span class="s1">'labels'</span><span class="p">,</span> <span class="s1">'value'</span><span class="p">:</span> <span class="s1">'active'</span><span class="p">}</span>
+
+    <span class="n">_source_transforms</span> <span class="o">=</span> <span class="p">{</span><span class="s1">'value'</span><span class="p">:</span> <span class="s2">"source.labels[value]"</span><span class="p">}</span>
+
+    <span class="n">_target_transforms</span> <span class="o">=</span> <span class="p">{</span><span class="s1">'value'</span><span class="p">:</span> <span class="s2">"target.labels.indexOf(value)"</span><span class="p">}</span>
+
+    <span class="n">__abstract</span> <span class="o">=</span> <span class="kc">True</span>
+
+    <span class="k">def</span> <span class="nf">_process_param_change</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">msg</span><span class="p">):</span>
+        <span class="n">msg</span> <span class="o">=</span> <span class="nb">super</span><span class="p">(</span><span class="n">SingleSelectBase</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">_process_param_change</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+        <span class="n">values</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">values</span>
+        <span class="k">if</span> <span class="s1">'active'</span> <span class="ow">in</span> <span class="n">msg</span><span class="p">:</span>
+            <span class="n">value</span> <span class="o">=</span> <span class="n">msg</span><span class="p">[</span><span class="s1">'active'</span><span class="p">]</span>
+            <span class="k">if</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">values</span><span class="p">:</span>
+                <span class="n">msg</span><span class="p">[</span><span class="s1">'active'</span><span class="p">]</span> <span class="o">=</span> <span class="n">indexOf</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="n">values</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">value</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="kc">None</span>
+                <span class="n">msg</span><span class="p">[</span><span class="s1">'active'</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+
+        <span class="k">if</span> <span class="s1">'labels'</span> <span class="ow">in</span> <span class="n">msg</span><span class="p">:</span>
+            <span class="n">msg</span><span class="p">[</span><span class="s1">'labels'</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">labels</span>
+            <span class="n">value</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">value</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">isIn</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="n">values</span><span class="p">):</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="k">return</span> <span class="n">msg</span>
+
+    <span class="k">def</span> <span class="nf">_process_property_change</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">msg</span><span class="p">):</span>
+        <span class="n">msg</span> <span class="o">=</span> <span class="nb">super</span><span class="p">(</span><span class="n">SingleSelectBase</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">_process_property_change</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+        <span class="k">if</span> <span class="s1">'value'</span> <span class="ow">in</span> <span class="n">msg</span><span class="p">:</span>
+            <span class="n">index</span> <span class="o">=</span> <span class="n">msg</span><span class="p">[</span><span class="s1">'value'</span><span class="p">]</span>
+            <span class="k">if</span> <span class="n">index</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="n">msg</span><span class="p">[</span><span class="s1">'value'</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">msg</span><span class="p">[</span><span class="s1">'value'</span><span class="p">]</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">values</span><span class="p">)[</span><span class="n">index</span><span class="p">]</span>
+        <span class="k">return</span> <span class="n">msg</span>
+
+    <span class="k">def</span> <span class="nf">_get_embed_state</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">root</span><span class="p">,</span> <span class="n">values</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">max_opts</span><span class="o">=</span><span class="mi">3</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">values</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">values</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">values</span>
+        <span class="k">elif</span> <span class="nb">any</span><span class="p">(</span><span class="n">v</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">values</span> <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">values</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">"Supplied embed states were not found in "</span>
+                             <span class="s2">"the </span><span class="si">%s</span><span class="s2"> widgets values list."</span> <span class="o">%</span>
+                             <span class="nb">type</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="vm">__name__</span><span class="p">)</span>
+        <span class="k">return</span> <span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_models</span><span class="p">[</span><span class="n">root</span><span class="o">.</span><span class="n">ref</span><span class="p">[</span><span class="s1">'id'</span><span class="p">]][</span><span class="mi">0</span><span class="p">],</span> <span class="n">values</span><span class="p">,</span>
+                <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="o">.</span><span class="n">active</span><span class="p">,</span> <span class="s1">'active'</span><span class="p">,</span> <span class="s1">'cb_obj.active'</span><span class="p">)</span>
+
+
+
+<div class="viewcode-block" id="RadioButtonGroup"><a class="viewcode-back" href="../../../api/panel.widgets.html#panel.widgets.select.RadioButtonGroup">[docs]</a><span class="k">class</span> <span class="nc">RadioButtonGroup</span><span class="p">(</span><span class="n">_RadioGroupBase</span><span class="p">,</span> <span class="n">_ButtonBase</span><span class="p">):</span>
+
+    <span class="n">_widget_type</span> <span class="o">=</span> <span class="n">_BkRadioButtonGroup</span>
+
+    <span class="n">_supports_embed</span> <span class="o">=</span> <span class="kc">True</span></div>
+
+
+
+<div class="viewcode-block" id="RadioBoxGroup"><a class="viewcode-back" href="../../../api/panel.widgets.html#panel.widgets.select.RadioBoxGroup">[docs]</a><span class="k">class</span> <span class="nc">RadioBoxGroup</span><span class="p">(</span><span class="n">_RadioGroupBase</span><span class="p">):</span>
+
+    <span class="n">inline</span> <span class="o">=</span> <span class="n">param</span><span class="o">.</span><span class="n">Boolean</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="s2">"""</span>
+<span class="s2">        Whether the items be arrange vertically (``False``) or</span>
+<span class="s2">        horizontally in-line (``True``)."""</span><span class="p">)</span>
+
+    <span class="n">_supports_embed</span> <span class="o">=</span> <span class="kc">True</span>
+
+    <span class="n">_widget_type</span> <span class="o">=</span> <span class="n">_BkRadioBoxGroup</span></div>
+
+
+
+<span class="k">class</span> <span class="nc">_CheckGroupBase</span><span class="p">(</span><span class="n">SingleSelectBase</span><span class="p">):</span>
+
+    <span class="n">value</span> <span class="o">=</span> <span class="n">param</span><span class="o">.</span><span class="n">List</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="p">[])</span>
+
+    <span class="n">_rename</span> <span class="o">=</span> <span class="p">{</span><span class="s1">'name'</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span> <span class="s1">'options'</span><span class="p">:</span> <span class="s1">'labels'</span><span class="p">,</span> <span class="s1">'value'</span><span class="p">:</span> <span class="s1">'active'</span><span class="p">}</span>
+
+    <span class="n">_source_transforms</span> <span class="o">=</span> <span class="p">{</span><span class="s1">'value'</span><span class="p">:</span> <span class="s2">"value.map((index) =&gt; source.labels[index])"</span><span class="p">}</span>
+
+    <span class="n">_target_transforms</span> <span class="o">=</span> <span class="p">{</span><span class="s1">'value'</span><span class="p">:</span> <span class="s2">"value.map((label) =&gt; target.labels.indexOf(label))"</span><span class="p">}</span>
+
+    <span class="n">_supports_embed</span> <span class="o">=</span> <span class="kc">False</span>
+
+    <span class="n">__abstract</span> <span class="o">=</span> <span class="kc">True</span>
+
+    <span class="k">def</span> <span class="nf">_process_param_change</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">msg</span><span class="p">):</span>
+        <span class="n">msg</span> <span class="o">=</span> <span class="nb">super</span><span class="p">(</span><span class="n">SingleSelectBase</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">_process_param_change</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+        <span class="n">values</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">values</span>
+        <span class="k">if</span> <span class="s1">'active'</span> <span class="ow">in</span> <span class="n">msg</span><span class="p">:</span>
+            <span class="n">msg</span><span class="p">[</span><span class="s1">'active'</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">indexOf</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="n">values</span><span class="p">)</span> <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">msg</span><span class="p">[</span><span class="s1">'active'</span><span class="p">]</span>
+                             <span class="k">if</span> <span class="n">isIn</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="n">values</span><span class="p">)]</span>
+        <span class="k">if</span> <span class="s1">'labels'</span> <span class="ow">in</span> <span class="n">msg</span><span class="p">:</span>
+            <span class="n">msg</span><span class="p">[</span><span class="s1">'labels'</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">labels</span>
+            <span class="k">if</span> <span class="nb">any</span><span class="p">(</span><span class="ow">not</span> <span class="n">isIn</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="n">values</span><span class="p">)</span> <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">value</span><span class="p">):</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="p">[</span><span class="n">v</span> <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">value</span> <span class="k">if</span> <span class="n">isIn</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="n">values</span><span class="p">)]</span>
+        <span class="n">msg</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">'title'</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">msg</span>
+
+    <span class="k">def</span> <span class="nf">_process_property_change</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">msg</span><span class="p">):</span>
+        <span class="n">msg</span> <span class="o">=</span> <span class="nb">super</span><span class="p">(</span><span class="n">SingleSelectBase</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">_process_property_change</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+        <span class="k">if</span> <span class="s1">'value'</span> <span class="ow">in</span> <span class="n">msg</span><span class="p">:</span>
+            <span class="n">values</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">values</span>
+            <span class="n">msg</span><span class="p">[</span><span class="s1">'value'</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">values</span><span class="p">[</span><span class="n">a</span><span class="p">]</span> <span class="k">for</span> <span class="n">a</span> <span class="ow">in</span> <span class="n">msg</span><span class="p">[</span><span class="s1">'value'</span><span class="p">]]</span>
+        <span class="k">return</span> <span class="n">msg</span>
+
+
+
+<div class="viewcode-block" id="CheckButtonGroup"><a class="viewcode-back" href="../../../api/panel.widgets.html#panel.widgets.select.CheckButtonGroup">[docs]</a><span class="k">class</span> <span class="nc">CheckButtonGroup</span><span class="p">(</span><span class="n">_CheckGroupBase</span><span class="p">,</span> <span class="n">_ButtonBase</span><span class="p">):</span>
+
+    <span class="n">_widget_type</span> <span class="o">=</span> <span class="n">_BkCheckboxButtonGroup</span></div>
+
+
+<div class="viewcode-block" id="CheckBoxGroup"><a class="viewcode-back" href="../../../api/panel.widgets.html#panel.widgets.select.CheckBoxGroup">[docs]</a><span class="k">class</span> <span class="nc">CheckBoxGroup</span><span class="p">(</span><span class="n">_CheckGroupBase</span><span class="p">):</span>
+
+    <span class="n">inline</span> <span class="o">=</span> <span class="n">param</span><span class="o">.</span><span class="n">Boolean</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="s2">"""</span>
+<span class="s2">        Whether the items be arrange vertically (``False``) or</span>
+<span class="s2">        horizontally in-line (``True``)."""</span><span class="p">)</span>
+
+    <span class="n">_widget_type</span> <span class="o">=</span> <span class="n">_BkCheckboxGroup</span></div>
+
+
+
+<div class="viewcode-block" id="ToggleGroup"><a class="viewcode-back" href="../../../api/panel.widgets.html#panel.widgets.select.ToggleGroup">[docs]</a><span class="k">class</span> <span class="nc">ToggleGroup</span><span class="p">(</span><span class="n">SingleSelectBase</span><span class="p">):</span>
+    <span class="sd">"""This class is a factory of ToggleGroup widgets.</span>
+
+<span class="sd">    A ToggleGroup is a group of widgets which can be switched 'on' or 'off'.</span>
+
+<span class="sd">    Two types of widgets are available through the widget_type argument :</span>
+<span class="sd">        * `'button'` (default)</span>
+<span class="sd">        * `'box'`</span>
+
+<span class="sd">    Two different behaviors are available through behavior argument:</span>
+<span class="sd">        * 'check' (default) : boolean</span>
+<span class="sd">           Any number of widgets can be selected. In this case value</span>
+<span class="sd">           is a 'list' of objects.</span>
+<span class="sd">        * 'radio' : boolean</span>
+<span class="sd">           One and only one widget is switched on. In this case value</span>
+<span class="sd">           is an 'object'.</span>
+<span class="sd">    """</span>
+
+    <span class="n">_widgets_type</span> <span class="o">=</span> <span class="p">[</span><span class="s1">'button'</span><span class="p">,</span> <span class="s1">'box'</span><span class="p">]</span>
+    <span class="n">_behaviors</span> <span class="o">=</span> <span class="p">[</span><span class="s1">'check'</span><span class="p">,</span> <span class="s1">'radio'</span><span class="p">]</span>
+
+    <span class="k">def</span> <span class="fm">__new__</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">widget_type</span><span class="o">=</span><span class="s1">'button'</span><span class="p">,</span> <span class="n">behavior</span><span class="o">=</span><span class="s1">'check'</span><span class="p">,</span> <span class="o">**</span><span class="n">params</span><span class="p">):</span>
+
+        <span class="k">if</span> <span class="n">widget_type</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">ToggleGroup</span><span class="o">.</span><span class="n">_widgets_type</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">'widget_type </span><span class="si">{}</span><span class="s1"> is not valid. Valid options are </span><span class="si">{}</span><span class="s1">'</span>
+                             <span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">widget_type</span><span class="p">,</span> <span class="n">ToggleGroup</span><span class="o">.</span><span class="n">_widgets_type</span><span class="p">))</span>
+        <span class="k">if</span> <span class="n">behavior</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">ToggleGroup</span><span class="o">.</span><span class="n">_behaviors</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">'behavior </span><span class="si">{}</span><span class="s1"> is not valid. Valid options are </span><span class="si">{}</span><span class="s1">'</span>
+                             <span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">widget_type</span><span class="p">,</span> <span class="n">ToggleGroup</span><span class="o">.</span><span class="n">_behaviors</span><span class="p">))</span>
+
+        <span class="k">if</span> <span class="n">behavior</span> <span class="o">==</span> <span class="s1">'check'</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">widget_type</span> <span class="o">==</span> <span class="s1">'button'</span><span class="p">:</span>
+                <span class="k">return</span> <span class="n">CheckButtonGroup</span><span class="p">(</span><span class="o">**</span><span class="n">params</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">return</span> <span class="n">CheckBoxGroup</span><span class="p">(</span><span class="o">**</span><span class="n">params</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">params</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'value'</span><span class="p">),</span> <span class="nb">list</span><span class="p">):</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">'Radio buttons require a single value, '</span>
+                                 <span class="s1">'found: </span><span class="si">%s</span><span class="s1">'</span> <span class="o">%</span> <span class="n">params</span><span class="p">[</span><span class="s1">'value'</span><span class="p">])</span>
+            <span class="k">if</span> <span class="n">widget_type</span> <span class="o">==</span> <span class="s1">'button'</span><span class="p">:</span>
+                <span class="k">return</span> <span class="n">RadioButtonGroup</span><span class="p">(</span><span class="o">**</span><span class="n">params</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">return</span> <span class="n">RadioBoxGroup</span><span class="p">(</span><span class="o">**</span><span class="n">params</span><span class="p">)</span></div>
+
+
+
+<div class="viewcode-block" id="CrossSelector"><a class="viewcode-back" href="../../../api/panel.widgets.html#panel.widgets.select.CrossSelector">[docs]</a><span class="k">class</span> <span class="nc">CrossSelector</span><span class="p">(</span><span class="n">CompositeWidget</span><span class="p">,</span> <span class="n">MultiSelect</span><span class="p">):</span>
+    <span class="sd">"""</span>
+<span class="sd">    A composite widget which allows selecting from a list of items</span>
+<span class="sd">    by moving them between two lists. Supports filtering values by</span>
+<span class="sd">    name to select them in bulk.</span>
+<span class="sd">    """</span>
+
+    <span class="n">width</span> <span class="o">=</span> <span class="n">param</span><span class="o">.</span><span class="n">Integer</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="mi">600</span><span class="p">,</span> <span class="n">allow_None</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="s2">"""</span>
+<span class="s2">        The number of options shown at once (note this is the</span>
+<span class="s2">        only way to control the height of this widget)"""</span><span class="p">)</span>
+
+    <span class="n">height</span> <span class="o">=</span> <span class="n">param</span><span class="o">.</span><span class="n">Integer</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="mi">200</span><span class="p">,</span> <span class="n">allow_None</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="s2">"""</span>
+<span class="s2">        The number of options shown at once (note this is the</span>
+<span class="s2">        only way to control the height of this widget)"""</span><span class="p">)</span>
+
+    <span class="n">filter_fn</span> <span class="o">=</span> <span class="n">param</span><span class="o">.</span><span class="n">Callable</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="n">re</span><span class="o">.</span><span class="n">search</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="s2">"""</span>
+<span class="s2">        The filter function applied when querying using the text</span>
+<span class="s2">        fields, defaults to re.search. Function is two arguments, the</span>
+<span class="s2">        query or pattern and the item label."""</span><span class="p">)</span>
+
+    <span class="n">size</span> <span class="o">=</span> <span class="n">param</span><span class="o">.</span><span class="n">Integer</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="s2">"""</span>
+<span class="s2">        The number of options shown at once (note this is the only way</span>
+<span class="s2">        to control the height of this widget)"""</span><span class="p">)</span>
+
+    <span class="n">definition_order</span> <span class="o">=</span> <span class="n">param</span><span class="o">.</span><span class="n">Integer</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="s2">"""</span>
+<span class="s2">       Whether to preserve definition order after filtering. Disable</span>
+<span class="s2">       to allow the order of selection to define the order of the</span>
+<span class="s2">       selected list."""</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">params</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="o">**</span><span class="n">params</span><span class="p">)</span>
+        <span class="c1"># Compute selected and unselected values</span>
+
+        <span class="n">labels</span><span class="p">,</span> <span class="n">values</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">labels</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">values</span>
+        <span class="n">selected</span> <span class="o">=</span> <span class="p">[</span><span class="n">labels</span><span class="p">[</span><span class="n">indexOf</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="n">values</span><span class="p">)]</span> <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">params</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'value'</span><span class="p">,</span> <span class="p">[])</span>
+                    <span class="k">if</span> <span class="n">isIn</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="n">values</span><span class="p">)]</span>
+        <span class="n">unselected</span> <span class="o">=</span> <span class="p">[</span><span class="n">k</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">labels</span> <span class="k">if</span> <span class="n">k</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">selected</span><span class="p">]</span>
+        <span class="n">layout</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">sizing_mode</span><span class="o">=</span><span class="s1">'stretch_both'</span><span class="p">,</span> <span class="n">background</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">background</span><span class="p">,</span> <span class="n">margin</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_lists</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="kc">False</span><span class="p">:</span> <span class="n">MultiSelect</span><span class="p">(</span><span class="n">options</span><span class="o">=</span><span class="n">unselected</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">size</span><span class="p">,</span> <span class="o">**</span><span class="n">layout</span><span class="p">),</span>
+            <span class="kc">True</span><span class="p">:</span> <span class="n">MultiSelect</span><span class="p">(</span><span class="n">options</span><span class="o">=</span><span class="n">selected</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">size</span><span class="p">,</span> <span class="o">**</span><span class="n">layout</span><span class="p">)</span>
+        <span class="p">}</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_lists</span><span class="p">[</span><span class="kc">False</span><span class="p">]</span><span class="o">.</span><span class="n">param</span><span class="o">.</span><span class="n">watch</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_update_selection</span><span class="p">,</span> <span class="s1">'value'</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_lists</span><span class="p">[</span><span class="kc">True</span><span class="p">]</span><span class="o">.</span><span class="n">param</span><span class="o">.</span><span class="n">watch</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_update_selection</span><span class="p">,</span> <span class="s1">'value'</span><span class="p">)</span>
+
+        <span class="c1"># Define buttons</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_buttons</span> <span class="o">=</span> <span class="p">{</span><span class="kc">False</span><span class="p">:</span> <span class="n">Button</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s1">'&lt;&lt;'</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">50</span><span class="p">),</span>
+                         <span class="kc">True</span><span class="p">:</span> <span class="n">Button</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s1">'&gt;&gt;'</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">50</span><span class="p">)}</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_buttons</span><span class="p">[</span><span class="kc">False</span><span class="p">]</span><span class="o">.</span><span class="n">param</span><span class="o">.</span><span class="n">watch</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_apply_selection</span><span class="p">,</span> <span class="s1">'clicks'</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_buttons</span><span class="p">[</span><span class="kc">True</span><span class="p">]</span><span class="o">.</span><span class="n">param</span><span class="o">.</span><span class="n">watch</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_apply_selection</span><span class="p">,</span> <span class="s1">'clicks'</span><span class="p">)</span>
+
+        <span class="c1"># Define search</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_search</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="kc">False</span><span class="p">:</span> <span class="n">TextInput</span><span class="p">(</span><span class="n">placeholder</span><span class="o">=</span><span class="s1">'Filter available options'</span><span class="p">,</span>
+                             <span class="n">margin</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="n">width_policy</span><span class="o">=</span><span class="s1">'max'</span><span class="p">),</span>
+            <span class="kc">True</span><span class="p">:</span> <span class="n">TextInput</span><span class="p">(</span><span class="n">placeholder</span><span class="o">=</span><span class="s1">'Filter selected options'</span><span class="p">,</span>
+                            <span class="n">margin</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="n">width_policy</span><span class="o">=</span><span class="s1">'max'</span><span class="p">)</span>
+        <span class="p">}</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_search</span><span class="p">[</span><span class="kc">False</span><span class="p">]</span><span class="o">.</span><span class="n">param</span><span class="o">.</span><span class="n">watch</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_filter_options</span><span class="p">,</span> <span class="s1">'value'</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_search</span><span class="p">[</span><span class="kc">True</span><span class="p">]</span><span class="o">.</span><span class="n">param</span><span class="o">.</span><span class="n">watch</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_filter_options</span><span class="p">,</span> <span class="s1">'value'</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_placeholder</span> <span class="o">=</span> <span class="n">TextAreaInput</span><span class="p">(</span>
+            <span class="n">placeholder</span><span class="o">=</span><span class="p">(</span><span class="s2">"To select an item highlight it on the left "</span>
+                         <span class="s2">"and use the arrow button to move it to the right."</span><span class="p">),</span>
+            <span class="n">disabled</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="o">**</span><span class="n">layout</span>
+        <span class="p">)</span>
+        <span class="n">right</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_lists</span><span class="p">[</span><span class="kc">True</span><span class="p">]</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">value</span> <span class="k">else</span> <span class="bp">self</span><span class="o">.</span><span class="n">_placeholder</span>
+
+        <span class="c1"># Define Layout</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_unselected</span> <span class="o">=</span> <span class="n">Column</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_search</span><span class="p">[</span><span class="kc">False</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">_lists</span><span class="p">[</span><span class="kc">False</span><span class="p">],</span> <span class="o">**</span><span class="n">layout</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_selected</span> <span class="o">=</span> <span class="n">Column</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_search</span><span class="p">[</span><span class="kc">True</span><span class="p">],</span> <span class="n">right</span><span class="p">,</span> <span class="o">**</span><span class="n">layout</span><span class="p">)</span>
+        <span class="n">buttons</span> <span class="o">=</span> <span class="n">Column</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_buttons</span><span class="p">[</span><span class="kc">True</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">_buttons</span><span class="p">[</span><span class="kc">False</span><span class="p">],</span> <span class="n">margin</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_composite</span><span class="p">[:]</span> <span class="o">=</span> <span class="p">[</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_unselected</span><span class="p">,</span> <span class="n">Column</span><span class="p">(</span><span class="n">VSpacer</span><span class="p">(),</span> <span class="n">buttons</span><span class="p">,</span> <span class="n">VSpacer</span><span class="p">()),</span> <span class="bp">self</span><span class="o">.</span><span class="n">_selected</span>
+        <span class="p">]</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_selections</span> <span class="o">=</span> <span class="p">{</span><span class="kc">False</span><span class="p">:</span> <span class="p">[],</span> <span class="kc">True</span><span class="p">:</span> <span class="p">[]}</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_query</span> <span class="o">=</span> <span class="p">{</span><span class="kc">False</span><span class="p">:</span> <span class="s1">''</span><span class="p">,</span> <span class="kc">True</span><span class="p">:</span> <span class="s1">''</span><span class="p">}</span>
+
+    <span class="nd">@param</span><span class="o">.</span><span class="n">depends</span><span class="p">(</span><span class="s1">'size'</span><span class="p">,</span> <span class="n">watch</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">_update_size</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_lists</span><span class="p">[</span><span class="kc">False</span><span class="p">]</span><span class="o">.</span><span class="n">size</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">size</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_lists</span><span class="p">[</span><span class="kc">True</span><span class="p">]</span><span class="o">.</span><span class="n">size</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">size</span>
+
+    <span class="nd">@param</span><span class="o">.</span><span class="n">depends</span><span class="p">(</span><span class="s1">'disabled'</span><span class="p">,</span> <span class="n">watch</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">_update_disabled</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_buttons</span><span class="p">[</span><span class="kc">False</span><span class="p">]</span><span class="o">.</span><span class="n">disabled</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">disabled</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_buttons</span><span class="p">[</span><span class="kc">True</span><span class="p">]</span><span class="o">.</span><span class="n">disabled</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">disabled</span>
+
+    <span class="nd">@param</span><span class="o">.</span><span class="n">depends</span><span class="p">(</span><span class="s1">'value'</span><span class="p">,</span> <span class="n">watch</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">_update_value</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">labels</span><span class="p">,</span> <span class="n">values</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">labels</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">values</span>
+        <span class="n">selected</span> <span class="o">=</span> <span class="p">[</span><span class="n">labels</span><span class="p">[</span><span class="n">indexOf</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="n">values</span><span class="p">)]</span> <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">value</span>
+                    <span class="k">if</span> <span class="n">isIn</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="n">values</span><span class="p">)]</span>
+        <span class="n">unselected</span> <span class="o">=</span> <span class="p">[</span><span class="n">k</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">labels</span> <span class="k">if</span> <span class="n">k</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">selected</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_lists</span><span class="p">[</span><span class="kc">True</span><span class="p">]</span><span class="o">.</span><span class="n">options</span> <span class="o">=</span> <span class="n">selected</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_lists</span><span class="p">[</span><span class="kc">True</span><span class="p">]</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_lists</span><span class="p">[</span><span class="kc">False</span><span class="p">]</span><span class="o">.</span><span class="n">options</span> <span class="o">=</span> <span class="n">unselected</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_lists</span><span class="p">[</span><span class="kc">False</span><span class="p">]</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_lists</span><span class="p">[</span><span class="kc">True</span><span class="p">]</span><span class="o">.</span><span class="n">options</span><span class="p">)</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">_selected</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_lists</span><span class="p">[</span><span class="kc">True</span><span class="p">]:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_selected</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_lists</span><span class="p">[</span><span class="kc">True</span><span class="p">]</span>
+        <span class="k">elif</span> <span class="ow">not</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_lists</span><span class="p">[</span><span class="kc">True</span><span class="p">]</span><span class="o">.</span><span class="n">options</span><span class="p">)</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">_selected</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_placeholder</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_selected</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_placeholder</span>
+
+    <span class="nd">@param</span><span class="o">.</span><span class="n">depends</span><span class="p">(</span><span class="s1">'options'</span><span class="p">,</span> <span class="n">watch</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">_update_options</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">"""</span>
+<span class="sd">        Updates the options of each of the sublists after the options</span>
+<span class="sd">        for the whole widget are updated.</span>
+<span class="sd">        """</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_selections</span><span class="p">[</span><span class="kc">False</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_selections</span><span class="p">[</span><span class="kc">True</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_update_value</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="nf">_apply_filters</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_apply_query</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_apply_query</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">_filter_options</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">):</span>
+        <span class="sd">"""</span>
+<span class="sd">        Filters unselected options based on a text query event.</span>
+<span class="sd">        """</span>
+        <span class="n">selected</span> <span class="o">=</span> <span class="n">event</span><span class="o">.</span><span class="n">obj</span> <span class="ow">is</span> <span class="bp">self</span><span class="o">.</span><span class="n">_search</span><span class="p">[</span><span class="kc">True</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_query</span><span class="p">[</span><span class="n">selected</span><span class="p">]</span> <span class="o">=</span> <span class="n">event</span><span class="o">.</span><span class="n">new</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_apply_query</span><span class="p">(</span><span class="n">selected</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">_apply_query</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">selected</span><span class="p">):</span>
+        <span class="n">query</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_query</span><span class="p">[</span><span class="n">selected</span><span class="p">]</span>
+        <span class="n">other</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_lists</span><span class="p">[</span><span class="ow">not</span> <span class="n">selected</span><span class="p">]</span><span class="o">.</span><span class="n">labels</span>
+        <span class="n">labels</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">labels</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">definition_order</span><span class="p">:</span>
+            <span class="n">options</span> <span class="o">=</span> <span class="p">[</span><span class="n">k</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">labels</span> <span class="k">if</span> <span class="n">k</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">other</span><span class="p">]</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">options</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_lists</span><span class="p">[</span><span class="n">selected</span><span class="p">]</span><span class="o">.</span><span class="n">values</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">query</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_lists</span><span class="p">[</span><span class="n">selected</span><span class="p">]</span><span class="o">.</span><span class="n">options</span> <span class="o">=</span> <span class="n">options</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_lists</span><span class="p">[</span><span class="n">selected</span><span class="p">]</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">matches</span> <span class="o">=</span> <span class="p">[</span><span class="n">o</span> <span class="k">for</span> <span class="n">o</span> <span class="ow">in</span> <span class="n">options</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">filter_fn</span><span class="p">(</span><span class="n">query</span><span class="p">,</span> <span class="n">o</span><span class="p">)]</span>
+            <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
+                <span class="n">matches</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_lists</span><span class="p">[</span><span class="n">selected</span><span class="p">]</span><span class="o">.</span><span class="n">options</span> <span class="o">=</span> <span class="n">options</span> <span class="k">if</span> <span class="n">options</span> <span class="k">else</span> <span class="p">[]</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_lists</span><span class="p">[</span><span class="n">selected</span><span class="p">]</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="p">[</span><span class="n">m</span> <span class="k">for</span> <span class="n">m</span> <span class="ow">in</span> <span class="n">matches</span><span class="p">]</span>
+
+    <span class="k">def</span> <span class="nf">_update_selection</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">):</span>
+        <span class="sd">"""</span>
+<span class="sd">        Updates the current selection in each list.</span>
+<span class="sd">        """</span>
+        <span class="n">selected</span> <span class="o">=</span> <span class="n">event</span><span class="o">.</span><span class="n">obj</span> <span class="ow">is</span> <span class="bp">self</span><span class="o">.</span><span class="n">_lists</span><span class="p">[</span><span class="kc">True</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_selections</span><span class="p">[</span><span class="n">selected</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">v</span> <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">event</span><span class="o">.</span><span class="n">new</span> <span class="k">if</span> <span class="n">v</span> <span class="o">!=</span> <span class="s1">''</span><span class="p">]</span>
+
+    <span class="k">def</span> <span class="nf">_apply_selection</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">):</span>
+        <span class="sd">"""</span>
+<span class="sd">        Applies the current selection depending on which button was</span>
+<span class="sd">        pressed.</span>
+<span class="sd">        """</span>
+        <span class="n">selected</span> <span class="o">=</span> <span class="n">event</span><span class="o">.</span><span class="n">obj</span> <span class="ow">is</span> <span class="bp">self</span><span class="o">.</span><span class="n">_buttons</span><span class="p">[</span><span class="kc">True</span><span class="p">]</span>
+
+        <span class="n">new</span> <span class="o">=</span> <span class="n">OrderedDict</span><span class="p">([(</span><span class="n">k</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_items</span><span class="p">[</span><span class="n">k</span><span class="p">])</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_selections</span><span class="p">[</span><span class="ow">not</span> <span class="n">selected</span><span class="p">]])</span>
+        <span class="n">old</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_lists</span><span class="p">[</span><span class="n">selected</span><span class="p">]</span><span class="o">.</span><span class="n">options</span>
+        <span class="n">other</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_lists</span><span class="p">[</span><span class="ow">not</span> <span class="n">selected</span><span class="p">]</span><span class="o">.</span><span class="n">options</span>
+
+        <span class="n">merged</span> <span class="o">=</span> <span class="n">OrderedDict</span><span class="p">([(</span><span class="n">k</span><span class="p">,</span> <span class="n">k</span><span class="p">)</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">list</span><span class="p">(</span><span class="n">old</span><span class="p">)</span><span class="o">+</span><span class="nb">list</span><span class="p">(</span><span class="n">new</span><span class="p">)])</span>
+        <span class="n">leftovers</span> <span class="o">=</span> <span class="n">OrderedDict</span><span class="p">([(</span><span class="n">k</span><span class="p">,</span> <span class="n">k</span><span class="p">)</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">other</span> <span class="k">if</span> <span class="n">k</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">new</span><span class="p">])</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_lists</span><span class="p">[</span><span class="n">selected</span><span class="p">]</span><span class="o">.</span><span class="n">options</span> <span class="o">=</span> <span class="n">merged</span> <span class="k">if</span> <span class="n">merged</span> <span class="k">else</span> <span class="p">{}</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_lists</span><span class="p">[</span><span class="ow">not</span> <span class="n">selected</span><span class="p">]</span><span class="o">.</span><span class="n">options</span> <span class="o">=</span> <span class="n">leftovers</span> <span class="k">if</span> <span class="n">leftovers</span> <span class="k">else</span> <span class="p">{}</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_lists</span><span class="p">[</span><span class="kc">True</span><span class="p">]</span><span class="o">.</span><span class="n">options</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_selected</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_lists</span><span class="p">[</span><span class="kc">True</span><span class="p">]</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_selected</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_placeholder</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">_items</span><span class="p">[</span><span class="n">o</span><span class="p">]</span> <span class="k">for</span> <span class="n">o</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_lists</span><span class="p">[</span><span class="kc">True</span><span class="p">]</span><span class="o">.</span><span class="n">options</span> <span class="k">if</span> <span class="n">o</span> <span class="o">!=</span> <span class="s1">''</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_apply_filters</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="nf">_get_model</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">doc</span><span class="p">,</span> <span class="n">root</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">parent</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">comm</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_composite</span><span class="o">.</span><span class="n">_get_model</span><span class="p">(</span><span class="n">doc</span><span class="p">,</span> <span class="n">root</span><span class="p">,</span> <span class="n">parent</span><span class="p">,</span> <span class="n">comm</span><span class="p">)</span></div>
+</pre></div>
+</div>
+</div>
+<!-- END MAIN BODY OF DOCS ––––––––––––– -->
+<!-- Google Analytics -->
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async="" src="https://www.googletagmanager.com/gtag/js?id=UA-154795830-2"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-154795830-2', { 'anonymize_ip': true });
+</script>
+<!-- MathJax Config -->
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}
+});
+</script>
+<!-- End Document
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+</body>
+</html>

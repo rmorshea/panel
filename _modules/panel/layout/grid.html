@@ -1,0 +1,602 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<!-- Basic Page Needs
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+<meta charset="utf-8"/>
+<title>panel.layout.grid — Panel 0.11.1+g238199f-dirty documentation</title>
+<meta content="High-level dashboarding for python visualization libraries" name="description"/>
+<meta content="Panel contributors" name="author"/>
+<!-- Mobile Specific Metas
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<!-- FONT
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+<script src="https://ajax.googleapis.com/ajax/libs/webfont/1.6.16/webfont.js"></script>
+<script>
+    WebFont.load({
+      google: {
+        families: ['Source Sans Pro']
+      }
+    });
+  </script>
+<!-- CSS
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+<link href="../../../_static/css/main.css" rel="stylesheet"/>
+<link href="../../../_static/nbsite.css" rel="stylesheet"/>
+<link href="../../../_static/site.css" rel="stylesheet"/>
+<!-- Scripts
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script async="" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML" type="text/javascript">
+</script>
+<script src="../../../_static/js/main.js"></script>
+<!-- Favicon
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+<link href="../../../_static/favicon.ico" rel="icon" type="image/png"/>
+<!-- Canonical
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+<link href="https://panel.holoviz.org/_modules/panel/layout/grid.html" rel="canonical">
+</link></head>
+<body class="">
+<header class="navigation">
+<div class="wrapper">
+<a class="logo" href="../../../index.html">
+<img alt="Logo" src="../../../_static/logo_horizontal.png"/>
+</a>
+<a class="navigation-menu-button" href="javascript:void(0)" id="js-mobile-menu">Menu</a>
+<nav>
+<ul class="navigation-menu show" id="js-navigation-menu">
+<li class="nav-link doc-head"><a href="//discourse.holoviz.org">Discourse</a></li>
+<li class="nav-link doc-head"><a href="//twitter.com/Panel_org">Twitter</a></li>
+<li class="nav-link doc-head"><a href="//github.com/pyviz/panel">Github</a></li>
+<li class="nav-link">
+<div style="display:inline-block;vertical-align: middle;">
+<div class="search-bar">
+<form action="../../../search.html" method="get" role="search">
+<input name="q" placeholder="Search" type="search"/>
+<button type="submit">
+<img alt="Search Icon" src="https://raw.githubusercontent.com/thoughtbot/refills/master/source/images/search-icon-black.png"/>
+</button>
+</form>
+</div>
+</div>
+</li>
+</ul>
+</nav>
+</div>
+</header>
+<div class="second-nav">
+<nav>
+<ul class="navigation-menu show">
+<li class="nav-link doc-head"><a href="../../../getting_started/index.html">Getting started</a></li>
+<li class="nav-link doc-head"><a href="../../../user_guide/index.html">User Guide</a></li>
+<li class="nav-link doc-head"><a href="../../../gallery/index.html">Gallery</a></li>
+<li class="nav-link doc-head"><a href="../../../reference/index.html">Reference Gallery</a></li>
+<li class="nav-link doc-head"><a href="../../../developer_guide/index.html">Developer Guide</a></li>
+<li class="nav-link doc-head"><a href="../../../releases.html">Releases</a></li>
+<li class="nav-link doc-head"><a href="../../../api/index.html">API</a></li>
+<li class="nav-link doc-head"><a href="../../../FAQ.html">FAQ</a></li>
+<li class="nav-link doc-head"><a href="../../../about.html">About</a></li>
+</ul>
+</nav>
+</div>
+<!-- MAIN BODY OF DOCS –––––––––––––––––– -->
+<div class="docs section">
+<div id="hacketyhackhack"> <!-- style="width:20%;margin-right: 100px;"> --> <!--style="display: none;"> style="display:none;"> -->
+<div class="toc" style="width:15%; margin-right:20px;">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../index.html">Home</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../getting_started/index.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../user_guide/index.html">User Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../gallery/index.html">Gallery</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../reference/index.html">Reference Gallery</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../developer_guide/index.html">Developer Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/index.html">API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../Comparisons.html">Comparisons</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../releases.html">Releases</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../Roadmap.html">Road Map</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../FAQ.html">FAQ</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://github.com/pyviz/panel">Github source</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../about.html">About</a></li>
+</ul>
+</div>
+</div>
+<div class="content"> <!-- style="max-width:80%;margin-left:auto;margin-right: auto;">-->
+<h1>Source code for panel.layout.grid</h1><div class="highlight"><pre>
+<span></span><span class="sd">"""</span>
+<span class="sd">Layout components to lay out objects in a grid.</span>
+<span class="sd">"""</span>
+<span class="kn">import</span> <span class="nn">math</span>
+
+<span class="kn">from</span> <span class="nn">collections</span> <span class="kn">import</span> <span class="n">OrderedDict</span><span class="p">,</span> <span class="n">namedtuple</span>
+<span class="kn">from</span> <span class="nn">functools</span> <span class="kn">import</span> <span class="n">partial</span>
+
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">param</span>
+
+<span class="kn">from</span> <span class="nn">bokeh.models</span> <span class="kn">import</span> <span class="n">Box</span> <span class="k">as</span> <span class="n">BkBox</span><span class="p">,</span> <span class="n">GridBox</span> <span class="k">as</span> <span class="n">BkGridBox</span>
+
+<span class="kn">from</span> <span class="nn">..io.model</span> <span class="kn">import</span> <span class="n">hold</span>
+<span class="kn">from</span> <span class="nn">.base</span> <span class="kn">import</span> <span class="n">_col</span><span class="p">,</span> <span class="n">_row</span><span class="p">,</span> <span class="n">ListPanel</span><span class="p">,</span> <span class="n">Panel</span>
+
+
+
+<div class="viewcode-block" id="GridBox"><a class="viewcode-back" href="../../../api/panel.layout.html#panel.layout.grid.GridBox">[docs]</a><span class="k">class</span> <span class="nc">GridBox</span><span class="p">(</span><span class="n">ListPanel</span><span class="p">):</span>
+    <span class="sd">"""</span>
+<span class="sd">    List-like Grid which wraps depending on the specified number of</span>
+<span class="sd">    rows or columns.</span>
+<span class="sd">    """</span>
+
+    <span class="n">nrows</span> <span class="o">=</span> <span class="n">param</span><span class="o">.</span><span class="n">Integer</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">bounds</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="kc">None</span><span class="p">),</span> <span class="n">doc</span><span class="o">=</span><span class="s2">"""</span>
+<span class="s2">      Number of rows to reflow the layout into."""</span><span class="p">)</span>
+
+    <span class="n">ncols</span> <span class="o">=</span> <span class="n">param</span><span class="o">.</span><span class="n">Integer</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">bounds</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="kc">None</span><span class="p">),</span>  <span class="n">doc</span><span class="o">=</span><span class="s2">"""</span>
+<span class="s2">      Number of columns to reflow the layout into."""</span><span class="p">)</span>
+
+    <span class="n">_bokeh_model</span> <span class="o">=</span> <span class="n">BkGridBox</span>
+
+    <span class="n">_rename</span> <span class="o">=</span> <span class="p">{</span><span class="s1">'objects'</span><span class="p">:</span> <span class="s1">'children'</span><span class="p">,</span> <span class="s1">'nrows'</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span> <span class="s1">'ncols'</span><span class="p">:</span> <span class="kc">None</span><span class="p">}</span>
+
+    <span class="n">_source_transforms</span> <span class="o">=</span> <span class="p">{</span><span class="s1">'scroll'</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span> <span class="s1">'objects'</span><span class="p">:</span> <span class="kc">None</span><span class="p">}</span>
+
+    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">_flatten_grid</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">layout</span><span class="p">,</span> <span class="n">nrows</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">ncols</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="n">Item</span> <span class="o">=</span> <span class="n">namedtuple</span><span class="p">(</span><span class="s2">"Item"</span><span class="p">,</span> <span class="p">[</span><span class="s2">"layout"</span><span class="p">,</span> <span class="s2">"r0"</span><span class="p">,</span> <span class="s2">"c0"</span><span class="p">,</span> <span class="s2">"r1"</span><span class="p">,</span> <span class="s2">"c1"</span><span class="p">])</span>
+        <span class="n">Grid</span> <span class="o">=</span> <span class="n">namedtuple</span><span class="p">(</span><span class="s2">"Grid"</span><span class="p">,</span> <span class="p">[</span><span class="s2">"nrows"</span><span class="p">,</span> <span class="s2">"ncols"</span><span class="p">,</span> <span class="s2">"items"</span><span class="p">])</span>
+
+        <span class="k">def</span> <span class="nf">gcd</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">):</span>
+            <span class="n">a</span><span class="p">,</span> <span class="n">b</span> <span class="o">=</span> <span class="nb">abs</span><span class="p">(</span><span class="n">a</span><span class="p">),</span> <span class="nb">abs</span><span class="p">(</span><span class="n">b</span><span class="p">)</span>
+            <span class="k">while</span> <span class="n">b</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="n">a</span><span class="p">,</span> <span class="n">b</span> <span class="o">=</span> <span class="n">b</span><span class="p">,</span> <span class="n">a</span> <span class="o">%</span> <span class="n">b</span>
+            <span class="k">return</span> <span class="n">a</span>
+
+        <span class="k">def</span> <span class="nf">lcm</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="o">*</span><span class="n">rest</span><span class="p">):</span>
+            <span class="k">for</span> <span class="n">b</span> <span class="ow">in</span> <span class="n">rest</span><span class="p">:</span>
+                <span class="n">a</span> <span class="o">=</span> <span class="p">(</span><span class="n">a</span><span class="o">*</span><span class="n">b</span><span class="p">)</span> <span class="o">//</span> <span class="n">gcd</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">a</span>
+
+        <span class="n">nonempty</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">child</span><span class="p">:</span> <span class="n">child</span><span class="o">.</span><span class="n">nrows</span> <span class="o">!=</span> <span class="mi">0</span> <span class="ow">and</span> <span class="n">child</span><span class="o">.</span><span class="n">ncols</span> <span class="o">!=</span> <span class="mi">0</span>
+
+        <span class="k">def</span> <span class="nf">_flatten</span><span class="p">(</span><span class="n">layout</span><span class="p">,</span> <span class="n">nrows</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">ncols</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+            <span class="n">_flatten_</span> <span class="o">=</span> <span class="n">partial</span><span class="p">(</span><span class="n">_flatten</span><span class="p">,</span> <span class="n">nrows</span><span class="o">=</span><span class="n">nrows</span><span class="p">,</span> <span class="n">ncols</span><span class="o">=</span><span class="n">ncols</span><span class="p">)</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">layout</span><span class="p">,</span> <span class="n">_row</span><span class="p">):</span>
+                <span class="n">children</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">filter</span><span class="p">(</span><span class="n">nonempty</span><span class="p">,</span> <span class="nb">map</span><span class="p">(</span><span class="n">_flatten_</span><span class="p">,</span> <span class="n">layout</span><span class="o">.</span><span class="n">children</span><span class="p">)))</span>
+                <span class="k">if</span> <span class="ow">not</span> <span class="n">children</span><span class="p">:</span>
+                    <span class="k">return</span> <span class="n">Grid</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="p">[])</span>
+
+                <span class="n">nrows</span> <span class="o">=</span> <span class="n">lcm</span><span class="p">(</span><span class="o">*</span><span class="p">[</span> <span class="n">child</span><span class="o">.</span><span class="n">nrows</span> <span class="k">for</span> <span class="n">child</span> <span class="ow">in</span> <span class="n">children</span> <span class="p">])</span>
+                <span class="k">if</span> <span class="ow">not</span> <span class="n">ncols</span><span class="p">:</span> <span class="c1"># This differs from bokeh.layout.grid</span>
+                    <span class="n">ncols</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">([</span> <span class="n">child</span><span class="o">.</span><span class="n">ncols</span> <span class="k">for</span> <span class="n">child</span> <span class="ow">in</span> <span class="n">children</span> <span class="p">])</span>
+
+                <span class="n">items</span> <span class="o">=</span> <span class="p">[]</span>
+                <span class="n">offset</span> <span class="o">=</span> <span class="mi">0</span>
+                <span class="k">for</span> <span class="n">child</span> <span class="ow">in</span> <span class="n">children</span><span class="p">:</span>
+                    <span class="n">factor</span> <span class="o">=</span> <span class="n">nrows</span><span class="o">//</span><span class="n">child</span><span class="o">.</span><span class="n">nrows</span>
+
+                    <span class="k">for</span> <span class="p">(</span><span class="n">layout</span><span class="p">,</span> <span class="n">r0</span><span class="p">,</span> <span class="n">c0</span><span class="p">,</span> <span class="n">r1</span><span class="p">,</span> <span class="n">c1</span><span class="p">)</span> <span class="ow">in</span> <span class="n">child</span><span class="o">.</span><span class="n">items</span><span class="p">:</span>
+                        <span class="n">items</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">layout</span><span class="p">,</span> <span class="n">factor</span><span class="o">*</span><span class="n">r0</span><span class="p">,</span> <span class="n">c0</span> <span class="o">+</span> <span class="n">offset</span><span class="p">,</span> <span class="n">factor</span><span class="o">*</span><span class="n">r1</span><span class="p">,</span> <span class="n">c1</span> <span class="o">+</span> <span class="n">offset</span><span class="p">))</span>
+
+                    <span class="n">offset</span> <span class="o">+=</span> <span class="n">child</span><span class="o">.</span><span class="n">ncols</span>
+
+                <span class="k">return</span> <span class="n">Grid</span><span class="p">(</span><span class="n">nrows</span><span class="p">,</span> <span class="n">ncols</span><span class="p">,</span> <span class="n">items</span><span class="p">)</span>
+            <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">layout</span><span class="p">,</span> <span class="n">_col</span><span class="p">):</span>
+                <span class="n">children</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">filter</span><span class="p">(</span><span class="n">nonempty</span><span class="p">,</span> <span class="nb">map</span><span class="p">(</span><span class="n">_flatten_</span><span class="p">,</span> <span class="n">layout</span><span class="o">.</span><span class="n">children</span><span class="p">)))</span>
+                <span class="k">if</span> <span class="ow">not</span> <span class="n">children</span><span class="p">:</span>
+                    <span class="k">return</span> <span class="n">Grid</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="p">[])</span>
+
+                <span class="k">if</span> <span class="ow">not</span> <span class="n">nrows</span><span class="p">:</span> <span class="c1"># This differs from bokeh.layout.grid</span>
+                    <span class="n">nrows</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">([</span> <span class="n">child</span><span class="o">.</span><span class="n">nrows</span> <span class="k">for</span> <span class="n">child</span> <span class="ow">in</span> <span class="n">children</span> <span class="p">])</span>
+                <span class="n">ncols</span> <span class="o">=</span> <span class="n">lcm</span><span class="p">(</span><span class="o">*</span><span class="p">[</span> <span class="n">child</span><span class="o">.</span><span class="n">ncols</span> <span class="k">for</span> <span class="n">child</span> <span class="ow">in</span> <span class="n">children</span> <span class="p">])</span>
+
+                <span class="n">items</span> <span class="o">=</span> <span class="p">[]</span>
+                <span class="n">offset</span> <span class="o">=</span> <span class="mi">0</span>
+                <span class="k">for</span> <span class="n">child</span> <span class="ow">in</span> <span class="n">children</span><span class="p">:</span>
+                    <span class="n">factor</span> <span class="o">=</span> <span class="n">ncols</span><span class="o">//</span><span class="n">child</span><span class="o">.</span><span class="n">ncols</span>
+
+                    <span class="k">for</span> <span class="p">(</span><span class="n">layout</span><span class="p">,</span> <span class="n">r0</span><span class="p">,</span> <span class="n">c0</span><span class="p">,</span> <span class="n">r1</span><span class="p">,</span> <span class="n">c1</span><span class="p">)</span> <span class="ow">in</span> <span class="n">child</span><span class="o">.</span><span class="n">items</span><span class="p">:</span>
+                        <span class="n">items</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">layout</span><span class="p">,</span> <span class="n">r0</span> <span class="o">+</span> <span class="n">offset</span><span class="p">,</span> <span class="n">factor</span><span class="o">*</span><span class="n">c0</span><span class="p">,</span> <span class="n">r1</span> <span class="o">+</span> <span class="n">offset</span><span class="p">,</span> <span class="n">factor</span><span class="o">*</span><span class="n">c1</span><span class="p">))</span>
+
+                    <span class="n">offset</span> <span class="o">+=</span> <span class="n">child</span><span class="o">.</span><span class="n">nrows</span>
+
+                <span class="k">return</span> <span class="n">Grid</span><span class="p">(</span><span class="n">nrows</span><span class="p">,</span> <span class="n">ncols</span><span class="p">,</span> <span class="n">items</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">return</span> <span class="n">Grid</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="p">[</span><span class="n">Item</span><span class="p">(</span><span class="n">layout</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)])</span>
+
+        <span class="n">grid</span> <span class="o">=</span> <span class="n">_flatten</span><span class="p">(</span><span class="n">layout</span><span class="p">,</span> <span class="n">nrows</span><span class="p">,</span> <span class="n">ncols</span><span class="p">)</span>
+
+        <span class="n">children</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="p">(</span><span class="n">layout</span><span class="p">,</span> <span class="n">r0</span><span class="p">,</span> <span class="n">c0</span><span class="p">,</span> <span class="n">r1</span><span class="p">,</span> <span class="n">c1</span><span class="p">)</span> <span class="ow">in</span> <span class="n">grid</span><span class="o">.</span><span class="n">items</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">layout</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="n">children</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">layout</span><span class="p">,</span> <span class="n">r0</span><span class="p">,</span> <span class="n">c0</span><span class="p">,</span> <span class="n">r1</span> <span class="o">-</span> <span class="n">r0</span><span class="p">,</span> <span class="n">c1</span> <span class="o">-</span> <span class="n">c0</span><span class="p">))</span>
+        <span class="k">return</span> <span class="n">children</span>
+
+    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">_get_children</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">children</span><span class="p">,</span> <span class="n">nrows</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">ncols</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="sd">"""</span>
+<span class="sd">        This is a copy of parts of the bokeh.layouts.grid implementation</span>
+<span class="sd">        to avoid distributing non-filled columns.</span>
+<span class="sd">        """</span>
+        <span class="k">if</span> <span class="n">nrows</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">or</span> <span class="n">ncols</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">N</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">children</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">ncols</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="n">ncols</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">math</span><span class="o">.</span><span class="n">ceil</span><span class="p">(</span><span class="n">N</span><span class="o">/</span><span class="n">nrows</span><span class="p">))</span>
+            <span class="n">layout</span> <span class="o">=</span> <span class="n">_col</span><span class="p">([</span> <span class="n">_row</span><span class="p">(</span><span class="n">children</span><span class="p">[</span><span class="n">i</span><span class="p">:</span><span class="n">i</span><span class="o">+</span><span class="n">ncols</span><span class="p">])</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">N</span><span class="p">,</span> <span class="n">ncols</span><span class="p">)</span> <span class="p">])</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">def</span> <span class="nf">traverse</span><span class="p">(</span><span class="n">children</span><span class="p">,</span> <span class="n">level</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
+                <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">children</span><span class="p">,</span> <span class="nb">list</span><span class="p">):</span>
+                    <span class="n">container</span> <span class="o">=</span> <span class="n">_col</span> <span class="k">if</span> <span class="n">level</span> <span class="o">%</span> <span class="mi">2</span> <span class="o">==</span> <span class="mi">0</span> <span class="k">else</span> <span class="n">_row</span>
+                    <span class="k">return</span> <span class="n">container</span><span class="p">([</span> <span class="n">traverse</span><span class="p">(</span><span class="n">child</span><span class="p">,</span> <span class="n">level</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span> <span class="k">for</span> <span class="n">child</span> <span class="ow">in</span> <span class="n">children</span> <span class="p">])</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="k">return</span> <span class="n">children</span>
+            <span class="n">layout</span> <span class="o">=</span> <span class="n">traverse</span><span class="p">(</span><span class="n">children</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">cls</span><span class="o">.</span><span class="n">_flatten_grid</span><span class="p">(</span><span class="n">layout</span><span class="p">,</span> <span class="n">nrows</span><span class="p">,</span> <span class="n">ncols</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">_get_model</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">doc</span><span class="p">,</span> <span class="n">root</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">parent</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">comm</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="n">model</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_bokeh_model</span><span class="p">()</span>
+        <span class="k">if</span> <span class="n">root</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">root</span> <span class="o">=</span> <span class="n">model</span>
+        <span class="n">objects</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_objects</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="p">[],</span> <span class="n">doc</span><span class="p">,</span> <span class="n">root</span><span class="p">,</span> <span class="n">comm</span><span class="p">)</span>
+        <span class="n">properties</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_process_param_change</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_init_params</span><span class="p">())</span>
+        <span class="n">properties</span><span class="p">[</span><span class="s1">'children'</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_children</span><span class="p">(</span><span class="n">objects</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">nrows</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">ncols</span><span class="p">)</span>
+        <span class="n">model</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="o">**</span><span class="n">properties</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_models</span><span class="p">[</span><span class="n">root</span><span class="o">.</span><span class="n">ref</span><span class="p">[</span><span class="s1">'id'</span><span class="p">]]</span> <span class="o">=</span> <span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">parent</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_link_props</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_linked_props</span><span class="p">,</span> <span class="n">doc</span><span class="p">,</span> <span class="n">root</span><span class="p">,</span> <span class="n">comm</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">model</span>
+
+    <span class="k">def</span> <span class="nf">_update_model</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">events</span><span class="p">,</span> <span class="n">msg</span><span class="p">,</span> <span class="n">root</span><span class="p">,</span> <span class="n">model</span><span class="p">,</span> <span class="n">doc</span><span class="p">,</span> <span class="n">comm</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="kn">from</span> <span class="nn">..io</span> <span class="kn">import</span> <span class="n">state</span>
+
+        <span class="n">msg</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_rename</span><span class="p">[</span><span class="s1">'objects'</span><span class="p">]</span> <span class="ow">in</span> <span class="n">msg</span> <span class="ow">or</span> <span class="s1">'ncols'</span> <span class="ow">in</span> <span class="n">msg</span> <span class="ow">or</span> <span class="s1">'nrows'</span> <span class="ow">in</span> <span class="n">msg</span><span class="p">:</span>
+            <span class="k">if</span> <span class="s1">'objects'</span> <span class="ow">in</span> <span class="n">events</span><span class="p">:</span>
+                <span class="n">old</span> <span class="o">=</span> <span class="n">events</span><span class="p">[</span><span class="s1">'objects'</span><span class="p">]</span><span class="o">.</span><span class="n">old</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">old</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">objects</span>
+            <span class="n">objects</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_objects</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">old</span><span class="p">,</span> <span class="n">doc</span><span class="p">,</span> <span class="n">root</span><span class="p">,</span> <span class="n">comm</span><span class="p">)</span>
+            <span class="n">children</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_children</span><span class="p">(</span><span class="n">objects</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">nrows</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">ncols</span><span class="p">)</span>
+            <span class="n">msg</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">_rename</span><span class="p">[</span><span class="s1">'objects'</span><span class="p">]]</span> <span class="o">=</span> <span class="n">children</span>
+
+        <span class="k">with</span> <span class="n">hold</span><span class="p">(</span><span class="n">doc</span><span class="p">):</span>
+            <span class="n">msg</span> <span class="o">=</span> <span class="p">{</span><span class="n">k</span><span class="p">:</span> <span class="n">v</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">msg</span><span class="o">.</span><span class="n">items</span><span class="p">()</span> <span class="k">if</span> <span class="n">k</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">(</span><span class="s1">'nrows'</span><span class="p">,</span> <span class="s1">'ncols'</span><span class="p">)}</span>
+            <span class="n">update</span> <span class="o">=</span> <span class="n">Panel</span><span class="o">.</span><span class="n">_batch_update</span>
+            <span class="n">Panel</span><span class="o">.</span><span class="n">_batch_update</span> <span class="o">=</span> <span class="kc">True</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="nb">super</span><span class="p">(</span><span class="n">Panel</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">_update_model</span><span class="p">(</span><span class="n">events</span><span class="p">,</span> <span class="n">msg</span><span class="p">,</span> <span class="n">root</span><span class="p">,</span> <span class="n">model</span><span class="p">,</span> <span class="n">doc</span><span class="p">,</span> <span class="n">comm</span><span class="p">)</span>
+                <span class="k">if</span> <span class="n">update</span><span class="p">:</span>
+                    <span class="k">return</span>
+                <span class="n">ref</span> <span class="o">=</span> <span class="n">root</span><span class="o">.</span><span class="n">ref</span><span class="p">[</span><span class="s1">'id'</span><span class="p">]</span>
+                <span class="k">if</span> <span class="n">ref</span> <span class="ow">in</span> <span class="n">state</span><span class="o">.</span><span class="n">_views</span><span class="p">:</span>
+                    <span class="n">state</span><span class="o">.</span><span class="n">_views</span><span class="p">[</span><span class="n">ref</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">_preprocess</span><span class="p">(</span><span class="n">root</span><span class="p">)</span>
+            <span class="k">finally</span><span class="p">:</span>
+                <span class="n">Panel</span><span class="o">.</span><span class="n">_batch_update</span> <span class="o">=</span> <span class="n">update</span></div>
+
+
+<div class="viewcode-block" id="GridSpec"><a class="viewcode-back" href="../../../api/panel.layout.html#panel.layout.grid.GridSpec">[docs]</a><span class="k">class</span> <span class="nc">GridSpec</span><span class="p">(</span><span class="n">Panel</span><span class="p">):</span>
+
+    <span class="n">objects</span> <span class="o">=</span> <span class="n">param</span><span class="o">.</span><span class="n">Dict</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="p">{},</span> <span class="n">doc</span><span class="o">=</span><span class="s2">"""</span>
+<span class="s2">        The dictionary of child objects that make up the grid."""</span><span class="p">)</span>
+
+    <span class="n">mode</span> <span class="o">=</span> <span class="n">param</span><span class="o">.</span><span class="n">ObjectSelector</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="s1">'warn'</span><span class="p">,</span> <span class="n">objects</span><span class="o">=</span><span class="p">[</span><span class="s1">'warn'</span><span class="p">,</span> <span class="s1">'error'</span><span class="p">,</span> <span class="s1">'override'</span><span class="p">],</span> <span class="n">doc</span><span class="o">=</span><span class="s2">"""</span>
+<span class="s2">        Whether to warn, error or simply override on overlapping assignment."""</span><span class="p">)</span>
+
+    <span class="n">ncols</span> <span class="o">=</span> <span class="n">param</span><span class="o">.</span><span class="n">Integer</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">bounds</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="kc">None</span><span class="p">),</span> <span class="n">doc</span><span class="o">=</span><span class="s2">"""</span>
+<span class="s2">        Limits the number of columns that can be assigned."""</span><span class="p">)</span>
+
+    <span class="n">nrows</span> <span class="o">=</span> <span class="n">param</span><span class="o">.</span><span class="n">Integer</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">bounds</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="kc">None</span><span class="p">),</span> <span class="n">doc</span><span class="o">=</span><span class="s2">"""</span>
+<span class="s2">        Limits the number of rows that can be assigned."""</span><span class="p">)</span>
+
+    <span class="n">width</span> <span class="o">=</span> <span class="n">param</span><span class="o">.</span><span class="n">Integer</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="mi">600</span><span class="p">)</span>
+
+    <span class="n">height</span> <span class="o">=</span> <span class="n">param</span><span class="o">.</span><span class="n">Integer</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="mi">600</span><span class="p">)</span>
+
+    <span class="n">_bokeh_model</span> <span class="o">=</span> <span class="n">BkGridBox</span>
+
+    <span class="n">_source_transforms</span> <span class="o">=</span> <span class="p">{</span><span class="s1">'objects'</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span> <span class="s1">'mode'</span><span class="p">:</span> <span class="kc">None</span><span class="p">}</span>
+
+    <span class="n">_rename</span> <span class="o">=</span> <span class="p">{</span><span class="s1">'objects'</span><span class="p">:</span> <span class="s1">'children'</span><span class="p">,</span> <span class="s1">'mode'</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span> <span class="s1">'ncols'</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span> <span class="s1">'nrows'</span><span class="p">:</span> <span class="kc">None</span><span class="p">}</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">params</span><span class="p">):</span>
+        <span class="k">if</span> <span class="s1">'objects'</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">params</span><span class="p">:</span>
+            <span class="n">params</span><span class="p">[</span><span class="s1">'objects'</span><span class="p">]</span> <span class="o">=</span> <span class="n">OrderedDict</span><span class="p">()</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="o">**</span><span class="n">params</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_updating</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_update_nrows</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_update_ncols</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_update_grid_size</span><span class="p">()</span>
+
+    <span class="nd">@param</span><span class="o">.</span><span class="n">depends</span><span class="p">(</span><span class="s1">'nrows'</span><span class="p">,</span> <span class="n">watch</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">_update_nrows</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_updating</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_rows_fixed</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">nrows</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
+
+    <span class="nd">@param</span><span class="o">.</span><span class="n">depends</span><span class="p">(</span><span class="s1">'ncols'</span><span class="p">,</span> <span class="n">watch</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">_update_ncols</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_updating</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_cols_fixed</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ncols</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
+
+    <span class="nd">@param</span><span class="o">.</span><span class="n">depends</span><span class="p">(</span><span class="s1">'objects'</span><span class="p">,</span> <span class="n">watch</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">_update_grid_size</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_updating</span> <span class="o">=</span> <span class="kc">True</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_cols_fixed</span><span class="p">:</span>
+            <span class="n">max_xidx</span> <span class="o">=</span> <span class="p">[</span><span class="n">x1</span> <span class="k">for</span> <span class="p">(</span><span class="n">_</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">x1</span><span class="p">)</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">objects</span> <span class="k">if</span> <span class="n">x1</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">]</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">ncols</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">max_xidx</span><span class="p">)</span> <span class="k">if</span> <span class="n">max_xidx</span> <span class="k">else</span> <span class="p">(</span><span class="mi">1</span> <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">objects</span><span class="p">)</span> <span class="k">else</span> <span class="mi">0</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_rows_fixed</span><span class="p">:</span>
+            <span class="n">max_yidx</span> <span class="o">=</span> <span class="p">[</span><span class="n">y1</span> <span class="k">for</span> <span class="p">(</span><span class="n">_</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">y1</span><span class="p">,</span> <span class="n">_</span><span class="p">)</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">objects</span> <span class="k">if</span> <span class="n">y1</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">]</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">nrows</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">max_yidx</span><span class="p">)</span> <span class="k">if</span> <span class="n">max_yidx</span> <span class="k">else</span> <span class="p">(</span><span class="mi">1</span> <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">objects</span><span class="p">)</span> <span class="k">else</span> <span class="mi">0</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_updating</span> <span class="o">=</span> <span class="kc">False</span>
+
+    <span class="k">def</span> <span class="nf">_init_params</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">params</span> <span class="o">=</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">_init_params</span><span class="p">()</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">sizing_mode</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">'fixed'</span><span class="p">,</span> <span class="kc">None</span><span class="p">]:</span>
+            <span class="k">if</span> <span class="s1">'min_width'</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">params</span> <span class="ow">and</span> <span class="s1">'width'</span> <span class="ow">in</span> <span class="n">params</span><span class="p">:</span>
+                <span class="n">params</span><span class="p">[</span><span class="s1">'min_width'</span><span class="p">]</span> <span class="o">=</span> <span class="n">params</span><span class="p">[</span><span class="s1">'width'</span><span class="p">]</span>
+            <span class="k">if</span> <span class="s1">'min_height'</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">params</span> <span class="ow">and</span> <span class="s1">'height'</span> <span class="ow">in</span> <span class="n">params</span><span class="p">:</span>
+                <span class="n">params</span><span class="p">[</span><span class="s1">'min_height'</span><span class="p">]</span> <span class="o">=</span> <span class="n">params</span><span class="p">[</span><span class="s1">'height'</span><span class="p">]</span>
+        <span class="k">return</span> <span class="n">params</span>
+
+    <span class="k">def</span> <span class="nf">_get_objects</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">model</span><span class="p">,</span> <span class="n">old_objects</span><span class="p">,</span> <span class="n">doc</span><span class="p">,</span> <span class="n">root</span><span class="p">,</span> <span class="n">comm</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="kn">from</span> <span class="nn">..pane.base</span> <span class="kn">import</span> <span class="n">RerenderError</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">ncols</span><span class="p">:</span>
+            <span class="n">width</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="nb">float</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">width</span><span class="p">)</span><span class="o">/</span><span class="bp">self</span><span class="o">.</span><span class="n">ncols</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">width</span> <span class="o">=</span> <span class="mi">0</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">nrows</span><span class="p">:</span>
+            <span class="n">height</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="nb">float</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">height</span><span class="p">)</span><span class="o">/</span><span class="bp">self</span><span class="o">.</span><span class="n">nrows</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">height</span> <span class="o">=</span> <span class="mi">0</span>
+
+        <span class="n">current_objects</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">values</span><span class="p">())</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">old_objects</span><span class="p">,</span> <span class="nb">dict</span><span class="p">):</span>
+            <span class="n">old_objects</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">old_objects</span><span class="o">.</span><span class="n">values</span><span class="p">())</span>
+
+        <span class="k">for</span> <span class="n">old</span> <span class="ow">in</span> <span class="n">old_objects</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">old</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">current_objects</span><span class="p">:</span>
+                <span class="n">old</span><span class="o">.</span><span class="n">_cleanup</span><span class="p">(</span><span class="n">root</span><span class="p">)</span>
+
+        <span class="n">children</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="p">((</span><span class="n">y0</span><span class="p">,</span> <span class="n">x0</span><span class="p">,</span> <span class="n">y1</span><span class="p">,</span> <span class="n">x1</span><span class="p">),</span> <span class="n">obj</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">items</span><span class="p">()):</span>
+            <span class="n">x0</span> <span class="o">=</span> <span class="mi">0</span> <span class="k">if</span> <span class="n">x0</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">x0</span>
+            <span class="n">x1</span> <span class="o">=</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ncols</span><span class="p">)</span> <span class="k">if</span> <span class="n">x1</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">x1</span>
+            <span class="n">y0</span> <span class="o">=</span> <span class="mi">0</span> <span class="k">if</span> <span class="n">y0</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">y0</span>
+            <span class="n">y1</span> <span class="o">=</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">nrows</span><span class="p">)</span> <span class="k">if</span> <span class="n">y1</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">y1</span>
+            <span class="n">r</span><span class="p">,</span> <span class="n">c</span><span class="p">,</span> <span class="n">h</span><span class="p">,</span> <span class="n">w</span> <span class="o">=</span> <span class="p">(</span><span class="n">y0</span><span class="p">,</span> <span class="n">x0</span><span class="p">,</span> <span class="n">y1</span><span class="o">-</span><span class="n">y0</span><span class="p">,</span> <span class="n">x1</span><span class="o">-</span><span class="n">x0</span><span class="p">)</span>
+
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">sizing_mode</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">'fixed'</span><span class="p">,</span> <span class="kc">None</span><span class="p">]:</span>
+                <span class="n">properties</span> <span class="o">=</span> <span class="p">{</span><span class="s1">'width'</span><span class="p">:</span> <span class="n">w</span><span class="o">*</span><span class="n">width</span><span class="p">,</span> <span class="s1">'height'</span><span class="p">:</span> <span class="n">h</span><span class="o">*</span><span class="n">height</span><span class="p">}</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">properties</span> <span class="o">=</span> <span class="p">{</span><span class="s1">'sizing_mode'</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">sizing_mode</span><span class="p">}</span>
+                <span class="k">if</span> <span class="s1">'width'</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">sizing_mode</span><span class="p">:</span>
+                    <span class="n">properties</span><span class="p">[</span><span class="s1">'height'</span><span class="p">]</span> <span class="o">=</span> <span class="n">h</span><span class="o">*</span><span class="n">height</span>
+                <span class="k">elif</span> <span class="s1">'height'</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">sizing_mode</span><span class="p">:</span>
+                    <span class="n">properties</span><span class="p">[</span><span class="s1">'width'</span><span class="p">]</span> <span class="o">=</span> <span class="n">w</span><span class="o">*</span><span class="n">width</span>
+            <span class="n">obj</span><span class="o">.</span><span class="n">param</span><span class="o">.</span><span class="n">set_param</span><span class="p">(</span><span class="o">**</span><span class="p">{</span><span class="n">k</span><span class="p">:</span> <span class="n">v</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">properties</span><span class="o">.</span><span class="n">items</span><span class="p">()</span>
+                                   <span class="k">if</span> <span class="ow">not</span> <span class="n">obj</span><span class="o">.</span><span class="n">param</span><span class="p">[</span><span class="n">k</span><span class="p">]</span><span class="o">.</span><span class="n">readonly</span><span class="p">})</span>
+
+            <span class="k">if</span> <span class="n">obj</span> <span class="ow">in</span> <span class="n">old_objects</span><span class="p">:</span>
+                <span class="n">child</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="n">_models</span><span class="p">[</span><span class="n">root</span><span class="o">.</span><span class="n">ref</span><span class="p">[</span><span class="s1">'id'</span><span class="p">]]</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">try</span><span class="p">:</span>
+                    <span class="n">child</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="n">_get_model</span><span class="p">(</span><span class="n">doc</span><span class="p">,</span> <span class="n">root</span><span class="p">,</span> <span class="n">model</span><span class="p">,</span> <span class="n">comm</span><span class="p">)</span>
+                <span class="k">except</span> <span class="n">RerenderError</span><span class="p">:</span>
+                    <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_objects</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">current_objects</span><span class="p">[:</span><span class="n">i</span><span class="p">],</span> <span class="n">doc</span><span class="p">,</span> <span class="n">root</span><span class="p">,</span> <span class="n">comm</span><span class="p">)</span>
+
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">child</span><span class="p">,</span> <span class="n">BkBox</span><span class="p">)</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">child</span><span class="o">.</span><span class="n">children</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+                <span class="n">child</span><span class="o">.</span><span class="n">children</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="o">**</span><span class="n">properties</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">child</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="o">**</span><span class="n">properties</span><span class="p">)</span>
+            <span class="n">children</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">child</span><span class="p">,</span> <span class="n">r</span><span class="p">,</span> <span class="n">c</span><span class="p">,</span> <span class="n">h</span><span class="p">,</span> <span class="n">w</span><span class="p">))</span>
+        <span class="k">return</span> <span class="n">children</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">_xoffset</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">min_xidx</span> <span class="o">=</span> <span class="p">[</span><span class="n">x0</span> <span class="k">for</span> <span class="p">(</span><span class="n">_</span><span class="p">,</span> <span class="n">x0</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">_</span><span class="p">)</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">objects</span> <span class="k">if</span> <span class="n">x0</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">]</span>
+        <span class="k">return</span> <span class="nb">min</span><span class="p">(</span><span class="n">min_xidx</span><span class="p">)</span> <span class="k">if</span> <span class="n">min_xidx</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">min_xidx</span><span class="p">)</span> <span class="o">==</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">objects</span><span class="p">)</span> <span class="k">else</span> <span class="mi">0</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">_yoffset</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">min_yidx</span> <span class="o">=</span> <span class="p">[</span><span class="n">y0</span> <span class="k">for</span> <span class="p">(</span><span class="n">y0</span><span class="p">,</span> <span class="n">x0</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">_</span><span class="p">)</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">objects</span> <span class="k">if</span> <span class="n">y0</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">]</span>
+        <span class="k">return</span> <span class="nb">min</span><span class="p">(</span><span class="n">min_yidx</span><span class="p">)</span> <span class="k">if</span> <span class="n">min_yidx</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">min_yidx</span><span class="p">)</span> <span class="o">==</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">objects</span><span class="p">)</span> <span class="k">else</span> <span class="mi">0</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">_object_grid</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">grid</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">full</span><span class="p">((</span><span class="bp">self</span><span class="o">.</span><span class="n">nrows</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">ncols</span><span class="p">),</span> <span class="kc">None</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">object</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="p">((</span><span class="n">y0</span><span class="p">,</span> <span class="n">x0</span><span class="p">,</span> <span class="n">y1</span><span class="p">,</span> <span class="n">x1</span><span class="p">),</span> <span class="n">obj</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">items</span><span class="p">()):</span>
+            <span class="n">l</span> <span class="o">=</span> <span class="mi">0</span> <span class="k">if</span> <span class="n">x0</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">x0</span>
+            <span class="n">r</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ncols</span> <span class="k">if</span> <span class="n">x1</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">x1</span>
+            <span class="n">t</span> <span class="o">=</span> <span class="mi">0</span> <span class="k">if</span> <span class="n">y0</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">y0</span>
+            <span class="n">b</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">nrows</span> <span class="k">if</span> <span class="n">y1</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">y1</span>
+            <span class="k">for</span> <span class="n">y</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">b</span><span class="p">):</span>
+                <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">l</span><span class="p">,</span> <span class="n">r</span><span class="p">):</span>
+                    <span class="n">grid</span><span class="p">[</span><span class="n">y</span><span class="p">,</span> <span class="n">x</span><span class="p">]</span> <span class="o">=</span> <span class="p">{((</span><span class="n">y0</span><span class="p">,</span> <span class="n">x0</span><span class="p">,</span> <span class="n">y1</span><span class="p">,</span> <span class="n">x1</span><span class="p">),</span> <span class="n">obj</span><span class="p">)}</span>
+        <span class="k">return</span> <span class="n">grid</span>
+
+    <span class="k">def</span> <span class="nf">_cleanup</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">root</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">_cleanup</span><span class="p">(</span><span class="n">root</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
+            <span class="n">p</span><span class="o">.</span><span class="n">_cleanup</span><span class="p">(</span><span class="n">root</span><span class="p">)</span>
+
+    <span class="c1">#----------------------------------------------------------------</span>
+    <span class="c1"># Public API</span>
+    <span class="c1">#----------------------------------------------------------------</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">grid</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">grid</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="bp">self</span><span class="o">.</span><span class="n">nrows</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">ncols</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="s1">'uint8'</span><span class="p">)</span>
+        <span class="k">for</span> <span class="p">(</span><span class="n">y0</span><span class="p">,</span> <span class="n">x0</span><span class="p">,</span> <span class="n">y1</span><span class="p">,</span> <span class="n">x1</span><span class="p">)</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">objects</span><span class="p">:</span>
+            <span class="n">grid</span><span class="p">[</span><span class="n">y0</span><span class="p">:</span><span class="n">y1</span><span class="p">,</span> <span class="n">x0</span><span class="p">:</span><span class="n">x1</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span>
+        <span class="k">return</span> <span class="n">grid</span>
+
+<div class="viewcode-block" id="GridSpec.clone"><a class="viewcode-back" href="../../../api/panel.layout.html#panel.layout.grid.GridSpec.clone">[docs]</a>    <span class="k">def</span> <span class="nf">clone</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">params</span><span class="p">):</span>
+        <span class="sd">"""</span>
+<span class="sd">        Makes a copy of the GridSpec sharing the same parameters.</span>
+
+<span class="sd">        Arguments</span>
+<span class="sd">        ---------</span>
+<span class="sd">        params: Keyword arguments override the parameters on the clone.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        Cloned GridSpec object</span>
+<span class="sd">        """</span>
+        <span class="n">p</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">param</span><span class="o">.</span><span class="n">get_param_values</span><span class="p">(),</span> <span class="o">**</span><span class="n">params</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_cols_fixed</span><span class="p">:</span>
+            <span class="k">del</span> <span class="n">p</span><span class="p">[</span><span class="s1">'ncols'</span><span class="p">]</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_rows_fixed</span><span class="p">:</span>
+            <span class="k">del</span> <span class="n">p</span><span class="p">[</span><span class="s1">'nrows'</span><span class="p">]</span>
+        <span class="k">return</span> <span class="nb">type</span><span class="p">(</span><span class="bp">self</span><span class="p">)(</span><span class="o">**</span><span class="n">p</span><span class="p">)</span></div>
+
+    <span class="k">def</span> <span class="fm">__iter__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">obj</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
+            <span class="k">yield</span> <span class="n">obj</span>
+
+    <span class="k">def</span> <span class="fm">__delitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">index</span><span class="p">):</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">index</span><span class="p">,</span> <span class="nb">tuple</span><span class="p">):</span>
+            <span class="n">yidx</span><span class="p">,</span> <span class="n">xidx</span> <span class="o">=</span> <span class="n">index</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">yidx</span><span class="p">,</span> <span class="n">xidx</span> <span class="o">=</span> <span class="n">index</span><span class="p">,</span> <span class="nb">slice</span><span class="p">(</span><span class="kc">None</span><span class="p">)</span>
+
+        <span class="n">subgrid</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_object_grid</span><span class="p">[</span><span class="n">yidx</span><span class="p">,</span> <span class="n">xidx</span><span class="p">]</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">subgrid</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">):</span>
+            <span class="n">deleted</span> <span class="o">=</span> <span class="n">OrderedDict</span><span class="p">([</span><span class="nb">list</span><span class="p">(</span><span class="n">o</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span> <span class="k">for</span> <span class="n">o</span> <span class="ow">in</span> <span class="n">subgrid</span><span class="o">.</span><span class="n">flatten</span><span class="p">()])</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">deleted</span> <span class="o">=</span> <span class="p">[</span><span class="nb">list</span><span class="p">(</span><span class="n">subgrid</span><span class="p">)[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]]</span>
+        <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">deleted</span><span class="p">:</span>
+            <span class="k">del</span> <span class="bp">self</span><span class="o">.</span><span class="n">objects</span><span class="p">[</span><span class="n">key</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">param</span><span class="o">.</span><span class="n">trigger</span><span class="p">(</span><span class="s1">'objects'</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="fm">__getitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">index</span><span class="p">):</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">index</span><span class="p">,</span> <span class="nb">tuple</span><span class="p">):</span>
+            <span class="n">yidx</span><span class="p">,</span> <span class="n">xidx</span> <span class="o">=</span> <span class="n">index</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">yidx</span><span class="p">,</span> <span class="n">xidx</span> <span class="o">=</span> <span class="n">index</span><span class="p">,</span> <span class="nb">slice</span><span class="p">(</span><span class="kc">None</span><span class="p">)</span>
+
+        <span class="n">subgrid</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_object_grid</span><span class="p">[</span><span class="n">yidx</span><span class="p">,</span> <span class="n">xidx</span><span class="p">]</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">subgrid</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">):</span>
+            <span class="n">params</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">param</span><span class="o">.</span><span class="n">get_param_values</span><span class="p">())</span>
+            <span class="n">params</span><span class="p">[</span><span class="s1">'objects'</span><span class="p">]</span> <span class="o">=</span> <span class="n">OrderedDict</span><span class="p">([</span><span class="nb">list</span><span class="p">(</span><span class="n">o</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span> <span class="k">for</span> <span class="n">o</span> <span class="ow">in</span> <span class="n">subgrid</span><span class="o">.</span><span class="n">flatten</span><span class="p">()])</span>
+            <span class="n">gspec</span> <span class="o">=</span> <span class="n">GridSpec</span><span class="p">(</span><span class="o">**</span><span class="n">params</span><span class="p">)</span>
+            <span class="n">xoff</span><span class="p">,</span> <span class="n">yoff</span> <span class="o">=</span> <span class="n">gspec</span><span class="o">.</span><span class="n">_xoffset</span><span class="p">,</span> <span class="n">gspec</span><span class="o">.</span><span class="n">_yoffset</span>
+            <span class="n">adjusted</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="k">for</span> <span class="p">(</span><span class="n">y0</span><span class="p">,</span> <span class="n">x0</span><span class="p">,</span> <span class="n">y1</span><span class="p">,</span> <span class="n">x1</span><span class="p">),</span> <span class="n">obj</span> <span class="ow">in</span> <span class="n">gspec</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+                <span class="k">if</span> <span class="n">y0</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span> <span class="n">y0</span> <span class="o">-=</span> <span class="n">yoff</span>
+                <span class="k">if</span> <span class="n">y1</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span> <span class="n">y1</span> <span class="o">-=</span> <span class="n">yoff</span>
+                <span class="k">if</span> <span class="n">x0</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span> <span class="n">x0</span> <span class="o">-=</span> <span class="n">xoff</span>
+                <span class="k">if</span> <span class="n">x1</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span> <span class="n">x1</span> <span class="o">-=</span> <span class="n">xoff</span>
+                <span class="k">if</span> <span class="p">((</span><span class="n">y0</span><span class="p">,</span> <span class="n">x0</span><span class="p">,</span> <span class="n">y1</span><span class="p">,</span> <span class="n">x1</span><span class="p">),</span> <span class="n">obj</span><span class="p">)</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">adjusted</span><span class="p">:</span>
+                    <span class="n">adjusted</span><span class="o">.</span><span class="n">append</span><span class="p">(((</span><span class="n">y0</span><span class="p">,</span> <span class="n">x0</span><span class="p">,</span> <span class="n">y1</span><span class="p">,</span> <span class="n">x1</span><span class="p">),</span> <span class="n">obj</span><span class="p">))</span>
+            <span class="n">gspec</span><span class="o">.</span><span class="n">objects</span> <span class="o">=</span> <span class="n">OrderedDict</span><span class="p">(</span><span class="n">adjusted</span><span class="p">)</span>
+            <span class="n">width_scale</span> <span class="o">=</span> <span class="n">gspec</span><span class="o">.</span><span class="n">ncols</span><span class="o">/</span><span class="nb">float</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ncols</span><span class="p">)</span>
+            <span class="n">height_scale</span> <span class="o">=</span> <span class="n">gspec</span><span class="o">.</span><span class="n">nrows</span><span class="o">/</span><span class="nb">float</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">nrows</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">gspec</span><span class="o">.</span><span class="n">width</span><span class="p">:</span>
+                <span class="n">gspec</span><span class="o">.</span><span class="n">width</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">gspec</span><span class="o">.</span><span class="n">width</span> <span class="o">*</span> <span class="n">width_scale</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">gspec</span><span class="o">.</span><span class="n">height</span><span class="p">:</span>
+                <span class="n">gspec</span><span class="o">.</span><span class="n">height</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">gspec</span><span class="o">.</span><span class="n">height</span> <span class="o">*</span> <span class="n">height_scale</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">gspec</span><span class="o">.</span><span class="n">max_width</span><span class="p">:</span>
+                <span class="n">gspec</span><span class="o">.</span><span class="n">max_width</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">gspec</span><span class="o">.</span><span class="n">max_width</span> <span class="o">*</span> <span class="n">width_scale</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">gspec</span><span class="o">.</span><span class="n">max_height</span><span class="p">:</span>
+                <span class="n">gspec</span><span class="o">.</span><span class="n">max_height</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">gspec</span><span class="o">.</span><span class="n">max_height</span> <span class="o">*</span> <span class="n">height_scale</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">gspec</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="nb">list</span><span class="p">(</span><span class="n">subgrid</span><span class="p">)[</span><span class="mi">0</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span>
+
+    <span class="k">def</span> <span class="fm">__setitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">index</span><span class="p">,</span> <span class="n">obj</span><span class="p">):</span>
+        <span class="kn">from</span> <span class="nn">..pane.base</span> <span class="kn">import</span> <span class="n">panel</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">index</span><span class="p">,</span> <span class="nb">tuple</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="ne">IndexError</span><span class="p">(</span><span class="s1">'Must supply a 2D index for GridSpec assignment.'</span><span class="p">)</span>
+
+        <span class="n">yidx</span><span class="p">,</span> <span class="n">xidx</span> <span class="o">=</span> <span class="n">index</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">xidx</span><span class="p">,</span> <span class="nb">slice</span><span class="p">):</span>
+            <span class="n">x0</span><span class="p">,</span> <span class="n">x1</span> <span class="o">=</span> <span class="p">(</span><span class="n">xidx</span><span class="o">.</span><span class="n">start</span><span class="p">,</span> <span class="n">xidx</span><span class="o">.</span><span class="n">stop</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">x0</span><span class="p">,</span> <span class="n">x1</span> <span class="o">=</span> <span class="p">(</span><span class="n">xidx</span><span class="p">,</span> <span class="n">xidx</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">yidx</span><span class="p">,</span> <span class="nb">slice</span><span class="p">):</span>
+            <span class="n">y0</span><span class="p">,</span> <span class="n">y1</span> <span class="o">=</span> <span class="p">(</span><span class="n">yidx</span><span class="o">.</span><span class="n">start</span><span class="p">,</span> <span class="n">yidx</span><span class="o">.</span><span class="n">stop</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">y0</span><span class="p">,</span> <span class="n">y1</span> <span class="o">=</span> <span class="p">(</span><span class="n">yidx</span><span class="p">,</span> <span class="n">yidx</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span>
+
+        <span class="n">l</span> <span class="o">=</span> <span class="mi">0</span> <span class="k">if</span> <span class="n">x0</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">x0</span>
+        <span class="n">r</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ncols</span> <span class="k">if</span> <span class="n">x1</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">x1</span>
+        <span class="n">t</span> <span class="o">=</span> <span class="mi">0</span> <span class="k">if</span> <span class="n">y0</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">y0</span>
+        <span class="n">b</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">nrows</span> <span class="k">if</span> <span class="n">y1</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">y1</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_cols_fixed</span> <span class="ow">and</span> <span class="p">(</span><span class="n">l</span> <span class="o">&gt;=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ncols</span> <span class="ow">or</span> <span class="n">r</span> <span class="o">&gt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">ncols</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="ne">IndexError</span><span class="p">(</span><span class="s1">'Assigned object to column(s) out-of-bounds '</span>
+                             <span class="s1">'of the grid declared by `ncols`. which '</span>
+                             <span class="sa">f</span><span class="s1">'was set to </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">ncols</span><span class="si">}</span><span class="s1">.'</span><span class="p">)</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_rows_fixed</span> <span class="ow">and</span> <span class="p">(</span><span class="n">t</span> <span class="o">&gt;=</span> <span class="bp">self</span><span class="o">.</span><span class="n">nrows</span> <span class="ow">or</span> <span class="n">b</span> <span class="o">&gt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">nrows</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="ne">IndexError</span><span class="p">(</span><span class="s1">'Assigned object to column(s) out-of-bounds '</span>
+                             <span class="s1">'of the grid declared by `nrows`, which '</span>
+                             <span class="sa">f</span><span class="s1">'was set to </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">nrows</span><span class="si">}</span><span class="s1">.'</span><span class="p">)</span>
+
+        <span class="n">key</span> <span class="o">=</span> <span class="p">(</span><span class="n">y0</span><span class="p">,</span> <span class="n">x0</span><span class="p">,</span> <span class="n">y1</span><span class="p">,</span> <span class="n">x1</span><span class="p">)</span>
+        <span class="n">overlap</span> <span class="o">=</span> <span class="n">key</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">objects</span>
+        <span class="n">clone</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">clone</span><span class="p">(</span><span class="n">objects</span><span class="o">=</span><span class="n">OrderedDict</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">objects</span><span class="p">),</span> <span class="n">mode</span><span class="o">=</span><span class="s1">'override'</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">overlap</span><span class="p">:</span>
+            <span class="n">clone</span><span class="o">.</span><span class="n">objects</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">panel</span><span class="p">(</span><span class="n">obj</span><span class="p">)</span>
+            <span class="n">clone</span><span class="o">.</span><span class="n">_update_grid_size</span><span class="p">()</span>
+            <span class="n">grid</span> <span class="o">=</span> <span class="n">clone</span><span class="o">.</span><span class="n">grid</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">grid</span> <span class="o">=</span> <span class="n">clone</span><span class="o">.</span><span class="n">grid</span>
+            <span class="n">grid</span><span class="p">[</span><span class="n">t</span><span class="p">:</span><span class="n">b</span><span class="p">,</span> <span class="n">l</span><span class="p">:</span><span class="n">r</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span>
+
+        <span class="n">overlap_grid</span> <span class="o">=</span> <span class="n">grid</span><span class="o">&gt;</span><span class="mi">1</span>
+        <span class="n">new_objects</span> <span class="o">=</span> <span class="n">OrderedDict</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">objects</span><span class="p">)</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">overlap_grid</span><span class="p">)</span><span class="o">.</span><span class="n">any</span><span class="p">():</span>
+            <span class="n">overlapping</span> <span class="o">=</span> <span class="s1">''</span>
+            <span class="n">objects</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="k">for</span> <span class="p">(</span><span class="n">yidx</span><span class="p">,</span> <span class="n">xidx</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">overlap_grid</span><span class="p">)):</span>
+                <span class="k">try</span><span class="p">:</span>
+                    <span class="n">old_obj</span> <span class="o">=</span> <span class="bp">self</span><span class="p">[</span><span class="n">yidx</span><span class="p">,</span> <span class="n">xidx</span><span class="p">]</span>
+                <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
+                    <span class="k">continue</span>
+                <span class="k">if</span> <span class="n">old_obj</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">objects</span><span class="p">:</span>
+                    <span class="n">objects</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">old_obj</span><span class="p">)</span>
+                    <span class="n">overlapping</span> <span class="o">+=</span> <span class="s1">'    (</span><span class="si">%d</span><span class="s1">, </span><span class="si">%d</span><span class="s1">): </span><span class="si">%s</span><span class="se">\n\n</span><span class="s1">'</span> <span class="o">%</span> <span class="p">(</span><span class="n">yidx</span><span class="p">,</span> <span class="n">xidx</span><span class="p">,</span> <span class="n">old_obj</span><span class="p">)</span>
+            <span class="n">overlap_text</span> <span class="o">=</span> <span class="p">(</span><span class="s1">'Specified region overlaps with the following '</span>
+                            <span class="s1">'existing object(s) in the grid:</span><span class="se">\n\n</span><span class="s1">'</span><span class="o">+</span><span class="n">overlapping</span><span class="o">+</span>
+                            <span class="s1">'The following shows a view of the grid '</span>
+                            <span class="s1">'(empty: 0, occupied: 1, overlapping: 2):</span><span class="se">\n\n</span><span class="s1">'</span><span class="o">+</span>
+                            <span class="nb">str</span><span class="p">(</span><span class="n">grid</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s1">'uint8'</span><span class="p">)))</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">mode</span> <span class="o">==</span> <span class="s1">'error'</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">IndexError</span><span class="p">(</span><span class="n">overlap_text</span><span class="p">)</span>
+            <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">mode</span> <span class="o">==</span> <span class="s1">'warn'</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">param</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="n">overlap_text</span><span class="p">)</span>
+
+            <span class="n">subgrid</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_object_grid</span><span class="p">[</span><span class="n">index</span><span class="p">]</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">subgrid</span><span class="p">,</span> <span class="nb">set</span><span class="p">):</span>
+                <span class="n">objects</span> <span class="o">=</span> <span class="p">[</span><span class="nb">list</span><span class="p">(</span><span class="n">subgrid</span><span class="p">)[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]]</span> <span class="k">if</span> <span class="n">subgrid</span> <span class="k">else</span> <span class="p">[]</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">objects</span> <span class="o">=</span> <span class="p">[</span><span class="nb">list</span><span class="p">(</span><span class="n">o</span><span class="p">)[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="k">for</span> <span class="n">o</span> <span class="ow">in</span> <span class="n">subgrid</span><span class="o">.</span><span class="n">flatten</span><span class="p">()]</span>
+            <span class="k">for</span> <span class="n">dkey</span> <span class="ow">in</span> <span class="n">objects</span><span class="p">:</span>
+                <span class="k">del</span> <span class="n">new_objects</span><span class="p">[</span><span class="n">dkey</span><span class="p">]</span>
+        <span class="n">new_objects</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">panel</span><span class="p">(</span><span class="n">obj</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">objects</span> <span class="o">=</span> <span class="n">new_objects</span></div>
+</pre></div>
+</div>
+</div>
+<!-- END MAIN BODY OF DOCS ––––––––––––– -->
+<!-- Google Analytics -->
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async="" src="https://www.googletagmanager.com/gtag/js?id=UA-154795830-2"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-154795830-2', { 'anonymize_ip': true });
+</script>
+<!-- MathJax Config -->
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}
+});
+</script>
+<!-- End Document
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+</body>
+</html>

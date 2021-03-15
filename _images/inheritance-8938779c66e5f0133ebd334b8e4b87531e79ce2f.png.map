@@ -1,0 +1,10 @@
+<map id="inheritance6973facdff" name="inheritance6973facdff">
+<area shape="rect" id="node1" title="Base class for all class types that have Bokeh properties." alt="" coords="57,4,219,22"/>
+<area shape="rect" id="node2" title="Base class for all objects stored in Bokeh &#160;|Document| instances." alt="" coords="306,39,413,57"/>
+<area shape="rect" id="node6" title="The base class for layoutable components." alt="" coords="446,39,620,57"/>
+<area shape="rect" id="node3" title="A mixin class to provide an interface for registering and" alt="" coords="4,39,272,57"/>
+<area shape="rect" id="node4" title="A mixin class to provide an interface for registering and" alt="" coords="10,73,266,91"/>
+<area shape="rect" id="node5" title="Abstract base class for Row and Column. Do not use directly." alt="" coords="654,39,791,57"/>
+<area shape="rect" id="node7" title="Lay out child components in a single vertical row." alt="" coords="825,39,981,57"/>
+<area shape="rect" id="node8" href="#panel.models.layout.Card" target="_top" title="panel.models.layout.Card" alt="" coords="1014,39,1148,57"/>
+</map>

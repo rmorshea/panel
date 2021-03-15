@@ -1,0 +1,817 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<!-- Basic Page Needs
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+<meta charset="utf-8"/>
+<title>panel.layout.base — Panel 0.11.1+g238199f-dirty documentation</title>
+<meta content="High-level dashboarding for python visualization libraries" name="description"/>
+<meta content="Panel contributors" name="author"/>
+<!-- Mobile Specific Metas
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<!-- FONT
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+<script src="https://ajax.googleapis.com/ajax/libs/webfont/1.6.16/webfont.js"></script>
+<script>
+    WebFont.load({
+      google: {
+        families: ['Source Sans Pro']
+      }
+    });
+  </script>
+<!-- CSS
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+<link href="../../../_static/css/main.css" rel="stylesheet"/>
+<link href="../../../_static/nbsite.css" rel="stylesheet"/>
+<link href="../../../_static/site.css" rel="stylesheet"/>
+<!-- Scripts
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script async="" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML" type="text/javascript">
+</script>
+<script src="../../../_static/js/main.js"></script>
+<!-- Favicon
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+<link href="../../../_static/favicon.ico" rel="icon" type="image/png"/>
+<!-- Canonical
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+<link href="https://panel.holoviz.org/_modules/panel/layout/base.html" rel="canonical">
+</link></head>
+<body class="">
+<header class="navigation">
+<div class="wrapper">
+<a class="logo" href="../../../index.html">
+<img alt="Logo" src="../../../_static/logo_horizontal.png"/>
+</a>
+<a class="navigation-menu-button" href="javascript:void(0)" id="js-mobile-menu">Menu</a>
+<nav>
+<ul class="navigation-menu show" id="js-navigation-menu">
+<li class="nav-link doc-head"><a href="//discourse.holoviz.org">Discourse</a></li>
+<li class="nav-link doc-head"><a href="//twitter.com/Panel_org">Twitter</a></li>
+<li class="nav-link doc-head"><a href="//github.com/pyviz/panel">Github</a></li>
+<li class="nav-link">
+<div style="display:inline-block;vertical-align: middle;">
+<div class="search-bar">
+<form action="../../../search.html" method="get" role="search">
+<input name="q" placeholder="Search" type="search"/>
+<button type="submit">
+<img alt="Search Icon" src="https://raw.githubusercontent.com/thoughtbot/refills/master/source/images/search-icon-black.png"/>
+</button>
+</form>
+</div>
+</div>
+</li>
+</ul>
+</nav>
+</div>
+</header>
+<div class="second-nav">
+<nav>
+<ul class="navigation-menu show">
+<li class="nav-link doc-head"><a href="../../../getting_started/index.html">Getting started</a></li>
+<li class="nav-link doc-head"><a href="../../../user_guide/index.html">User Guide</a></li>
+<li class="nav-link doc-head"><a href="../../../gallery/index.html">Gallery</a></li>
+<li class="nav-link doc-head"><a href="../../../reference/index.html">Reference Gallery</a></li>
+<li class="nav-link doc-head"><a href="../../../developer_guide/index.html">Developer Guide</a></li>
+<li class="nav-link doc-head"><a href="../../../releases.html">Releases</a></li>
+<li class="nav-link doc-head"><a href="../../../api/index.html">API</a></li>
+<li class="nav-link doc-head"><a href="../../../FAQ.html">FAQ</a></li>
+<li class="nav-link doc-head"><a href="../../../about.html">About</a></li>
+</ul>
+</nav>
+</div>
+<!-- MAIN BODY OF DOCS –––––––––––––––––– -->
+<div class="docs section">
+<div id="hacketyhackhack"> <!-- style="width:20%;margin-right: 100px;"> --> <!--style="display: none;"> style="display:none;"> -->
+<div class="toc" style="width:15%; margin-right:20px;">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../index.html">Home</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../getting_started/index.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../user_guide/index.html">User Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../gallery/index.html">Gallery</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../reference/index.html">Reference Gallery</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../developer_guide/index.html">Developer Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/index.html">API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../Comparisons.html">Comparisons</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../releases.html">Releases</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../Roadmap.html">Road Map</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../FAQ.html">FAQ</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://github.com/pyviz/panel">Github source</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../about.html">About</a></li>
+</ul>
+</div>
+</div>
+<div class="content"> <!-- style="max-width:80%;margin-left:auto;margin-right: auto;">-->
+<h1>Source code for panel.layout.base</h1><div class="highlight"><pre>
+<span></span><span class="sd">"""</span>
+<span class="sd">Defines Layout classes which may be used to arrange panes and widgets</span>
+<span class="sd">in flexible ways to build complex dashboards.</span>
+<span class="sd">"""</span>
+<span class="kn">from</span> <span class="nn">collections</span> <span class="kn">import</span> <span class="n">defaultdict</span><span class="p">,</span> <span class="n">namedtuple</span>
+
+<span class="kn">import</span> <span class="nn">param</span>
+
+<span class="kn">from</span> <span class="nn">bokeh.models</span> <span class="kn">import</span> <span class="n">Column</span> <span class="k">as</span> <span class="n">BkColumn</span><span class="p">,</span> <span class="n">Row</span> <span class="k">as</span> <span class="n">BkRow</span>
+
+<span class="kn">from</span> <span class="nn">..io.model</span> <span class="kn">import</span> <span class="n">hold</span>
+<span class="kn">from</span> <span class="nn">..io.state</span> <span class="kn">import</span> <span class="n">state</span>
+<span class="kn">from</span> <span class="nn">..reactive</span> <span class="kn">import</span> <span class="n">Reactive</span>
+<span class="kn">from</span> <span class="nn">..util</span> <span class="kn">import</span> <span class="n">param_name</span><span class="p">,</span> <span class="n">param_reprs</span>
+
+<span class="n">_row</span> <span class="o">=</span> <span class="n">namedtuple</span><span class="p">(</span><span class="s2">"row"</span><span class="p">,</span> <span class="p">[</span><span class="s2">"children"</span><span class="p">])</span>
+<span class="n">_col</span> <span class="o">=</span> <span class="n">namedtuple</span><span class="p">(</span><span class="s2">"col"</span><span class="p">,</span> <span class="p">[</span><span class="s2">"children"</span><span class="p">])</span>
+
+
+<div class="viewcode-block" id="Panel"><a class="viewcode-back" href="../../../api/panel.layout.html#panel.layout.accordion.Panel">[docs]</a><span class="k">class</span> <span class="nc">Panel</span><span class="p">(</span><span class="n">Reactive</span><span class="p">):</span>
+    <span class="sd">"""</span>
+<span class="sd">    Abstract baseclass for a layout of Viewables.</span>
+<span class="sd">    """</span>
+
+    <span class="n">_bokeh_model</span> <span class="o">=</span> <span class="kc">None</span>
+
+    <span class="n">__abstract</span> <span class="o">=</span> <span class="kc">True</span>
+
+    <span class="n">_rename</span> <span class="o">=</span> <span class="p">{</span><span class="s1">'objects'</span><span class="p">:</span> <span class="s1">'children'</span><span class="p">}</span>
+
+    <span class="n">_linked_props</span> <span class="o">=</span> <span class="p">[]</span>
+
+    <span class="n">_batch_update</span> <span class="o">=</span> <span class="kc">False</span>
+
+    <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">depth</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">max_depth</span><span class="o">=</span><span class="mi">10</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">depth</span> <span class="o">&gt;</span> <span class="n">max_depth</span><span class="p">:</span>
+            <span class="k">return</span> <span class="s1">'...'</span>
+        <span class="n">spacer</span> <span class="o">=</span> <span class="s1">'</span><span class="se">\n</span><span class="s1">'</span> <span class="o">+</span> <span class="p">(</span><span class="s1">'    '</span> <span class="o">*</span> <span class="p">(</span><span class="n">depth</span><span class="o">+</span><span class="mi">1</span><span class="p">))</span>
+        <span class="bp">cls</span> <span class="o">=</span> <span class="nb">type</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="vm">__name__</span>
+        <span class="n">params</span> <span class="o">=</span> <span class="n">param_reprs</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="p">[</span><span class="s1">'objects'</span><span class="p">])</span>
+        <span class="n">objs</span> <span class="o">=</span> <span class="p">[</span><span class="s1">'[</span><span class="si">%d</span><span class="s1">] </span><span class="si">%s</span><span class="s1">'</span> <span class="o">%</span> <span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">obj</span><span class="o">.</span><span class="fm">__repr__</span><span class="p">(</span><span class="n">depth</span><span class="o">+</span><span class="mi">1</span><span class="p">))</span> <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">obj</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="bp">self</span><span class="p">)]</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">params</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">objs</span><span class="p">:</span>
+            <span class="k">return</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__repr__</span><span class="p">(</span><span class="n">depth</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="ow">not</span> <span class="n">params</span><span class="p">:</span>
+            <span class="n">template</span> <span class="o">=</span> <span class="s1">'</span><span class="si">{cls}{spacer}{objs}</span><span class="s1">'</span>
+        <span class="k">elif</span> <span class="ow">not</span> <span class="n">objs</span><span class="p">:</span>
+            <span class="n">template</span> <span class="o">=</span> <span class="s1">'</span><span class="si">{cls}</span><span class="s1">(</span><span class="si">{params}</span><span class="s1">)'</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">template</span> <span class="o">=</span> <span class="s1">'</span><span class="si">{cls}</span><span class="s1">(</span><span class="si">{params}</span><span class="s1">)</span><span class="si">{spacer}{objs}</span><span class="s1">'</span>
+        <span class="k">return</span> <span class="n">template</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+            <span class="bp">cls</span><span class="o">=</span><span class="bp">cls</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="s1">', '</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">params</span><span class="p">),</span>
+            <span class="n">objs</span><span class="o">=</span><span class="p">(</span><span class="s1">'</span><span class="si">%s</span><span class="s1">'</span> <span class="o">%</span> <span class="n">spacer</span><span class="p">)</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">objs</span><span class="p">),</span> <span class="n">spacer</span><span class="o">=</span><span class="n">spacer</span><span class="p">)</span>
+
+    <span class="c1">#----------------------------------------------------------------</span>
+    <span class="c1"># Callback API</span>
+    <span class="c1">#----------------------------------------------------------------</span>
+
+    <span class="k">def</span> <span class="nf">_update_model</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">events</span><span class="p">,</span> <span class="n">msg</span><span class="p">,</span> <span class="n">root</span><span class="p">,</span> <span class="n">model</span><span class="p">,</span> <span class="n">doc</span><span class="p">,</span> <span class="n">comm</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="n">msg</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_rename</span><span class="p">[</span><span class="s1">'objects'</span><span class="p">]</span> <span class="ow">in</span> <span class="n">msg</span><span class="p">:</span>
+            <span class="n">old</span> <span class="o">=</span> <span class="n">events</span><span class="p">[</span><span class="s1">'objects'</span><span class="p">]</span><span class="o">.</span><span class="n">old</span>
+            <span class="n">msg</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">_rename</span><span class="p">[</span><span class="s1">'objects'</span><span class="p">]]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_objects</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">old</span><span class="p">,</span> <span class="n">doc</span><span class="p">,</span> <span class="n">root</span><span class="p">,</span> <span class="n">comm</span><span class="p">)</span>
+
+        <span class="k">with</span> <span class="n">hold</span><span class="p">(</span><span class="n">doc</span><span class="p">):</span>
+            <span class="n">update</span> <span class="o">=</span> <span class="n">Panel</span><span class="o">.</span><span class="n">_batch_update</span>
+            <span class="n">Panel</span><span class="o">.</span><span class="n">_batch_update</span> <span class="o">=</span> <span class="kc">True</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">_update_model</span><span class="p">(</span><span class="n">events</span><span class="p">,</span> <span class="n">msg</span><span class="p">,</span> <span class="n">root</span><span class="p">,</span> <span class="n">model</span><span class="p">,</span> <span class="n">doc</span><span class="p">,</span> <span class="n">comm</span><span class="p">)</span>
+                <span class="k">if</span> <span class="n">update</span><span class="p">:</span>
+                    <span class="k">return</span>
+                <span class="kn">from</span> <span class="nn">..io</span> <span class="kn">import</span> <span class="n">state</span>
+                <span class="n">ref</span> <span class="o">=</span> <span class="n">root</span><span class="o">.</span><span class="n">ref</span><span class="p">[</span><span class="s1">'id'</span><span class="p">]</span>
+                <span class="k">if</span> <span class="n">ref</span> <span class="ow">in</span> <span class="n">state</span><span class="o">.</span><span class="n">_views</span><span class="p">:</span>
+                    <span class="n">state</span><span class="o">.</span><span class="n">_views</span><span class="p">[</span><span class="n">ref</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">_preprocess</span><span class="p">(</span><span class="n">root</span><span class="p">)</span>
+            <span class="k">finally</span><span class="p">:</span>
+                <span class="n">Panel</span><span class="o">.</span><span class="n">_batch_update</span> <span class="o">=</span> <span class="n">update</span>
+
+    <span class="c1">#----------------------------------------------------------------</span>
+    <span class="c1"># Model API</span>
+    <span class="c1">#----------------------------------------------------------------</span>
+
+    <span class="k">def</span> <span class="nf">_get_objects</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">model</span><span class="p">,</span> <span class="n">old_objects</span><span class="p">,</span> <span class="n">doc</span><span class="p">,</span> <span class="n">root</span><span class="p">,</span> <span class="n">comm</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="sd">"""</span>
+<span class="sd">        Returns new child models for the layout while reusing unchanged</span>
+<span class="sd">        models and cleaning up any dropped objects.</span>
+<span class="sd">        """</span>
+        <span class="kn">from</span> <span class="nn">..pane.base</span> <span class="kn">import</span> <span class="n">panel</span><span class="p">,</span> <span class="n">RerenderError</span>
+        <span class="n">new_models</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">pane</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">objects</span><span class="p">):</span>
+            <span class="n">pane</span> <span class="o">=</span> <span class="n">panel</span><span class="p">(</span><span class="n">pane</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">objects</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">pane</span>
+
+        <span class="k">for</span> <span class="n">obj</span> <span class="ow">in</span> <span class="n">old_objects</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">obj</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">objects</span><span class="p">:</span>
+                <span class="n">obj</span><span class="o">.</span><span class="n">_cleanup</span><span class="p">(</span><span class="n">root</span><span class="p">)</span>
+
+        <span class="n">current_objects</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">objects</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">pane</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">objects</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">pane</span> <span class="ow">in</span> <span class="n">old_objects</span><span class="p">:</span>
+                <span class="n">child</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">pane</span><span class="o">.</span><span class="n">_models</span><span class="p">[</span><span class="n">root</span><span class="o">.</span><span class="n">ref</span><span class="p">[</span><span class="s1">'id'</span><span class="p">]]</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">try</span><span class="p">:</span>
+                    <span class="n">child</span> <span class="o">=</span> <span class="n">pane</span><span class="o">.</span><span class="n">_get_model</span><span class="p">(</span><span class="n">doc</span><span class="p">,</span> <span class="n">root</span><span class="p">,</span> <span class="n">model</span><span class="p">,</span> <span class="n">comm</span><span class="p">)</span>
+                <span class="k">except</span> <span class="n">RerenderError</span><span class="p">:</span>
+                    <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_objects</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">current_objects</span><span class="p">[:</span><span class="n">i</span><span class="p">],</span> <span class="n">doc</span><span class="p">,</span> <span class="n">root</span><span class="p">,</span> <span class="n">comm</span><span class="p">)</span>
+            <span class="n">new_models</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">child</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">new_models</span>
+
+    <span class="k">def</span> <span class="nf">_get_model</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">doc</span><span class="p">,</span> <span class="n">root</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">parent</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">comm</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="n">model</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_bokeh_model</span><span class="p">()</span>
+        <span class="k">if</span> <span class="n">root</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">root</span> <span class="o">=</span> <span class="n">model</span>
+        <span class="n">objects</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_objects</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="p">[],</span> <span class="n">doc</span><span class="p">,</span> <span class="n">root</span><span class="p">,</span> <span class="n">comm</span><span class="p">)</span>
+        <span class="n">props</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_init_params</span><span class="p">(),</span> <span class="n">objects</span><span class="o">=</span><span class="n">objects</span><span class="p">)</span>
+        <span class="n">model</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="o">**</span><span class="bp">self</span><span class="o">.</span><span class="n">_process_param_change</span><span class="p">(</span><span class="n">props</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_models</span><span class="p">[</span><span class="n">root</span><span class="o">.</span><span class="n">ref</span><span class="p">[</span><span class="s1">'id'</span><span class="p">]]</span> <span class="o">=</span> <span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">parent</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_link_props</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_linked_props</span><span class="p">,</span> <span class="n">doc</span><span class="p">,</span> <span class="n">root</span><span class="p">,</span> <span class="n">comm</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">model</span>
+
+    <span class="c1">#----------------------------------------------------------------</span>
+    <span class="c1"># Public API</span>
+    <span class="c1">#----------------------------------------------------------------</span>
+
+<div class="viewcode-block" id="Panel.select"><a class="viewcode-back" href="../../../api/panel.layout.html#panel.layout.accordion.Panel.select">[docs]</a>    <span class="k">def</span> <span class="nf">select</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">selector</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="sd">"""</span>
+<span class="sd">        Iterates over the Viewable and any potential children in the</span>
+<span class="sd">        applying the Selector.</span>
+
+<span class="sd">        Arguments</span>
+<span class="sd">        ---------</span>
+<span class="sd">        selector: type or callable or None</span>
+<span class="sd">          The selector allows selecting a subset of Viewables by</span>
+<span class="sd">          declaring a type or callable function to filter by.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        viewables: list(Viewable)</span>
+<span class="sd">        """</span>
+        <span class="n">objects</span> <span class="o">=</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="n">selector</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">obj</span> <span class="ow">in</span> <span class="bp">self</span><span class="p">:</span>
+            <span class="n">objects</span> <span class="o">+=</span> <span class="n">obj</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="n">selector</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">objects</span></div></div>
+
+
+
+<div class="viewcode-block" id="ListLike"><a class="viewcode-back" href="../../../api/panel.layout.html#panel.layout.accordion.ListLike">[docs]</a><span class="k">class</span> <span class="nc">ListLike</span><span class="p">(</span><span class="n">param</span><span class="o">.</span><span class="n">Parameterized</span><span class="p">):</span>
+
+    <span class="n">objects</span> <span class="o">=</span> <span class="n">param</span><span class="o">.</span><span class="n">List</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="p">[],</span> <span class="n">doc</span><span class="o">=</span><span class="s2">"""</span>
+<span class="s2">        The list of child objects that make up the layout."""</span><span class="p">)</span>
+    
+    <span class="k">def</span> <span class="fm">__getitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">index</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">objects</span><span class="p">[</span><span class="n">index</span><span class="p">]</span>
+
+    <span class="k">def</span> <span class="fm">__len__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">objects</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="fm">__iter__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">obj</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">objects</span><span class="p">:</span>
+            <span class="k">yield</span> <span class="n">obj</span>
+
+    <span class="k">def</span> <span class="fm">__iadd__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">other</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span>
+
+    <span class="k">def</span> <span class="fm">__add__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">other</span><span class="p">,</span> <span class="n">ListLike</span><span class="p">):</span>
+            <span class="n">other</span> <span class="o">=</span> <span class="n">other</span><span class="o">.</span><span class="n">objects</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">other</span><span class="p">,</span> <span class="nb">list</span><span class="p">):</span>
+            <span class="n">stype</span> <span class="o">=</span> <span class="nb">type</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="vm">__name__</span>
+            <span class="n">otype</span> <span class="o">=</span> <span class="nb">type</span><span class="p">(</span><span class="n">other</span><span class="p">)</span><span class="o">.</span><span class="vm">__name__</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">"Cannot add items of type </span><span class="si">%s</span><span class="s2"> and </span><span class="si">%s</span><span class="s2">, can only "</span>
+                             <span class="s2">"combine </span><span class="si">%s</span><span class="s2">.objects with list or ListLike object."</span>
+                             <span class="o">%</span> <span class="p">(</span><span class="n">stype</span><span class="p">,</span> <span class="n">otype</span><span class="p">,</span> <span class="n">stype</span><span class="p">))</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">clone</span><span class="p">(</span><span class="o">*</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">objects</span><span class="o">+</span><span class="n">other</span><span class="p">))</span>
+
+    <span class="k">def</span> <span class="fm">__radd__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">other</span><span class="p">,</span> <span class="n">ListLike</span><span class="p">):</span>
+            <span class="n">other</span> <span class="o">=</span> <span class="n">other</span><span class="o">.</span><span class="n">objects</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">other</span><span class="p">,</span> <span class="nb">list</span><span class="p">):</span>
+            <span class="n">stype</span> <span class="o">=</span> <span class="nb">type</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="vm">__name__</span>
+            <span class="n">otype</span> <span class="o">=</span> <span class="nb">type</span><span class="p">(</span><span class="n">other</span><span class="p">)</span><span class="o">.</span><span class="vm">__name__</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">"Cannot add items of type </span><span class="si">%s</span><span class="s2"> and </span><span class="si">%s</span><span class="s2">, can only "</span>
+                             <span class="s2">"combine </span><span class="si">%s</span><span class="s2">.objects with list or ListLike object."</span>
+                             <span class="o">%</span> <span class="p">(</span><span class="n">otype</span><span class="p">,</span> <span class="n">stype</span><span class="p">,</span> <span class="n">stype</span><span class="p">))</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">clone</span><span class="p">(</span><span class="o">*</span><span class="p">(</span><span class="n">other</span><span class="o">+</span><span class="bp">self</span><span class="o">.</span><span class="n">objects</span><span class="p">))</span>
+
+    <span class="k">def</span> <span class="fm">__contains__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">obj</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">obj</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">objects</span>
+
+    <span class="k">def</span> <span class="fm">__setitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">index</span><span class="p">,</span> <span class="n">panes</span><span class="p">):</span>
+        <span class="kn">from</span> <span class="nn">..pane</span> <span class="kn">import</span> <span class="n">panel</span>
+        <span class="n">new_objects</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">index</span><span class="p">,</span> <span class="nb">slice</span><span class="p">):</span>
+            <span class="n">start</span><span class="p">,</span> <span class="n">end</span> <span class="o">=</span> <span class="n">index</span><span class="p">,</span> <span class="n">index</span><span class="o">+</span><span class="mi">1</span>
+            <span class="k">if</span> <span class="n">start</span> <span class="o">&gt;</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">objects</span><span class="p">):</span>
+                <span class="k">raise</span> <span class="ne">IndexError</span><span class="p">(</span><span class="s1">'Index </span><span class="si">%d</span><span class="s1"> out of bounds on </span><span class="si">%s</span><span class="s1"> '</span>
+                                 <span class="s1">'containing </span><span class="si">%d</span><span class="s1"> objects.'</span> <span class="o">%</span>
+                                 <span class="p">(</span><span class="n">end</span><span class="p">,</span> <span class="nb">type</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="vm">__name__</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">objects</span><span class="p">)))</span>
+            <span class="n">panes</span> <span class="o">=</span> <span class="p">[</span><span class="n">panes</span><span class="p">]</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">start</span> <span class="o">=</span> <span class="n">index</span><span class="o">.</span><span class="n">start</span> <span class="ow">or</span> <span class="mi">0</span>
+            <span class="n">end</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="k">if</span> <span class="n">index</span><span class="o">.</span><span class="n">stop</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">index</span><span class="o">.</span><span class="n">stop</span>
+            <span class="k">if</span> <span class="n">index</span><span class="o">.</span><span class="n">start</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">index</span><span class="o">.</span><span class="n">stop</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">panes</span><span class="p">,</span> <span class="nb">list</span><span class="p">):</span>
+                    <span class="k">raise</span> <span class="ne">IndexError</span><span class="p">(</span><span class="s1">'Expected a list of objects to '</span>
+                                     <span class="s1">'replace the objects in the </span><span class="si">%s</span><span class="s1">, '</span>
+                                     <span class="s1">'got a </span><span class="si">%s</span><span class="s1"> type.'</span> <span class="o">%</span>
+                                     <span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="vm">__name__</span><span class="p">,</span> <span class="nb">type</span><span class="p">(</span><span class="n">panes</span><span class="p">)</span><span class="o">.</span><span class="vm">__name__</span><span class="p">))</span>
+                <span class="n">expected</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">panes</span><span class="p">)</span>
+                <span class="n">new_objects</span> <span class="o">=</span> <span class="p">[</span><span class="kc">None</span><span class="p">]</span><span class="o">*</span><span class="n">expected</span>
+                <span class="n">end</span> <span class="o">=</span> <span class="n">expected</span>
+            <span class="k">elif</span> <span class="n">end</span> <span class="o">&gt;</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">objects</span><span class="p">):</span>
+                <span class="k">raise</span> <span class="ne">IndexError</span><span class="p">(</span><span class="s1">'Index </span><span class="si">%d</span><span class="s1"> out of bounds on </span><span class="si">%s</span><span class="s1"> '</span>
+                                 <span class="s1">'containing </span><span class="si">%d</span><span class="s1"> objects.'</span> <span class="o">%</span>
+                                 <span class="p">(</span><span class="n">end</span><span class="p">,</span> <span class="nb">type</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="vm">__name__</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">objects</span><span class="p">)))</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">expected</span> <span class="o">=</span> <span class="n">end</span><span class="o">-</span><span class="n">start</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">panes</span><span class="p">,</span> <span class="nb">list</span><span class="p">)</span> <span class="ow">or</span> <span class="nb">len</span><span class="p">(</span><span class="n">panes</span><span class="p">)</span> <span class="o">!=</span> <span class="n">expected</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">IndexError</span><span class="p">(</span><span class="s1">'Expected a list of </span><span class="si">%d</span><span class="s1"> objects to set '</span>
+                                 <span class="s1">'on the </span><span class="si">%s</span><span class="s1"> to match the supplied slice.'</span> <span class="o">%</span>
+                                 <span class="p">(</span><span class="n">expected</span><span class="p">,</span> <span class="nb">type</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="vm">__name__</span><span class="p">))</span>
+        <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">pane</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="n">start</span><span class="p">,</span> <span class="n">end</span><span class="p">),</span> <span class="n">panes</span><span class="p">):</span>
+            <span class="n">new_objects</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">panel</span><span class="p">(</span><span class="n">pane</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">objects</span> <span class="o">=</span> <span class="n">new_objects</span>
+
+<div class="viewcode-block" id="ListLike.clone"><a class="viewcode-back" href="../../../api/panel.layout.html#panel.layout.accordion.ListLike.clone">[docs]</a>    <span class="k">def</span> <span class="nf">clone</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">objects</span><span class="p">,</span> <span class="o">**</span><span class="n">params</span><span class="p">):</span>
+        <span class="sd">"""</span>
+<span class="sd">        Makes a copy of the layout sharing the same parameters.</span>
+
+<span class="sd">        Arguments</span>
+<span class="sd">        ---------</span>
+<span class="sd">        objects: Objects to add to the cloned layout.</span>
+<span class="sd">        params: Keyword arguments override the parameters on the clone.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        Cloned layout object</span>
+<span class="sd">        """</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">objects</span><span class="p">:</span>
+            <span class="k">if</span> <span class="s1">'objects'</span> <span class="ow">in</span> <span class="n">params</span><span class="p">:</span>
+                <span class="n">objects</span> <span class="o">=</span> <span class="n">params</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">'objects'</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">objects</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">objects</span>
+        <span class="k">elif</span> <span class="s1">'objects'</span> <span class="ow">in</span> <span class="n">params</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">"A </span><span class="si">%s</span><span class="s2">'s objects should be supplied either "</span>
+                             <span class="s2">"as arguments or as a keyword, not both."</span>
+                             <span class="o">%</span> <span class="nb">type</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="vm">__name__</span><span class="p">)</span>
+        <span class="n">p</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">param</span><span class="o">.</span><span class="n">get_param_values</span><span class="p">(),</span> <span class="o">**</span><span class="n">params</span><span class="p">)</span>
+        <span class="k">del</span> <span class="n">p</span><span class="p">[</span><span class="s1">'objects'</span><span class="p">]</span>
+        <span class="k">return</span> <span class="nb">type</span><span class="p">(</span><span class="bp">self</span><span class="p">)(</span><span class="o">*</span><span class="n">objects</span><span class="p">,</span> <span class="o">**</span><span class="n">p</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="ListLike.append"><a class="viewcode-back" href="../../../api/panel.layout.html#panel.layout.accordion.ListLike.append">[docs]</a>    <span class="k">def</span> <span class="nf">append</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">obj</span><span class="p">):</span>
+        <span class="sd">"""</span>
+<span class="sd">        Appends an object to the layout.</span>
+
+<span class="sd">        Arguments</span>
+<span class="sd">        ---------</span>
+<span class="sd">        obj (object): Panel component to add to the layout.</span>
+<span class="sd">        """</span>
+        <span class="kn">from</span> <span class="nn">..pane</span> <span class="kn">import</span> <span class="n">panel</span>
+        <span class="n">new_objects</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+        <span class="n">new_objects</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">panel</span><span class="p">(</span><span class="n">obj</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">objects</span> <span class="o">=</span> <span class="n">new_objects</span></div>
+
+<div class="viewcode-block" id="ListLike.clear"><a class="viewcode-back" href="../../../api/panel.layout.html#panel.layout.accordion.ListLike.clear">[docs]</a>    <span class="k">def</span> <span class="nf">clear</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">"""</span>
+<span class="sd">        Clears the objects on this layout.</span>
+<span class="sd">        """</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">objects</span> <span class="o">=</span> <span class="p">[]</span></div>
+
+<div class="viewcode-block" id="ListLike.extend"><a class="viewcode-back" href="../../../api/panel.layout.html#panel.layout.accordion.ListLike.extend">[docs]</a>    <span class="k">def</span> <span class="nf">extend</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">objects</span><span class="p">):</span>
+        <span class="sd">"""</span>
+<span class="sd">        Extends the objects on this layout with a list.</span>
+
+<span class="sd">        Arguments</span>
+<span class="sd">        ---------</span>
+<span class="sd">        objects (list): List of panel components to add to the layout.</span>
+<span class="sd">        """</span>
+        <span class="kn">from</span> <span class="nn">..pane</span> <span class="kn">import</span> <span class="n">panel</span>
+        <span class="n">new_objects</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+        <span class="n">new_objects</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="n">panel</span><span class="p">,</span> <span class="n">objects</span><span class="p">)))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">objects</span> <span class="o">=</span> <span class="n">new_objects</span></div>
+
+<div class="viewcode-block" id="ListLike.insert"><a class="viewcode-back" href="../../../api/panel.layout.html#panel.layout.accordion.ListLike.insert">[docs]</a>    <span class="k">def</span> <span class="nf">insert</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">index</span><span class="p">,</span> <span class="n">obj</span><span class="p">):</span>
+        <span class="sd">"""</span>
+<span class="sd">        Inserts an object in the layout at the specified index.</span>
+
+<span class="sd">        Arguments</span>
+<span class="sd">        ---------</span>
+<span class="sd">        index (int): Index at which to insert the object.</span>
+<span class="sd">        object (object): Panel components to insert in the layout.</span>
+<span class="sd">        """</span>
+        <span class="kn">from</span> <span class="nn">..pane</span> <span class="kn">import</span> <span class="n">panel</span>
+        <span class="n">new_objects</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+        <span class="n">new_objects</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="n">index</span><span class="p">,</span> <span class="n">panel</span><span class="p">(</span><span class="n">obj</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">objects</span> <span class="o">=</span> <span class="n">new_objects</span></div>
+
+<div class="viewcode-block" id="ListLike.pop"><a class="viewcode-back" href="../../../api/panel.layout.html#panel.layout.accordion.ListLike.pop">[docs]</a>    <span class="k">def</span> <span class="nf">pop</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">index</span><span class="p">):</span>
+        <span class="sd">"""</span>
+<span class="sd">        Pops an item from the layout by index.</span>
+
+<span class="sd">        Arguments</span>
+<span class="sd">        ---------</span>
+<span class="sd">        index (int): The index of the item to pop from the layout.</span>
+<span class="sd">        """</span>
+        <span class="n">new_objects</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">index</span> <span class="ow">in</span> <span class="n">new_objects</span><span class="p">:</span>
+            <span class="n">index</span> <span class="o">=</span> <span class="n">new_objects</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="n">index</span><span class="p">)</span>
+        <span class="n">obj</span> <span class="o">=</span> <span class="n">new_objects</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="n">index</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">objects</span> <span class="o">=</span> <span class="n">new_objects</span>
+        <span class="k">return</span> <span class="n">obj</span></div>
+
+<div class="viewcode-block" id="ListLike.remove"><a class="viewcode-back" href="../../../api/panel.layout.html#panel.layout.accordion.ListLike.remove">[docs]</a>    <span class="k">def</span> <span class="nf">remove</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">obj</span><span class="p">):</span>
+        <span class="sd">"""</span>
+<span class="sd">        Removes an object from the layout.</span>
+
+<span class="sd">        Arguments</span>
+<span class="sd">        ---------</span>
+<span class="sd">        obj (object): The object to remove from the layout.</span>
+<span class="sd">        """</span>
+        <span class="n">new_objects</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+        <span class="n">new_objects</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">obj</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">objects</span> <span class="o">=</span> <span class="n">new_objects</span></div>
+
+<div class="viewcode-block" id="ListLike.reverse"><a class="viewcode-back" href="../../../api/panel.layout.html#panel.layout.accordion.ListLike.reverse">[docs]</a>    <span class="k">def</span> <span class="nf">reverse</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">"""</span>
+<span class="sd">        Reverses the objects in the layout.</span>
+<span class="sd">        """</span>
+        <span class="n">new_objects</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+        <span class="n">new_objects</span><span class="o">.</span><span class="n">reverse</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">objects</span> <span class="o">=</span> <span class="n">new_objects</span></div></div>
+
+    
+
+<div class="viewcode-block" id="ListPanel"><a class="viewcode-back" href="../../../api/panel.layout.html#panel.layout.accordion.ListPanel">[docs]</a><span class="k">class</span> <span class="nc">ListPanel</span><span class="p">(</span><span class="n">ListLike</span><span class="p">,</span> <span class="n">Panel</span><span class="p">):</span>
+    <span class="sd">"""</span>
+<span class="sd">    An abstract baseclass for Panel objects with list-like children.</span>
+<span class="sd">    """</span>
+
+    <span class="n">margin</span> <span class="o">=</span> <span class="n">param</span><span class="o">.</span><span class="n">Parameter</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="s2">"""</span>
+<span class="s2">        Allows to create additional space around the component. May</span>
+<span class="s2">        be specified as a two-tuple of the form (vertical, horizontal)</span>
+<span class="s2">        or a four-tuple (top, right, bottom, left)."""</span><span class="p">)</span>
+
+    <span class="n">scroll</span> <span class="o">=</span> <span class="n">param</span><span class="o">.</span><span class="n">Boolean</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="s2">"""</span>
+<span class="s2">        Whether to add scrollbars if the content overflows the size</span>
+<span class="s2">        of the container."""</span><span class="p">)</span>
+
+    <span class="n">_source_transforms</span> <span class="o">=</span> <span class="p">{</span><span class="s1">'scroll'</span><span class="p">:</span> <span class="kc">None</span><span class="p">}</span>
+
+    <span class="n">__abstract</span> <span class="o">=</span> <span class="kc">True</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">objects</span><span class="p">,</span> <span class="o">**</span><span class="n">params</span><span class="p">):</span>
+        <span class="kn">from</span> <span class="nn">..pane</span> <span class="kn">import</span> <span class="n">panel</span>
+        <span class="k">if</span> <span class="n">objects</span><span class="p">:</span>
+            <span class="k">if</span> <span class="s1">'objects'</span> <span class="ow">in</span> <span class="n">params</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">"A </span><span class="si">%s</span><span class="s2">'s objects should be supplied either "</span>
+                                 <span class="s2">"as positional arguments or as a keyword, "</span>
+                                 <span class="s2">"not both."</span> <span class="o">%</span> <span class="nb">type</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="vm">__name__</span><span class="p">)</span>
+            <span class="n">params</span><span class="p">[</span><span class="s1">'objects'</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">panel</span><span class="p">(</span><span class="n">pane</span><span class="p">)</span> <span class="k">for</span> <span class="n">pane</span> <span class="ow">in</span> <span class="n">objects</span><span class="p">]</span>
+        <span class="k">elif</span> <span class="s1">'objects'</span> <span class="ow">in</span> <span class="n">params</span><span class="p">:</span>
+            <span class="n">params</span><span class="p">[</span><span class="s1">'objects'</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">panel</span><span class="p">(</span><span class="n">pane</span><span class="p">)</span> <span class="k">for</span> <span class="n">pane</span> <span class="ow">in</span> <span class="n">params</span><span class="p">[</span><span class="s1">'objects'</span><span class="p">]]</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">Panel</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="o">**</span><span class="n">params</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">_process_param_change</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">params</span><span class="p">):</span>
+        <span class="n">scroll</span> <span class="o">=</span> <span class="n">params</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">'scroll'</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+        <span class="n">css_classes</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">css_classes</span> <span class="ow">or</span> <span class="p">[]</span>
+        <span class="k">if</span> <span class="n">scroll</span><span class="p">:</span>
+            <span class="n">params</span><span class="p">[</span><span class="s1">'css_classes'</span><span class="p">]</span> <span class="o">=</span> <span class="n">css_classes</span> <span class="o">+</span> <span class="p">[</span><span class="s1">'scrollable'</span><span class="p">]</span>
+        <span class="k">elif</span> <span class="n">scroll</span> <span class="o">==</span> <span class="kc">False</span><span class="p">:</span>
+            <span class="n">params</span><span class="p">[</span><span class="s1">'css_classes'</span><span class="p">]</span> <span class="o">=</span> <span class="n">css_classes</span>
+        <span class="k">return</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">_process_param_change</span><span class="p">(</span><span class="n">params</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">_cleanup</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">root</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">root</span><span class="o">.</span><span class="n">ref</span><span class="p">[</span><span class="s1">'id'</span><span class="p">]</span> <span class="ow">in</span> <span class="n">state</span><span class="o">.</span><span class="n">_fake_roots</span><span class="p">:</span>
+            <span class="n">state</span><span class="o">.</span><span class="n">_fake_roots</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">root</span><span class="o">.</span><span class="n">ref</span><span class="p">[</span><span class="s1">'id'</span><span class="p">])</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">_cleanup</span><span class="p">(</span><span class="n">root</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">objects</span><span class="p">:</span>
+            <span class="n">p</span><span class="o">.</span><span class="n">_cleanup</span><span class="p">(</span><span class="n">root</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="NamedListPanel"><a class="viewcode-back" href="../../../api/panel.layout.html#panel.layout.accordion.NamedListPanel">[docs]</a><span class="k">class</span> <span class="nc">NamedListPanel</span><span class="p">(</span><span class="n">ListPanel</span><span class="p">):</span>
+
+    <span class="n">active</span> <span class="o">=</span> <span class="n">param</span><span class="o">.</span><span class="n">Integer</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">bounds</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="kc">None</span><span class="p">),</span> <span class="n">doc</span><span class="o">=</span><span class="s2">"""</span>
+<span class="s2">        Index of the currently displayed objects."""</span><span class="p">)</span>
+
+    <span class="n">objects</span> <span class="o">=</span> <span class="n">param</span><span class="o">.</span><span class="n">List</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="p">[],</span> <span class="n">doc</span><span class="o">=</span><span class="s2">"""</span>
+<span class="s2">        The list of child objects that make up the tabs."""</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">items</span><span class="p">,</span> <span class="o">**</span><span class="n">params</span><span class="p">):</span>
+        <span class="k">if</span> <span class="s1">'objects'</span> <span class="ow">in</span> <span class="n">params</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">items</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">'</span><span class="si">%s</span><span class="s1"> objects should be supplied either '</span>
+                                 <span class="s1">'as positional arguments or as a keyword, '</span>
+                                 <span class="s1">'not both.'</span> <span class="o">%</span> <span class="nb">type</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="vm">__name__</span><span class="p">)</span>
+            <span class="n">items</span> <span class="o">=</span> <span class="n">params</span><span class="p">[</span><span class="s1">'objects'</span><span class="p">]</span>
+        <span class="n">objects</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_names</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_to_objects_and_names</span><span class="p">(</span><span class="n">items</span><span class="p">)</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="o">*</span><span class="n">objects</span><span class="p">,</span> <span class="o">**</span><span class="n">params</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_panels</span> <span class="o">=</span> <span class="n">defaultdict</span><span class="p">(</span><span class="nb">dict</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">param</span><span class="o">.</span><span class="n">watch</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_update_names</span><span class="p">,</span> <span class="s1">'objects'</span><span class="p">)</span>
+        <span class="c1"># ALERT: Ensure that name update happens first, should be</span>
+        <span class="c1">#        replaced by watch precedence support in param</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_param_watchers</span><span class="p">[</span><span class="s1">'objects'</span><span class="p">][</span><span class="s1">'value'</span><span class="p">]</span><span class="o">.</span><span class="n">reverse</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="nf">_to_object_and_name</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">item</span><span class="p">):</span>
+        <span class="kn">from</span> <span class="nn">..pane</span> <span class="kn">import</span> <span class="n">panel</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">item</span><span class="p">,</span> <span class="nb">tuple</span><span class="p">):</span>
+            <span class="n">name</span><span class="p">,</span> <span class="n">item</span> <span class="o">=</span> <span class="n">item</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">name</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">item</span><span class="p">,</span> <span class="s1">'name'</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+        <span class="n">pane</span> <span class="o">=</span> <span class="n">panel</span><span class="p">(</span><span class="n">item</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="n">name</span><span class="p">)</span>
+        <span class="n">name</span> <span class="o">=</span> <span class="n">param_name</span><span class="p">(</span><span class="n">pane</span><span class="o">.</span><span class="n">name</span><span class="p">)</span> <span class="k">if</span> <span class="n">name</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">name</span>
+        <span class="k">return</span> <span class="n">pane</span><span class="p">,</span> <span class="n">name</span>
+
+    <span class="k">def</span> <span class="nf">_to_objects_and_names</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">items</span><span class="p">):</span>
+        <span class="n">objects</span><span class="p">,</span> <span class="n">names</span> <span class="o">=</span> <span class="p">[],</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">items</span><span class="p">:</span>
+            <span class="n">pane</span><span class="p">,</span> <span class="n">name</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_to_object_and_name</span><span class="p">(</span><span class="n">item</span><span class="p">)</span>
+            <span class="n">objects</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">pane</span><span class="p">)</span>
+            <span class="n">names</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">objects</span><span class="p">,</span> <span class="n">names</span>
+
+    <span class="k">def</span> <span class="nf">_update_names</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">):</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">event</span><span class="o">.</span><span class="n">new</span><span class="p">)</span> <span class="o">==</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_names</span><span class="p">):</span>
+            <span class="k">return</span>
+        <span class="n">names</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">obj</span> <span class="ow">in</span> <span class="n">event</span><span class="o">.</span><span class="n">new</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">obj</span> <span class="ow">in</span> <span class="n">event</span><span class="o">.</span><span class="n">old</span><span class="p">:</span>
+                <span class="n">index</span> <span class="o">=</span> <span class="n">event</span><span class="o">.</span><span class="n">old</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="n">obj</span><span class="p">)</span>
+                <span class="n">name</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_names</span><span class="p">[</span><span class="n">index</span><span class="p">]</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">name</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="n">name</span>
+            <span class="n">names</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_names</span> <span class="o">=</span> <span class="n">names</span>
+
+    <span class="k">def</span> <span class="nf">_update_active</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">events</span><span class="p">):</span>
+        <span class="k">pass</span>
+
+    <span class="c1">#----------------------------------------------------------------</span>
+    <span class="c1"># Public API</span>
+    <span class="c1">#----------------------------------------------------------------</span>
+
+    <span class="k">def</span> <span class="fm">__add__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">other</span><span class="p">,</span> <span class="n">NamedListPanel</span><span class="p">):</span>
+            <span class="n">other</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">other</span><span class="o">.</span><span class="n">_names</span><span class="p">,</span> <span class="n">other</span><span class="o">.</span><span class="n">objects</span><span class="p">))</span>
+        <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">other</span><span class="p">,</span> <span class="n">ListLike</span><span class="p">):</span>
+            <span class="n">other</span> <span class="o">=</span> <span class="n">other</span><span class="o">.</span><span class="n">objects</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">other</span><span class="p">,</span> <span class="nb">list</span><span class="p">):</span>
+            <span class="n">stype</span> <span class="o">=</span> <span class="nb">type</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="vm">__name__</span>
+            <span class="n">otype</span> <span class="o">=</span> <span class="nb">type</span><span class="p">(</span><span class="n">other</span><span class="p">)</span><span class="o">.</span><span class="vm">__name__</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">"Cannot add items of type </span><span class="si">%s</span><span class="s2"> and </span><span class="si">%s</span><span class="s2">, can only "</span>
+                             <span class="s2">"combine </span><span class="si">%s</span><span class="s2">.objects with list or ListLike object."</span>
+                             <span class="o">%</span> <span class="p">(</span><span class="n">stype</span><span class="p">,</span> <span class="n">otype</span><span class="p">,</span> <span class="n">stype</span><span class="p">))</span>
+        <span class="n">objects</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_names</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">objects</span><span class="p">))</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">clone</span><span class="p">(</span><span class="o">*</span><span class="p">(</span><span class="n">objects</span><span class="o">+</span><span class="n">other</span><span class="p">))</span>
+
+    <span class="k">def</span> <span class="fm">__radd__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">other</span><span class="p">,</span> <span class="n">NamedListPanel</span><span class="p">):</span>
+            <span class="n">other</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">other</span><span class="o">.</span><span class="n">_names</span><span class="p">,</span> <span class="n">other</span><span class="o">.</span><span class="n">objects</span><span class="p">))</span>
+        <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">other</span><span class="p">,</span> <span class="n">ListLike</span><span class="p">):</span>
+            <span class="n">other</span> <span class="o">=</span> <span class="n">other</span><span class="o">.</span><span class="n">objects</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">other</span><span class="p">,</span> <span class="nb">list</span><span class="p">):</span>
+            <span class="n">stype</span> <span class="o">=</span> <span class="nb">type</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="vm">__name__</span>
+            <span class="n">otype</span> <span class="o">=</span> <span class="nb">type</span><span class="p">(</span><span class="n">other</span><span class="p">)</span><span class="o">.</span><span class="vm">__name__</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">"Cannot add items of type </span><span class="si">%s</span><span class="s2"> and </span><span class="si">%s</span><span class="s2">, can only "</span>
+                             <span class="s2">"combine </span><span class="si">%s</span><span class="s2">.objects with list or ListLike object."</span>
+                             <span class="o">%</span> <span class="p">(</span><span class="n">otype</span><span class="p">,</span> <span class="n">stype</span><span class="p">,</span> <span class="n">stype</span><span class="p">))</span>
+        <span class="n">objects</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_names</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">objects</span><span class="p">))</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">clone</span><span class="p">(</span><span class="o">*</span><span class="p">(</span><span class="n">other</span><span class="o">+</span><span class="n">objects</span><span class="p">))</span>
+
+    <span class="k">def</span> <span class="fm">__setitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">index</span><span class="p">,</span> <span class="n">panes</span><span class="p">):</span>
+        <span class="n">new_objects</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">index</span><span class="p">,</span> <span class="nb">slice</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">index</span> <span class="o">&gt;</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">objects</span><span class="p">):</span>
+                <span class="k">raise</span> <span class="ne">IndexError</span><span class="p">(</span><span class="s1">'Index </span><span class="si">%d</span><span class="s1"> out of bounds on </span><span class="si">%s</span><span class="s1"> '</span>
+                                 <span class="s1">'containing </span><span class="si">%d</span><span class="s1"> objects.'</span> <span class="o">%</span>
+                                 <span class="p">(</span><span class="n">index</span><span class="p">,</span> <span class="nb">type</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="vm">__name__</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">objects</span><span class="p">)))</span>
+            <span class="n">start</span><span class="p">,</span> <span class="n">end</span> <span class="o">=</span> <span class="n">index</span><span class="p">,</span> <span class="n">index</span><span class="o">+</span><span class="mi">1</span>
+            <span class="n">panes</span> <span class="o">=</span> <span class="p">[</span><span class="n">panes</span><span class="p">]</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">start</span> <span class="o">=</span> <span class="n">index</span><span class="o">.</span><span class="n">start</span> <span class="ow">or</span> <span class="mi">0</span>
+            <span class="n">end</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">objects</span><span class="p">)</span> <span class="k">if</span> <span class="n">index</span><span class="o">.</span><span class="n">stop</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">index</span><span class="o">.</span><span class="n">stop</span>
+            <span class="k">if</span> <span class="n">index</span><span class="o">.</span><span class="n">start</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">index</span><span class="o">.</span><span class="n">stop</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">panes</span><span class="p">,</span> <span class="nb">list</span><span class="p">):</span>
+                    <span class="k">raise</span> <span class="ne">IndexError</span><span class="p">(</span><span class="s1">'Expected a list of objects to '</span>
+                                     <span class="s1">'replace the objects in the </span><span class="si">%s</span><span class="s1">, '</span>
+                                     <span class="s1">'got a </span><span class="si">%s</span><span class="s1"> type.'</span> <span class="o">%</span>
+                                     <span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="vm">__name__</span><span class="p">,</span> <span class="nb">type</span><span class="p">(</span><span class="n">panes</span><span class="p">)</span><span class="o">.</span><span class="vm">__name__</span><span class="p">))</span>
+                <span class="n">expected</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">panes</span><span class="p">)</span>
+                <span class="n">new_objects</span> <span class="o">=</span> <span class="p">[</span><span class="kc">None</span><span class="p">]</span><span class="o">*</span><span class="n">expected</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_names</span> <span class="o">=</span> <span class="p">[</span><span class="kc">None</span><span class="p">]</span><span class="o">*</span><span class="nb">len</span><span class="p">(</span><span class="n">panes</span><span class="p">)</span>
+                <span class="n">end</span> <span class="o">=</span> <span class="n">expected</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">expected</span> <span class="o">=</span> <span class="n">end</span><span class="o">-</span><span class="n">start</span>
+                <span class="k">if</span> <span class="n">end</span> <span class="o">&gt;</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">objects</span><span class="p">):</span>
+                    <span class="k">raise</span> <span class="ne">IndexError</span><span class="p">(</span><span class="s1">'Index </span><span class="si">%d</span><span class="s1"> out of bounds on </span><span class="si">%s</span><span class="s1"> '</span>
+                                     <span class="s1">'containing </span><span class="si">%d</span><span class="s1"> objects.'</span> <span class="o">%</span>
+                                     <span class="p">(</span><span class="n">end</span><span class="p">,</span> <span class="nb">type</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="vm">__name__</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">objects</span><span class="p">)))</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">panes</span><span class="p">,</span> <span class="nb">list</span><span class="p">)</span> <span class="ow">or</span> <span class="nb">len</span><span class="p">(</span><span class="n">panes</span><span class="p">)</span> <span class="o">!=</span> <span class="n">expected</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">IndexError</span><span class="p">(</span><span class="s1">'Expected a list of </span><span class="si">%d</span><span class="s1"> objects to set '</span>
+                                 <span class="s1">'on the </span><span class="si">%s</span><span class="s1"> to match the supplied slice.'</span> <span class="o">%</span>
+                                 <span class="p">(</span><span class="n">expected</span><span class="p">,</span> <span class="nb">type</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="vm">__name__</span><span class="p">))</span>
+        <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">pane</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="n">start</span><span class="p">,</span> <span class="n">end</span><span class="p">),</span> <span class="n">panes</span><span class="p">):</span>
+            <span class="n">new_objects</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">_names</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_to_object_and_name</span><span class="p">(</span><span class="n">pane</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">objects</span> <span class="o">=</span> <span class="n">new_objects</span>
+
+<div class="viewcode-block" id="NamedListPanel.clone"><a class="viewcode-back" href="../../../api/panel.layout.html#panel.layout.accordion.NamedListPanel.clone">[docs]</a>    <span class="k">def</span> <span class="nf">clone</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">objects</span><span class="p">,</span> <span class="o">**</span><span class="n">params</span><span class="p">):</span>
+        <span class="sd">"""</span>
+<span class="sd">        Makes a copy of the Tabs sharing the same parameters.</span>
+
+<span class="sd">        Arguments</span>
+<span class="sd">        ---------</span>
+<span class="sd">        objects: Objects to add to the cloned Tabs object.</span>
+<span class="sd">        params: Keyword arguments override the parameters on the clone.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        Cloned Tabs object</span>
+<span class="sd">        """</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">objects</span><span class="p">:</span>
+            <span class="k">if</span> <span class="s1">'objects'</span> <span class="ow">in</span> <span class="n">params</span><span class="p">:</span>
+                <span class="n">objects</span> <span class="o">=</span> <span class="n">params</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">'objects'</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">objects</span> <span class="o">=</span> <span class="nb">zip</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_names</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">objects</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="s1">'objects'</span> <span class="ow">in</span> <span class="n">params</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">'Tabs objects should be supplied either '</span>
+                             <span class="s1">'as positional arguments or as a keyword, '</span>
+                             <span class="s1">'not both.'</span><span class="p">)</span>
+        <span class="n">p</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">param</span><span class="o">.</span><span class="n">get_param_values</span><span class="p">(),</span> <span class="o">**</span><span class="n">params</span><span class="p">)</span>
+        <span class="k">del</span> <span class="n">p</span><span class="p">[</span><span class="s1">'objects'</span><span class="p">]</span>
+        <span class="k">return</span> <span class="nb">type</span><span class="p">(</span><span class="bp">self</span><span class="p">)(</span><span class="o">*</span><span class="n">objects</span><span class="p">,</span> <span class="o">**</span><span class="n">params</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="NamedListPanel.append"><a class="viewcode-back" href="../../../api/panel.layout.html#panel.layout.accordion.NamedListPanel.append">[docs]</a>    <span class="k">def</span> <span class="nf">append</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">pane</span><span class="p">):</span>
+        <span class="sd">"""</span>
+<span class="sd">        Appends an object to the tabs.</span>
+
+<span class="sd">        Arguments</span>
+<span class="sd">        ---------</span>
+<span class="sd">        obj (object): Panel component to add as a tab.</span>
+<span class="sd">        """</span>
+        <span class="n">new_object</span><span class="p">,</span> <span class="n">new_name</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_to_object_and_name</span><span class="p">(</span><span class="n">pane</span><span class="p">)</span>
+        <span class="n">new_objects</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+        <span class="n">new_objects</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">new_object</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_names</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">new_name</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">objects</span> <span class="o">=</span> <span class="n">new_objects</span></div>
+
+<div class="viewcode-block" id="NamedListPanel.clear"><a class="viewcode-back" href="../../../api/panel.layout.html#panel.layout.accordion.NamedListPanel.clear">[docs]</a>    <span class="k">def</span> <span class="nf">clear</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">"""</span>
+<span class="sd">        Clears the tabs.</span>
+<span class="sd">        """</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_names</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">objects</span> <span class="o">=</span> <span class="p">[]</span></div>
+
+<div class="viewcode-block" id="NamedListPanel.extend"><a class="viewcode-back" href="../../../api/panel.layout.html#panel.layout.accordion.NamedListPanel.extend">[docs]</a>    <span class="k">def</span> <span class="nf">extend</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">panes</span><span class="p">):</span>
+        <span class="sd">"""</span>
+<span class="sd">        Extends the the tabs with a list.</span>
+
+<span class="sd">        Arguments</span>
+<span class="sd">        ---------</span>
+<span class="sd">        objects (list): List of panel components to add as tabs.</span>
+<span class="sd">        """</span>
+        <span class="n">new_objects</span><span class="p">,</span> <span class="n">new_names</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_to_objects_and_names</span><span class="p">(</span><span class="n">panes</span><span class="p">)</span>
+        <span class="n">objects</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+        <span class="n">objects</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">new_objects</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_names</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">new_names</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">objects</span> <span class="o">=</span> <span class="n">objects</span></div>
+
+<div class="viewcode-block" id="NamedListPanel.insert"><a class="viewcode-back" href="../../../api/panel.layout.html#panel.layout.accordion.NamedListPanel.insert">[docs]</a>    <span class="k">def</span> <span class="nf">insert</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">index</span><span class="p">,</span> <span class="n">pane</span><span class="p">):</span>
+        <span class="sd">"""</span>
+<span class="sd">        Inserts an object in the tabs at the specified index.</span>
+
+<span class="sd">        Arguments</span>
+<span class="sd">        ---------</span>
+<span class="sd">        index (int): Index at which to insert the object.</span>
+<span class="sd">        object (object): Panel components to insert as tabs.</span>
+<span class="sd">        """</span>
+        <span class="n">new_object</span><span class="p">,</span> <span class="n">new_name</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_to_object_and_name</span><span class="p">(</span><span class="n">pane</span><span class="p">)</span>
+        <span class="n">new_objects</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">objects</span><span class="p">)</span>
+        <span class="n">new_objects</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="n">index</span><span class="p">,</span> <span class="n">new_object</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_names</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="n">index</span><span class="p">,</span> <span class="n">new_name</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">objects</span> <span class="o">=</span> <span class="n">new_objects</span></div>
+
+<div class="viewcode-block" id="NamedListPanel.pop"><a class="viewcode-back" href="../../../api/panel.layout.html#panel.layout.accordion.NamedListPanel.pop">[docs]</a>    <span class="k">def</span> <span class="nf">pop</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">index</span><span class="p">):</span>
+        <span class="sd">"""</span>
+<span class="sd">        Pops an item from the tabs by index.</span>
+
+<span class="sd">        Arguments</span>
+<span class="sd">        ---------</span>
+<span class="sd">        index (int): The index of the item to pop from the tabs.</span>
+<span class="sd">        """</span>
+        <span class="n">new_objects</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">index</span> <span class="ow">in</span> <span class="n">new_objects</span><span class="p">:</span>
+            <span class="n">index</span> <span class="o">=</span> <span class="n">new_objects</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="n">index</span><span class="p">)</span>
+        <span class="n">new_objects</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="n">index</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_names</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="n">index</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">objects</span> <span class="o">=</span> <span class="n">new_objects</span></div>
+
+<div class="viewcode-block" id="NamedListPanel.remove"><a class="viewcode-back" href="../../../api/panel.layout.html#panel.layout.accordion.NamedListPanel.remove">[docs]</a>    <span class="k">def</span> <span class="nf">remove</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">pane</span><span class="p">):</span>
+        <span class="sd">"""</span>
+<span class="sd">        Removes an object from the tabs.</span>
+
+<span class="sd">        Arguments</span>
+<span class="sd">        ---------</span>
+<span class="sd">        obj (object): The object to remove from the tabs.</span>
+<span class="sd">        """</span>
+        <span class="n">new_objects</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">pane</span> <span class="ow">in</span> <span class="n">new_objects</span><span class="p">:</span>
+            <span class="n">index</span> <span class="o">=</span> <span class="n">new_objects</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="n">pane</span><span class="p">)</span>
+        <span class="n">new_objects</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">pane</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_names</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="n">index</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">objects</span> <span class="o">=</span> <span class="n">new_objects</span></div>
+
+<div class="viewcode-block" id="NamedListPanel.reverse"><a class="viewcode-back" href="../../../api/panel.layout.html#panel.layout.accordion.NamedListPanel.reverse">[docs]</a>    <span class="k">def</span> <span class="nf">reverse</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">"""</span>
+<span class="sd">        Reverses the tabs.</span>
+<span class="sd">        """</span>
+        <span class="n">new_objects</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+        <span class="n">new_objects</span><span class="o">.</span><span class="n">reverse</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_names</span><span class="o">.</span><span class="n">reverse</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">objects</span> <span class="o">=</span> <span class="n">new_objects</span></div></div>
+
+
+
+<div class="viewcode-block" id="Row"><a class="viewcode-back" href="../../../api/panel.layout.html#panel.layout.accordion.Row">[docs]</a><span class="k">class</span> <span class="nc">Row</span><span class="p">(</span><span class="n">ListPanel</span><span class="p">):</span>
+    <span class="sd">"""</span>
+<span class="sd">    Horizontal layout of Viewables.</span>
+<span class="sd">    """</span>
+
+    <span class="n">col_sizing</span> <span class="o">=</span> <span class="n">param</span><span class="o">.</span><span class="n">Parameter</span><span class="p">()</span>
+
+    <span class="n">_bokeh_model</span> <span class="o">=</span> <span class="n">BkRow</span>
+
+    <span class="n">_rename</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">ListPanel</span><span class="o">.</span><span class="n">_rename</span><span class="p">,</span> <span class="n">col_sizing</span><span class="o">=</span><span class="s1">'cols'</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Column"><a class="viewcode-back" href="../../../api/panel.layout.html#panel.layout.accordion.Column">[docs]</a><span class="k">class</span> <span class="nc">Column</span><span class="p">(</span><span class="n">ListPanel</span><span class="p">):</span>
+    <span class="sd">"""</span>
+<span class="sd">    Vertical layout of Viewables.</span>
+<span class="sd">    """</span>
+
+    <span class="n">row_sizing</span> <span class="o">=</span> <span class="n">param</span><span class="o">.</span><span class="n">Parameter</span><span class="p">()</span>
+
+    <span class="n">_bokeh_model</span> <span class="o">=</span> <span class="n">BkColumn</span>
+
+    <span class="n">_rename</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">ListPanel</span><span class="o">.</span><span class="n">_rename</span><span class="p">,</span> <span class="n">row_sizing</span><span class="o">=</span><span class="s1">'rows'</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="WidgetBox"><a class="viewcode-back" href="../../../api/panel.layout.html#panel.layout.accordion.WidgetBox">[docs]</a><span class="k">class</span> <span class="nc">WidgetBox</span><span class="p">(</span><span class="n">ListPanel</span><span class="p">):</span>
+    <span class="sd">"""</span>
+<span class="sd">    Vertical layout of widgets.</span>
+<span class="sd">    """</span>
+
+    <span class="n">css_classes</span> <span class="o">=</span> <span class="n">param</span><span class="o">.</span><span class="n">List</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="p">[</span><span class="s1">'panel-widget-box'</span><span class="p">],</span> <span class="n">doc</span><span class="o">=</span><span class="s2">"""</span>
+<span class="s2">        CSS classes to apply to the layout."""</span><span class="p">)</span>
+
+    <span class="n">disabled</span> <span class="o">=</span> <span class="n">param</span><span class="o">.</span><span class="n">Boolean</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="s2">"""</span>
+<span class="s2">        Whether the widget is disabled."""</span><span class="p">)</span>
+
+    <span class="n">horizontal</span> <span class="o">=</span> <span class="n">param</span><span class="o">.</span><span class="n">Boolean</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="s2">"""</span>
+<span class="s2">        Whether to lay out the widgets in a Row layout as opposed </span>
+<span class="s2">        to a Column layout."""</span><span class="p">)</span>
+
+    <span class="n">margin</span> <span class="o">=</span> <span class="n">param</span><span class="o">.</span><span class="n">Parameter</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="s2">"""</span>
+<span class="s2">        Allows to create additional space around the component. May</span>
+<span class="s2">        be specified as a two-tuple of the form (vertical, horizontal)</span>
+<span class="s2">        or a four-tuple (top, right, bottom, left)."""</span><span class="p">)</span>
+
+    <span class="n">_source_transforms</span> <span class="o">=</span> <span class="p">{</span><span class="s1">'disabled'</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span> <span class="s1">'horizontal'</span><span class="p">:</span> <span class="kc">None</span><span class="p">}</span>
+
+    <span class="n">_rename</span> <span class="o">=</span> <span class="p">{</span><span class="s1">'objects'</span><span class="p">:</span> <span class="s1">'children'</span><span class="p">,</span> <span class="s1">'horizontal'</span><span class="p">:</span> <span class="kc">None</span><span class="p">}</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">_bokeh_model</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">BkRow</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">horizontal</span> <span class="k">else</span> <span class="n">BkColumn</span>
+
+    <span class="nd">@param</span><span class="o">.</span><span class="n">depends</span><span class="p">(</span><span class="s1">'disabled'</span><span class="p">,</span> <span class="s1">'objects'</span><span class="p">,</span> <span class="n">watch</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">_disable_widgets</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">obj</span> <span class="ow">in</span> <span class="bp">self</span><span class="p">:</span>
+            <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="s1">'disabled'</span><span class="p">):</span>
+                <span class="n">obj</span><span class="o">.</span><span class="n">disabled</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">disabled</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">objects</span><span class="p">,</span> <span class="o">**</span><span class="n">params</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="o">*</span><span class="n">objects</span><span class="p">,</span> <span class="o">**</span><span class="n">params</span><span class="p">)</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">disabled</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_disable_widgets</span><span class="p">()</span></div>
+</pre></div>
+</div>
+</div>
+<!-- END MAIN BODY OF DOCS ––––––––––––– -->
+<!-- Google Analytics -->
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async="" src="https://www.googletagmanager.com/gtag/js?id=UA-154795830-2"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-154795830-2', { 'anonymize_ip': true });
+</script>
+<!-- MathJax Config -->
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}
+});
+</script>
+<!-- End Document
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+</body>
+</html>

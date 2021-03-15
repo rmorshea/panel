@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<!-- Basic Page Needs
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+<meta charset="utf-8"/>
+<title>pipeline Module — Panel 0.11.1+g238199f-dirty documentation</title>
+<meta content="High-level dashboarding for python visualization libraries" name="description"/>
+<meta content="Panel contributors" name="author"/>
+<!-- Mobile Specific Metas
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<!-- FONT
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+<script src="https://ajax.googleapis.com/ajax/libs/webfont/1.6.16/webfont.js"></script>
+<script>
+    WebFont.load({
+      google: {
+        families: ['Source Sans Pro']
+      }
+    });
+  </script>
+<!-- CSS
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+<link href="../_static/css/main.css" rel="stylesheet"/>
+<link href="../_static/nbsite.css" rel="stylesheet"/>
+<link href="../_static/site.css" rel="stylesheet"/>
+<!-- Scripts
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script async="" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML" type="text/javascript">
+</script>
+<script src="../_static/js/main.js"></script>
+<!-- Favicon
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+<link href="../_static/favicon.ico" rel="icon" type="image/png"/>
+<!-- Canonical
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+<link href="https://panel.holoviz.org/api/panel.pipeline.html" rel="canonical">
+</link></head>
+<body class="">
+<header class="navigation">
+<div class="wrapper">
+<a class="logo" href="../index.html">
+<img alt="Logo" src="../_static/logo_horizontal.png"/>
+</a>
+<a class="navigation-menu-button" href="javascript:void(0)" id="js-mobile-menu">Menu</a>
+<nav>
+<ul class="navigation-menu show" id="js-navigation-menu">
+<li class="nav-link doc-head"><a href="//discourse.holoviz.org">Discourse</a></li>
+<li class="nav-link doc-head"><a href="//twitter.com/Panel_org">Twitter</a></li>
+<li class="nav-link doc-head"><a href="//github.com/pyviz/panel">Github</a></li>
+<li class="nav-link">
+<div style="display:inline-block;vertical-align: middle;">
+<div class="search-bar">
+<form action="../search.html" method="get" role="search">
+<input name="q" placeholder="Search" type="search"/>
+<button type="submit">
+<img alt="Search Icon" src="https://raw.githubusercontent.com/thoughtbot/refills/master/source/images/search-icon-black.png"/>
+</button>
+</form>
+</div>
+</div>
+</li>
+</ul>
+</nav>
+</div>
+</header>
+<div class="second-nav">
+<nav>
+<ul class="navigation-menu show">
+<li class="nav-link doc-head"><a href="../getting_started/index.html">Getting started</a></li>
+<li class="nav-link doc-head"><a href="../user_guide/index.html">User Guide</a></li>
+<li class="nav-link doc-head"><a href="../gallery/index.html">Gallery</a></li>
+<li class="nav-link doc-head"><a href="../reference/index.html">Reference Gallery</a></li>
+<li class="nav-link doc-head"><a href="../developer_guide/index.html">Developer Guide</a></li>
+<li class="nav-link doc-head"><a href="../releases.html">Releases</a></li>
+<li class="nav-link doc-head"><a href="index.html">API</a></li>
+<li class="nav-link doc-head"><a href="../FAQ.html">FAQ</a></li>
+<li class="nav-link doc-head"><a href="../about.html">About</a></li>
+</ul>
+</nav>
+</div>
+<!-- MAIN BODY OF DOCS –––––––––––––––––– -->
+<div class="docs section">
+<div id="hacketyhackhack"> <!-- style="width:20%;margin-right: 100px;"> --> <!--style="display: none;"> style="display:none;"> -->
+<div class="toc" style="width:15%; margin-right:20px;">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../index.html">Home</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting_started/index.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../user_guide/index.html">User Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../gallery/index.html">Gallery</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/index.html">Reference Gallery</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../developer_guide/index.html">Developer Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="index.html">API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Comparisons.html">Comparisons</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../releases.html">Releases</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Roadmap.html">Road Map</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../FAQ.html">FAQ</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://github.com/pyviz/panel">Github source</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../about.html">About</a></li>
+</ul>
+</div>
+</div>
+<div class="content"> <!-- style="max-width:80%;margin-left:auto;margin-right: auto;">-->
+<div class="section" id="pipeline-module">
+<h1>pipeline Module<a class="headerlink" href="#pipeline-module" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="id1">
+<h2><code class="xref py py-mod docutils literal notranslate"><span class="pre">pipeline</span></code> Module<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
+<span class="target" id="module-panel.pipeline"></span><dl class="py class">
+<dt id="panel.pipeline.Pipeline">
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">panel.pipeline.</span></code><code class="sig-name descname"><span class="pre">Pipeline</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">stages</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">[]</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">graph</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">{}</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">params</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/panel/pipeline.html#Pipeline"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#panel.pipeline.Pipeline" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="panel.viewable.html#panel.viewable.Viewer" title="panel.viewable.Viewer"><code class="xref py py-class docutils literal notranslate"><span class="pre">panel.viewable.Viewer</span></code></a></p>
+<p>A Pipeline represents a directed graph of stages, which each
+return a panel object to render. A pipeline therefore represents
+a UI workflow of multiple linear or branching stages.</p>
+<p>The Pipeline layout consists of a number of sub-components:</p>
+<ul class="simple">
+<li><p>header:</p>
+<ul>
+<li><p>title: The name of the current stage.</p></li>
+<li><p>error: A field to display the error state.</p></li>
+<li><p>network: A network diagram representing the pipeline.</p></li>
+<li><p>buttons: All navigation buttons and selectors.</p></li>
+<li><p>prev_button: The button to go to the previous stage.</p></li>
+<li><p>prev_selector: The selector widget to select between
+previous branching stages.</p></li>
+<li><p>next_button: The button to go to the previous stage</p></li>
+<li><p>next_selector: The selector widget to select the next
+branching stages.</p></li>
+</ul>
+</li>
+<li><p>stage: The contents of the current pipeline stage.</p></li>
+</ul>
+<p>By default any outputs of one stage annotated with the
+param.output decorator are fed into the next stage. Additionally,
+if the inherit_params parameter is set any parameters which are
+declared on both the previous and next stage are also inherited.</p>
+<p>The stages are declared using the add_stage method and must each
+be given a unique name. By default any stages will simply be
+connected linearly, but an explicit graph can be declared using
+the define_graph method.</p>
+<dl class="simple">
+<dt><code class="docutils literal notranslate"><span class="pre">auto_advance</span></code> = param.Boolean(bounds=(0, 1), default=False)</dt><dd><p>Whether to automatically advance if the ready parameter is True.</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">debug</span></code> = param.Boolean(bounds=(0, 1), default=False)</dt><dd><p>Whether to raise errors, useful for debugging while building
+        an application.</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">inherit_params</span></code> = param.Boolean(bounds=(0, 1), default=True)</dt><dd><p>Whether parameters should be inherited between pipeline
+        stages.</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">next_parameter</span></code> = param.String()</dt><dd><p>Parameter name to watch to switch between different branching
+        stages</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">ready_parameter</span></code> = param.String()</dt><dd><p>Parameter name to watch to check whether a stage is ready.</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">show_header</span></code> = param.Boolean(bounds=(0, 1), default=True)</dt><dd><p>Whether to show the header with the title, network diagram,
+        and buttons.</p>
+</dd>
+</dl>
+<p><code class="docutils literal notranslate"><span class="pre">next</span></code> = param.Action()</p>
+<p><code class="docutils literal notranslate"><span class="pre">previous</span></code> = param.Action()</p>
+<dl class="py method">
+<dt id="panel.pipeline.Pipeline.add_stage">
+<code class="sig-name descname"><span class="pre">add_stage</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stage</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/panel/pipeline.html#Pipeline.add_stage"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#panel.pipeline.Pipeline.add_stage" title="Permalink to this definition">¶</a></dt>
+<dd><p>Adds a new, named stage to the Pipeline.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>name</strong> (<em>str</em>) – A string name for the Pipeline stage</p></li>
+<li><p><strong>stage</strong> (<em>param.Parameterized</em>) – A Parameterized object which represents the Pipeline stage.</p></li>
+<li><p><strong>**kwargs</strong> (<em>dict</em>) – Additional arguments declaring the behavior of the stage.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+<dl class="py method">
+<dt id="panel.pipeline.Pipeline.define_graph">
+<code class="sig-name descname"><span class="pre">define_graph</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">graph</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">force</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/panel/pipeline.html#Pipeline.define_graph"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#panel.pipeline.Pipeline.define_graph" title="Permalink to this definition">¶</a></dt>
+<dd><p>Declares a custom graph structure for the Pipeline overriding
+the default linear flow. The graph should be defined as an
+adjacency mapping.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>graph</strong> (<em>dict</em>) – Dictionary declaring the relationship between different
+pipeline stages. Should map from a single stage name to
+one or more stage names.</p>
+</dd>
+</dl>
+</dd></dl>
+<dl class="py method">
+<dt id="panel.pipeline.Pipeline.servable">
+<code class="sig-name descname"><span class="pre">servable</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">title</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">location</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#panel.pipeline.Pipeline.servable" title="Permalink to this definition">¶</a></dt>
+<dd><p>Serves the object if in a <cite>panel serve</cite> context and returns
+the Panel object to allow it to display itself in a notebook
+context.
+:param title: A string title to give the Document (if served as an app)
+:type title: str
+:param location: Whether to create a Location component to observe and</p>
+<blockquote>
+<div><p>set the URL location.</p>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p></p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>The Panel object itself</p>
+</dd>
+</dl>
+</dd></dl>
+<dl class="py method">
+<dt id="panel.pipeline.Pipeline.show">
+<code class="sig-name descname"><span class="pre">show</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">title</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">port</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">address</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">websocket_origin</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">threaded</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">open</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">location</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#panel.pipeline.Pipeline.show" title="Permalink to this definition">¶</a></dt>
+<dd><p>Starts a Bokeh server and displays the Viewable in a new tab.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>title</strong> (<em>str</em>) – A string title to give the Document (if served as an app)</p></li>
+<li><p><strong>port</strong> (<em>int</em><em> (</em><em>optional</em><em>, </em><em>default=0</em><em>)</em>) – Allows specifying a specific port</p></li>
+<li><p><strong>address</strong> (<em>str</em>) – The address the server should listen on for HTTP requests.</p></li>
+<li><p><strong>websocket_origin</strong> (<em>str</em><em> or </em><em>list</em><em>(</em><em>str</em><em>) </em><em>(</em><em>optional</em><em>)</em>) – A list of hosts that can connect to the websocket.
+This is typically required when embedding a server app in
+an external web site.
+If None, “localhost” is used.</p></li>
+<li><p><strong>threaded</strong> (<em>boolean</em><em> (</em><em>optional</em><em>, </em><em>default=False</em><em>)</em>) – Whether to launch the Server on a separate thread, allowing
+interactive use.</p></li>
+<li><p><strong>verbose</strong> (<em>boolean</em><em> (</em><em>optional</em><em>, </em><em>default=True</em><em>)</em>) – Whether to print the address and port</p></li>
+<li><p><strong>open</strong> (<em>boolean</em><em> (</em><em>optional</em><em>, </em><em>default=True</em><em>)</em>) – Whether to open the server in a new browser tab</p></li>
+<li><p><strong>location</strong> (<em>boolean</em><em> or </em><a class="reference internal" href="panel.io.html#panel.io.location.Location" title="panel.io.location.Location"><em>panel.io.location.Location</em></a>) – Whether to create a Location component to observe and
+set the URL location.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>server</strong> – Returns the Bokeh server instance or the thread the server
+was launched on (if threaded=True)</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>bokeh.server.Server or threading.Thread</p>
+</dd>
+</dl>
+</dd></dl>
+</dd></dl>
+<dl class="py exception">
+<dt id="panel.pipeline.PipelineError">
+<em class="property"><span class="pre">exception</span> </em><code class="sig-prename descclassname"><span class="pre">panel.pipeline.</span></code><code class="sig-name descname"><span class="pre">PipelineError</span></code><a class="reference internal" href="../_modules/panel/pipeline.html#PipelineError"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#panel.pipeline.PipelineError" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">RuntimeError</span></code></p>
+<p>Custom error type which can be raised to display custom error
+message in a Pipeline.</p>
+<dl class="py method">
+<dt id="panel.pipeline.PipelineError.with_traceback">
+<code class="sig-name descname"><span class="pre">with_traceback</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#panel.pipeline.PipelineError.with_traceback" title="Permalink to this definition">¶</a></dt>
+<dd><p>Exception.with_traceback(tb) –
+set self.__traceback__ to tb and return self.</p>
+</dd></dl>
+</dd></dl>
+<dl class="py function">
+<dt id="panel.pipeline.find_route">
+<code class="sig-prename descclassname"><span class="pre">panel.pipeline.</span></code><code class="sig-name descname"><span class="pre">find_route</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">graph</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">current</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">target</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/panel/pipeline.html#find_route"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#panel.pipeline.find_route" title="Permalink to this definition">¶</a></dt>
+<dd><p>Find a route to the target node from the current node.</p>
+</dd></dl>
+<dl class="py function">
+<dt id="panel.pipeline.get_root">
+<code class="sig-prename descclassname"><span class="pre">panel.pipeline.</span></code><code class="sig-name descname"><span class="pre">get_root</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">graph</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/panel/pipeline.html#get_root"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#panel.pipeline.get_root" title="Permalink to this definition">¶</a></dt>
+<dd><p>Search for the root node by finding nodes without inputs.</p>
+</dd></dl>
+<dl class="py function">
+<dt id="panel.pipeline.is_traversable">
+<code class="sig-prename descclassname"><span class="pre">panel.pipeline.</span></code><code class="sig-name descname"><span class="pre">is_traversable</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">root</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">graph</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stages</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/panel/pipeline.html#is_traversable"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#panel.pipeline.is_traversable" title="Permalink to this definition">¶</a></dt>
+<dd><p>Check if the graph is fully traversable from the root node.</p>
+</dd></dl>
+<dl class="py function">
+<dt id="panel.pipeline.traverse">
+<code class="sig-prename descclassname"><span class="pre">panel.pipeline.</span></code><code class="sig-name descname"><span class="pre">traverse</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">graph</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">v</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">visited</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/panel/pipeline.html#traverse"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#panel.pipeline.traverse" title="Permalink to this definition">¶</a></dt>
+<dd><p>Traverse the graph from a node and mark visited vertices.</p>
+</dd></dl>
+</div>
+</div>
+</div>
+</div>
+<!-- END MAIN BODY OF DOCS ––––––––––––– -->
+<!-- Google Analytics -->
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async="" src="https://www.googletagmanager.com/gtag/js?id=UA-154795830-2"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-154795830-2', { 'anonymize_ip': true });
+</script>
+<!-- MathJax Config -->
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}
+});
+</script>
+<!-- End Document
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+</body>
+</html>

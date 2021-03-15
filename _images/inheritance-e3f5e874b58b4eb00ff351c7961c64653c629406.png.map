@@ -1,0 +1,13 @@
+<map id="inheritancec18cd2d30b" name="inheritancec18cd2d30b">
+<area shape="rect" id="node1" href="panel.reactive.html#panel.reactive.Reactive" target="_top" title="Reactive is a Viewable object that also supports syncing between" alt="" coords="598,69,714,85"/>
+<area shape="rect" id="node8" href="#panel.widgets.base.Widget" target="_top" title="Widgets allow syncing changes in bokeh widget models with the" alt="" coords="782,73,913,90"/>
+<area shape="rect" id="node2" href="panel.reactive.html#panel.reactive.Syncable" target="_top" title="Syncable is an extension of the Renderable object which can not" alt="" coords="410,36,528,53"/>
+<area shape="rect" id="node3" href="panel.viewable.html#panel.viewable.Viewable" target="_top" title="Viewable is the baseclass all visual components in the panel" alt="" coords="408,69,531,85"/>
+<area shape="rect" id="node4" href="panel.viewable.html#panel.viewable.Renderable" target="_top" title="Baseclass for objects which can be rendered to a Bokeh model." alt="" coords="227,36,358,53"/>
+<area shape="rect" id="node5" href="panel.viewable.html#panel.viewable.Layoutable" target="_top" title="Layoutable defines shared style and layout related parameters" alt="" coords="227,69,357,85"/>
+<area shape="rect" id="node6" title="params(name=String)" alt="" coords="4,53,176,70"/>
+<area shape="rect" id="node10" href="#panel.widgets.text_to_speech.Utterance" target="_top" title="An *utterance* is the smallest unit of speech in spoken language analysis." alt="" coords="562,130,750,147"/>
+<area shape="rect" id="node11" href="#panel.widgets.text_to_speech.Voice" target="_top" title="The current device (i.e. OS and Browser) provides a list of" alt="" coords="208,4,376,20"/>
+<area shape="rect" id="node7" href="panel.viewable.html#panel.viewable.ServableMixin" target="_top" title="Mixin to define methods shared by objects which can served." alt="" coords="220,101,364,118"/>
+<area shape="rect" id="node9" href="#panel.widgets.text_to_speech.TextToSpeech" target="_top" title="The TextToSpeech widget wraps the HTML5 SpeechSynthesis API" alt="" coords="945,98,1148,115"/>
+</map>

@@ -1,0 +1,1055 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<!-- Basic Page Needs
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+<meta charset="utf-8"/>
+<title>panel.param — Panel 0.11.1+g238199f-dirty documentation</title>
+<meta content="High-level dashboarding for python visualization libraries" name="description"/>
+<meta content="Panel contributors" name="author"/>
+<!-- Mobile Specific Metas
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<!-- FONT
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+<script src="https://ajax.googleapis.com/ajax/libs/webfont/1.6.16/webfont.js"></script>
+<script>
+    WebFont.load({
+      google: {
+        families: ['Source Sans Pro']
+      }
+    });
+  </script>
+<!-- CSS
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+<link href="../../_static/css/main.css" rel="stylesheet"/>
+<link href="../../_static/nbsite.css" rel="stylesheet"/>
+<link href="../../_static/site.css" rel="stylesheet"/>
+<!-- Scripts
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script async="" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML" type="text/javascript">
+</script>
+<script src="../../_static/js/main.js"></script>
+<!-- Favicon
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+<link href="../../_static/favicon.ico" rel="icon" type="image/png"/>
+<!-- Canonical
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+<link href="https://panel.holoviz.org/_modules/panel/param.html" rel="canonical">
+</link></head>
+<body class="">
+<header class="navigation">
+<div class="wrapper">
+<a class="logo" href="../../index.html">
+<img alt="Logo" src="../../_static/logo_horizontal.png"/>
+</a>
+<a class="navigation-menu-button" href="javascript:void(0)" id="js-mobile-menu">Menu</a>
+<nav>
+<ul class="navigation-menu show" id="js-navigation-menu">
+<li class="nav-link doc-head"><a href="//discourse.holoviz.org">Discourse</a></li>
+<li class="nav-link doc-head"><a href="//twitter.com/Panel_org">Twitter</a></li>
+<li class="nav-link doc-head"><a href="//github.com/pyviz/panel">Github</a></li>
+<li class="nav-link">
+<div style="display:inline-block;vertical-align: middle;">
+<div class="search-bar">
+<form action="../../search.html" method="get" role="search">
+<input name="q" placeholder="Search" type="search"/>
+<button type="submit">
+<img alt="Search Icon" src="https://raw.githubusercontent.com/thoughtbot/refills/master/source/images/search-icon-black.png"/>
+</button>
+</form>
+</div>
+</div>
+</li>
+</ul>
+</nav>
+</div>
+</header>
+<div class="second-nav">
+<nav>
+<ul class="navigation-menu show">
+<li class="nav-link doc-head"><a href="../../getting_started/index.html">Getting started</a></li>
+<li class="nav-link doc-head"><a href="../../user_guide/index.html">User Guide</a></li>
+<li class="nav-link doc-head"><a href="../../gallery/index.html">Gallery</a></li>
+<li class="nav-link doc-head"><a href="../../reference/index.html">Reference Gallery</a></li>
+<li class="nav-link doc-head"><a href="../../developer_guide/index.html">Developer Guide</a></li>
+<li class="nav-link doc-head"><a href="../../releases.html">Releases</a></li>
+<li class="nav-link doc-head"><a href="../../api/index.html">API</a></li>
+<li class="nav-link doc-head"><a href="../../FAQ.html">FAQ</a></li>
+<li class="nav-link doc-head"><a href="../../about.html">About</a></li>
+</ul>
+</nav>
+</div>
+<!-- MAIN BODY OF DOCS –––––––––––––––––– -->
+<div class="docs section">
+<div id="hacketyhackhack"> <!-- style="width:20%;margin-right: 100px;"> --> <!--style="display: none;"> style="display:none;"> -->
+<div class="toc" style="width:15%; margin-right:20px;">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../index.html">Home</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../getting_started/index.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../user_guide/index.html">User Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../gallery/index.html">Gallery</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../reference/index.html">Reference Gallery</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../developer_guide/index.html">Developer Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../api/index.html">API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Comparisons.html">Comparisons</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../releases.html">Releases</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Roadmap.html">Road Map</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../FAQ.html">FAQ</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://github.com/pyviz/panel">Github source</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../about.html">About</a></li>
+</ul>
+</div>
+</div>
+<div class="content"> <!-- style="max-width:80%;margin-left:auto;margin-right: auto;">-->
+<h1>Source code for panel.param</h1><div class="highlight"><pre>
+<span></span><span class="sd">"""</span>
+<span class="sd">Defines the Param pane which converts Parameterized classes into a</span>
+<span class="sd">set of widgets.</span>
+<span class="sd">"""</span>
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">sys</span>
+<span class="kn">import</span> <span class="nn">json</span>
+<span class="kn">import</span> <span class="nn">types</span>
+<span class="kn">import</span> <span class="nn">inspect</span>
+<span class="kn">import</span> <span class="nn">itertools</span>
+
+<span class="kn">from</span> <span class="nn">collections</span> <span class="kn">import</span> <span class="n">OrderedDict</span><span class="p">,</span> <span class="n">defaultdict</span><span class="p">,</span> <span class="n">namedtuple</span>
+<span class="kn">from</span> <span class="nn">contextlib</span> <span class="kn">import</span> <span class="n">contextmanager</span>
+<span class="kn">from</span> <span class="nn">six</span> <span class="kn">import</span> <span class="n">string_types</span>
+
+<span class="kn">import</span> <span class="nn">param</span>
+
+<span class="kn">from</span> <span class="nn">param.parameterized</span> <span class="kn">import</span> <span class="n">classlist</span><span class="p">,</span> <span class="n">discard_events</span>
+
+<span class="kn">from</span> <span class="nn">.io</span> <span class="kn">import</span> <span class="n">init_doc</span><span class="p">,</span> <span class="n">state</span>
+<span class="kn">from</span> <span class="nn">.layout</span> <span class="kn">import</span> <span class="n">Column</span><span class="p">,</span> <span class="n">Panel</span><span class="p">,</span> <span class="n">Row</span><span class="p">,</span> <span class="n">Spacer</span><span class="p">,</span> <span class="n">Tabs</span>
+<span class="kn">from</span> <span class="nn">.pane.base</span> <span class="kn">import</span> <span class="n">PaneBase</span><span class="p">,</span> <span class="n">ReplacementPane</span>
+<span class="kn">from</span> <span class="nn">.util</span> <span class="kn">import</span> <span class="p">(</span>
+    <span class="n">abbreviated_repr</span><span class="p">,</span> <span class="n">full_groupby</span><span class="p">,</span> <span class="n">get_method_owner</span><span class="p">,</span> <span class="n">is_parameterized</span><span class="p">,</span>
+    <span class="n">param_name</span><span class="p">,</span> <span class="n">recursive_parameterized</span>
+<span class="p">)</span>
+<span class="kn">from</span> <span class="nn">.reactive</span> <span class="kn">import</span> <span class="n">Reactive</span>
+<span class="kn">from</span> <span class="nn">.viewable</span> <span class="kn">import</span> <span class="n">Layoutable</span><span class="p">,</span> <span class="n">Viewable</span>
+<span class="kn">from</span> <span class="nn">.widgets</span> <span class="kn">import</span> <span class="p">(</span>
+    <span class="n">Button</span><span class="p">,</span> <span class="n">Checkbox</span><span class="p">,</span> <span class="n">ColorPicker</span><span class="p">,</span> <span class="n">DataFrame</span><span class="p">,</span> <span class="n">DatePicker</span><span class="p">,</span>
+    <span class="n">DatetimeInput</span><span class="p">,</span> <span class="n">DateRangeSlider</span><span class="p">,</span> <span class="n">DiscreteSlider</span><span class="p">,</span> <span class="n">FileSelector</span><span class="p">,</span>
+    <span class="n">FloatSlider</span><span class="p">,</span> <span class="n">IntInput</span><span class="p">,</span> <span class="n">IntSlider</span><span class="p">,</span> <span class="n">LiteralInput</span><span class="p">,</span> <span class="n">MultiSelect</span><span class="p">,</span>
+    <span class="n">RangeSlider</span><span class="p">,</span> <span class="n">Select</span><span class="p">,</span> <span class="n">FloatInput</span><span class="p">,</span> <span class="n">StaticText</span><span class="p">,</span> <span class="n">TextInput</span><span class="p">,</span> <span class="n">Toggle</span><span class="p">,</span>
+    <span class="n">Widget</span>
+<span class="p">)</span>
+<span class="kn">from</span> <span class="nn">.widgets.button</span> <span class="kn">import</span> <span class="n">_ButtonBase</span>
+
+
+<div class="viewcode-block" id="SingleFileSelector"><a class="viewcode-back" href="../../api/panel.param.html#panel.param.SingleFileSelector">[docs]</a><span class="k">def</span> <span class="nf">SingleFileSelector</span><span class="p">(</span><span class="n">pobj</span><span class="p">):</span>
+    <span class="sd">"""</span>
+<span class="sd">    Determines whether to use a TextInput or Select widget for FileSelector</span>
+<span class="sd">    """</span>
+    <span class="k">if</span> <span class="n">pobj</span><span class="o">.</span><span class="n">path</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">Select</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">TextInput</span></div>
+
+
+<span class="k">def</span> <span class="nf">LiteralInputTyped</span><span class="p">(</span><span class="n">pobj</span><span class="p">):</span>
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">pobj</span><span class="p">,</span> <span class="n">param</span><span class="o">.</span><span class="n">Tuple</span><span class="p">):</span>
+        <span class="k">return</span> <span class="nb">type</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="s1">'TupleInput'</span><span class="p">),</span> <span class="p">(</span><span class="n">LiteralInput</span><span class="p">,),</span> <span class="p">{</span><span class="s1">'type'</span><span class="p">:</span> <span class="nb">tuple</span><span class="p">})</span>
+    <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">pobj</span><span class="p">,</span> <span class="n">param</span><span class="o">.</span><span class="n">Number</span><span class="p">):</span>
+        <span class="k">return</span> <span class="nb">type</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="s1">'NumberInput'</span><span class="p">),</span> <span class="p">(</span><span class="n">LiteralInput</span><span class="p">,),</span> <span class="p">{</span><span class="s1">'type'</span><span class="p">:</span> <span class="p">(</span><span class="nb">int</span><span class="p">,</span> <span class="nb">float</span><span class="p">)})</span>
+    <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">pobj</span><span class="p">,</span> <span class="n">param</span><span class="o">.</span><span class="n">Dict</span><span class="p">):</span>
+        <span class="k">return</span> <span class="nb">type</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="s1">'DictInput'</span><span class="p">),</span> <span class="p">(</span><span class="n">LiteralInput</span><span class="p">,),</span> <span class="p">{</span><span class="s1">'type'</span><span class="p">:</span> <span class="nb">dict</span><span class="p">})</span>
+    <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">pobj</span><span class="p">,</span> <span class="n">param</span><span class="o">.</span><span class="n">List</span><span class="p">):</span>
+        <span class="k">return</span> <span class="nb">type</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="s1">'ListInput'</span><span class="p">),</span> <span class="p">(</span><span class="n">LiteralInput</span><span class="p">,),</span> <span class="p">{</span><span class="s1">'type'</span><span class="p">:</span> <span class="nb">list</span><span class="p">})</span>
+    <span class="k">return</span> <span class="n">LiteralInput</span>
+
+
+<div class="viewcode-block" id="set_values"><a class="viewcode-back" href="../../api/panel.param.html#panel.param.set_values">[docs]</a><span class="nd">@contextmanager</span>
+<span class="k">def</span> <span class="nf">set_values</span><span class="p">(</span><span class="o">*</span><span class="n">parameterizeds</span><span class="p">,</span> <span class="o">**</span><span class="n">param_values</span><span class="p">):</span>
+    <span class="sd">"""</span>
+<span class="sd">    Temporarily sets parameter values to the specified values on all</span>
+<span class="sd">    supplied Parameterized objects.</span>
+
+<span class="sd">    Arguments</span>
+<span class="sd">    ---------</span>
+<span class="sd">    parameterizeds: tuple(param.Parameterized)</span>
+<span class="sd">        Any number of parameterized objects.</span>
+<span class="sd">    param_values: dict</span>
+<span class="sd">        A dictionary of parameter names and temporary values.</span>
+<span class="sd">    """</span>
+    <span class="n">old</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">parameterized</span> <span class="ow">in</span> <span class="n">parameterizeds</span><span class="p">:</span>
+        <span class="n">old_values</span> <span class="o">=</span> <span class="p">{</span><span class="n">p</span><span class="p">:</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">parameterized</span><span class="p">,</span> <span class="n">p</span><span class="p">)</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">param_values</span><span class="p">}</span>
+        <span class="n">old</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">parameterized</span><span class="p">,</span> <span class="n">old_values</span><span class="p">))</span>
+        <span class="n">parameterized</span><span class="o">.</span><span class="n">param</span><span class="o">.</span><span class="n">set_param</span><span class="p">(</span><span class="o">**</span><span class="n">param_values</span><span class="p">)</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="k">yield</span>
+    <span class="k">finally</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">parameterized</span><span class="p">,</span> <span class="n">old_values</span> <span class="ow">in</span> <span class="n">old</span><span class="p">:</span>
+            <span class="n">parameterized</span><span class="o">.</span><span class="n">param</span><span class="o">.</span><span class="n">set_param</span><span class="p">(</span><span class="o">**</span><span class="n">old_values</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Param"><a class="viewcode-back" href="../../api/panel.param.html#panel.param.Param">[docs]</a><span class="k">class</span> <span class="nc">Param</span><span class="p">(</span><span class="n">PaneBase</span><span class="p">):</span>
+    <span class="sd">"""</span>
+<span class="sd">    Param panes render a Parameterized class to a set of widgets which</span>
+<span class="sd">    are linked to the parameter values on the class.</span>
+<span class="sd">    """</span>
+
+    <span class="n">display_threshold</span> <span class="o">=</span> <span class="n">param</span><span class="o">.</span><span class="n">Number</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">precedence</span><span class="o">=-</span><span class="mi">10</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="s2">"""</span>
+<span class="s2">        Parameters with precedence below this value are not displayed."""</span><span class="p">)</span>
+
+    <span class="n">default_layout</span> <span class="o">=</span> <span class="n">param</span><span class="o">.</span><span class="n">ClassSelector</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="n">Column</span><span class="p">,</span> <span class="n">class_</span><span class="o">=</span><span class="n">Panel</span><span class="p">,</span>
+                                         <span class="n">is_instance</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+
+    <span class="n">default_precedence</span> <span class="o">=</span> <span class="n">param</span><span class="o">.</span><span class="n">Number</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="mf">1e-8</span><span class="p">,</span> <span class="n">precedence</span><span class="o">=-</span><span class="mi">10</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="s2">"""</span>
+<span class="s2">        Precedence value to use for parameters with no declared</span>
+<span class="s2">        precedence.  By default, zero predecence is available for</span>
+<span class="s2">        forcing some parameters to the top of the list, and other</span>
+<span class="s2">        values above the default_precedence values can be used to sort</span>
+<span class="s2">        or group parameters arbitrarily."""</span><span class="p">)</span>
+
+    <span class="n">expand</span> <span class="o">=</span> <span class="n">param</span><span class="o">.</span><span class="n">Boolean</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="s2">"""</span>
+<span class="s2">        Whether parameterized subobjects are expanded or collapsed on</span>
+<span class="s2">        instantiation."""</span><span class="p">)</span>
+
+    <span class="n">expand_button</span> <span class="o">=</span> <span class="n">param</span><span class="o">.</span><span class="n">Boolean</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="s2">"""</span>
+<span class="s2">        Whether to add buttons to expand and collapse sub-objects."""</span><span class="p">)</span>
+
+    <span class="n">expand_layout</span> <span class="o">=</span> <span class="n">param</span><span class="o">.</span><span class="n">Parameter</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="n">Column</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="s2">"""</span>
+<span class="s2">        Layout to expand sub-objects into."""</span><span class="p">)</span>
+
+    <span class="n">height</span> <span class="o">=</span> <span class="n">param</span><span class="o">.</span><span class="n">Integer</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">bounds</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="kc">None</span><span class="p">),</span> <span class="n">doc</span><span class="o">=</span><span class="s2">"""</span>
+<span class="s2">        Height of widgetbox the parameter widgets are displayed in."""</span><span class="p">)</span>
+
+    <span class="n">initializer</span> <span class="o">=</span> <span class="n">param</span><span class="o">.</span><span class="n">Callable</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="s2">"""</span>
+<span class="s2">        User-supplied function that will be called on initialization,</span>
+<span class="s2">        usually to update the default Parameter values of the</span>
+<span class="s2">        underlying parameterized object."""</span><span class="p">)</span>
+
+    <span class="n">name</span> <span class="o">=</span> <span class="n">param</span><span class="o">.</span><span class="n">String</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="s1">''</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="s2">"""</span>
+<span class="s2">        Title of the pane."""</span><span class="p">)</span>
+
+    <span class="n">parameters</span> <span class="o">=</span> <span class="n">param</span><span class="o">.</span><span class="n">List</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="p">[],</span> <span class="n">allow_None</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="s2">"""</span>
+<span class="s2">        If set this serves as a whitelist of parameters to display on</span>
+<span class="s2">        the supplied Parameterized object."""</span><span class="p">)</span>
+
+    <span class="n">show_labels</span> <span class="o">=</span> <span class="n">param</span><span class="o">.</span><span class="n">Boolean</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="s2">"""</span>
+<span class="s2">        Whether to show labels for each widget"""</span><span class="p">)</span>
+
+    <span class="n">show_name</span> <span class="o">=</span> <span class="n">param</span><span class="o">.</span><span class="n">Boolean</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="s2">"""</span>
+<span class="s2">        Whether to show the parameterized object's name"""</span><span class="p">)</span>
+
+    <span class="n">width</span> <span class="o">=</span> <span class="n">param</span><span class="o">.</span><span class="n">Integer</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="mi">300</span><span class="p">,</span> <span class="n">allow_None</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">bounds</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="kc">None</span><span class="p">),</span> <span class="n">doc</span><span class="o">=</span><span class="s2">"""</span>
+<span class="s2">        Width of widgetbox the parameter widgets are displayed in."""</span><span class="p">)</span>
+
+    <span class="n">widgets</span> <span class="o">=</span> <span class="n">param</span><span class="o">.</span><span class="n">Dict</span><span class="p">(</span><span class="n">doc</span><span class="o">=</span><span class="s2">"""</span>
+<span class="s2">        Dictionary of widget overrides, mapping from parameter name</span>
+<span class="s2">        to widget class."""</span><span class="p">)</span>
+
+    <span class="n">priority</span> <span class="o">=</span> <span class="mf">0.1</span>
+
+    <span class="n">_unpack</span> <span class="o">=</span> <span class="kc">True</span>
+
+    <span class="n">_mapping</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="n">param</span><span class="o">.</span><span class="n">Action</span><span class="p">:</span>            <span class="n">Button</span><span class="p">,</span>
+        <span class="n">param</span><span class="o">.</span><span class="n">Boolean</span><span class="p">:</span>           <span class="n">Checkbox</span><span class="p">,</span>
+        <span class="n">param</span><span class="o">.</span><span class="n">CalendarDate</span><span class="p">:</span>      <span class="n">DatePicker</span><span class="p">,</span>
+        <span class="n">param</span><span class="o">.</span><span class="n">Color</span><span class="p">:</span>             <span class="n">ColorPicker</span><span class="p">,</span>
+        <span class="n">param</span><span class="o">.</span><span class="n">Date</span><span class="p">:</span>              <span class="n">DatetimeInput</span><span class="p">,</span>
+        <span class="n">param</span><span class="o">.</span><span class="n">DateRange</span><span class="p">:</span>         <span class="n">DateRangeSlider</span><span class="p">,</span>
+        <span class="n">param</span><span class="o">.</span><span class="n">CalendarDateRange</span><span class="p">:</span> <span class="n">DateRangeSlider</span><span class="p">,</span>
+        <span class="n">param</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">:</span>         <span class="n">DataFrame</span><span class="p">,</span>
+        <span class="n">param</span><span class="o">.</span><span class="n">Dict</span><span class="p">:</span>              <span class="n">LiteralInputTyped</span><span class="p">,</span>
+        <span class="n">param</span><span class="o">.</span><span class="n">FileSelector</span><span class="p">:</span>      <span class="n">SingleFileSelector</span><span class="p">,</span>
+        <span class="n">param</span><span class="o">.</span><span class="n">Filename</span><span class="p">:</span>          <span class="n">TextInput</span><span class="p">,</span>
+        <span class="n">param</span><span class="o">.</span><span class="n">Foldername</span><span class="p">:</span>        <span class="n">TextInput</span><span class="p">,</span>
+        <span class="n">param</span><span class="o">.</span><span class="n">Integer</span><span class="p">:</span>           <span class="n">IntSlider</span><span class="p">,</span>
+        <span class="n">param</span><span class="o">.</span><span class="n">List</span><span class="p">:</span>              <span class="n">LiteralInputTyped</span><span class="p">,</span>
+        <span class="n">param</span><span class="o">.</span><span class="n">MultiFileSelector</span><span class="p">:</span> <span class="n">FileSelector</span><span class="p">,</span>
+        <span class="n">param</span><span class="o">.</span><span class="n">ListSelector</span><span class="p">:</span>      <span class="n">MultiSelect</span><span class="p">,</span>
+        <span class="n">param</span><span class="o">.</span><span class="n">Number</span><span class="p">:</span>            <span class="n">FloatSlider</span><span class="p">,</span>
+        <span class="n">param</span><span class="o">.</span><span class="n">ObjectSelector</span><span class="p">:</span>    <span class="n">Select</span><span class="p">,</span>
+        <span class="n">param</span><span class="o">.</span><span class="n">Parameter</span><span class="p">:</span>         <span class="n">LiteralInputTyped</span><span class="p">,</span>
+        <span class="n">param</span><span class="o">.</span><span class="n">Range</span><span class="p">:</span>             <span class="n">RangeSlider</span><span class="p">,</span>
+        <span class="n">param</span><span class="o">.</span><span class="n">Selector</span><span class="p">:</span>          <span class="n">Select</span><span class="p">,</span>
+        <span class="n">param</span><span class="o">.</span><span class="n">String</span><span class="p">:</span>            <span class="n">TextInput</span><span class="p">,</span>
+    <span class="p">}</span>
+
+    <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">param</span><span class="p">,</span> <span class="s1">'Event'</span><span class="p">):</span>
+        <span class="n">_mapping</span><span class="p">[</span><span class="n">param</span><span class="o">.</span><span class="n">Event</span><span class="p">]</span> <span class="o">=</span> <span class="n">Button</span>
+
+    <span class="n">_rerender_params</span> <span class="o">=</span> <span class="p">[]</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">object</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">params</span><span class="p">):</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="nb">object</span><span class="p">,</span> <span class="n">param</span><span class="o">.</span><span class="n">Parameter</span><span class="p">):</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="s1">'show_name'</span> <span class="ow">in</span> <span class="n">params</span><span class="p">:</span>
+                <span class="n">params</span><span class="p">[</span><span class="s1">'show_name'</span><span class="p">]</span> <span class="o">=</span> <span class="kc">False</span>
+            <span class="n">params</span><span class="p">[</span><span class="s1">'parameters'</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="nb">object</span><span class="o">.</span><span class="n">name</span><span class="p">]</span>
+            <span class="nb">object</span> <span class="o">=</span> <span class="nb">object</span><span class="o">.</span><span class="n">owner</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="nb">object</span><span class="p">,</span> <span class="n">param</span><span class="o">.</span><span class="n">parameterized</span><span class="o">.</span><span class="n">Parameters</span><span class="p">):</span>
+            <span class="nb">object</span> <span class="o">=</span> <span class="nb">object</span><span class="o">.</span><span class="n">cls</span> <span class="k">if</span> <span class="nb">object</span><span class="o">.</span><span class="n">self</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="nb">object</span><span class="o">.</span><span class="n">self</span>
+
+        <span class="k">if</span> <span class="s1">'parameters'</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">params</span> <span class="ow">and</span> <span class="nb">object</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">params</span><span class="p">[</span><span class="s1">'parameters'</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">p</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="nb">object</span><span class="o">.</span><span class="n">param</span> <span class="k">if</span> <span class="n">p</span> <span class="o">!=</span> <span class="s1">'name'</span><span class="p">]</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_explicit_parameters</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_explicit_parameters</span> <span class="o">=</span> <span class="nb">object</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
+
+        <span class="k">if</span> <span class="nb">object</span> <span class="ow">and</span> <span class="s1">'name'</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">params</span><span class="p">:</span>
+            <span class="n">params</span><span class="p">[</span><span class="s1">'name'</span><span class="p">]</span> <span class="o">=</span> <span class="n">param_name</span><span class="p">(</span><span class="nb">object</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="nb">object</span><span class="p">,</span> <span class="o">**</span><span class="n">params</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_updating</span> <span class="o">=</span> <span class="p">[]</span>
+
+        <span class="c1"># Construct Layout</span>
+        <span class="n">kwargs</span> <span class="o">=</span> <span class="p">{</span><span class="n">p</span><span class="p">:</span> <span class="n">v</span> <span class="k">for</span> <span class="n">p</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">param</span><span class="o">.</span><span class="n">get_param_values</span><span class="p">()</span>
+                  <span class="k">if</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">Layoutable</span><span class="o">.</span><span class="n">param</span> <span class="ow">and</span> <span class="n">v</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">}</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_widget_box</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">default_layout</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+
+        <span class="n">layout</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">expand_layout</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">layout</span><span class="p">,</span> <span class="n">Panel</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_expand_layout</span> <span class="o">=</span> <span class="n">layout</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">layout</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_widget_box</span>
+        <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_widget_box</span><span class="p">,</span> <span class="n">layout</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">layout</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_expand_layout</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_widget_box</span>
+        <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">layout</span><span class="p">,</span> <span class="nb">type</span><span class="p">)</span> <span class="ow">and</span> <span class="nb">issubclass</span><span class="p">(</span><span class="n">layout</span><span class="p">,</span> <span class="n">Panel</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">layout</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_expand_layout</span> <span class="o">=</span> <span class="n">layout</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_widget_box</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">'expand_layout expected to be a panel.layout.Panel'</span>
+                             <span class="s1">'type or instance, found </span><span class="si">%s</span><span class="s1"> type.'</span> <span class="o">%</span>
+                             <span class="nb">type</span><span class="p">(</span><span class="n">layout</span><span class="p">)</span><span class="o">.</span><span class="vm">__name__</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">param</span><span class="o">.</span><span class="n">watch</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_update_widgets</span><span class="p">,</span> <span class="p">[</span>
+            <span class="s1">'object'</span><span class="p">,</span> <span class="s1">'parameters'</span><span class="p">,</span> <span class="s1">'name'</span><span class="p">,</span> <span class="s1">'display_threshold'</span><span class="p">,</span> <span class="s1">'expand_button'</span><span class="p">,</span>
+            <span class="s1">'expand'</span><span class="p">,</span> <span class="s1">'expand_layout'</span><span class="p">,</span> <span class="s1">'widgets'</span><span class="p">,</span> <span class="s1">'show_labels'</span><span class="p">,</span> <span class="s1">'show_name'</span><span class="p">])</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_update_widgets</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">depth</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
+        <span class="bp">cls</span> <span class="o">=</span> <span class="nb">type</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="vm">__name__</span>
+        <span class="n">obj_cls</span> <span class="o">=</span> <span class="nb">type</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">object</span><span class="p">)</span><span class="o">.</span><span class="vm">__name__</span>
+        <span class="n">params</span> <span class="o">=</span> <span class="p">[]</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">object</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">object</span><span class="o">.</span><span class="n">param</span><span class="p">)</span>
+        <span class="n">parameters</span> <span class="o">=</span> <span class="p">[</span><span class="n">k</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">params</span> <span class="k">if</span> <span class="n">k</span> <span class="o">!=</span> <span class="s1">'name'</span><span class="p">]</span>
+        <span class="n">params</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">p</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="nb">sorted</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">param</span><span class="o">.</span><span class="n">get_param_values</span><span class="p">()):</span>
+            <span class="k">if</span> <span class="n">v</span> <span class="ow">is</span> <span class="bp">self</span><span class="o">.</span><span class="n">param</span><span class="p">[</span><span class="n">p</span><span class="p">]</span><span class="o">.</span><span class="n">default</span><span class="p">:</span> <span class="k">continue</span>
+            <span class="k">elif</span> <span class="n">v</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span> <span class="k">continue</span>
+            <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="n">string_types</span><span class="p">)</span> <span class="ow">and</span> <span class="n">v</span> <span class="o">==</span> <span class="s1">''</span><span class="p">:</span> <span class="k">continue</span>
+            <span class="k">elif</span> <span class="n">p</span> <span class="o">==</span> <span class="s1">'object'</span> <span class="ow">or</span> <span class="p">(</span><span class="n">p</span> <span class="o">==</span> <span class="s1">'name'</span> <span class="ow">and</span> <span class="p">(</span><span class="n">v</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="n">obj_cls</span><span class="p">)</span> <span class="ow">or</span> <span class="n">v</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="bp">cls</span><span class="p">))):</span> <span class="k">continue</span>
+            <span class="k">elif</span> <span class="n">p</span> <span class="o">==</span> <span class="s1">'parameters'</span> <span class="ow">and</span> <span class="n">v</span> <span class="o">==</span> <span class="n">parameters</span><span class="p">:</span> <span class="k">continue</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">params</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">'</span><span class="si">%s</span><span class="s1">=</span><span class="si">%s</span><span class="s1">'</span> <span class="o">%</span> <span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">abbreviated_repr</span><span class="p">(</span><span class="n">v</span><span class="p">)))</span>
+            <span class="k">except</span> <span class="ne">RuntimeError</span><span class="p">:</span>
+                <span class="n">params</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">'</span><span class="si">%s</span><span class="s1">=</span><span class="si">%s</span><span class="s1">'</span> <span class="o">%</span> <span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="s1">'...'</span><span class="p">))</span>
+        <span class="n">obj</span> <span class="o">=</span> <span class="s1">'None'</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">object</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="s1">'</span><span class="si">%s</span><span class="s1">'</span> <span class="o">%</span> <span class="nb">type</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">object</span><span class="p">)</span><span class="o">.</span><span class="vm">__name__</span>
+        <span class="n">template</span> <span class="o">=</span> <span class="s1">'</span><span class="si">{cls}</span><span class="s1">(</span><span class="si">{obj}</span><span class="s1">, </span><span class="si">{params}</span><span class="s1">)'</span> <span class="k">if</span> <span class="n">params</span> <span class="k">else</span> <span class="s1">'</span><span class="si">{cls}</span><span class="s1">(</span><span class="si">{obj}</span><span class="s1">)'</span>
+        <span class="k">return</span> <span class="n">template</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">cls</span><span class="o">=</span><span class="bp">cls</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="s1">', '</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">params</span><span class="p">),</span> <span class="n">obj</span><span class="o">=</span><span class="n">obj</span><span class="p">)</span>
+
+    <span class="c1">#----------------------------------------------------------------</span>
+    <span class="c1"># Callback API</span>
+    <span class="c1">#----------------------------------------------------------------</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">_synced_params</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">ignored_params</span> <span class="o">=</span> <span class="p">[</span><span class="s1">'default_layout'</span><span class="p">,</span> <span class="s1">'loading'</span><span class="p">]</span>
+        <span class="k">return</span> <span class="p">[</span><span class="n">p</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">Layoutable</span><span class="o">.</span><span class="n">param</span> <span class="k">if</span> <span class="n">p</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">ignored_params</span><span class="p">]</span>
+
+    <span class="k">def</span> <span class="nf">_update_widgets</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">events</span><span class="p">):</span>
+        <span class="n">parameters</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">event</span> <span class="ow">in</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">events</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="o">.</span><span class="n">name</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">event</span><span class="o">.</span><span class="n">name</span> <span class="o">==</span> <span class="s1">'object'</span><span class="p">:</span>
+                <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">event</span><span class="o">.</span><span class="n">new</span><span class="p">,</span> <span class="n">param</span><span class="o">.</span><span class="n">parameterized</span><span class="o">.</span><span class="n">Parameters</span><span class="p">):</span>
+                    <span class="c1"># Setting object will trigger this method a second time</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">object</span> <span class="o">=</span> <span class="n">event</span><span class="o">.</span><span class="n">new</span><span class="o">.</span><span class="n">cls</span> <span class="k">if</span> <span class="n">event</span><span class="o">.</span><span class="n">new</span><span class="o">.</span><span class="n">self</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">event</span><span class="o">.</span><span class="n">new</span><span class="o">.</span><span class="n">self</span>
+                    <span class="k">return</span>
+                
+                <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_explicit_parameters</span><span class="p">:</span>
+                    <span class="n">parameters</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">parameters</span>
+                <span class="k">elif</span> <span class="n">event</span><span class="o">.</span><span class="n">new</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                    <span class="n">parameters</span> <span class="o">=</span> <span class="p">[]</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">parameters</span> <span class="o">=</span> <span class="p">[</span><span class="n">p</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">event</span><span class="o">.</span><span class="n">new</span><span class="o">.</span><span class="n">param</span> <span class="k">if</span> <span class="n">p</span> <span class="o">!=</span> <span class="s1">'name'</span><span class="p">]</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">param_name</span><span class="p">(</span><span class="n">event</span><span class="o">.</span><span class="n">new</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">event</span><span class="o">.</span><span class="n">name</span> <span class="o">==</span> <span class="s1">'parameters'</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">event</span><span class="o">.</span><span class="n">new</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">_explicit_parameters</span> <span class="o">=</span> <span class="kc">False</span>
+                    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">object</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                        <span class="n">parameters</span> <span class="o">=</span> <span class="p">[</span><span class="n">p</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">object</span><span class="o">.</span><span class="n">param</span> <span class="k">if</span> <span class="n">p</span> <span class="o">!=</span> <span class="s1">'name'</span><span class="p">]</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">_explicit_parameters</span> <span class="o">=</span> <span class="kc">True</span>
+                    <span class="n">parameters</span> <span class="o">=</span> <span class="p">[]</span> <span class="k">if</span> <span class="n">event</span><span class="o">.</span><span class="n">new</span> <span class="o">==</span> <span class="p">[]</span> <span class="k">else</span> <span class="n">event</span><span class="o">.</span><span class="n">new</span>
+
+        <span class="k">if</span> <span class="n">parameters</span> <span class="o">!=</span> <span class="p">[]</span> <span class="ow">and</span> <span class="n">parameters</span> <span class="o">!=</span> <span class="bp">self</span><span class="o">.</span><span class="n">parameters</span><span class="p">:</span>
+            <span class="c1"># Setting parameters will trigger this method a second time</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">parameters</span> <span class="o">=</span> <span class="n">parameters</span>
+            <span class="k">return</span>
+
+        <span class="k">for</span> <span class="n">cb</span> <span class="ow">in</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_callbacks</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">cb</span><span class="o">.</span><span class="n">inst</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_widget_box</span><span class="o">.</span><span class="n">objects</span><span class="p">:</span>
+                <span class="n">cb</span><span class="o">.</span><span class="n">inst</span><span class="o">.</span><span class="n">param</span><span class="o">.</span><span class="n">unwatch</span><span class="p">(</span><span class="n">cb</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_callbacks</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">cb</span><span class="p">)</span>
+
+        <span class="c1"># Construct widgets</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">object</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_widgets</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_widgets</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_widgets</span><span class="p">()</span>
+
+        <span class="n">alias</span> <span class="o">=</span> <span class="p">{</span><span class="s1">'_title'</span><span class="p">:</span> <span class="s1">'name'</span><span class="p">}</span>
+        <span class="n">widgets</span> <span class="o">=</span> <span class="p">[</span><span class="n">widget</span> <span class="k">for</span> <span class="n">p</span><span class="p">,</span> <span class="n">widget</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_widgets</span><span class="o">.</span><span class="n">items</span><span class="p">()</span>
+                   <span class="k">if</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">object</span><span class="o">.</span><span class="n">param</span><span class="p">[</span><span class="n">alias</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">p</span><span class="p">)]</span><span class="o">.</span><span class="n">precedence</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">)</span>
+                   <span class="ow">or</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">object</span><span class="o">.</span><span class="n">param</span><span class="p">[</span><span class="n">alias</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">p</span><span class="p">)]</span><span class="o">.</span><span class="n">precedence</span> <span class="o">&gt;=</span> <span class="bp">self</span><span class="o">.</span><span class="n">display_threshold</span><span class="p">)]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_widget_box</span><span class="o">.</span><span class="n">objects</span> <span class="o">=</span> <span class="n">widgets</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">expand_button</span> <span class="o">==</span> <span class="kc">False</span> <span class="ow">and</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">expand</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_link_subobjects</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="nf">_link_subobjects</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">pname</span><span class="p">,</span> <span class="n">widget</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_widgets</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="n">widgets</span> <span class="o">=</span> <span class="p">[</span><span class="n">widget</span><span class="p">]</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">widget</span><span class="p">,</span> <span class="n">Widget</span><span class="p">)</span> <span class="k">else</span> <span class="n">widget</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="nb">any</span><span class="p">(</span><span class="n">is_parameterized</span><span class="p">(</span><span class="nb">getattr</span><span class="p">(</span><span class="n">w</span><span class="p">,</span> <span class="s1">'value'</span><span class="p">,</span> <span class="kc">None</span><span class="p">))</span> <span class="ow">or</span>
+                       <span class="nb">any</span><span class="p">(</span><span class="n">is_parameterized</span><span class="p">(</span><span class="n">o</span><span class="p">)</span> <span class="k">for</span> <span class="n">o</span> <span class="ow">in</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">w</span><span class="p">,</span> <span class="s1">'options'</span><span class="p">,</span> <span class="p">[]))</span>
+                       <span class="k">for</span> <span class="n">w</span> <span class="ow">in</span> <span class="n">widgets</span><span class="p">):</span>
+                <span class="k">continue</span>
+            <span class="k">if</span> <span class="p">(</span><span class="nb">isinstance</span><span class="p">(</span><span class="n">widgets</span><span class="p">,</span> <span class="n">Row</span><span class="p">)</span> <span class="ow">and</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">widgets</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">Toggle</span><span class="p">)):</span>
+                <span class="n">selector</span><span class="p">,</span> <span class="n">toggle</span> <span class="o">=</span> <span class="p">(</span><span class="n">widgets</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">widgets</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">selector</span><span class="p">,</span> <span class="n">toggle</span> <span class="o">=</span> <span class="p">(</span><span class="n">widget</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+
+            <span class="k">def</span> <span class="nf">toggle_pane</span><span class="p">(</span><span class="n">change</span><span class="p">,</span> <span class="n">parameter</span><span class="o">=</span><span class="n">pname</span><span class="p">):</span>
+                <span class="s2">"Adds or removes subpanel from layout"</span>
+                <span class="n">parameterized</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">object</span><span class="p">,</span> <span class="n">parameter</span><span class="p">)</span>
+                <span class="n">existing</span> <span class="o">=</span> <span class="p">[</span><span class="n">p</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_expand_layout</span><span class="o">.</span><span class="n">objects</span>
+                            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">Param</span><span class="p">)</span> <span class="ow">and</span>
+                            <span class="n">p</span><span class="o">.</span><span class="n">object</span> <span class="ow">in</span> <span class="n">recursive_parameterized</span><span class="p">(</span><span class="n">parameterized</span><span class="p">)]</span>
+                <span class="k">if</span> <span class="ow">not</span> <span class="n">change</span><span class="o">.</span><span class="n">new</span><span class="p">:</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">_expand_layout</span><span class="p">[:]</span> <span class="o">=</span> <span class="p">[</span>
+                        <span class="n">e</span> <span class="k">for</span> <span class="n">e</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_expand_layout</span><span class="o">.</span><span class="n">objects</span>
+                        <span class="k">if</span> <span class="n">e</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">existing</span>
+                    <span class="p">]</span>
+                <span class="k">elif</span> <span class="n">change</span><span class="o">.</span><span class="n">new</span><span class="p">:</span>
+                    <span class="n">kwargs</span> <span class="o">=</span> <span class="p">{</span><span class="n">k</span><span class="p">:</span> <span class="n">v</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">param</span><span class="o">.</span><span class="n">get_param_values</span><span class="p">()</span>
+                              <span class="k">if</span> <span class="n">k</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">'name'</span><span class="p">,</span> <span class="s1">'object'</span><span class="p">,</span> <span class="s1">'parameters'</span><span class="p">]}</span>
+                    <span class="n">pane</span> <span class="o">=</span> <span class="n">Param</span><span class="p">(</span><span class="n">parameterized</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="n">parameterized</span><span class="o">.</span><span class="n">name</span><span class="p">,</span>
+                                 <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+                    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_expand_layout</span><span class="p">,</span> <span class="n">Tabs</span><span class="p">):</span>
+                        <span class="n">title</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">object</span><span class="o">.</span><span class="n">param</span><span class="p">[</span><span class="n">pname</span><span class="p">]</span><span class="o">.</span><span class="n">label</span>
+                        <span class="n">pane</span> <span class="o">=</span> <span class="p">(</span><span class="n">title</span><span class="p">,</span> <span class="n">pane</span><span class="p">)</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">_expand_layout</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">pane</span><span class="p">)</span>
+
+            <span class="k">def</span> <span class="nf">update_pane</span><span class="p">(</span><span class="n">change</span><span class="p">,</span> <span class="n">parameter</span><span class="o">=</span><span class="n">pname</span><span class="p">):</span>
+                <span class="s2">"Adds or removes subpanel from layout"</span>
+                <span class="n">layout</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_expand_layout</span>
+                <span class="n">existing</span> <span class="o">=</span> <span class="p">[</span><span class="n">p</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">layout</span><span class="o">.</span><span class="n">objects</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">Param</span><span class="p">)</span>
+                            <span class="ow">and</span> <span class="n">p</span><span class="o">.</span><span class="n">object</span> <span class="ow">is</span> <span class="n">change</span><span class="o">.</span><span class="n">old</span><span class="p">]</span>
+
+                <span class="k">if</span> <span class="n">toggle</span><span class="p">:</span>
+                    <span class="n">toggle</span><span class="o">.</span><span class="n">disabled</span> <span class="o">=</span> <span class="ow">not</span> <span class="n">is_parameterized</span><span class="p">(</span><span class="n">change</span><span class="o">.</span><span class="n">new</span><span class="p">)</span>
+                <span class="k">if</span> <span class="ow">not</span> <span class="n">existing</span><span class="p">:</span>
+                    <span class="k">return</span>
+                <span class="k">elif</span> <span class="n">is_parameterized</span><span class="p">(</span><span class="n">change</span><span class="o">.</span><span class="n">new</span><span class="p">):</span>
+                    <span class="n">parameterized</span> <span class="o">=</span> <span class="n">change</span><span class="o">.</span><span class="n">new</span>
+                    <span class="n">kwargs</span> <span class="o">=</span> <span class="p">{</span><span class="n">k</span><span class="p">:</span> <span class="n">v</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">param</span><span class="o">.</span><span class="n">get_param_values</span><span class="p">()</span>
+                              <span class="k">if</span> <span class="n">k</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">'name'</span><span class="p">,</span> <span class="s1">'object'</span><span class="p">,</span> <span class="s1">'parameters'</span><span class="p">]}</span>
+                    <span class="n">pane</span> <span class="o">=</span> <span class="n">Param</span><span class="p">(</span><span class="n">parameterized</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="n">parameterized</span><span class="o">.</span><span class="n">name</span><span class="p">,</span>
+                                 <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+                    <span class="n">layout</span><span class="p">[</span><span class="n">layout</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="n">existing</span><span class="p">[</span><span class="mi">0</span><span class="p">])]</span> <span class="o">=</span> <span class="n">pane</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">layout</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="n">existing</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+
+            <span class="n">watchers</span> <span class="o">=</span> <span class="p">[</span><span class="n">selector</span><span class="o">.</span><span class="n">param</span><span class="o">.</span><span class="n">watch</span><span class="p">(</span><span class="n">update_pane</span><span class="p">,</span> <span class="s1">'value'</span><span class="p">)]</span>
+            <span class="k">if</span> <span class="n">toggle</span><span class="p">:</span>
+                <span class="n">watchers</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">toggle</span><span class="o">.</span><span class="n">param</span><span class="o">.</span><span class="n">watch</span><span class="p">(</span><span class="n">toggle_pane</span><span class="p">,</span> <span class="s1">'value'</span><span class="p">))</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_callbacks</span> <span class="o">+=</span> <span class="n">watchers</span>
+
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">expand</span><span class="p">:</span>
+                <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">expand_button</span><span class="p">:</span>
+                    <span class="n">toggle</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="kc">True</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">toggle_pane</span><span class="p">(</span><span class="n">namedtuple</span><span class="p">(</span><span class="s1">'Change'</span><span class="p">,</span> <span class="s1">'new'</span><span class="p">)(</span><span class="kc">True</span><span class="p">))</span>
+
+<div class="viewcode-block" id="Param.widget"><a class="viewcode-back" href="../../api/panel.param.html#panel.param.Param.widget">[docs]</a>    <span class="k">def</span> <span class="nf">widget</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">p_name</span><span class="p">):</span>
+        <span class="sd">"""Get widget for param_name"""</span>
+        <span class="n">p_obj</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">object</span><span class="o">.</span><span class="n">param</span><span class="p">[</span><span class="n">p_name</span><span class="p">]</span>
+        <span class="n">kw_widget</span> <span class="o">=</span> <span class="p">{}</span>
+
+        <span class="n">widget_class_overridden</span> <span class="o">=</span> <span class="kc">True</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">widgets</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="n">p_name</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">widgets</span><span class="p">:</span>
+            <span class="n">widget_class_overridden</span> <span class="o">=</span> <span class="kc">False</span>
+            <span class="n">widget_class</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">widget_type</span><span class="p">(</span><span class="n">p_obj</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">widgets</span><span class="p">[</span><span class="n">p_name</span><span class="p">],</span> <span class="nb">dict</span><span class="p">):</span>
+            <span class="n">kw_widget</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">widgets</span><span class="p">[</span><span class="n">p_name</span><span class="p">])</span>
+            <span class="k">if</span> <span class="s1">'widget_type'</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">widgets</span><span class="p">[</span><span class="n">p_name</span><span class="p">]:</span>
+                <span class="n">widget_class</span> <span class="o">=</span> <span class="n">kw_widget</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">'widget_type'</span><span class="p">)</span>
+            <span class="k">elif</span> <span class="s1">'type'</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">widgets</span><span class="p">[</span><span class="n">p_name</span><span class="p">]:</span>
+                <span class="n">widget_class</span> <span class="o">=</span> <span class="n">kw_widget</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">'type'</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">widget_class_overridden</span> <span class="o">=</span> <span class="kc">False</span>
+                <span class="n">widget_class</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">widget_type</span><span class="p">(</span><span class="n">p_obj</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">widget_class</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">widgets</span><span class="p">[</span><span class="n">p_name</span><span class="p">]</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">show_labels</span> <span class="ow">and</span> <span class="ow">not</span> <span class="nb">issubclass</span><span class="p">(</span><span class="n">widget_class</span><span class="p">,</span> <span class="n">_ButtonBase</span><span class="p">):</span>
+            <span class="n">label</span> <span class="o">=</span> <span class="s1">''</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">label</span> <span class="o">=</span> <span class="n">p_obj</span><span class="o">.</span><span class="n">label</span>
+        <span class="n">kw</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">disabled</span><span class="o">=</span><span class="n">p_obj</span><span class="o">.</span><span class="n">constant</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="n">label</span><span class="p">)</span>
+
+        <span class="n">value</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">object</span><span class="p">,</span> <span class="n">p_name</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">value</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">kw</span><span class="p">[</span><span class="s1">'value'</span><span class="p">]</span> <span class="o">=</span> <span class="n">value</span>
+
+        <span class="c1"># Update kwargs</span>
+        <span class="n">kw</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">kw_widget</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">p_obj</span><span class="p">,</span> <span class="s1">'get_range'</span><span class="p">):</span>
+            <span class="n">options</span> <span class="o">=</span> <span class="n">p_obj</span><span class="o">.</span><span class="n">get_range</span><span class="p">()</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">options</span> <span class="ow">and</span> <span class="n">value</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="n">options</span> <span class="o">=</span> <span class="p">[</span><span class="n">value</span><span class="p">]</span>
+            <span class="n">kw</span><span class="p">[</span><span class="s1">'options'</span><span class="p">]</span> <span class="o">=</span> <span class="n">options</span>
+        <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">p_obj</span><span class="p">,</span> <span class="s1">'get_soft_bounds'</span><span class="p">):</span>
+            <span class="n">bounds</span> <span class="o">=</span> <span class="n">p_obj</span><span class="o">.</span><span class="n">get_soft_bounds</span><span class="p">()</span>
+            <span class="k">if</span> <span class="n">bounds</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="n">kw</span><span class="p">[</span><span class="s1">'start'</span><span class="p">]</span> <span class="o">=</span> <span class="n">bounds</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="k">if</span> <span class="n">bounds</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="n">kw</span><span class="p">[</span><span class="s1">'end'</span><span class="p">]</span> <span class="o">=</span> <span class="n">bounds</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+            <span class="k">if</span> <span class="p">(</span><span class="s1">'start'</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">kw</span> <span class="ow">or</span> <span class="s1">'end'</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">kw</span><span class="p">):</span>
+                <span class="c1"># Do not change widget class if _mapping was overridden</span>
+                <span class="k">if</span> <span class="ow">not</span> <span class="n">widget_class_overridden</span><span class="p">:</span>
+                    <span class="k">if</span> <span class="p">(</span><span class="nb">isinstance</span><span class="p">(</span><span class="n">p_obj</span><span class="p">,</span> <span class="n">param</span><span class="o">.</span><span class="n">Number</span><span class="p">)</span> <span class="ow">and</span>
+                        <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">p_obj</span><span class="p">,</span> <span class="p">(</span><span class="n">param</span><span class="o">.</span><span class="n">Date</span><span class="p">,</span> <span class="n">param</span><span class="o">.</span><span class="n">CalendarDate</span><span class="p">))):</span>
+                        <span class="n">widget_class</span> <span class="o">=</span> <span class="n">FloatInput</span>
+                        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">p_obj</span><span class="p">,</span> <span class="n">param</span><span class="o">.</span><span class="n">Integer</span><span class="p">):</span>
+                            <span class="n">widget_class</span> <span class="o">=</span> <span class="n">IntInput</span>
+                    <span class="k">elif</span> <span class="ow">not</span> <span class="nb">issubclass</span><span class="p">(</span><span class="n">widget_class</span><span class="p">,</span> <span class="n">LiteralInput</span><span class="p">):</span>
+                        <span class="n">widget_class</span> <span class="o">=</span> <span class="n">LiteralInput</span>
+            <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">widget_class</span><span class="p">,</span> <span class="s1">'step'</span><span class="p">)</span> <span class="ow">and</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">p_obj</span><span class="p">,</span> <span class="s1">'step'</span><span class="p">,</span> <span class="kc">None</span><span class="p">):</span>
+                <span class="n">kw</span><span class="p">[</span><span class="s1">'step'</span><span class="p">]</span> <span class="o">=</span> <span class="n">p_obj</span><span class="o">.</span><span class="n">step</span>
+
+        <span class="n">kwargs</span> <span class="o">=</span> <span class="p">{</span><span class="n">k</span><span class="p">:</span> <span class="n">v</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">kw</span><span class="o">.</span><span class="n">items</span><span class="p">()</span> <span class="k">if</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">widget_class</span><span class="o">.</span><span class="n">param</span><span class="p">}</span>
+
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">widget_class</span><span class="p">,</span> <span class="nb">type</span><span class="p">)</span> <span class="ow">and</span> <span class="nb">issubclass</span><span class="p">(</span><span class="n">widget_class</span><span class="p">,</span> <span class="n">Button</span><span class="p">):</span>
+            <span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">'value'</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">widget_class</span><span class="p">,</span> <span class="n">Widget</span><span class="p">):</span>
+            <span class="n">widget</span> <span class="o">=</span> <span class="n">widget_class</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">widget</span> <span class="o">=</span> <span class="n">widget_class</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="n">widget</span><span class="o">.</span><span class="n">_param_pane</span> <span class="o">=</span> <span class="bp">self</span>
+
+        <span class="n">watchers</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_callbacks</span>
+
+        <span class="k">def</span> <span class="nf">link_widget</span><span class="p">(</span><span class="n">change</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">p_name</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_updating</span><span class="p">:</span>
+                <span class="k">return</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_updating</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">p_name</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">object</span><span class="o">.</span><span class="n">param</span><span class="o">.</span><span class="n">set_param</span><span class="p">(</span><span class="o">**</span><span class="p">{</span><span class="n">p_name</span><span class="p">:</span> <span class="n">change</span><span class="o">.</span><span class="n">new</span><span class="p">})</span>
+            <span class="k">finally</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_updating</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">p_name</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">param</span><span class="p">,</span> <span class="s1">'Event'</span><span class="p">)</span> <span class="ow">and</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">p_obj</span><span class="p">,</span> <span class="n">param</span><span class="o">.</span><span class="n">Event</span><span class="p">):</span>
+            <span class="k">def</span> <span class="nf">event</span><span class="p">(</span><span class="n">change</span><span class="p">):</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">object</span><span class="o">.</span><span class="n">param</span><span class="o">.</span><span class="n">trigger</span><span class="p">(</span><span class="n">p_name</span><span class="p">)</span>
+            <span class="n">watcher</span> <span class="o">=</span> <span class="n">widget</span><span class="o">.</span><span class="n">param</span><span class="o">.</span><span class="n">watch</span><span class="p">(</span><span class="n">event</span><span class="p">,</span> <span class="s1">'clicks'</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">p_obj</span><span class="p">,</span> <span class="n">param</span><span class="o">.</span><span class="n">Action</span><span class="p">):</span>
+            <span class="k">def</span> <span class="nf">action</span><span class="p">(</span><span class="n">change</span><span class="p">):</span>
+                <span class="n">value</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">object</span><span class="p">)</span>
+            <span class="n">watcher</span> <span class="o">=</span> <span class="n">widget</span><span class="o">.</span><span class="n">param</span><span class="o">.</span><span class="n">watch</span><span class="p">(</span><span class="n">action</span><span class="p">,</span> <span class="s1">'clicks'</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">kw_widget</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'throttled'</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span> <span class="ow">and</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">widget</span><span class="p">,</span> <span class="s1">'value_throttled'</span><span class="p">):</span>
+            <span class="n">watcher</span> <span class="o">=</span> <span class="n">widget</span><span class="o">.</span><span class="n">param</span><span class="o">.</span><span class="n">watch</span><span class="p">(</span><span class="n">link_widget</span><span class="p">,</span> <span class="s1">'value_throttled'</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">watcher</span> <span class="o">=</span> <span class="n">widget</span><span class="o">.</span><span class="n">param</span><span class="o">.</span><span class="n">watch</span><span class="p">(</span><span class="n">link_widget</span><span class="p">,</span> <span class="s1">'value'</span><span class="p">)</span>
+        <span class="n">watchers</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">watcher</span><span class="p">)</span>
+
+        <span class="k">def</span> <span class="nf">link</span><span class="p">(</span><span class="n">change</span><span class="p">,</span> <span class="n">watchers</span><span class="o">=</span><span class="p">[</span><span class="n">watcher</span><span class="p">]):</span>
+            <span class="n">updates</span> <span class="o">=</span> <span class="p">{}</span>
+            <span class="n">widget</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_widgets</span><span class="p">[</span><span class="n">p_name</span><span class="p">]</span>
+            <span class="k">if</span> <span class="n">change</span><span class="o">.</span><span class="n">what</span> <span class="o">==</span> <span class="s1">'constant'</span><span class="p">:</span>
+                <span class="n">updates</span><span class="p">[</span><span class="s1">'disabled'</span><span class="p">]</span> <span class="o">=</span> <span class="n">change</span><span class="o">.</span><span class="n">new</span>
+            <span class="k">elif</span> <span class="n">change</span><span class="o">.</span><span class="n">what</span> <span class="o">==</span> <span class="s1">'precedence'</span><span class="p">:</span>
+                <span class="k">if</span> <span class="p">(</span><span class="n">change</span><span class="o">.</span><span class="n">new</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">display_threshold</span> <span class="ow">and</span>
+                    <span class="n">widget</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_widget_box</span><span class="o">.</span><span class="n">objects</span><span class="p">):</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">_widget_box</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="n">widget</span><span class="p">)</span>
+                <span class="k">elif</span> <span class="n">change</span><span class="o">.</span><span class="n">new</span> <span class="o">&gt;=</span> <span class="bp">self</span><span class="o">.</span><span class="n">display_threshold</span><span class="p">:</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">_rerender</span><span class="p">()</span>
+                <span class="k">return</span>
+            <span class="k">elif</span> <span class="n">change</span><span class="o">.</span><span class="n">what</span> <span class="o">==</span> <span class="s1">'objects'</span><span class="p">:</span>
+                <span class="n">updates</span><span class="p">[</span><span class="s1">'options'</span><span class="p">]</span> <span class="o">=</span> <span class="n">p_obj</span><span class="o">.</span><span class="n">get_range</span><span class="p">()</span>
+            <span class="k">elif</span> <span class="n">change</span><span class="o">.</span><span class="n">what</span> <span class="o">==</span> <span class="s1">'bounds'</span><span class="p">:</span>
+                <span class="n">start</span><span class="p">,</span> <span class="n">end</span> <span class="o">=</span> <span class="n">p_obj</span><span class="o">.</span><span class="n">get_soft_bounds</span><span class="p">()</span>
+                <span class="n">supports_bounds</span> <span class="o">=</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">widget</span><span class="p">,</span> <span class="s1">'start'</span><span class="p">)</span>
+                <span class="k">if</span> <span class="n">start</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="n">end</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                    <span class="n">rerender</span> <span class="o">=</span> <span class="n">supports_bounds</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">rerender</span> <span class="o">=</span> <span class="ow">not</span> <span class="n">supports_bounds</span>
+                <span class="k">if</span> <span class="n">supports_bounds</span><span class="p">:</span>
+                    <span class="n">updates</span><span class="p">[</span><span class="s1">'start'</span><span class="p">]</span> <span class="o">=</span> <span class="n">start</span>
+                    <span class="n">updates</span><span class="p">[</span><span class="s1">'end'</span><span class="p">]</span> <span class="o">=</span> <span class="n">end</span>
+                <span class="k">if</span> <span class="n">rerender</span><span class="p">:</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">_rerender_widget</span><span class="p">(</span><span class="n">p_name</span><span class="p">)</span>
+                    <span class="k">return</span>
+            <span class="k">elif</span> <span class="n">change</span><span class="o">.</span><span class="n">what</span> <span class="o">==</span> <span class="s1">'step'</span><span class="p">:</span>
+                <span class="n">updates</span><span class="p">[</span><span class="s1">'step'</span><span class="p">]</span> <span class="o">=</span> <span class="n">p_obj</span><span class="o">.</span><span class="n">step</span>
+            <span class="k">elif</span> <span class="n">change</span><span class="o">.</span><span class="n">what</span> <span class="o">==</span> <span class="s1">'label'</span><span class="p">:</span>
+                <span class="n">updates</span><span class="p">[</span><span class="s1">'name'</span><span class="p">]</span> <span class="o">=</span> <span class="n">p_obj</span><span class="o">.</span><span class="n">label</span>
+            <span class="k">elif</span> <span class="n">p_name</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_updating</span><span class="p">:</span>
+                <span class="k">return</span>
+            <span class="k">elif</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">param</span><span class="p">,</span> <span class="s1">'Event'</span><span class="p">)</span> <span class="ow">and</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">p_obj</span><span class="p">,</span> <span class="n">param</span><span class="o">.</span><span class="n">Event</span><span class="p">):</span>
+                <span class="k">return</span>
+            <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">p_obj</span><span class="p">,</span> <span class="n">param</span><span class="o">.</span><span class="n">Action</span><span class="p">):</span>
+                <span class="n">prev_watcher</span> <span class="o">=</span> <span class="n">watchers</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+                <span class="n">widget</span><span class="o">.</span><span class="n">param</span><span class="o">.</span><span class="n">unwatch</span><span class="p">(</span><span class="n">prev_watcher</span><span class="p">)</span>
+                <span class="k">def</span> <span class="nf">action</span><span class="p">(</span><span class="n">event</span><span class="p">):</span>
+                    <span class="n">change</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">object</span><span class="p">)</span>
+                <span class="n">watchers</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">widget</span><span class="o">.</span><span class="n">param</span><span class="o">.</span><span class="n">watch</span><span class="p">(</span><span class="n">action</span><span class="p">,</span> <span class="s1">'clicks'</span><span class="p">)</span>
+                <span class="n">idx</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_callbacks</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="n">prev_watcher</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_callbacks</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span> <span class="o">=</span> <span class="n">watchers</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+                <span class="k">return</span>
+            <span class="k">elif</span> <span class="n">kw_widget</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'throttled'</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span> <span class="ow">and</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">widget</span><span class="p">,</span> <span class="s1">'value_throttled'</span><span class="p">):</span>
+                <span class="n">updates</span><span class="p">[</span><span class="s1">'value_throttled'</span><span class="p">]</span> <span class="o">=</span> <span class="n">change</span><span class="o">.</span><span class="n">new</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">updates</span><span class="p">[</span><span class="s1">'value'</span><span class="p">]</span> <span class="o">=</span> <span class="n">change</span><span class="o">.</span><span class="n">new</span>
+
+            <span class="k">try</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_updating</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">p_name</span><span class="p">)</span>
+                <span class="k">if</span> <span class="n">change</span><span class="o">.</span><span class="n">type</span> <span class="o">==</span> <span class="s1">'triggered'</span><span class="p">:</span>
+                    <span class="k">with</span> <span class="n">discard_events</span><span class="p">(</span><span class="n">widget</span><span class="p">):</span>
+                        <span class="n">widget</span><span class="o">.</span><span class="n">param</span><span class="o">.</span><span class="n">set_param</span><span class="p">(</span><span class="o">**</span><span class="n">updates</span><span class="p">)</span>
+                    <span class="n">widget</span><span class="o">.</span><span class="n">param</span><span class="o">.</span><span class="n">trigger</span><span class="p">(</span><span class="o">*</span><span class="n">updates</span><span class="p">)</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">widget</span><span class="o">.</span><span class="n">param</span><span class="o">.</span><span class="n">set_param</span><span class="p">(</span><span class="o">**</span><span class="n">updates</span><span class="p">)</span>
+            <span class="k">finally</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_updating</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">p_name</span><span class="p">)</span>
+
+        <span class="c1"># Set up links to parameterized object</span>
+        <span class="n">watchers</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">object</span><span class="o">.</span><span class="n">param</span><span class="o">.</span><span class="n">watch</span><span class="p">(</span><span class="n">link</span><span class="p">,</span> <span class="n">p_name</span><span class="p">,</span> <span class="s1">'constant'</span><span class="p">))</span>
+        <span class="n">watchers</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">object</span><span class="o">.</span><span class="n">param</span><span class="o">.</span><span class="n">watch</span><span class="p">(</span><span class="n">link</span><span class="p">,</span> <span class="n">p_name</span><span class="p">,</span> <span class="s1">'precedence'</span><span class="p">))</span>
+        <span class="n">watchers</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">object</span><span class="o">.</span><span class="n">param</span><span class="o">.</span><span class="n">watch</span><span class="p">(</span><span class="n">link</span><span class="p">,</span> <span class="n">p_name</span><span class="p">,</span> <span class="s1">'label'</span><span class="p">))</span>
+        <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">p_obj</span><span class="p">,</span> <span class="s1">'get_range'</span><span class="p">):</span>
+            <span class="n">watchers</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">object</span><span class="o">.</span><span class="n">param</span><span class="o">.</span><span class="n">watch</span><span class="p">(</span><span class="n">link</span><span class="p">,</span> <span class="n">p_name</span><span class="p">,</span> <span class="s1">'objects'</span><span class="p">))</span>
+        <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">p_obj</span><span class="p">,</span> <span class="s1">'get_soft_bounds'</span><span class="p">):</span>
+            <span class="n">watchers</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">object</span><span class="o">.</span><span class="n">param</span><span class="o">.</span><span class="n">watch</span><span class="p">(</span><span class="n">link</span><span class="p">,</span> <span class="n">p_name</span><span class="p">,</span> <span class="s1">'bounds'</span><span class="p">))</span>
+        <span class="k">if</span> <span class="s1">'step'</span> <span class="ow">in</span> <span class="n">kw</span><span class="p">:</span>
+            <span class="n">watchers</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">object</span><span class="o">.</span><span class="n">param</span><span class="o">.</span><span class="n">watch</span><span class="p">(</span><span class="n">link</span><span class="p">,</span> <span class="n">p_name</span><span class="p">,</span> <span class="s1">'step'</span><span class="p">))</span>
+        <span class="n">watchers</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">object</span><span class="o">.</span><span class="n">param</span><span class="o">.</span><span class="n">watch</span><span class="p">(</span><span class="n">link</span><span class="p">,</span> <span class="n">p_name</span><span class="p">))</span>
+
+        <span class="n">options</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'options'</span><span class="p">,</span> <span class="p">[])</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">options</span><span class="p">,</span> <span class="nb">dict</span><span class="p">):</span>
+            <span class="n">options</span> <span class="o">=</span> <span class="n">options</span><span class="o">.</span><span class="n">values</span><span class="p">()</span>
+        <span class="k">if</span> <span class="p">((</span><span class="n">is_parameterized</span><span class="p">(</span><span class="n">value</span><span class="p">)</span> <span class="ow">or</span> <span class="nb">any</span><span class="p">(</span><span class="n">is_parameterized</span><span class="p">(</span><span class="n">o</span><span class="p">)</span> <span class="k">for</span> <span class="n">o</span> <span class="ow">in</span> <span class="n">options</span><span class="p">))</span>
+            <span class="ow">and</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">expand_button</span> <span class="ow">or</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">expand_button</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">and</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">expand</span><span class="p">))):</span>
+            <span class="n">widget</span><span class="o">.</span><span class="n">margin</span> <span class="o">=</span> <span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
+            <span class="n">toggle</span> <span class="o">=</span> <span class="n">Toggle</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s1">'</span><span class="se">\u22EE</span><span class="s1">'</span><span class="p">,</span> <span class="n">button_type</span><span class="o">=</span><span class="s1">'primary'</span><span class="p">,</span>
+                            <span class="n">disabled</span><span class="o">=</span><span class="ow">not</span> <span class="n">is_parameterized</span><span class="p">(</span><span class="n">value</span><span class="p">),</span> <span class="n">max_height</span><span class="o">=</span><span class="mi">30</span><span class="p">,</span>
+                            <span class="n">max_width</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">height_policy</span><span class="o">=</span><span class="s1">'fit'</span><span class="p">,</span> <span class="n">align</span><span class="o">=</span><span class="s1">'end'</span><span class="p">,</span>
+                            <span class="n">margin</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">10</span><span class="p">))</span>
+            <span class="n">widget</span><span class="o">.</span><span class="n">width</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_widget_box</span><span class="o">.</span><span class="n">width</span><span class="o">-</span><span class="mi">60</span>
+            <span class="k">return</span> <span class="n">Row</span><span class="p">(</span><span class="n">widget</span><span class="p">,</span> <span class="n">toggle</span><span class="p">,</span> <span class="n">width_policy</span><span class="o">=</span><span class="s1">'max'</span><span class="p">,</span> <span class="n">margin</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">widget</span></div>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">_ordered_params</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">params</span> <span class="o">=</span> <span class="p">[(</span><span class="n">p</span><span class="p">,</span> <span class="n">pobj</span><span class="p">)</span> <span class="k">for</span> <span class="n">p</span><span class="p">,</span> <span class="n">pobj</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">object</span><span class="o">.</span><span class="n">param</span><span class="o">.</span><span class="n">objects</span><span class="p">(</span><span class="s1">'existing'</span><span class="p">)</span><span class="o">.</span><span class="n">items</span><span class="p">()</span>
+                  <span class="k">if</span> <span class="n">p</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">parameters</span> <span class="ow">or</span> <span class="n">p</span> <span class="o">==</span> <span class="s1">'name'</span><span class="p">]</span>
+        <span class="n">key_fn</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">precedence</span> <span class="k">if</span> <span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">precedence</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="bp">self</span><span class="o">.</span><span class="n">default_precedence</span>
+        <span class="n">sorted_precedence</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">params</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="n">key_fn</span><span class="p">)</span>
+        <span class="n">filtered</span> <span class="o">=</span> <span class="p">[(</span><span class="n">k</span><span class="p">,</span> <span class="n">p</span><span class="p">)</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">sorted_precedence</span><span class="p">]</span>
+        <span class="n">groups</span> <span class="o">=</span> <span class="n">itertools</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="n">filtered</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="n">key_fn</span><span class="p">)</span>
+        <span class="c1"># Params preserve definition order in Python 3.6+</span>
+        <span class="n">dict_ordered_py3</span> <span class="o">=</span> <span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">version_info</span><span class="o">.</span><span class="n">major</span> <span class="o">==</span> <span class="mi">3</span> <span class="ow">and</span> <span class="n">sys</span><span class="o">.</span><span class="n">version_info</span><span class="o">.</span><span class="n">minor</span> <span class="o">&gt;=</span> <span class="mi">6</span><span class="p">)</span>
+        <span class="n">dict_ordered</span> <span class="o">=</span> <span class="n">dict_ordered_py3</span> <span class="ow">or</span> <span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">version_info</span><span class="o">.</span><span class="n">major</span> <span class="o">&gt;</span> <span class="mi">3</span><span class="p">)</span>
+        <span class="n">ordered_groups</span> <span class="o">=</span> <span class="p">[</span><span class="nb">list</span><span class="p">(</span><span class="n">grp</span><span class="p">)</span> <span class="k">if</span> <span class="n">dict_ordered</span> <span class="k">else</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">grp</span><span class="p">)</span> <span class="k">for</span> <span class="p">(</span><span class="n">_</span><span class="p">,</span> <span class="n">grp</span><span class="p">)</span> <span class="ow">in</span> <span class="n">groups</span><span class="p">]</span>
+        <span class="n">ordered_params</span> <span class="o">=</span> <span class="p">[</span><span class="n">el</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="k">for</span> <span class="n">group</span> <span class="ow">in</span> <span class="n">ordered_groups</span> <span class="k">for</span> <span class="n">el</span> <span class="ow">in</span> <span class="n">group</span>
+                          <span class="k">if</span> <span class="p">(</span><span class="n">el</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">!=</span> <span class="s1">'name'</span> <span class="ow">or</span> <span class="n">el</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">parameters</span><span class="p">)]</span>
+        <span class="k">return</span> <span class="n">ordered_params</span>
+
+    <span class="c1">#----------------------------------------------------------------</span>
+    <span class="c1"># Model API</span>
+    <span class="c1">#----------------------------------------------------------------</span>
+
+    <span class="k">def</span> <span class="nf">_rerender</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">precedence</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">k</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">object</span><span class="o">.</span><span class="n">param</span><span class="p">[</span><span class="s1">'name'</span> <span class="k">if</span> <span class="n">k</span> <span class="o">==</span> <span class="s1">'_title'</span> <span class="k">else</span> <span class="n">k</span><span class="p">]</span><span class="o">.</span><span class="n">precedence</span>
+        <span class="n">params</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_ordered_params</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">show_name</span><span class="p">:</span>
+            <span class="n">params</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="s1">'_title'</span><span class="p">)</span>
+        <span class="n">widgets</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">params</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">precedence</span><span class="p">(</span><span class="n">k</span><span class="p">)</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="n">precedence</span><span class="p">(</span><span class="n">k</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="bp">self</span><span class="o">.</span><span class="n">display_threshold</span><span class="p">:</span>
+                <span class="n">widgets</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_widgets</span><span class="p">[</span><span class="n">k</span><span class="p">])</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_widget_box</span><span class="o">.</span><span class="n">objects</span> <span class="o">=</span> <span class="n">widgets</span>
+
+    <span class="k">def</span> <span class="nf">_rerender_widget</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">p_name</span><span class="p">):</span>
+        <span class="n">watchers</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">w</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_callbacks</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">w</span><span class="o">.</span><span class="n">inst</span> <span class="ow">is</span> <span class="bp">self</span><span class="o">.</span><span class="n">_widgets</span><span class="p">[</span><span class="n">p_name</span><span class="p">]:</span>
+                <span class="n">w</span><span class="o">.</span><span class="n">inst</span><span class="o">.</span><span class="n">param</span><span class="o">.</span><span class="n">unwatch</span><span class="p">(</span><span class="n">w</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">watchers</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">w</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_widgets</span><span class="p">[</span><span class="n">p_name</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">widget</span><span class="p">(</span><span class="n">p_name</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_rerender</span><span class="p">()</span>
+    
+    <span class="k">def</span> <span class="nf">_get_widgets</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">"""Return name,widget boxes for all parameters (i.e., a property sheet)"""</span>
+        <span class="c1"># Format name specially</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">expand_layout</span> <span class="ow">is</span> <span class="n">Tabs</span><span class="p">:</span>
+            <span class="n">widgets</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">show_name</span><span class="p">:</span>
+            <span class="n">widgets</span> <span class="o">=</span> <span class="p">[(</span><span class="s1">'_title'</span><span class="p">,</span> <span class="n">StaticText</span><span class="p">(</span><span class="n">value</span><span class="o">=</span><span class="s1">'&lt;b&gt;</span><span class="si">{0}</span><span class="s1">&lt;/b&gt;'</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">)))]</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">widgets</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">widgets</span> <span class="o">+=</span> <span class="p">[(</span><span class="n">pname</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">widget</span><span class="p">(</span><span class="n">pname</span><span class="p">))</span> <span class="k">for</span> <span class="n">pname</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_ordered_params</span><span class="p">]</span>
+        <span class="k">return</span> <span class="n">OrderedDict</span><span class="p">(</span><span class="n">widgets</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">_get_model</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">doc</span><span class="p">,</span> <span class="n">root</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">parent</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">comm</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="n">model</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">layout</span><span class="o">.</span><span class="n">_get_model</span><span class="p">(</span><span class="n">doc</span><span class="p">,</span> <span class="n">root</span><span class="p">,</span> <span class="n">parent</span><span class="p">,</span> <span class="n">comm</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_models</span><span class="p">[</span><span class="n">root</span><span class="o">.</span><span class="n">ref</span><span class="p">[</span><span class="s1">'id'</span><span class="p">]]</span> <span class="o">=</span> <span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">parent</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">model</span>
+
+    <span class="k">def</span> <span class="nf">_cleanup</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">root</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">layout</span><span class="o">.</span><span class="n">_cleanup</span><span class="p">(</span><span class="n">root</span><span class="p">)</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">_cleanup</span><span class="p">(</span><span class="n">root</span><span class="p">)</span>
+
+    <span class="c1">#----------------------------------------------------------------</span>
+    <span class="c1"># Public API</span>
+    <span class="c1">#----------------------------------------------------------------</span>
+
+<div class="viewcode-block" id="Param.applies"><a class="viewcode-back" href="../../api/panel.param.html#panel.param.Param.applies">[docs]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">applies</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">obj</span><span class="p">):</span>
+        <span class="k">return</span> <span class="p">(</span><span class="n">is_parameterized</span><span class="p">(</span><span class="n">obj</span><span class="p">)</span> <span class="ow">or</span>
+                <span class="nb">isinstance</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="n">param</span><span class="o">.</span><span class="n">parameterized</span><span class="o">.</span><span class="n">Parameters</span><span class="p">)</span> <span class="ow">or</span>
+                <span class="p">(</span><span class="nb">isinstance</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="n">param</span><span class="o">.</span><span class="n">Parameter</span><span class="p">)</span> <span class="ow">and</span> <span class="n">obj</span><span class="o">.</span><span class="n">owner</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">))</span></div>
+
+    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">widget_type</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">pobj</span><span class="p">):</span>
+        <span class="n">ptype</span> <span class="o">=</span> <span class="nb">type</span><span class="p">(</span><span class="n">pobj</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">classlist</span><span class="p">(</span><span class="n">ptype</span><span class="p">)[::</span><span class="o">-</span><span class="mi">1</span><span class="p">]:</span>
+            <span class="k">if</span> <span class="n">t</span> <span class="ow">in</span> <span class="bp">cls</span><span class="o">.</span><span class="n">_mapping</span><span class="p">:</span>
+                <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">cls</span><span class="o">.</span><span class="n">_mapping</span><span class="p">[</span><span class="n">t</span><span class="p">],</span> <span class="n">types</span><span class="o">.</span><span class="n">FunctionType</span><span class="p">):</span>
+                    <span class="k">return</span> <span class="bp">cls</span><span class="o">.</span><span class="n">_mapping</span><span class="p">[</span><span class="n">t</span><span class="p">](</span><span class="n">pobj</span><span class="p">)</span>
+                <span class="k">return</span> <span class="bp">cls</span><span class="o">.</span><span class="n">_mapping</span><span class="p">[</span><span class="n">t</span><span class="p">]</span>
+
+<div class="viewcode-block" id="Param.select"><a class="viewcode-back" href="../../api/panel.param.html#panel.param.Param.select">[docs]</a>    <span class="k">def</span> <span class="nf">select</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">selector</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="sd">"""</span>
+<span class="sd">        Iterates over the Viewable and any potential children in the</span>
+<span class="sd">        applying the Selector.</span>
+
+<span class="sd">        Arguments</span>
+<span class="sd">        ---------</span>
+<span class="sd">        selector: type or callable or None</span>
+<span class="sd">          The selector allows selecting a subset of Viewables by</span>
+<span class="sd">          declaring a type or callable function to filter by.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        viewables: list(Viewable)</span>
+<span class="sd">        """</span>
+        <span class="k">return</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="n">selector</span><span class="p">)</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">layout</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="n">selector</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Param.get_root"><a class="viewcode-back" href="../../api/panel.param.html#panel.param.Param.get_root">[docs]</a>    <span class="k">def</span> <span class="nf">get_root</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">comm</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">preprocess</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+        <span class="sd">"""</span>
+<span class="sd">        Returns the root model and applies pre-processing hooks</span>
+
+<span class="sd">        Arguments</span>
+<span class="sd">        ---------</span>
+<span class="sd">        doc: bokeh.Document</span>
+<span class="sd">          Bokeh document the bokeh model will be attached to.</span>
+<span class="sd">        comm: pyviz_comms.Comm</span>
+<span class="sd">          Optional pyviz_comms when working in notebook</span>
+<span class="sd">        preprocess: boolean (default=True)</span>
+<span class="sd">          Whether to run preprocessing hooks</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        Returns the bokeh model corresponding to this panel object</span>
+<span class="sd">        """</span>
+        <span class="n">doc</span> <span class="o">=</span> <span class="n">init_doc</span><span class="p">(</span><span class="n">doc</span><span class="p">)</span>
+        <span class="n">root</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">layout</span><span class="o">.</span><span class="n">get_root</span><span class="p">(</span><span class="n">doc</span><span class="p">,</span> <span class="n">comm</span><span class="p">,</span> <span class="n">preprocess</span><span class="p">)</span>
+        <span class="n">ref</span> <span class="o">=</span> <span class="n">root</span><span class="o">.</span><span class="n">ref</span><span class="p">[</span><span class="s1">'id'</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_models</span><span class="p">[</span><span class="n">ref</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">root</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+        <span class="n">state</span><span class="o">.</span><span class="n">_views</span><span class="p">[</span><span class="n">ref</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">root</span><span class="p">,</span> <span class="n">doc</span><span class="p">,</span> <span class="n">comm</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">root</span></div></div>
+
+
+<div class="viewcode-block" id="ParamMethod"><a class="viewcode-back" href="../../api/panel.param.html#panel.param.ParamMethod">[docs]</a><span class="k">class</span> <span class="nc">ParamMethod</span><span class="p">(</span><span class="n">ReplacementPane</span><span class="p">):</span>
+    <span class="sd">"""</span>
+<span class="sd">    ParamMethod panes wrap methods on parameterized classes and</span>
+<span class="sd">    rerenders the plot when any of the method's parameters change. By</span>
+<span class="sd">    default ParamMethod will watch all parameters on the class owning</span>
+<span class="sd">    the method or can be restricted to certain parameters by annotating</span>
+<span class="sd">    the method using the param.depends decorator. The method may</span>
+<span class="sd">    return any object which itself can be rendered as a Pane.</span>
+<span class="sd">    """</span>
+
+    <span class="n">lazy</span> <span class="o">=</span> <span class="n">param</span><span class="o">.</span><span class="n">Boolean</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="s2">"""</span>
+<span class="s2">        Whether to lazily evaluate the contents of the object</span>
+<span class="s2">        only when it is required for rendering."""</span><span class="p">)</span>
+
+    <span class="n">loading_indicator</span> <span class="o">=</span> <span class="n">param</span><span class="o">.</span><span class="n">Boolean</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="s2">"""</span>
+<span class="s2">        Whether to show loading indicator while pane is updating."""</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">object</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">params</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="nb">object</span><span class="p">,</span> <span class="o">**</span><span class="n">params</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_evaled</span> <span class="o">=</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">lazy</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_link_object_params</span><span class="p">()</span>
+        <span class="k">if</span> <span class="nb">object</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_validate_object</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_replace_pane</span><span class="p">(</span><span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">lazy</span><span class="p">)</span>
+
+    <span class="nd">@param</span><span class="o">.</span><span class="n">depends</span><span class="p">(</span><span class="s1">'object'</span><span class="p">,</span> <span class="n">watch</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">_validate_object</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">dependencies</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">object</span><span class="p">,</span> <span class="s1">'_dinfo'</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">dependencies</span> <span class="ow">or</span> <span class="ow">not</span> <span class="n">dependencies</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'watch'</span><span class="p">):</span>
+            <span class="k">return</span>
+        <span class="n">fn_type</span> <span class="o">=</span> <span class="s1">'method'</span> <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="ow">is</span> <span class="n">ParamMethod</span> <span class="k">else</span> <span class="s1">'function'</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">param</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="sa">f</span><span class="s2">"The </span><span class="si">{</span><span class="n">fn_type</span><span class="si">}</span><span class="s2"> supplied for Panel to display "</span>
+                           <span class="s2">"was declared with `watch=True`, which will "</span>
+                           <span class="sa">f</span><span class="s2">"cause the </span><span class="si">{</span><span class="n">fn_type</span><span class="si">}</span><span class="s2"> to be called twice for "</span>
+                           <span class="s2">"any change in a dependent Parameter. "</span>
+                           <span class="s2">"`watch` should be False when Panel is "</span>
+                           <span class="s2">"responsible for displaying the result "</span>
+                           <span class="sa">f</span><span class="s2">"of the </span><span class="si">{</span><span class="n">fn_type</span><span class="si">}</span><span class="s2"> call, while `watch=True` "</span>
+                           <span class="sa">f</span><span class="s2">"should be reserved for </span><span class="si">{</span><span class="n">fn_type</span><span class="si">}</span><span class="s2">s that work "</span>
+                           <span class="s2">"via side-effects, e.g. by modifying internal  "</span>
+                           <span class="s2">"state of a class or global state in an "</span>
+                           <span class="s2">"application's namespace."</span><span class="p">)</span>
+
+    <span class="c1">#----------------------------------------------------------------</span>
+    <span class="c1"># Callback API</span>
+    <span class="c1">#----------------------------------------------------------------</span>
+
+    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">eval</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">function</span><span class="p">):</span>
+        <span class="n">args</span><span class="p">,</span> <span class="n">kwargs</span> <span class="o">=</span> <span class="p">(),</span> <span class="p">{}</span>
+        <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">function</span><span class="p">,</span> <span class="s1">'_dinfo'</span><span class="p">):</span>
+            <span class="n">arg_deps</span> <span class="o">=</span> <span class="n">function</span><span class="o">.</span><span class="n">_dinfo</span><span class="p">[</span><span class="s1">'dependencies'</span><span class="p">]</span>
+            <span class="n">kw_deps</span> <span class="o">=</span> <span class="n">function</span><span class="o">.</span><span class="n">_dinfo</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'kw'</span><span class="p">,</span> <span class="p">{})</span>
+            <span class="k">if</span> <span class="n">kw_deps</span> <span class="ow">or</span> <span class="nb">any</span><span class="p">(</span><span class="nb">isinstance</span><span class="p">(</span><span class="n">d</span><span class="p">,</span> <span class="n">param</span><span class="o">.</span><span class="n">Parameter</span><span class="p">)</span> <span class="k">for</span> <span class="n">d</span> <span class="ow">in</span> <span class="n">arg_deps</span><span class="p">):</span>
+                <span class="n">args</span> <span class="o">=</span> <span class="p">(</span><span class="nb">getattr</span><span class="p">(</span><span class="n">dep</span><span class="o">.</span><span class="n">owner</span><span class="p">,</span> <span class="n">dep</span><span class="o">.</span><span class="n">name</span><span class="p">)</span> <span class="k">for</span> <span class="n">dep</span> <span class="ow">in</span> <span class="n">arg_deps</span><span class="p">)</span>
+                <span class="n">kwargs</span> <span class="o">=</span> <span class="p">{</span><span class="n">n</span><span class="p">:</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">dep</span><span class="o">.</span><span class="n">owner</span><span class="p">,</span> <span class="n">dep</span><span class="o">.</span><span class="n">name</span><span class="p">)</span> <span class="k">for</span> <span class="n">n</span><span class="p">,</span> <span class="n">dep</span> <span class="ow">in</span> <span class="n">kw_deps</span><span class="o">.</span><span class="n">items</span><span class="p">()}</span>
+        <span class="k">return</span> <span class="n">function</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">_replace_pane</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="n">force</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_evaled</span> <span class="o">=</span> <span class="nb">bool</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_models</span><span class="p">)</span> <span class="ow">or</span> <span class="n">force</span> <span class="ow">or</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">lazy</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_evaled</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_inner_layout</span><span class="o">.</span><span class="n">loading</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">loading_indicator</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">object</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                    <span class="n">new_object</span> <span class="o">=</span> <span class="n">Spacer</span><span class="p">()</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">new_object</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">eval</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">object</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_update_inner</span><span class="p">(</span><span class="n">new_object</span><span class="p">)</span>
+            <span class="k">finally</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_inner_layout</span><span class="o">.</span><span class="n">loading</span> <span class="o">=</span> <span class="kc">False</span>
+
+    <span class="k">def</span> <span class="nf">_update_pane</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">events</span><span class="p">):</span>
+        <span class="n">callbacks</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">watcher</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_callbacks</span><span class="p">:</span>
+            <span class="n">obj</span> <span class="o">=</span> <span class="n">watcher</span><span class="o">.</span><span class="n">inst</span> <span class="k">if</span> <span class="n">watcher</span><span class="o">.</span><span class="n">inst</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">watcher</span><span class="o">.</span><span class="n">cls</span>
+            <span class="k">if</span> <span class="n">obj</span> <span class="ow">is</span> <span class="bp">self</span><span class="p">:</span>
+                <span class="n">callbacks</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">watcher</span><span class="p">)</span>
+                <span class="k">continue</span>
+            <span class="n">obj</span><span class="o">.</span><span class="n">param</span><span class="o">.</span><span class="n">unwatch</span><span class="p">(</span><span class="n">watcher</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_callbacks</span> <span class="o">=</span> <span class="n">callbacks</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_link_object_params</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_replace_pane</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="nf">_link_object_params</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">parameterized</span> <span class="o">=</span> <span class="n">get_method_owner</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">object</span><span class="p">)</span>
+        <span class="n">params</span> <span class="o">=</span> <span class="n">parameterized</span><span class="o">.</span><span class="n">param</span><span class="o">.</span><span class="n">params_depended_on</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">object</span><span class="o">.</span><span class="vm">__name__</span><span class="p">)</span>
+        <span class="n">deps</span> <span class="o">=</span> <span class="n">params</span>
+
+        <span class="k">def</span> <span class="nf">update_pane</span><span class="p">(</span><span class="o">*</span><span class="n">events</span><span class="p">):</span>
+            <span class="c1"># Update nested dependencies if parameterized object events</span>
+            <span class="k">if</span> <span class="nb">any</span><span class="p">(</span><span class="n">is_parameterized</span><span class="p">(</span><span class="n">event</span><span class="o">.</span><span class="n">new</span><span class="p">)</span> <span class="k">for</span> <span class="n">event</span> <span class="ow">in</span> <span class="n">events</span><span class="p">):</span>
+                <span class="n">new_deps</span> <span class="o">=</span> <span class="n">parameterized</span><span class="o">.</span><span class="n">param</span><span class="o">.</span><span class="n">params_depended_on</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">object</span><span class="o">.</span><span class="vm">__name__</span><span class="p">)</span>
+                <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="nb">list</span><span class="p">(</span><span class="n">deps</span><span class="p">):</span>
+                    <span class="k">if</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">new_deps</span><span class="p">:</span> <span class="k">continue</span>
+                    <span class="n">watchers</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_callbacks</span>
+                    <span class="k">for</span> <span class="n">w</span> <span class="ow">in</span> <span class="nb">list</span><span class="p">(</span><span class="n">watchers</span><span class="p">):</span>
+                        <span class="k">if</span> <span class="p">(</span><span class="n">w</span><span class="o">.</span><span class="n">inst</span> <span class="ow">is</span> <span class="n">p</span><span class="o">.</span><span class="n">inst</span> <span class="ow">and</span> <span class="n">w</span><span class="o">.</span><span class="n">cls</span> <span class="ow">is</span> <span class="n">p</span><span class="o">.</span><span class="n">cls</span> <span class="ow">and</span>
+                            <span class="n">p</span><span class="o">.</span><span class="n">name</span> <span class="ow">in</span> <span class="n">w</span><span class="o">.</span><span class="n">parameter_names</span><span class="p">):</span>
+                            <span class="n">obj</span> <span class="o">=</span> <span class="n">p</span><span class="o">.</span><span class="n">cls</span> <span class="k">if</span> <span class="n">p</span><span class="o">.</span><span class="n">inst</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">p</span><span class="o">.</span><span class="n">inst</span>
+                            <span class="n">obj</span><span class="o">.</span><span class="n">param</span><span class="o">.</span><span class="n">unwatch</span><span class="p">(</span><span class="n">w</span><span class="p">)</span>
+                            <span class="n">watchers</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="n">watchers</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="n">w</span><span class="p">))</span>
+                    <span class="n">deps</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="n">deps</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="n">p</span><span class="p">))</span>
+
+                <span class="n">new_deps</span> <span class="o">=</span> <span class="p">[</span><span class="n">dep</span> <span class="k">for</span> <span class="n">dep</span> <span class="ow">in</span> <span class="n">new_deps</span> <span class="k">if</span> <span class="n">dep</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">deps</span><span class="p">]</span>
+                <span class="k">for</span> <span class="n">_</span><span class="p">,</span> <span class="n">params</span> <span class="ow">in</span> <span class="n">full_groupby</span><span class="p">(</span><span class="n">new_deps</span><span class="p">,</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">inst</span> <span class="ow">or</span> <span class="n">x</span><span class="o">.</span><span class="n">cls</span><span class="p">,</span> <span class="n">x</span><span class="o">.</span><span class="n">what</span><span class="p">)):</span>
+                    <span class="n">p</span> <span class="o">=</span> <span class="n">params</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+                    <span class="n">pobj</span> <span class="o">=</span> <span class="n">p</span><span class="o">.</span><span class="n">cls</span> <span class="k">if</span> <span class="n">p</span><span class="o">.</span><span class="n">inst</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">p</span><span class="o">.</span><span class="n">inst</span>
+                    <span class="n">ps</span> <span class="o">=</span> <span class="p">[</span><span class="n">_p</span><span class="o">.</span><span class="n">name</span> <span class="k">for</span> <span class="n">_p</span> <span class="ow">in</span> <span class="n">params</span><span class="p">]</span>
+                    <span class="n">watcher</span> <span class="o">=</span> <span class="n">pobj</span><span class="o">.</span><span class="n">param</span><span class="o">.</span><span class="n">watch</span><span class="p">(</span><span class="n">update_pane</span><span class="p">,</span> <span class="n">ps</span><span class="p">,</span> <span class="n">p</span><span class="o">.</span><span class="n">what</span><span class="p">)</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">_callbacks</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">watcher</span><span class="p">)</span>
+                    <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">params</span><span class="p">:</span>
+                        <span class="n">deps</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">p</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_replace_pane</span><span class="p">()</span>
+
+        <span class="k">for</span> <span class="n">_</span><span class="p">,</span> <span class="n">params</span> <span class="ow">in</span> <span class="n">full_groupby</span><span class="p">(</span><span class="n">params</span><span class="p">,</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">inst</span> <span class="ow">or</span> <span class="n">x</span><span class="o">.</span><span class="n">cls</span><span class="p">,</span> <span class="n">x</span><span class="o">.</span><span class="n">what</span><span class="p">)):</span>
+            <span class="n">p</span> <span class="o">=</span> <span class="n">params</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="n">pobj</span> <span class="o">=</span> <span class="p">(</span><span class="n">p</span><span class="o">.</span><span class="n">inst</span> <span class="ow">or</span> <span class="n">p</span><span class="o">.</span><span class="n">cls</span><span class="p">)</span>
+            <span class="n">ps</span> <span class="o">=</span> <span class="p">[</span><span class="n">_p</span><span class="o">.</span><span class="n">name</span> <span class="k">for</span> <span class="n">_p</span> <span class="ow">in</span> <span class="n">params</span><span class="p">]</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">pobj</span><span class="p">,</span> <span class="n">Reactive</span><span class="p">)</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">loading_indicator</span><span class="p">:</span>
+                <span class="n">props</span> <span class="o">=</span> <span class="p">{</span><span class="n">p</span><span class="p">:</span> <span class="s1">'loading'</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">ps</span> <span class="k">if</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">pobj</span><span class="o">.</span><span class="n">_linkable_params</span><span class="p">}</span>
+                <span class="k">if</span> <span class="n">props</span><span class="p">:</span>
+                    <span class="n">pobj</span><span class="o">.</span><span class="n">jslink</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_inner_layout</span><span class="p">,</span> <span class="o">**</span><span class="n">props</span><span class="p">)</span>
+            <span class="n">watcher</span> <span class="o">=</span> <span class="n">pobj</span><span class="o">.</span><span class="n">param</span><span class="o">.</span><span class="n">watch</span><span class="p">(</span><span class="n">update_pane</span><span class="p">,</span> <span class="n">ps</span><span class="p">,</span> <span class="n">p</span><span class="o">.</span><span class="n">what</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_callbacks</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">watcher</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">_get_model</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">doc</span><span class="p">,</span> <span class="n">root</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">parent</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">comm</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_evaled</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_replace_pane</span><span class="p">(</span><span class="n">force</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="k">return</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">_get_model</span><span class="p">(</span><span class="n">doc</span><span class="p">,</span> <span class="n">root</span><span class="p">,</span> <span class="n">parent</span><span class="p">,</span> <span class="n">comm</span><span class="p">)</span>
+
+    <span class="c1">#----------------------------------------------------------------</span>
+    <span class="c1"># Public API</span>
+    <span class="c1">#----------------------------------------------------------------</span>
+
+<div class="viewcode-block" id="ParamMethod.applies"><a class="viewcode-back" href="../../api/panel.param.html#panel.param.ParamMethod.applies">[docs]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">applies</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">obj</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">inspect</span><span class="o">.</span><span class="n">ismethod</span><span class="p">(</span><span class="n">obj</span><span class="p">)</span> <span class="ow">and</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">get_method_owner</span><span class="p">(</span><span class="n">obj</span><span class="p">),</span> <span class="n">param</span><span class="o">.</span><span class="n">Parameterized</span><span class="p">)</span></div></div>
+
+
+
+<div class="viewcode-block" id="ParamFunction"><a class="viewcode-back" href="../../api/panel.param.html#panel.param.ParamFunction">[docs]</a><span class="k">class</span> <span class="nc">ParamFunction</span><span class="p">(</span><span class="n">ParamMethod</span><span class="p">):</span>
+    <span class="sd">"""</span>
+<span class="sd">    ParamFunction panes wrap functions decorated with the param.depends</span>
+<span class="sd">    decorator and rerenders the output when any of the function's</span>
+<span class="sd">    dependencies change. This allows building reactive components into</span>
+<span class="sd">    a Panel which depend on other parameters, e.g. tying the value of</span>
+<span class="sd">    a widget to some other output.</span>
+<span class="sd">    """</span>
+
+    <span class="n">priority</span> <span class="o">=</span> <span class="mf">0.6</span>
+
+    <span class="k">def</span> <span class="nf">_link_object_params</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">deps</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">object</span><span class="o">.</span><span class="n">_dinfo</span>
+        <span class="n">dep_params</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">deps</span><span class="p">[</span><span class="s1">'dependencies'</span><span class="p">])</span> <span class="o">+</span> <span class="nb">list</span><span class="p">(</span><span class="n">deps</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'kw'</span><span class="p">,</span> <span class="p">{})</span><span class="o">.</span><span class="n">values</span><span class="p">())</span>
+        <span class="n">grouped</span> <span class="o">=</span> <span class="n">defaultdict</span><span class="p">(</span><span class="nb">list</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">dep</span> <span class="ow">in</span> <span class="n">dep_params</span><span class="p">:</span>
+            <span class="n">grouped</span><span class="p">[</span><span class="nb">id</span><span class="p">(</span><span class="n">dep</span><span class="o">.</span><span class="n">owner</span><span class="p">)]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">dep</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">group</span> <span class="ow">in</span> <span class="n">grouped</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
+            <span class="n">pobj</span> <span class="o">=</span> <span class="n">group</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">owner</span>
+            <span class="n">watcher</span> <span class="o">=</span> <span class="n">pobj</span><span class="o">.</span><span class="n">param</span><span class="o">.</span><span class="n">watch</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_replace_pane</span><span class="p">,</span> <span class="p">[</span><span class="n">dep</span><span class="o">.</span><span class="n">name</span> <span class="k">for</span> <span class="n">dep</span> <span class="ow">in</span> <span class="n">group</span><span class="p">])</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">pobj</span><span class="p">,</span> <span class="n">Reactive</span><span class="p">)</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">loading_indicator</span><span class="p">:</span>
+                <span class="n">props</span> <span class="o">=</span> <span class="p">{</span><span class="n">dep</span><span class="o">.</span><span class="n">name</span><span class="p">:</span> <span class="s1">'loading'</span> <span class="k">for</span> <span class="n">dep</span> <span class="ow">in</span> <span class="n">group</span>
+                         <span class="k">if</span> <span class="n">dep</span><span class="o">.</span><span class="n">name</span> <span class="ow">in</span> <span class="n">pobj</span><span class="o">.</span><span class="n">_linkable_params</span><span class="p">}</span>
+                <span class="k">if</span> <span class="n">props</span><span class="p">:</span>
+                    <span class="n">pobj</span><span class="o">.</span><span class="n">jslink</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_inner_layout</span><span class="p">,</span> <span class="o">**</span><span class="n">props</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_callbacks</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">watcher</span><span class="p">)</span>
+
+    <span class="c1">#----------------------------------------------------------------</span>
+    <span class="c1"># Public API</span>
+    <span class="c1">#----------------------------------------------------------------</span>
+
+<div class="viewcode-block" id="ParamFunction.applies"><a class="viewcode-back" href="../../api/panel.param.html#panel.param.ParamFunction.applies">[docs]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">applies</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">obj</span><span class="p">):</span>
+        <span class="k">return</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="n">types</span><span class="o">.</span><span class="n">FunctionType</span><span class="p">)</span> <span class="ow">and</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="s1">'_dinfo'</span><span class="p">)</span></div></div>
+
+
+<div class="viewcode-block" id="JSONInit"><a class="viewcode-back" href="../../api/panel.param.html#panel.param.JSONInit">[docs]</a><span class="k">class</span> <span class="nc">JSONInit</span><span class="p">(</span><span class="n">param</span><span class="o">.</span><span class="n">Parameterized</span><span class="p">):</span>
+    <span class="sd">"""</span>
+<span class="sd">    Callable that can be passed to Widgets.initializer to set Parameter</span>
+<span class="sd">    values using JSON. There are three approaches that may be used:</span>
+<span class="sd">    1. If the json_file argument is specified, this takes precedence.</span>
+<span class="sd">    2. The JSON file path can be specified via an environment variable.</span>
+<span class="sd">    3. The JSON can be read directly from an environment variable.</span>
+<span class="sd">    Here is an easy example of setting such an environment variable on</span>
+<span class="sd">    the commandline:</span>
+<span class="sd">    PARAM_JSON_INIT='{"p1":5}' jupyter notebook</span>
+<span class="sd">    This addresses any JSONInit instances that are inspecting the</span>
+<span class="sd">    default environment variable called PARAM_JSON_INIT, instructing it to set</span>
+<span class="sd">    the 'p1' parameter to 5.</span>
+<span class="sd">    """</span>
+
+    <span class="n">varname</span> <span class="o">=</span> <span class="n">param</span><span class="o">.</span><span class="n">String</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="s1">'PARAM_JSON_INIT'</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="s2">"""</span>
+<span class="s2">        The name of the environment variable containing the JSON</span>
+<span class="s2">        specification."""</span><span class="p">)</span>
+
+    <span class="n">target</span> <span class="o">=</span> <span class="n">param</span><span class="o">.</span><span class="n">String</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="s2">"""</span>
+<span class="s2">        Optional key in the JSON specification dictionary containing the</span>
+<span class="s2">        desired parameter values."""</span><span class="p">)</span>
+
+    <span class="n">json_file</span> <span class="o">=</span> <span class="n">param</span><span class="o">.</span><span class="n">String</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="s2">"""</span>
+<span class="s2">        Optional path to a JSON file containing the parameter settings."""</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="fm">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">parameterized</span><span class="p">):</span>
+        <span class="n">warnobj</span> <span class="o">=</span> <span class="n">param</span><span class="o">.</span><span class="n">main</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">parameterized</span><span class="p">,</span> <span class="nb">type</span><span class="p">)</span> <span class="k">else</span> <span class="n">parameterized</span>
+        <span class="n">param_class</span> <span class="o">=</span> <span class="p">(</span><span class="n">parameterized</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">parameterized</span><span class="p">,</span> <span class="nb">type</span><span class="p">)</span>
+                       <span class="k">else</span> <span class="n">parameterized</span><span class="o">.</span><span class="vm">__class__</span><span class="p">)</span>
+
+        <span class="n">target</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">target</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">target</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">param_class</span><span class="o">.</span><span class="vm">__name__</span>
+
+        <span class="n">env_var</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">varname</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">env_var</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">json_file</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span> <span class="k">return</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">json_file</span> <span class="ow">or</span> <span class="n">env_var</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s1">'.json'</span><span class="p">):</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">fname</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">json_file</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">json_file</span> <span class="k">else</span> <span class="n">env_var</span>
+                <span class="n">spec</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="nb">open</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="n">fname</span><span class="p">),</span> <span class="s1">'r'</span><span class="p">))</span>
+            <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
+                <span class="n">warnobj</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s1">'Could not load JSON file </span><span class="si">%r</span><span class="s1">'</span> <span class="o">%</span> <span class="n">spec</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">spec</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">env_var</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">spec</span><span class="p">,</span> <span class="nb">dict</span><span class="p">):</span>
+            <span class="n">warnobj</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s1">'JSON parameter specification must be a dictionary.'</span><span class="p">)</span>
+            <span class="k">return</span>
+
+        <span class="k">if</span> <span class="n">target</span> <span class="ow">in</span> <span class="n">spec</span><span class="p">:</span>
+            <span class="n">params</span> <span class="o">=</span> <span class="n">spec</span><span class="p">[</span><span class="n">target</span><span class="p">]</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">params</span> <span class="o">=</span> <span class="n">spec</span>
+
+        <span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">params</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">parameterized</span><span class="o">.</span><span class="n">param</span><span class="o">.</span><span class="n">set_param</span><span class="p">(</span><span class="o">**</span><span class="p">{</span><span class="n">name</span><span class="p">:</span><span class="n">value</span><span class="p">})</span>
+            <span class="k">except</span> <span class="ne">ValueError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+                <span class="n">warnobj</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">e</span><span class="p">))</span></div>
+
+
+<div class="viewcode-block" id="link_param_method"><a class="viewcode-back" href="../../api/panel.param.html#panel.param.link_param_method">[docs]</a><span class="k">def</span> <span class="nf">link_param_method</span><span class="p">(</span><span class="n">root_view</span><span class="p">,</span> <span class="n">root_model</span><span class="p">):</span>
+    <span class="sd">"""</span>
+<span class="sd">    This preprocessor jslinks ParamMethod loading parameters to any</span>
+<span class="sd">    widgets generated from those parameters ensuring that the loading</span>
+<span class="sd">    indicator is enabled client side.</span>
+<span class="sd">    """</span>
+    <span class="n">methods</span> <span class="o">=</span> <span class="n">root_view</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="k">lambda</span> <span class="n">p</span><span class="p">:</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">ParamMethod</span><span class="p">)</span> <span class="ow">and</span> <span class="n">p</span><span class="o">.</span><span class="n">loading_indicator</span><span class="p">)</span>
+    <span class="n">widgets</span> <span class="o">=</span> <span class="n">root_view</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="k">lambda</span> <span class="n">w</span><span class="p">:</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">w</span><span class="p">,</span> <span class="n">Widget</span><span class="p">)</span> <span class="ow">and</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">w</span><span class="p">,</span> <span class="s1">'_param_pane'</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">)</span>
+
+    <span class="k">for</span> <span class="n">widget</span> <span class="ow">in</span> <span class="n">widgets</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">method</span> <span class="ow">in</span> <span class="n">methods</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">cb</span> <span class="ow">in</span> <span class="n">method</span><span class="o">.</span><span class="n">_callbacks</span><span class="p">:</span>
+                <span class="n">pobj</span> <span class="o">=</span> <span class="n">cb</span><span class="o">.</span><span class="n">cls</span> <span class="k">if</span> <span class="n">cb</span><span class="o">.</span><span class="n">inst</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">cb</span><span class="o">.</span><span class="n">inst</span>
+                <span class="k">if</span> <span class="n">widget</span><span class="o">.</span><span class="n">_param_pane</span><span class="o">.</span><span class="n">object</span> <span class="ow">is</span> <span class="n">pobj</span><span class="p">:</span>
+                    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">widget</span><span class="p">,</span> <span class="n">DiscreteSlider</span><span class="p">):</span>
+                        <span class="n">w</span> <span class="o">=</span> <span class="n">widget</span><span class="o">.</span><span class="n">_slider</span>
+                    <span class="k">else</span><span class="p">:</span>
+                        <span class="n">w</span> <span class="o">=</span> <span class="n">widget</span>
+                    <span class="k">if</span> <span class="s1">'value'</span> <span class="ow">in</span> <span class="n">w</span><span class="o">.</span><span class="n">_linkable_params</span><span class="p">:</span>
+                        <span class="n">w</span><span class="o">.</span><span class="n">jslink</span><span class="p">(</span><span class="n">method</span><span class="o">.</span><span class="n">_inner_layout</span><span class="p">,</span> <span class="n">value</span><span class="o">=</span><span class="s1">'loading'</span><span class="p">)</span></div>
+
+
+<span class="n">Viewable</span><span class="o">.</span><span class="n">_preprocessing_hooks</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">link_param_method</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<!-- END MAIN BODY OF DOCS ––––––––––––– -->
+<!-- Google Analytics -->
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async="" src="https://www.googletagmanager.com/gtag/js?id=UA-154795830-2"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-154795830-2', { 'anonymize_ip': true });
+</script>
+<!-- MathJax Config -->
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}
+});
+</script>
+<!-- End Document
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+</body>
+</html>

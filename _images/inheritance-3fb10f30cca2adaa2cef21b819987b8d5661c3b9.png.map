@@ -1,0 +1,12 @@
+<map id="inheritance754ed7335d" name="inheritance754ed7335d">
+<area shape="rect" id="node1" href="panel.template.html#panel.template.base.BaseTemplate" target="_top" title="panel.template.base.BaseTemplate" alt="" coords="283,5,511,28"/>
+<area shape="rect" id="node4" href="panel.template.html#panel.template.base.BasicTemplate" target="_top" title="BasicTemplate provides a baseclass for templates with a basic" alt="" coords="558,5,787,28"/>
+<area shape="rect" id="node2" title="params(name=String)" alt="" coords="5,49,240,72"/>
+<area shape="rect" id="node10" href="panel.template.theme.html#panel.template.theme.Theme" target="_top" title="A Theme customizes the look and feel of a Template by providing" alt="" coords="300,49,494,72"/>
+<area shape="rect" id="node3" href="panel.viewable.html#panel.viewable.ServableMixin" target="_top" title="Mixin to define methods shared by objects which can served." alt="" coords="25,5,220,28"/>
+<area shape="rect" id="node9" href="#panel.template.bootstrap.BootstrapTemplate" target="_top" title="BootstrapTemplate" alt="" coords="849,5,1133,28"/>
+<area shape="rect" id="node5" href="#panel.template.bootstrap.BootstrapDarkTheme" target="_top" title="panel.template.bootstrap.BootstrapDarkTheme" alt="" coords="842,49,1140,72"/>
+<area shape="rect" id="node6" href="panel.template.theme.html#panel.template.theme.DarkTheme" target="_top" title="The DefaultTheme uses the standard Panel color palette." alt="" coords="562,49,784,72"/>
+<area shape="rect" id="node7" href="#panel.template.bootstrap.BootstrapDefaultTheme" target="_top" title="panel.template.bootstrap.BootstrapDefaultTheme" alt="" coords="835,94,1147,117"/>
+<area shape="rect" id="node8" href="panel.template.theme.html#panel.template.theme.DefaultTheme" target="_top" title="The DefaultTheme uses the standard Panel color palette." alt="" coords="554,94,792,117"/>
+</map>

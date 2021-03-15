@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<!-- Basic Page Needs
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+<meta charset="utf-8"/>
+<title>bokeh.server.views.autoload_js_handler — Panel 0.11.1+g238199f-dirty documentation</title>
+<meta content="High-level dashboarding for python visualization libraries" name="description"/>
+<meta content="Panel contributors" name="author"/>
+<!-- Mobile Specific Metas
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<!-- FONT
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+<script src="https://ajax.googleapis.com/ajax/libs/webfont/1.6.16/webfont.js"></script>
+<script>
+    WebFont.load({
+      google: {
+        families: ['Source Sans Pro']
+      }
+    });
+  </script>
+<!-- CSS
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+<link href="../../../../_static/css/main.css" rel="stylesheet"/>
+<link href="../../../../_static/nbsite.css" rel="stylesheet"/>
+<link href="../../../../_static/site.css" rel="stylesheet"/>
+<!-- Scripts
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script async="" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML" type="text/javascript">
+</script>
+<script src="../../../../_static/js/main.js"></script>
+<!-- Favicon
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+<link href="../../../../_static/favicon.ico" rel="icon" type="image/png"/>
+<!-- Canonical
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+<link href="https://panel.holoviz.org/_modules/bokeh/server/views/autoload_js_handler.html" rel="canonical">
+</link></head>
+<body class="">
+<header class="navigation">
+<div class="wrapper">
+<a class="logo" href="../../../../index.html">
+<img alt="Logo" src="../../../../_static/logo_horizontal.png"/>
+</a>
+<a class="navigation-menu-button" href="javascript:void(0)" id="js-mobile-menu">Menu</a>
+<nav>
+<ul class="navigation-menu show" id="js-navigation-menu">
+<li class="nav-link doc-head"><a href="//discourse.holoviz.org">Discourse</a></li>
+<li class="nav-link doc-head"><a href="//twitter.com/Panel_org">Twitter</a></li>
+<li class="nav-link doc-head"><a href="//github.com/pyviz/panel">Github</a></li>
+<li class="nav-link">
+<div style="display:inline-block;vertical-align: middle;">
+<div class="search-bar">
+<form action="../../../../search.html" method="get" role="search">
+<input name="q" placeholder="Search" type="search"/>
+<button type="submit">
+<img alt="Search Icon" src="https://raw.githubusercontent.com/thoughtbot/refills/master/source/images/search-icon-black.png"/>
+</button>
+</form>
+</div>
+</div>
+</li>
+</ul>
+</nav>
+</div>
+</header>
+<div class="second-nav">
+<nav>
+<ul class="navigation-menu show">
+<li class="nav-link doc-head"><a href="../../../../getting_started/index.html">Getting started</a></li>
+<li class="nav-link doc-head"><a href="../../../../user_guide/index.html">User Guide</a></li>
+<li class="nav-link doc-head"><a href="../../../../gallery/index.html">Gallery</a></li>
+<li class="nav-link doc-head"><a href="../../../../reference/index.html">Reference Gallery</a></li>
+<li class="nav-link doc-head"><a href="../../../../developer_guide/index.html">Developer Guide</a></li>
+<li class="nav-link doc-head"><a href="../../../../releases.html">Releases</a></li>
+<li class="nav-link doc-head"><a href="../../../../api/index.html">API</a></li>
+<li class="nav-link doc-head"><a href="../../../../FAQ.html">FAQ</a></li>
+<li class="nav-link doc-head"><a href="../../../../about.html">About</a></li>
+</ul>
+</nav>
+</div>
+<!-- MAIN BODY OF DOCS –––––––––––––––––– -->
+<div class="docs section">
+<div id="hacketyhackhack"> <!-- style="width:20%;margin-right: 100px;"> --> <!--style="display: none;"> style="display:none;"> -->
+<div class="toc" style="width:15%; margin-right:20px;">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../index.html">Home</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../getting_started/index.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../user_guide/index.html">User Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../gallery/index.html">Gallery</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../reference/index.html">Reference Gallery</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../developer_guide/index.html">Developer Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../api/index.html">API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../Comparisons.html">Comparisons</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../releases.html">Releases</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../Roadmap.html">Road Map</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../FAQ.html">FAQ</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://github.com/pyviz/panel">Github source</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../about.html">About</a></li>
+</ul>
+</div>
+</div>
+<div class="content"> <!-- style="max-width:80%;margin-left:auto;margin-right: auto;">-->
+<h1>Source code for bokeh.server.views.autoload_js_handler</h1><div class="highlight"><pre>
+<span></span><span class="c1">#-----------------------------------------------------------------------------</span>
+<span class="c1"># Copyright (c) 2012 - 2021, Anaconda, Inc., and Bokeh Contributors.</span>
+<span class="c1"># All rights reserved.</span>
+<span class="c1">#</span>
+<span class="c1"># The full license is in the file LICENSE.txt, distributed with this software.</span>
+<span class="c1">#-----------------------------------------------------------------------------</span>
+<span class="sd">''' Provide a request handler that returns a page displaying a document.</span>
+
+<span class="sd">'''</span>
+
+<span class="c1">#-----------------------------------------------------------------------------</span>
+<span class="c1"># Boilerplate</span>
+<span class="c1">#-----------------------------------------------------------------------------</span>
+<span class="kn">import</span> <span class="nn">logging</span> <span class="c1"># isort:skip</span>
+<span class="n">log</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
+
+<span class="c1">#-----------------------------------------------------------------------------</span>
+<span class="c1"># Imports</span>
+<span class="c1">#-----------------------------------------------------------------------------</span>
+
+<span class="c1"># Standard library imports</span>
+<span class="kn">from</span> <span class="nn">urllib.parse</span> <span class="kn">import</span> <span class="n">urlparse</span>
+
+<span class="c1"># Bokeh imports</span>
+<span class="kn">from</span> <span class="nn">bokeh.core.templates</span> <span class="kn">import</span> <span class="n">AUTOLOAD_JS</span>
+<span class="kn">from</span> <span class="nn">bokeh.embed.bundle</span> <span class="kn">import</span> <span class="n">Script</span><span class="p">,</span> <span class="n">bundle_for_objs_and_resources</span>
+<span class="kn">from</span> <span class="nn">bokeh.embed.elements</span> <span class="kn">import</span> <span class="n">script_for_render_items</span>
+<span class="kn">from</span> <span class="nn">bokeh.embed.util</span> <span class="kn">import</span> <span class="n">RenderItem</span>
+
+<span class="c1"># Bokeh imports</span>
+<span class="kn">from</span> <span class="nn">.session_handler</span> <span class="kn">import</span> <span class="n">SessionHandler</span>
+
+<span class="c1">#-----------------------------------------------------------------------------</span>
+<span class="c1"># Globals and constants</span>
+<span class="c1">#-----------------------------------------------------------------------------</span>
+
+<span class="n">__all__</span> <span class="o">=</span> <span class="p">(</span>
+    <span class="s1">'AutoloadJsHandler'</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="c1">#-----------------------------------------------------------------------------</span>
+<span class="c1"># General API</span>
+<span class="c1">#-----------------------------------------------------------------------------</span>
+
+<span class="c1">#-----------------------------------------------------------------------------</span>
+<span class="c1"># Dev API</span>
+<span class="c1">#-----------------------------------------------------------------------------</span>
+
+<span class="k">class</span> <span class="nc">AutoloadJsHandler</span><span class="p">(</span><span class="n">SessionHandler</span><span class="p">):</span>
+    <span class="sd">''' Implements a custom Tornado handler for the autoload JS chunk</span>
+
+<span class="sd">    '''</span>
+
+<div class="viewcode-block" id="AutoloadJsHandler.set_default_headers"><a class="viewcode-back" href="../../../../api/panel.io.html#panel.io.server.AutoloadJsHandler.set_default_headers">[docs]</a>    <span class="k">def</span> <span class="nf">set_default_headers</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">set_header</span><span class="p">(</span><span class="s2">"Access-Control-Allow-Headers"</span><span class="p">,</span> <span class="s2">"*"</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">set_header</span><span class="p">(</span><span class="s1">'Access-Control-Allow-Methods'</span><span class="p">,</span> <span class="s1">'PUT, GET, OPTIONS'</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">set_header</span><span class="p">(</span><span class="s2">"Access-Control-Allow-Origin"</span><span class="p">,</span> <span class="s2">"*"</span><span class="p">)</span></div>
+
+    <span class="k">async</span> <span class="k">def</span> <span class="nf">get</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="n">session</span> <span class="o">=</span> <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_session</span><span class="p">()</span>
+
+        <span class="n">element_id</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_argument</span><span class="p">(</span><span class="s2">"bokeh-autoload-element"</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">element_id</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">send_error</span><span class="p">(</span><span class="n">status_code</span><span class="o">=</span><span class="mi">400</span><span class="p">,</span> <span class="n">reason</span><span class="o">=</span><span class="s1">'No bokeh-autoload-element query parameter'</span><span class="p">)</span>
+            <span class="k">return</span>
+
+        <span class="n">app_path</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_argument</span><span class="p">(</span><span class="s2">"bokeh-app-path"</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="s2">"/"</span><span class="p">)</span>
+        <span class="n">absolute_url</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_argument</span><span class="p">(</span><span class="s2">"bokeh-absolute-url"</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">absolute_url</span><span class="p">:</span>
+            <span class="n">server_url</span> <span class="o">=</span> <span class="s1">'</span><span class="si">{uri.scheme}</span><span class="s1">://</span><span class="si">{uri.netloc}</span><span class="s1">'</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">uri</span><span class="o">=</span><span class="n">urlparse</span><span class="p">(</span><span class="n">absolute_url</span><span class="p">))</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">server_url</span> <span class="o">=</span> <span class="kc">None</span>
+
+        <span class="n">resources_param</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_argument</span><span class="p">(</span><span class="s2">"resources"</span><span class="p">,</span> <span class="s2">"default"</span><span class="p">)</span>
+        <span class="n">resources</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">application</span><span class="o">.</span><span class="n">resources</span><span class="p">(</span><span class="n">server_url</span><span class="p">)</span> <span class="k">if</span> <span class="n">resources_param</span> <span class="o">!=</span> <span class="s2">"none"</span> <span class="k">else</span> <span class="kc">None</span>
+        <span class="n">bundle</span> <span class="o">=</span> <span class="n">bundle_for_objs_and_resources</span><span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="n">resources</span><span class="p">)</span>
+
+        <span class="n">render_items</span> <span class="o">=</span> <span class="p">[</span><span class="n">RenderItem</span><span class="p">(</span><span class="n">token</span><span class="o">=</span><span class="n">session</span><span class="o">.</span><span class="n">token</span><span class="p">,</span> <span class="n">elementid</span><span class="o">=</span><span class="n">element_id</span><span class="p">,</span> <span class="n">use_for_title</span><span class="o">=</span><span class="kc">False</span><span class="p">)]</span>
+        <span class="n">bundle</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">Script</span><span class="p">(</span><span class="n">script_for_render_items</span><span class="p">({},</span> <span class="n">render_items</span><span class="p">,</span> <span class="n">app_path</span><span class="o">=</span><span class="n">app_path</span><span class="p">,</span> <span class="n">absolute_url</span><span class="o">=</span><span class="n">absolute_url</span><span class="p">)))</span>
+
+        <span class="n">js</span> <span class="o">=</span> <span class="n">AUTOLOAD_JS</span><span class="o">.</span><span class="n">render</span><span class="p">(</span><span class="n">bundle</span><span class="o">=</span><span class="n">bundle</span><span class="p">,</span> <span class="n">elementid</span><span class="o">=</span><span class="n">element_id</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">set_header</span><span class="p">(</span><span class="s2">"Content-Type"</span><span class="p">,</span> <span class="s1">'application/javascript'</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">js</span><span class="p">)</span>
+
+<div class="viewcode-block" id="AutoloadJsHandler.options"><a class="viewcode-back" href="../../../../api/panel.io.html#panel.io.server.AutoloadJsHandler.options">[docs]</a>    <span class="k">async</span> <span class="k">def</span> <span class="nf">options</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="sd">'''Browsers make OPTIONS requests under the hood before a GET request'''</span></div>
+
+<span class="c1">#-----------------------------------------------------------------------------</span>
+<span class="c1"># Private API</span>
+<span class="c1">#-----------------------------------------------------------------------------</span>
+
+<span class="c1">#-----------------------------------------------------------------------------</span>
+<span class="c1"># Code</span>
+<span class="c1">#-----------------------------------------------------------------------------</span>
+</pre></div>
+</div>
+</div>
+<!-- END MAIN BODY OF DOCS ––––––––––––– -->
+<!-- Google Analytics -->
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async="" src="https://www.googletagmanager.com/gtag/js?id=UA-154795830-2"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-154795830-2', { 'anonymize_ip': true });
+</script>
+<!-- MathJax Config -->
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}
+});
+</script>
+<!-- End Document
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+</body>
+</html>

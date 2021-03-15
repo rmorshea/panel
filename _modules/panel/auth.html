@@ -1,0 +1,826 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<!-- Basic Page Needs
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+<meta charset="utf-8"/>
+<title>panel.auth — Panel 0.11.1+g238199f-dirty documentation</title>
+<meta content="High-level dashboarding for python visualization libraries" name="description"/>
+<meta content="Panel contributors" name="author"/>
+<!-- Mobile Specific Metas
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<!-- FONT
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+<script src="https://ajax.googleapis.com/ajax/libs/webfont/1.6.16/webfont.js"></script>
+<script>
+    WebFont.load({
+      google: {
+        families: ['Source Sans Pro']
+      }
+    });
+  </script>
+<!-- CSS
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+<link href="../../_static/css/main.css" rel="stylesheet"/>
+<link href="../../_static/nbsite.css" rel="stylesheet"/>
+<link href="../../_static/site.css" rel="stylesheet"/>
+<!-- Scripts
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script async="" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML" type="text/javascript">
+</script>
+<script src="../../_static/js/main.js"></script>
+<!-- Favicon
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+<link href="../../_static/favicon.ico" rel="icon" type="image/png"/>
+<!-- Canonical
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+<link href="https://panel.holoviz.org/_modules/panel/auth.html" rel="canonical">
+</link></head>
+<body class="">
+<header class="navigation">
+<div class="wrapper">
+<a class="logo" href="../../index.html">
+<img alt="Logo" src="../../_static/logo_horizontal.png"/>
+</a>
+<a class="navigation-menu-button" href="javascript:void(0)" id="js-mobile-menu">Menu</a>
+<nav>
+<ul class="navigation-menu show" id="js-navigation-menu">
+<li class="nav-link doc-head"><a href="//discourse.holoviz.org">Discourse</a></li>
+<li class="nav-link doc-head"><a href="//twitter.com/Panel_org">Twitter</a></li>
+<li class="nav-link doc-head"><a href="//github.com/pyviz/panel">Github</a></li>
+<li class="nav-link">
+<div style="display:inline-block;vertical-align: middle;">
+<div class="search-bar">
+<form action="../../search.html" method="get" role="search">
+<input name="q" placeholder="Search" type="search"/>
+<button type="submit">
+<img alt="Search Icon" src="https://raw.githubusercontent.com/thoughtbot/refills/master/source/images/search-icon-black.png"/>
+</button>
+</form>
+</div>
+</div>
+</li>
+</ul>
+</nav>
+</div>
+</header>
+<div class="second-nav">
+<nav>
+<ul class="navigation-menu show">
+<li class="nav-link doc-head"><a href="../../getting_started/index.html">Getting started</a></li>
+<li class="nav-link doc-head"><a href="../../user_guide/index.html">User Guide</a></li>
+<li class="nav-link doc-head"><a href="../../gallery/index.html">Gallery</a></li>
+<li class="nav-link doc-head"><a href="../../reference/index.html">Reference Gallery</a></li>
+<li class="nav-link doc-head"><a href="../../developer_guide/index.html">Developer Guide</a></li>
+<li class="nav-link doc-head"><a href="../../releases.html">Releases</a></li>
+<li class="nav-link doc-head"><a href="../../api/index.html">API</a></li>
+<li class="nav-link doc-head"><a href="../../FAQ.html">FAQ</a></li>
+<li class="nav-link doc-head"><a href="../../about.html">About</a></li>
+</ul>
+</nav>
+</div>
+<!-- MAIN BODY OF DOCS –––––––––––––––––– -->
+<div class="docs section">
+<div id="hacketyhackhack"> <!-- style="width:20%;margin-right: 100px;"> --> <!--style="display: none;"> style="display:none;"> -->
+<div class="toc" style="width:15%; margin-right:20px;">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../index.html">Home</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../getting_started/index.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../user_guide/index.html">User Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../gallery/index.html">Gallery</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../reference/index.html">Reference Gallery</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../developer_guide/index.html">Developer Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../api/index.html">API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Comparisons.html">Comparisons</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../releases.html">Releases</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Roadmap.html">Road Map</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../FAQ.html">FAQ</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://github.com/pyviz/panel">Github source</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../about.html">About</a></li>
+</ul>
+</div>
+</div>
+<div class="content"> <!-- style="max-width:80%;margin-left:auto;margin-right: auto;">-->
+<h1>Source code for panel.auth</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">codecs</span>
+<span class="kn">import</span> <span class="nn">json</span>
+<span class="kn">import</span> <span class="nn">logging</span>
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">pkg_resources</span>
+<span class="kn">import</span> <span class="nn">re</span>
+<span class="kn">import</span> <span class="nn">uuid</span>
+
+<span class="kn">from</span> <span class="nn">urllib.parse</span> <span class="kn">import</span> <span class="n">urlencode</span>
+
+<span class="kn">import</span> <span class="nn">tornado</span>
+
+<span class="kn">from</span> <span class="nn">bokeh.server.auth_provider</span> <span class="kn">import</span> <span class="n">AuthProvider</span>
+<span class="kn">from</span> <span class="nn">tornado.auth</span> <span class="kn">import</span> <span class="n">OAuth2Mixin</span>
+<span class="kn">from</span> <span class="nn">tornado.httpclient</span> <span class="kn">import</span> <span class="n">HTTPRequest</span><span class="p">,</span> <span class="n">HTTPError</span>
+<span class="kn">from</span> <span class="nn">tornado.httputil</span> <span class="kn">import</span> <span class="n">url_concat</span>
+
+<span class="kn">from</span> <span class="nn">.config</span> <span class="kn">import</span> <span class="n">config</span>
+<span class="kn">from</span> <span class="nn">.io</span> <span class="kn">import</span> <span class="n">state</span>
+<span class="kn">from</span> <span class="nn">.util</span> <span class="kn">import</span> <span class="n">base64url_encode</span><span class="p">,</span> <span class="n">base64url_decode</span>
+
+<span class="n">log</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
+
+<span class="n">STATE_COOKIE_NAME</span> <span class="o">=</span> <span class="s1">'panel-oauth-state'</span>
+
+
+<div class="viewcode-block" id="decode_response_body"><a class="viewcode-back" href="../../api/panel.auth.html#panel.auth.decode_response_body">[docs]</a><span class="k">def</span> <span class="nf">decode_response_body</span><span class="p">(</span><span class="n">response</span><span class="p">):</span>
+    <span class="sd">"""</span>
+<span class="sd">    Decodes the JSON-format response body</span>
+
+<span class="sd">    Arguments</span>
+<span class="sd">    ---------</span>
+<span class="sd">    response: tornado.httpclient.HTTPResponse</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    Decoded response content</span>
+<span class="sd">    """</span>
+    <span class="c1"># Fix GitHub response.</span>
+    <span class="n">body</span> <span class="o">=</span> <span class="n">codecs</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="n">body</span><span class="p">,</span> <span class="s1">'ascii'</span><span class="p">)</span>
+    <span class="n">body</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="s1">'"'</span><span class="p">,</span> <span class="s1">'</span><span class="se">\"</span><span class="s1">'</span><span class="p">,</span> <span class="n">body</span><span class="p">)</span>
+    <span class="n">body</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="s2">"'"</span><span class="p">,</span> <span class="s1">'"'</span><span class="p">,</span> <span class="n">body</span><span class="p">)</span>
+    <span class="n">body</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">body</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">body</span></div>
+
+
+<div class="viewcode-block" id="decode_id_token"><a class="viewcode-back" href="../../api/panel.auth.html#panel.auth.decode_id_token">[docs]</a><span class="k">def</span> <span class="nf">decode_id_token</span><span class="p">(</span><span class="n">id_token</span><span class="p">):</span>
+    <span class="sd">"""</span>
+<span class="sd">    Decodes a signed ID JWT token.</span>
+<span class="sd">    """</span>
+    <span class="n">signing_input</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">id_token</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s1">'utf-8'</span><span class="p">)</span><span class="o">.</span><span class="n">rsplit</span><span class="p">(</span><span class="sa">b</span><span class="s2">"."</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+    <span class="n">_</span><span class="p">,</span> <span class="n">payload_segment</span> <span class="o">=</span> <span class="n">signing_input</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="sa">b</span><span class="s2">"."</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">base64url_decode</span><span class="p">(</span><span class="n">payload_segment</span><span class="p">)</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s1">'utf-8'</span><span class="p">))</span></div>
+
+
+<div class="viewcode-block" id="extract_urlparam"><a class="viewcode-back" href="../../api/panel.auth.html#panel.auth.extract_urlparam">[docs]</a><span class="k">def</span> <span class="nf">extract_urlparam</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">urlparam</span><span class="p">):</span>
+    <span class="sd">"""</span>
+<span class="sd">    Attempts to extract a url parameter embedded in another URL</span>
+<span class="sd">    parameter.</span>
+<span class="sd">    """</span>
+    <span class="k">if</span> <span class="n">urlparam</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">return</span> <span class="kc">None</span>
+    <span class="n">query</span> <span class="o">=</span> <span class="n">name</span><span class="o">+</span><span class="s1">'='</span>
+    <span class="k">if</span> <span class="n">query</span> <span class="ow">in</span> <span class="n">urlparam</span><span class="p">:</span>
+        <span class="n">split_args</span> <span class="o">=</span> <span class="n">urlparam</span><span class="p">[</span><span class="n">urlparam</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="n">query</span><span class="p">):]</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="n">query</span><span class="p">,</span> <span class="s1">''</span><span class="p">)</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">'&amp;'</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">split_args</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="k">if</span> <span class="n">split_args</span> <span class="k">else</span> <span class="kc">None</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">return</span> <span class="kc">None</span></div>
+
+
+<div class="viewcode-block" id="OAuthLoginHandler"><a class="viewcode-back" href="../../api/panel.auth.html#panel.auth.OAuthLoginHandler">[docs]</a><span class="k">class</span> <span class="nc">OAuthLoginHandler</span><span class="p">(</span><span class="n">tornado</span><span class="o">.</span><span class="n">web</span><span class="o">.</span><span class="n">RequestHandler</span><span class="p">):</span>
+
+    <span class="n">_API_BASE_HEADERS</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s1">'Accept'</span><span class="p">:</span> <span class="s1">'application/json'</span><span class="p">,</span>
+        <span class="s1">'User-Agent'</span><span class="p">:</span> <span class="s1">'Tornado OAuth'</span>
+    <span class="p">}</span>
+
+    <span class="n">_access_token_header</span> <span class="o">=</span> <span class="kc">None</span>
+
+    <span class="n">_EXTRA_TOKEN_PARAMS</span> <span class="o">=</span> <span class="p">{}</span>
+
+    <span class="n">_SCOPE</span> <span class="o">=</span> <span class="kc">None</span>
+
+    <span class="n">_state_cookie</span> <span class="o">=</span> <span class="kc">None</span>
+
+<div class="viewcode-block" id="OAuthLoginHandler.get_authenticated_user"><a class="viewcode-back" href="../../api/panel.auth.html#panel.auth.OAuthLoginHandler.get_authenticated_user">[docs]</a>    <span class="k">async</span> <span class="k">def</span> <span class="nf">get_authenticated_user</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">redirect_uri</span><span class="p">,</span> <span class="n">client_id</span><span class="p">,</span> <span class="n">state</span><span class="p">,</span>
+                                     <span class="n">client_secret</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">code</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="sd">"""</span>
+<span class="sd">        Fetches the authenticated user</span>
+
+<span class="sd">        Arguments</span>
+<span class="sd">        ---------</span>
+<span class="sd">        redirect_uri: (str)</span>
+<span class="sd">          The OAuth redirect URI</span>
+<span class="sd">        client_id: (str)</span>
+<span class="sd">          The OAuth client ID</span>
+<span class="sd">        state: (str)</span>
+<span class="sd">          The unguessable random string to protect against</span>
+<span class="sd">          cross-site request forgery attacks</span>
+<span class="sd">        client_secret: (str, optional)</span>
+<span class="sd">          The client secret</span>
+<span class="sd">        code: (str, optional)</span>
+<span class="sd">          The response code from the server</span>
+<span class="sd">        """</span>
+        <span class="k">if</span> <span class="n">code</span><span class="p">:</span>
+            <span class="k">return</span> <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">_fetch_access_token</span><span class="p">(</span>
+                <span class="n">code</span><span class="p">,</span>
+                <span class="n">redirect_uri</span><span class="p">,</span>
+                <span class="n">client_id</span><span class="p">,</span>
+                <span class="n">client_secret</span>
+            <span class="p">)</span>
+
+        <span class="n">params</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s1">'redirect_uri'</span><span class="p">:</span> <span class="n">redirect_uri</span><span class="p">,</span>
+            <span class="s1">'client_id'</span><span class="p">:</span>    <span class="n">client_id</span><span class="p">,</span>
+            <span class="s1">'client_secret'</span><span class="p">:</span> <span class="n">client_secret</span><span class="p">,</span>
+            <span class="s1">'extra_params'</span><span class="p">:</span> <span class="p">{</span>
+                <span class="s1">'state'</span><span class="p">:</span> <span class="n">state</span><span class="p">,</span>
+            <span class="p">},</span>
+        <span class="p">}</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_SCOPE</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">params</span><span class="p">[</span><span class="s1">'scope'</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_SCOPE</span>
+        <span class="k">if</span> <span class="s1">'scope'</span> <span class="ow">in</span> <span class="n">config</span><span class="o">.</span><span class="n">oauth_extra_params</span><span class="p">:</span>
+            <span class="n">params</span><span class="p">[</span><span class="s1">'scope'</span><span class="p">]</span> <span class="o">=</span> <span class="n">config</span><span class="o">.</span><span class="n">oauth_extra_params</span><span class="p">[</span><span class="s1">'scope'</span><span class="p">]</span>
+        <span class="n">log</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">"</span><span class="si">%s</span><span class="s2"> making authorize request"</span> <span class="o">%</span> <span class="nb">type</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="vm">__name__</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">authorize_redirect</span><span class="p">(</span><span class="o">**</span><span class="n">params</span><span class="p">)</span></div>
+
+    <span class="k">async</span> <span class="k">def</span> <span class="nf">_fetch_access_token</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">code</span><span class="p">,</span> <span class="n">redirect_uri</span><span class="p">,</span> <span class="n">client_id</span><span class="p">,</span> <span class="n">client_secret</span><span class="p">):</span>
+        <span class="sd">"""</span>
+<span class="sd">        Fetches the access token.</span>
+
+<span class="sd">        Arguments</span>
+<span class="sd">        ---------</span>
+<span class="sd">        code:</span>
+<span class="sd">          The response code from the server</span>
+<span class="sd">        redirect_uri:</span>
+<span class="sd">          The redirect URI</span>
+<span class="sd">        client_id:</span>
+<span class="sd">          The client ID</span>
+<span class="sd">        client_secret:</span>
+<span class="sd">          The client secret</span>
+<span class="sd">        state:</span>
+<span class="sd">          The unguessable random string to protect against cross-site</span>
+<span class="sd">          request forgery attacks</span>
+<span class="sd">        """</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">client_secret</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">'The client secret is undefined.'</span><span class="p">)</span>
+
+        <span class="n">log</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">"</span><span class="si">%s</span><span class="s2"> making access token request."</span> <span class="o">%</span> <span class="nb">type</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="vm">__name__</span><span class="p">)</span>
+
+        <span class="n">params</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s1">'code'</span><span class="p">:</span>          <span class="n">code</span><span class="p">,</span>
+            <span class="s1">'redirect_uri'</span><span class="p">:</span>  <span class="n">redirect_uri</span><span class="p">,</span>
+            <span class="s1">'client_id'</span><span class="p">:</span>     <span class="n">client_id</span><span class="p">,</span>
+            <span class="s1">'client_secret'</span><span class="p">:</span> <span class="n">client_secret</span><span class="p">,</span>
+            <span class="o">**</span><span class="bp">self</span><span class="o">.</span><span class="n">_EXTRA_TOKEN_PARAMS</span>
+        <span class="p">}</span>
+
+        <span class="n">http</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_auth_http_client</span><span class="p">()</span>
+
+        <span class="c1"># Request the access token.</span>
+        <span class="n">req</span> <span class="o">=</span> <span class="n">HTTPRequest</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_OAUTH_ACCESS_TOKEN_URL</span><span class="p">,</span>
+            <span class="n">method</span><span class="o">=</span><span class="s1">'POST'</span><span class="p">,</span>
+            <span class="n">body</span><span class="o">=</span><span class="n">urlencode</span><span class="p">(</span><span class="n">params</span><span class="p">),</span>
+            <span class="n">headers</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_API_BASE_HEADERS</span>
+        <span class="p">)</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">response</span> <span class="o">=</span> <span class="k">await</span> <span class="n">http</span><span class="o">.</span><span class="n">fetch</span><span class="p">(</span><span class="n">req</span><span class="p">)</span>
+        <span class="k">except</span> <span class="n">HTTPError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_on_error</span><span class="p">(</span><span class="n">e</span><span class="o">.</span><span class="n">response</span><span class="p">)</span>
+
+        <span class="n">body</span> <span class="o">=</span> <span class="n">decode_response_body</span><span class="p">(</span><span class="n">response</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">body</span><span class="p">:</span>
+            <span class="k">return</span>
+
+        <span class="k">if</span> <span class="s1">'access_token'</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">body</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_on_error</span><span class="p">(</span><span class="n">response</span><span class="p">,</span> <span class="n">body</span><span class="p">)</span>
+
+        <span class="n">user_headers</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_API_BASE_HEADERS</span><span class="p">)</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_access_token_header</span><span class="p">:</span>
+            <span class="n">user_url</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_OAUTH_USER_URL</span>
+            <span class="n">user_headers</span><span class="p">[</span><span class="s1">'Authorization'</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_access_token_header</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+                <span class="n">body</span><span class="p">[</span><span class="s1">'access_token'</span><span class="p">]</span>
+            <span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">user_url</span> <span class="o">=</span> <span class="s1">'</span><span class="si">{}{}</span><span class="s1">'</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_OAUTH_USER_URL</span><span class="p">,</span> <span class="n">body</span><span class="p">[</span><span class="s1">'access_token'</span><span class="p">])</span>
+
+        <span class="n">user_response</span> <span class="o">=</span> <span class="k">await</span> <span class="n">http</span><span class="o">.</span><span class="n">fetch</span><span class="p">(</span><span class="n">user_url</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="n">user_headers</span><span class="p">)</span>
+        <span class="n">user</span> <span class="o">=</span> <span class="n">decode_response_body</span><span class="p">(</span><span class="n">user_response</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">user</span><span class="p">:</span>
+            <span class="k">return</span>
+
+        <span class="n">log</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">"</span><span class="si">%s</span><span class="s2"> received user information."</span> <span class="o">%</span> <span class="nb">type</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="vm">__name__</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_on_auth</span><span class="p">(</span><span class="n">user</span><span class="p">,</span> <span class="n">body</span><span class="p">[</span><span class="s1">'access_token'</span><span class="p">])</span>
+
+<div class="viewcode-block" id="OAuthLoginHandler.get_state_cookie"><a class="viewcode-back" href="../../api/panel.auth.html#panel.auth.OAuthLoginHandler.get_state_cookie">[docs]</a>    <span class="k">def</span> <span class="nf">get_state_cookie</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">"""Get OAuth state from cookies</span>
+<span class="sd">        To be compared with the value in redirect URL</span>
+<span class="sd">        """</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_state_cookie</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_state_cookie</span> <span class="o">=</span> <span class="p">(</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">get_secure_cookie</span><span class="p">(</span><span class="n">STATE_COOKIE_NAME</span><span class="p">)</span> <span class="ow">or</span> <span class="sa">b</span><span class="s1">''</span>
+            <span class="p">)</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s1">'utf8'</span><span class="p">,</span> <span class="s1">'replace'</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">clear_cookie</span><span class="p">(</span><span class="n">STATE_COOKIE_NAME</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_state_cookie</span></div>
+
+    <span class="k">def</span> <span class="nf">set_state_cookie</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">state</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">set_secure_cookie</span><span class="p">(</span><span class="n">STATE_COOKIE_NAME</span><span class="p">,</span> <span class="n">state</span><span class="p">,</span> <span class="n">expires_days</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">httponly</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+    <span class="k">async</span> <span class="k">def</span> <span class="nf">get</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">log</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">"</span><span class="si">%s</span><span class="s2"> received login request"</span> <span class="o">%</span> <span class="nb">type</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="vm">__name__</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">config</span><span class="o">.</span><span class="n">oauth_redirect_uri</span><span class="p">:</span>
+            <span class="n">redirect_uri</span> <span class="o">=</span> <span class="n">config</span><span class="o">.</span><span class="n">oauth_redirect_uri</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">redirect_uri</span> <span class="o">=</span> <span class="s2">"</span><span class="si">{0}</span><span class="s2">://</span><span class="si">{1}</span><span class="s2">"</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">request</span><span class="o">.</span><span class="n">protocol</span><span class="p">,</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">request</span><span class="o">.</span><span class="n">host</span>
+            <span class="p">)</span>
+        <span class="n">params</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s1">'redirect_uri'</span><span class="p">:</span> <span class="n">redirect_uri</span><span class="p">,</span>
+            <span class="s1">'client_id'</span><span class="p">:</span>    <span class="n">config</span><span class="o">.</span><span class="n">oauth_key</span><span class="p">,</span>
+        <span class="p">}</span>
+        <span class="c1"># Some OAuth2 backends do not correctly return code</span>
+        <span class="n">next_arg</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_argument</span><span class="p">(</span><span class="s1">'next'</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+        <span class="n">url_state</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_argument</span><span class="p">(</span><span class="s1">'state'</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+        <span class="n">code</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_argument</span><span class="p">(</span><span class="s1">'code'</span><span class="p">,</span> <span class="n">extract_urlparam</span><span class="p">(</span><span class="s1">'code'</span><span class="p">,</span> <span class="n">next_arg</span><span class="p">))</span>
+        <span class="n">url_state</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_argument</span><span class="p">(</span><span class="s1">'state'</span><span class="p">,</span> <span class="n">extract_urlparam</span><span class="p">(</span><span class="s1">'state'</span><span class="p">,</span> <span class="n">next_arg</span><span class="p">))</span>
+
+        <span class="c1"># Seek the authorization</span>
+        <span class="n">cookie_state</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_state_cookie</span><span class="p">()</span>
+        <span class="k">if</span> <span class="n">code</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">cookie_state</span> <span class="o">!=</span> <span class="n">url_state</span><span class="p">:</span>
+                <span class="n">log</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s2">"OAuth state mismatch: </span><span class="si">%s</span><span class="s2"> != </span><span class="si">%s</span><span class="s2">"</span><span class="p">,</span> <span class="n">cookie_state</span><span class="p">,</span> <span class="n">url_state</span><span class="p">)</span>
+                <span class="k">raise</span> <span class="n">HTTPError</span><span class="p">(</span><span class="mi">400</span><span class="p">,</span> <span class="s2">"OAuth state mismatch"</span><span class="p">)</span>
+
+            <span class="c1"># For security reason, the state value (cross-site token) will be</span>
+            <span class="c1"># retrieved from the query string.</span>
+            <span class="n">params</span><span class="o">.</span><span class="n">update</span><span class="p">({</span>
+                <span class="s1">'client_secret'</span><span class="p">:</span> <span class="n">config</span><span class="o">.</span><span class="n">oauth_secret</span><span class="p">,</span>
+                <span class="s1">'code'</span><span class="p">:</span>  <span class="n">code</span><span class="p">,</span>
+                <span class="s1">'state'</span><span class="p">:</span> <span class="n">url_state</span>
+            <span class="p">})</span>
+            <span class="n">user</span> <span class="o">=</span> <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_authenticated_user</span><span class="p">(</span><span class="o">**</span><span class="n">params</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">user</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="n">HTTPError</span><span class="p">(</span><span class="mi">403</span><span class="p">)</span>
+            <span class="n">log</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">"</span><span class="si">%s</span><span class="s2"> authorized user, redirecting to app."</span> <span class="o">%</span> <span class="nb">type</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="vm">__name__</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">redirect</span><span class="p">(</span><span class="s1">'/'</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="c1"># Redirect for user authentication</span>
+            <span class="n">state</span> <span class="o">=</span> <span class="n">uuid</span><span class="o">.</span><span class="n">uuid4</span><span class="p">()</span><span class="o">.</span><span class="n">hex</span>
+            <span class="n">params</span><span class="p">[</span><span class="s1">'state'</span><span class="p">]</span> <span class="o">=</span> <span class="n">state</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">set_state_cookie</span><span class="p">(</span><span class="n">state</span><span class="p">)</span>
+            <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_authenticated_user</span><span class="p">(</span><span class="o">**</span><span class="n">params</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">_on_auth</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">user_info</span><span class="p">,</span> <span class="n">access_token</span><span class="p">):</span>
+        <span class="n">user_key</span> <span class="o">=</span> <span class="n">config</span><span class="o">.</span><span class="n">oauth_jwt_user</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">_USER_KEY</span>
+        <span class="n">user</span> <span class="o">=</span> <span class="n">user_info</span><span class="p">[</span><span class="n">user_key</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">set_secure_cookie</span><span class="p">(</span><span class="s1">'user'</span><span class="p">,</span> <span class="n">user</span><span class="p">)</span>
+        <span class="n">id_token</span> <span class="o">=</span> <span class="n">base64url_encode</span><span class="p">(</span><span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">user_info</span><span class="p">))</span>
+        <span class="k">if</span> <span class="n">state</span><span class="o">.</span><span class="n">encryption</span><span class="p">:</span>
+            <span class="n">access_token</span> <span class="o">=</span> <span class="n">state</span><span class="o">.</span><span class="n">encryption</span><span class="o">.</span><span class="n">encrypt</span><span class="p">(</span><span class="n">access_token</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s1">'utf-8'</span><span class="p">))</span>
+            <span class="n">id_token</span> <span class="o">=</span> <span class="n">state</span><span class="o">.</span><span class="n">encryption</span><span class="o">.</span><span class="n">encrypt</span><span class="p">(</span><span class="n">id_token</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s1">'utf-8'</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">set_secure_cookie</span><span class="p">(</span><span class="s1">'access_token'</span><span class="p">,</span> <span class="n">access_token</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">set_secure_cookie</span><span class="p">(</span><span class="s1">'id_token'</span><span class="p">,</span> <span class="n">id_token</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">user</span>
+
+    <span class="k">def</span> <span class="nf">_on_error</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">response</span><span class="p">,</span> <span class="n">body</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">clear_all_cookies</span><span class="p">()</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">body</span> <span class="o">=</span> <span class="n">body</span> <span class="ow">or</span> <span class="n">decode_response_body</span><span class="p">(</span><span class="n">response</span><span class="p">)</span>
+        <span class="k">except</span> <span class="n">json</span><span class="o">.</span><span class="n">decoder</span><span class="o">.</span><span class="n">JSONDecodeError</span><span class="p">:</span>
+            <span class="n">body</span> <span class="o">=</span> <span class="n">body</span>
+        <span class="n">provider</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">'LoginHandler'</span><span class="p">,</span> <span class="s1">''</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">response</span><span class="o">.</span><span class="n">error</span><span class="p">:</span>
+            <span class="n">log</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">provider</span><span class="si">}</span><span class="s2"> OAuth provider returned a </span><span class="si">{</span><span class="n">response</span><span class="o">.</span><span class="n">error</span><span class="si">}</span><span class="s2"> "</span>
+                      <span class="sa">f</span><span class="s2">"error. The full response was: </span><span class="si">{</span><span class="n">body</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">log</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">provider</span><span class="si">}</span><span class="s2"> OAuth provider failed to fully "</span>
+                        <span class="sa">f</span><span class="s2">"authenticate returning the following response:"</span>
+                        <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">body</span><span class="si">}</span><span class="s2">."</span><span class="p">)</span>
+        <span class="k">raise</span> <span class="n">HTTPError</span><span class="p">(</span><span class="mi">500</span><span class="p">,</span> <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">provider</span><span class="si">}</span><span class="s2"> authentication failed"</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="GithubLoginHandler"><a class="viewcode-back" href="../../api/panel.auth.html#panel.auth.GithubLoginHandler">[docs]</a><span class="k">class</span> <span class="nc">GithubLoginHandler</span><span class="p">(</span><span class="n">OAuthLoginHandler</span><span class="p">,</span> <span class="n">OAuth2Mixin</span><span class="p">):</span>
+    <span class="sd">"""GitHub OAuth2 Authentication</span>
+<span class="sd">    To authenticate with GitHub, first register your application at</span>
+<span class="sd">    https://github.com/settings/applications/new to get the client ID and</span>
+<span class="sd">    secret.</span>
+<span class="sd">    """</span>
+
+    <span class="n">_EXTRA_AUTHORIZE_PARAMS</span> <span class="o">=</span> <span class="p">{}</span>
+
+    <span class="n">_OAUTH_ACCESS_TOKEN_URL</span> <span class="o">=</span> <span class="s1">'https://github.com/login/oauth/access_token'</span>
+    <span class="n">_OAUTH_AUTHORIZE_URL</span> <span class="o">=</span> <span class="s1">'https://github.com/login/oauth/authorize'</span>
+    <span class="n">_OAUTH_USER_URL</span> <span class="o">=</span> <span class="s1">'https://api.github.com/user'</span>
+
+    <span class="n">_access_token_header</span> <span class="o">=</span> <span class="s1">'token </span><span class="si">{}</span><span class="s1">'</span>
+
+    <span class="n">_USER_KEY</span> <span class="o">=</span> <span class="s1">'login'</span></div>
+
+    
+
+<div class="viewcode-block" id="BitbucketLoginHandler"><a class="viewcode-back" href="../../api/panel.auth.html#panel.auth.BitbucketLoginHandler">[docs]</a><span class="k">class</span> <span class="nc">BitbucketLoginHandler</span><span class="p">(</span><span class="n">OAuthLoginHandler</span><span class="p">,</span> <span class="n">OAuth2Mixin</span><span class="p">):</span>
+
+    <span class="n">_API_BASE_HEADERS</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s2">"Accept"</span><span class="p">:</span> <span class="s2">"application/json"</span><span class="p">,</span>
+    <span class="p">}</span>
+
+    <span class="n">_EXTRA_TOKEN_PARAMS</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s1">'grant_type'</span><span class="p">:</span>    <span class="s1">'authorization_code'</span>
+    <span class="p">}</span>
+
+    <span class="n">_OAUTH_ACCESS_TOKEN_URL</span> <span class="o">=</span> <span class="s2">"https://bitbucket.org/site/oauth2/access_token"</span>
+    <span class="n">_OAUTH_AUTHORIZE_URL</span> <span class="o">=</span> <span class="s2">"https://bitbucket.org/site/oauth2/authorize"</span>
+    <span class="n">_OAUTH_USER_URL</span> <span class="o">=</span> <span class="s2">"https://api.bitbucket.org/2.0/user?access_token="</span>
+
+    <span class="n">_USER_KEY</span> <span class="o">=</span> <span class="s1">'username'</span></div>
+
+
+<div class="viewcode-block" id="Auth0Handler"><a class="viewcode-back" href="../../api/panel.auth.html#panel.auth.Auth0Handler">[docs]</a><span class="k">class</span> <span class="nc">Auth0Handler</span><span class="p">(</span><span class="n">OAuthLoginHandler</span><span class="p">,</span> <span class="n">OAuth2Mixin</span><span class="p">):</span>
+
+    <span class="n">_EXTRA_AUTHORIZE_PARAMS</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s1">'subdomain'</span>
+    <span class="p">}</span>
+
+    <span class="n">_OAUTH_ACCESS_TOKEN_URL_</span> <span class="o">=</span> <span class="s1">'https://</span><span class="si">{0}</span><span class="s1">.auth0.com/oauth/token'</span>
+    <span class="n">_OAUTH_AUTHORIZE_URL_</span> <span class="o">=</span> <span class="s1">'https://</span><span class="si">{0}</span><span class="s1">.auth0.com/authorize'</span>
+    <span class="n">_OAUTH_USER_URL_</span> <span class="o">=</span> <span class="s1">'https://</span><span class="si">{0}</span><span class="s1">.auth0.com/userinfo?access_token='</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">_OAUTH_ACCESS_TOKEN_URL</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">url</span> <span class="o">=</span> <span class="n">config</span><span class="o">.</span><span class="n">oauth_extra_params</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'subdomain'</span><span class="p">,</span> <span class="s1">'example'</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_OAUTH_ACCESS_TOKEN_URL_</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">_OAUTH_AUTHORIZE_URL</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">url</span> <span class="o">=</span> <span class="n">config</span><span class="o">.</span><span class="n">oauth_extra_params</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'subdomain'</span><span class="p">,</span> <span class="s1">'example'</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_OAUTH_AUTHORIZE_URL_</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">_OAUTH_USER_URL</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">url</span> <span class="o">=</span> <span class="n">config</span><span class="o">.</span><span class="n">oauth_extra_params</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'subdomain'</span><span class="p">,</span> <span class="s1">'example'</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_OAUTH_USER_URL_</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
+
+    <span class="n">_USER_KEY</span> <span class="o">=</span> <span class="s1">'email'</span>
+
+    <span class="n">_EXTRA_TOKEN_PARAMS</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s1">'grant_type'</span><span class="p">:</span>    <span class="s1">'authorization_code'</span>
+    <span class="p">}</span></div>
+
+
+<div class="viewcode-block" id="GitLabLoginHandler"><a class="viewcode-back" href="../../api/panel.auth.html#panel.auth.GitLabLoginHandler">[docs]</a><span class="k">class</span> <span class="nc">GitLabLoginHandler</span><span class="p">(</span><span class="n">OAuthLoginHandler</span><span class="p">,</span> <span class="n">OAuth2Mixin</span><span class="p">):</span>
+
+    <span class="n">_API_BASE_HEADERS</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s1">'Accept'</span><span class="p">:</span> <span class="s1">'application/json'</span><span class="p">,</span>
+    <span class="p">}</span>
+
+    <span class="n">_EXTRA_TOKEN_PARAMS</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s1">'grant_type'</span><span class="p">:</span>    <span class="s1">'authorization_code'</span>
+    <span class="p">}</span>
+
+    <span class="n">_OAUTH_ACCESS_TOKEN_URL_</span> <span class="o">=</span> <span class="s1">'https://</span><span class="si">{0}</span><span class="s1">/oauth/token'</span>
+    <span class="n">_OAUTH_AUTHORIZE_URL_</span> <span class="o">=</span> <span class="s1">'https://</span><span class="si">{0}</span><span class="s1">/oauth/authorize'</span>
+    <span class="n">_OAUTH_USER_URL_</span> <span class="o">=</span> <span class="s1">'https://</span><span class="si">{0}</span><span class="s1">/api/v4/user'</span>
+
+    <span class="n">_USER_KEY</span> <span class="o">=</span> <span class="s1">'username'</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">_OAUTH_ACCESS_TOKEN_URL</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">url</span> <span class="o">=</span> <span class="n">config</span><span class="o">.</span><span class="n">oauth_extra_params</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'url'</span><span class="p">,</span> <span class="s1">'gitlab.com'</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_OAUTH_ACCESS_TOKEN_URL_</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">_OAUTH_AUTHORIZE_URL</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">url</span> <span class="o">=</span> <span class="n">config</span><span class="o">.</span><span class="n">oauth_extra_params</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'url'</span><span class="p">,</span> <span class="s1">'gitlab.com'</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_OAUTH_AUTHORIZE_URL_</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">_OAUTH_USER_URL</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">url</span> <span class="o">=</span> <span class="n">config</span><span class="o">.</span><span class="n">oauth_extra_params</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'url'</span><span class="p">,</span> <span class="s1">'gitlab.com'</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_OAUTH_USER_URL_</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
+
+    <span class="k">async</span> <span class="k">def</span> <span class="nf">_fetch_access_token</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">code</span><span class="p">,</span> <span class="n">redirect_uri</span><span class="p">,</span> <span class="n">client_id</span><span class="p">,</span> <span class="n">client_secret</span><span class="p">):</span>
+        <span class="sd">"""</span>
+<span class="sd">        Fetches the access token.</span>
+
+<span class="sd">        Arguments</span>
+<span class="sd">        ----------</span>
+<span class="sd">        code:</span>
+<span class="sd">          The response code from the server</span>
+<span class="sd">        redirect_uri:</span>
+<span class="sd">          The redirect URI</span>
+<span class="sd">        client_id:</span>
+<span class="sd">          The client ID</span>
+<span class="sd">        client_secret:</span>
+<span class="sd">          The client secret</span>
+<span class="sd">        state:</span>
+<span class="sd">          The unguessable random string to protect against cross-site</span>
+<span class="sd">          request forgery attacks</span>
+<span class="sd">        """</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">client_secret</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">'The client secret is undefined.'</span><span class="p">)</span>
+
+        <span class="n">log</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">"</span><span class="si">%s</span><span class="s2"> making access token request."</span> <span class="o">%</span> <span class="nb">type</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="vm">__name__</span><span class="p">)</span>
+
+        <span class="n">http</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_auth_http_client</span><span class="p">()</span>
+
+        <span class="n">params</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s1">'code'</span><span class="p">:</span>          <span class="n">code</span><span class="p">,</span>
+            <span class="s1">'redirect_uri'</span><span class="p">:</span>  <span class="n">redirect_uri</span><span class="p">,</span>
+            <span class="s1">'client_id'</span><span class="p">:</span>     <span class="n">client_id</span><span class="p">,</span>
+            <span class="s1">'client_secret'</span><span class="p">:</span> <span class="n">client_secret</span><span class="p">,</span>
+            <span class="o">**</span><span class="bp">self</span><span class="o">.</span><span class="n">_EXTRA_TOKEN_PARAMS</span>
+        <span class="p">}</span>
+
+        <span class="n">url</span> <span class="o">=</span> <span class="n">url_concat</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_OAUTH_ACCESS_TOKEN_URL</span><span class="p">,</span> <span class="n">params</span><span class="p">)</span>
+
+        <span class="c1"># Request the access token.</span>
+        <span class="n">req</span> <span class="o">=</span> <span class="n">HTTPRequest</span><span class="p">(</span>
+            <span class="n">url</span><span class="p">,</span>
+            <span class="n">method</span><span class="o">=</span><span class="s2">"POST"</span><span class="p">,</span>
+            <span class="n">headers</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_API_BASE_HEADERS</span><span class="p">,</span>
+            <span class="n">body</span><span class="o">=</span><span class="s1">''</span>
+        <span class="p">)</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">response</span> <span class="o">=</span> <span class="k">await</span> <span class="n">http</span><span class="o">.</span><span class="n">fetch</span><span class="p">(</span><span class="n">req</span><span class="p">)</span>
+        <span class="k">except</span> <span class="n">HTTPError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_on_error</span><span class="p">(</span><span class="n">e</span><span class="o">.</span><span class="n">response</span><span class="p">)</span>
+
+        <span class="n">body</span> <span class="o">=</span> <span class="n">decode_response_body</span><span class="p">(</span><span class="n">response</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">body</span><span class="p">:</span>
+            <span class="k">return</span>
+
+        <span class="k">if</span> <span class="s1">'access_token'</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">body</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_on_error</span><span class="p">(</span><span class="n">response</span><span class="p">,</span> <span class="n">body</span><span class="p">)</span>
+
+        <span class="n">log</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">"</span><span class="si">%s</span><span class="s2"> granted access_token."</span> <span class="o">%</span> <span class="nb">type</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="vm">__name__</span><span class="p">)</span>
+
+        <span class="n">headers</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_API_BASE_HEADERS</span><span class="p">,</span> <span class="o">**</span><span class="p">{</span>
+            <span class="s2">"Authorization"</span><span class="p">:</span> <span class="s2">"Bearer </span><span class="si">{}</span><span class="s2">"</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">body</span><span class="p">[</span><span class="s1">'access_token'</span><span class="p">]),</span>
+        <span class="p">})</span>
+
+        <span class="n">user_response</span> <span class="o">=</span> <span class="k">await</span> <span class="n">http</span><span class="o">.</span><span class="n">fetch</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_OAUTH_USER_URL</span><span class="p">,</span>
+            <span class="n">method</span><span class="o">=</span><span class="s2">"GET"</span><span class="p">,</span>
+            <span class="n">headers</span><span class="o">=</span><span class="n">headers</span>
+        <span class="p">)</span>
+
+        <span class="n">user</span> <span class="o">=</span> <span class="n">decode_response_body</span><span class="p">(</span><span class="n">user_response</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">user</span><span class="p">:</span>
+            <span class="k">return</span>
+
+        <span class="n">log</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">"</span><span class="si">%s</span><span class="s2"> received user information."</span> <span class="o">%</span> <span class="nb">type</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="vm">__name__</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_on_auth</span><span class="p">(</span><span class="n">user</span><span class="p">,</span> <span class="n">body</span><span class="p">[</span><span class="s1">'access_token'</span><span class="p">])</span></div>
+
+
+
+<div class="viewcode-block" id="OAuthIDTokenLoginHandler"><a class="viewcode-back" href="../../api/panel.auth.html#panel.auth.OAuthIDTokenLoginHandler">[docs]</a><span class="k">class</span> <span class="nc">OAuthIDTokenLoginHandler</span><span class="p">(</span><span class="n">OAuthLoginHandler</span><span class="p">):</span>
+
+    <span class="n">_API_BASE_HEADERS</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s1">'Content-Type'</span><span class="p">:</span>
+        <span class="s1">'application/x-www-form-urlencoded; charset=UTF-8'</span>
+    <span class="p">}</span>
+
+    <span class="n">_EXTRA_AUTHORIZE_PARAMS</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s1">'grant_type'</span><span class="p">:</span> <span class="s1">'authorization_code'</span>
+    <span class="p">}</span>
+
+    <span class="k">async</span> <span class="k">def</span> <span class="nf">_fetch_access_token</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">code</span><span class="p">,</span> <span class="n">redirect_uri</span><span class="p">,</span> <span class="n">client_id</span><span class="p">,</span> <span class="n">client_secret</span><span class="p">):</span>
+        <span class="sd">"""</span>
+<span class="sd">        Fetches the access token.</span>
+
+<span class="sd">        Arguments</span>
+<span class="sd">        ----------</span>
+<span class="sd">        code:</span>
+<span class="sd">          The response code from the server</span>
+<span class="sd">        redirect_uri:</span>
+<span class="sd">          The redirect URI</span>
+<span class="sd">        client_id:</span>
+<span class="sd">          The client ID</span>
+<span class="sd">        client_secret:</span>
+<span class="sd">          The client secret</span>
+<span class="sd">        state:</span>
+<span class="sd">          The unguessable random string to protect against cross-site</span>
+<span class="sd">          request forgery attacks</span>
+<span class="sd">        """</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">client_secret</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">'The client secret are undefined.'</span><span class="p">)</span>
+
+        <span class="n">log</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">"</span><span class="si">%s</span><span class="s2"> making access token request."</span> <span class="o">%</span> <span class="nb">type</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="vm">__name__</span><span class="p">)</span>
+
+        <span class="n">http</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_auth_http_client</span><span class="p">()</span>
+
+        <span class="n">params</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s1">'code'</span><span class="p">:</span>          <span class="n">code</span><span class="p">,</span>
+            <span class="s1">'redirect_uri'</span><span class="p">:</span>  <span class="n">redirect_uri</span><span class="p">,</span>
+            <span class="s1">'client_id'</span><span class="p">:</span>     <span class="n">client_id</span><span class="p">,</span>
+            <span class="s1">'client_secret'</span><span class="p">:</span> <span class="n">client_secret</span><span class="p">,</span>
+            <span class="o">**</span><span class="bp">self</span><span class="o">.</span><span class="n">_EXTRA_AUTHORIZE_PARAMS</span>
+        <span class="p">}</span>
+
+        <span class="n">data</span> <span class="o">=</span> <span class="n">urlencode</span><span class="p">(</span>
+            <span class="n">params</span><span class="p">,</span> <span class="n">doseq</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s1">'utf-8'</span><span class="p">,</span> <span class="n">safe</span><span class="o">=</span><span class="s1">'='</span><span class="p">)</span>
+
+        <span class="c1"># Request the access token.</span>
+        <span class="n">req</span> <span class="o">=</span> <span class="n">HTTPRequest</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_OAUTH_ACCESS_TOKEN_URL</span><span class="p">,</span>
+            <span class="n">method</span><span class="o">=</span><span class="s2">"POST"</span><span class="p">,</span>
+            <span class="n">headers</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_API_BASE_HEADERS</span><span class="p">,</span>
+            <span class="n">body</span><span class="o">=</span><span class="n">data</span>
+        <span class="p">)</span>
+
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">response</span> <span class="o">=</span> <span class="k">await</span> <span class="n">http</span><span class="o">.</span><span class="n">fetch</span><span class="p">(</span><span class="n">req</span><span class="p">)</span>
+        <span class="k">except</span> <span class="n">HTTPError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_on_error</span><span class="p">(</span><span class="n">e</span><span class="o">.</span><span class="n">response</span><span class="p">)</span>
+
+        <span class="n">body</span> <span class="o">=</span> <span class="n">decode_response_body</span><span class="p">(</span><span class="n">response</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="s1">'access_token'</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">body</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_on_error</span><span class="p">(</span><span class="n">response</span><span class="p">,</span> <span class="n">body</span><span class="p">)</span>
+
+        <span class="n">log</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">"</span><span class="si">%s</span><span class="s2"> granted access_token."</span> <span class="o">%</span> <span class="nb">type</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="vm">__name__</span><span class="p">)</span>
+
+        <span class="n">access_token</span> <span class="o">=</span> <span class="n">body</span><span class="p">[</span><span class="s1">'access_token'</span><span class="p">]</span>
+        <span class="n">id_token</span> <span class="o">=</span> <span class="n">body</span><span class="p">[</span><span class="s1">'id_token'</span><span class="p">]</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_on_auth</span><span class="p">(</span><span class="n">id_token</span><span class="p">,</span> <span class="n">access_token</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">_on_auth</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">id_token</span><span class="p">,</span> <span class="n">access_token</span><span class="p">):</span>
+        <span class="n">decoded</span> <span class="o">=</span> <span class="n">decode_id_token</span><span class="p">(</span><span class="n">id_token</span><span class="p">)</span>
+        <span class="n">user_key</span> <span class="o">=</span> <span class="n">config</span><span class="o">.</span><span class="n">oauth_jwt_user</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">_USER_KEY</span>
+        <span class="k">if</span> <span class="n">user_key</span> <span class="ow">in</span> <span class="n">decoded</span><span class="p">:</span>
+            <span class="n">user</span> <span class="o">=</span> <span class="n">decoded</span><span class="p">[</span><span class="n">user_key</span><span class="p">]</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">log</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">"</span><span class="si">%s</span><span class="s2"> token payload did not contain expected '</span><span class="si">%s</span><span class="s2">'."</span> <span class="o">%</span>
+                      <span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="vm">__name__</span><span class="p">,</span> <span class="n">user_key</span><span class="p">))</span>
+            <span class="k">raise</span> <span class="n">HTTPError</span><span class="p">(</span><span class="mi">400</span><span class="p">,</span> <span class="s2">"OAuth token payload missing user information"</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">set_secure_cookie</span><span class="p">(</span><span class="s1">'user'</span><span class="p">,</span> <span class="n">user</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">state</span><span class="o">.</span><span class="n">encryption</span><span class="p">:</span>
+            <span class="n">access_token</span> <span class="o">=</span> <span class="n">state</span><span class="o">.</span><span class="n">encryption</span><span class="o">.</span><span class="n">encrypt</span><span class="p">(</span><span class="n">access_token</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s1">'utf-8'</span><span class="p">))</span>
+            <span class="n">id_token</span> <span class="o">=</span> <span class="n">state</span><span class="o">.</span><span class="n">encryption</span><span class="o">.</span><span class="n">encrypt</span><span class="p">(</span><span class="n">id_token</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s1">'utf-8'</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">set_secure_cookie</span><span class="p">(</span><span class="s1">'access_token'</span><span class="p">,</span> <span class="n">access_token</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">set_secure_cookie</span><span class="p">(</span><span class="s1">'id_token'</span><span class="p">,</span> <span class="n">id_token</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">user</span></div>
+
+
+<div class="viewcode-block" id="AzureAdLoginHandler"><a class="viewcode-back" href="../../api/panel.auth.html#panel.auth.AzureAdLoginHandler">[docs]</a><span class="k">class</span> <span class="nc">AzureAdLoginHandler</span><span class="p">(</span><span class="n">OAuthIDTokenLoginHandler</span><span class="p">,</span> <span class="n">OAuth2Mixin</span><span class="p">):</span>
+
+    <span class="n">_API_BASE_HEADERS</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s1">'Accept'</span><span class="p">:</span> <span class="s1">'application/json'</span><span class="p">,</span>
+        <span class="s1">'User-Agent'</span><span class="p">:</span> <span class="s1">'Tornado OAuth'</span>
+    <span class="p">}</span>
+
+    <span class="n">_OAUTH_ACCESS_TOKEN_URL_</span> <span class="o">=</span> <span class="s1">'https://login.microsoftonline.com/</span><span class="si">{tenant}</span><span class="s1">/oauth2/token'</span>
+    <span class="n">_OAUTH_AUTHORIZE_URL_</span> <span class="o">=</span> <span class="s1">'https://login.microsoftonline.com/</span><span class="si">{tenant}</span><span class="s1">/oauth2/authorize'</span>
+    <span class="n">_OAUTH_USER_URL_</span> <span class="o">=</span> <span class="s1">''</span>
+
+    <span class="n">_USER_KEY</span> <span class="o">=</span> <span class="s1">'unique_name'</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">_OAUTH_ACCESS_TOKEN_URL</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">tenant</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'AAD_TENANT_ID'</span><span class="p">,</span> <span class="n">config</span><span class="o">.</span><span class="n">oauth_extra_params</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'tenant'</span><span class="p">,</span> <span class="s1">'common'</span><span class="p">))</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_OAUTH_ACCESS_TOKEN_URL_</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">tenant</span><span class="o">=</span><span class="n">tenant</span><span class="p">)</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">_OAUTH_AUTHORIZE_URL</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">tenant</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'AAD_TENANT_ID'</span><span class="p">,</span> <span class="n">config</span><span class="o">.</span><span class="n">oauth_extra_params</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'tenant'</span><span class="p">,</span> <span class="s1">'common'</span><span class="p">))</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_OAUTH_AUTHORIZE_URL_</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">tenant</span><span class="o">=</span><span class="n">tenant</span><span class="p">)</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">_OAUTH_USER_URL</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_OAUTH_USER_URL_</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="o">**</span><span class="n">config</span><span class="o">.</span><span class="n">oauth_extra_params</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="OktaLoginHandler"><a class="viewcode-back" href="../../api/panel.auth.html#panel.auth.OktaLoginHandler">[docs]</a><span class="k">class</span> <span class="nc">OktaLoginHandler</span><span class="p">(</span><span class="n">OAuthIDTokenLoginHandler</span><span class="p">,</span> <span class="n">OAuth2Mixin</span><span class="p">):</span>
+    <span class="sd">"""Okta OAuth2 Authentication</span>
+<span class="sd">    </span>
+<span class="sd">    To authenticate with Okta you first need to set up and configure</span>
+<span class="sd">    in the Okta developer console.</span>
+<span class="sd">    """</span>
+
+    <span class="n">_EXTRA_TOKEN_PARAMS</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s1">'grant_type'</span><span class="p">:</span>    <span class="s1">'authorization_code'</span><span class="p">,</span>
+        <span class="s1">'response_type'</span><span class="p">:</span> <span class="s1">'code,token,id_token'</span>
+    <span class="p">}</span>
+
+    <span class="n">_OAUTH_ACCESS_TOKEN_URL_</span> <span class="o">=</span> <span class="s1">'https://</span><span class="si">{0}</span><span class="s1">/oauth2/</span><span class="si">{1}</span><span class="s1">/v1/token'</span>
+    <span class="n">_OAUTH_ACCESS_TOKEN_URL__</span> <span class="o">=</span> <span class="s1">'https://</span><span class="si">{0}</span><span class="s1">/oauth2/v1/token'</span>
+    <span class="n">_OAUTH_AUTHORIZE_URL_</span> <span class="o">=</span> <span class="s1">'https://</span><span class="si">{0}</span><span class="s1">/oauth2/</span><span class="si">{1}</span><span class="s1">/v1/authorize'</span>
+    <span class="n">_OAUTH_AUTHORIZE_URL__</span> <span class="o">=</span> <span class="s1">'https://</span><span class="si">{0}</span><span class="s1">/oauth2/v1/authorize'</span>
+    <span class="n">_OAUTH_USER_URL_</span> <span class="o">=</span> <span class="s1">'https://</span><span class="si">{0}</span><span class="s1">/oauth2/</span><span class="si">{1}</span><span class="s1">/v1/userinfo?access_token='</span>
+    <span class="n">_OAUTH_USER_URL__</span> <span class="o">=</span> <span class="s1">'https://</span><span class="si">{0}</span><span class="s1">/oauth2/v1/userinfo?access_token='</span>
+
+    <span class="n">_USER_KEY</span> <span class="o">=</span> <span class="s1">'email'</span>
+
+    <span class="n">_SCOPE</span> <span class="o">=</span> <span class="p">[</span><span class="s1">'openid'</span><span class="p">,</span> <span class="s1">'email'</span><span class="p">,</span> <span class="s1">'profile'</span><span class="p">]</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">_OAUTH_ACCESS_TOKEN_URL</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">url</span> <span class="o">=</span> <span class="n">config</span><span class="o">.</span><span class="n">oauth_extra_params</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'url'</span><span class="p">,</span> <span class="s1">'okta.com'</span><span class="p">)</span>
+        <span class="n">server</span> <span class="o">=</span> <span class="n">config</span><span class="o">.</span><span class="n">oauth_extra_params</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'server'</span><span class="p">,</span> <span class="s1">'default'</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">server</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_OAUTH_ACCESS_TOKEN_URL_</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">server</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_OAUTH_ACCESS_TOKEN_URL__</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">_OAUTH_AUTHORIZE_URL</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">url</span> <span class="o">=</span> <span class="n">config</span><span class="o">.</span><span class="n">oauth_extra_params</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'url'</span><span class="p">,</span> <span class="s1">'okta.com'</span><span class="p">)</span>
+        <span class="n">server</span> <span class="o">=</span> <span class="n">config</span><span class="o">.</span><span class="n">oauth_extra_params</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'server'</span><span class="p">,</span> <span class="s1">'default'</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">server</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_OAUTH_AUTHORIZE_URL_</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">server</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_OAUTH_AUTHORIZE_URL__</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">_OAUTH_USER_URL</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">url</span> <span class="o">=</span> <span class="n">config</span><span class="o">.</span><span class="n">oauth_extra_params</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'url'</span><span class="p">,</span> <span class="s1">'okta.com'</span><span class="p">)</span>
+        <span class="n">server</span> <span class="o">=</span> <span class="n">config</span><span class="o">.</span><span class="n">oauth_extra_params</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'server'</span><span class="p">,</span> <span class="s1">'default'</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">server</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_OAUTH_USER_URL_</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">server</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_OAUTH_USER_URL__</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">server</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="GoogleLoginHandler"><a class="viewcode-back" href="../../api/panel.auth.html#panel.auth.GoogleLoginHandler">[docs]</a><span class="k">class</span> <span class="nc">GoogleLoginHandler</span><span class="p">(</span><span class="n">OAuthIDTokenLoginHandler</span><span class="p">,</span> <span class="n">OAuth2Mixin</span><span class="p">):</span>
+
+    <span class="n">_API_BASE_HEADERS</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s2">"Content-Type"</span><span class="p">:</span> <span class="s2">"application/x-www-form-urlencoded; charset=utf-8"</span>
+    <span class="p">}</span>
+
+    <span class="n">_OAUTH_AUTHORIZE_URL</span> <span class="o">=</span> <span class="s2">"https://accounts.google.com/o/oauth2/v2/auth"</span>
+    <span class="n">_OAUTH_ACCESS_TOKEN_URL</span> <span class="o">=</span> <span class="s2">"https://accounts.google.com/o/oauth2/token"</span>
+
+    <span class="n">_SCOPE</span> <span class="o">=</span> <span class="p">[</span><span class="s1">'profile'</span><span class="p">,</span> <span class="s1">'email'</span><span class="p">]</span>
+
+    <span class="n">_USER_KEY</span> <span class="o">=</span> <span class="s1">'email'</span></div>
+
+
+<div class="viewcode-block" id="LogoutHandler"><a class="viewcode-back" href="../../api/panel.auth.html#panel.auth.LogoutHandler">[docs]</a><span class="k">class</span> <span class="nc">LogoutHandler</span><span class="p">(</span><span class="n">tornado</span><span class="o">.</span><span class="n">web</span><span class="o">.</span><span class="n">RequestHandler</span><span class="p">):</span>
+
+    <span class="k">def</span> <span class="nf">get</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">clear_cookie</span><span class="p">(</span><span class="s2">"user"</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">clear_cookie</span><span class="p">(</span><span class="s2">"id_token"</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">clear_cookie</span><span class="p">(</span><span class="s2">"access_token"</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">clear_cookie</span><span class="p">(</span><span class="n">STATE_COOKIE_NAME</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">redirect</span><span class="p">(</span><span class="s2">"/"</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="OAuthProvider"><a class="viewcode-back" href="../../api/panel.auth.html#panel.auth.OAuthProvider">[docs]</a><span class="k">class</span> <span class="nc">OAuthProvider</span><span class="p">(</span><span class="n">AuthProvider</span><span class="p">):</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">get_user</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">def</span> <span class="nf">get_user</span><span class="p">(</span><span class="n">request_handler</span><span class="p">):</span>
+            <span class="k">return</span> <span class="n">request_handler</span><span class="o">.</span><span class="n">get_secure_cookie</span><span class="p">(</span><span class="s2">"user"</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">get_user</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">login_url</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="s1">'/login'</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">login_handler</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">AUTH_PROVIDERS</span><span class="p">[</span><span class="n">config</span><span class="o">.</span><span class="n">oauth_provider</span><span class="p">]</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">logout_url</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="s2">"/logout"</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">logout_handler</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">LogoutHandler</span></div>
+
+
+<span class="n">AUTH_PROVIDERS</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s1">'auth0'</span><span class="p">:</span> <span class="n">Auth0Handler</span><span class="p">,</span>
+    <span class="s1">'azure'</span><span class="p">:</span> <span class="n">AzureAdLoginHandler</span><span class="p">,</span>
+    <span class="s1">'bitbucket'</span><span class="p">:</span> <span class="n">BitbucketLoginHandler</span><span class="p">,</span>
+    <span class="s1">'google'</span><span class="p">:</span> <span class="n">GoogleLoginHandler</span><span class="p">,</span>
+    <span class="s1">'github'</span><span class="p">:</span> <span class="n">GithubLoginHandler</span><span class="p">,</span>
+    <span class="s1">'gitlab'</span><span class="p">:</span> <span class="n">GitLabLoginHandler</span><span class="p">,</span>
+    <span class="s1">'okta'</span><span class="p">:</span> <span class="n">OktaLoginHandler</span>
+<span class="p">}</span>
+
+<span class="c1"># Populate AUTH Providers from external extensions</span>
+<span class="k">for</span> <span class="n">entry_point</span> <span class="ow">in</span> <span class="n">pkg_resources</span><span class="o">.</span><span class="n">iter_entry_points</span><span class="p">(</span><span class="s1">'panel.auth'</span><span class="p">):</span>
+    <span class="n">AUTH_PROVIDERS</span><span class="p">[</span><span class="n">entry_point</span><span class="o">.</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="n">entry_point</span><span class="o">.</span><span class="n">resolve</span><span class="p">()</span>
+
+<span class="n">config</span><span class="o">.</span><span class="n">param</span><span class="o">.</span><span class="n">objects</span><span class="p">(</span><span class="kc">False</span><span class="p">)[</span><span class="s1">'_oauth_provider'</span><span class="p">]</span><span class="o">.</span><span class="n">objects</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">AUTH_PROVIDERS</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+<!-- END MAIN BODY OF DOCS ––––––––––––– -->
+<!-- Google Analytics -->
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async="" src="https://www.googletagmanager.com/gtag/js?id=UA-154795830-2"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-154795830-2', { 'anonymize_ip': true });
+</script>
+<!-- MathJax Config -->
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}
+});
+</script>
+<!-- End Document
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+</body>
+</html>

@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<!-- Basic Page Needs
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+<meta charset="utf-8"/>
+<title>Authentication — Panel 0.11.1+g238199f-dirty documentation</title>
+<meta content="High-level dashboarding for python visualization libraries" name="description"/>
+<meta content="Panel contributors" name="author"/>
+<!-- Mobile Specific Metas
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<!-- FONT
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+<script src="https://ajax.googleapis.com/ajax/libs/webfont/1.6.16/webfont.js"></script>
+<script>
+    WebFont.load({
+      google: {
+        families: ['Source Sans Pro']
+      }
+    });
+  </script>
+<!-- CSS
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+<link href="../_static/css/main.css" rel="stylesheet"/>
+<link href="../_static/nbsite.css" rel="stylesheet"/>
+<link href="../_static/site.css" rel="stylesheet"/>
+<!-- Scripts
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script async="" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML" type="text/javascript">
+</script>
+<script src="../_static/js/main.js"></script>
+<!-- Favicon
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+<link href="../_static/favicon.ico" rel="icon" type="image/png"/>
+<!-- Canonical
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+<link href="https://panel.holoviz.org/user_guide/Authentication.html" rel="canonical">
+</link></head>
+<body class="">
+<header class="navigation">
+<div class="wrapper">
+<a class="logo" href="../index.html">
+<img alt="Logo" src="../_static/logo_horizontal.png"/>
+</a>
+<a class="navigation-menu-button" href="javascript:void(0)" id="js-mobile-menu">Menu</a>
+<nav>
+<ul class="navigation-menu show" id="js-navigation-menu">
+<li class="nav-link doc-head"><a href="//discourse.holoviz.org">Discourse</a></li>
+<li class="nav-link doc-head"><a href="//twitter.com/Panel_org">Twitter</a></li>
+<li class="nav-link doc-head"><a href="//github.com/pyviz/panel">Github</a></li>
+<li class="nav-link">
+<div style="display:inline-block;vertical-align: middle;">
+<div class="search-bar">
+<form action="../search.html" method="get" role="search">
+<input name="q" placeholder="Search" type="search"/>
+<button type="submit">
+<img alt="Search Icon" src="https://raw.githubusercontent.com/thoughtbot/refills/master/source/images/search-icon-black.png"/>
+</button>
+</form>
+</div>
+</div>
+</li>
+</ul>
+</nav>
+</div>
+</header>
+<div class="second-nav">
+<nav>
+<ul class="navigation-menu show">
+<li class="nav-link doc-head"><a href="../getting_started/index.html">Getting started</a></li>
+<li class="nav-link doc-head"><a href="index.html">User Guide</a></li>
+<li class="nav-link doc-head"><a href="../gallery/index.html">Gallery</a></li>
+<li class="nav-link doc-head"><a href="../reference/index.html">Reference Gallery</a></li>
+<li class="nav-link doc-head"><a href="../developer_guide/index.html">Developer Guide</a></li>
+<li class="nav-link doc-head"><a href="../releases.html">Releases</a></li>
+<li class="nav-link doc-head"><a href="../api/index.html">API</a></li>
+<li class="nav-link doc-head"><a href="../FAQ.html">FAQ</a></li>
+<li class="nav-link doc-head"><a href="../about.html">About</a></li>
+</ul>
+</nav>
+</div>
+<!-- MAIN BODY OF DOCS –––––––––––––––––– -->
+<div class="docs section">
+<div id="hacketyhackhack"> <!-- style="width:20%;margin-right: 100px;"> --> <!--style="display: none;"> style="display:none;"> -->
+<div class="toc" style="width:15%; margin-right:20px;">
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../index.html">Home</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../getting_started/index.html">Getting Started</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">User Guide</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="Overview.html">Overview</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Components.html">Components</a></li>
+<li class="toctree-l2"><a class="reference internal" href="APIs.html">APIs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Customization.html">Customization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Deploy_and_Export.html">Deploy &amp; Export</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Interact.html">Interact</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Widgets.html">Widgets</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Param.html">Parameters</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Links.html">Linking</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Pipelines.html">Pipelines</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Templates.html">Templates</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Server_Deployment.html">Server Deployment</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Async_and_Concurrency.html">    Asynchronous and Concurrent Process</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Authentication</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Django_Apps.html">Django Apps</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../gallery/index.html">Gallery</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/index.html">Reference Gallery</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../developer_guide/index.html">Developer Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api/index.html">API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Comparisons.html">Comparisons</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../releases.html">Releases</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Roadmap.html">Road Map</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../FAQ.html">FAQ</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://github.com/pyviz/panel">Github source</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../about.html">About</a></li>
+</ul>
+</div>
+</div>
+<div class="content"> <!-- style="max-width:80%;margin-left:auto;margin-right: auto;">-->
+<div class="section" id="authentication">
+<h1>Authentication<a class="headerlink" href="#authentication" title="Permalink to this headline">¶</a></h1>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Authentication is a difficult topic fraught with potential pitfalls and complicated configuration options. Panel aims to be a "batteries-included" package for building applications and dashboards and therefore ships with a number of inbuilt providers for authentication in an application.</p>
+<p>The primary mechanism by which Panel performs autentication is <a href="https://oauth.net/2/">OAuth 2.0</a>. The official specification for OAuth 2.0 describes the protocol as follows:</p>
+<pre><code>The OAuth 2.0 authorization framework enables a third-party
+application to obtain limited access to an HTTP service, either on
+behalf of a resource owner by orchestrating an approval interaction
+between the resource owner and the HTTP service, or by allowing the
+third-party application to obtain access on its own behalf.
+
+</code></pre>
+<p>In other words OAuth outsources authentication to a third party provider, e.g. GitHub, Google or Azure AD, to authenticate the user credentials and give limited access to the APIs of that service.</p>
+<p>Note that since Panel is built on Bokeh server and Tornado it is also possible to implement your own authentication independent of the OAuth components shipped with Panel, <a href="https://docs.bokeh.org/en/latest/docs/user_guide/server.html#authentication">see the Bokeh documentation</a> for further information.</p>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Configuring-OAuth">Configuring OAuth<a class="anchor-link" href="#Configuring-OAuth">¶</a></h2><p>The OAuth component will stop any user from accessing the application before first logging into the selected provider. The configuration to set up OAuth is all handled via the global <code>pn.config</code> object, which has a number of OAuth related parameters. When launching the application via the <code>panel serve</code> CLI command these config options can be set as CLI arguments or environment variables, when using the <code>pn.serve</code> function on the other hand these variables can be passed in as arguments.</p>
+<h3 id="oauth_provider"><code>oauth_provider</code><a class="anchor-link" href="#oauth_provider">¶</a></h3><p>The first step in configuring a OAuth is to specify a specific OAuth provider. Panel ships with a number of providers by default:</p>
+<ul>
+<li><code>azure</code>: Azure Active Directory</li>
+<li><code>bitbucket</code>: Bitbucket</li>
+<li><code>github</code>: GitHub</li>
+<li><code>gitlab</code>: GitLab</li>
+<li><code>google</code>: Google</li>
+<li><code>okta</code>: Okta</li>
+</ul>
+<p>We will go through the process of configuring each of these individually later but for now all we need to know that the <code>oauth_provider</code> can be set on the commandline using the <code>--oauth-provider</code> CLI argument to <code>panel serve</code> or the <code>PANEL_OAUTH_PROVIDER</code> environment variable.</p>
+<p>Examples:</p>
+<pre><code>panel serve oauth_example.py --oauth-provider=...
+
+PANEL_OAUTH_PROVIDER=... panel serve oauth_example.py</code></pre>
+<h3 id="oauth_key-and-oauth_secret"><code>oauth_key</code> and <code>oauth_secret</code><a class="anchor-link" href="#oauth_key-and-oauth_secret">¶</a></h3><p>To authenticate with a OAuth provider we generally require two pieces of information (although some providers will require more customization):</p>
+<ol>
+<li>The Client ID is a public identifier for apps.</li>
+<li>The Client Secret is a secret known only to the application and the authorization server.</li>
+</ol>
+<p>These can be configured in a number of ways the client ID and client secret can be supplied to the <code>panel serve</code> command as <code>--oauth-key</code> and <code>--oauth-secret</code> CLI arguments or <code>PANEL_OAUTH_KEY</code> and <code>PANEL_OAUTH_SECRET</code> environment variables respectively.</p>
+<p>Examples:</p>
+<pre><code>panel serve oauth_example.py --oauth-key=... --oauth-secret=...
+
+PANEL_OAUTH_KEY=... PANEL_OAUTH_KEY=... panel serve oauth_example.py ...</code></pre>
+<h3 id="oauth_extra_params"><code>oauth_extra_params</code><a class="anchor-link" href="#oauth_extra_params">¶</a></h3><p>Some OAuth providers will require some additional configuration options which will become part of the OAuth URLs. The <code>oauth_extra_params</code> configuration variable allows providing this additional information and can be set using the <code>--oauth-extra-params</code> CLI argument or <code>PANEL_OAUTH_EXTRA_PARAMS</code>.</p>
+<p>Examples:</p>
+<pre><code>panel serve oauth_example.py --oauth-extra-params={'tenant_id': ...}
+
+PANEL_OAUTH_EXTRA_PARAMS={'tenant_id': ...} panel serve oauth_example.py ...</code></pre>
+<h3 id="cookie_secret"><code>cookie_secret</code><a class="anchor-link" href="#cookie_secret">¶</a></h3><p>Once authenticated the user information and authorization token will be set as secure cookies. Cookies are not secure and can easily be modified by clients. A secure cookie ensures that the user information cannot be interfered with or forged by the client by signing it with a secret key. Note that secure cookies guarantee integrity but not confidentiality. That is, the cookie cannot be modified but its contents can be seen by the user. To generate a <code>cookie_secret</code> use the <code>panel secret</code> CLI argument or generate some other random non-guessable string, ideally with at least 256-bits of entropy.</p>
+<p>To set the <code>cookie_secret</code> supply it as a CLI argument or set the <code>PANEL_COOKIE_SECRET</code> environment variable.</p>
+<p>Examples:</p>
+<pre><code>panel serve oauth_example.py --cookie-secret=...
+
+PANEL_COOKIE_SECRET=... panel serve oauth_example.py ...</code></pre>
+<h3 id="Encryption">Encryption<a class="anchor-link" href="#Encryption">¶</a></h3><p>The architecture of the Bokeh/Panel server means that credentials stored as cookies can be leak in a number of ways. On the initial HTTP(S) request the server will respond with the HTML document that renders the application and this will include an unencrypted token containing the OAuth information. To ensure that the user information and access token are properly encrypted we rely on the Fernet encryption in the <code>cryptography</code> library. You can install it with <code>pip install cryptography</code> or <code>conda install cryptography</code>.</p>
+<p>Once installed you will be able to generate a encryption key with <code>panel oauth-secret</code>. This will generate a secret you can pass to the <code>panel serve</code> CLI command using the <code>--oauth-encryption-key</code> argument or <code>PANEL_OAUTH_ENCRYPTION</code> environment variable.</p>
+<p>Examples:</p>
+<pre><code>panel serve oauth_example.py --oauth-encryption-key=...
+
+PANEL_OAUTH_ENCRYPTION=... panel serve oauth_example.py ...</code></pre>
+<h3 id="Redirect-URI">Redirect URI<a class="anchor-link" href="#Redirect-URI">¶</a></h3><p>Once the OAuth provider has authenticated a user it has to redirect them back to the application, this is what is known as the redirect URI. For security reasons this has to match the URL registered with the OAuth provider exactly. By default Panel will redirect the user straight back to the original URL of your app, e.g. when you're hosting your app at <code>https://myapp.myprovider.com</code> Panel will use that as the redirect URI. However in certain scenarios you may override this to provide a specific redirect URI. This can be achieved with the <code>--oauth-redirect-uri</code> CLI argument or the <code>PANEL_OAUTH_REDIRECT_URI</code> environment variable.</p>
+<p>Examples:</p>
+<pre><code>panel serve oauth_example.py --oauth-redirect-uri=...
+
+PANEL_OAUTH_REDIRECT_URI=... panel serve oauth_example.py</code></pre>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Summary">Summary<a class="anchor-link" href="#Summary">¶</a></h3><p>A fully configured OAuth configuration may look like this:</p>
+<pre><code>panel serve oauth_example.py --oauth-provider=github --oauth-key=... --oauth-secret=... --cookie-secret=... --oauth-encryption-key=...
+
+PANEL_OAUTH_PROVIDER=... PANEL_OAUTH_KEY=... PANEL_OAUTH_SECRET=... PANEL_COOKIE_SECRET=... PANEL_OAUTH_ENCRYPTION=... panel serve oauth_example.py ...`</code></pre>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Accessing-OAuth-information">Accessing OAuth information<a class="anchor-link" href="#Accessing-OAuth-information">¶</a></h2><p>Once a user is authorized with the chosen OAuth provider certain user information and an <code>access_token</code> will be available to be used in the application to customize the user experience. Like all other global state this may be accessed on the <code>pn.state</code> object, specifically it makes three attributes available:</p>
+<ul>
+<li><strong><code>pn.state.user</code></strong>: A unique name, email or ID that identifies the user.</li>
+<li><strong><code>pn.state.access_token</code></strong>: The access token issued by the OAuth provider to authorize requests to its APIs.</li>
+<li><strong><code>pn.state.user_info</code></strong>: Additional user information provided by the OAuth provider. This may include names, email, APIs to request further user information, IDs and more.</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="OAuth-Providers">OAuth Providers<a class="anchor-link" href="#OAuth-Providers">¶</a></h2><p>Panel provides a  number of inbuilt OAuth providers, below is the list</p>
+<h3 id="Azure-Active-Directory"><strong>Azure Active Directory</strong><a class="anchor-link" href="#Azure-Active-Directory">¶</a></h3><p>To set up OAuth2.0 authentication for Azure Active directory follow <a href="https://docs.microsoft.com/en-us/azure/api-management/api-management-howto-protect-backend-with-aad">these instructions</a>. In addition to the <code>oauth_key</code> and <code>oauth_secret</code> ensure that you also supply the tenant ID using <code>oauth_extra_params</code>, e.g.:</p>
+<pre><code>panel serve oauth_test.py --oauth-extra-params="{'tenant': '...'}"
+
+PANEL_OAUTH_EXTRA_PARAMS="{'tenant': '...'}" panel serve oauth_example.py ...</code></pre>
+<h3 id="Bitbucket"><strong>Bitbucket</strong><a class="anchor-link" href="#Bitbucket">¶</a></h3><p>Bitbucket provides instructions about setting <a href="https://support.atlassian.com/bitbucket-cloud/docs/use-oauth-on-bitbucket-cloud/">setting up an OAuth consumer</a>. Follow these and then supply the <code>oauth_key</code> and <code>oauth_secret</code> to Panel as described above.</p>
+<h3 id="GitHub"><strong>GitHub</strong><a class="anchor-link" href="#GitHub">¶</a></h3><p>GitHub provides detailed instructions on <a href="https://developer.github.com/apps/building-oauth-apps/creating-an-oauth-app/">creating an OAuth app</a>. Follow these and then supply the <code>oauth_key</code> and <code>oauth_secret</code> to Panel as described above.</p>
+<h3 id="GitLab"><strong>GitLab</strong><a class="anchor-link" href="#GitLab">¶</a></h3><p>GitLab provides a detailed guide on <a href="https://docs.gitlab.com/ee/api/oauth2.html">configuring an OAuth</a> application. In addition to the <code>oauth_key</code> and <code>oauth_secret</code> you will also have to supply a custom url using the <code>oauth_extra_params</code> if you have a custom GitLab instance (the default <code>oauth_extra_params={'url': 'gitlab.com'}</code>).</p>
+<h3 id="Google"><strong>Google</strong><a class="anchor-link" href="#Google">¶</a></h3><p>Google provides a guide about <a href="https://developers.google.com/identity/protocols/oauth2/native-app">configuring a OAuth application</a>. By default nothing except the <code>oauth_key</code> and <code>oauth_secret</code> are required but to access Google services you may also want to override the default <code>scope</code> via the <code>oauth_extra_params</code>.</p>
+<h3 id="Okta"><strong>Okta</strong><a class="anchor-link" href="#Okta">¶</a></h3><p>Okta provides a guide about <a href="https://developer.okta.com/docs/concepts/oauth-openid/">configuring OAuth2</a>. You must provide an <code>oauth_key</code> and <code>oauth_secret</code> but in most other ordinary setups you will also have to provide a <code>url</code> via the <code>oauth_extra_params</code> and if you have set up a custom authentication server (i.e. not 'default') with Okta you must also provide 'server', the <code>oauth_extra_params</code> should then look something like this: <code>{'server': 'custom', 'url': 'dev-***.okta.com'}</code></p>
+<h3 id="Plugins">Plugins<a class="anchor-link" href="#Plugins">¶</a></h3><p>The Panel OAuth providers are pluggable, in other words downstream libraries may define their own Tornado <code>RequestHandler</code> to be used with Panel. To register such a component the <code>setup.py</code> of the downstream package should register an entry_point that Panel can discover. To read more about entry points see the <a href="https://packaging.python.org/specifications/entry-points/">Python documentation</a>. A custom OAuth request handler in your library may be registered as follows:</p>
+<div class="highlight"><pre><span></span><span class="n">entry_points</span><span class="o">=</span><span class="p">{</span>
+    <span class="s1">'panel.auth'</span><span class="p">:</span> <span class="p">[</span>
+        <span class="s2">"custom = my_library.auth:MyCustomOAuthRequestHandler"</span>
+    <span class="p">]</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div id="scroller-right">
+This web page was generated from a Jupyter notebook and not all
+interactivity will work on this website. <a href="https://raw.githubusercontent.com/holoviz/panel/master/examples/user_guide/Authentication.ipynb">Right click to download and run locally</a> for full
+Python-backed interactivity.
+</div><hr class="docutils"/>
+<p><a class="reference external" href="https://raw.githubusercontent.com/holoviz/panel/master/examples/user_guide/Authentication.ipynb">Right click to download this notebook from GitHub.</a></p>
+</div>
+</div>
+</div>
+<!-- END MAIN BODY OF DOCS ––––––––––––– -->
+<!-- Google Analytics -->
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async="" src="https://www.googletagmanager.com/gtag/js?id=UA-154795830-2"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-154795830-2', { 'anonymize_ip': true });
+</script>
+<!-- MathJax Config -->
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}
+});
+</script>
+<!-- End Document
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+</body>
+</html>

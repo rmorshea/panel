@@ -1,0 +1,8 @@
+<map id="inheritance1dcb01ffdd" name="inheritance1dcb01ffdd">
+<area shape="rect" id="node2" title="A configurable that only allows one instance." alt="" coords="565,25,723,36"/>
+<area shape="rect" id="node7" href="#panel.io.ipywidget.PanelKernel" target="_top" title="panel.io.ipywidget.PanelKernel" alt="" coords="1048,25,1150,36"/>
+<area shape="rect" id="node8" href="#panel.io.ipywidget.PanelSessionWebsocket" target="_top" title="panel.io.ipywidget.PanelSessionWebsocket" alt="" coords="744,2,882,14"/>
+<area shape="rect" id="node5" title="Object for handling serialization and sending of messages." alt="" coords="417,2,516,14"/>
+<area shape="rect" id="node10" title="A parent class for Configurables that log." alt="" coords="390,25,543,36"/>
+<area shape="rect" id="node11" title="The base class for all classes that have descriptors." alt="" coords="2,14,107,25"/>
+</map>

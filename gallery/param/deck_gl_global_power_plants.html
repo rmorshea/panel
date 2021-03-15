@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<!-- Basic Page Needs
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+<meta charset="utf-8"/>
+<title>Deck gl global power plants — Panel 0.11.1+g238199f-dirty documentation</title>
+<meta content="High-level dashboarding for python visualization libraries" name="description"/>
+<meta content="Panel contributors" name="author"/>
+<!-- Mobile Specific Metas
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<!-- FONT
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+<script src="https://ajax.googleapis.com/ajax/libs/webfont/1.6.16/webfont.js"></script>
+<script>
+    WebFont.load({
+      google: {
+        families: ['Source Sans Pro']
+      }
+    });
+  </script>
+<!-- CSS
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+<link href="../../_static/css/main.css" rel="stylesheet"/>
+<link href="../../_static/nbsite.css" rel="stylesheet"/>
+<link href="../../_static/site.css" rel="stylesheet"/>
+<!-- Scripts
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script async="" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML" type="text/javascript">
+</script>
+<script src="../../_static/js/main.js"></script>
+<!-- Favicon
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+<link href="../../_static/favicon.ico" rel="icon" type="image/png"/>
+<!-- Canonical
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+<link href="https://panel.holoviz.org/gallery/param/deck_gl_global_power_plants.html" rel="canonical">
+</link></head>
+<body class="">
+<header class="navigation">
+<div class="wrapper">
+<a class="logo" href="../../index.html">
+<img alt="Logo" src="../../_static/logo_horizontal.png"/>
+</a>
+<a class="navigation-menu-button" href="javascript:void(0)" id="js-mobile-menu">Menu</a>
+<nav>
+<ul class="navigation-menu show" id="js-navigation-menu">
+<li class="nav-link doc-head"><a href="//discourse.holoviz.org">Discourse</a></li>
+<li class="nav-link doc-head"><a href="//twitter.com/Panel_org">Twitter</a></li>
+<li class="nav-link doc-head"><a href="//github.com/pyviz/panel">Github</a></li>
+<li class="nav-link">
+<div style="display:inline-block;vertical-align: middle;">
+<div class="search-bar">
+<form action="../../search.html" method="get" role="search">
+<input name="q" placeholder="Search" type="search"/>
+<button type="submit">
+<img alt="Search Icon" src="https://raw.githubusercontent.com/thoughtbot/refills/master/source/images/search-icon-black.png"/>
+</button>
+</form>
+</div>
+</div>
+</li>
+</ul>
+</nav>
+</div>
+</header>
+<div class="second-nav">
+<nav>
+<ul class="navigation-menu show">
+<li class="nav-link doc-head"><a href="../../getting_started/index.html">Getting started</a></li>
+<li class="nav-link doc-head"><a href="../../user_guide/index.html">User Guide</a></li>
+<li class="nav-link doc-head"><a href="../index.html">Gallery</a></li>
+<li class="nav-link doc-head"><a href="../../reference/index.html">Reference Gallery</a></li>
+<li class="nav-link doc-head"><a href="../../developer_guide/index.html">Developer Guide</a></li>
+<li class="nav-link doc-head"><a href="../../releases.html">Releases</a></li>
+<li class="nav-link doc-head"><a href="../../api/index.html">API</a></li>
+<li class="nav-link doc-head"><a href="../../FAQ.html">FAQ</a></li>
+<li class="nav-link doc-head"><a href="../../about.html">About</a></li>
+</ul>
+</nav>
+</div>
+<!-- MAIN BODY OF DOCS –––––––––––––––––– -->
+<div class="docs section">
+<div id="hacketyhackhack"> <!-- style="width:20%;margin-right: 100px;"> --> <!--style="display: none;"> style="display:none;"> -->
+<div class="toc" style="width:15%; margin-right:20px;">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../index.html">Home</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../getting_started/index.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../user_guide/index.html">User Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../index.html">Gallery</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../reference/index.html">Reference Gallery</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../developer_guide/index.html">Developer Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../api/index.html">API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Comparisons.html">Comparisons</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../releases.html">Releases</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Roadmap.html">Road Map</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../FAQ.html">FAQ</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://github.com/pyviz/panel">Github source</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../about.html">About</a></li>
+</ul>
+</div>
+</div>
+<div class="content"> <!-- style="max-width:80%;margin-left:auto;margin-right: auto;">-->
+<div class="section" id="deck-gl-global-power-plants">
+<span id="param-gallery-deck-gl-global-power-plants"></span><h1>Deck gl global power plants<a class="headerlink" href="#deck-gl-global-power-plants" title="Permalink to this headline">¶</a></h1>
+<p><a class="reference external" href="https://raw.githubusercontent.com/pyviz/panel/master/examples/gallery/param/deck_gl_global_power_plants.ipynb">Download this notebook from GitHub (right-click to download).</a></p>
+<hr class="docutils"/>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">panel</span> <span class="k">as</span> <span class="nn">pn</span>
+<span class="kn">import</span> <span class="nn">pydeck</span> <span class="k">as</span> <span class="nn">pdk</span>
+<span class="n">pn</span><span class="o">.</span><span class="n">extension</span><span class="p">(</span><span class="s1">'deckgl'</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>In order to use Deck.gl you need a MAP BOX Key which you can acquire for free for limited use at <a href="https://account.mapbox.com/access-tokens/">mapbox.com</a>.</p>
+<p>Now we can define a JSON spec and pass it to the DeckGL pane along with the Mapbox key:</p>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Advanced-Example-Based-on-Global-Power-Plant-Database">Advanced Example Based on Global Power Plant Database<a class="anchor-link" href="#Advanced-Example-Based-on-Global-Power-Plant-Database">¶</a></h2><p>We will base this example on data from the <a href="http://datasets.wri.org/dataset/540dcf46-f287-47ac-985d-269b04bea4c6/resource/c240ed2e-1190-4d7e-b1da-c66b72e08858/download/globalpowerplantdatabasev120">Global Power Plant Database</a>.</p>
+<p>We will create an interactive application to explore the location and types of power plants globally.</p>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">param</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+
+<span class="n">POWER_PLANT_URL</span> <span class="o">=</span> <span class="p">(</span>
+    <span class="s2">"https://raw.githubusercontent.com/MarcSkovMadsen/awesome-streamlit/master/"</span>
+    <span class="s2">"gallery/global_power_plant_database/global_power_plant_database.csv"</span>
+<span class="p">)</span>
+
+<span class="n">MAPBOX_KEY</span> <span class="o">=</span> <span class="s2">"pk.eyJ1IjoicGFuZWxvcmciLCJhIjoiY2s1enA3ejhyMWhmZjNobjM1NXhtbWRrMyJ9.B_frQsAVepGIe-HiOJeqvQ"</span>
+
+<span class="n">pp_data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">POWER_PLANT_URL</span><span class="p">)</span>
+<span class="n">pp_data</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Clean the data as PyDeck does not handle NA data well</p>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span><span class="n">pp_data</span><span class="o">.</span><span class="n">primary_fuel</span> <span class="o">=</span> <span class="n">pp_data</span><span class="o">.</span><span class="n">primary_fuel</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="s2">"NA"</span><span class="p">)</span>
+<span class="n">pp_data</span><span class="o">.</span><span class="n">capacity_mw</span> <span class="o">=</span> <span class="n">pp_data</span><span class="o">.</span><span class="n">capacity_mw</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Transform-the-data">Transform the data<a class="anchor-link" href="#Transform-the-data">¶</a></h2>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span><span class="n">FUEL_COLORS</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">"Oil"</span><span class="p">:</span> <span class="s2">"black"</span><span class="p">,</span>
+    <span class="s2">"Solar"</span><span class="p">:</span> <span class="s2">"green"</span><span class="p">,</span>
+    <span class="s2">"Gas"</span><span class="p">:</span> <span class="s2">"black"</span><span class="p">,</span>
+    <span class="s2">"Other"</span><span class="p">:</span> <span class="s2">"gray"</span><span class="p">,</span>
+    <span class="s2">"Hydro"</span><span class="p">:</span> <span class="s2">"blue"</span><span class="p">,</span>
+    <span class="s2">"Coal"</span><span class="p">:</span> <span class="s2">"black"</span><span class="p">,</span>
+    <span class="s2">"Petcoke"</span><span class="p">:</span> <span class="s2">"black"</span><span class="p">,</span>
+    <span class="s2">"Biomass"</span><span class="p">:</span> <span class="s2">"green"</span><span class="p">,</span>
+    <span class="s2">"Waste"</span><span class="p">:</span> <span class="s2">"green"</span><span class="p">,</span>
+    <span class="s2">"Cogeneration"</span><span class="p">:</span> <span class="s2">"gray"</span><span class="p">,</span>
+    <span class="s2">"Storage"</span><span class="p">:</span> <span class="s2">"orange"</span><span class="p">,</span>
+    <span class="s2">"Wind"</span><span class="p">:</span> <span class="s2">"green"</span><span class="p">,</span>
+<span class="p">}</span>
+
+<span class="n">COLORS_R</span> <span class="o">=</span> <span class="p">{</span><span class="s2">"black"</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="s2">"green"</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="s2">"blue"</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="s2">"orange"</span><span class="p">:</span> <span class="mi">255</span><span class="p">,</span> <span class="s2">"gray"</span><span class="p">:</span> <span class="mi">128</span><span class="p">}</span>
+<span class="n">COLORS_G</span> <span class="o">=</span> <span class="p">{</span><span class="s2">"black"</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="s2">"green"</span><span class="p">:</span> <span class="mi">128</span><span class="p">,</span> <span class="s2">"blue"</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="s2">"orange"</span><span class="p">:</span> <span class="mi">165</span><span class="p">,</span> <span class="s2">"gray"</span><span class="p">:</span> <span class="mi">128</span><span class="p">}</span>
+<span class="n">COLORS_B</span> <span class="o">=</span> <span class="p">{</span><span class="s2">"black"</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="s2">"green"</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="s2">"blue"</span><span class="p">:</span> <span class="mi">255</span><span class="p">,</span> <span class="s2">"orange"</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="s2">"gray"</span><span class="p">:</span> <span class="mi">128</span><span class="p">}</span>
+
+<span class="n">pp_data</span><span class="p">[</span><span class="s2">"primary_fuel_color"</span><span class="p">]</span> <span class="o">=</span> <span class="n">pp_data</span><span class="o">.</span><span class="n">primary_fuel</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="n">FUEL_COLORS</span><span class="p">)</span>
+<span class="n">pp_data</span><span class="p">[</span><span class="s2">"primary_fuel_color"</span><span class="p">]</span> <span class="o">=</span> <span class="n">pp_data</span><span class="p">[</span><span class="s2">"primary_fuel_color"</span><span class="p">]</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="s2">"gray"</span><span class="p">)</span>
+<span class="n">pp_data</span><span class="p">[</span><span class="s2">"color_r"</span><span class="p">]</span> <span class="o">=</span> <span class="n">pp_data</span><span class="p">[</span><span class="s2">"primary_fuel_color"</span><span class="p">]</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="n">COLORS_R</span><span class="p">)</span>
+<span class="n">pp_data</span><span class="p">[</span><span class="s2">"color_g"</span><span class="p">]</span> <span class="o">=</span> <span class="n">pp_data</span><span class="p">[</span><span class="s2">"primary_fuel_color"</span><span class="p">]</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="n">COLORS_G</span><span class="p">)</span>
+<span class="n">pp_data</span><span class="p">[</span><span class="s2">"color_b"</span><span class="p">]</span> <span class="o">=</span> <span class="n">pp_data</span><span class="p">[</span><span class="s2">"primary_fuel_color"</span><span class="p">]</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="n">COLORS_B</span><span class="p">)</span>
+<span class="n">pp_data</span><span class="p">[</span><span class="s2">"color_a"</span><span class="p">]</span> <span class="o">=</span> <span class="mi">140</span>
+
+<span class="c1"># "name", "primary_fuel", "capacity_mw",</span>
+<span class="n">pp_data</span> <span class="o">=</span> <span class="n">pp_data</span><span class="p">[[</span>
+    <span class="s2">"latitude"</span><span class="p">,</span><span class="s2">"longitude"</span><span class="p">,</span> <span class="s2">"name"</span><span class="p">,</span> <span class="s2">"capacity_mw"</span><span class="p">,</span>
+    <span class="s2">"color_r"</span><span class="p">,</span><span class="s2">"color_g"</span><span class="p">,</span><span class="s2">"color_b"</span><span class="p">,</span><span class="s2">"color_a"</span><span class="p">,]</span>
+<span class="p">]</span>
+<span class="n">pp_data</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Create-the-app">Create the app<a class="anchor-link" href="#Create-the-app">¶</a></h2><p>Here we create a parameterized class which creates a PyDeck plot in the constructor and connects it to some parameters.</p>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span><span class="k">class</span> <span class="nc">GlobalPowerPlantDatabaseApp</span><span class="p">(</span><span class="n">param</span><span class="o">.</span><span class="n">Parameterized</span><span class="p">):</span>
+    
+    <span class="n">data</span> <span class="o">=</span> <span class="n">param</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">pp_data</span><span class="p">,</span> <span class="n">precedence</span><span class="o">=-</span><span class="mi">1</span><span class="p">)</span>
+
+    <span class="n">opacity</span> <span class="o">=</span> <span class="n">param</span><span class="o">.</span><span class="n">Number</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="mf">0.8</span><span class="p">,</span> <span class="n">step</span><span class="o">=</span><span class="mf">0.05</span><span class="p">,</span> <span class="n">bounds</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
+    
+    <span class="n">pitch</span> <span class="o">=</span> <span class="n">param</span><span class="o">.</span><span class="n">Number</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">bounds</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">90</span><span class="p">))</span>
+    
+    <span class="n">zoom</span> <span class="o">=</span> <span class="n">param</span><span class="o">.</span><span class="n">Integer</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">bounds</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">10</span><span class="p">))</span>
+    
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">params</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">GlobalPowerPlantDatabaseApp</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="o">**</span><span class="n">params</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_view_state</span> <span class="o">=</span> <span class="n">pdk</span><span class="o">.</span><span class="n">ViewState</span><span class="p">(</span>
+            <span class="n">latitude</span><span class="o">=</span><span class="mf">52.2323</span><span class="p">,</span>
+            <span class="n">longitude</span><span class="o">=-</span><span class="mf">1.415</span><span class="p">,</span>
+            <span class="n">zoom</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">zoom</span><span class="p">,</span>
+            <span class="n">min_zoom</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">param</span><span class="o">.</span><span class="n">zoom</span><span class="o">.</span><span class="n">bounds</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
+            <span class="n">max_zoom</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">param</span><span class="o">.</span><span class="n">zoom</span><span class="o">.</span><span class="n">bounds</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span>
+        <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_scatter</span> <span class="o">=</span> <span class="n">pdk</span><span class="o">.</span><span class="n">Layer</span><span class="p">(</span>
+            <span class="s2">"ScatterplotLayer"</span><span class="p">,</span>
+            <span class="n">data</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">,</span>
+            <span class="n">get_position</span><span class="o">=</span><span class="p">[</span><span class="s2">"longitude"</span><span class="p">,</span> <span class="s2">"latitude"</span><span class="p">],</span>
+            <span class="n">get_fill_color</span><span class="o">=</span><span class="s2">"[color_r, color_g, color_b, color_a]"</span><span class="p">,</span>
+            <span class="n">get_radius</span><span class="o">=</span><span class="s2">"capacity_mw*10"</span><span class="p">,</span>
+            <span class="n">pickable</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+            <span class="n">opacity</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">opacity</span><span class="p">,</span>
+            <span class="n">filled</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+            <span class="n">wireframe</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_deck</span> <span class="o">=</span> <span class="n">pdk</span><span class="o">.</span><span class="n">Deck</span><span class="p">(</span>
+            <span class="n">map_style</span><span class="o">=</span><span class="s2">"mapbox://styles/mapbox/light-v9"</span><span class="p">,</span>
+            <span class="n">initial_view_state</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_view_state</span><span class="p">,</span>
+            <span class="n">layers</span><span class="o">=</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">_scatter</span><span class="p">],</span>
+            <span class="n">tooltip</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+            <span class="n">api_keys</span><span class="o">=</span><span class="p">{</span><span class="s1">'mapbox'</span><span class="p">:</span> <span class="n">MAPBOX_KEY</span><span class="p">},</span>
+        <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">pane</span> <span class="o">=</span> <span class="n">pn</span><span class="o">.</span><span class="n">pane</span><span class="o">.</span><span class="n">DeckGL</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_deck</span><span class="p">,</span> <span class="n">sizing_mode</span><span class="o">=</span><span class="s2">"stretch_width"</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">700</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">param</span><span class="o">.</span><span class="n">watch</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_update</span><span class="p">,</span> <span class="p">[</span><span class="s1">'data'</span><span class="p">,</span> <span class="s1">'opacity'</span><span class="p">,</span> <span class="s1">'pitch'</span><span class="p">,</span> <span class="s1">'zoom'</span><span class="p">])</span>
+
+    <span class="nd">@pn</span><span class="o">.</span><span class="n">depends</span><span class="p">(</span><span class="s1">'pane.hover_state'</span><span class="p">,</span> <span class="s1">'data'</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">_info</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">index</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">pane</span><span class="o">.</span><span class="n">hover_state</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'index'</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">index</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span><span class="p">:</span>
+            <span class="n">index</span> <span class="o">=</span> <span class="nb">slice</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">index</span><span class="p">][[</span><span class="s1">'name'</span><span class="p">,</span> <span class="s1">'capacity_mw'</span><span class="p">]]</span>
+
+    <span class="nd">@pn</span><span class="o">.</span><span class="n">depends</span><span class="p">(</span><span class="s1">'pane.view_State'</span><span class="p">,</span> <span class="n">watch</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">_update</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">state</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">pane</span><span class="o">.</span><span class="n">view_state</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_view_state</span><span class="o">.</span><span class="n">longitude</span> <span class="o">=</span> <span class="n">state</span><span class="p">[</span><span class="s1">'longitude'</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_view_state</span><span class="o">.</span><span class="n">latitude</span> <span class="o">=</span> <span class="n">state</span><span class="p">[</span><span class="s1">'latitude'</span><span class="p">]</span>   
+
+    <span class="k">def</span> <span class="nf">_update</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">event</span><span class="o">.</span><span class="n">name</span> <span class="o">==</span> <span class="s1">'data'</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_scatter</span><span class="o">.</span><span class="n">data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span>
+        <span class="k">if</span> <span class="n">event</span><span class="o">.</span><span class="n">name</span> <span class="o">==</span> <span class="s1">'opacity'</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_scatter</span><span class="o">.</span><span class="n">opacity</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">opacity</span>
+        <span class="k">if</span> <span class="n">event</span><span class="o">.</span><span class="n">name</span> <span class="o">==</span> <span class="s1">'zoom'</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_view_state</span><span class="o">.</span><span class="n">zoom</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">zoom</span>
+        <span class="k">if</span> <span class="n">event</span><span class="o">.</span><span class="n">name</span> <span class="o">==</span> <span class="s1">'pitch'</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_view_state</span><span class="o">.</span><span class="n">pitch</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">pitch</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">pane</span><span class="o">.</span><span class="n">param</span><span class="o">.</span><span class="n">trigger</span><span class="p">(</span><span class="s1">'object'</span><span class="p">)</span>
+    
+    <span class="k">def</span> <span class="nf">view</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">pn</span><span class="o">.</span><span class="n">Row</span><span class="p">(</span><span class="n">pn</span><span class="o">.</span><span class="n">Column</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">param</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_info</span><span class="p">),</span> <span class="bp">self</span><span class="o">.</span><span class="n">pane</span><span class="p">)</span>
+
+<span class="n">app</span> <span class="o">=</span> <span class="n">GlobalPowerPlantDatabaseApp</span><span class="p">()</span>
+<span class="n">app</span><span class="o">.</span><span class="n">view</span><span class="p">()</span><span class="o">.</span><span class="n">servable</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Credits">Credits<a class="anchor-link" href="#Credits">¶</a></h3><p>The DeckGl pane and this reference example was contributed by</p>
+<ul>
+<li><a href="https://datamodelsanalytics.com">Marc Skov Madsen</a></li>
+</ul>
+<p>and improved by</p>
+<ul>
+<li>Philipp Rüdiger</li>
+</ul>
+</div>
+</div>
+</div>
+<div id="scroller-right">
+This web page was generated from a Jupyter notebook and not all
+interactivity will work on this website. <a href="https://raw.githubusercontent.com/holoviz/panel/master/examples/gallery/param/deck_gl_global_power_plants.ipynb">Right click to download and run locally</a> for full
+Python-backed interactivity.
+</div><style>
+  .iframe-container {
+    overflow: hidden;
+    padding-top: 56.25%;
+    position: relative;
+    background: url(https://assets.holoviews.org/static/spinner.gif) center center no-repeat;
+  }
+
+  .iframe-container iframe {
+    border: 0;
+    height: 100%;
+    left: 0;
+    position: absolute;
+    top: 0;
+    width: 100%;
+  }
+</style>
+<div class="iframe-container">
+<iframe frameborder="0" onload="this.parentNode.style.background = 'none'" src="https://panel-gallery.pyviz.demo.anaconda.com/deck_gl_global_power_plants" width="100%"></iframe>
+</div><hr class="docutils"/>
+<p><a class="reference external" href="https://raw.githubusercontent.com/pyviz/panel/master/examples/gallery/param/deck_gl_global_power_plants.ipynb">Download this notebook from GitHub (right-click to download).</a></p>
+</div>
+</div>
+</div>
+<!-- END MAIN BODY OF DOCS ––––––––––––– -->
+<!-- Google Analytics -->
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async="" src="https://www.googletagmanager.com/gtag/js?id=UA-154795830-2"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-154795830-2', { 'anonymize_ip': true });
+</script>
+<!-- MathJax Config -->
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}
+});
+</script>
+<!-- End Document
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+</body>
+</html>

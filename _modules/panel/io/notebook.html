@@ -1,0 +1,502 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<!-- Basic Page Needs
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+<meta charset="utf-8"/>
+<title>panel.io.notebook — Panel 0.11.1+g238199f-dirty documentation</title>
+<meta content="High-level dashboarding for python visualization libraries" name="description"/>
+<meta content="Panel contributors" name="author"/>
+<!-- Mobile Specific Metas
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<!-- FONT
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+<script src="https://ajax.googleapis.com/ajax/libs/webfont/1.6.16/webfont.js"></script>
+<script>
+    WebFont.load({
+      google: {
+        families: ['Source Sans Pro']
+      }
+    });
+  </script>
+<!-- CSS
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+<link href="../../../_static/css/main.css" rel="stylesheet"/>
+<link href="../../../_static/nbsite.css" rel="stylesheet"/>
+<link href="../../../_static/site.css" rel="stylesheet"/>
+<!-- Scripts
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script async="" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML" type="text/javascript">
+</script>
+<script src="../../../_static/js/main.js"></script>
+<!-- Favicon
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+<link href="../../../_static/favicon.ico" rel="icon" type="image/png"/>
+<!-- Canonical
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+<link href="https://panel.holoviz.org/_modules/panel/io/notebook.html" rel="canonical">
+</link></head>
+<body class="">
+<header class="navigation">
+<div class="wrapper">
+<a class="logo" href="../../../index.html">
+<img alt="Logo" src="../../../_static/logo_horizontal.png"/>
+</a>
+<a class="navigation-menu-button" href="javascript:void(0)" id="js-mobile-menu">Menu</a>
+<nav>
+<ul class="navigation-menu show" id="js-navigation-menu">
+<li class="nav-link doc-head"><a href="//discourse.holoviz.org">Discourse</a></li>
+<li class="nav-link doc-head"><a href="//twitter.com/Panel_org">Twitter</a></li>
+<li class="nav-link doc-head"><a href="//github.com/pyviz/panel">Github</a></li>
+<li class="nav-link">
+<div style="display:inline-block;vertical-align: middle;">
+<div class="search-bar">
+<form action="../../../search.html" method="get" role="search">
+<input name="q" placeholder="Search" type="search"/>
+<button type="submit">
+<img alt="Search Icon" src="https://raw.githubusercontent.com/thoughtbot/refills/master/source/images/search-icon-black.png"/>
+</button>
+</form>
+</div>
+</div>
+</li>
+</ul>
+</nav>
+</div>
+</header>
+<div class="second-nav">
+<nav>
+<ul class="navigation-menu show">
+<li class="nav-link doc-head"><a href="../../../getting_started/index.html">Getting started</a></li>
+<li class="nav-link doc-head"><a href="../../../user_guide/index.html">User Guide</a></li>
+<li class="nav-link doc-head"><a href="../../../gallery/index.html">Gallery</a></li>
+<li class="nav-link doc-head"><a href="../../../reference/index.html">Reference Gallery</a></li>
+<li class="nav-link doc-head"><a href="../../../developer_guide/index.html">Developer Guide</a></li>
+<li class="nav-link doc-head"><a href="../../../releases.html">Releases</a></li>
+<li class="nav-link doc-head"><a href="../../../api/index.html">API</a></li>
+<li class="nav-link doc-head"><a href="../../../FAQ.html">FAQ</a></li>
+<li class="nav-link doc-head"><a href="../../../about.html">About</a></li>
+</ul>
+</nav>
+</div>
+<!-- MAIN BODY OF DOCS –––––––––––––––––– -->
+<div class="docs section">
+<div id="hacketyhackhack"> <!-- style="width:20%;margin-right: 100px;"> --> <!--style="display: none;"> style="display:none;"> -->
+<div class="toc" style="width:15%; margin-right:20px;">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../index.html">Home</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../getting_started/index.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../user_guide/index.html">User Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../gallery/index.html">Gallery</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../reference/index.html">Reference Gallery</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../developer_guide/index.html">Developer Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/index.html">API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../Comparisons.html">Comparisons</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../releases.html">Releases</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../Roadmap.html">Road Map</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../FAQ.html">FAQ</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://github.com/pyviz/panel">Github source</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../about.html">About</a></li>
+</ul>
+</div>
+</div>
+<div class="content"> <!-- style="max-width:80%;margin-left:auto;margin-right: auto;">-->
+<h1>Source code for panel.io.notebook</h1><div class="highlight"><pre>
+<span></span><span class="sd">"""</span>
+<span class="sd">Various utilities for loading JS dependencies and rendering plots</span>
+<span class="sd">inside the Jupyter notebook.</span>
+<span class="sd">"""</span>
+<span class="kn">import</span> <span class="nn">json</span>
+<span class="kn">import</span> <span class="nn">uuid</span>
+<span class="kn">import</span> <span class="nn">sys</span>
+
+<span class="kn">from</span> <span class="nn">contextlib</span> <span class="kn">import</span> <span class="n">contextmanager</span>
+<span class="kn">from</span> <span class="nn">collections</span> <span class="kn">import</span> <span class="n">OrderedDict</span>
+<span class="kn">from</span> <span class="nn">six</span> <span class="kn">import</span> <span class="n">string_types</span>
+
+<span class="kn">import</span> <span class="nn">bokeh</span>
+<span class="kn">import</span> <span class="nn">bokeh.embed.notebook</span>
+
+<span class="kn">from</span> <span class="nn">bokeh.core.json_encoder</span> <span class="kn">import</span> <span class="n">serialize_json</span>
+<span class="kn">from</span> <span class="nn">bokeh.core.templates</span> <span class="kn">import</span> <span class="n">MACROS</span>
+<span class="kn">from</span> <span class="nn">bokeh.document</span> <span class="kn">import</span> <span class="n">Document</span>
+<span class="kn">from</span> <span class="nn">bokeh.embed</span> <span class="kn">import</span> <span class="n">server_document</span>
+<span class="kn">from</span> <span class="nn">bokeh.embed.elements</span> <span class="kn">import</span> <span class="n">div_for_render_item</span><span class="p">,</span> <span class="n">script_for_render_items</span>
+<span class="kn">from</span> <span class="nn">bokeh.embed.util</span> <span class="kn">import</span> <span class="n">standalone_docs_json_and_render_items</span>
+<span class="kn">from</span> <span class="nn">bokeh.embed.wrappers</span> <span class="kn">import</span> <span class="n">wrap_in_script_tag</span>
+<span class="kn">from</span> <span class="nn">bokeh.models</span> <span class="kn">import</span> <span class="n">LayoutDOM</span><span class="p">,</span> <span class="n">Model</span>
+<span class="kn">from</span> <span class="nn">bokeh.resources</span> <span class="kn">import</span> <span class="n">CDN</span><span class="p">,</span> <span class="n">INLINE</span>
+<span class="kn">from</span> <span class="nn">bokeh.settings</span> <span class="kn">import</span> <span class="n">settings</span><span class="p">,</span> <span class="n">_Unset</span>
+<span class="kn">from</span> <span class="nn">bokeh.util.serialization</span> <span class="kn">import</span> <span class="n">make_id</span>
+<span class="kn">from</span> <span class="nn">pyviz_comms</span> <span class="kn">import</span> <span class="p">(</span>
+    <span class="n">PYVIZ_PROXY</span><span class="p">,</span> <span class="n">Comm</span><span class="p">,</span> <span class="n">JupyterCommManager</span> <span class="k">as</span> <span class="n">_JupyterCommManager</span><span class="p">,</span> <span class="n">nb_mime_js</span>
+<span class="p">)</span>
+
+<span class="k">try</span><span class="p">:</span>
+    <span class="kn">from</span> <span class="nn">bokeh.util.string</span> <span class="kn">import</span> <span class="n">escape</span>
+<span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
+    <span class="kn">from</span> <span class="nn">html</span> <span class="kn">import</span> <span class="n">escape</span>
+
+<span class="kn">from</span> <span class="nn">..compiler</span> <span class="kn">import</span> <span class="n">require_components</span>
+<span class="kn">from</span> <span class="nn">.embed</span> <span class="kn">import</span> <span class="n">embed_state</span>
+<span class="kn">from</span> <span class="nn">.model</span> <span class="kn">import</span> <span class="n">add_to_doc</span><span class="p">,</span> <span class="n">diff</span>
+<span class="kn">from</span> <span class="nn">.resources</span> <span class="kn">import</span> <span class="n">Bundle</span><span class="p">,</span> <span class="n">Resources</span><span class="p">,</span> <span class="n">_env</span><span class="p">,</span> <span class="n">bundle_resources</span>
+<span class="kn">from</span> <span class="nn">.server</span> <span class="kn">import</span> <span class="n">_server_url</span><span class="p">,</span> <span class="n">_origin_url</span><span class="p">,</span> <span class="n">get_server</span>
+<span class="kn">from</span> <span class="nn">.state</span> <span class="kn">import</span> <span class="n">state</span>
+
+
+<span class="c1">#---------------------------------------------------------------------</span>
+<span class="c1"># Private API</span>
+<span class="c1">#---------------------------------------------------------------------</span>
+
+<span class="n">LOAD_MIME</span> <span class="o">=</span> <span class="s1">'application/vnd.holoviews_load.v0+json'</span>
+<span class="n">EXEC_MIME</span> <span class="o">=</span> <span class="s1">'application/vnd.holoviews_exec.v0+json'</span>
+<span class="n">HTML_MIME</span> <span class="o">=</span> <span class="s1">'text/html'</span>
+
+<span class="k">def</span> <span class="nf">_jupyter_server_extension_paths</span><span class="p">():</span>
+    <span class="k">return</span> <span class="p">[{</span><span class="s2">"module"</span><span class="p">:</span> <span class="s2">"panel.io.jupyter_server_extension"</span><span class="p">}]</span>
+
+
+<div class="viewcode-block" id="push"><a class="viewcode-back" href="../../../api/panel.io.html#panel.io.notebook.push">[docs]</a><span class="k">def</span> <span class="nf">push</span><span class="p">(</span><span class="n">doc</span><span class="p">,</span> <span class="n">comm</span><span class="p">,</span> <span class="n">binary</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+    <span class="sd">"""</span>
+<span class="sd">    Pushes events stored on the document across the provided comm.</span>
+<span class="sd">    """</span>
+    <span class="n">msg</span> <span class="o">=</span> <span class="n">diff</span><span class="p">(</span><span class="n">doc</span><span class="p">,</span> <span class="n">binary</span><span class="o">=</span><span class="n">binary</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">msg</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">return</span>
+    <span class="n">comm</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="n">msg</span><span class="o">.</span><span class="n">header_json</span><span class="p">)</span>
+    <span class="n">comm</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="n">msg</span><span class="o">.</span><span class="n">metadata_json</span><span class="p">)</span>
+    <span class="n">comm</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="n">msg</span><span class="o">.</span><span class="n">content_json</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">header</span><span class="p">,</span> <span class="n">payload</span> <span class="ow">in</span> <span class="n">msg</span><span class="o">.</span><span class="n">buffers</span><span class="p">:</span>
+        <span class="n">comm</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">header</span><span class="p">))</span>
+        <span class="n">comm</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="n">buffers</span><span class="o">=</span><span class="p">[</span><span class="n">payload</span><span class="p">])</span></div>
+
+
+<span class="k">def</span> <span class="nf">push_on_root</span><span class="p">(</span><span class="n">ref</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">ref</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">state</span><span class="o">.</span><span class="n">_views</span><span class="p">:</span>
+        <span class="k">return</span>
+    <span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">root</span><span class="p">,</span> <span class="n">doc</span><span class="p">,</span> <span class="n">comm</span><span class="p">)</span> <span class="o">=</span> <span class="n">state</span><span class="o">.</span><span class="n">_views</span><span class="p">[</span><span class="n">ref</span><span class="p">]</span>
+    <span class="k">if</span> <span class="n">comm</span> <span class="ow">and</span> <span class="s1">'embedded'</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">root</span><span class="o">.</span><span class="n">tags</span><span class="p">:</span>
+        <span class="n">push</span><span class="p">(</span><span class="n">doc</span><span class="p">,</span> <span class="n">comm</span><span class="p">)</span>
+
+<span class="n">DOC_NB_JS</span> <span class="o">=</span> <span class="n">_env</span><span class="o">.</span><span class="n">get_template</span><span class="p">(</span><span class="s2">"doc_nb_js.js"</span><span class="p">)</span>
+<span class="n">AUTOLOAD_NB_JS</span> <span class="o">=</span> <span class="n">_env</span><span class="o">.</span><span class="n">get_template</span><span class="p">(</span><span class="s2">"autoload_panel_js.js"</span><span class="p">)</span>
+<span class="n">NB_TEMPLATE_BASE</span> <span class="o">=</span> <span class="n">_env</span><span class="o">.</span><span class="n">get_template</span><span class="p">(</span><span class="s1">'nb_template.html'</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">_autoload_js</span><span class="p">(</span><span class="n">bundle</span><span class="p">,</span> <span class="n">configs</span><span class="p">,</span> <span class="n">requirements</span><span class="p">,</span> <span class="n">exports</span><span class="p">,</span> <span class="n">skip_imports</span><span class="p">,</span> <span class="n">ipywidget</span><span class="p">,</span> <span class="n">load_timeout</span><span class="o">=</span><span class="mi">5000</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">AUTOLOAD_NB_JS</span><span class="o">.</span><span class="n">render</span><span class="p">(</span>
+        <span class="n">bundle</span>    <span class="o">=</span> <span class="n">bundle</span><span class="p">,</span>
+        <span class="n">force</span>     <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+        <span class="n">timeout</span>   <span class="o">=</span> <span class="n">load_timeout</span><span class="p">,</span>
+        <span class="n">configs</span>   <span class="o">=</span> <span class="n">configs</span><span class="p">,</span>
+        <span class="n">requirements</span> <span class="o">=</span> <span class="n">requirements</span><span class="p">,</span>
+        <span class="n">exports</span>   <span class="o">=</span> <span class="n">exports</span><span class="p">,</span>
+        <span class="n">skip_imports</span> <span class="o">=</span> <span class="n">skip_imports</span><span class="p">,</span>
+        <span class="n">ipywidget</span> <span class="o">=</span> <span class="n">ipywidget</span>
+    <span class="p">)</span>
+
+
+<span class="k">def</span> <span class="nf">html_for_render_items</span><span class="p">(</span><span class="n">docs_json</span><span class="p">,</span> <span class="n">render_items</span><span class="p">,</span> <span class="n">template</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">template_variables</span><span class="o">=</span><span class="p">{}):</span>
+    <span class="n">json_id</span> <span class="o">=</span> <span class="n">make_id</span><span class="p">()</span>
+    <span class="n">json</span> <span class="o">=</span> <span class="n">escape</span><span class="p">(</span><span class="n">serialize_json</span><span class="p">(</span><span class="n">docs_json</span><span class="p">),</span> <span class="n">quote</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+    <span class="n">json</span> <span class="o">=</span> <span class="n">wrap_in_script_tag</span><span class="p">(</span><span class="n">json</span><span class="p">,</span> <span class="s2">"application/json"</span><span class="p">,</span> <span class="n">json_id</span><span class="p">)</span>
+
+    <span class="n">script</span> <span class="o">=</span> <span class="n">wrap_in_script_tag</span><span class="p">(</span><span class="n">script_for_render_items</span><span class="p">(</span><span class="n">json_id</span><span class="p">,</span> <span class="n">render_items</span><span class="p">))</span>
+
+    <span class="n">context</span> <span class="o">=</span> <span class="n">template_variables</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+
+    <span class="n">context</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="nb">dict</span><span class="p">(</span>
+        <span class="n">title</span> <span class="o">=</span> <span class="s1">''</span><span class="p">,</span>
+        <span class="n">plot_script</span> <span class="o">=</span> <span class="n">json</span> <span class="o">+</span> <span class="n">script</span><span class="p">,</span>
+        <span class="n">docs</span> <span class="o">=</span> <span class="n">render_items</span><span class="p">,</span>
+        <span class="n">base</span> <span class="o">=</span> <span class="n">NB_TEMPLATE_BASE</span><span class="p">,</span>
+        <span class="n">macros</span> <span class="o">=</span> <span class="n">MACROS</span><span class="p">,</span>
+    <span class="p">))</span>
+
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">render_items</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="n">context</span><span class="p">[</span><span class="s2">"doc"</span><span class="p">]</span> <span class="o">=</span> <span class="n">context</span><span class="p">[</span><span class="s2">"docs"</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">context</span><span class="p">[</span><span class="s2">"roots"</span><span class="p">]</span> <span class="o">=</span> <span class="n">context</span><span class="p">[</span><span class="s2">"doc"</span><span class="p">]</span><span class="o">.</span><span class="n">roots</span>
+
+    <span class="k">if</span> <span class="n">template</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">template</span> <span class="o">=</span> <span class="n">NB_TEMPLATE_BASE</span>
+    <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">template</span><span class="p">,</span> <span class="n">string_types</span><span class="p">):</span>
+        <span class="n">template</span> <span class="o">=</span> <span class="n">_env</span><span class="o">.</span><span class="n">from_string</span><span class="p">(</span><span class="s2">"{</span><span class="si">% e</span><span class="s2">xtends base %}</span><span class="se">\n</span><span class="s2">"</span> <span class="o">+</span> <span class="n">template</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">template</span><span class="o">.</span><span class="n">render</span><span class="p">(</span><span class="n">context</span><span class="p">)</span>
+
+
+<span class="k">def</span> <span class="nf">render_template</span><span class="p">(</span><span class="n">document</span><span class="p">,</span> <span class="n">comm</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">manager</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="n">ref</span> <span class="o">=</span> <span class="n">document</span><span class="o">.</span><span class="n">roots</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">ref</span><span class="p">[</span><span class="s1">'id'</span><span class="p">]</span>
+    <span class="p">(</span><span class="n">docs_json</span><span class="p">,</span> <span class="n">render_items</span><span class="p">)</span> <span class="o">=</span> <span class="n">standalone_docs_json_and_render_items</span><span class="p">(</span><span class="n">document</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
+
+    <span class="c1"># We do not want the CommManager to appear in the roots because</span>
+    <span class="c1"># the custom template may not reference it</span>
+    <span class="k">if</span> <span class="n">manager</span><span class="p">:</span>
+        <span class="n">item</span> <span class="o">=</span> <span class="n">render_items</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">item</span><span class="o">.</span><span class="n">roots</span><span class="o">.</span><span class="n">_roots</span> <span class="o">=</span> <span class="n">OrderedDict</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">item</span><span class="o">.</span><span class="n">roots</span><span class="o">.</span><span class="n">_roots</span><span class="o">.</span><span class="n">items</span><span class="p">())[:</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
+
+    <span class="n">html</span> <span class="o">=</span> <span class="n">html_for_render_items</span><span class="p">(</span>
+        <span class="n">docs_json</span><span class="p">,</span> <span class="n">render_items</span><span class="p">,</span> <span class="n">template</span><span class="o">=</span><span class="n">document</span><span class="o">.</span><span class="n">template</span><span class="p">,</span>
+        <span class="n">template_variables</span><span class="o">=</span><span class="n">document</span><span class="o">.</span><span class="n">template_variables</span>
+    <span class="p">)</span>
+    <span class="k">return</span> <span class="p">({</span><span class="s1">'text/html'</span><span class="p">:</span> <span class="n">html</span><span class="p">,</span> <span class="n">EXEC_MIME</span><span class="p">:</span> <span class="s1">''</span><span class="p">},</span> <span class="p">{</span><span class="n">EXEC_MIME</span><span class="p">:</span> <span class="p">{</span><span class="s1">'id'</span><span class="p">:</span> <span class="n">ref</span><span class="p">}})</span>
+
+
+<span class="k">def</span> <span class="nf">render_model</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">comm</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">Model</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">"notebook_content expects a single Model instance"</span><span class="p">)</span>
+    <span class="kn">from</span> <span class="nn">..config</span> <span class="kn">import</span> <span class="n">panel_extension</span> <span class="k">as</span> <span class="n">pnext</span>
+
+    <span class="n">target</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">ref</span><span class="p">[</span><span class="s1">'id'</span><span class="p">]</span>
+
+    <span class="p">(</span><span class="n">docs_json</span><span class="p">,</span> <span class="p">[</span><span class="n">render_item</span><span class="p">])</span> <span class="o">=</span> <span class="n">standalone_docs_json_and_render_items</span><span class="p">([</span><span class="n">model</span><span class="p">],</span> <span class="kc">True</span><span class="p">)</span>
+    <span class="n">div</span> <span class="o">=</span> <span class="n">div_for_render_item</span><span class="p">(</span><span class="n">render_item</span><span class="p">)</span>
+    <span class="n">render_item</span> <span class="o">=</span> <span class="n">render_item</span><span class="o">.</span><span class="n">to_json</span><span class="p">()</span>
+    <span class="n">requirements</span> <span class="o">=</span> <span class="p">[</span><span class="n">pnext</span><span class="o">.</span><span class="n">_globals</span><span class="p">[</span><span class="n">ext</span><span class="p">]</span> <span class="k">for</span> <span class="n">ext</span> <span class="ow">in</span> <span class="n">pnext</span><span class="o">.</span><span class="n">_loaded_extensions</span>
+                    <span class="k">if</span> <span class="n">ext</span> <span class="ow">in</span> <span class="n">pnext</span><span class="o">.</span><span class="n">_globals</span><span class="p">]</span>
+    <span class="n">ipywidget</span> <span class="o">=</span> <span class="s1">'ipywidgets_bokeh'</span> <span class="ow">in</span> <span class="n">sys</span><span class="o">.</span><span class="n">modules</span>
+
+    <span class="n">script</span> <span class="o">=</span> <span class="n">DOC_NB_JS</span><span class="o">.</span><span class="n">render</span><span class="p">(</span>
+        <span class="n">docs_json</span><span class="o">=</span><span class="n">serialize_json</span><span class="p">(</span><span class="n">docs_json</span><span class="p">),</span>
+        <span class="n">render_items</span><span class="o">=</span><span class="n">serialize_json</span><span class="p">([</span><span class="n">render_item</span><span class="p">]),</span>
+        <span class="n">requirements</span><span class="o">=</span><span class="n">requirements</span><span class="p">,</span>
+        <span class="n">ipywidget</span><span class="o">=</span><span class="n">ipywidget</span>
+    <span class="p">)</span>
+    <span class="n">bokeh_script</span><span class="p">,</span> <span class="n">bokeh_div</span> <span class="o">=</span> <span class="n">script</span><span class="p">,</span> <span class="n">div</span>
+    <span class="n">html</span> <span class="o">=</span> <span class="s2">"&lt;div id='</span><span class="si">{id}</span><span class="s2">'&gt;</span><span class="si">{html}</span><span class="s2">&lt;/div&gt;"</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">id</span><span class="o">=</span><span class="n">target</span><span class="p">,</span> <span class="n">html</span><span class="o">=</span><span class="n">bokeh_div</span><span class="p">)</span>
+
+    <span class="n">data</span> <span class="o">=</span> <span class="p">{</span><span class="s1">'text/html'</span><span class="p">:</span> <span class="n">html</span><span class="p">,</span> <span class="s1">'application/javascript'</span><span class="p">:</span> <span class="n">bokeh_script</span><span class="p">}</span>
+    <span class="k">return</span> <span class="p">({</span><span class="s1">'text/html'</span><span class="p">:</span> <span class="n">mimebundle_to_html</span><span class="p">(</span><span class="n">data</span><span class="p">),</span> <span class="n">EXEC_MIME</span><span class="p">:</span> <span class="s1">''</span><span class="p">},</span>
+            <span class="p">{</span><span class="n">EXEC_MIME</span><span class="p">:</span> <span class="p">{</span><span class="s1">'id'</span><span class="p">:</span> <span class="n">target</span><span class="p">}})</span>
+
+
+<div class="viewcode-block" id="render_mimebundle"><a class="viewcode-back" href="../../../api/panel.io.html#panel.io.notebook.render_mimebundle">[docs]</a><span class="k">def</span> <span class="nf">render_mimebundle</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">doc</span><span class="p">,</span> <span class="n">comm</span><span class="p">,</span> <span class="n">manager</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">location</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="sd">"""</span>
+<span class="sd">    Displays bokeh output inside a notebook using the PyViz display</span>
+<span class="sd">    and comms machinery.</span>
+<span class="sd">    """</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">LayoutDOM</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">'Can only render bokeh LayoutDOM models'</span><span class="p">)</span>
+    <span class="n">add_to_doc</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">doc</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">manager</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">doc</span><span class="o">.</span><span class="n">add_root</span><span class="p">(</span><span class="n">manager</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">location</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">loc</span> <span class="o">=</span> <span class="n">location</span><span class="o">.</span><span class="n">_get_model</span><span class="p">(</span><span class="n">doc</span><span class="p">,</span> <span class="n">model</span><span class="p">,</span> <span class="n">model</span><span class="p">,</span> <span class="n">comm</span><span class="p">)</span>
+        <span class="n">doc</span><span class="o">.</span><span class="n">add_root</span><span class="p">(</span><span class="n">loc</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">render_model</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">comm</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="mimebundle_to_html"><a class="viewcode-back" href="../../../api/panel.io.html#panel.io.notebook.mimebundle_to_html">[docs]</a><span class="k">def</span> <span class="nf">mimebundle_to_html</span><span class="p">(</span><span class="n">bundle</span><span class="p">):</span>
+    <span class="sd">"""</span>
+<span class="sd">    Converts a MIME bundle into HTML.</span>
+<span class="sd">    """</span>
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">bundle</span><span class="p">,</span> <span class="nb">tuple</span><span class="p">):</span>
+        <span class="n">data</span><span class="p">,</span> <span class="n">metadata</span> <span class="o">=</span> <span class="n">bundle</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">data</span> <span class="o">=</span> <span class="n">bundle</span>
+    <span class="n">html</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'text/html'</span><span class="p">,</span> <span class="s1">''</span><span class="p">)</span>
+    <span class="k">if</span> <span class="s1">'application/javascript'</span> <span class="ow">in</span> <span class="n">data</span><span class="p">:</span>
+        <span class="n">js</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s1">'application/javascript'</span><span class="p">]</span>
+        <span class="n">html</span> <span class="o">+=</span> <span class="s1">'</span><span class="se">\n</span><span class="s1">&lt;script type="application/javascript"&gt;</span><span class="si">{js}</span><span class="s1">&lt;/script&gt;'</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">js</span><span class="o">=</span><span class="n">js</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">html</span></div>
+
+<span class="c1">#---------------------------------------------------------------------</span>
+<span class="c1"># Public API</span>
+<span class="c1">#---------------------------------------------------------------------</span>
+
+
+<div class="viewcode-block" id="block_comm"><a class="viewcode-back" href="../../../api/panel.io.html#panel.io.notebook.block_comm">[docs]</a><span class="nd">@contextmanager</span>
+<span class="k">def</span> <span class="nf">block_comm</span><span class="p">():</span>
+    <span class="sd">"""</span>
+<span class="sd">    Context manager to temporarily block comm push</span>
+<span class="sd">    """</span>
+    <span class="n">state</span><span class="o">.</span><span class="n">_hold</span> <span class="o">=</span> <span class="kc">True</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="k">yield</span>
+    <span class="k">finally</span><span class="p">:</span>
+        <span class="n">state</span><span class="o">.</span><span class="n">_hold</span> <span class="o">=</span> <span class="kc">False</span></div>
+
+
+<span class="k">def</span> <span class="nf">load_notebook</span><span class="p">(</span><span class="n">inline</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">load_timeout</span><span class="o">=</span><span class="mi">5000</span><span class="p">):</span>
+    <span class="kn">from</span> <span class="nn">IPython.display</span> <span class="kn">import</span> <span class="n">publish_display_data</span>
+
+    <span class="n">resources</span> <span class="o">=</span> <span class="n">INLINE</span> <span class="k">if</span> <span class="n">inline</span> <span class="k">else</span> <span class="n">CDN</span>
+    <span class="n">prev_resources</span> <span class="o">=</span> <span class="n">settings</span><span class="o">.</span><span class="n">resources</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="s2">"server"</span><span class="p">)</span>
+    <span class="n">user_resources</span> <span class="o">=</span> <span class="n">settings</span><span class="o">.</span><span class="n">resources</span><span class="o">.</span><span class="n">_user_value</span> <span class="ow">is</span> <span class="ow">not</span> <span class="n">_Unset</span>
+    <span class="n">resources</span> <span class="o">=</span> <span class="n">Resources</span><span class="o">.</span><span class="n">from_bokeh</span><span class="p">(</span><span class="n">resources</span><span class="p">)</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">bundle</span> <span class="o">=</span> <span class="n">bundle_resources</span><span class="p">(</span><span class="n">resources</span><span class="p">)</span>
+        <span class="n">bundle</span> <span class="o">=</span> <span class="n">Bundle</span><span class="o">.</span><span class="n">from_bokeh</span><span class="p">(</span><span class="n">bundle</span><span class="p">)</span>
+        <span class="n">configs</span><span class="p">,</span> <span class="n">requirements</span><span class="p">,</span> <span class="n">exports</span><span class="p">,</span> <span class="n">skip_imports</span> <span class="o">=</span> <span class="n">require_components</span><span class="p">()</span>
+        <span class="n">ipywidget</span> <span class="o">=</span> <span class="s1">'ipywidgets_bokeh'</span> <span class="ow">in</span> <span class="n">sys</span><span class="o">.</span><span class="n">modules</span>
+        <span class="n">bokeh_js</span> <span class="o">=</span> <span class="n">_autoload_js</span><span class="p">(</span><span class="n">bundle</span><span class="p">,</span> <span class="n">configs</span><span class="p">,</span> <span class="n">requirements</span><span class="p">,</span> <span class="n">exports</span><span class="p">,</span>
+                                <span class="n">skip_imports</span><span class="p">,</span> <span class="n">ipywidget</span><span class="p">,</span> <span class="n">load_timeout</span><span class="p">)</span>
+    <span class="k">finally</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">user_resources</span><span class="p">:</span>
+            <span class="n">settings</span><span class="o">.</span><span class="n">resources</span> <span class="o">=</span> <span class="n">prev_resources</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">settings</span><span class="o">.</span><span class="n">resources</span><span class="o">.</span><span class="n">unset_value</span><span class="p">()</span>
+
+    <span class="n">publish_display_data</span><span class="p">({</span>
+        <span class="s1">'application/javascript'</span><span class="p">:</span> <span class="n">bokeh_js</span><span class="p">,</span>
+        <span class="n">LOAD_MIME</span><span class="p">:</span> <span class="n">bokeh_js</span><span class="p">,</span>
+    <span class="p">})</span>
+    <span class="n">bokeh</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">notebook</span><span class="o">.</span><span class="n">curstate</span><span class="p">()</span><span class="o">.</span><span class="n">output_notebook</span><span class="p">()</span>
+
+    <span class="c1"># Publish comm manager</span>
+    <span class="n">JS</span> <span class="o">=</span> <span class="s1">'</span><span class="se">\n</span><span class="s1">'</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="n">PYVIZ_PROXY</span><span class="p">,</span> <span class="n">_JupyterCommManager</span><span class="o">.</span><span class="n">js_manager</span><span class="p">,</span> <span class="n">nb_mime_js</span><span class="p">])</span>
+    <span class="n">publish_display_data</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="p">{</span><span class="n">LOAD_MIME</span><span class="p">:</span> <span class="n">JS</span><span class="p">,</span> <span class="s1">'application/javascript'</span><span class="p">:</span> <span class="n">JS</span><span class="p">})</span>
+
+
+<div class="viewcode-block" id="show_server"><a class="viewcode-back" href="../../../api/panel.io.html#panel.io.notebook.show_server">[docs]</a><span class="k">def</span> <span class="nf">show_server</span><span class="p">(</span><span class="n">panel</span><span class="p">,</span> <span class="n">notebook_url</span><span class="p">,</span> <span class="n">port</span><span class="p">):</span>
+    <span class="sd">"""</span>
+<span class="sd">    Displays a bokeh server inline in the notebook.</span>
+
+<span class="sd">    Arguments</span>
+<span class="sd">    ---------</span>
+<span class="sd">    panel: Viewable</span>
+<span class="sd">      Panel Viewable object to launch a server for</span>
+<span class="sd">    notebook_url: str</span>
+<span class="sd">      The URL of the running Jupyter notebook server</span>
+<span class="sd">    port: int (optional, default=0)</span>
+<span class="sd">      Allows specifying a specific port</span>
+<span class="sd">    server_id: str</span>
+<span class="sd">      Unique ID to identify the server with</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    server: bokeh.server.Server</span>
+<span class="sd">    """</span>
+    <span class="kn">from</span> <span class="nn">IPython.display</span> <span class="kn">import</span> <span class="n">publish_display_data</span>
+
+    <span class="k">if</span> <span class="n">callable</span><span class="p">(</span><span class="n">notebook_url</span><span class="p">):</span>
+        <span class="n">origin</span> <span class="o">=</span> <span class="n">notebook_url</span><span class="p">(</span><span class="kc">None</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">origin</span> <span class="o">=</span> <span class="n">_origin_url</span><span class="p">(</span><span class="n">notebook_url</span><span class="p">)</span>
+    <span class="n">server_id</span> <span class="o">=</span> <span class="n">uuid</span><span class="o">.</span><span class="n">uuid4</span><span class="p">()</span><span class="o">.</span><span class="n">hex</span>
+    <span class="n">server</span> <span class="o">=</span> <span class="n">get_server</span><span class="p">(</span><span class="n">panel</span><span class="p">,</span> <span class="n">port</span><span class="o">=</span><span class="n">port</span><span class="p">,</span> <span class="n">websocket_origin</span><span class="o">=</span><span class="n">origin</span><span class="p">,</span>
+                        <span class="n">start</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">show</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">server_id</span><span class="o">=</span><span class="n">server_id</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">callable</span><span class="p">(</span><span class="n">notebook_url</span><span class="p">):</span>
+        <span class="n">url</span> <span class="o">=</span> <span class="n">notebook_url</span><span class="p">(</span><span class="n">server</span><span class="o">.</span><span class="n">port</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">url</span> <span class="o">=</span> <span class="n">_server_url</span><span class="p">(</span><span class="n">notebook_url</span><span class="p">,</span> <span class="n">server</span><span class="o">.</span><span class="n">port</span><span class="p">)</span>
+
+    <span class="n">script</span> <span class="o">=</span> <span class="n">server_document</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">resources</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+
+    <span class="n">publish_display_data</span><span class="p">({</span>
+        <span class="n">HTML_MIME</span><span class="p">:</span> <span class="n">script</span><span class="p">,</span>
+        <span class="n">EXEC_MIME</span><span class="p">:</span> <span class="s2">""</span>
+    <span class="p">},</span> <span class="n">metadata</span><span class="o">=</span><span class="p">{</span>
+        <span class="n">EXEC_MIME</span><span class="p">:</span> <span class="p">{</span><span class="s2">"server_id"</span><span class="p">:</span> <span class="n">server_id</span><span class="p">}</span>
+    <span class="p">})</span>
+    <span class="k">return</span> <span class="n">server</span></div>
+
+
+<div class="viewcode-block" id="show_embed"><a class="viewcode-back" href="../../../api/panel.io.html#panel.io.notebook.show_embed">[docs]</a><span class="k">def</span> <span class="nf">show_embed</span><span class="p">(</span><span class="n">panel</span><span class="p">,</span> <span class="n">max_states</span><span class="o">=</span><span class="mi">1000</span><span class="p">,</span> <span class="n">max_opts</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">json</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+               <span class="n">json_prefix</span><span class="o">=</span><span class="s1">''</span><span class="p">,</span> <span class="n">save_path</span><span class="o">=</span><span class="s1">'./'</span><span class="p">,</span> <span class="n">load_path</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+               <span class="n">progress</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">states</span><span class="o">=</span><span class="p">{}):</span>
+    <span class="sd">"""</span>
+<span class="sd">    Renders a static version of a panel in a notebook by evaluating</span>
+<span class="sd">    the set of states defined by the widgets in the model. Note</span>
+<span class="sd">    this will only work well for simple apps with a relatively</span>
+<span class="sd">    small state space.</span>
+
+<span class="sd">    Arguments</span>
+<span class="sd">    ---------</span>
+<span class="sd">    max_states: int</span>
+<span class="sd">      The maximum number of states to embed</span>
+<span class="sd">    max_opts: int</span>
+<span class="sd">      The maximum number of states for a single widget</span>
+<span class="sd">    json: boolean (default=True)</span>
+<span class="sd">      Whether to export the data to json files</span>
+<span class="sd">    json_prefix: str (default='')</span>
+<span class="sd">      Prefix for JSON filename</span>
+<span class="sd">    save_path: str (default='./')</span>
+<span class="sd">      The path to save json files to</span>
+<span class="sd">    load_path: str (default=None)</span>
+<span class="sd">      The path or URL the json files will be loaded from.</span>
+<span class="sd">    progress: boolean (default=False)</span>
+<span class="sd">      Whether to report progress</span>
+<span class="sd">    states: dict (default={})</span>
+<span class="sd">      A dictionary specifying the widget values to embed for each widget</span>
+<span class="sd">    """</span>
+    <span class="kn">from</span> <span class="nn">IPython.display</span> <span class="kn">import</span> <span class="n">publish_display_data</span>
+    <span class="kn">from</span> <span class="nn">..config</span> <span class="kn">import</span> <span class="n">config</span>
+
+    <span class="n">doc</span> <span class="o">=</span> <span class="n">Document</span><span class="p">()</span>
+    <span class="n">comm</span> <span class="o">=</span> <span class="n">Comm</span><span class="p">()</span>
+    <span class="k">with</span> <span class="n">config</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">embed</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+        <span class="n">model</span> <span class="o">=</span> <span class="n">panel</span><span class="o">.</span><span class="n">get_root</span><span class="p">(</span><span class="n">doc</span><span class="p">,</span> <span class="n">comm</span><span class="p">)</span>
+        <span class="n">embed_state</span><span class="p">(</span><span class="n">panel</span><span class="p">,</span> <span class="n">model</span><span class="p">,</span> <span class="n">doc</span><span class="p">,</span> <span class="n">max_states</span><span class="p">,</span> <span class="n">max_opts</span><span class="p">,</span>
+                    <span class="n">json</span><span class="p">,</span> <span class="n">json_prefix</span><span class="p">,</span> <span class="n">save_path</span><span class="p">,</span> <span class="n">load_path</span><span class="p">,</span> <span class="n">progress</span><span class="p">,</span>
+                    <span class="n">states</span><span class="p">)</span>
+    <span class="n">publish_display_data</span><span class="p">(</span><span class="o">*</span><span class="n">render_model</span><span class="p">(</span><span class="n">model</span><span class="p">))</span></div>
+
+
+<div class="viewcode-block" id="ipywidget"><a class="viewcode-back" href="../../../api/panel.io.html#panel.io.notebook.ipywidget">[docs]</a><span class="k">def</span> <span class="nf">ipywidget</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="sd">"""</span>
+<span class="sd">    Creates a root model from the Panel object and wraps it in</span>
+<span class="sd">    a jupyter_bokeh ipywidget BokehModel.</span>
+
+<span class="sd">    Arguments</span>
+<span class="sd">    ---------</span>
+<span class="sd">    obj: object</span>
+<span class="sd">      Any Panel object or object which can be rendered with Panel</span>
+<span class="sd">    **kwargs: dict</span>
+<span class="sd">      Keyword arguments passed to the pn.panel utility function</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    Returns an ipywidget model which renders the Panel object.</span>
+<span class="sd">    """</span>
+    <span class="kn">from</span> <span class="nn">jupyter_bokeh</span> <span class="kn">import</span> <span class="n">BokehModel</span>
+    <span class="kn">from</span> <span class="nn">..pane</span> <span class="kn">import</span> <span class="n">panel</span>
+    <span class="n">model</span> <span class="o">=</span> <span class="n">panel</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span><span class="o">.</span><span class="n">get_root</span><span class="p">()</span>
+    <span class="n">widget</span> <span class="o">=</span> <span class="n">BokehModel</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">combine_events</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">widget</span><span class="p">,</span> <span class="s1">'_view_count'</span><span class="p">):</span>
+        <span class="n">widget</span><span class="o">.</span><span class="n">_view_count</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="k">def</span> <span class="nf">view_count_changed</span><span class="p">(</span><span class="n">change</span><span class="p">,</span> <span class="n">current</span><span class="o">=</span><span class="p">[</span><span class="n">model</span><span class="p">]):</span>
+            <span class="n">new_model</span> <span class="o">=</span> <span class="kc">None</span>
+            <span class="k">if</span> <span class="n">change</span><span class="p">[</span><span class="s1">'old'</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="ow">and</span> <span class="n">change</span><span class="p">[</span><span class="s1">'new'</span><span class="p">]</span> <span class="o">==</span> <span class="mi">0</span> <span class="ow">and</span> <span class="n">current</span><span class="p">:</span>
+                <span class="n">obj</span><span class="o">.</span><span class="n">_cleanup</span><span class="p">(</span><span class="n">current</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+                <span class="n">current</span><span class="p">[:]</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="k">elif</span> <span class="p">(</span><span class="n">change</span><span class="p">[</span><span class="s1">'old'</span><span class="p">]</span> <span class="o">==</span> <span class="mi">0</span> <span class="ow">and</span> <span class="n">change</span><span class="p">[</span><span class="s1">'new'</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="ow">and</span>
+                  <span class="p">(</span><span class="ow">not</span> <span class="n">current</span> <span class="ow">or</span> <span class="n">current</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="ow">is</span> <span class="ow">not</span> <span class="n">model</span><span class="p">)):</span>
+                <span class="k">if</span> <span class="n">current</span><span class="p">:</span>
+                    <span class="k">try</span><span class="p">:</span>
+                        <span class="n">obj</span><span class="o">.</span><span class="n">_cleanup</span><span class="p">(</span><span class="n">current</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+                    <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
+                        <span class="k">pass</span>
+                <span class="n">new_model</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="n">get_root</span><span class="p">()</span>
+                <span class="n">widget</span><span class="o">.</span><span class="n">update_from_model</span><span class="p">(</span><span class="n">new_model</span><span class="p">)</span>
+                <span class="n">current</span><span class="p">[:]</span> <span class="o">=</span> <span class="p">[</span><span class="n">new_model</span><span class="p">]</span>
+        <span class="n">widget</span><span class="o">.</span><span class="n">observe</span><span class="p">(</span><span class="n">view_count_changed</span><span class="p">,</span> <span class="s1">'_view_count'</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">widget</span></div>
+</pre></div>
+</div>
+</div>
+<!-- END MAIN BODY OF DOCS ––––––––––––– -->
+<!-- Google Analytics -->
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async="" src="https://www.googletagmanager.com/gtag/js?id=UA-154795830-2"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-154795830-2', { 'anonymize_ip': true });
+</script>
+<!-- MathJax Config -->
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}
+});
+</script>
+<!-- End Document
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+</body>
+</html>

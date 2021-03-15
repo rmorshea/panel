@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<!-- Basic Page Needs
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+<meta charset="utf-8"/>
+<title>panel.io.save — Panel 0.11.1+g238199f-dirty documentation</title>
+<meta content="High-level dashboarding for python visualization libraries" name="description"/>
+<meta content="Panel contributors" name="author"/>
+<!-- Mobile Specific Metas
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<!-- FONT
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+<script src="https://ajax.googleapis.com/ajax/libs/webfont/1.6.16/webfont.js"></script>
+<script>
+    WebFont.load({
+      google: {
+        families: ['Source Sans Pro']
+      }
+    });
+  </script>
+<!-- CSS
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+<link href="../../../_static/css/main.css" rel="stylesheet"/>
+<link href="../../../_static/nbsite.css" rel="stylesheet"/>
+<link href="../../../_static/site.css" rel="stylesheet"/>
+<!-- Scripts
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script async="" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML" type="text/javascript">
+</script>
+<script src="../../../_static/js/main.js"></script>
+<!-- Favicon
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+<link href="../../../_static/favicon.ico" rel="icon" type="image/png"/>
+<!-- Canonical
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+<link href="https://panel.holoviz.org/_modules/panel/io/save.html" rel="canonical">
+</link></head>
+<body class="">
+<header class="navigation">
+<div class="wrapper">
+<a class="logo" href="../../../index.html">
+<img alt="Logo" src="../../../_static/logo_horizontal.png"/>
+</a>
+<a class="navigation-menu-button" href="javascript:void(0)" id="js-mobile-menu">Menu</a>
+<nav>
+<ul class="navigation-menu show" id="js-navigation-menu">
+<li class="nav-link doc-head"><a href="//discourse.holoviz.org">Discourse</a></li>
+<li class="nav-link doc-head"><a href="//twitter.com/Panel_org">Twitter</a></li>
+<li class="nav-link doc-head"><a href="//github.com/pyviz/panel">Github</a></li>
+<li class="nav-link">
+<div style="display:inline-block;vertical-align: middle;">
+<div class="search-bar">
+<form action="../../../search.html" method="get" role="search">
+<input name="q" placeholder="Search" type="search"/>
+<button type="submit">
+<img alt="Search Icon" src="https://raw.githubusercontent.com/thoughtbot/refills/master/source/images/search-icon-black.png"/>
+</button>
+</form>
+</div>
+</div>
+</li>
+</ul>
+</nav>
+</div>
+</header>
+<div class="second-nav">
+<nav>
+<ul class="navigation-menu show">
+<li class="nav-link doc-head"><a href="../../../getting_started/index.html">Getting started</a></li>
+<li class="nav-link doc-head"><a href="../../../user_guide/index.html">User Guide</a></li>
+<li class="nav-link doc-head"><a href="../../../gallery/index.html">Gallery</a></li>
+<li class="nav-link doc-head"><a href="../../../reference/index.html">Reference Gallery</a></li>
+<li class="nav-link doc-head"><a href="../../../developer_guide/index.html">Developer Guide</a></li>
+<li class="nav-link doc-head"><a href="../../../releases.html">Releases</a></li>
+<li class="nav-link doc-head"><a href="../../../api/index.html">API</a></li>
+<li class="nav-link doc-head"><a href="../../../FAQ.html">FAQ</a></li>
+<li class="nav-link doc-head"><a href="../../../about.html">About</a></li>
+</ul>
+</nav>
+</div>
+<!-- MAIN BODY OF DOCS –––––––––––––––––– -->
+<div class="docs section">
+<div id="hacketyhackhack"> <!-- style="width:20%;margin-right: 100px;"> --> <!--style="display: none;"> style="display:none;"> -->
+<div class="toc" style="width:15%; margin-right:20px;">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../index.html">Home</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../getting_started/index.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../user_guide/index.html">User Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../gallery/index.html">Gallery</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../reference/index.html">Reference Gallery</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../developer_guide/index.html">Developer Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/index.html">API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../Comparisons.html">Comparisons</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../releases.html">Releases</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../Roadmap.html">Road Map</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../FAQ.html">FAQ</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://github.com/pyviz/panel">Github source</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../about.html">About</a></li>
+</ul>
+</div>
+</div>
+<div class="content"> <!-- style="max-width:80%;margin-left:auto;margin-right: auto;">-->
+<h1>Source code for panel.io.save</h1><div class="highlight"><pre>
+<span></span><span class="sd">"""</span>
+<span class="sd">Defines utilities to save panel objects to files as HTML or PNG.</span>
+<span class="sd">"""</span>
+<span class="kn">import</span> <span class="nn">io</span>
+
+<span class="kn">from</span> <span class="nn">six</span> <span class="kn">import</span> <span class="n">string_types</span>
+
+<span class="kn">import</span> <span class="nn">bokeh</span>
+
+<span class="kn">from</span> <span class="nn">bokeh.document.document</span> <span class="kn">import</span> <span class="n">Document</span>
+<span class="kn">from</span> <span class="nn">bokeh.embed.bundle</span> <span class="kn">import</span> <span class="n">bundle_for_objs_and_resources</span>
+<span class="kn">from</span> <span class="nn">bokeh.embed.elements</span> <span class="kn">import</span> <span class="n">html_page_for_render_items</span>
+<span class="kn">from</span> <span class="nn">bokeh.embed.util</span> <span class="kn">import</span> <span class="n">OutputDocumentFor</span><span class="p">,</span> <span class="n">standalone_docs_json_and_render_items</span>
+<span class="kn">from</span> <span class="nn">bokeh.io.export</span> <span class="kn">import</span> <span class="n">export_png</span>
+<span class="kn">from</span> <span class="nn">bokeh.model</span> <span class="kn">import</span> <span class="n">Model</span>
+<span class="kn">from</span> <span class="nn">bokeh.resources</span> <span class="kn">import</span> <span class="n">CDN</span><span class="p">,</span> <span class="n">INLINE</span>
+<span class="kn">from</span> <span class="nn">pyviz_comms</span> <span class="kn">import</span> <span class="n">Comm</span>
+
+<span class="kn">from</span> <span class="nn">..config</span> <span class="kn">import</span> <span class="n">config</span>
+<span class="kn">from</span> <span class="nn">.embed</span> <span class="kn">import</span> <span class="n">embed_state</span>
+<span class="kn">from</span> <span class="nn">.model</span> <span class="kn">import</span> <span class="n">add_to_doc</span>
+<span class="kn">from</span> <span class="nn">.resources</span> <span class="kn">import</span> <span class="n">BASE_TEMPLATE</span><span class="p">,</span> <span class="n">DEFAULT_TITLE</span><span class="p">,</span> <span class="n">Bundle</span><span class="p">,</span> <span class="n">Resources</span>
+<span class="kn">from</span> <span class="nn">.state</span> <span class="kn">import</span> <span class="n">state</span>
+
+<span class="c1">#---------------------------------------------------------------------</span>
+<span class="c1"># Private API</span>
+<span class="c1">#---------------------------------------------------------------------</span>
+
+<div class="viewcode-block" id="save_png"><a class="viewcode-back" href="../../../api/panel.io.html#panel.io.save.save_png">[docs]</a><span class="k">def</span> <span class="nf">save_png</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">filename</span><span class="p">,</span> <span class="n">template</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">template_variables</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="sd">"""</span>
+<span class="sd">    Saves a bokeh model to png</span>
+
+<span class="sd">    Arguments</span>
+<span class="sd">    ---------</span>
+<span class="sd">    model: bokeh.model.Model</span>
+<span class="sd">      Model to save to png</span>
+<span class="sd">    filename: str</span>
+<span class="sd">      Filename to save to</span>
+<span class="sd">    template:</span>
+<span class="sd">      template file, as used by bokeh.file_html. If None will use bokeh defaults</span>
+<span class="sd">    template_variables:</span>
+<span class="sd">      template_variables file dict, as used by bokeh.file_html</span>
+<span class="sd">    """</span>
+    <span class="kn">from</span> <span class="nn">bokeh.io.webdriver</span> <span class="kn">import</span> <span class="n">webdriver_control</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">state</span><span class="o">.</span><span class="n">webdriver</span><span class="p">:</span>
+        <span class="n">state</span><span class="o">.</span><span class="n">webdriver</span> <span class="o">=</span> <span class="n">webdriver_control</span><span class="o">.</span><span class="n">create</span><span class="p">()</span>
+
+    <span class="n">webdriver</span> <span class="o">=</span> <span class="n">state</span><span class="o">.</span><span class="n">webdriver</span>
+
+    <span class="k">try</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">template</span><span class="p">:</span>
+            <span class="k">def</span> <span class="nf">get_layout_html</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="n">resources</span><span class="p">,</span> <span class="n">width</span><span class="p">,</span> <span class="n">height</span><span class="p">):</span>
+                <span class="k">return</span> <span class="n">file_html</span><span class="p">(</span>
+                    <span class="n">obj</span><span class="p">,</span> <span class="n">resources</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s2">""</span><span class="p">,</span> <span class="n">template</span><span class="o">=</span><span class="n">template</span><span class="p">,</span>
+                    <span class="n">template_variables</span><span class="o">=</span><span class="n">template_variables</span><span class="p">,</span>
+                    <span class="n">suppress_callback_warning</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">_always_new</span><span class="o">=</span><span class="kc">True</span>
+                <span class="p">)</span>
+            <span class="n">old_layout_fn</span> <span class="o">=</span> <span class="n">bokeh</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">export</span><span class="o">.</span><span class="n">get_layout_html</span>
+            <span class="n">bokeh</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">export</span><span class="o">.</span><span class="n">get_layout_html</span> <span class="o">=</span> <span class="n">get_layout_html</span>
+        <span class="n">export_png</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">filename</span><span class="o">=</span><span class="n">filename</span><span class="p">,</span> <span class="n">webdriver</span><span class="o">=</span><span class="n">webdriver</span><span class="p">)</span>
+    <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
+        <span class="k">raise</span>
+    <span class="k">finally</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">template</span><span class="p">:</span>
+            <span class="n">bokeh</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">export</span><span class="o">.</span><span class="n">get_layout_html</span> <span class="o">=</span> <span class="n">old_layout_fn</span></div>
+
+<span class="k">def</span> <span class="nf">_title_from_models</span><span class="p">(</span><span class="n">models</span><span class="p">,</span> <span class="n">title</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">title</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">title</span>
+
+    <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">models</span><span class="p">:</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">Document</span><span class="p">):</span>
+            <span class="k">return</span> <span class="n">p</span><span class="o">.</span><span class="n">title</span>
+
+    <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">models</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">p</span><span class="o">.</span><span class="n">document</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">p</span><span class="o">.</span><span class="n">document</span><span class="o">.</span><span class="n">title</span>
+
+    <span class="k">return</span> <span class="n">DEFAULT_TITLE</span>
+
+<span class="k">def</span> <span class="nf">file_html</span><span class="p">(</span><span class="n">models</span><span class="p">,</span> <span class="n">resources</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">template</span><span class="o">=</span><span class="n">BASE_TEMPLATE</span><span class="p">,</span>
+              <span class="n">template_variables</span><span class="o">=</span><span class="p">{},</span> <span class="n">theme</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="n">models_seq</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">models</span><span class="p">,</span> <span class="n">Model</span><span class="p">):</span>
+        <span class="n">models_seq</span> <span class="o">=</span> <span class="p">[</span><span class="n">models</span><span class="p">]</span>
+    <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">models</span><span class="p">,</span> <span class="n">Document</span><span class="p">):</span>
+        <span class="n">models_seq</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">roots</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">models_seq</span> <span class="o">=</span> <span class="n">models</span>
+
+    <span class="k">with</span> <span class="n">OutputDocumentFor</span><span class="p">(</span><span class="n">models_seq</span><span class="p">,</span> <span class="n">apply_theme</span><span class="o">=</span><span class="n">theme</span><span class="p">,</span> <span class="n">always_new</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+        <span class="p">(</span><span class="n">docs_json</span><span class="p">,</span> <span class="n">render_items</span><span class="p">)</span> <span class="o">=</span> <span class="n">standalone_docs_json_and_render_items</span><span class="p">(</span>
+            <span class="n">models_seq</span><span class="p">,</span> <span class="n">suppress_callback_warning</span><span class="o">=</span><span class="kc">True</span>
+        <span class="p">)</span>
+        <span class="n">title</span> <span class="o">=</span> <span class="n">_title_from_models</span><span class="p">(</span><span class="n">models_seq</span><span class="p">,</span> <span class="n">title</span><span class="p">)</span>
+        <span class="n">bundle</span> <span class="o">=</span> <span class="n">bundle_for_objs_and_resources</span><span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="n">resources</span><span class="p">)</span>
+        <span class="n">bundle</span> <span class="o">=</span> <span class="n">Bundle</span><span class="o">.</span><span class="n">from_bokeh</span><span class="p">(</span><span class="n">bundle</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">html_page_for_render_items</span><span class="p">(</span>
+            <span class="n">bundle</span><span class="p">,</span> <span class="n">docs_json</span><span class="p">,</span> <span class="n">render_items</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="n">title</span><span class="p">,</span> <span class="n">template</span><span class="o">=</span><span class="n">template</span><span class="p">,</span>
+            <span class="n">template_variables</span><span class="o">=</span><span class="n">template_variables</span>
+        <span class="p">)</span>
+
+<span class="c1">#---------------------------------------------------------------------</span>
+<span class="c1"># Public API</span>
+<span class="c1">#---------------------------------------------------------------------</span>
+
+<div class="viewcode-block" id="save"><a class="viewcode-back" href="../../../api/panel.io.html#panel.io.save.save">[docs]</a><span class="k">def</span> <span class="nf">save</span><span class="p">(</span><span class="n">panel</span><span class="p">,</span> <span class="n">filename</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">resources</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">template</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+         <span class="n">template_variables</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">embed</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">max_states</span><span class="o">=</span><span class="mi">1000</span><span class="p">,</span>
+         <span class="n">max_opts</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">embed_json</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">json_prefix</span><span class="o">=</span><span class="s1">''</span><span class="p">,</span> <span class="n">save_path</span><span class="o">=</span><span class="s1">'./'</span><span class="p">,</span>
+         <span class="n">load_path</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">progress</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">embed_states</span><span class="o">=</span><span class="p">{}):</span>
+    <span class="sd">"""</span>
+<span class="sd">    Saves Panel objects to file.</span>
+
+<span class="sd">    Arguments</span>
+<span class="sd">    ---------</span>
+<span class="sd">    panel: Viewable</span>
+<span class="sd">      The Panel Viewable to save to file</span>
+<span class="sd">    filename: string or file-like object</span>
+<span class="sd">      Filename to save the plot to</span>
+<span class="sd">    title: string</span>
+<span class="sd">      Optional title for the plot</span>
+<span class="sd">    resources: bokeh resources</span>
+<span class="sd">      One of the valid bokeh.resources (e.g. CDN or INLINE)</span>
+<span class="sd">    template:</span>
+<span class="sd">      template file, as used by bokeh.file_html. If None will use bokeh defaults</span>
+<span class="sd">    template_variables:</span>
+<span class="sd">      template_variables file dict, as used by bokeh.file_html</span>
+<span class="sd">    embed: bool</span>
+<span class="sd">      Whether the state space should be embedded in the saved file.</span>
+<span class="sd">    max_states: int</span>
+<span class="sd">      The maximum number of states to embed</span>
+<span class="sd">    max_opts: int</span>
+<span class="sd">      The maximum number of states for a single widget</span>
+<span class="sd">    embed_json: boolean (default=True)</span>
+<span class="sd">      Whether to export the data to json files</span>
+<span class="sd">    json_prefix: str (default='')</span>
+<span class="sd">      Prefix for the randomly json directory</span>
+<span class="sd">    save_path: str (default='./')</span>
+<span class="sd">      The path to save json files to</span>
+<span class="sd">    load_path: str (default=None)</span>
+<span class="sd">      The path or URL the json files will be loaded from.</span>
+<span class="sd">    progress: boolean (default=True)</span>
+<span class="sd">      Whether to report progress</span>
+<span class="sd">    embed_states: dict (default={})</span>
+<span class="sd">      A dictionary specifying the widget values to embed for each widget</span>
+<span class="sd">    """</span>
+    <span class="kn">from</span> <span class="nn">..pane</span> <span class="kn">import</span> <span class="n">PaneBase</span>
+    <span class="kn">from</span> <span class="nn">..template</span> <span class="kn">import</span> <span class="n">Template</span>
+
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">panel</span><span class="p">,</span> <span class="n">PaneBase</span><span class="p">)</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">panel</span><span class="o">.</span><span class="n">layout</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="n">panel</span> <span class="o">=</span> <span class="n">panel</span><span class="o">.</span><span class="n">layout</span>
+
+    <span class="n">as_png</span> <span class="o">=</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="n">string_types</span><span class="p">)</span> <span class="ow">and</span> <span class="n">filename</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s1">'png'</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">panel</span><span class="p">,</span> <span class="n">Document</span><span class="p">):</span>
+        <span class="n">doc</span> <span class="o">=</span> <span class="n">panel</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">doc</span> <span class="o">=</span> <span class="n">Document</span><span class="p">()</span>
+
+    <span class="n">comm</span> <span class="o">=</span> <span class="n">Comm</span><span class="p">()</span>
+    <span class="k">with</span> <span class="n">config</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">embed</span><span class="o">=</span><span class="n">embed</span><span class="p">):</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">panel</span><span class="p">,</span> <span class="n">Document</span><span class="p">):</span>
+            <span class="n">model</span> <span class="o">=</span> <span class="n">panel</span>
+        <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">panel</span><span class="p">,</span> <span class="n">Template</span><span class="p">):</span>
+            <span class="n">panel</span><span class="o">.</span><span class="n">_init_doc</span><span class="p">(</span><span class="n">doc</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="n">title</span><span class="p">)</span>
+            <span class="n">model</span> <span class="o">=</span> <span class="n">doc</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">model</span> <span class="o">=</span> <span class="n">panel</span><span class="o">.</span><span class="n">get_root</span><span class="p">(</span><span class="n">doc</span><span class="p">,</span> <span class="n">comm</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">embed</span><span class="p">:</span>
+                <span class="n">embed_state</span><span class="p">(</span>
+                    <span class="n">panel</span><span class="p">,</span> <span class="n">model</span><span class="p">,</span> <span class="n">doc</span><span class="p">,</span> <span class="n">max_states</span><span class="p">,</span> <span class="n">max_opts</span><span class="p">,</span> <span class="n">embed_json</span><span class="p">,</span>
+                    <span class="n">json_prefix</span><span class="p">,</span> <span class="n">save_path</span><span class="p">,</span> <span class="n">load_path</span><span class="p">,</span> <span class="n">progress</span><span class="p">,</span> <span class="n">embed_states</span>
+                <span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">add_to_doc</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">doc</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">as_png</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">save_png</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">filename</span><span class="o">=</span><span class="n">filename</span><span class="p">,</span> <span class="n">template</span><span class="o">=</span><span class="n">template</span><span class="p">,</span>
+                        <span class="n">template_variables</span><span class="o">=</span><span class="n">template_variables</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="n">string_types</span><span class="p">)</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">filename</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s1">'.html'</span><span class="p">):</span>
+        <span class="n">filename</span> <span class="o">=</span> <span class="n">filename</span> <span class="o">+</span> <span class="s1">'.html'</span>
+
+    <span class="n">kwargs</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="k">if</span> <span class="n">title</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">title</span> <span class="o">=</span> <span class="s1">'Panel'</span>
+    <span class="k">if</span> <span class="n">resources</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">resources</span> <span class="o">=</span> <span class="n">CDN</span>
+    <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">resources</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">resources</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="o">==</span> <span class="s1">'cdn'</span><span class="p">:</span>
+            <span class="n">resources</span> <span class="o">=</span> <span class="n">CDN</span>
+        <span class="k">elif</span> <span class="n">resources</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="o">==</span> <span class="s1">'inline'</span><span class="p">:</span>
+            <span class="n">resources</span> <span class="o">=</span> <span class="n">INLINE</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">"Resources </span><span class="si">%r</span><span class="s2"> not recognized, specify one "</span>
+                             <span class="s2">"of 'CDN' or 'INLINE'."</span> <span class="o">%</span> <span class="n">resources</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">template</span><span class="p">:</span>
+        <span class="n">kwargs</span><span class="p">[</span><span class="s1">'template'</span><span class="p">]</span> <span class="o">=</span> <span class="n">template</span>
+    <span class="k">if</span> <span class="n">template_variables</span><span class="p">:</span>
+        <span class="n">kwargs</span><span class="p">[</span><span class="s1">'template_variables'</span><span class="p">]</span> <span class="o">=</span> <span class="n">template_variables</span>
+
+    <span class="n">resources</span> <span class="o">=</span> <span class="n">Resources</span><span class="o">.</span><span class="n">from_bokeh</span><span class="p">(</span><span class="n">resources</span><span class="p">)</span>
+
+    <span class="n">html</span> <span class="o">=</span> <span class="n">file_html</span><span class="p">(</span><span class="n">doc</span><span class="p">,</span> <span class="n">resources</span><span class="p">,</span> <span class="n">title</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+    <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="s1">'write'</span><span class="p">):</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="n">io</span><span class="o">.</span><span class="n">BytesIO</span><span class="p">):</span>
+            <span class="n">html</span> <span class="o">=</span> <span class="n">html</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s1">'utf-8'</span><span class="p">)</span>
+        <span class="n">filename</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">html</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">with</span> <span class="n">io</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s2">"w"</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s2">"utf-8"</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+            <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">html</span><span class="p">)</span></div>
+</pre></div>
+</div>
+</div>
+<!-- END MAIN BODY OF DOCS ––––––––––––– -->
+<!-- Google Analytics -->
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async="" src="https://www.googletagmanager.com/gtag/js?id=UA-154795830-2"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-154795830-2', { 'anonymize_ip': true });
+</script>
+<!-- MathJax Config -->
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}
+});
+</script>
+<!-- End Document
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+</body>
+</html>

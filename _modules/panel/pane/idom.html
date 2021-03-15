@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<!-- Basic Page Needs
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+<meta charset="utf-8"/>
+<title>panel.pane.idom — Panel 0.11.1+g238199f-dirty documentation</title>
+<meta content="High-level dashboarding for python visualization libraries" name="description"/>
+<meta content="Panel contributors" name="author"/>
+<!-- Mobile Specific Metas
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<!-- FONT
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+<script src="https://ajax.googleapis.com/ajax/libs/webfont/1.6.16/webfont.js"></script>
+<script>
+    WebFont.load({
+      google: {
+        families: ['Source Sans Pro']
+      }
+    });
+  </script>
+<!-- CSS
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+<link href="../../../_static/css/main.css" rel="stylesheet"/>
+<link href="../../../_static/nbsite.css" rel="stylesheet"/>
+<link href="../../../_static/site.css" rel="stylesheet"/>
+<!-- Scripts
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script async="" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML" type="text/javascript">
+</script>
+<script src="../../../_static/js/main.js"></script>
+<!-- Favicon
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+<link href="../../../_static/favicon.ico" rel="icon" type="image/png"/>
+<!-- Canonical
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+<link href="https://panel.holoviz.org/_modules/panel/pane/idom.html" rel="canonical">
+</link></head>
+<body class="">
+<header class="navigation">
+<div class="wrapper">
+<a class="logo" href="../../../index.html">
+<img alt="Logo" src="../../../_static/logo_horizontal.png"/>
+</a>
+<a class="navigation-menu-button" href="javascript:void(0)" id="js-mobile-menu">Menu</a>
+<nav>
+<ul class="navigation-menu show" id="js-navigation-menu">
+<li class="nav-link doc-head"><a href="//discourse.holoviz.org">Discourse</a></li>
+<li class="nav-link doc-head"><a href="//twitter.com/Panel_org">Twitter</a></li>
+<li class="nav-link doc-head"><a href="//github.com/pyviz/panel">Github</a></li>
+<li class="nav-link">
+<div style="display:inline-block;vertical-align: middle;">
+<div class="search-bar">
+<form action="../../../search.html" method="get" role="search">
+<input name="q" placeholder="Search" type="search"/>
+<button type="submit">
+<img alt="Search Icon" src="https://raw.githubusercontent.com/thoughtbot/refills/master/source/images/search-icon-black.png"/>
+</button>
+</form>
+</div>
+</div>
+</li>
+</ul>
+</nav>
+</div>
+</header>
+<div class="second-nav">
+<nav>
+<ul class="navigation-menu show">
+<li class="nav-link doc-head"><a href="../../../getting_started/index.html">Getting started</a></li>
+<li class="nav-link doc-head"><a href="../../../user_guide/index.html">User Guide</a></li>
+<li class="nav-link doc-head"><a href="../../../gallery/index.html">Gallery</a></li>
+<li class="nav-link doc-head"><a href="../../../reference/index.html">Reference Gallery</a></li>
+<li class="nav-link doc-head"><a href="../../../developer_guide/index.html">Developer Guide</a></li>
+<li class="nav-link doc-head"><a href="../../../releases.html">Releases</a></li>
+<li class="nav-link doc-head"><a href="../../../api/index.html">API</a></li>
+<li class="nav-link doc-head"><a href="../../../FAQ.html">FAQ</a></li>
+<li class="nav-link doc-head"><a href="../../../about.html">About</a></li>
+</ul>
+</nav>
+</div>
+<!-- MAIN BODY OF DOCS –––––––––––––––––– -->
+<div class="docs section">
+<div id="hacketyhackhack"> <!-- style="width:20%;margin-right: 100px;"> --> <!--style="display: none;"> style="display:none;"> -->
+<div class="toc" style="width:15%; margin-right:20px;">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../index.html">Home</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../getting_started/index.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../user_guide/index.html">User Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../gallery/index.html">Gallery</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../reference/index.html">Reference Gallery</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../developer_guide/index.html">Developer Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/index.html">API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../Comparisons.html">Comparisons</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../releases.html">Releases</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../Roadmap.html">Road Map</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../FAQ.html">FAQ</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://github.com/pyviz/panel">Github source</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../about.html">About</a></li>
+</ul>
+</div>
+</div>
+<div class="content"> <!-- style="max-width:80%;margin-left:auto;margin-right: auto;">-->
+<h1>Source code for panel.pane.idom</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">sys</span>
+<span class="kn">import</span> <span class="nn">asyncio</span>
+
+<span class="kn">from</span> <span class="nn">functools</span> <span class="kn">import</span> <span class="n">partial</span>
+<span class="kn">from</span> <span class="nn">threading</span> <span class="kn">import</span> <span class="n">Thread</span>
+<span class="kn">from</span> <span class="nn">queue</span> <span class="kn">import</span> <span class="n">Queue</span> <span class="k">as</span> <span class="n">SyncQueue</span>
+
+<span class="kn">from</span> <span class="nn">..io.notebook</span> <span class="kn">import</span> <span class="n">push_on_root</span>
+<span class="kn">from</span> <span class="nn">..io.resources</span> <span class="kn">import</span> <span class="n">DIST_DIR</span><span class="p">,</span> <span class="n">LOCAL_DIST</span>
+<span class="kn">from</span> <span class="nn">..io.state</span> <span class="kn">import</span> <span class="n">state</span>
+<span class="kn">from</span> <span class="nn">..models</span> <span class="kn">import</span> <span class="n">IDOM</span> <span class="k">as</span> <span class="n">_BkIDOM</span>
+<span class="kn">from</span> <span class="nn">.base</span> <span class="kn">import</span> <span class="n">PaneBase</span>
+
+
+<span class="k">def</span> <span class="nf">_spawn_threaded_event_loop</span><span class="p">(</span><span class="n">coro</span><span class="p">):</span>
+    <span class="n">loop_q</span> <span class="o">=</span> <span class="n">SyncQueue</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="nf">run_in_thread</span><span class="p">():</span>
+        <span class="n">loop</span> <span class="o">=</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">new_event_loop</span><span class="p">()</span>
+        <span class="n">asyncio</span><span class="o">.</span><span class="n">set_event_loop</span><span class="p">(</span><span class="n">loop</span><span class="p">)</span>
+        <span class="n">loop_q</span><span class="o">.</span><span class="n">put</span><span class="p">(</span><span class="n">loop</span><span class="p">)</span>
+        <span class="n">loop</span><span class="o">.</span><span class="n">run_until_complete</span><span class="p">(</span><span class="n">coro</span><span class="p">)</span>
+
+    <span class="n">thread</span> <span class="o">=</span> <span class="n">Thread</span><span class="p">(</span><span class="n">target</span><span class="o">=</span><span class="n">run_in_thread</span><span class="p">,</span> <span class="n">daemon</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">thread</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
+
+    <span class="k">return</span> <span class="n">loop_q</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>
+
+
+<div class="viewcode-block" id="IDOM"><a class="viewcode-back" href="../../../api/panel.pane.html#panel.pane.idom.IDOM">[docs]</a><span class="k">class</span> <span class="nc">IDOM</span><span class="p">(</span><span class="n">PaneBase</span><span class="p">):</span>
+
+    <span class="n">priority</span> <span class="o">=</span> <span class="kc">None</span>
+
+    <span class="n">_updates</span> <span class="o">=</span> <span class="kc">True</span>
+
+    <span class="n">_unpack</span> <span class="o">=</span> <span class="kc">True</span>
+
+    <span class="n">_bokeh_model</span> <span class="o">=</span> <span class="n">_BkIDOM</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">object</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">params</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="nb">object</span><span class="p">,</span> <span class="o">**</span><span class="n">params</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_idom_loop</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_idom_model</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">param</span><span class="o">.</span><span class="n">watch</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_update_layout</span><span class="p">,</span> <span class="s1">'object'</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">_update_layout</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_idom_model</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_idom_loop</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">return</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_setup</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="nf">_setup</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">object</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">return</span>
+        <span class="kn">from</span> <span class="nn">idom.core.component</span> <span class="kn">import</span> <span class="n">Component</span>
+        <span class="kn">from</span> <span class="nn">idom.core.layout</span> <span class="kn">import</span> <span class="n">Layout</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">object</span><span class="p">,</span> <span class="n">Layout</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_idom_layout</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">object</span>
+        <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">object</span><span class="p">,</span> <span class="n">Component</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_idom_layout</span> <span class="o">=</span> <span class="n">Layout</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">object</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_idom_layout</span> <span class="o">=</span> <span class="n">Layout</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">object</span><span class="p">())</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_idom_loop</span> <span class="o">=</span> <span class="n">_spawn_threaded_event_loop</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_idom_layout_render_loop</span><span class="p">())</span>
+
+    <span class="k">def</span> <span class="nf">_get_model</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">doc</span><span class="p">,</span> <span class="n">root</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">parent</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">comm</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="kn">from</span> <span class="nn">idom.core.layout</span> <span class="kn">import</span> <span class="n">LayoutUpdate</span>
+        <span class="k">if</span> <span class="n">comm</span><span class="p">:</span>
+            <span class="n">url</span> <span class="o">=</span> <span class="s1">'/panel_dist/idom/build/web_modules'</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">url</span> <span class="o">=</span> <span class="s1">'/'</span><span class="o">+</span><span class="n">LOCAL_DIST</span><span class="o">+</span><span class="s1">'idom/build/web_modules'</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_idom_loop</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_setup</span><span class="p">()</span>
+
+        <span class="n">update</span> <span class="o">=</span> <span class="n">LayoutUpdate</span><span class="o">.</span><span class="n">create_from</span><span class="p">({},</span> <span class="bp">self</span><span class="o">.</span><span class="n">_idom_model</span><span class="p">)</span>
+        <span class="n">props</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_init_params</span><span class="p">()</span>
+        <span class="n">model</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_bokeh_model</span><span class="p">(</span>
+            <span class="n">event</span><span class="o">=</span><span class="p">[</span><span class="n">update</span><span class="o">.</span><span class="n">path</span><span class="p">,</span> <span class="n">update</span><span class="o">.</span><span class="n">changes</span><span class="p">],</span> <span class="n">importSourceUrl</span><span class="o">=</span><span class="n">url</span><span class="p">,</span> <span class="o">**</span><span class="n">props</span>
+        <span class="p">)</span>
+        <span class="k">if</span> <span class="n">root</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">root</span> <span class="o">=</span> <span class="n">model</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_link_props</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="p">[</span><span class="s1">'msg'</span><span class="p">],</span> <span class="n">doc</span><span class="p">,</span> <span class="n">root</span><span class="p">,</span> <span class="n">comm</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">root</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">root</span> <span class="o">=</span> <span class="n">model</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_models</span><span class="p">[</span><span class="n">root</span><span class="o">.</span><span class="n">ref</span><span class="p">[</span><span class="s1">'id'</span><span class="p">]]</span> <span class="o">=</span> <span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">parent</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">model</span>
+
+    <span class="k">def</span> <span class="nf">_cleanup</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">root</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">_cleanup</span><span class="p">(</span><span class="n">root</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_models</span><span class="p">:</span>
+            <span class="c1"># Clean up loop when no views are shown</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_idom_loop</span><span class="o">.</span><span class="n">stop</span><span class="p">()</span>
+            <span class="k">finally</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_idom_loop</span> <span class="o">=</span> <span class="kc">None</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_idom_layout</span> <span class="o">=</span> <span class="kc">None</span>
+
+    <span class="k">def</span> <span class="nf">_process_property_change</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">msg</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">msg</span><span class="p">[</span><span class="s1">'msg'</span><span class="p">]</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">return</span> <span class="p">{}</span>
+        <span class="kn">from</span> <span class="nn">idom.core.layout</span> <span class="kn">import</span> <span class="n">LayoutEvent</span>
+        <span class="n">dispatch</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_idom_layout</span><span class="o">.</span><span class="n">dispatch</span><span class="p">(</span><span class="n">LayoutEvent</span><span class="p">(</span><span class="o">**</span><span class="n">msg</span><span class="p">[</span><span class="s1">'msg'</span><span class="p">]))</span>
+        <span class="n">asyncio</span><span class="o">.</span><span class="n">run_coroutine_threadsafe</span><span class="p">(</span><span class="n">dispatch</span><span class="p">,</span> <span class="n">loop</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_idom_loop</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">ref</span><span class="p">,</span> <span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">_</span><span class="p">)</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_models</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="n">m</span><span class="o">.</span><span class="n">msg</span> <span class="o">=</span> <span class="kc">None</span>
+            <span class="n">push_on_root</span><span class="p">(</span><span class="n">ref</span><span class="p">)</span>
+        <span class="k">return</span> <span class="p">{}</span>
+
+    <span class="k">async</span> <span class="k">def</span> <span class="nf">_idom_layout_render_loop</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">async</span> <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">_idom_layout</span><span class="p">:</span>
+            <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+                <span class="n">update</span> <span class="o">=</span> <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">_idom_layout</span><span class="o">.</span><span class="n">render</span><span class="p">()</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_idom_model</span> <span class="o">=</span> <span class="n">update</span><span class="o">.</span><span class="n">apply_to</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_idom_model</span><span class="p">)</span>
+                <span class="k">for</span> <span class="n">ref</span><span class="p">,</span> <span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">_</span><span class="p">)</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_models</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+                    <span class="n">doc</span> <span class="o">=</span> <span class="n">state</span><span class="o">.</span><span class="n">_views</span><span class="p">[</span><span class="n">ref</span><span class="p">][</span><span class="mi">2</span><span class="p">]</span>
+                    <span class="k">if</span> <span class="n">doc</span><span class="o">.</span><span class="n">session_context</span><span class="p">:</span>
+                        <span class="n">doc</span><span class="o">.</span><span class="n">add_next_tick_callback</span><span class="p">(</span><span class="n">partial</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">update</span><span class="p">,</span> <span class="n">event</span><span class="o">=</span><span class="n">update</span><span class="p">))</span>
+                    <span class="k">else</span><span class="p">:</span>
+                        <span class="n">model</span><span class="o">.</span><span class="n">event</span> <span class="o">=</span> <span class="n">update</span>
+                        <span class="n">push_on_root</span><span class="p">(</span><span class="n">ref</span><span class="p">)</span>
+
+<div class="viewcode-block" id="IDOM.applies"><a class="viewcode-back" href="../../../api/panel.pane.html#panel.pane.idom.IDOM.applies">[docs]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">applies</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">object</span><span class="p">):</span>
+        <span class="kn">from</span> <span class="nn">idom.core.component</span> <span class="kn">import</span> <span class="n">Component</span>
+        <span class="kn">from</span> <span class="nn">idom.core.layout</span> <span class="kn">import</span> <span class="n">Layout</span>
+        <span class="k">if</span> <span class="s1">'idom'</span> <span class="ow">in</span> <span class="n">sys</span><span class="o">.</span><span class="n">modules</span><span class="p">:</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="nb">object</span><span class="p">,</span> <span class="p">(</span><span class="n">Component</span><span class="p">,</span> <span class="n">Layout</span><span class="p">)):</span>
+                <span class="k">return</span> <span class="mf">0.8</span>
+            <span class="k">elif</span> <span class="n">callable</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+                <span class="k">return</span> <span class="kc">None</span>
+        <span class="k">return</span> <span class="kc">False</span></div>
+
+<div class="viewcode-block" id="IDOM.install"><a class="viewcode-back" href="../../../api/panel.pane.html#panel.pane.idom.IDOM.install">[docs]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">install</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">packages</span><span class="p">,</span> <span class="n">ignore_installed</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">fallback</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="sd">"""</span>
+<span class="sd">        Installs specified packages into application directory.</span>
+
+<span class="sd">        Arguments</span>
+<span class="sd">        ---------</span>
+<span class="sd">        packages: list or tuple</span>
+<span class="sd">          The packages to install from npm</span>
+<span class="sd">        ignored_installed: boolean</span>
+<span class="sd">          Whether to ignore if the package was previously installed.</span>
+<span class="sd">        fallback: str or idom.component</span>
+<span class="sd">          The fallback to display while the component is loading</span>
+<span class="sd">        """</span>
+        <span class="kn">import</span> <span class="nn">idom</span>
+        <span class="kn">import</span> <span class="nn">idom.client.manage</span>
+        <span class="n">idom</span><span class="o">.</span><span class="n">client</span><span class="o">.</span><span class="n">manage</span><span class="o">.</span><span class="n">APP_DIR</span> <span class="o">=</span> <span class="n">DIST_DIR</span> <span class="o">/</span> <span class="s1">'idom'</span>
+        <span class="n">idom</span><span class="o">.</span><span class="n">client</span><span class="o">.</span><span class="n">manage</span><span class="o">.</span><span class="n">BUILD_DIR</span> <span class="o">=</span> <span class="n">DIST_DIR</span> <span class="o">/</span> <span class="s1">'idom'</span> <span class="o">/</span> <span class="s1">'build'</span>
+        <span class="n">idom</span><span class="o">.</span><span class="n">client</span><span class="o">.</span><span class="n">manage</span><span class="o">.</span><span class="n">WEB_MODULES_DIR</span> <span class="o">=</span> <span class="n">DIST_DIR</span> <span class="o">/</span> <span class="s1">'idom'</span> <span class="o">/</span> <span class="s1">'build'</span> <span class="o">/</span> <span class="s1">'web_modules'</span>
+        <span class="k">return</span> <span class="n">idom</span><span class="o">.</span><span class="n">install</span><span class="p">(</span><span class="n">packages</span><span class="p">,</span> <span class="n">ignore_installed</span><span class="p">,</span> <span class="n">fallback</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="IDOM.use_param"><a class="viewcode-back" href="../../../api/panel.pane.html#panel.pane.idom.IDOM.use_param">[docs]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">use_param</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">parameter</span><span class="p">):</span>
+        <span class="sd">"""</span>
+<span class="sd">        Links parameter to some IDOM state value and returns the linked</span>
+<span class="sd">        value.</span>
+
+<span class="sd">        Arguments</span>
+<span class="sd">        ---------</span>
+<span class="sd">        parameter: param.Parameter</span>
+<span class="sd">          The parameter to link to a idom state value.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        An idom state value which is updated when the parameter changes.</span>
+<span class="sd">        """</span>
+        <span class="kn">import</span> <span class="nn">idom</span>
+        <span class="kn">from</span> <span class="nn">..depends</span> <span class="kn">import</span> <span class="n">param_value_if_widget</span>
+        <span class="n">parameter</span> <span class="o">=</span> <span class="n">param_value_if_widget</span><span class="p">(</span><span class="n">parameter</span><span class="p">)</span>
+        <span class="n">initial</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">parameter</span><span class="o">.</span><span class="n">owner</span><span class="p">,</span> <span class="n">parameter</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
+        <span class="n">value</span><span class="p">,</span> <span class="n">set_value</span> <span class="o">=</span> <span class="n">idom</span><span class="o">.</span><span class="n">hooks</span><span class="o">.</span><span class="n">use_state</span><span class="p">(</span><span class="n">initial</span><span class="p">)</span>
+        <span class="k">def</span> <span class="nf">update</span><span class="p">(</span><span class="n">event</span><span class="p">):</span>
+            <span class="n">set_value</span><span class="p">(</span><span class="n">event</span><span class="o">.</span><span class="n">new</span><span class="p">)</span>
+        <span class="n">parameter</span><span class="o">.</span><span class="n">owner</span><span class="o">.</span><span class="n">param</span><span class="o">.</span><span class="n">watch</span><span class="p">(</span><span class="n">update</span><span class="p">,</span> <span class="n">parameter</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">value</span></div></div>
+</pre></div>
+</div>
+</div>
+<!-- END MAIN BODY OF DOCS ––––––––––––– -->
+<!-- Google Analytics -->
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async="" src="https://www.googletagmanager.com/gtag/js?id=UA-154795830-2"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-154795830-2', { 'anonymize_ip': true });
+</script>
+<!-- MathJax Config -->
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}
+});
+</script>
+<!-- End Document
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+</body>
+</html>

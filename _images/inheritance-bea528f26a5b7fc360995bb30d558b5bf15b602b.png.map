@@ -1,0 +1,13 @@
+<map id="inheritance2a2e702f25" name="inheritance2a2e702f25">
+<area shape="rect" id="node1" href="#panel.layout.spacer.Divider" target="_top" title="A Divider line" alt="" coords="798,4,952,24"/>
+<area shape="rect" id="node2" href="panel.reactive.html#panel.reactive.Reactive" target="_top" title="Reactive is a Viewable object that also supports syncing between" alt="" coords="626,24,761,43"/>
+<area shape="rect" id="node4" href="#panel.layout.spacer.Spacer" target="_top" title="Empty object used to control formatting (using positive or negative space)" alt="" coords="799,42,951,62"/>
+<area shape="rect" id="node3" href="#panel.layout.spacer.HSpacer" target="_top" title="Spacer which automatically fills all available horizontal space." alt="" coords="989,23,1148,42"/>
+<area shape="rect" id="node5" href="#panel.layout.spacer.VSpacer" target="_top" title="Spacer which automatically fills all available vertical space." alt="" coords="989,61,1148,80"/>
+<area shape="rect" id="node6" href="panel.reactive.html#panel.reactive.Syncable" target="_top" title="Syncable is an extension of the Renderable object which can not" alt="" coords="449,4,587,24"/>
+<area shape="rect" id="node7" href="panel.viewable.html#panel.viewable.Viewable" target="_top" title="Viewable is the baseclass all visual components in the panel" alt="" coords="447,42,589,62"/>
+<area shape="rect" id="node8" href="panel.viewable.html#panel.viewable.Renderable" target="_top" title="Baseclass for objects which can be rendered to a Bokeh model." alt="" coords="249,4,402,24"/>
+<area shape="rect" id="node9" href="panel.viewable.html#panel.viewable.Layoutable" target="_top" title="Layoutable defines shared style and layout related parameters" alt="" coords="250,42,402,62"/>
+<area shape="rect" id="node10" title="params(name=String)" alt="" coords="4,24,205,43"/>
+<area shape="rect" id="node11" href="panel.viewable.html#panel.viewable.ServableMixin" target="_top" title="Mixin to define methods shared by objects which can served." alt="" coords="242,80,410,100"/>
+</map>

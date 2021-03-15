@@ -1,0 +1,12 @@
+<map id="inheritancebc36a75609" name="inheritancebc36a75609">
+<area shape="rect" id="node1" href="#panel.pane.base.PaneBase" target="_top" title="PaneBase is the abstract baseclass for all atomic displayable units" alt="" coords="665,20,790,36"/>
+<area shape="rect" id="node4" href="#panel.pane.ipywidget.IPyWidget" target="_top" title="panel.pane.ipywidget.IPyWidget" alt="" coords="821,20,970,36"/>
+<area shape="rect" id="node2" href="panel.reactive.html#panel.reactive.Reactive" target="_top" title="Reactive is a Viewable object that also supports syncing between" alt="" coords="522,20,634,36"/>
+<area shape="rect" id="node3" href="#panel.pane.ipywidget.IPyLeaflet" target="_top" title="panel.pane.ipywidget.IPyLeaflet" alt="" coords="1001,20,1149,36"/>
+<area shape="rect" id="node5" href="panel.reactive.html#panel.reactive.Syncable" target="_top" title="Syncable is an extension of the Renderable object which can not" alt="" coords="374,3,489,20"/>
+<area shape="rect" id="node6" href="panel.viewable.html#panel.viewable.Viewable" target="_top" title="Viewable is the baseclass all visual components in the panel" alt="" coords="372,35,491,51"/>
+<area shape="rect" id="node7" href="panel.viewable.html#panel.viewable.Renderable" target="_top" title="Baseclass for objects which can be rendered to a Bokeh model." alt="" coords="208,3,335,20"/>
+<area shape="rect" id="node8" href="panel.viewable.html#panel.viewable.Layoutable" target="_top" title="Layoutable defines shared style and layout related parameters" alt="" coords="208,35,335,51"/>
+<area shape="rect" id="node9" title="params(name=String)" alt="" coords="3,20,171,36"/>
+<area shape="rect" id="node10" href="panel.viewable.html#panel.viewable.ServableMixin" target="_top" title="Mixin to define methods shared by objects which can served." alt="" coords="202,67,341,83"/>
+</map>
