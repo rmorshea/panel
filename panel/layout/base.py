@@ -394,7 +394,7 @@ class NamedListPanel(ListPanel):
                 raise ValueError('%s objects should be supplied either '
                                  'as positional arguments or as a keyword, '
                                  'not both.' % type(self).__name__)
-            items = params['objects']
+            items = params.pop('objects')
         objects, self._names = self._to_objects_and_names(items)
         super().__init__(*objects, **params)
         self._panels = defaultdict(dict)
