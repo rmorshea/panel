@@ -14,8 +14,20 @@ from ..models import IDOM as _BkIDOM
 from .base import PaneBase
 
 
-_IDOM_MIN_VER = "0.23"
-_IDOM_MAX_VER = "0.24"
+_IDOM_MIN_VER = "0.35"
+_IDOM_MAX_VER = "0.36"
+
+
+try:
+    # all IDOM imports belong here so we can gracefully respond if it's not installed
+    import idom
+    from idom.config import IDOM_WED_MODULES_DIR
+    from idom.core.component import ComponentType
+    from idom.core.layout import Layout, LayoutUpdate, LayoutEvent
+    from idom.core.dispatcher import VdomJsonPatch
+except ImportError:
+    # we check these imports succeeded in IDOM.__init__
+    pass
 
 
 def _spawn_threaded_event_loop(coro):
@@ -30,7 +42,7 @@ def _spawn_threaded_event_loop(coro):
     thread = Thread(target=run_in_thread, daemon=True)
     thread.start()
 
-    return loop_q.get()
+    return thread, loop_q.get()
 
 
 class IDOM(PaneBase):
@@ -44,13 +56,29 @@ class IDOM(PaneBase):
     _bokeh_model = _BkIDOM
 
     def __init__(self, object=None, **params):
-        from idom import __version__ as idom_version
-        if Version(_IDOM_MIN_VER) > Version(idom_version) >= Version(_IDOM_MAX_VER):
+        try:
+            idom
+        except NameError:
             raise RuntimeError(
-                f"Expected idom>={_IDOM_MIN_VER},<{_IDOM_MAX_VER}, but found {idom_version}"
+                "'idom' is not installed - run "
+                """'pip install "idom>={_IDOM_MIN_VER},<{_IDOM_MAX_VER}"' """
+                "and try again"
             )
+
+        if Version(_IDOM_MIN_VER) > Version(idom.__version__) >= Version(_IDOM_MAX_VER):
+            raise RuntimeError(
+                f"Expected idom>={_IDOM_MIN_VER},<{_IDOM_MAX_VER}, but found {idom.__version__}"
+            )
+
+        new_web_modules_dir = DIST_DIR / "idom"
+        if new_web_modules_dir.exists():
+            shutil.rmtree(str(new_web_modules_dir))
+        shutil.copytree(str(IDOM_WED_MODULES_DIR.current), str(new_web_modules_dir))
+        IDOM_WED_MODULES_DIR.current = new_web_modules_dir
+
         super().__init__(object, **params)
-        self._idom_loop = None
+        self._idom_thread: Thread = None
+        self._idom_loop: asyncio.AbstractEventLoop = None
         self._idom_model = {}
         self.param.watch(self._update_layout, 'object')
 
@@ -63,32 +91,26 @@ class IDOM(PaneBase):
     def _setup(self):
         if self.object is None:
             return
-        from idom.core.component import Component
-        from idom.core.layout import Layout
         if isinstance(self.object, Layout):
             self._idom_layout = self.object
-        elif isinstance(self.object, Component):
+        elif isinstance(self.object, ComponentType):
             self._idom_layout = Layout(self.object)
         else:
             self._idom_layout = Layout(self.object())
-        self._idom_loop = _spawn_threaded_event_loop(self._idom_layout_render_loop())
+        self._idom_thread, self._idom_loop = _spawn_threaded_event_loop(
+            self._idom_layout_render_loop()
+        )
 
     def _get_model(self, doc, root=None, parent=None, comm=None):
-        from idom.core.layout import LayoutUpdate
-        from idom.config import IDOM_CLIENT_IMPORT_SOURCE_URL
-
-        # let the client determine import source location
-        IDOM_CLIENT_IMPORT_SOURCE_URL.set("./")
-
         if comm:
-            url = '/panel_dist/idom/build'
+            url = '/panel_dist/idom'
         else:
-            url = '/'+LOCAL_DIST+'idom/build'
+            url = '/'+LOCAL_DIST+'idom'
 
         if self._idom_loop is None:
             self._setup()
 
-        update = LayoutUpdate.create_from({}, self._idom_model)
+        update = VdomJsonPatch.create_from(LayoutUpdate("", {}, self._idom_model))
         props = self._init_params()
         model = self._bokeh_model(
             event=[update.path, update.changes], importSourceUrl=url, **props
@@ -105,17 +127,33 @@ class IDOM(PaneBase):
     def _cleanup(self, root):
         super()._cleanup(root)
         if not self._models:
-            # Clean up loop when no views are shown
             try:
-                self._idom_loop.stop()
+                # try to gracefully wait for tasks to complete
+                for task in asyncio.all_tasks(self._idom_loop):
+                    task.cancel()
+                self._idom_thread.join(3)
+
+                if self._idom_loop.is_closed():
+                    # if tasks failed to cancel, forcefully close the loop
+                    self._idom_loop.call_soon_threadsafe(
+                        lambda *funcs: [f() for f in funcs],
+                        self._idom_loop.stop,
+                        self._idom_loop.close,
+                    )
+
+                # check one more time to see if the thread closed
+                self._idom_thread.join(3)
+                if self._idom_thread.is_alive():
+                    # something unexpected is keeping the thread alive
+                    raise RuntimeError("Failed to stop thread.")
             finally:
+                self._idom_thread = None
                 self._idom_loop = None
                 self._idom_layout = None
 
     def _process_property_change(self, msg):
         if msg['msg'] is None:
             return {}
-        from idom.core.layout import LayoutEvent
         dispatch = self._idom_layout.dispatch(LayoutEvent(**msg['msg']))
         asyncio.run_coroutine_threadsafe(dispatch, loop=self._idom_loop)
         for ref, (m, _) in self._models.items():
@@ -124,9 +162,9 @@ class IDOM(PaneBase):
         return {}
 
     async def _idom_layout_render_loop(self):
-        async with self._idom_layout:
+        with self._idom_layout:
             while True:
-                update = await self._idom_layout.render()
+                update = VdomJsonPatch.create_from(await self._idom_layout.render())
                 self._idom_model = update.apply_to(self._idom_model)
                 for ref, (model, _) in self._models.items():
                     doc = state._views[ref][2]
@@ -138,44 +176,12 @@ class IDOM(PaneBase):
 
     @classmethod
     def applies(self, object):
-        if object is None:
-            return None
-        elif 'idom' in sys.modules:
-            from idom.core.component import Component
-            from idom.core.layout import Layout
-            if isinstance(object, (Component, Layout)):
+        if 'idom' in sys.modules:
+            if isinstance(object, (ComponentType, Layout)):
                 return 0.8
             elif callable(object):
                 return None
         return False
-
-    @classmethod
-    def install(cls, packages, ignore_installed=False, fallback=None):
-        """
-        Installs specified packages into application directory.
-
-        Arguments
-        ---------
-        packages: list or tuple
-          The packages to install from npm
-        ignored_installed: boolean
-          Whether to ignore if the package was previously installed.
-        fallback: str or idom.component
-          The fallback to display while the component is loading
-        """
-        import idom
-        from idom.config import IDOM_CLIENT_BUILD_DIR
-        idom_dist_dir = DIST_DIR / "idom"
-        idom_build_dir = idom_dist_dir / "build"
-        if not idom_build_dir.is_dir():
-            idom_build_dir.mkdir()
-            shutil.copyfile(idom_dist_dir / 'package.json', idom_build_dir / 'package.json')
-        if IDOM_CLIENT_BUILD_DIR.get() != idom_build_dir:
-            IDOM_CLIENT_BUILD_DIR.set(idom_build_dir)
-            # just in case packages were already installed but the build hasn't been
-            # copied over to DIST_DIR yet.
-            ignore_installed = True
-        return idom.install(packages, ignore_installed, fallback)
 
     @classmethod
     def use_param(cls, parameter):
